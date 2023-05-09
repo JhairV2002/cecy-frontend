@@ -1,0 +1,372 @@
+@use '../../../../layout/main/main.component.scss' as *;
+@use '../../../../../assets/layout/styles/layout/mixins' as *;
+
+$primary-color: $colorPrimario ;
+$scale:14px;                    /* main font size */
+$borderRadius:12px;             /* border radius of layout element e.g. card, sidebar */
+$transitionDuration:.2s;
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: $primary-color;
+  color: get-text-color($primary-color);
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+
+.sidebar.close {
+  width: 70px;
+}
+
+.sidebar header .image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar header {
+  div {
+    span img {
+      padding: 5px;
+      border-radius: 35px;
+    }
+  }
+}
+
+.sidebar div {
+  margin-block: 15px;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.close img {
+  width: 80%;
+  height: auto;
+  margin-top: 90px;
+  transition: all 0.5s ease;
+}
+
+.sidebar img {
+  width: 70%;
+  height: auto;
+  position: absolute;
+  margin-top: 180px;
+  transition: all 0.5s ease;
+  background-color: get-text-color($primary-color);
+}
+
+.sidebar .nav-links {
+  height: 100%;
+  padding: 30px 0 150px 0;
+  overflow: auto;
+}
+
+.sidebar.close .nav-links {
+  overflow: visible;
+}
+
+.sidebar .nav-links li {
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+  margin-top: 10px;
+}
+
+.sidebar .nav-links {
+  margin-top: 200px;
+}
+
+.sidebar header .toggle {
+  position: absolute;
+  margin-top: 10px;
+  right: -40px;
+  color: rgb(148, 148, 148);
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  padding: 5px 5px 5px 5px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-links li:hover {
+  background-color: $primary-color;
+
+}
+
+.sidebar .nav-links .li-primary:hover {
+  background-color: get-text-color($primary-color);
+
+}
+
+.sidebar .nav-links li:hover a .link_name {
+  color: get-text-color($primary-color);
+}
+
+.sidebar .nav-links li:hover i {
+  color: get-text-color($primary-color);
+}
+
+.sidebar .nav-links li .iocn-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar.close .nav-links li .iocn-link {
+  display: block
+}
+
+.sidebar .nav-links li i {
+  height: 50px;
+  min-width: 60px;
+  text-align: center;
+  line-height: 50px;
+  color: get-text-color($primary-color);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-links li.showMenu i.arrow {
+  transform: rotate(-180deg);
+}
+
+.sidebar.close .nav-links i.arrow {
+  display: none;
+}
+
+.sidebar .nav-links li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.sidebar .nav-links li a .link_name {
+  font-size: 18px;
+  font-weight: 400;
+  color: get-text-color($primary-color);
+  transition: all 0.4s ease;
+}
+
+.sidebar.close .nav-links li a .link_name {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar .nav-links li .sub-menu {
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background-color: $primary-color;
+  display: none;
+}
+
+.sidebar .nav-links li.showMenu .sub-menu {
+  display: block;
+}
+
+.sidebar .nav-links li .sub-menu a {
+  color: get-text-color($primary-color);
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 80%;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-links li .sub-menu a:hover {
+  opacity: 1;
+  background-color: $primary-color;
+}
+
+.sidebar.close .nav-links li .sub-menu {
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+
+.sidebar.close .nav-links li:hover .sub-menu {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+
+.sidebar .nav-links li .sub-menu .link_name {
+  display: none;
+}
+
+.sidebar.close .nav-links li .sub-menu .link_name {
+  font-size: 18px;
+  opacity: 1;
+  display: block;
+}
+
+.sidebar .nav-links li .sub-menu.blank {
+  padding: 0px 10px 3px 16px;
+}
+
+.home {
+  position: absolute;
+  top: 0;
+
+  left: 260px;
+  height: 100vh;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+}
+
+.sidebar.close~.home {
+  left: 70px;
+  height: 60vh;
+  width: calc(100% - 78px);
+}
+
+@media (max-width: 420px) {
+  .sidebar.close .nav-links li .sub-menu {
+    display: none;
+  }
+}
+
+
+
+/* New css menu */
+.layout-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  .menu{
+    background-color: yellow;
+  }
+
+  .layout-root-menuitem {
+      >.layout-menuitem-root-text {
+          font-size: .857rem;
+          text-transform: uppercase;
+          font-weight: 700;
+          color: var(--surface-900);
+          margin: .75rem 0;
+      }
+
+      >a {
+          display: none;
+      }
+  }
+
+  a {
+      user-select: none;
+
+      &.active-menuitem {
+          >.layout-submenu-toggler {
+              transform: rotate(-180deg);
+          }
+      }
+  }
+
+  li.active-menuitem {
+      >a {
+          .layout-submenu-toggler {
+              transform: rotate(-180deg);
+          }
+      }
+  }
+
+  ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+
+      a {
+          display: flex;
+          align-items: center;
+          position: relative;
+          outline: 0 none;
+          color: var(--text-color);
+          cursor: pointer;
+          padding: .75rem 1rem;
+          border-radius: $borderRadius;
+          transition: background-color $transitionDuration, box-shadow $transitionDuration;
+
+          .layout-menuitem-icon {
+              margin-right: .5rem;
+          }
+
+          .layout-submenu-toggler {
+              font-size: 75%;
+              margin-left: auto;
+              transition: transform $transitionDuration;
+          }
+
+          &.active-route {
+              font-weight: 700;
+              color: var(--primary-color);
+          }
+
+          &:hover {
+              background-color: var(--surface-hover);
+          }
+
+          &:focus {
+              @include focused-inset();
+          }
+      }
+
+      ul {
+          overflow: hidden;
+          border-radius: $borderRadius;
+
+          li {
+              a {
+                  margin-left: 1rem;
+              }
+
+              li {
+                  a {
+                      margin-left: 2rem;
+                  }
+
+                  li {
+                      a {
+                          margin-left: 2.5rem;
+                      }
+
+                      li {
+                          a {
+                              margin-left: 3rem;
+                          }
+
+                          li {
+                              a {
+                                  margin-left: 3.5rem;
+                              }
+
+                              li {
+                                  a {
+                                      margin-left: 4rem;
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }
+}
+

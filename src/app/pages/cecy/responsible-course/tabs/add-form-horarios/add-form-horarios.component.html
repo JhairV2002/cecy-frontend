@@ -1,0 +1,237 @@
+<p-dialog
+  header="Agregar Horarios"
+  [(visible)]="dialogForm"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ width: '490px' }"
+  [maximizable]="true"
+  (onHide)="closeModal()"
+>
+  <div class="p-fluid">
+    <form [formGroup]="formHourCourse" (ngSubmit)="onSubmit()">
+      <div class="formgrid grid">
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="startedTime"
+            appLabel
+            label="Hora inicio:"
+            [required]="isRequired(startedTimeField)"
+            [valid]="startedTimeField.valid"
+            [touched]="startedTimeField.touched"
+            [dirty]="startedTimeField.dirty"
+          >
+          </label>
+          <input
+            type="time"
+            pInputText
+            id="startedTime"
+            formControlName="startedTime"
+          />
+          <small
+            appErrorMessage
+            [errors]="startedTimeField.errors"
+            [touched]="startedTimeField.touched"
+            [dirty]="startedTimeField.dirty"
+          >
+          </small>
+        </div>
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="endedTime"
+            appLabel
+            label="Hora final:"
+            [required]="isRequired(endedTimeField)"
+            [valid]="endedTimeField.valid"
+            [touched]="endedTimeField.touched"
+            [dirty]="endedTimeField.dirty"
+          >
+          </label>
+          <input
+            type="time"
+            pInputText
+            id="endedTime"
+            formControlName="endedTime"
+          />
+          <small
+            appErrorMessage
+            [errors]="endedTimeField.errors"
+            [touched]="endedTimeField.touched"
+            [dirty]="endedTimeField.dirty"
+          >
+          </small>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="days"
+            appLabel
+            label="Días:"
+            [required]="isRequired(dayField)"
+          >
+          </label>
+          <p-dropdown
+            id="days"
+            formControlName="dayId"
+            [options]="days"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
+          </p-dropdown>
+          <small
+            appErrorMessage
+            [errors]="dayField.errors"
+            [touched]="dayField.touched"
+            [dirty]="dayField.dirty"
+          >
+          </small>
+        </div>
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="workday"
+            appLabel
+            label="Jornada:"
+            [required]="isRequired(workdayField)"
+            [valid]="workdayField.valid"
+            [touched]="workdayField.touched"
+            [dirty]="workdayField.dirty"
+          >
+          </label>
+          <p-dropdown
+            id="workdays"
+            formControlName="workdayId"
+            [options]="workdays"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
+          </p-dropdown>
+          <small
+            appErrorMessage
+            [errors]="workdayField.errors"
+            [touched]="workdayField.touched"
+            [dirty]="workdayField.dirty"
+          >
+          </small>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="classroom"
+            appLabel
+            label="Aula:"
+            [required]="isRequired(classroomField)"
+            [valid]="classroomField.valid"
+            [touched]="classroomField.touched"
+            [dirty]="classroomField.dirty"
+          >
+          </label>
+          <p-dropdown
+            id="classroom"
+            formControlName="classroomId"
+            [options]="classrooms"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
+          </p-dropdown>
+          <small
+            appErrorMessage
+            [errors]="classroomField.errors"
+            [touched]="classroomField.touched"
+            [dirty]="classroomField.dirty"
+          >
+          </small>
+        </div>
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="parallel"
+            appLabel
+            label="Paralelo:"
+            [required]="isRequired(parallelField)"
+            [valid]="parallelField.valid"
+            [touched]="parallelField.touched"
+            [dirty]="parallelField.dirty"
+          >
+          </label>
+          <p-dropdown
+            id="parallel"
+            formControlName="parallelId"
+            [options]="parallels"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
+          </p-dropdown>
+          <small
+            appErrorMessage
+            [errors]="parallelField.errors"
+            [touched]="parallelField.touched"
+            [dirty]="parallelField.dirty"
+          >
+          </small>
+        </div>
+      </div>
+
+      <div class="field">
+        <label
+          for="observation"
+          appLabel
+          label="Observación:"
+          [required]="isRequired(observationField)"
+          [valid]="observationField.valid"
+          [touched]="observationField.touched"
+          [dirty]="observationField.dirty"
+        >
+        </label>
+
+        <textarea
+          pInputTextarea
+          name="observation"
+          id="observation"
+          formControlName="observation"
+          class="text-uppercase"
+        ></textarea>
+        <small
+          appErrorMessage
+          [errors]="observationField.errors"
+          [touched]="observationField.touched"
+          [dirty]="observationField.dirty"
+        >
+        </small>
+      </div>
+
+      <p-divider></p-divider>
+
+      <div class="formgrid grid justify-content-center">
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <button
+            pButton
+            pRipple
+            label="Guardar"
+            class="p-button-rounded"
+            icon="pi pi-save"
+          ></button>
+        </div>
+        <div
+          class="field xl:col-6 lg:col-6 md:col-12 sm:col-12"
+          *ngIf="progressBar"
+        >
+          <p-progressBar mode="indeterminate"></p-progressBar>
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-footer> </p-footer>
+</p-dialog>

@@ -1,0 +1,6 @@
+<ul class="layout-menu">
+    <p-menu *ngIf="userRoleIn(['admin']) | async" styleClass="menu" [style]="{'width': '280px'}" [model]="itemsAdmin"></p-menu>
+    <p-menu *ngIf="userRoleIn(['coordinator_career']) | async" styleClass="menu" [style]="{'width': '280px'}" [model]="itemsCoordinatorCareer"></p-menu>
+    <p-menu *ngIf="userRoleIn(['coordinator_cecy']) | async" styleClass="menu" [style]="{'width': '280px'}" [model]="itemsCoordinatorCecy"></p-menu>
+    <p-menu *ngIf="userRoleIn(['responsible_course']) | async"  styleClass="menu" [style]="{'width': '280px'}" [model]="itemsDocente"></p-menu>
+</ul>

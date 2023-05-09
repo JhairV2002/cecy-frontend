@@ -1,0 +1,129 @@
+<div class="containerLogin">
+  <div
+    style="
+      border-radius: 56px;
+      padding: 0.3rem;
+      background: linear-gradient(
+        180deg,
+        var(--primary-color) 10%,
+        rgba(33, 150, 243, 0) 30%
+      );
+    "
+  >
+    <div class="surface-card p-4" style="border-radius: 53px">
+      <div class="sizeForm m-0 flex items-center content-center">
+        <div class="flex items-center justify-center">
+          <div class="p-fluid">
+            <img
+              src="assets/images/components/authentication/login/logoh2.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="flex items-center justify-center">
+          <div class="p-fluid">
+            <div class="text-center">
+              <h1>Bienvenido</h1>
+              <h3>Iniciar sesión</h3>
+            </div>
+            <form
+              *ngIf="!isLogged"
+              [formGroup]="formLogin"
+              (ngSubmit)="onSubmit()"
+            >
+              <div class="field">
+                <label
+                  for="username"
+                  appLabel
+                  label="Correo electrónico:"
+                  [required]="isRequired(emailField)"
+                  [valid]="emailField.valid"
+                  [touched]="emailField.touched"
+                  [dirty]="emailField.dirty"
+                >
+                </label>
+                <input pInputText id="username" formControlName="email" />
+                <small
+                  appErrorMessage
+                  [errors]="emailField.errors"
+                  [touched]="emailField.touched"
+                  [dirty]="emailField.dirty"
+                >
+                </small>
+              </div>
+
+              <div class="field">
+                <label
+                  for="password"
+                  appLabel
+                  label="Contraseña:"
+                  [required]="isRequired(passwordField)"
+                  [valid]="passwordField.valid"
+                  [touched]="passwordField.touched"
+                  [dirty]="passwordField.dirty"
+                >
+                </label>
+
+                <p-password
+                  id="password"
+                  name="password"
+                  formControlName="password"
+                  [feedback]="false"
+                  [toggleMask]="true"
+                ></p-password>
+
+                <small
+                  appErrorMessage
+                  [errors]="passwordField.errors"
+                  [touched]="passwordField.touched"
+                  [dirty]="passwordField.dirty"
+                >
+                </small>
+              </div>
+
+              <p-divider></p-divider>
+
+              <div class="field">
+                <button
+                  pButton
+                  pRipple
+                  label="Ingresar"
+                  class="p-button-rounded"
+                  icon="pi pi-sign-in"
+                ></button>
+              </div>
+
+              <div *ngIf="progressBar" class="field">
+                <app-progress-bar
+                  [message]="messageService.progressBarLogin"
+                ></app-progress-bar>
+              </div>
+
+              <div class="formgrid grid">
+                <div
+                  class="field col-12 xl:col-6 lg:col-6 md:col-12 sm:col-12 xs:col-12"
+                >
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    label="¿Olvidó su contraseña?"
+                    class="p-button-outlined p-button-secondary"
+                    icon="pi pi-key"
+                    (click)="requestPasswordReset()"
+                  ></button>
+                </div>
+              </div>
+
+              <div *ngIf="progressBarRequestPasswordReset" class="field">
+                <app-progress-bar
+                  [message]="messageService.progressBarRequestPasswordReset"
+                ></app-progress-bar>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+:host ::ng-deep .p-chip.custom-chip {
+  background: rgb(245, 158, 11);
+  color: var(--primary-color-text);
+}
+
+:host ::ng-deep .p-chip.custom-chip2 {
+  background: rgb(245, 158, 11);
+  color: var(--primary-color-text);
+}
+
+.information {
+  padding: 13%;
+}

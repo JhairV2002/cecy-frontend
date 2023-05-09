@@ -1,0 +1,91 @@
+<div class="p-fluid">
+  <div class="container">
+    <div class="headerToolbar mb-3">
+      <div>
+        <b>
+          <h5>Temas</h5>
+        </b>
+      </div>
+      <div>
+        <button pButton pRipple type="button" label="Agregar Tema" icon="pi pi-plus" class="p-button-success"
+          (click)="showForm()"></button>
+      </div>
+    </div>
+    <div *ngFor="let topic of topics; let i = index;">
+      <div class="flex align-items-center justify-content-between flex-wrap">
+        <ul>{{ i + 1}}._ <b>{{ topic.description }}</b></ul>
+        <div class="flex align-items-center justify-content-between flex-wrap">
+          <div>
+            <button pButton pRipple type="button" pTooltip="Editar" icon="pi pi-pencil" (click)="editTopic(topic)"
+              class="p-button-warning p-button-rounded">
+            </button>
+          </div>
+          <div>
+            <button pButton pRipple type="button" label="Eliminar Tema" class="p-button-danger p-button-text"
+              (click)="deleteTopicById(topic.id)"></button>
+          </div>
+        </div>
+      </div>
+      <div class="ml-8">
+        <div *ngFor="let subtopic of topic.children;  let indice = index;"
+          class="flex align-items-center justify-content-between flex-wrap mb-2">
+          <span>
+            - {{ indice + 1}}. {{ subtopic.description }}
+          </span>
+          <div>
+            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+              (click)="deleteSubTopicById(subtopic.id)">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-dialog header="Temas y subtemas" [(visible)]="dialogForm" (onHide)="hideDialog()" [style]="{width: '30vw'}"
+      [modal]="true">
+      <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+          <div class="formgrid grid">
+            <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+              <label for="description" appLabel label="Descripción" [required]="isRequired(descriptionField)"
+                [valid]="descriptionField.valid" [touched]="descriptionField.touched" [dirty]="descriptionField.dirty">
+              </label>
+              <textarea rows="2" cols="30" pInputTextarea id="description" formControlName="description"
+                placeholder="Descripción del tema"></textarea>
+              <small appErrorMessage [errors]="descriptionField.errors" [touched]="descriptionField.touched"
+                [dirty]="descriptionField.dirty">
+              </small>
+            </div>
+          </div>
+          <div class="formgrid grid">
+            <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+              <button pButton pRipple type="button" label="Añadir subtema" class="p-button-secondary p-button-rounded"
+                icon="pi pi-plus" (click)="addSubtopic()"></button>
+            </div>
+          </div>
+          <div formArrayName="children">
+            <div *ngFor="let subtopic of childrenField.controls; let i = index;">
+              <div class="flex align-items-center justify-content-between flex-wrap">
+                <div class="field xl:col-11 lg:col-11 md:col-12 sm:col-12">
+                  <label [for]="'subtopic.description'+i" appLabel [label]="'Subtema ' + (i + 1) + ':'">
+                  </label>
+                  <textarea rows="2" cols="30" pInputTextarea [id]="'subtopic.description'+i" [formControlName]="i"
+                    class="text-uppercase" placeholder="Descripción del subtema"></textarea>
+                </div>
+                <div>
+                  <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                    (click)="deleteTopicForm(i)">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row-reverse flex-wrap mt-4">
+            <div class="flex align-items-center justify-content-center">
+              <button pButton pRipple type="submit" label="Guardar"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </p-dialog>
+  </div>
+</div>

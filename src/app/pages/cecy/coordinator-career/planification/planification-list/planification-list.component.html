@@ -1,0 +1,252 @@
+<p-dialog
+  header="Planificación"
+  [(visible)]="dialogForm"
+  [maximizable]="true"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+>
+  <app-planification-form
+    *ngIf="dialogForm"
+    (dialogForm)="dialogForm = $event"
+    [courseId]="courseId"
+  >
+  </app-planification-form>
+</p-dialog>
+
+<div class="container">
+  <div class="text-center fs-3">
+    <h3>Planificaciones</h3>
+  </div>
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <p-button
+        type="button"
+        pTooltip="Regresar"
+        styleClass="p-button-secondary p-button-rounded m-2"
+        icon="pi pi-arrow-left"
+        (click)="return()"
+      ></p-button>
+      <p-button
+        type="button"
+        pTooltip="Crear planificación"
+        class="p-button-success p-button-rounded"
+        icon="pi pi-plus"
+        (click)="showForm()"
+      ></p-button>
+      <p-button
+        type="button"
+        [loading]="loading[0]"
+        pTooltip="Refrescar"
+        styleClass="p-button-rounded ml-2"
+        icon="pi pi-sync"
+        (click)="loadPlanifications(paginator.current_page, courseId)"
+      ></p-button>
+      <p-button
+        *ngIf="selectedPlanifications?.length"
+        type="button"
+        pTooltip="Eliminar seleccionados"
+        tooltipPosition="bottom"
+        styleClass="p-button-danger p-button-rounded ml-2"
+        icon="pi pi-trash"
+        (click)="deletePlanifications()"
+      ></p-button>
+      <app-progress-bar
+        *ngIf="progressBarDelete"
+        [message]="messageService.progressBarDelete"
+        class="ml-2"
+      >
+      </app-progress-bar>
+    </div>
+    <div class="p-toolbar-group-right">
+      <!-- <input
+      pInputText
+      id="search"
+      [formControl]="search"
+      (keypress)="filter($event)"
+      placeholder="Buscar por nombre responsable"
+    />
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-search"
+      (click)="filter($event)"
+    ></button> -->
+    </div>
+  </p-toolbar>
+  <p-card>
+    <p-table
+      dataKey="id"
+      styleClass="p-datatable-striped"
+      [value]="(planifications$ | async)?.data"
+      [columns]="cols"
+      [loading]="(loaded$ | async)!"
+      [(selection)]="selectedPlanifications"
+      [responsive]="true"
+    >
+      <ng-template pTemplate="caption">
+        <app-initial-planification-kpi
+          [data$]="planifications$"
+        ></app-initial-planification-kpi>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+
+          <th pSortableColumn="code">
+            Código
+            <p-sortIcon field="code"></p-sortIcon>
+          </th>
+          <th pSortableColumn="responsibleCourse.user.fullname">
+            Responsable de planificación
+            <p-sortIcon field="responsibleCourse.user.fullname"></p-sortIcon>
+          </th>
+          <th pSortableColumn="detailSchoolPeriod.schoolPeriod.code">
+            Periodo Lectivo
+            <p-sortIcon
+              field="detailSchoolPeriod.schoolPeriod.code"
+            ></p-sortIcon>
+          </th>
+          <th pSortableColumn="startedAt">
+            Fecha inicio
+            <p-sortIcon field="startedAt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="endedAt">
+            Fecha finalización
+            <p-sortIcon field="endedAt"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="state.name">
+            Estado
+            <p-sortIcon field="state.name"></p-sortIcon>
+          </th>
+
+          <th class="text-center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              class="p-button-rounded p-button-secondary"
+              icon="pi pi-cog"
+            ></button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-columns="columns"
+        let-rowIndex="rowIndex"
+      >
+        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+
+          <td *ngFor="let col of columns">
+            <!--Objects-->
+            <div *ngIf="rowData[col.field]?.id" [ngSwitch]="col.field">
+              <div *ngSwitchCase="'responsibleCourse'">
+                {{ rowData[col.field].user.fullname }}
+              </div>
+              <div *ngSwitchCase="'detailSchoolPeriod'">
+                {{ rowData[col.field].schoolPeriod.name }}
+              </div>
+              <div *ngSwitchCase="'state'">
+                {{ rowData[col.field].name }}
+              </div>
+            </div>
+
+            <!--Fields-->
+            <div *ngIf="!rowData[col.field]?.id" [ngSwitch]="col.field">
+              <div *ngSwitchCase="'startedAt'">
+                {{ rowData[col.field] | date }}
+              </div>
+              <div *ngSwitchCase="'endedAt'">
+                {{ rowData[col.field] | date }}
+              </div>
+              <div *ngSwitchDefault>{{ rowData[col.field] }}</div>
+            </div>
+          </td>
+          <!-- DDRC-C: columna de acciones -->
+          <span [ngSwitch]="rowData['state']['code']">
+            <td class="text-center" *ngSwitchCase="'TO_BE_APPROVED'">
+              <button
+                pButton
+                pRipple
+                type="button"
+                pTooltip="Actualizar Planificación"
+                tooltipPosition="bottom"
+                class="p-button-warning p-button-rounded ml-2"
+                icon="pi pi-user-edit"
+                (click)="showForm(rowData)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                type="button"
+                pTooltip="Borrar planificación"
+                tooltipPosition="bottom"
+                class="p-button-danger p-button-rounded ml-2"
+                icon="pi pi-trash"
+                (click)="deletePlanification(rowData)"
+              ></button>
+            </td>
+            <td class="text-center" *ngSwitchCase="'NOT_APPROVED'">
+              <button
+                pButton
+                pRipple
+                type="button"
+                pTooltip="Actualizar Planificación"
+                tooltipPosition="bottom"
+                class="p-button-warningp-button-rounded ml-2"
+                icon="pi pi-user-edit"
+                (click)="showForm(rowData)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                type="button"
+                pTooltip="Borrar planificación"
+                tooltipPosition="bottom"
+                class="p-button-danger p-button-rounded ml-2"
+                icon="pi pi-trash"
+                (click)="deletePlanification(rowData)"
+              ></button>
+            </td>
+            <!-- <td  class="text-center" *ngSwitchDefault>
+                  <button
+                  pButton
+                  pRipple
+                  type="button"
+                  pTooltip="Visualizar planificacion"
+                  tooltipPosition="bottom"
+                  class="p-button-primary p-button-rounded ml-2"
+                  icon="pi pi-eye"
+                  (click)="reviewPlanification()"
+                ></button>
+                </td> -->
+          </span>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        {{ messageService.paginatorTotalRegisters(paginator) }}
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length">
+            {{ messageService.paginatorNoRecordsFound }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-paginator
+      [rows]="paginator.per_page!"
+      [totalRecords]="paginator.total!"
+      (onPageChange)="paginate($event)"
+    >
+    </p-paginator>
+  </p-card>
+</div>

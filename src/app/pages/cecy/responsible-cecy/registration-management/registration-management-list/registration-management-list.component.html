@@ -1,0 +1,170 @@
+<p-dialog header="Anular matrícula" [(visible)]="dialogForm" [maximizable]="true" [modal]="true">
+  <app-nullify-registration-form *ngIf="dialogForm"  (dialogForm)="dialogForm=$event"></app-nullify-registration-form>
+</p-dialog>
+
+  <div class="container">
+    <p-toolbar class="">
+      <div class="p-toolbar-group-left">
+          
+        <button pButton pRipple type="button" 
+                pTooltip="Cursos Anteriores" tooltipPosition="bottom"
+                class="p-button-success p-button-rounded ml-2" icon="pi pi-eye"
+                (click)="goToHistoric()"></button>
+        <button pButton pRipple type="button" *ngIf="DTID.value"
+                pTooltip="Descargar Nomina" tooltipPosition="bottom"
+                class="p-button-success p-button-rounded ml-2" icon="pi pi-download"
+                (click)="download()"></button>
+        <button pButton pRipple type="button" *ngIf="DTID.value"
+                pTooltip="Refrescar" tooltipPosition="bottom"
+                class="p-button-rounded ml-2" icon="pi pi-sync"
+                (click)="reloadRegistrations(DTID.value)"></button>
+        <button *ngIf="selectedParticipants?.length" pButton pRipple type="button"
+                pTooltip="Anular Matrículas" tooltipPosition="bottom"
+                class="p-button-danger p-button-rounded ml-2" icon="pi pi-trash"
+                (click)="nullifyRegistrations()"></button>
+        <app-progress-bar *ngIf="progressBarDelete" [message]="messageService.progressBarDelete"
+                          class="ml-2"></app-progress-bar>
+ 
+      </div>
+      <div class="p-toolbar-group-right">
+        <p-dropdown
+        #DTID
+        [options]="planificationList" 
+        placeholder="Seleccione un curso" 
+        (onChange)="reloadRegistrations($event.value)"
+        [filter]="true"
+        filterBy="cpw"
+        optionLabel="cpw" 
+        class="m-2"
+        [showClear]="true"
+        [(ngModel)]="selectedPlanification">
+      </p-dropdown>
+
+        <div class="p-inputgroup">
+          <input pInputText id="search" [formControl]="search" (keypress)="filter($event,DTID.value)">
+          <button pButton pRipple type="button" icon="pi pi-search" (click)="filter($event,DTID.value)"></button>
+        </div>
+      </div>
+    </p-toolbar>
+    <p-card>
+      <p-paginator [rows]="paginator.per_page!"
+                   [totalRecords]="paginator.total!"
+                   (onPageChange)="paginate($event,DTID.value)"></p-paginator>
+      <p-table
+        dataKey="id"
+        styleClass="p-datatable-striped"
+        [value]="(participants$|async)?.data"
+        [columns]="cols"
+        [loading]="(loaded$|async)!"
+        [(selection)]="selectedParticipants"
+        [responsive]="true">
+        <ng-template pTemplate="caption">
+          <app-kpi-registration-management [data$]="participants$"></app-kpi-registration-management>
+      </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3rem"></th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th class="text-center">
+              <button pButton pRipple type="button" class="p-button-rounded p-button-secondary" icon="pi pi-cog"></button>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+            <!-- DDRC-C: checks para seleccionar participantes registrados -->
+            <td>
+              <p-tableCheckbox *ngIf="rowData['state']['code']==='REGISTERED'" [value]="rowData"></p-tableCheckbox>
+            </td>
+            <!-- DDRC-C: columnas de la tabla -->
+            <td *ngFor="let col of columns">
+              <span *ngIf="rowData[col.field]?.id" [ngSwitch]="col.field">
+                <span *ngSwitchCase="'state'">
+                  {{rowData[col.field].name}}
+                </span>
+                <span *ngSwitchCase="'type'">
+                  {{rowData[col.field].name}}
+                </span>
+              </span>
+              <span *ngIf="rowData[col.field]?.id" [ngSwitch]="col.subfield">
+                <span *ngSwitchCase="'username'">
+                  {{rowData[col.field].user.username}}
+                </span>
+                <span *ngSwitchCase="'name'">
+                  {{rowData[col.field].user.name}}
+                </span>
+                <span *ngSwitchCase="'lastname'">
+                  {{rowData[col.field].user.lastname}}
+                </span>
+                <span *ngSwitchCase="'type'">
+                  {{rowData[col.field][col.subfield].name}}
+                </span>
+              </span>
+              <span *ngIf="!rowData[col.field]?.id" [ngSwitch]="col.field">
+                <span *ngSwitchCase="'updatedAt'">{{rowData[col.field]|date}}</span>
+                <span *ngSwitchCase="'createdAt'">{{rowData[col.field]|date}}</span>
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                <!--              <span *ngSwitchCase="'certificated'">{{rowData[col.field]|certificated}}</span>-->
+              </span>
+            </td>
+            <!-- DDRC-C: columna de acciones -->
+            <span [ngSwitch]="rowData['state']['code']">
+            <td class="text-center"  *ngSwitchCase="'REGISTERED'">
+                <button pButton pRipple type="button" pTooltip="Revisar detalles de matrícula" tooltipPosition="bottom"
+                class="p-button-success p-button-rounded m-2 VC" icon="pi pi-eye"
+                (click)="goToRegistrationForm('view',rowData)"></button>
+                <button pButton pRipple type="button" pTooltip="Anular matrícula" tooltipPosition="bottom"
+                class="p-button-secondary p-button-rounded m-2" icon="pi pi-trash"
+                (click)="showNullifyForm(rowData)"></button>
+                <button pButton pRipple type="button" pTooltip="Eliminar matrícula" tooltipPosition="bottom"
+                class="p-button-danger p-button-rounded m-2" icon="pi pi-trash"
+                (click)="eliminate(rowData)"></button>
+            </td>
+            <td *ngSwitchCase="'CANCELLED'">
+              <button pButton pRipple type="button" pTooltip="Revisar detalles de matrícula" tooltipPosition="bottom"
+                class="p-button-success p-button-rounded m-2" icon="pi pi-eye"
+                (click)="goToRegistrationForm('view',rowData)"></button>
+
+              <button pButton pRipple type="button" pTooltip="Matrícular nuevamente" tooltipPosition="bottom"
+                class="p-button-primary p-button-rounded m-2" icon="pi pi-users"
+                (click)="reEnroll(rowData)"></button>
+
+                <button pButton pRipple type="button" pTooltip="Eliminar matrícula" tooltipPosition="bottom"
+                class="p-button-danger p-button-rounded m-2" icon="pi pi-trash"
+                (click)="eliminate(rowData)"></button>
+            </td>
+            <td  *ngSwitchCase="'SIGNED_UP'">
+              <button pButton pRipple type="button" pTooltip="Inspeccionar matrícula" tooltipPosition="bottom"
+                class="p-button-success p-button-rounded m-2" icon="bi bi-check2-square"
+                (click)="goToRegistrationForm('edit',rowData)"></button>
+            </td>
+            <td  *ngSwitchCase="'RECTIFIED'">
+              <button pButton pRipple type="button" pTooltip="Revisar rectificaciones" tooltipPosition="bottom"
+                class="p-button-success p-button-rounded m-2" icon="bi bi-clipboard-check-fill"
+                (click)="goToRegistrationForm('edit',rowData)"></button>
+            </td>
+            <td  *ngSwitchCase="'IN_REVIEW'">
+              <button pButton pRipple type="button" pTooltip="Revisar las rectificaciones requeridas"  tooltipPosition="bottom"
+                class="p-button-success p-button-rounded m-2" icon="bi bi-clipboard-check"
+                (click)="goToRegistrationForm('view',rowData)"></button>
+            </td>
+          </span>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          {{messageService.paginatorTotalRegisters(paginator)}}
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length">
+              {{messageService.paginatorNoRecordsFound}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+  
