@@ -1,31 +1,134 @@
-<div class="containerLogin">
-  <div
-    style="
-      border-radius: 56px;
-      padding: 0.3rem;
-      background: linear-gradient(
-        180deg,
-        var(--primary-color) 10%,
-        rgba(33, 150, 243, 0) 30%
-      );
-    "
-  >
-    <div class="surface-card p-4" style="border-radius: 53px">
-      <div class="sizeForm m-0 flex items-center content-center">
-        <div class="flex items-center justify-center">
-          <div class="p-fluid">
-            <img
-              src="assets/images/components/authentication/login/logoh2.png"
-              alt=""
-            />
-          </div>
+<div
+  class="flex items-center justify-center h-screen"
+  style="background-color: rgb(239, 243, 248)"
+>
+  <div class="max-w-screen-lg" style="width: 59%">
+    <div class="bg-white p-20 rounded-lg flex flex-col md:flex-row items-center" style="border-radius: 56px">
+      <!-- Columna con la imagen (visible en dispositivos de pantalla mediana y grande) -->
+      <div class="hidden md:block w-full md:w-1/2">
+        <img
+          src="assets/images/components/authentication/login/logoh2.png"
+          alt="Imagen"
+          class="max-w-full h-auto"
+        />
+      </div>
+      <!-- Columna con el formulario -->
+      <div class="w-full md:w-1/2 mt-4 md:mt-0">
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-semibold">Bienvenido</h1>
+          <h2 class="text-gray-500">Iniciar sesión</h2>
         </div>
-        <div class="flex items-center justify-center">
-          <div class="p-fluid">
-            <div class="text-center">
-              <h1>Bienvenido</h1>
-              <h3>Iniciar sesión</h3>
+        <form class="m-4">
+          <div class="mb-4">
+            <label
+              for="username"
+              appLabel
+              label="Correo electrónico:"
+              [required]="isRequired(emailField)"
+              [valid]="emailField.valid"
+              [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            ></label>
+            <input
+              pInputText
+              id="username"
+              formControlName="email"
+              class="w-full px-4 py-2 border rounded"
+              placeholder="Ingrese su correo electrónico"
+            />
+            <small
+              appErrorMessage
+              [errors]="emailField.errors"
+              [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            >
+            </small>
+          </div>
+          <div class="mb-4">
+            <label
+              for="password"
+              appLabel
+              label="Contraseña:"
+              [required]="isRequired(passwordField)"
+              [valid]="passwordField.valid"
+              [touched]="passwordField.touched"
+              [dirty]="passwordField.dirty"
+            ></label>
+            <p-password
+              id="password"
+              name="password"
+              class="w-full"
+              formControlName="password"
+              placeholder="Ingrese su contraseña"
+              [feedback]="false"
+              [toggleMask]="true"
+            ></p-password>
+            <small
+              appErrorMessage
+              [errors]="passwordField.errors"
+              [touched]="passwordField.touched"
+              [dirty]="passwordField.dirty"
+            >
+            </small>
+          </div>
+          <p-divider></p-divider>
+          <div class="mb-2">
+            <button
+              pButton
+              pRipple
+              label="Ingresar"
+              class="p-button-rounded w-full"
+              icon="pi pi-sign-in"
+            ></button>
+            <div *ngIf="progressBar" class="">
+              <app-progress-bar
+                [message]="messageService.progressBarLogin"
+              ></app-progress-bar>
             </div>
+          </div>
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="¿Olvidó su contraseña?"
+            class="p-button-outlined p-button-secondary w-full"
+            icon="pi pi-key"
+            (click)="requestPasswordReset()"
+          ></button>
+
+          <div *ngIf="progressBarRequestPasswordReset" class="">
+            <app-progress-bar
+              [message]="messageService.progressBarRequestPasswordReset"
+            ></app-progress-bar>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div
+  class="flex flex-wrap m-0 min-h-screen w-full content-center justify-center"
+  style="background-color: rgb(239, 243, 248)"
+>
+  <div class="flex">
+    <div class="bg-white" style="border-radius: 56px">
+      <div class="p-4">
+        <div class="m-0 flex items-center content-center">
+          <div class="flex items-center justify-center">
+            <div class="p-fluid">
+              <img
+                src="assets/images/components/authentication/login/logoh2.png"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="text-center text-xl font-semibold">
+            <h1>Bienvenido</h1>
+            <h3>Iniciar sesión</h3>
+          </div>
+          <div class="flex items-center justify-center">
             <form
               *ngIf="!isLogged"
               [formGroup]="formLogin"
@@ -67,6 +170,7 @@
                 <p-password
                   id="password"
                   name="password"
+                  class="w-full"
                   formControlName="password"
                   [feedback]="false"
                   [toggleMask]="true"
@@ -126,4 +230,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
