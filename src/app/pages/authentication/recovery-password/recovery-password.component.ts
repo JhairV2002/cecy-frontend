@@ -13,7 +13,6 @@ import { RecoveryPasswordService } from '@services/auth';
 @Component({
   selector: 'app-password-reset',
   templateUrl: './recovery-password.component.html',
-  styleUrls: ['./recovery-password.component.scss'],
 })
 export class RecoveryPasswordComponent implements OnInit {
   formReset = this.formBuilder.group({
