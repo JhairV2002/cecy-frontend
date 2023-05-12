@@ -26,6 +26,8 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import { ChipModule } from 'primeng/chip';
 import { FormAddUserComponent } from './form-add-user/form-add-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChipsModule } from 'primeng/chips';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         CardModule,
         ToastModule,
         ConfirmPopupModule,
-        ChipModule
+        ChipModule,
+        ChipsModule
     ]
 })
 export class UserAdministrationModule {

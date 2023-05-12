@@ -4,7 +4,6 @@ import { RolesEnum } from '@shared/enums/roles.enum';
 //import { TokenGuard } from '@shared/guards/token.guard';
 import { DashboardComponent } from './coordinator-career/dashboard/dashboard.component';
 import { AuthGuard } from './../../guards/auth.guard';
-import { TokenGuard } from './../../guards/token.guard';
 import { RoleGuard } from './../../guards/role.guard';
 
 import { MainComponent } from '@layout/main/main.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
     children: [
       {
         path: 'coordinator-career',
-        canActivate: [TokenGuard, HasTokenGuard],
         canLoad: [],
         data: {
           allowedRoles: ['coordinator_career', 'admin'],
@@ -30,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: 'coordinator-cecy',
-        canActivate: [TokenGuard],
+        canActivate: [],
         canLoad: [],
         data: {
           allowedRoles: ['coordinator_cecy', 'admin'],
@@ -46,8 +44,6 @@ const routes: Routes = [
       },
       {
         path: 'coordinator-cecy',
-        canActivate: [TokenGuard],
-        canLoad: [],
         data: {
           allowedRoles: ['coordinator_cecy', 'admin'],
         },
@@ -62,8 +58,6 @@ const routes: Routes = [
       },
       {
         path: 'instructor',
-        canActivate: [TokenGuard],
-        canLoad: [],
         data: {
           allowedRoles: ['instructor', 'admin'],
         },
@@ -78,8 +72,6 @@ const routes: Routes = [
       },
       {
         path: 'responsible-cecy',
-        canActivate: [TokenGuard],
-        canLoad: [],
         data: {
           allowedRoles: ['responsible_cecy', 'admin'],
         },
@@ -94,7 +86,6 @@ const routes: Routes = [
       },
       {
         path: 'responsible-course',
-        canActivate: [TokenGuard],
         canLoad: [],
         data: {
           allowedRoles: ['responsible_course', 'admin'],
@@ -110,7 +101,6 @@ const routes: Routes = [
       },
       {
         path: 'student',
-        canActivate: [TokenGuard],
         loadChildren: () =>
           import('./student/student.module').then((m) => m.StudentModule),
         /* data: {
@@ -120,7 +110,6 @@ const routes: Routes = [
       },
       {
         path: 'responsible-cecy',
-        canActivate: [TokenGuard],
         canLoad: [],
         data: {
           allowedRoles: ['responsible_cecy', 'admin'],
@@ -136,7 +125,6 @@ const routes: Routes = [
       },
       {
         path: 'responsible-course',
-        canActivate: [TokenGuard],
         canLoad: [],
         data: {
           allowedRoles: ['responsible_course', 'admin'],

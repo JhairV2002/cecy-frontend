@@ -105,11 +105,11 @@
           <td>
             <p-tableCheckbox [value]="user"></p-tableCheckbox>
           </td>
-          <td>{{ user.user.email }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.lastname }}</td>
-          <td>{{ user.user.role }}</td>
-          <td>{{ user.createAt | date }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.names }}</td>
+          <td>{{ user.lastnames }}</td>
+          <td>{{ user.role.name }}</td>
+          <td>{{ user.createdAt | date }}</td>
           <td>
             <div class="flex gap-1">
               <button

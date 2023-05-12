@@ -1,4 +1,4 @@
-<p-toast position="top-center"></p-toast>
+<!-- <p-toast position="top-center"></p-toast>
 <p-dialog
   header="Gestionar Archivos"
   [(visible)]="displayModalFiles"
@@ -19,9 +19,7 @@
 
 <div class="p-fluid">
   <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
-    <!--identificationType & username-->
     <div class="formgrid grid">
-      <!--identificationType-->
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
         <label
           for="identificationType"
@@ -44,7 +42,7 @@
         >
           <ng-template pTemplate="selectedItem">
             <div *ngIf="identificationTypeField.value">
-              <div>{{ identificationTypeField.value?.name }}</div>
+              <div>{{ identificationTypeField.value.name }}</div>
             </div>
           </ng-template>
           <ng-template let-item pTemplate="item">
@@ -61,7 +59,6 @@
         >
         </small>
       </div>
-      <!--username-->
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
         <label
           for="username"
@@ -84,9 +81,7 @@
       </div>
     </div>
 
-    <!--name & lastname-->
     <div class="formgrid grid">
-      <!--name-->
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
         <label
           for="name"
@@ -107,7 +102,6 @@
         >
         </small>
       </div>
-      <!--lastname-->
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
         <label
           for="lastname"
@@ -135,7 +129,6 @@
       </div>
     </div>
 
-    <!--email-->
     <div class="field">
       <label
         for="email"
@@ -157,9 +150,7 @@
       </small>
     </div>
 
-    <!--automaticPassword & passwordChanged-->
     <div *ngIf="!idField.value">
-      <!--automaticPassword-->
       <div class="field">
         <p-inputSwitch
           id="automaticPassword"
@@ -188,7 +179,6 @@
         </small>
       </div>
 
-      <!--passwordChanged-->
       <div class="field">
         <p-inputSwitch
           id="passwordChanged"
@@ -200,9 +190,7 @@
       </div>
     </div>
 
-    <!--addPhone()-->
     <div class="formgrid grid">
-      <!--addPhone()-->
       <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
         <button
           pButton
@@ -216,15 +204,13 @@
       </div>
     </div>
 
-    <!--phones-->
     <div formArrayName="phones">
       <div
         *ngFor="let phone of phonesField.controls; let i = index"
         [formGroupName]="i"
       >
-        <!--title & removePhone()-->
+
         <div class="field text-center">
-          <!--title-->
           <label
             [for]="'phone' + i"
             appLabel
@@ -235,7 +221,7 @@
             [dirty]="phonesField.controls[i].dirty"
           ></label>
 
-          <!--removePhone()-->
+
           <button
             pButton
             pRipple
@@ -247,9 +233,7 @@
           ></button>
         </div>
 
-        <!--phoneOperator & phoneTypes-->
         <div class="formgrid grid">
-          <!--phoneOperator-->
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
             <p-dropdown
               [id]="'phoneOperator' + i"
@@ -275,13 +259,12 @@
             </p-dropdown>
             <small
               appErrorMessage
-              [errors]="(phonesField.controls[i]?.get('operator'))!.errors"
-              [touched]="(phonesField.controls[i]?.get('operator'))!.touched"
-              [dirty]="(phonesField.controls[i]?.get('operator'))!.dirty"
+              [errors]="(phonesField.controls[i].get('operator'))!.errors"
+              [touched]="(phonesField.controls[i].get('operator'))!.touched"
+              [dirty]="(phonesField.controls[i].get('operator'))!.dirty"
             >
             </small>
           </div>
-          <!--phoneTypes-->
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
             <p-dropdown
               [id]="'phoneType' + i"
@@ -307,17 +290,14 @@
             </p-dropdown>
             <small
               appErrorMessage
-              [errors]="(phonesField.controls[i]?.get('type'))!.errors"
-              [touched]="(phonesField.controls[i]?.get('type'))!.touched"
-              [dirty]="(phonesField.controls[i]?.get('type'))!.dirty"
+              [errors]="(phonesField.controls[i].get('type'))!.errors"
+              [touched]="(phonesField.controls[i].get('type'))!.touched"
+              [dirty]="(phonesField.controls[i] .-02.3 zxc.get('type'))!.dirty"
             >
             </small>
           </div>
         </div>
-
-        <!--phoneLocation & number & removePhone()-->
         <div class="formgrid grid">
-          <!--phoneLocation-->
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
             <p-dropdown
               [id]="'phoneLocation' + i"
@@ -354,13 +334,12 @@
             </p-dropdown>
             <small
               appErrorMessage
-              [errors]="(phonesField.controls[i]?.get('location'))!.errors"
-              [touched]="(phonesField.controls[i]?.get('location'))!.touched"
-              [dirty]="(phonesField.controls[i]?.get('location'))!.dirty"
+              [errors]="(phonesField.controls[i].get('location'))!.errors"
+              [touched]="(phonesField.controls[i].get('location'))!.touched"
+              [dirty]="(phonesField.controls[i].get('location'))!.dirty"
             >
             </small>
           </div>
-          <!--number-->
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
             <input
               pInputText
@@ -371,9 +350,9 @@
             />
             <small
               appErrorMessage
-              [errors]="(phonesField.controls[i]?.get('number'))!.errors"
-              [touched]="(phonesField.controls[i]?.get('number'))!.touched"
-              [dirty]="(phonesField.controls[i]?.get('number'))!.dirty"
+              [errors]="(phonesField.controls[i].get('number'))!.errors"
+              [touched]="(phonesField.controls[i].get('number'))!.touched"
+              [dirty]="(phonesField.controls[i].get('number'))!.dirty"
             >
             </small>
           </div>
@@ -396,8 +375,6 @@
         (click)="showModalFiles()"
       ></button>
     </div>
-
-    <!--onSubmit()-->
     <div class="field">
       <button
         pButton
@@ -408,10 +385,8 @@
         icon="pi pi-save"
       ></button>
     </div>
-
-    <!--progressBar-->
     <div class="field" *ngIf="progressBar">
       <p-progressBar mode="indeterminate"></p-progressBar>
     </div>
   </form>
-</div>
+</div> -->

@@ -9,11 +9,11 @@ import { ColModel, PaginatorModel, UserModel } from '@models/core';
 import { CreateCustomer } from '../../../../services/core/administrator/create.customer';
 import { UserService } from '../../../../services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
+import { User } from '@models/authentication';
 
 @Component({
   selector: 'app-user-administration-list',
   templateUrl: './user-administration-list.component.html',
-  styleUrls: ['./user-administration-list.component.scss'],
 })
 export class UserAdministrationListComponent implements OnInit {
   /* users$ = this.userAdministrationHttpService.users$;
@@ -21,16 +21,15 @@ export class UserAdministrationListComponent implements OnInit {
   loaded$ = this.userAdministrationHttpService.loaded$;
   paginator$ = this.userAdministrationHttpService.paginator$; */
 
-
   selectedUsers: UserModel[] = [];
-  selectedUser: CreateCustomer = null;
+  selectedUser: any;
   cols: ColModel[];
   items: MenuItem[] = [];
   dialogForm: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
-  users: CreateCustomer[];
+  users: User[] = [];
   modelName: any;
   totalUsers: number = 0;
   kpiModel: KpiUser = new KpiUser();
@@ -86,16 +85,17 @@ export class UserAdministrationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadUsers();
-    this.userVisualizations$.subscribe(response => {
+    this.getAllUSers();
+    this.userVisualizations$.subscribe((response) => {
       //this.data = response;
       console.log('Que me trae aqui', response);
       this.setKpi();
     });
   }
 
-  loadUsers() {
+  getAllUSers() {
     this.userService.getUsers().subscribe((data) => {
+      console.log('USERS', data);
       this.users = data;
     });
   }
@@ -106,7 +106,7 @@ export class UserAdministrationListComponent implements OnInit {
 
   saveOrEditUser(newUser: CreateCustomer) {
     console.log('Nuevo usuario', newUser);
-    this.loadUsers();
+    this.getAllUSers();
   }
 
   editUser(user: CreateCustomer) {
@@ -122,7 +122,7 @@ export class UserAdministrationListComponent implements OnInit {
             this.messageService.successUser(data);
           },
           complete: () => {
-            this.loadUsers();
+            this.getAllUSers();
           },
           error: (error) => {
             this.messageService.error(error);
@@ -140,15 +140,14 @@ export class UserAdministrationListComponent implements OnInit {
   setKpi() {
     this.kpiModel = new KpiUser();
     this.data.forEach((element) => {
-      console.log('KPI',element);
+      console.log('KPI', element);
     });
   }
-
 
   // optional
   showForm() {
     this.dialogForm = true;
-    this.selectUser = null
+    //this.selectUser = null
   }
 
   selectUser(user: CreateCustomer) {
@@ -177,7 +176,7 @@ export class UserAdministrationListComponent implements OnInit {
 
   filter(event: any) {
     if (event.key === 'Enter' || event.type === 'click') {
-      this.loadUsers();
+      this.getAllUSers();
     }
   }
 }

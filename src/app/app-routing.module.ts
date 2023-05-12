@@ -4,31 +4,29 @@ import { RouterModule, Routes } from '@angular/router';
  */
 import { RoleGuard } from '@shared/guards/role.guard';
 import { RolesEnum } from '@shared/enums/roles.enum';
-import { TokenGuard } from '@shared/guards/token.guard';
 import { BlankComponent } from '@shared/components/layouts/blank/blank.component';
 import { AdminGuard } from './guards/admin.guard';
 import { HasRoleGuard } from './guards/has-role.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { RedirectGuard } from './guards/redirect.guard';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [RedirectGuard],
     loadChildren: () =>
       import('./pages/authentication/authentication.module').then(
         (m) => m.AuthenticationModule
       ),
   },
-  // {
-  //   path: 'user-administration',
-  //   canActivate: [HasRoleGuard],
-  //   canLoad:[HasRoleGuard],
-  //   data: {
-  //     allowedRoles: ['admin']
-  //   },
-  //   loadChildren: () =>
-  //     import(
-  //       './pages/core/user-administration/user-administration.module'
-  //     ).then((m) => m.UserAdministrationModule),
-  // },
+  {
+    path: 'administrator',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import(
+        './pages/core/user-administration/user-administration.module'
+      ).then((m) => m.UserAdministrationModule),
+  },
   // {
   //   path: 'cecy',
   //   loadChildren: () =>

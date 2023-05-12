@@ -39,7 +39,6 @@ export class FormAddUserComponent implements OnInit, OnChanges {
 
   progressBar: boolean = false;
   roles: any = [];
-  selectedRole: '';
   titleModal: string = '';
   titleButton: string = '';
 
@@ -95,11 +94,11 @@ export class FormAddUserComponent implements OnInit, OnChanges {
     });
   }
 
-  onchange(e) {
-    const t = this.formUser.get('user.role').setValue(e.target.value, {
-      onlySelf: true,
-    });
-  }
+  // onchange(e: any) {
+  //   const t = this.formUser.get('user.role').setValue(e.target.value, {
+  //     onlySelf: true,
+  //   });
+  // }
 
   onSubmit() {
     if (this.formUser.valid) {
@@ -136,15 +135,15 @@ export class FormAddUserComponent implements OnInit, OnChanges {
     return this.formUser.controls['phone'];
   }
 
-  get roleField() {
-    return this.formUser.controls['user.role'];
-  }
+  // get roleField() {
+  //   return this.formUser.controls['user.role'];
+  // }
 
   get emailField() {
     return this.formUser.get('user.email');
   }
 
-  get passwordField() {
-    return this.formUser.controls['user.password'];
-  }
+  // get passwordField() {
+  //   return this.formUser.controls['user.password'];
+  // }
 }

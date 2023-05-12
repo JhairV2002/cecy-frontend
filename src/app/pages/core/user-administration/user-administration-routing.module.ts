@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UserAdministrationComponent } from './user-administration.component';
 import { MainComponent } from './../../../layout/main/main.component';
-import { TokenGuard } from 'src/app/guards/token.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
@@ -13,19 +12,17 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'admin',
+        redirectTo: 'home',
         pathMatch: 'full',
       },
       {
-        path: 'admin',
+        path: 'home',
         component: UserAdministrationComponent,
-        canActivate: [TokenGuard],
       },
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [TokenGuard]
-      }
+      },
     ],
   },
 ];

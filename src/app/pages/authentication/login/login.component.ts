@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginAndGet(userValue).subscribe({
       next: (user) => {
         if (user) {
-          this.profile = user;
+          this.profile = user[0];
           this.redirect();
         }
       },
@@ -62,9 +62,9 @@ export class LoginComponent implements OnInit {
   }
 
   redirect() {
-    switch (this.profile[0].role) {
+    switch (this.profile.role.name) {
       case 'admin':
-        this.router.navigate(['/user-administration']);
+        this.router.navigate(['/administrator']);
         break;
       case 'coordinator_career':
         this.router.navigate(['/cecy/coordinator-career']);

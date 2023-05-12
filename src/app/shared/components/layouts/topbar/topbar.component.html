@@ -35,10 +35,10 @@
         layoutService.state.profileSidebarVisible
     }"
   >
-    <button class="p-link layout-topbar-button mr-6" (click)="visibleSidebar = true">
+    <!-- <button class="p-link layout-topbar-button mr-6" (click)="visibleSidebar = true">
       <i class="pi pi-bell"></i>
       <span>Notificaciones</span>
-    </button>
+    </button> -->
     <p-sidebar
       [(visible)]="visibleSidebar"
       position="right"
@@ -93,7 +93,7 @@
       <i class="pi pi-cog"></i>
       <span>Configuraciones</span>
     </button> -->
-    <div class="ml-3 image-profile">
+    <!-- <div class="ml-3 image-profile">
       <img
         width="40"
         height="40"
@@ -101,7 +101,7 @@
         src="assets/images/components/default.png"
         alt="Imagen de perfil"
       />
-    </div>
+    </div> -->
     <button class="p-link layout-topbar-button" (click)="onlogout()">
       <i class="pi pi-fw pi-sign-out"></i>
       <span>Salir</span>
