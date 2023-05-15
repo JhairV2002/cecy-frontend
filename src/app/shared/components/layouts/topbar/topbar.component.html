@@ -48,11 +48,9 @@
     </p-sidebar>
     <a class="p-link layout-topbar-button1 mr-5" [routerLink]="'/user/profile'">
       <i class="pi pi-user"></i>
-      <div *ngFor="let item of customer">
-        <p class="ml-2">
-          {{ item.customer?.name }}
-        </p>
-      </div>
+      <p class="ml-2">
+        {{ user?.names }}
+      </p>
     </a>
     <!-- <div class="drop-down-menu" *ngFor="let item of customer">
       <a class="p-link profile drop-down-button mr-5">

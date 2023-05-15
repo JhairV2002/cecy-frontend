@@ -9,10 +9,9 @@ import { MenuItem } from 'primeng/api';
 import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthHttpService, MessageService } from '@services/core';
 import { Router } from '@angular/router';
-//import { AuthService } from '@services/core';
 import { LayoutService } from '@services/layout.service';
 import { AuthService } from '@services/auth';
-import { ProfileCustomerDTO, Roles } from '@models/authentication';
+import { ProfileCustomerDTO, Roles, User } from '@models/authentication';
 import { map, Observable } from 'rxjs';
 
 @Component({
@@ -27,7 +26,8 @@ export class TopbarComponent implements OnInit {
   visibleSidebar: boolean = false;
   showNav: boolean = true;
   items!: MenuItem[];
-  customer: ProfileCustomerDTO[] | null = null;
+  user: User | null = null
+
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -45,9 +45,9 @@ export class TopbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(data => {
-      console.log('cliente global',data );
-      this.customer = data;
+    this.authService.getProfile().subscribe((data: any) => {
+      console.log('cliente global', data[0]);
+      this.user = data[0];
     });
     this.items = [
       {

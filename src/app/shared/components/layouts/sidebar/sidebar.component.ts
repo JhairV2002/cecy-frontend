@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
+import { User } from '@models/authentication';
 
 @Component({
   selector: 'app-sidebar',
@@ -109,6 +110,7 @@ export class SidebarComponent implements OnInit {
   showedMenu: boolean = false;
   closed: boolean = true;
   menu: MenuItem[] = [];
+  user: User | null = null;
 
   constructor(
     private menuHttpService: MenuHttpService,
@@ -117,7 +119,13 @@ export class SidebarComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getProfile().subscribe((user: any) =>{
+      console.log('SEDEIBAR USER', user[0]);
+      this.user = user[0]
+
+    })
+  }
 
   showSubMenu(id: number = 0) {
     this.showedMenu = !this.showedMenu;
@@ -134,7 +142,7 @@ export class SidebarComponent implements OnInit {
 
   userRoleIn(allowedRoles: any): Observable<boolean> {
     return this.authService.user$.pipe(
-      map((user) => Boolean(user && allowedRoles.includes(user[0].role)))
+      map((user) => Boolean(user && allowedRoles.includes(user[0].role.name)))
     );
   }
 }

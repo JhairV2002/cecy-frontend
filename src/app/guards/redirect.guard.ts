@@ -11,7 +11,7 @@ export class RedirectGuard implements CanActivate {
     const token = this.tokenService.getToken();
     if (token) {
       const decodeToken = jwt_decode(token) as { [key: string]: any };
-      console.log('token', decodeToken);
+      console.log('TOKEN REDIRECT', decodeToken);
 
       const role = decodeToken['role'].name;
       if (role === 'admin') {

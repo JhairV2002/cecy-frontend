@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
 import { SidebarComponent } from '@shared/components/layouts/sidebar/sidebar.component';
 import { TopbarComponent } from '@shared/components/layouts/topbar/topbar.component';
@@ -16,7 +17,7 @@ import { filter, Subscription } from 'rxjs';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnDestroy {
+export class MainComponent implements OnDestroy, OnInit {
   imgs = [...Array(18).keys()];
   overlayMenuOpenSubscription: Subscription;
   menuOutsideClickListener: any;
@@ -28,7 +29,8 @@ export class MainComponent implements OnDestroy {
   constructor(
     public layoutService: LayoutService,
     public renderer: Renderer2,
-    public router: Router
+    public router: Router,
+    private authService: AuthService
   ) {
     this.overlayMenuOpenSubscription =
       this.layoutService.overlayOpen$.subscribe(() => {
@@ -87,6 +89,10 @@ export class MainComponent implements OnDestroy {
         this.hideMenu();
         this.hideProfileMenu();
       });
+  }
+
+  ngOnInit(): void {
+    this.authService.getProfile().subscribe();
   }
 
   hideMenu() {

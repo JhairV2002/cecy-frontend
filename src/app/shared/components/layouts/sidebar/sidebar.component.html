@@ -1,6 +1,26 @@
 <ul class="layout-menu">
-    <p-menu *ngIf="userRoleIn(['admin']) | async" styleClass="menu" [style]="{'width': '280px'}" [model]="itemsAdmin"></p-menu>
-    <p-menu *ngIf="userRoleIn(['coordinator_career']) | async" styleClass="menu" [style]="{'width': '280px'}" [model]="itemsCoordinatorCareer"></p-menu>
-    <p-menu *ngIf="userRoleIn(['coordinator_cecy']) | async" styleClass="menu" [style]="{'width': '280px'}" [model]="itemsCoordinatorCecy"></p-menu>
-    <p-menu *ngIf="userRoleIn(['responsible_course']) | async"  styleClass="menu" [style]="{'width': '280px'}" [model]="itemsDocente"></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'admin'"
+    styleClass="menu"
+    [style]="{ width: '280px' }"
+    [model]="itemsAdmin"
+  ></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'coordinator_career'"
+    styleClass="menu"
+    [style]="{ width: '280px' }"
+    [model]="itemsCoordinatorCareer"
+  ></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'coordinator_cecy'"
+    styleClass="menu"
+    [style]="{ width: '280px' }"
+    [model]="itemsCoordinatorCecy"
+  ></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'responsible_course'"
+    styleClass="menu"
+    [style]="{ width: '280px' }"
+    [model]="itemsDocente"
+  ></p-menu>
 </ul>

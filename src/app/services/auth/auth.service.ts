@@ -16,8 +16,9 @@ export class AuthService {
   private apiUrl = `${environment.api2}/auth`;
   private apiUrl2 = `${environment.api2}/planifications`;
 
-  private user = new BehaviorSubject<ProfileCustomerDTO[] | null>(null);
+  user = new BehaviorSubject<User[] | null>(null);
   user$ = this.user.asObservable();
+  userProfile$ = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -35,7 +36,7 @@ export class AuthService {
 
   profile() {
     return this.http
-      .get<ProfileCustomerDTO[]>(`${this.apiUrl}/profile`, {})
+      .get<User[]>(`${this.apiUrl}/profile`, {})
       .pipe(tap((user) => this.user.next(user)));
   }
 
@@ -45,5 +46,20 @@ export class AuthService {
 
   getPlanificationsbyUser() {
     return this.http.get<Planification[]>(`${this.apiUrl2}/my`);
+  }
+
+  getProfile() {
+    const token = this.tokenService.getToken();
+    return this.http
+      .get<User>(`${this.apiUrl}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .pipe(
+        tap((user) => {
+          this.userProfile$.next(user);
+        })
+      );
   }
 }

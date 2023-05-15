@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import jwt_decode from 'jwt-decode';
+import { getCookie, setCookie, removeCookie } from 'typescript-cookie';
 
-import { Auth } from './../../models/authentication/'
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -11,19 +10,19 @@ export class TokenService {
   constructor(private http: HttpClient, private router: Router) {}
 
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    setCookie('token-cecy', token, { expires: 365, path: '/' });
   }
 
   getToken() {
-    const token = localStorage.getItem('token');
+    const token = getCookie('token-cecy');
     return token;
   }
 
   removeToken() {
-    localStorage.removeItem('token');
+    removeCookie('token-cecy');
   }
 
-  redirectToLogin(){
+  redirectToLogin() {
     this.router.navigate(['/login']);
   }
 }

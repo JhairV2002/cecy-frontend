@@ -4,12 +4,8 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpHeaders,
-  HttpParams,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-//import {AuthService} from '@services/core/auth.service';
-
 import { TokenService } from './../services/auth';
 
 @Injectable()
