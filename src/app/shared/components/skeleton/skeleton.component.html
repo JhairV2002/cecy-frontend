@@ -1,6 +1,6 @@
 <div class="card">
   <div class="formgrid">
-    <div class="field col-12 md:col-12 sm:col-12" *ngIf="type==='point'">
+    <div class="field col-12 md:col-12 sm:col-12" *ngIf="type === 'point'">
       <div class="flex align-items-end">
         <small class="mr-2">Escribiendo</small>
         <p-skeleton shape="circle" size="0.5rem" styleClass="mr-2"></p-skeleton>
@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="field col-12 md:col-6" *ngIf="type==='form'">
+    <div class="field col-12 md:col-6" *ngIf="type === 'form'">
       <p-skeleton styleClass="mb-2"></p-skeleton>
       <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
@@ -17,7 +17,7 @@
       <p-skeleton width="10rem" height="4rem"></p-skeleton>
     </div>
 
-    <div class="field col-12 md:col-6" *ngIf="type==='rectangle'">
+    <div class="field col-12 md:col-6" *ngIf="type === 'rectangle'">
       <p-skeleton styleClass="mb-2"></p-skeleton>
       <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
@@ -25,15 +25,27 @@
       <p-skeleton width="10rem" height="4rem"></p-skeleton>
     </div>
 
-    <div class="field col-12 md:col-6" *ngIf="type==='rounded'">
+    <div class="field col-12 md:col-6" *ngIf="type === 'rounded'">
       <p-skeleton styleClass="mb-2" borderRadius="16px"></p-skeleton>
-      <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
-      <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
-      <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+      <p-skeleton
+        width="10rem"
+        styleClass="mb-2"
+        borderRadius="16px"
+      ></p-skeleton>
+      <p-skeleton
+        width="5rem"
+        styleClass="mb-2"
+        borderRadius="16px"
+      ></p-skeleton>
+      <p-skeleton
+        height="2rem"
+        styleClass="mb-2"
+        borderRadius="16px"
+      ></p-skeleton>
       <p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
     </div>
 
-    <div class="field col-12 md:col-6" *ngIf="type==='square'">
+    <div class="field col-12 md:col-6" *ngIf="type === 'square'">
       <div class="d-flex p-ai-end">
         <p-skeleton size="2rem" styleClass="mr-2"></p-skeleton>
         <p-skeleton size="3rem" styleClass="mr-2"></p-skeleton>
@@ -42,7 +54,7 @@
       </div>
     </div>
 
-    <div class="field col-12 md:col-6" *ngIf="type==='circle'">
+    <div class="field col-12 md:col-6" *ngIf="type === 'circle'">
       <div class="d-flex p-ai-end">
         <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
         <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
@@ -51,7 +63,7 @@
       </div>
     </div>
 
-    <div class="field col-12 md:col-6 p-pr-md-6 p-pr-0" *ngIf="type==='card'">
+    <div class="field col-12 md:col-6 p-pr-md-6 p-pr-0" *ngIf="type === 'card'">
       <div class="custom-skeleton p-p-4">
         <div class="d-flex mb-3">
           <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
@@ -69,12 +81,16 @@
       </div>
     </div>
 
-    <div class="field col-12 md:col-6" *ngIf="type==='list'">
+    <div class="field col-12 md:col-6" *ngIf="type === 'list'">
       <div class="custom-skeleton p-p-4">
         <ul class="p-m-0 p-p-0">
           <li class="p-mb-3">
             <div class="d-flex">
-              <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+              <p-skeleton
+                shape="circle"
+                size="4rem"
+                styleClass="mr-2"
+              ></p-skeleton>
               <div style="flex: 1">
                 <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
                 <p-skeleton width="75%"></p-skeleton>
@@ -83,7 +99,11 @@
           </li>
           <li class="p-mb-3">
             <div class="d-flex">
-              <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+              <p-skeleton
+                shape="circle"
+                size="4rem"
+                styleClass="mr-2"
+              ></p-skeleton>
               <div style="flex: 1">
                 <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
                 <p-skeleton width="75%"></p-skeleton>
@@ -92,7 +112,11 @@
           </li>
           <li class="p-mb-3">
             <div class="d-flex">
-              <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+              <p-skeleton
+                shape="circle"
+                size="4rem"
+                styleClass="mr-2"
+              ></p-skeleton>
               <div style="flex: 1">
                 <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
                 <p-skeleton width="75%"></p-skeleton>
@@ -101,7 +125,11 @@
           </li>
           <li>
             <div class="d-flex">
-              <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+              <p-skeleton
+                shape="circle"
+                size="4rem"
+                styleClass="mr-2"
+              ></p-skeleton>
               <div style="flex: 1">
                 <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
                 <p-skeleton width="75%"></p-skeleton>
@@ -112,7 +140,7 @@
       </div>
     </div>
 
-    <p-table [value]="products" *ngIf="type==='table'">
+    <p-table [value]="products" *ngIf="type === 'table'">
       <ng-template pTemplate="header">
         <tr>
           <th></th>

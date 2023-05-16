@@ -139,7 +139,7 @@ export class PlanificationHttpService {
         catchError(Handler.render)
       );
   }
-  
+
   getPreviousPlanifications(): Observable<ServerResponse> {
     // DDRC-C: obtiene una lista de planificaciones, de periodos lectivos anteriores
     const url = `${this.API_URL_PRIVATE}/previous-period-states`;
@@ -169,7 +169,7 @@ export class PlanificationHttpService {
       );
   }
 
-  storePlanificationByCourse(courseId: number, planification: PlanificationModel): Observable<ServerResponse> {
+  storePlanificationByCourse(courseId: any, planification: PlanificationModel): Observable<ServerResponse> {
     const url = `${this.API_URL_PRIVATE}/courses/${courseId}`;
 
     return this.httpClient.post<ServerResponse>(url, planification)

@@ -76,7 +76,7 @@ export class CourseFormComponent implements OnInit {
   public targetGroups: CecyCatalogueModel[] = [];
   public participantTypes: CecyCatalogueModel[] = [];
   public STORAGE_URL: string;
-  public id: number;
+  public id: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,19 +111,19 @@ export class CourseFormComponent implements OnInit {
         .planificationById(id)
         .subscribe((data) => {
           console.log('Planificacion por id es:', data);
-          this.formCourse.patchValue({
-            modalityId: [data.course[0]?.modalityId.id],
-            categoryId: [data.course[0]?.categoryId],
-            entityCertificationId: [data.course[0]?.entityCertificationId],
-            courseTypeId: [data.course[0]?.courseTypeId.id],
-            certifiedTypeId: [data.course[0]?.certifiedTypeId],
-            formationTypeId: [data.course[0]?.formationTypeId],
-            abbreviation: [data.course[0]?.abbreviation],
-            targetGroups: [data.course[0]?.targetGroups.id],
-            participantTypes: [data.course[0]?.participantTypes],
-            summary: [data.course[0]?.summary],
-            project: [data.course[0]?.project],
-          });
+          // this.formCourse.patchValue({
+          //   modalityId: [data.course[0]?.modalityId.id],
+          //   categoryId: [data.course[0]?.categoryId],
+          //   entityCertificationId: [data.course[0]?.entityCertificationId],
+          //   courseTypeId: [data.course[0]?.courseTypeId.id],
+          //   certifiedTypeId: [data.course[0]?.certifiedTypeId],
+          //   formationTypeId: [data.course[0]?.formationTypeId],
+          //   abbreviation: [data.course[0]?.abbreviation],
+          //   targetGroups: [data.course[0]?.targetGroups.id],
+          //   participantTypes: [data.course[0]?.participantTypes],
+          //   summary: [data.course[0]?.summary],
+          //   project: [data.course[0]?.project],
+          // });
           console.log('modalidad', data.course[0]?.modalityId);
         });
     }
@@ -297,16 +297,16 @@ export class CourseFormComponent implements OnInit {
   }
 
   addNeed(data: string = '') {
-    this.needsField.push(this.formBuilder.control(data, Validators.required));
+    //this.needsField.push(this.formBuilder.control(data, Validators.required));
   }
 
   removeNeeds(index: number) {
-    if (this.needsField.length > 1) {
-      this.needsField.removeAt(index);
-    } else {
-      this.needsField.markAllAsTouched();
-      this.messageService.errorRequired();
-    }
+    // if (this.needsField.length > 1) {
+    //   this.needsField.removeAt(index);
+    // } else {
+    //   this.needsField.markAllAsTouched();
+    //   this.messageService.errorRequired();
+    // }
   }
 
   isRequired(field: AbstractControl): boolean {
@@ -353,13 +353,13 @@ export class CourseFormComponent implements OnInit {
     return this.formCourse.controls['abbreviation'];
   }
 
-  get targetGroupsField(): FormArray {
-    return this.formCourse.controls['targetGroups'] as FormArray;
-  }
+  // get targetGroupsField(): FormArray {
+  //   return this.formCourse.controls['targetGroups'] as FormArray;
+  // }
 
-  get participantTypeField(): FormArray {
-    return this.formCourse.controls['participantTypes'] as FormArray;
-  }
+  // get participantTypeField(): FormArray {
+  //   return this.formCourse.controls['participantTypes'] as FormArray;
+  // }
 
   get summaryField() {
     return this.formCourse.controls['summary'];
@@ -369,14 +369,14 @@ export class CourseFormComponent implements OnInit {
     return this.formCourse.controls['project'];
   }
 
-  get needsField(): FormArray {
-    return this.formCourse.controls['needs'] as FormArray;
-  }
+  // get needsField(): FormArray {
+  //   return this.formCourse.controls['needs'] as FormArray;
+  // }
 
-  get idField() {
-    return this.formCourse.controls['id'];
-  }
-  get imageField() {
-    return this.formCourse.controls['image'];
-  }
+  // get idField() {
+  //   return this.formCourse.controls['id'];
+  // }
+  // get imageField() {
+  //   return this.formCourse.controls['image'];
+  // }
 }

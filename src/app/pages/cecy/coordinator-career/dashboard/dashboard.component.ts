@@ -14,8 +14,8 @@ export class DashboardComponent implements OnInit {
   data1: any;
   data2: any;
   chartOptions: any;
-  subscription: Subscription;
-  config: AppConfig;
+  subscription: any;
+  config: any;
   planificationCourses: [] = [];
 
   constructor(
@@ -30,9 +30,9 @@ export class DashboardComponent implements OnInit {
 
   getPlanificationsCoursesAll() {
     this.dashboardService.getPlanifications().subscribe((data) => {
-      const namePlanification = data.map((data) => data.name);
-      const nameCareer = data.map((data) => data.career.name);
-      const durationTime = data.map((data) => data.durationTime);
+      const namePlanification = data.map((data: any) => data.name);
+      const nameCareer = data.map((data: any) => data.career.name);
+      const durationTime = data.map((data: any) => data.durationTime);
       this.data = {
         labels: namePlanification,
         datasets: [

@@ -33,7 +33,7 @@ export class CourseVisualizationListComponent implements OnInit {
   planificationStates: CatalogueModel[] = [];
   public formInstructor: FormGroup = this.newFormInstructor;
   dialogForm: boolean = false;
-  
+
 
   public files: FileModel[] = [];
   public paginatorFiles: PaginatorModel = { current_page: 1, per_page: 15, total: 0 };
@@ -41,7 +41,7 @@ export class CourseVisualizationListComponent implements OnInit {
   public displayModalFiles: boolean = false;
   public loadingUploadFiles: boolean = false;
   public loadingFiles: boolean = false;
- 
+
  @Output() dialogForms = new EventEmitter<boolean>();
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -72,72 +72,72 @@ export class CourseVisualizationListComponent implements OnInit {
         icon: 'pi pi-download',
         command: () => {
           this.download(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: 'Registro fotografico',
         icon: 'pi pi-download',
         command: () => {
           this.downloadPhotographicRecord(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: 'Registro participantes',
         icon: 'pi pi-download',
         command: () => {
           this.downloadRecordCompetitors(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: 'Asistencia Evaluacion',
         icon: 'pi pi-download',
         command: () => {
           this.download2(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: 'Diseño Curricular',
         icon: 'pi pi-download',
         command: () => {
           this.download3(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: 'Informe Final',
         icon: 'pi pi-download',
         command: () => {
           this.download4(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: '',
         icon: 'pi pi-eye',
         command: () => {
           this.showForm(this.rowData)
-          
+
         }
-        
+
       },
       {
         label: '',
         icon: 'pi pi-file',
         command: () => {
           this.showModalFiles()
-          
+
         }
-        
+
       },
     ];
 
@@ -152,7 +152,7 @@ export class CourseVisualizationListComponent implements OnInit {
     this.loadPlanificationStates();
   }
 
-  select(valor){this.rowData=valor}
+  select(valor: any){this.rowData=valor}
 
   get newFormInstructor():FormGroup{
     return this.formBuilder.group({
@@ -192,7 +192,7 @@ export class CourseVisualizationListComponent implements OnInit {
     })
   }
 
-  Save(courseStates, state){
+  Save(courseStates: any, state: any){
     this.courseHttpService.updateStateCourse(courseStates.id, state).subscribe(response => {
       //this.courses = response.data;
       this.loadCourseVisualizations();
@@ -200,7 +200,7 @@ export class CourseVisualizationListComponent implements OnInit {
     })
   }
 
-  SaveStatePlanification(planificationStates, state){
+  SaveStatePlanification(planificationStates: any, state: any){
     this.planificationHttpService.updateStatePlanification(planificationStates.id, state).subscribe(response => {
       //this.courses = response.data;
       this.loadCourseVisualizations();
@@ -229,14 +229,14 @@ export class CourseVisualizationListComponent implements OnInit {
       }
     )
   }
-  
+
   uploadFiles(event: any) {
     this.courseId =  this.authService.user.id
     const formData = new FormData();
     for (const file of event) {
       formData.append('files[]', file);
     }
-  
+
     this.planificationHttpService.uploadFiles(this.courseId, formData).subscribe(response => {
       // this.getPayments();
       this.messageService.success(response);
@@ -252,28 +252,28 @@ export class CourseVisualizationListComponent implements OnInit {
     return this.formInstructor.controls['state'];
   }
 
-  download(course: CourseModel){
+  download(course: any){
     this.courseHttpService.downloadReportNeed(course.id);
   }
-  downloadRecordCompetitors(planification:PlanificationModel){
+  downloadRecordCompetitors(planification:any){
     this.registrationHttpService.downloadReportRecordCompetitors(planification.id);
 
   }
 
-  downloadPhotographicRecord(course: CourseModel){
+  downloadPhotographicRecord(course: any){
     this.attendaceHttpService.downloadPhotographicRecord(course.id);
 
   }
-  download2(course: CourseModel){
+  download2(course: any){
     this.attendaceHttpService.downloadatendanceEvaluation(course.id);
    // console.log (course);
 
   }
-  
-  download3(planification: PlanificationModel){
+
+  download3(planification: any){
     this.planificationHttpService.downloadcurricularDesign(planification.id);
   }
-    download4(planification: PlanificationModel){
+    download4(planification: any){
       this.planificationHttpService.downloadinformeFinal(planification.id);
   }
 }

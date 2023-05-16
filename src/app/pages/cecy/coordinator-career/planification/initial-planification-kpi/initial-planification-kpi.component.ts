@@ -11,14 +11,14 @@ import { InitialPlanificationKpiModel } from '@models/cecy';
 export class InitialPlanificationKpiComponent implements OnInit {
 
   kpiModel: InitialPlanificationKpiModel = new InitialPlanificationKpiModel();
-  @Input() data$;
+  @Input() data$: any;
   data: any[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.data$.subscribe(response => {
+    this.data$.subscribe((response: any) => {
       this.data = response.data;
       this.setKpi();
     });

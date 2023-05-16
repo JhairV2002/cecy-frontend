@@ -22,7 +22,7 @@ export class CertificateService {
   private certificatesList: ServerResponse = {};
   private certificates = new BehaviorSubject<ServerResponse>({});
   public certificates$ = this.certificates.asObservable();
-  
+
   private certificateModel: CertificateModel = {};
   private certificate = new BehaviorSubject<CertificateModel>({});
   public certificate$ = this.certificate.asObservable();
@@ -35,7 +35,7 @@ export class CertificateService {
 
   }
 
-  downloadFileCertificates(catalogue, file): Observable<ServerResponse> {
+  downloadFileCertificates(catalogue: any, file: any): Observable<ServerResponse> {
     const url = `${this.API_URL_PRIVATE}/certificate/catalogue/${catalogue}/file/${file}`;
 
     this.loaded.next(true);
@@ -82,7 +82,7 @@ export class CertificateService {
   //       catchError(Handler.render)
   //     );
   // }
-  
+
   // uploadFileCertificateFirm(catalogue): Observable<ServerResponse> {
   //   const url = `${this.API_URL}/certificate/firm/catalogue/${catalogue}`;
 
@@ -99,7 +99,7 @@ export class CertificateService {
   //     );
   // }
 
-  
+
 
   getCertificate(): Observable<ServerResponse> {
     const url = `${this.API_URL_PRIVATE}/certificate/excel-dates`;

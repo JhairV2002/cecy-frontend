@@ -5,7 +5,6 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -20,30 +19,30 @@ import { CreateCustomer } from '@services/core/administrator/create.customer';
   styleUrls: ['./form-add-user.component.scss'],
 })
 export class FormAddUserComponent implements OnInit, OnChanges {
+  @Input() showModal: boolean = false;
+  @Input() selectedUser: any = null;
   @Output() addUser = new EventEmitter<any>();
   @Output() clickClose = new EventEmitter<boolean>();
-  @Input() selectedUser: any = null;
-  @Input() dialogForm: boolean = true;
 
-  formUser = this.formBuilder.group({
-    id: [null],
-    name: ['', [Validators.required]],
-    lastname: ['', [Validators.required]],
+  formUser = this.fb.group({
+    names: ['', [Validators.required]],
+    lastnames: ['', [Validators.required]],
     phone: ['', [Validators.required, Validators.maxLength(10)]],
-    user: this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      role: ['', [Validators.required]],
-    }),
+    email: ['', [Validators.required, Validators.email]],
+    identityCard: [''],
+    password: ['', [Validators.required]],
+    image: [''],
+    roleId: [null, [Validators.required]],
   });
 
   progressBar: boolean = false;
   roles: any = [];
   titleModal: string = '';
   titleButton: string = '';
+  isEdit: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private rolesService: RolesService,
     private userService: UserService,
     public messageService: MessageService
@@ -58,47 +57,22 @@ export class FormAddUserComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.selectedUser) {
       this.formUser.patchValue(this.selectedUser);
-      console.log('Que data hay aqui', this.selectedUser);
       this.titleModal = 'Editar un';
       this.titleButton = 'Editar';
+      this.isEdit = true;
     } else {
       this.formUser.reset();
       this.titleModal = 'Crear un';
       this.titleButton = 'Crear';
+      this.isEdit = false;
     }
   }
 
   getRoles() {
     this.rolesService.getRoles().subscribe((data) => {
       this.roles = data;
-      console.log('Roles: ', this.roles);
     });
   }
-
-  addEditUser() {
-    this.progressBar = true;
-    const valuesForm = this.formUser.value;
-    this.userService.createEdit(valuesForm, this.selectedUser).subscribe({
-      next: (data) => {
-        this.messageService.successUser(data);
-        this.formUser.reset();
-        this.progressBar = false;
-        this.clickClose.emit(false);
-        this.addUser.emit(data);
-      },
-      error: (error) => {
-        console.log(error);
-        this.messageService.error(error);
-        this.progressBar = false;
-      },
-    });
-  }
-
-  // onchange(e: any) {
-  //   const t = this.formUser.get('user.role').setValue(e.target.value, {
-  //     onlySelf: true,
-  //   });
-  // }
 
   onSubmit() {
     if (this.formUser.valid) {
@@ -108,9 +82,27 @@ export class FormAddUserComponent implements OnInit, OnChanges {
     }
   }
 
+  addEditUser() {
+    this.progressBar = true;
+    const valuesForm = this.formUser.value;
+    this.userService.addEditUser(valuesForm, this.selectedUser).subscribe({
+      next: (data) => {
+        this.progressBar = false;
+        this.clickClose.emit(false);
+        this.addUser.emit(data);
+        this.messageService.successUser(data);
+        this.formUser.reset();
+      },
+      error: (error) => {
+        console.log(error);
+        this.messageService.error(error);
+        this.progressBar = false;
+      },
+    });
+  }
+
   closeModal() {
     this.clickClose.emit(false);
-    this.selectedUser = null;
   }
 
   // Required
@@ -119,31 +111,27 @@ export class FormAddUserComponent implements OnInit, OnChanges {
   }
 
   // Getters of form
-  get idField() {
-    return this.formUser.controls['id'];
+  get nameField() {
+    return this.formUser.controls['names'];
   }
 
   get lastnameField() {
-    return this.formUser.controls['lastname'];
-  }
-
-  get nameField() {
-    return this.formUser.controls['name'];
+    return this.formUser.controls['lastnames'];
   }
 
   get phoneField() {
     return this.formUser.controls['phone'];
   }
 
-  // get roleField() {
-  //   return this.formUser.controls['user.role'];
-  // }
-
   get emailField() {
-    return this.formUser.get('user.email');
+    return this.formUser.controls['email'];
   }
 
-  // get passwordField() {
-  //   return this.formUser.controls['user.password'];
-  // }
+  get roleField() {
+    return this.formUser.controls['roleId'];
+  }
+
+  get passwordField() {
+    return this.formUser.controls['password'];
+  }
 }

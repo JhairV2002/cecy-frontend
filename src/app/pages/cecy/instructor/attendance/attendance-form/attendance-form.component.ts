@@ -18,7 +18,7 @@ export class AttendanceFormComponent implements OnInit {
 
   attendance: AttendanceModel[] = [];
   attendanceId: number;
-  detailAttendanceId: number;
+  detailAttendanceId: number = 0;
 
   catalogues$ = this.catalogueHttpService.catalogues$;
   catalogue$ = this.catalogueHttpService.catalogue$;

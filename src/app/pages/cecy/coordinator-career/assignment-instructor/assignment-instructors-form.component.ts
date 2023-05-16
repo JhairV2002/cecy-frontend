@@ -14,8 +14,8 @@ import { UserModel } from '@models/core';
 export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
     @Output() dialogLists = new EventEmitter<boolean>();
 
-    sourceList: UserModel[];
-    targetList: UserModel[];
+    sourceList: UserModel[] = [];
+    targetList: UserModel[] = [];
     selectedInstructorsIds: number[] = [];
 
     private unsubscribe$ = new Subject<void>();
@@ -65,21 +65,21 @@ export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.instructorHttpService
-            .storeInstructors(this.userAdministrationHttpService.mapUsers(this.targetList))
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe({
-                next: response => {
-                    this.messageService.success(response);
-                    this.progressBar = false;
-                    this.dialogLists.emit(false);
-                },
-                error: error => {
-                    this.messageService.error(error);
-                    this.progressBar = false;
-                    this.dialogLists.emit(false);
-                }
-            });
+        // this.instructorHttpService
+        //     .storeInstructors(this.userAdministrationHttpService.mapUsers(this.targetList))
+        //     .pipe(takeUntil(this.unsubscribe$))
+        //     .subscribe({
+        //         next: response => {
+        //             this.messageService.success(response);
+        //             this.progressBar = false;
+        //             this.dialogLists.emit(false);
+        //         },
+        //         error: error => {
+        //             this.messageService.error(error);
+        //             this.progressBar = false;
+        //             this.dialogLists.emit(false);
+        //         }
+        //     });
     }
 
 }

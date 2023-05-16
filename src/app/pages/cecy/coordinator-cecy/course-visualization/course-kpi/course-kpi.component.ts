@@ -10,14 +10,14 @@ import { BehaviorSubject } from 'rxjs';
 export class CourseKpiComponent implements OnInit {
 
   kpiModel: CourseKpiModel = new CourseKpiModel();
-  @Input() data$;
+  @Input() data$: any;
   data: any[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.data$.subscribe(response => {
+    this.data$.subscribe((response: any) => {
       this.data = response.data;
       this.setKpi();
     });

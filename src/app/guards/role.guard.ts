@@ -22,6 +22,11 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const expectRole = route.data['expectedRole'];
     const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.log('Token no encontrado');
+      return false;
+    }
     const helper = new JwtHelperService();
     const decodeToken = helper.decodeToken(token);
     console.log('Token decodificado:', decodeToken.role);

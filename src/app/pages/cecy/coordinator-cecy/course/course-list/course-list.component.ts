@@ -131,7 +131,7 @@ export class CourseListComponent implements OnInit, OnChanges {
     });
   }
 
-  filter(value) {
+  filter(value: any) {
     console.log(value);
     this.planificationCareerService.filterByName(value).subscribe((data) => {
       console.log('Buscando', data);

@@ -11,22 +11,20 @@ import { DetailAttendanceModel } from '../../../../models/cecy/detail-attendance
 @Component({
   selector: 'app-view-attendances-participant',
   templateUrl: './view-attendances-participant.component.html',
-  styleUrls: ['./view-attendances-participant.component.scss']
+  styleUrls: ['./view-attendances-participant.component.scss'],
 })
 export class ViewAttendancesParticipantComponent implements OnInit {
-
   detailAttendances$ = this.detailAttendanceHttpService.detailAttendances$;
   detailAttendance$ = this.detailAttendanceHttpService.detailAttendance$;
 
   checkedAttendance: boolean = true;
 
-
   detailAttendances: DetailAttendanceModel[] = [];
   detailAttendancesAll: DetailAttendanceModel[] = [];
 
   dialogForm: boolean = false; // optional
-  progressBarDelete: boolean = false;// optional
-  paginator: PaginatorModel = {};// optional
+  progressBarDelete: boolean = false; // optional
+  paginator: PaginatorModel = {}; // optional
   detailPlanificationId: any;
   currentAttendance: AttendanceModel = {};
   detailAttendanceToday: DetailAttendanceModel = {};
@@ -37,14 +35,14 @@ export class ViewAttendancesParticipantComponent implements OnInit {
   cols: ColModel[]; // conditional
   items: MenuItem[] = []; // optional
   typeTable: any;
-  registrationId:number;
-  currentDate:string = this.formatDate(new Date());
+  registrationId: number = 0;
+  currentDate: string = this.formatDate(new Date());
 
   constructor(
     private detailAttendanceHttpService: DetailAttendanceHttpService,
     public messageService: MessageService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {
     this.cols = [
       { field: 'registeredAt', header: 'Fecha' },
@@ -52,7 +50,7 @@ export class ViewAttendancesParticipantComponent implements OnInit {
       { field: 'duration', header: 'Número de horas' },
     ];
     this.detailPlanificationId = this.activatedRoute.snapshot.params['id'];
-    this.paginator$.subscribe(response => {
+    this.paginator$.subscribe((response) => {
       this.paginator = response;
     });
   }
@@ -62,19 +60,24 @@ export class ViewAttendancesParticipantComponent implements OnInit {
     this.loadCurrentDateDetailAttendance();
     this.loadDetailAttendances();
     this.checkAttendance();
-    console.log(this.currentDate)
+    console.log(this.currentDate);
   }
 
   loadDetailAttendancesWithOutPaginate() {
-    this.detailAttendanceHttpService.getByRegistration(this.detailPlanificationId).subscribe(response => {
-      this.detailAttendancesAll = response.data;
-    });
+    this.detailAttendanceHttpService
+      .getByRegistration(this.detailPlanificationId)
+      .subscribe((response) => {
+        this.detailAttendancesAll = response.data;
+      });
   }
   loadDetailAttendances(page: number = 1) {
-    this.detailAttendanceHttpService.getDetailAttendancesByParticipant(page, this.detailPlanificationId).subscribe(response => {
-      this.detailAttendances = response.data;
-      this.registrationId = response.data[0].detailAttendances[0].registration.id;
-    });
+    this.detailAttendanceHttpService
+      .getDetailAttendancesByParticipant(page, this.detailPlanificationId)
+      .subscribe((response) => {
+        this.detailAttendances = response.data;
+        this.registrationId =
+          response.data[0].detailAttendances[0].registration.id;
+      });
   }
 
   paginate(event: any) {
@@ -83,57 +86,64 @@ export class ViewAttendancesParticipantComponent implements OnInit {
   }
 
   async getDetailAttendanceCurrentDay() {
-    this.detailAttendancesAll.forEach(async detailAttendance => {
-      if (detailAttendance.attendance?.registeredAt == this.currentAttendance.registeredAt) {
-        this.detailAttendanceToday = await detailAttendance
+    this.detailAttendancesAll.forEach(async (detailAttendance) => {
+      if (
+        detailAttendance.attendance?.registeredAt ==
+        this.currentAttendance.registeredAt
+      ) {
+        this.detailAttendanceToday = await detailAttendance;
       }
     });
 
-    await this.saveAttendance()
+    await this.saveAttendance();
   }
 
   loadCurrentDateDetailAttendance() {
-    this.detailAttendanceHttpService.getCurrentDateDetailAttendance(this.detailPlanificationId).subscribe(response => {
-      this.currentAttendance = response.data;
-      console.log(this.currentAttendance);
-    });
+    this.detailAttendanceHttpService
+      .getCurrentDateDetailAttendance(this.detailPlanificationId)
+      .subscribe((response) => {
+        this.currentAttendance = response.data;
+        console.log(this.currentAttendance);
+      });
   }
 
   saveAttendance() {
-    this.detailAttendancesAll.forEach(detailAttendance => {
-      if (detailAttendance.attendance?.registeredAt == this.currentAttendance.registeredAt) {
-        this.detailAttendanceToday = detailAttendance
+    this.detailAttendancesAll.forEach((detailAttendance) => {
+      if (
+        detailAttendance.attendance?.registeredAt ==
+        this.currentAttendance.registeredAt
+      ) {
+        this.detailAttendanceToday = detailAttendance;
       }
     });
-    console.log(this.detailAttendanceToday)
-    this.detailAttendanceHttpService.updateType(this.detailAttendanceToday.id, { registration: { id: this.registrationId },type: {id:104}}).subscribe(response => { });
-    this.loadDetailAttendances();
+    console.log(this.detailAttendanceToday);
+    // this.detailAttendanceHttpService.updateType(this.detailAttendanceToday.id, { registration: { id: this.registrationId },type: {id:104}}).subscribe(response => { });
+    // this.loadDetailAttendances();
   }
 
   checkAttendance() {
-    this.detailAttendancesAll.forEach(async detailAttendance => {
-      if (detailAttendance.attendance?.registeredAt == this.currentAttendance.registeredAt) {
+    this.detailAttendancesAll.forEach(async (detailAttendance) => {
+      if (
+        detailAttendance.attendance?.registeredAt ==
+        this.currentAttendance.registeredAt
+      ) {
         if (detailAttendance.type) {
           this.checkedAttendance = true;
-        }
-        else {
+        } else {
           this.checkedAttendance = false;
         }
       }
-    }
-    )
-  };
-   padTo2Digits(num: number) {
+    });
+  }
+  padTo2Digits(num: number) {
     return num.toString().padStart(2, '0');
   }
-   formatDate(date: Date) {
-    return (
-      [
-        date.getFullYear(),
-        this.padTo2Digits(date.getMonth() + 1),
-        this.padTo2Digits(date.getDate()),
-      ].join('-')
-    );
+  formatDate(date: Date) {
+    return [
+      date.getFullYear(),
+      this.padTo2Digits(date.getMonth() + 1),
+      this.padTo2Digits(date.getDate()),
+    ].join('-');
   }
   redirectCourse() {
     this.router.navigate(['/cecy/student/my-courses']);

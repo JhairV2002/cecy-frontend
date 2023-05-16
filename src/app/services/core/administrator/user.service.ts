@@ -11,25 +11,24 @@ import { User } from '@models/authentication';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = `${environment.api2}`;
+  private apiUrl = `${environment.api2}/users`;
   constructor(private http: HttpClient) {}
 
   private user = new BehaviorSubject<ServerResponse>({});
   public users$ = this.user.asObservable();
 
-
   getUsers() {
-    return this.http.get<User[]>(`${this.apiUrl}/users`);
+    return this.http.get<User[]>(`${this.apiUrl}`);
   }
 
-  createEdit(data: any, selectedUser: CreateCustomer) {
+  addEditUser(data: any, selectedUser: any) {
     if (!selectedUser) {
-      return this.http.post(`${this.apiUrl}/customers`, data);
+      return this.http.post(`${this.apiUrl}`, data);
     } else {
-      return this.http.put(`${this.apiUrl}/customers/${selectedUser.id}`, data);
+      return this.http.put(`${this.apiUrl}/${selectedUser.id}`, data);
     }
   }
   removeUser(userId: any) {
-    return this.http.delete(`${this.apiUrl}/customers/${userId}`);
+    return this.http.delete(`${this.apiUrl}/${userId}`);
   }
 }

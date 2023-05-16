@@ -11,14 +11,14 @@ import { KpiRegistrationManagementModel } from '@models/cecy';
 export class KpiRegistrationManagementComponent implements OnInit {
 
   kpiModel: KpiRegistrationManagementModel = new KpiRegistrationManagementModel();
-  @Input() data$;
+  @Input() data$: any;
   data: any[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.data$.subscribe(response => {
+    this.data$.subscribe((response: any) => {
       this.data = response.data;
       this.setKpi();
     });

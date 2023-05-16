@@ -302,7 +302,7 @@ export class TabsComponent implements OnInit, OnChanges {
     this.dialogForm = true;
     this.horarioSelect = null;
   }
-  deleteHorarioforOne(horario) {
+  deleteHorarioforOne(horario: any) {
     console.log(horario.id);
     this.courseService.deleteDetailPlan(horario.id).subscribe((data) => {
       console.log('Eliminando horario', data);
@@ -310,7 +310,7 @@ export class TabsComponent implements OnInit, OnChanges {
     });
   }
 
-  updateHorarioforOne(horario) {
+  updateHorarioforOne(horario: any) {
     this.dialogForm = true;
     this.horarioSelect = horario;
     console.log('Horario', horario);
@@ -379,13 +379,13 @@ export class TabsComponent implements OnInit, OnChanges {
     return this.formCourse.controls['abbreviation'];
   }
 
-  get targetGroupsField(): FormArray {
-    return this.formCourse.controls['targetGroups'] as FormArray;
-  }
+  // get targetGroupsField(): FormArray {
+  //   return this.formCourse.controls['targetGroups'] as FormArray;
+  // }
 
-  get participantTypeField(): FormArray {
-    return this.formCourse.controls['participantTypes'] as FormArray;
-  }
+  // get participantTypeField(): FormArray {
+  //   return this.formCourse.controls['participantTypes'] as FormArray;
+  // }
 
   get summaryField() {
     return this.formCourse.controls['summary'];
@@ -395,16 +395,16 @@ export class TabsComponent implements OnInit, OnChanges {
     return this.formCourse.controls['project'];
   }
 
-  get needsField(): FormArray {
-    return this.formCourse.controls['needs'] as FormArray;
-  }
+  // get needsField(): FormArray {
+  //   return this.formCourse.controls['needs'] as FormArray;
+  // }
 
   get idField() {
     return this.formCourse.controls['id'];
   }
-  get imageField() {
-    return this.formCourse.controls['image'];
-  }
+  // get imageField() {
+  //   return this.formCourse.controls['image'];
+  // }
 
   /* Curriculum design */
 

@@ -3,23 +3,37 @@ import { Subject, takeUntil } from 'rxjs';
 import { PaginatorModel, TopicModel } from '@models/cecy';
 import { MessageService } from '@services/core/message.service';
 import { TopicHttpService } from '@services/cecy/topic-http.service';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { Topic } from '@models/cecy-v1/topic.model';
 
 @Component({
   selector: 'app-topic-form',
   templateUrl: './topic-form.component.html',
-  styleUrls: ['./topic-form.component.scss']
+  styleUrls: ['./topic-form.component.scss'],
 })
 export class TopicFormComponent implements OnInit, OnDestroy {
   topics$ = this.topicHttpService.topics$;
   topic$ = this.topicHttpService.topic$;
   loaded$ = this.topicHttpService.loaded$;
   paginator$ = this.topicHttpService.paginator$;
-  idTopicEdit: TopicModel;
+  idTopicEdit: any;
   // topics: TopicModel[] = [];
-  topics: Topic[];
+  topics: Topic[] = [];
 
   selectedTopic: TopicModel = {};
   dialogForm: boolean = false; // optional
@@ -37,7 +51,7 @@ export class TopicFormComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private courseService: CourseService
   ) {
-    this.paginator$.subscribe(response => {
+    this.paginator$.subscribe((response) => {
       this.paginator = response;
     });
   }
@@ -60,14 +74,14 @@ export class TopicFormComponent implements OnInit, OnDestroy {
 
   editTopic(topic: TopicModel = {}) {
     if (topic.id !== undefined) {
-      this.newForm.reset(topic)
-      const nameChildrens = topic.children.map(x => x.description)
-      nameChildrens.forEach(e => {
-        this.addSubtopic(e)
-      })
-      this.idTopicEdit = topic
-      console.log(this.idTopicEdit)
-      this.dialogForm = true
+      // this.newForm.reset(topic);
+      // const nameChildrens = topic.children.map((x) => x.description);
+      // nameChildrens.forEach((e) => {
+      //   this.addSubtopic(e);
+      // });
+      // this.idTopicEdit = topic;
+      // console.log(this.idTopicEdit);
+      // this.dialogForm = true;
     }
   }
   addSubtopic(subtopic = '') {
@@ -96,24 +110,24 @@ export class TopicFormComponent implements OnInit, OnDestroy {
     //     this.progressBar = false;
     //   }
     // );
-    console.log('thats is send', topics)
-    this.courseService.saveTopics(this.courseId, topics).subscribe(
-      response => {
+    console.log('thats is send', topics);
+    this.courseService
+      .saveTopics(this.courseId, topics)
+      .subscribe((response) => {
         this.loadTopics();
-        console.log(response)
+        console.log(response);
         this.progressBar = false;
-      }
-    )
+      });
   }
 
   updateTopic(topic: TopicModel[]): void {
     this.progressBar = true;
     this.topicHttpService.updateTopics(topic, 1).subscribe(
-      response => {
+      (response) => {
         this.messageService.success(response);
         this.progressBar = false;
       },
-      error => {
+      (error) => {
         this.messageService.error(error);
         this.progressBar = false;
       }
@@ -121,7 +135,7 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log('topics', this.newForm.value)
+    console.log('topics', this.newForm.value);
     // if (this.newForm.valid) {
     //   const formDataChildren = []
     //   const data = []
@@ -148,23 +162,21 @@ export class TopicFormComponent implements OnInit, OnDestroy {
     // console.log('formulario',this.newForm.value)
 
     if (this.idTopicEdit) {
-      console.log('detro if',this.idTopicEdit)
-      this.courseService.deleteTopic(this.idTopicEdit.id).subscribe(
-        response=>{
-          this.loadTopics()
-        }
-      )
+      console.log('detro if', this.idTopicEdit);
+      this.courseService
+        .deleteTopic(this.idTopicEdit.id)
+        .subscribe((response) => {
+          this.loadTopics();
+        });
       this.storeTopic(this.newForm.value);
-      this.childrenField.clear()
-      this.newForm.reset()
+      this.childrenField.clear();
+      this.newForm.reset();
     } else {
-      this.storeTopic(this.newForm.value)
-      this.childrenField.clear()
-      this.newForm.reset()
+      this.storeTopic(this.newForm.value);
+      this.childrenField.clear();
+      this.newForm.reset();
     }
     this.dialogForm = false;
-
-
   }
 
   deleteTopicForm(index: number) {
@@ -185,12 +197,9 @@ export class TopicFormComponent implements OnInit, OnDestroy {
     //   }
     // );
 
-    this.courseService.getTopics(this.courseId).subscribe(
-      res => {
-        this.topics = res
-      }
-    )
-
+    this.courseService.getTopics(this.courseId).subscribe((res) => {
+      this.topics = res;
+    });
   }
 
   selectTopic(topic: TopicModel) {
@@ -214,32 +223,24 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   //       }
   //     });
   // }
-  deleteTopicById(topicId): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.courseService.deleteTopic(topicId).subscribe(
-            response=>{
-              this.loadTopics()
-            }
-          )
-          this.loadTopics()
-        }
-      });
+  deleteTopicById(topicId: any): void {
+    this.messageService.questionDelete({}).then((result) => {
+      if (result.isConfirmed) {
+        this.courseService.deleteTopic(topicId).subscribe((response) => {
+          this.loadTopics();
+        });
+        this.loadTopics();
+      }
+    });
   }
-  deleteSubTopicById(subtopicId): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.courseService.deleteSubTopic(subtopicId).subscribe(
-            response=>{
-              this.loadTopics()
-            }
-
-          )
-
-        }
-      });
+  deleteSubTopicById(subtopicId: any): void {
+    this.messageService.questionDelete({}).then((result) => {
+      if (result.isConfirmed) {
+        this.courseService.deleteSubTopic(subtopicId).subscribe((response) => {
+          this.loadTopics();
+        });
+      }
+    });
   }
 
   showForm() {
@@ -247,7 +248,7 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   }
 
   hideDialog() {
-    this.childrenField.clear()
+    this.childrenField.clear();
   }
 
   filter(event: any) {
@@ -272,5 +273,4 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   get childrenField(): FormArray {
     return this.newForm.controls['children'] as FormArray;
   }
-
 }

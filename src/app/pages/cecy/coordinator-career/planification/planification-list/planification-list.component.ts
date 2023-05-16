@@ -29,8 +29,8 @@ export class PlanificationListComponent implements OnInit {
   dialogForm: boolean = false;
   progressBarDelete: boolean = false;
   paginator: PaginatorModel = {};
-  courseId: number;
-  courseName: string;
+  courseId: number = 0;
+  courseName: string= '';
 
   constructor(
     private planificationHttpService: PlanificationHttpService,

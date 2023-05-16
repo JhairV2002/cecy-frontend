@@ -1,22 +1,27 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MenuItem} from "primeng/api";
-import {FormControl} from "@angular/forms";
-import {MessageService} from "@services/core";
-import {ColModel, PaginatorModel} from "@models/core";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { FormControl } from '@angular/forms';
+import { MessageService } from '@services/core';
+import { ColModel, PaginatorModel } from '@models/core';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
   @Input() cols: ColModel[] = [];
   @Input() records: any[] = [];
-  @Input() paginatorIn: PaginatorModel = {current_page: 1, per_page: 5, total: 0};
+  @Input() paginatorIn: PaginatorModel = {
+    current_page: 1,
+    per_page: 5,
+    total: 0,
+  };
   @Input() loading: boolean = false;
   @Output() selectedRecordOut: EventEmitter<any> = new EventEmitter<any>();
   @Output() displayModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() paginatorOut: EventEmitter<PaginatorModel> = new EventEmitter<PaginatorModel>();
+  @Output() paginatorOut: EventEmitter<PaginatorModel> =
+    new EventEmitter<PaginatorModel>();
   items: MenuItem[] = [];
   filter: FormControl;
   progressBarDelete: boolean = false;
@@ -26,9 +31,7 @@ export class SearchComponent implements OnInit {
     this.filter = new FormControl(null);
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   select(record: any) {
     this.selectedRecordOut.emit(record);

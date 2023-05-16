@@ -5,15 +5,12 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { CreateCustomer } from '@services/core/administrator/create.customer';
 import { CourseService } from '@services/cecy-v1/course.service';
 import { CatalogueModel } from '@models/cecy';
 import { ClassroomModel } from '@models/cecy-v1/classroom.model';
 import { MessageService } from '@services/core';
-import { PlanificationCourseInitial } from '@models/cecy-v1/course.model';
 import { ActivatedRoute } from '@angular/router';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
 
@@ -26,8 +23,8 @@ export class AddFormHorariosComponent implements OnInit, OnChanges {
   @Output() clickClose = new EventEmitter<boolean>();
   @Output() addUser = new EventEmitter<any>();
   @Input() dialogForm: boolean = true;
-  @Input() selectedUser: CreateCustomer = null;
-  @Input() courseDate: PlanificationCourseInitial;
+  @Input() selectedUser: any;
+  @Input() courseDate: any;
   @Input() horarioSelect: any;
 
   days: CatalogueModel[] = [];

@@ -11,10 +11,10 @@ import { CourseHttpService, DetailPlanificationHttpService, InstructorHttpServic
   styleUrls: ['./assignment-instructors-form.component.scss']
 })
 export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
-  sourceList: InstructorModel[];
-  targetList: InstructorModel[];
+  sourceList: InstructorModel[] = [];
+  targetList: InstructorModel[] = [];
   selectedInstructorsIds: number[] = [];
-  course: CourseModel;
+  course: any;
 
   private course$ = this.courseHttpService.course$;
   private subscriptions: Subscription[] = [];

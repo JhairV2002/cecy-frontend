@@ -42,13 +42,12 @@ constructor(
   private router: Router,
 ) {}
 
-ngOnInit(): void { 
+ngOnInit(): void {
   this.loadRegistration()
 }
 
 // DDRC-C:descargar requisitos
- downloadDocument(requirement:RequirementModel){
-  console.log(requirement.pivot.url)
+ downloadDocument(requirement:any){
   const link = document.createElement('a');
   link.setAttribute('target', '_blank');
   link.setAttribute('href', requirement.pivot.url);
@@ -80,14 +79,14 @@ isRequired(field: AbstractControl): boolean {
   return field.hasValidator(Validators.required);
 }
 
-downloadRequirement(pivot:PivotRequirementModel) {
-  
+downloadRequirement(pivot: any) {
+
   this.registrationHttpService.downloadRequirement(pivot.registration_id,pivot.id);
   }
 
 downloadFile(file: FileModel) {
   this.registrationHttpService.downloadFile(file);
-  } 
+  }
 
 loadFiles() {
   this.registrationHttpService.getFiles(1, this.paginatorFiles, this.filterFiles.value).subscribe(

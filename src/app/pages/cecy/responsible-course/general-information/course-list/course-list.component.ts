@@ -73,12 +73,12 @@ export class CourseListComponent implements OnInit {
       //this.allCourses = res;
     }); */
   }
-  editCourse(planification){
+  editCourse(planification: any){
     console.log(planification);
     this.router.navigate(['/cecy/responsible-course/course/edit', planification.id])
   }
 
-  createCourse(planification) {
+  createCourse(planification: any) {
     console.log(planification);
     this.router.navigate(['/cecy/responsible-course/course/add', planification.id])
   }

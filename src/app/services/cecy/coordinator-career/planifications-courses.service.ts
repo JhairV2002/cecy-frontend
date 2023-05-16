@@ -16,11 +16,11 @@ export class PlanificationsCoursesService {
     return this.http.get<PlanificationCourses[]>(`${this.apiUrl}`);
   }
 
-  getPlanificationById(id) {
+  getPlanificationById(id: number) {
     return this.http.get<PlanificationCourseInitial>(`${this.apiUrl}/${id}`);
   }
 
-  planificationById(id) {
+  planificationById(id : number) {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 

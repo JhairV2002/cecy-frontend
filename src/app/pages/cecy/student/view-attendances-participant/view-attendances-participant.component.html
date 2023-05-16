@@ -12,13 +12,13 @@
       </p-toolbar>
     <p-card>
         <h5 style="text-align: center;margin-top: 2%;"><b>Asistencias</b></h5>
-        <p-table 
+        <p-table
             styleClass="p-datatable-striped"
-            [value]="detailAttendances" 
+            [value]="detailAttendances"
             [responsive]="true"
             [columns]="cols"
             [loading]="(loaded$|async)!"
-            >      
+            >
             <ng-template pTemplate="header" let-columns>
                 <tr>
                 <th style="text-align: center;" *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -27,21 +27,21 @@
                 </th>
                 </tr>
             </ng-template>
-        
+
             <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-                <tr *ngIf="rowData['registeredAt'] != currentAttendance?.registeredAt!  || rowData['detailAttendances'][0].type?.name != null" [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+                <tr *ngIf="rowData['registeredAt'] != currentAttendance.registeredAt!  || rowData['detailAttendances'][0].type?.name != null" [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
                     <td  style="text-align: center;">
-                        <span >  
+                        <span >
                             {{rowData['registeredAt']}}
                         </span>
                     </td>
                     <td  style="text-align: center;">
-                        <span >    
+                        <span >
                             {{rowData['detailAttendances'][0].type?.name}}
                         </span>
                     </td>
                     <td  style="text-align: center;">
-                        <span >   
+                        <span >
                             {{rowData['duration']}} min
                         </span>
                     </td>
@@ -51,7 +51,7 @@
                         Asistencia del dia de hoy
                     </td>
                     <td style="text-align: center;">
-                        {{currentAttendance?.registeredAt!}}
+                        {{currentAttendance.registeredAt!}}
                     </td>
                     <td style="text-align: center;">
                         <button *ngIf="checkedAttendance" (click)="saveAttendance()" pButton type="button" label="Guardar asistencia" class="p-button-success">

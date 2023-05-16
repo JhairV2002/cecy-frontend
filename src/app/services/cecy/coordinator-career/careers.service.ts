@@ -18,7 +18,7 @@ export class CareersService {
     return this.http.get<Careers[]>(`${this.apiUrl}`);
   }
 
-  getPlanificationsCareers(id) {
+  getPlanificationsCareers(id: number) {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 }

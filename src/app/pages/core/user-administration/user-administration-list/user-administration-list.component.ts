@@ -6,7 +6,6 @@ import {
 } from '@services/core';
 import { ColModel, PaginatorModel, UserModel } from '@models/core';
 
-import { CreateCustomer } from '../../../../services/core/administrator/create.customer';
 import { UserService } from '../../../../services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
 import { User } from '@models/authentication';
@@ -21,11 +20,10 @@ export class UserAdministrationListComponent implements OnInit {
   loaded$ = this.userAdministrationHttpService.loaded$;
   paginator$ = this.userAdministrationHttpService.paginator$; */
 
-  selectedUsers: UserModel[] = [];
-  selectedUser: any;
+  selectedUser: any = null;
   cols: ColModel[];
   items: MenuItem[] = [];
-  dialogForm: boolean = false;
+  isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
@@ -100,21 +98,16 @@ export class UserAdministrationListComponent implements OnInit {
     });
   }
 
-  closeForm(state: boolean) {
-    this.dialogForm = state;
-  }
-
-  saveOrEditUser(newUser: CreateCustomer) {
-    console.log('Nuevo usuario', newUser);
-    this.getAllUSers();
-  }
-
-  editUser(user: CreateCustomer) {
-    this.dialogForm = true;
+  editUser(user: User) {
+    this.isVisible = true;
     this.selectedUser = user;
   }
 
-  deleteUser(user: CreateCustomer) {
+  closeForm(state: boolean) {
+    this.isVisible = state;
+  }
+
+  deleteUser(user: User) {
     this.messageService.questionDeleteUser({}).then((result) => {
       if (result.isConfirmed) {
         this.userService.removeUser(user.id).subscribe({
@@ -132,9 +125,14 @@ export class UserAdministrationListComponent implements OnInit {
     });
   }
 
-  hideModal(isClose: boolean) {
-    this.dialogForm = isClose;
-    console.log(isClose);
+  addUser(newUser: User) {
+    console.log('Nuevo usuario', newUser);
+    this.getAllUSers();
+  }
+
+  closeModal(state: boolean) {
+    console.log('STATE FORM', state);
+    this.isVisible = state;
   }
 
   setKpi() {
@@ -144,34 +142,14 @@ export class UserAdministrationListComponent implements OnInit {
     });
   }
 
-  // optional
-  showForm() {
-    this.dialogForm = true;
-    //this.selectUser = null
+  showForm(): void {
+    this.isVisible = true;
+    this.selectedUser = null;
   }
 
-  selectUser(user: CreateCustomer) {
-    this.selectedUser = user;
-    console.log(user);
-  }
-
-  deleteUsers(): void {
-    /* this.messageService.questionDelete({}).then((result) => {
-      if (result.isConfirmed) {
-        const ids = this.selectedUsers.map((element) => element.id);
-        this.progressBarDelete = true;
-        this.userAdministrationHttpService.deleteUsers(ids).subscribe(
-          (response) => {
-            this.progressBarDelete = false;
-            this.messageService.success(response);
-          },
-          (error) => {
-            this.progressBarDelete = false;
-            this.messageService.error(error);
-          }
-        );
-      }
-    }); */
+  selectUser(user: User) {
+    // this.selectedUser = user;
+    // console.log(user);
   }
 
   filter(event: any) {

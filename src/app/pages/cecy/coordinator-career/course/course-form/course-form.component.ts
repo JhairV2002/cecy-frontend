@@ -30,7 +30,7 @@ import { Teacher, PlanificationCourses } from '@models/cecy/coordinator-career';
 export class CourseFormComponent implements OnInit, OnChanges {
   @Input() selectedCareer: any;
   @Input() dialogForm: boolean = true;
-  @Input() selectedPlanificationCourse: PlanificationCourses = null;
+  @Input() selectedPlanificationCourse: any;
   @Output() clickClose = new EventEmitter<boolean>();
   @Output() addPlanification = new EventEmitter<any>();
   @Input() selectPlanification: any = null;
@@ -144,7 +144,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
     }
   }
 
-  deletePlanification(id) {
+  deletePlanification(id: number) {
     this.planificationsCoursesService
       .removePlanificationCourse(id)
       .subscribe((data) => {

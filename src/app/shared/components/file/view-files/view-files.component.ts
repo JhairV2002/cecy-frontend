@@ -29,7 +29,7 @@ export class ViewFilesComponent implements OnInit, OnDestroy {
   cols: ColModel[] = [];
   progressBarDelete: boolean = false;
   messageDelete: boolean = false;
-  timerMessageDelete: number = 0;
+  timerMessageDelete: any;
   filter: FormControl;
 
   constructor(

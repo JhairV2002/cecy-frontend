@@ -1,16 +1,31 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
-import { AuthorityModel, CourseModel, InstructorModel, PlanificationModel } from '@models/cecy';
-import { AuthorityHttpService, CourseHttpService, InstructorHttpService, PlanificationHttpService } from '@services/cecy';
+import {
+  AuthorityModel,
+  CourseModel,
+  InstructorModel,
+  PlanificationModel,
+} from '@models/cecy';
+import {
+  AuthorityHttpService,
+  CourseHttpService,
+  InstructorHttpService,
+  PlanificationHttpService,
+} from '@services/cecy';
 import { CoreHttpService, MessageService } from '@services/core';
 import { CareerModel } from '@models/core';
 
 @Component({
   selector: 'app-planification-form',
   templateUrl: './planification-form.component.html',
-  styleUrls: ['./planification-form.component.scss']
+  styleUrls: ['./planification-form.component.scss'],
 })
 export class PlanificationFormComponent implements OnInit {
   @Output() dialogForm = new EventEmitter<boolean>();
@@ -19,7 +34,7 @@ export class PlanificationFormComponent implements OnInit {
   private planification$ = this.planificationHttpService.planification$;
   public formPlanification: FormGroup = this.newFormPlanification;
   public progressBar: boolean = false;
-  public planificationId: number;
+  public planificationId: number = 0;
 
   // Foreign Key
   public cecyResponsibles: AuthorityModel[] = [];
@@ -29,12 +44,11 @@ export class PlanificationFormComponent implements OnInit {
     private planificationHttpService: PlanificationHttpService,
     private instructorHttpService: InstructorHttpService,
     private authorityHttpService: AuthorityHttpService,
-    public messageService: MessageService,
-
+    public messageService: MessageService
   ) {
     this.planification$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response);
 
         if (response.id !== undefined) {
@@ -53,12 +67,10 @@ export class PlanificationFormComponent implements OnInit {
   }
 
   loadCecyResponsibles() {
-    this.authorityHttpService
-      .catalogue()
-      .subscribe({
-        next: response => this.cecyResponsibles = response.data,
-        error: error => this.messageService.error(error)
-      });
+    this.authorityHttpService.catalogue().subscribe({
+      next: (response) => (this.cecyResponsibles = response.data),
+      error: (error) => this.messageService.error(error),
+    });
   }
 
   get newFormPlanification(): FormGroup {
@@ -82,19 +94,17 @@ export class PlanificationFormComponent implements OnInit {
 
     this.planificationHttpService
       .assignResponsibleCecy(planification.id!, planification)
-      .subscribe(
-        {
-          next: response => {
-            this.messageService.success(response);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          },
-          error: error => {
-            this.messageService.error(error);
-            this.progressBar = false;
-          }
-        }
-      );
+      .subscribe({
+        next: (response) => {
+          this.messageService.success(response);
+          this.progressBar = false;
+          this.dialogForm.emit(false);
+        },
+        error: (error) => {
+          this.messageService.error(error);
+          this.progressBar = false;
+        },
+      });
   }
 
   isRequired(field: AbstractControl): boolean {
@@ -125,5 +135,4 @@ export class PlanificationFormComponent implements OnInit {
   get observationsField() {
     return this.formPlanification.controls['observations'];
   }
-
 }

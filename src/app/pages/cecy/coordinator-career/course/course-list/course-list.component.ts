@@ -26,7 +26,7 @@ export class CourseListComponent implements OnInit {
   private unsubscribe$ = new Subject<void>();
 
   selectedCourses: CourseModel[] = [];
-  selectedCourse: CourseModel = {};
+  selectedCourse: any;
   cols: ColModel[];
   items: MenuItem[] = [];
   dialogForm: boolean = false;
@@ -37,7 +37,7 @@ export class CourseListComponent implements OnInit {
   careers: Careers[] = [];
   career: FormControl = new FormControl('');
   planificationCourses: any[] = [];
-  selectedPlanificationCourse: PlanificationCourses = null;
+  selectedPlanificationCourse: any;
   selectCareer: boolean = false;
   activeButton: boolean = false;
   selectPlanification: any = null;
@@ -104,7 +104,7 @@ export class CourseListComponent implements OnInit {
     setTimeout(() => (this.loading[0] = false), 1000);
   } */
 
-  onchange(event) {
+  onchange(event: any) {
     console.log(event.value);
     this.careersService.getPlanificationsCareers(event.value).subscribe({
       next: (data) => {
@@ -144,13 +144,15 @@ export class CourseListComponent implements OnInit {
       });
   }
 
-  addPlanification(newPlanification: any){
+  addPlanification(newPlanification: any) {
     console.log(
       'nueva planificacion',
       newPlanification.newPlanificationCourse.careerId
     );
     this.careersService
-      .getPlanificationsCareers(newPlanification.newPlanificationCourse.careerId)
+      .getPlanificationsCareers(
+        newPlanification.newPlanificationCourse.careerId
+      )
       .subscribe({
         next: (data) => {
           this.planificationCourses = data.planificationCourse;

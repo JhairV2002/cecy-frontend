@@ -15,14 +15,14 @@ import {FileModel, ImageModel, PaginatorModel} from "@models/core";
 export class AttendanceRecordsComponent implements OnInit {
 
   record: PhotographicRecordModel[] = [];
-  detailPlanificationId: number;
+  detailPlanificationId: any;
   id: FormControl = new FormControl('');
   public formRecords: FormGroup = this.newFormRecords;
   public progressBar: boolean = false;
 
   @Input() detailPlanification: DetailAttendanceModel = {};
   selectedPhotographicRecords: PhotographicRecordModel = {};
-  selectedPhotographicRecord: number;
+  selectedPhotographicRecord: number = 0 ;
   dialogForms: boolean = false; // optional
 
   constructor(
@@ -59,7 +59,7 @@ export class AttendanceRecordsComponent implements OnInit {
       this.formRecords.markAllAsTouched();
     }
   }
-  update(record: PhotographicRecordModel): void {
+  update(record: any): void {
     this.progressBar = true;
     this.photographicRecordHttpService.updatePhotographicRecord(this.detailPlanification.id, record).subscribe(
       response => {

@@ -26,8 +26,7 @@ export class TopbarComponent implements OnInit {
   visibleSidebar: boolean = false;
   showNav: boolean = true;
   items!: MenuItem[];
-  user: User | null = null
-
+  user: User | null = null;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 

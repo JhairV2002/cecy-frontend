@@ -1,4 +1,4 @@
-import {ImageModel} from "@models/core";
+import { ImageModel } from '@models/core';
 
 export interface PhotographicRecordModel {
   id?: number;
@@ -9,5 +9,5 @@ export interface PhotographicRecordModel {
   updatedAt?: Date;
 }
 export interface RecordModel extends PhotographicRecordModel {
-  detailPlanificationId: number;
+  detailPlanificationId?: number;
 }

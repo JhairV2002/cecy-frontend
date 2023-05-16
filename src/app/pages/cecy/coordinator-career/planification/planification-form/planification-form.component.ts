@@ -13,14 +13,14 @@ import { MessageService } from '@services/core';
 })
 export class PlanificationFormComponent implements OnInit {
   @Output() dialogForm = new EventEmitter<boolean>();
-  @Input() courseId: number;
+  @Input() courseId: number | undefined;
 
   private unsubscribe$ = new Subject<void>();
   private planification$ = this.planificationHttpService.planification$;
   public formPlanification: FormGroup = this.newFormPlanification;
   public progressBar: boolean = false;
-  public minDate: Date;
-  public maxDate: Date;
+  public minDate: Date | undefined;
+  public maxDate: Date | undefined;
 
   // Foreign Key
   public courseResponsibles: InstructorModel[] = [];

@@ -1,8 +1,8 @@
-import {Directive, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 // import {toOptionalLiteralArray} from '@angular/compiler/src/render3/partial/util';
 
 @Directive({
-  selector: '[appLabel]'
+  selector: '[appLabel]',
 })
 export class LabelDirective implements OnInit {
   private _touched: boolean = false;
@@ -59,7 +59,6 @@ export class LabelDirective implements OnInit {
 
   setIcon() {
     if (this._valid != undefined) {
-
       // this.renderer.addClass(this.i, 'pi');
 
       if (this._touched || this._dirty) {

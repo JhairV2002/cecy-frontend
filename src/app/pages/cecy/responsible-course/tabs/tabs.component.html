@@ -308,11 +308,11 @@
                         for="targetGroups"
                         appLabel
                         label="Grupo al que va dirigido"
-                        [required]="isRequired(targetGroupsField)"
+                        ></label>
+                        <!-- [required]="isRequired(targetGroupsField)"
                         [valid]="targetGroupsField.valid"
                         [touched]="targetGroupsField.touched"
-                        [dirty]="targetGroupsField.touched"
-                      ></label>
+                        [dirty]="targetGroupsField.touched" -->
                       <p-dropdown
                         id="targetGroups"
                         dataKey="id"
@@ -327,10 +327,10 @@
                       </p-dropdown>
                       <small
                         appErrorMessage
-                        [errors]="targetGroupsField.errors"
+                        >
+                        <!-- [errors]="targetGroupsField.errors"
                         [touched]="targetGroupsField.touched"
-                        [dirty]="targetGroupsField.dirty"
-                      >
+                        [dirty]="targetGroupsField.dirty" -->
                       </small>
                     </div>
                     <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
@@ -338,11 +338,11 @@
                         for="participantTypes"
                         appLabel
                         label="Tipo de participante"
-                        [required]="isRequired(participantTypeField)"
+                        ></label>
+                        <!-- [required]="isRequired(participantTypeField)"
                         [valid]="participantTypeField.valid"
                         [touched]="participantTypeField.touched"
-                        [dirty]="participantTypeField.touched"
-                      ></label>
+                        [dirty]="participantTypeField.touched" -->
                       <p-dropdown
                         id="participantTypes"
                         dataKey="id"
@@ -357,10 +357,10 @@
                       </p-dropdown>
                       <small
                         appErrorMessage
-                        [errors]="participantTypeField.errors"
+                        >
+                        <!-- [errors]="participantTypeField.errors"
                         [touched]="participantTypeField.touched"
-                        [dirty]="participantTypeField.dirty"
-                      >
+                        [dirty]="participantTypeField.dirty" -->
                       </small>
                     </div>
                   </div>

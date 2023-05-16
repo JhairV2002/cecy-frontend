@@ -120,11 +120,10 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((user: any) =>{
+    this.authService.getProfile().subscribe((user: any) => {
       console.log('SEDEIBAR USER', user[0]);
-      this.user = user[0]
-
-    })
+      this.user = user[0];
+    });
   }
 
   showSubMenu(id: number = 0) {

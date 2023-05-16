@@ -26,7 +26,7 @@ export class CourseService {
     return this.http.post<CourseModel>(`${this.apiUrl}`, course);
   }
 
-  public update(id, course: any) {
+  public update(id: number, course: any) {
     return this.http.put<any>(this.apiUrl + '/' + id, course);
   }
 
@@ -72,7 +72,7 @@ export class CourseService {
     return this.http.get<GeneralInformation>(this.apiUrl + '/' + id);
   }
 
-  public setGeneralInformation(id: number, generalInformation) {
+  public setGeneralInformation(id: number, generalInformation: any) {
     return this.http.put(this.apiUrl + '/' + id, generalInformation);
   }
 
@@ -80,13 +80,13 @@ export class CourseService {
     return this.http.get<CurricularDesign>(this.apiUrl + '/' + id);
   }
 
-  public setCurricularDesign(id: number, CurricularDesign) {
+  public setCurricularDesign(id: number, CurricularDesign: any) {
     return this.http.put(this.apiUrl + '/' + id, CurricularDesign);
   }
 
   // detail plan
 
-  public getPlanId(courseCode): Observable<number> {
+  public getPlanId(courseCode: any): Observable<number> {
     return this.http.get<number>(this.apiUrl + '/code/plan/' + courseCode);
   }
 
@@ -108,14 +108,14 @@ export class CourseService {
     return this.http.get<DetailPlanModel>(this.apiUrl + '/detailPlan/' + id);
   }
 
-  updateDetailPlan(detailPlan) {
+  updateDetailPlan(detailPlan: any) {
     return this.http.put(
       this.apiUrl + '/detailPlan/' + detailPlan.id,
       detailPlan
     );
   }
 
-  saveEditDetailPlan(detailPlan, horarioSelect: any) {
+  saveEditDetailPlan(detailPlan: any, horarioSelect: any) {
     if (!horarioSelect) {
       return this.http.post(this.apiUrl + '/detailPlan/save', detailPlan);
     } else {
@@ -147,11 +147,11 @@ export class CourseService {
     );
   }
 
-  deleteTopic(topicId) {
+  deleteTopic(topicId: any) {
     return this.http.delete(this.apiUrl + '/topics/' + topicId);
   }
 
-  deleteSubTopic(subtopicId) {
+  deleteSubTopic(subtopicId: any) {
     return this.http.delete(this.apiUrl + '/topics/sub/' + subtopicId);
   }
 }

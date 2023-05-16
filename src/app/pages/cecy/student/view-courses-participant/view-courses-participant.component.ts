@@ -40,7 +40,7 @@ export class ViewCoursesParticipantComponent implements OnInit {
   dialogForm: boolean = false; // optional
   progressBarDelete: boolean = false;
   paginator: PaginatorModel = {};
-  rowData: number;
+  rowData: number = 0;
   items: MenuItem[] = []; // optional
 
   selectedParticipantCourse: RegistrationModel = {};
@@ -63,7 +63,7 @@ export class ViewCoursesParticipantComponent implements OnInit {
           icon: 'pi pi-book',
           command: () => {
             this.loadRegistrationGrade(this.registration)
-  
+
           }
         }
       ];
@@ -71,7 +71,7 @@ export class ViewCoursesParticipantComponent implements OnInit {
   ngOnInit(): void {
     this.loadRegistration();
   }
-  select(valor) {
+  select(valor: any) {
     this.registration = valor;
    }
   loadRegistration(page: number = 1) {

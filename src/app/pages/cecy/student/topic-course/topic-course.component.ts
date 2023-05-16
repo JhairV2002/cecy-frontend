@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {TopicHttpService} from "@services/cecy";
-import {TopicModel} from "@models/cecy";
-import {FileModel, PaginatorModel} from "@models/core";
-import {FormControl} from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
+import { TopicHttpService } from '@services/cecy';
+import { TopicModel } from '@models/cecy';
+import { FileModel, PaginatorModel } from '@models/core';
+import { FormControl } from '@angular/forms';
 import { CoreHttpService } from '@services/core';
 
 @Component({
   selector: 'app-topic-course',
   templateUrl: './topic-course.component.html',
-  styleUrls: ['./topic-course.component.scss']
+  styleUrls: ['./topic-course.component.scss'],
 })
 export class TopicCourseComponent implements OnInit {
-
-  courseId: number;
+  courseId: number = 0;
   topics: TopicModel[] = [];
   cols: any[];
 
@@ -21,7 +20,11 @@ export class TopicCourseComponent implements OnInit {
 
   public files: FileModel[] = [];
   public pdf: FileModel = {};
-  public paginatorFiles: PaginatorModel = { current_page: 1, per_page: 15, total: 0 };
+  public paginatorFiles: PaginatorModel = {
+    current_page: 1,
+    per_page: 15,
+    total: 0,
+  };
   public filterFiles: FormControl = new FormControl();
   public displayModalFiles: boolean = false;
   public loadingUploadFiles: boolean = false;
@@ -31,7 +34,7 @@ export class TopicCourseComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private topicHttpService: TopicHttpService,
     public coreHttpService: CoreHttpService,
-    private router: Router,
+    private router: Router
   ) {
     this.courseId = this.activatedRouter.snapshot.params['id'];
     this.cols = [
@@ -46,31 +49,28 @@ export class TopicCourseComponent implements OnInit {
   }
   loadTopics(page: number = 1) {
     console.log(this.courseId);
-    this.topicHttpService.getTopics(page, '1', this.courseId).subscribe(
-      response => {
+    this.topicHttpService
+      .getTopics(page, '1', this.courseId)
+      .subscribe((response) => {
         // console.log(response.data);
-        this.topics =  response.data;
+        this.topics = response.data;
         // console.log(this.newForm.value)
-      }
-    );
+      });
   }
-  loadFiles(id:number) {
+  loadFiles(id: number) {
     // this.topicId =  this.authService.user.id
     //console.log(this.topicId)
-    this.topicHttpService.getFiles(id,this.paginatorFiles, this.filterFiles.value).subscribe(
-      (response) => {
+    this.topicHttpService
+      .getFiles(id, this.paginatorFiles, this.filterFiles.value)
+      .subscribe((response) => {
         this.files = response.data;
         console.log(this.files);
-      }
-    )
+      });
   }
   downloadFile(file: FileModel) {
-      this.coreHttpService.downloadFile(file);
-      } 
-      redirectCourse() {
-        this.router.navigate(['/cecy/student/my-courses']);
-      }
-    
+    this.coreHttpService.downloadFile(file);
   }
-
-
+  redirectCourse() {
+    this.router.navigate(['/cecy/student/my-courses']);
+  }
+}

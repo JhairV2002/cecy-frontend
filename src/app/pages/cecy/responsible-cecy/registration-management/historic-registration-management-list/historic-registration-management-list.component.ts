@@ -14,7 +14,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./historic-registration-management-list.component.scss']
 })
 export class HistoricRegistrationManagementListComponent implements OnInit {
-  
+
 /*DDRC-C: observables */
   participants$ = this.detailPlanificationHttpService.participants$;
   participant$ = this.detailPlanificationHttpService.participant$;
@@ -24,7 +24,7 @@ export class HistoricRegistrationManagementListComponent implements OnInit {
   schoolPeriods: SchoolPeriodModel[] = [];
   selectedSchoolPeriod: SchoolPeriodModel = {}; //for future schoolPeriods
   selectedPlanifications: PlanificationModel[] = [];
-  selectedPlanification: PlanificationModel;
+  selectedPlanification: any;
   selectedParticipants: ParticipantModel[] = [];
   selectedParticipant: ParticipantModel = {};
   selectedRegisteredParticipants: ParticipantModel[] = [];
@@ -32,16 +32,16 @@ export class HistoricRegistrationManagementListComponent implements OnInit {
   items: MenuItem[] = [];
   dialogForm: boolean = false;
   dialogForm1: boolean = false;
-  Action: string;
+  Action: string = '';
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
   planificationList: any[] = [];
   customPlanificationList: any = {ids:[],observations:''};
-  
+
   /*DDRC-C: route variables */
   detailPlanificationID=this.route.snapshot.params['IDDT'];
-  idDetailPlanification:number;
+  idDetailPlanification:number = 0;
 
   constructor(private detailPlanificationHttpService: DetailPlanificationHttpService,
     private registrationHttpService: RegistrationHttpService,
@@ -71,7 +71,7 @@ export class HistoricRegistrationManagementListComponent implements OnInit {
     this.loadPlanifications();
   }
 
-  download() { 
+  download() {
     this.registrationHttpService.downloadReportRecordCompetitors(this.idDetailPlanification);
   }
 
@@ -89,8 +89,8 @@ export class HistoricRegistrationManagementListComponent implements OnInit {
     // DDRC-C: Obtiene las planificaciones asignadas al responsable del cecy y muestra los detalles de planificacion
     this.planificationHttpService.getPreviousPlanifications().subscribe(response => {
       this.selectedPlanifications = response.data;
-      response.data.forEach(planification => {
-        planification.detailPlanifications.forEach(detailPlanification => {
+      response.data.forEach((planification: any) => {
+        planification.detailPlanifications.forEach((detailPlanification: any) => {
           let custom: any = {};
           custom.id = detailPlanification.id;
           custom.cpw = `${planification.period?.name}:${planification.course?.name}-> ${detailPlanification.workday?.name} "${detailPlanification.parallel?.name}"`;
@@ -110,11 +110,11 @@ export class HistoricRegistrationManagementListComponent implements OnInit {
       }
     });
   }
- 
+
   goToRegistrationForm(registration: RegistrationModel = {}, ){
     this.router.navigate([`/cecy/responsible-cecy/historic-registration/${registration.id}`])
   }
-  
+
   goToRegistrations(){
     this.router.navigate([`/cecy/responsible-cecy/registrations`])
   }

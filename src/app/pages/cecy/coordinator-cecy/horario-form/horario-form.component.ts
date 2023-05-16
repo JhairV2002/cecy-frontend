@@ -25,8 +25,8 @@ export class HorarioFormComponent implements OnInit {
   @Output() clickClose = new EventEmitter<boolean>();
   @Output() addUser = new EventEmitter<any>();
   @Input() dialogForm: boolean = true;
-  @Input() selectedUser: CreateCustomer = null;
-  @Input() courseDate: PlanificationCourseInitial;
+  @Input() selectedUser: any;
+  @Input() courseDate: any;
   @Input() horarioSelect: any;
 
   days: CatalogueModel[] = [];

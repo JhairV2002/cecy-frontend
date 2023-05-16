@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
 import { CourseModel, InstructorModel } from '@models/cecy';
@@ -10,19 +16,23 @@ import { CareerModel, FileModel, PaginatorModel } from '@models/core';
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
-  styleUrls: ['./course-form.component.scss']
+  styleUrls: ['./course-form.component.scss'],
 })
 export class CourseFormComponent implements OnInit {
   @Output() dialogForm = new EventEmitter<boolean>();
-  @Input() career : CareerModel;
-  @Input() id : number;
-  
+  @Input() career: any;
+  @Input() id: number = 0;
+
   private unsubscribe$ = new Subject<void>();
   private selectedCourse$ = this.courseHttpService.seletedCourse$;
   public formCourse: FormGroup = this.newFormCourse;
   public progressBar: boolean = false;
   public files: FileModel[] = [];
-  public paginatorFiles: PaginatorModel = { current_page: 1, per_page: 15, total: 0 };
+  public paginatorFiles: PaginatorModel = {
+    current_page: 1,
+    per_page: 15,
+    total: 0,
+  };
   public filterFiles: FormControl = new FormControl();
   public displayModalFiles: boolean = false;
   public loadingUploadFiles: boolean = false;
@@ -35,12 +45,11 @@ export class CourseFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private courseHttpService: CourseHttpService,
     private instructorHttpService: InstructorHttpService,
-    public messageService: MessageService,
+    public messageService: MessageService
   ) {
-
     this.selectedCourse$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response);
 
         if (response.id !== undefined) {
@@ -49,8 +58,7 @@ export class CourseFormComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -82,43 +90,36 @@ export class CourseFormComponent implements OnInit {
     this.progressBar = true;
     this.courseHttpService
       .storeCourseByCareer(this.career.id, course)
-      .subscribe(
-        {
-          next: response => {
-            this.messageService.success(response);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          },
-          error: error => {
-            this.messageService.error(error);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          }
-        }
-      );
+      .subscribe({
+        next: (response) => {
+          this.messageService.success(response);
+          this.progressBar = false;
+          this.dialogForm.emit(false);
+        },
+        error: (error) => {
+          this.messageService.error(error);
+          this.progressBar = false;
+          this.dialogForm.emit(false);
+        },
+      });
   }
 
   updateCourse(course: CourseModel): void {
     this.progressBar = true;
     console.log(course);
 
-    this.courseHttpService
-      .approveCourse(course.id!, course)
-      .subscribe(
-        {
-          next: response => {
-            this.messageService.success(response);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          },
-          error: error => {
-            this.messageService.error(error);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-
-          }
-        }
-      );
+    this.courseHttpService.approveCourse(course.id!, course).subscribe({
+      next: (response) => {
+        this.messageService.success(response);
+        this.progressBar = false;
+        this.dialogForm.emit(false);
+      },
+      error: (error) => {
+        this.messageService.error(error);
+        this.progressBar = false;
+        this.dialogForm.emit(false);
+      },
+    });
   }
 
   isRequired(field: AbstractControl): boolean {
@@ -126,11 +127,11 @@ export class CourseFormComponent implements OnInit {
   }
 
   loadFiles() {
-    this.courseHttpService.getFiles(this.idField.value, this.paginatorFiles, this.filterFiles.value).subscribe(
-      (response) => {
+    this.courseHttpService
+      .getFiles(this.idField.value, this.paginatorFiles, this.filterFiles.value)
+      .subscribe((response) => {
         this.files = response.data;
-      }
-    )
+      });
   }
 
   showModalFiles() {
@@ -144,9 +145,11 @@ export class CourseFormComponent implements OnInit {
       formData.append('files[]', file);
     }
 
-    this.courseHttpService.uploadFiles(this.idField.value, formData).subscribe(response => {
-      this.messageService.success(response);
-    });
+    this.courseHttpService
+      .uploadFiles(this.idField.value, formData)
+      .subscribe((response) => {
+        this.messageService.success(response);
+      });
   }
 
   uploadOtherFile(event: any) {
@@ -155,7 +158,7 @@ export class CourseFormComponent implements OnInit {
       formData.append('file', file);
     }
 
-    this.courseHttpService.uploadOtherFile(formData).subscribe(response => {
+    this.courseHttpService.uploadOtherFile(formData).subscribe((response) => {
       this.messageService.success(response);
     });
   }
@@ -175,11 +178,11 @@ export class CourseFormComponent implements OnInit {
   get approvedAtField() {
     return this.formCourse.controls['approvedAt'];
   }
-  
+
   get expiredAtField() {
     return this.formCourse.controls['expiredAt'];
   }
-  
+
   get codeField() {
     return this.formCourse.controls['code'];
   }

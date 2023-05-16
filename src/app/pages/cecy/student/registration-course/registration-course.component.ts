@@ -33,7 +33,7 @@ export class RegistrationCourseComponent implements OnInit {
   public levelInstructions: CecyCatalogueModel[] = [];
   public typeParticipants: CecyCatalogueModel[] = [];
 
-  detailPlanificationId: number;
+  detailPlanificationId: number = 0;
   requirements: any[]=[];
 
 

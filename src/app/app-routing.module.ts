@@ -27,11 +27,11 @@ const routes: Routes = [
         './pages/core/user-administration/user-administration.module'
       ).then((m) => m.UserAdministrationModule),
   },
-  // {
-  //   path: 'cecy',
-  //   loadChildren: () =>
-  //     import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
-  // },
+  {
+    path: 'cecy',
+    loadChildren: () =>
+      import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
+  },
   // {
   //   path: 'cecy/guest',
   //   loadChildren: () =>

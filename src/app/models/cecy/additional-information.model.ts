@@ -1,4 +1,4 @@
-import { CatalogueModel, RegistrationModel } from "@models/cecy";
+import { CatalogueModel, RegistrationModel } from '@models/cecy';
 
 export interface AdditionalInformationModel {
   id?: number;
@@ -17,6 +17,6 @@ export interface AdditionalInformationModel {
   createdAt?: Date;
   updatedAt?: Date;
 }
-export interface RegistrationStudentModel extends AdditionalInformationModel{
-  detailPlanificationId: number;
+export interface RegistrationStudentModel extends AdditionalInformationModel {
+  detailPlanificationId?: number;
 }

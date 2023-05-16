@@ -1,8 +1,8 @@
 <app-form-add-user
-  [dialogForm]="dialogForm"
-  (clickClose)="hideModal($event)"
-  (addUser)="saveOrEditUser($event)"
+  [showModal]="isVisible"
   [selectedUser]="selectedUser"
+  (clickClose)="closeModal($event)"
+  (addUser)="addUser($event)"
 ></app-form-add-user>
 <div class="container">
   <p-toolbar>
@@ -32,7 +32,7 @@
           {{ users ? users.length : 0 }}
         </small>
       </p-chip>
-      <button
+      <!-- <button
         *ngIf="selectedUsers?.length"
         pButton
         pRipple
@@ -40,8 +40,8 @@
         label="Eliminar seleccionados"
         class="p-button-danger p-button-rounded ml-2"
         icon="pi pi-trash"
-        (click)="deleteUsers()"
-      ></button>
+        ></button> -->
+        <!-- (click)="deleteUsers()" -->
       <app-progress-bar
         *ngIf="progressBarDelete"
         [message]="messageService.progressBarDelete"

@@ -36,11 +36,11 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
 
           const { user } = response;
 
-          this.usernameField.patchValue(user.username);
-          this.nameField.patchValue(user.name);
-          this.lastnameField.patchValue(user.lastname);
-          this.emailField.patchValue(user.email);
-          this.phoneField.patchValue(user.phone);
+          // this.usernameField.patchValue(user.username);
+          // this.nameField.patchValue(user.name);
+          // this.lastnameField.patchValue(user.lastname);
+          // this.emailField.patchValue(user.email);
+          // this.phoneField.patchValue(user.phone);
         }
       });
   }
@@ -176,5 +176,5 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
   get phoneField() {
     return this.formInstructor.controls['phone'];
   }
-  
+
 }

@@ -1,6 +1,6 @@
 <p-dialog
   header="{{ titleModal }} usuario"
-  [(visible)]="dialogForm"
+  [(visible)]="showModal"
   [maximizable]="true"
   [style]="{ width: '490px' }"
   [modal]="true"
@@ -9,9 +9,7 @@
   <div class="container">
     <div class="p-fluid">
       <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
-        <!--name & lastname-->
         <div class="formgrid grid justify-content-center">
-          <!--name-->
           <div class="field col-12">
             <label
               for="name"
@@ -26,7 +24,7 @@
             <input
               pInputText
               id="name"
-              formControlName="name"
+              formControlName="names"
               class="uppercase"
             />
             <small
@@ -51,8 +49,8 @@
             </label>
             <input
               pInputText
-              id="lastname"
-              formControlName="lastname"
+              id="lastnames"
+              formControlName="lastnames"
               class="uppercase"
             />
             <small
@@ -85,77 +83,67 @@
               [dirty]="phoneField.dirty"
             ></small>
           </div>
-          <div formGroupName="user">
-            <!-- Role -->
-            <div class="field col-12">
-              <label for="role" appLabel label="Rol:"></label>
-              <!-- [required]="isRequired(roleField)" -->
-              <p-dropdown
-                placeholder="Seleccione un rol"
-                [options]="roles"
-                optionLabel="name"
-                optionValue="name"
-                [showClear]="true"
-                [style]="{ width: '100%' }"
-                formControlName="role"
-              ></p-dropdown>
-              <!-- <select
-                [style]="{ width: '100%' }"
-                class="form-select"
-                (onchange)="onchange($event)"
-                formControlName="role"
-              >
-                <option value="" disabled>---- Seleccione un Rol ----</option>
-                <option *ngFor="let rol of roles" [ngValue]="rol.name">
-                  {{ rol.name }}
-                </option>
-              </select> -->
-            </div>
-            <!--email-->
-            <div class="field col-12">
-              <label
-                for="email"
-                appLabel
-                label="Correo electrónico institucional:"
-              >
-                <!-- [required]="isRequired(emailField)"
+          <div class="field col-12">
+            <label
+              for="role"
+              appLabel
+              label="Rol:"
+              [required]="isRequired(roleField)"
+            ></label>
+            <p-dropdown
+              placeholder="Seleccione un rol"
+              [options]="roles"
+              optionLabel="name"
+              optionValue="id"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              formControlName="roleId"
+            ></p-dropdown>
+          </div>
+          <div class="field col-12">
+            <label
+              for="email"
+              appLabel
+              label="Correo electrónico institucional:"
+              [required]="isRequired(emailField)"
               [valid]="emailField.valid"
               [touched]="emailField.touched"
-              [dirty]="emailField.dirty" -->
-              </label>
-              <input
-                pInputText
-                id="email"
-                formControlName="email"
-                class="lowercase"
-              />
-              <small appErrorMessage>
-                <!--  [errors]="emailField.errors"
-               [touched]="emailField.touched"
-               [dirty]="emailField.dirty" -->
-              </small>
-            </div>
+              [dirty]="emailField.dirty"
+            >
+            </label>
+            <input
+              pInputText
+              id="email"
+              formControlName="email"
+              class="lowercase"
+            />
+            <!-- <small appErrorMessage>
+              [errors]="emailField.errors" [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            </small> -->
+          </div>
+          <div class="field col-12" *ngIf="!isEdit">
+            <label
+              for="password"
+              appLabel
+              label="Contraseña:"
+              [required]="isRequired(passwordField)"
+            ></label>
 
-            <!-- password -->
-            <div class="field col-12">
-              <label for="password" appLabel label="Contraseña:"></label>
-              <!-- [required]="isRequired(passwordField)" -->
-              <p-password
-                id="password"
-                formControlName="password"
-                mediumLabel="Nivel medio"
-                promptLabel="Escriba su contraseña"
-                strongLabel="Fuerte"
-                [toggleMask]="true"
-                weakLabel="Débil"
-              >
-              </p-password>
-              <small appErrorMessage>
-                <!--  [errors]="passwordField.errors"
-               [touched]="passwordField.touched"
-               [dirty]="passwordField.dirty" -->
-              </small>
-            </div>
+            <p-password
+              id="password"
+              formControlName="password"
+              mediumLabel="Nivel medio"
+              promptLabel="Escriba su contraseña"
+              strongLabel="Fuerte"
+              [toggleMask]="true"
+              weakLabel="Débil"
+            >
+            </p-password>
+            <!-- <small appErrorMessage>
+              [errors]="passwordField.errors" [touched]="passwordField.touched"
+              [dirty]="passwordField.dirty"
+            </small> -->
           </div>
         </div>
 
@@ -175,7 +163,7 @@
         </div>
 
         <!--progressBar-->
-        <div class="field" *ngIf="progressBar">
+        <div class="mt-4" *ngIf="progressBar">
           <p-progressBar mode="indeterminate"></p-progressBar>
         </div>
       </form>

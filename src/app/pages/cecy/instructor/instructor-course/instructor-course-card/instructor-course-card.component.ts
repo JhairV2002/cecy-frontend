@@ -1,38 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseModel, DetailPlanificationModel, PlanificationModel, SchoolPeriodModel, TopicModel } from "@models/cecy";
-import { ActivatedRoute, Router } from "@angular/router";
+import {
+  CourseModel,
+  DetailPlanificationModel,
+  PlanificationModel,
+  SchoolPeriodModel,
+  TopicModel,
+} from '@models/cecy';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   AttendanceHttpService,
   CourseHttpService,
   DetailPlanificationHttpService,
   SchoolPeriodHttpService,
-  TopicHttpService
+  TopicHttpService,
 } from '@services/cecy';
 import { MenuItem } from 'primeng/api';
-import { PaginatorModel } from "@models/core";
-import { FormControl } from "@angular/forms";
+import { PaginatorModel } from '@models/core';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-instructor-course-card',
   templateUrl: './instructor-course-card.component.html',
-  styleUrls: ['./instructor-course-card.component.scss']
+  styleUrls: ['./instructor-course-card.component.scss'],
 })
 export class InstructorCourseCardComponent implements OnInit {
-
   detailPlanifications: DetailPlanificationModel[] = [];
-  detailPlanifications$ = this.detailPlanificationHttpService.detailPlanifications$;
+  detailPlanifications$ =
+    this.detailPlanificationHttpService.detailPlanifications$;
 
   selectedTopic: TopicModel = {};
-  selectedCourse: number;
+  selectedCourse: number = 0;
   selectedCourses: CourseModel[] = [];
 
   dialogForm: boolean = false; // optional
   items: MenuItem[] = []; // optional
-  detailPlanificationId: number
+  detailPlanificationId: number = 0;
   idCourse = this.route.snapshot.params['id'];
 
   search: FormControl = new FormControl('');
   cols: any[];
-  course: number
+  course: number = 0;
 
   periods: SchoolPeriodModel[] = [];
   selectedPeriods: string = '';
@@ -41,7 +47,6 @@ export class InstructorCourseCardComponent implements OnInit {
   rowData: any;
   courseId: any;
 
-
   constructor(
     private courseHttpService: CourseHttpService,
     private detailPlanificationHttpService: DetailPlanificationHttpService,
@@ -49,24 +54,23 @@ export class InstructorCourseCardComponent implements OnInit {
     private topicHttpService: TopicHttpService,
     private schoolPeriodHttpService: SchoolPeriodHttpService,
     private attendanceHttpService: AttendanceHttpService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute
+  ) {
     this.items = [
       {
         label: 'Registro fotografico',
         icon: 'pi pi-camera',
         command: () => {
-          this.download(this.rowData)
-
-        }
+          this.download(this.rowData);
+        },
       },
       {
         label: 'Registro de Asistencias',
         icon: 'pi pi-user',
         //routerLink: ['/cecy/instructor/participant-course/'],
         command: () => {
-          this.download2(this.rowData)
-
-        }
+          this.download2(this.rowData);
+        },
       },
     ];
     this.cols = [
@@ -78,29 +82,35 @@ export class InstructorCourseCardComponent implements OnInit {
   ngOnInit(): void {
     this.loadCourses();
     this.getSchoolPeriods();
-
   }
-  select(valor) {
+  select(valor: any) {
     this.rowData = valor;
-   }
+  }
 
   loadCourses(page: number = 1) {
-    this.detailPlanifications$ = this.detailPlanificationHttpService.getInstructorByCourses(page,this.search.value);
-    this.detailPlanifications$.subscribe(response => {
+    this.detailPlanifications$ =
+      this.detailPlanificationHttpService.getInstructorByCourses(
+        page,
+        this.search.value
+      );
+    this.detailPlanifications$.subscribe((response) => {
       this.detailPlanifications = response.data;
       console.log(this.detailPlanifications);
     });
   }
   getSchoolPeriods() {
-    this.schoolPeriodHttpService.getSchoolPeriods().subscribe(response => {
+    this.schoolPeriodHttpService.getSchoolPeriods().subscribe((response) => {
       console.log(response.data);
-      this.periods = response.data
-    })
+      this.periods = response.data;
+    });
   }
-  redirectParticipants(detailPlanificationId: number) {
-    this.router.navigate(['/cecy/instructor/participant-course/', detailPlanificationId]);
+  redirectParticipants(detailPlanificationId: any) {
+    this.router.navigate([
+      '/cecy/instructor/participant-course/',
+      detailPlanificationId,
+    ]);
   }
-  redirectTopics(courseId: number) {
+  redirectTopics(courseId: any) {
     this.router.navigate(['/cecy/instructor/temari-courses/', courseId]);
   }
 
@@ -108,8 +118,8 @@ export class InstructorCourseCardComponent implements OnInit {
     this.selectedTopic = course;
   }
   download(course: number) {
-      this.attendanceHttpService.downloadPhotographicRecord(course);
-    console.log('descarga de datos ')
+    this.attendanceHttpService.downloadPhotographicRecord(course);
+    console.log('descarga de datos ');
   }
   download2(course: number) {
     this.attendanceHttpService.downloadatendanceEvaluation(course);

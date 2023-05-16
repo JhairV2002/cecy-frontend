@@ -18,7 +18,7 @@ import { CourseService } from '@services/cecy-v1/course.service';
 export class DetailPlanificationListComponent {
   @Output() dialog = new EventEmitter<boolean>();
 
-  selectedDetailPlan: number;
+  selectedDetailPlan: any;
 
   detailPlanifications: DetailPlanModel[] = [];
   loaded$ = this.detailPlanificationHttpService.loaded$;
@@ -36,7 +36,7 @@ export class DetailPlanificationListComponent {
   paginator: PaginatorModel = {};
   dialogHeader: string = '';
   courseId: any;
-  codeCourse: string;
+  codeCourse: string = '';
   selectedDetailPlanificationId: any;
 
   constructor(

@@ -11,17 +11,17 @@ import { InitialCourseKpiModel } from '@models/cecy';
 export class InitialCourseKpiComponent implements OnInit {
 
   kpiModel: InitialCourseKpiModel = new InitialCourseKpiModel();
-  @Input() data$;
+  //@Input() data$;
   data: any[] = [];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.data$.subscribe(response => {
-      this.data = response.data;
-      this.setKpi();
-    });
+    // this.data$.subscribe((response: any) => {
+    //   this.data = response.data;
+    //   this.setKpi();
+    // });
   }
 
   setKpi() {

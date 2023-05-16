@@ -84,7 +84,7 @@ export class PhotographicRecordHttpService {
       );
   }
 
-  updatePhotographicRecord(id: number, photographicRecord: PhotographicRecordModel): Observable<ServerResponse> {
+  updatePhotographicRecord(id: any, photographicRecord: any): Observable<ServerResponse> {
     const url = `${this.API_URL_PRIVATE}/${id}`;
 
     this.loaded.next(true);

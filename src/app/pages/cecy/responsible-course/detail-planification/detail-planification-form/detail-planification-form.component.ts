@@ -16,8 +16,8 @@ import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
   styleUrls: ['./detail-planification-form.component.scss']
 })
 export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
-  @Input() data: number;
-  @Input() planId: number;
+  @Input() data: any;
+  @Input() planId: any;
 
 
 
@@ -32,7 +32,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
   public classrooms: ClassroomModel[] = [];
   public parallels: CatalogueModel[] = [];
   public planification$ = this.planificationHttpService.planification$;
-  planificationId: number;
+  planificationId: number = 0;
 
 
   constructor(
@@ -135,7 +135,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  storeDetailPlanification(detailPlanification: DetailPlanModel): void {
+  storeDetailPlanification(detailPlanification: any): void {
     detailPlanification.classroomId = detailPlanification.classroom.id
     detailPlanification.dayId = detailPlanification.day.id
     detailPlanification.parallelId = detailPlanification.parallel.id
@@ -162,7 +162,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateDetailPlanification(detailPlanification: DetailPlanModel): void {
+  updateDetailPlanification(detailPlanification: any): void {
     this.progressBar = true;
     detailPlanification.classroomId = detailPlanification.classroom.id
     detailPlanification.dayId = detailPlanification.day.id

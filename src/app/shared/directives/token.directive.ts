@@ -1,19 +1,24 @@
-import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {PermissionModel, RoleModel, UserModel} from '@models/core';
-import {AuthService} from '@services/core/auth.service';
+import {
+  Directive,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
+import { PermissionModel, RoleModel, UserModel } from '@models/core';
+import { AuthService } from '@services/core/auth.service';
 
 @Directive({
-  selector: '[appToken]'
+  selector: '[appToken]',
 })
 export class TokenDirective implements OnInit {
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainerRef: ViewContainerRef,
+    private authService: AuthService
+  ) {}
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainerRef: ViewContainerRef, private authService: AuthService) {
-
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   @Input()
   set appToken(val: string) {

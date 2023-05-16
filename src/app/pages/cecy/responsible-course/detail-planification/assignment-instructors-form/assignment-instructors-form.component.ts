@@ -1,63 +1,80 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DetailPlanificationModel, InstructorModel } from '@models/cecy';
 import { MessageService } from '@services/core';
-import { DetailPlanificationHttpService, InstructorHttpService } from '@services/cecy';
+import {
+  DetailPlanificationHttpService,
+  InstructorHttpService,
+} from '@services/cecy';
 
 @Component({
   selector: 'app-assignment-instructors-form',
   templateUrl: './assignment-instructors-form.component.html',
-  styleUrls: ['./assignment-instructors-form.component.scss']
+  styleUrls: ['./assignment-instructors-form.component.scss'],
 })
 export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
-  sourceList: InstructorModel[];
-  targetList: InstructorModel[];
+  sourceList: InstructorModel[] = [];
+  targetList: InstructorModel[] = [];
   selectedInstructorsIds: number[] = [];
-  detailPlanification: DetailPlanificationModel;
+  detailPlanification: any;
 
-  private detailPlanification$ = this.detailPlanificationHttpService.detailPlanification$;
+  private detailPlanification$ =
+    this.detailPlanificationHttpService.detailPlanification$;
   private subscriptions: Subscription[] = [];
 
   public progressBar: boolean = false;
   @Output() dialogList = new EventEmitter<boolean>();
 
-  constructor(private instructorHttpService: InstructorHttpService,
+  constructor(
+    private instructorHttpService: InstructorHttpService,
     private messageService: MessageService,
-    private detailPlanificationHttpService: DetailPlanificationHttpService,
-  ) { }
+    private detailPlanificationHttpService: DetailPlanificationHttpService
+  ) {}
 
   ngOnInit() {
     this.loadDetailPlanification();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   loadDetailPlanification() {
     this.subscriptions.push(
-      this.detailPlanification$
-        .subscribe(response => {
-          this.detailPlanification = response;
-          console.log(this.detailPlanification)
-          this.loadInstructors();
-        }));
+      this.detailPlanification$.subscribe((response) => {
+        this.detailPlanification = response;
+        console.log(this.detailPlanification);
+        this.loadInstructors();
+      })
+    );
   }
 
   loadInstructors() {
-    this.subscriptions.push(this.instructorHttpService
-      .getAuthorizedInstructorsOfCourse(this.detailPlanification.planification.course.id)
-      .subscribe(response => {
-        this.sourceList = response.data;
-        console.log(response);
-      }));
+    this.subscriptions.push(
+      this.instructorHttpService
+        .getAuthorizedInstructorsOfCourse(
+          this.detailPlanification.planification.course.id
+        )
+        .subscribe((response) => {
+          this.sourceList = response.data;
+          console.log(response);
+        })
+    );
 
-    this.subscriptions.push(this.instructorHttpService
-      .getAssignedInstructors(this.detailPlanification.id)
-      .subscribe(response => {
-        this.targetList = response.data;
-      }));
+    this.subscriptions.push(
+      this.instructorHttpService
+        .getAssignedInstructors(this.detailPlanification.id)
+        .subscribe((response) => {
+          this.targetList = response.data;
+        })
+    );
   }
 
   onSubmit() {
@@ -69,18 +86,21 @@ export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.detailPlanificationHttpService
-        .assignInstructors(this.detailPlanification.id, this.instructorHttpService.mapInstructors(this.targetList))
+        .assignInstructors(
+          this.detailPlanification.id,
+          this.instructorHttpService.mapInstructors(this.targetList)
+        )
         .subscribe({
-          next: response => {
+          next: (response) => {
             this.messageService.success(response);
             this.progressBar = false;
             this.dialogList.emit(false);
           },
-          error: error => {
+          error: (error) => {
             this.messageService.error(error);
             this.progressBar = false;
-          }
-        }));
+          },
+        })
+    );
   }
-
 }

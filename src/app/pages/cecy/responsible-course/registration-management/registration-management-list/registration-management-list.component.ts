@@ -13,7 +13,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./registration-management-list.component.scss']
 })
 export class RegistrationManagementListComponent implements OnInit {
- 
+
 /*DDRC-C: observables */
 participants$ = this.detailPlanificationHttpService.participants$;
 participant$ = this.detailPlanificationHttpService.participant$;
@@ -23,7 +23,7 @@ paginator$ = this.detailPlanificationHttpService.paginator$;
 schoolPeriods: SchoolPeriodModel[] = [];
 selectedSchoolPeriod: SchoolPeriodModel = {}; //for future schoolPeriods
 selectedPlanifications: PlanificationModel[] = [];
-selectedPlanification: PlanificationModel;
+selectedPlanification: any;
 selectedParticipants: ParticipantModel[] = [];
 selectedParticipant: ParticipantModel = {};
 selectedRegisteredParticipants: ParticipantModel[] = [];
@@ -31,7 +31,7 @@ cols: any[];
 items: MenuItem[] = [];
 dialogForm: boolean = false;
 dialogForm1: boolean = false;
-Action: string;
+Action: string = '';
 progressBarDelete: boolean = false;
 search: FormControl = new FormControl('');
 paginator: PaginatorModel = {};
@@ -40,7 +40,7 @@ customPlanificationList: any = {ids:[],observations:''};
 ID=this.route.snapshot.params['IDDT'];
 
 /*DDRC-C: route variables */
-idDetailPlanification:number;
+idDetailPlanification:number = 0;
 
 constructor(private detailPlanificationHttpService: DetailPlanificationHttpService,
   private registrationHttpService: RegistrationHttpService,
@@ -75,7 +75,7 @@ ngOnInit(): void {
   this.loadPlanifications();
 }
 
-download() { 
+download() {
   this.registrationHttpService.downloadReportRecordCompetitors(this.idDetailPlanification);
 }
 
@@ -93,8 +93,8 @@ reloadRegistrations(event:any,page:number=1) {
 loadPlanifications() {
   this.planificationHttpService.getPlanificationsByPeriodState().subscribe(response => {
     this.selectedPlanifications = response.data;
-    response.data.forEach(planification => {
-      planification.detailPlanifications.forEach(detailPlanification => {
+    response.data.forEach((planification: any) => {
+      planification.detailPlanifications.forEach((detailPlanification: any) => {
         let custom: any = {};
         custom.id = detailPlanification.id;
         custom.cpw = `${planification.course?.name}-> ${detailPlanification.workday?.name} "${detailPlanification.parallel?.name}"`;

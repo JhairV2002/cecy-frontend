@@ -18,10 +18,12 @@ export class SearchCourseComponent implements OnInit {
     this.filter();
   }
   filter() {
-    this.search.valueChanges.pipe(debounceTime(500)).subscribe((search) => {
-      console.log('Buscando', search);
-      this.filterSearchName(search);
-    });
+    this.search.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((search: any) => {
+        console.log('Buscando', search);
+        this.filterSearchName(search);
+      });
   }
 
   filterSearchName(value: string) {
