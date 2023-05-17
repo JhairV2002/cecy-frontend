@@ -53,7 +53,7 @@
           <div class="text-center">
             <div class="flex flex-row-reverse gap-1">
               <!-- {{ stateAprooved.statePlanification ? stateAprooved.statePlanification.length : 0 }} -->
-            <button
+            <!-- <button
               *ngIf="item.course.length > 0"
               pButton
               pRipple
@@ -70,8 +70,12 @@
               icon="pi pi-plus-circle"
               class="p-button-rounded p-button-success"
               (click)="createCourse(item)"
-            ></button>
-            </div>
+            ></button> -->
+          </div>
+            <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-user-edit"
+              (onDropdownClick)="select(item)" (onClick)="editCourse(item)" [model]="items">
+            </p-splitButton>
+
           </div>
         </ng-template>
       </p-card>

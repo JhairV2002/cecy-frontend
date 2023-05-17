@@ -48,27 +48,20 @@
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
         <label for="days" appLabel
         label="Días:"
-        [required]="isRequired(dayField)">
+        [required]="isRequired(dayField)"
           [valid]="dayField.valid"
           [touched]="dayField.touched"
           [dirty]="dayField.dirty">
         </label>
         <p-dropdown id="days"
-        formControlName="day"
+        formControlName="dayId"
         [options]="days"
         [filter]="true"
         filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="dayField.value">
-              <div>{{dayField.value?.name}}</div>
-            </div>
-          </ng-template>
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}}</div>
-            </div>
-          </ng-template>
+          placeholder="Seleccione"
+          optionLabel="name"
+              optionValue="id">
+
         </p-dropdown>
         <small appErrorMessage
         [errors]="dayField.errors"
@@ -86,21 +79,14 @@
           [dirty]="workdayField.dirty">
         </label>
         <p-dropdown id="workdays"
-        formControlName="workday"
+        formControlName="workdayId"
         [options]="workdays"
         [filter]="true"
         filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="workdayField.value">
-              <div>{{workdayField.value?.name}}</div>
-            </div>
-          </ng-template>
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}}</div>
-            </div>
-          </ng-template>
+          placeholder="Seleccione"
+          optionLabel="name"
+              optionValue="id">
+
         </p-dropdown>
         <small appErrorMessage
         [errors]="workdayField.errors"
@@ -119,22 +105,10 @@
         <label for="classroom" appLabel label="Aula:" [required]="isRequired(classroomField)"
           [valid]="classroomField.valid" [touched]="classroomField.touched" [dirty]="classroomField.dirty">
         </label>
-        <p-dropdown id="classroom" formControlName="classroom" [options]="classrooms" [filter]="true" filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="classroomField.value">
-              <div>
-                {{classroomField.value?.name}}
-                <i class="pi pi-user p-mr-2"></i>
-                {{classroomField.value?.capacity}}
-              </div>
-            </div>
-          </ng-template>
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}} <i class="pi pi-user p-mr-2"></i> {{item.capacity}}</div>
-            </div>
-          </ng-template>
+        <p-dropdown id="classroom" formControlName="classroomId" [options]="classrooms" [filter]="true" filterBy="name"
+          placeholder="Seleccione" optionLabel="name"
+          optionValue="id">
+
         </p-dropdown>
         <small *ngIf="classroomField.value">Número de Participantes <i class="pi pi-user p-mr-2"></i>
           {{classroomField.value?.capacity}} </small>
@@ -147,24 +121,37 @@
         <label for="parallel" appLabel label="Paralelo:" [required]="isRequired(parallelField)"
           [valid]="parallelField.valid" [touched]="parallelField.touched" [dirty]="parallelField.dirty">
         </label>
-        <p-dropdown id="parallel" formControlName="parallel" [options]="parallels" [filter]="true" filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="parallelField.value">
-              <div>{{parallelField.value?.name}}</div>
-            </div>
-          </ng-template>
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}}</div>
-            </div>
-          </ng-template>
+        <p-dropdown id="parallel" formControlName="parallelId" [options]="parallels" [filter]="true" filterBy="name"
+          placeholder="Seleccione" optionLabel="name"
+          optionValue="id">
+
         </p-dropdown>
         <small appErrorMessage [errors]="parallelField.errors" [touched]="parallelField.touched"
           [dirty]="parallelField.dirty">
         </small>
       </div>
     </div>
+
+
+
+
+
+
+    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+      <label for="instructor" appLabel label="Instrutor:" [required]="isRequired(instructorField)"
+        [valid]="instructorField.valid" [touched]="instructorField.touched" [dirty]="instructorField.dirty">
+      </label>
+      <p-dropdown id="instructor" formControlName="instructorId" [options]="instructors" [filter]="true" filterBy="names"
+        placeholder="Seleccione" optionLabel="names"
+        optionValue="id">
+
+      </p-dropdown>
+      <small appErrorMessage [errors]="instructorField.errors" [touched]="instructorField.touched"
+        [dirty]="instructorField.dirty">
+      </small>
+    </div>
+
+
 
     <!--observation-->
     <div class="field">

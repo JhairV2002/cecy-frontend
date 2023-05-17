@@ -88,30 +88,18 @@
             </label>
             <p-dropdown
               id="area"
-              formControlName="area"
+              formControlName="areaId"
               [options]="areaType"
               [filter]="true"
-              filterBy="name"
-              (onChange)="updateSpecialityType($event)"
-              placeholder="Seleccione el área"
-            >
-              <ng-template pTemplate="selectedItem">
-                <div *ngIf="areaField.value">
-                  <div>{{ areaField.value?.name }}</div>
-                </div>
-              </ng-template>
-              <ng-template let-item pTemplate="item">
-                <div>
-                  <div>{{ item.name }}</div>
-                </div>
-              </ng-template>
+              filterBy="code"
+              placeholder="Seleccione"
+              optionLabel="name"
+              optionValue="id"
+              (onChange)="updateSpecialityType($event)">
             </p-dropdown>
-            <small
-              appErrorMessage
-              [errors]="areaField.errors"
-              [touched]="areaField.touched"
-              [dirty]="areaField.dirty"
-            >
+
+            <small appErrorMessage [errors]="areaField.errors" [touched]="areaField.touched"
+              [dirty]="areaField.dirty">
             </small>
           </div>
           <!-- especialidad -->
@@ -126,38 +114,25 @@
               [dirty]="specialityField.dirty"
             >
             </label>
-            <!-- [disabled]="!areaField.value" -->
             <p-dropdown
               id="speciality"
-              formControlName="speciality"
-              [options]="specialityType"
+              formControlName="specialityId"
+              [options]="filterSpecialityType"
               [filter]="true"
               filterBy="name"
-              placeholder="Seleccione la especialidad"
-            >
-              <ng-template pTemplate="selectedItem">
-                <div *ngIf="specialityField.value">
-                  <div>{{ specialityField.value?.name }}</div>
-                </div>
-              </ng-template>
-              <ng-template let-item pTemplate="item">
-                <div>
-                  <div>{{ item.name }}</div>
-                </div>
-              </ng-template>
+              placeholder="Seleccione"
+              optionLabel="name"
+              optionValue="id">
             </p-dropdown>
-            <small
-              appErrorMessage
-              [errors]="specialityField.errors"
-              [touched]="specialityField.touched"
-              [dirty]="specialityField.dirty"
-            >
+
+            <small appErrorMessage [errors]="specialityField.errors" [touched]="specialityField.touched"
+              [dirty]="specialityField.dirty">
             </small>
           </div>
         </div>
         <!-- Carga horaria -->
         <div class="mt-4">
-          <h4>Carga horaria</h4>
+          <h4>Carga horaria <span>(completar {{selectedCourse?.durationTime}} horas)</span></h4>
           <div class="formgrid grid">
             <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
               <label
@@ -946,64 +921,54 @@
               </div>
             </div>
           </p-card>
+          <br/>
+          <p-card>
+            <!-- Prerequisitos -->
+            <div class="grid align-items-center justify-content-between mt-4">
+              <div>
+                <h4>Prerequisitos</h4>
+              </div>
+              <div>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label="Nuevo Prerequisito"
+                  icon="pi pi-plus"
+                  class="p-button-success"
+                  (click)="showFormStrategie('prerequisite')"
+                ></button>
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div
+                class="field xl:col-8 lg:col-6 md:col-12 sm:col-12"
+                formArrayName="prerequisites"
+              >
+                <div
+                  *ngFor="let item of prerequisitesField.value; let i = index"
+                  class="grid align-items-center justify-content-between mb-3"
+                >
+                  <li>{{ item }}</li>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-trash"
+                    class="p-button-rounded p-button-danger p-button-sm"
+                    (click)="deleteStrategy(i, 'prerequisite')"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </p-card>
         </p-tabPanel>
-        <p-tabPanel header="Prerequisitos">
-          <!-- <app-prerequisites [courseId]="courseId"></app-prerequisites> -->
-          <label
-            for="prerequisites"
-            appLabel
-            label="Prerequisitos"
-            [required]="isRequired(prerequisitesField)"
-            [valid]="prerequisitesField.valid"
-            [touched]="prerequisitesField.touched"
-            [dirty]="prerequisitesField.touched"
-          ></label>
-          <p-multiSelect
-            id="prerequisites"
-            formControlName="prerequisites"
-            dataKey="name"
-            [options]="prerequisites"
-            [filter]="true"
-            filterBy="name"
-            placeholder="Seleccione"
-            display="chip"
-            optionLabel="name"
-          >
-            <ng-template let-value pTemplate="selectedItems">
-              <div
-                class="country-item country-item-value"
-                *ngFor="let option of prerequisitesField.value"
-              >
-                <div>{{ option.name }}</div>
-              </div>
-              <div
-                *ngIf="
-                  !prerequisitesField.value ||
-                  prerequisitesField.value.length === 0
-                "
-                class="country-placeholder"
-              >
-                Seleccionar:
-              </div>
-            </ng-template>
-            <ng-template let-item pTemplate="item">
-              <div class="country-item">
-                <div>{{ item.name }}</div>
-              </div>
-            </ng-template>
-          </p-multiSelect>
 
-          <small
-            appErrorMessage
-            [errors]="prerequisitesField.errors"
-            [touched]="prerequisitesField.touched"
-            [dirty]="prerequisitesField.dirty"
-          >
-          </small>
-        </p-tabPanel>
         <p-tabPanel header="Temas y Subtemas">
           <app-topic-form [courseId]="courseId"></app-topic-form>
         </p-tabPanel>
+
+
       </p-tabView>
     </div>
   </form>

@@ -59,8 +59,6 @@ import { CurricularDesignComponent } from './curricular-design/curricular-design
 import { TopicFormComponent } from './curricular-design/topic-form/topic-form.component';
 import { PrerequisitesComponent } from './curricular-design/prerequisites/prerequisites.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { AddFormHorariosComponent } from './tabs/add-form-horarios/add-form-horarios.component';
-import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
 
 
 @NgModule({
@@ -82,9 +80,7 @@ import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
     DetailPlanificationComponent,
     TabsComponent,
     KpiRegistrationManagementComponent,
-    AssignmentInstructorsFormComponent,
-    AddFormHorariosComponent,
-    TabEditComponent
+    AssignmentInstructorsFormComponent
   ],
   imports: [
     CommonModule,
@@ -126,6 +122,6 @@ import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
     TooltipModule,
     FieldsetModule,
     FileUploadModule
-  ],
+  ]
 })
 export class ResponsibleCourseModule { }

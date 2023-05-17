@@ -37,7 +37,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   @Output() updataPlanification = new EventEmitter<any>();
 
   progressBar: boolean = false;
-  customers: any = [];
+  users: any = [];
   roles: [] = [];
   public formPlanification = new FormGroup({
     id: new FormControl(null),
@@ -59,7 +59,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
     startDate: new FormControl('', [Validators.required]),
     finishDate: new FormControl('', [Validators.required]),
     state: new FormControl('proceso'),
-    customerId: new FormControl(null, [Validators.required]),
+    userId: new FormControl(null, [Validators.required]),
     careerId: new FormControl(),
     roleId: new FormControl(null, [Validators.required]),
   });
@@ -81,7 +81,6 @@ export class CourseFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.loadUserByRole();
     this.loadRoles();
-    //this.loadUserRoleEspecific();
   }
 
   ngOnChanges() {
@@ -97,14 +96,14 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   loadUserByRole() {
-    this.teacherService.getCustomerByRole().subscribe((data) => {
-      this.customers = data;
+    this.teacherService.getUserByRole().subscribe((data) => {
+      this.users = data;
       console.log('Estos son los usuarios con rol de Docente', data);
     });
   }
 
   loadRoles() {
-    this.teacherService.getCustomerByRoleEspecific().subscribe((data) => {
+    this.teacherService.getUserByRoleEspecific().subscribe((data) => {
       this.roles = data;
     });
   }
@@ -202,7 +201,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   get responsibleField() {
-    return this.formPlanification.controls['customerId'];
+    return this.formPlanification.controls['userId'];
   }
 
   get startDate() {

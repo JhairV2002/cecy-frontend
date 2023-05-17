@@ -147,14 +147,12 @@
           >
           </label>
           <p-inputNumber
-            pInputText
             id="duration"
             formControlName="durationTime"
             [min]="50"
             [max]="200"
             [showButtons]="true"
           ></p-inputNumber>
-          <!-- <input pInputText id="duration" formControlName="duration"> -->
           <small
             appErrorMessage
             [errors]="durationField.errors"
@@ -178,11 +176,11 @@
           </label>
           <p-dropdown
             id="responsible"
-            formControlName="customerId"
+            formControlName="userId"
             dataKey="id"
-            [options]="customers"
+            [options]="users"
             placeholder="Seleccione"
-            optionLabel="name"
+            optionLabel="names"
             optionValue="id"
           >
           </p-dropdown>

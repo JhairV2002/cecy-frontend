@@ -47,7 +47,7 @@
         type="button"
         pTooltip="Eliminar seleccionados"
         tooltipPosition="bottom"
-        styleClass="p-button-danger p-button-rounded ml-2"
+        styleClass="p-button-danger p-button-rounded ml-4"
         icon="pi pi-trash"
       ></p-button>
       <!-- (click)="deleteCourses()" -->
@@ -126,11 +126,7 @@
           <td>{{ planification.name }}</td>
           <td>{{ planification.durationTime }}</td>
           <td>
-            {{
-              planification.customer.name +
-                " " +
-                planification.customer.lastname
-            }}
+            {{ planification.user.names }} {{ planification.user.lastnames }}
           </td>
           <td>
             <p-chip
