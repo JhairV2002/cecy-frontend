@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { CreateCustomer } from './create.customer';
 import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ServerResponse } from '@models/core';

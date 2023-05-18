@@ -42,6 +42,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {ListboxModule} from 'primeng/listbox';
 import { AttendanceRecordsComponent } from './attendance/attendance-records/attendance-records.component';
 import {ImageComponent} from "./attendance/attendance-records/image/image.component";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {ImageComponent} from "./attendance/attendance-records/image/image.compon
     AttendanceListComponent,
     TemariCourseComponent,
     AttendanceRecordsComponent,
-    ImageComponent
+    ImageComponent,
+    HomeComponent
   ],
   exports: [
     InstructorCourseCardComponent

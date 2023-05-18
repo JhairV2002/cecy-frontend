@@ -27,6 +27,8 @@ import { ChipModule } from 'primeng/chip';
 import { FormAddUserComponent } from './form-add-user/form-add-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChipsModule } from 'primeng/chips';
+import { RolesListComponent } from './roles-list/roles-list.component';
+import { RolesFormComponent } from './roles-form/roles-form.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { ChipsModule } from 'primeng/chips';
     UserAdministrationFormComponent,
     FormAddUserComponent,
     DashboardComponent,
+    RolesListComponent,
+    RolesFormComponent,
   ],
     imports: [
         CommonModule,

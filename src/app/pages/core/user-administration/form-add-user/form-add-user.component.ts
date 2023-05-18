@@ -9,9 +9,8 @@ import {
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 import { RolesService, UserService } from '@services/core/administrator';
-import { SelecRoleDTO } from '../../../../models/authentication';
 import { MessageService } from '@services/core';
-import { CreateCustomer } from '@services/core/administrator/create.customer';
+import { CatalogueUserService } from '@services/core/administrator';
 
 @Component({
   selector: 'app-form-add-user',
@@ -29,9 +28,10 @@ export class FormAddUserComponent implements OnInit, OnChanges {
     lastnames: ['', [Validators.required]],
     phone: ['', [Validators.required, Validators.maxLength(10)]],
     email: ['', [Validators.required, Validators.email]],
-    identityCard: [''],
+    identityCard: ['', [Validators.required, Validators.maxLength(10)]],
     password: ['', [Validators.required]],
     image: [''],
+    genderId: [null, [Validators.required]],
     roleId: [null, [Validators.required]],
   });
 
@@ -40,18 +40,21 @@ export class FormAddUserComponent implements OnInit, OnChanges {
   titleModal: string = '';
   titleButton: string = '';
   isEdit: boolean = false;
+  catalogue: any = [];
 
   constructor(
     private fb: FormBuilder,
     private rolesService: RolesService,
     private userService: UserService,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private catalogueUser: CatalogueUserService
   ) {
     this.formUser.get('user.role');
   }
 
   ngOnInit(): void {
     this.getRoles();
+    this.getCatalogues();
   }
 
   ngOnChanges(): void {
@@ -71,6 +74,13 @@ export class FormAddUserComponent implements OnInit, OnChanges {
   getRoles() {
     this.rolesService.getRoles().subscribe((data) => {
       this.roles = data;
+    });
+  }
+
+  getCatalogues() {
+    this.catalogueUser.getCatalogue().subscribe((data) => {
+      console.log('CATALOGO', data);
+      this.catalogue = data;
     });
   }
 
@@ -127,11 +137,19 @@ export class FormAddUserComponent implements OnInit, OnChanges {
     return this.formUser.controls['email'];
   }
 
+  get passwordField() {
+    return this.formUser.controls['password'];
+  }
+
+  get identityCardField() {
+    return this.formUser.controls['identityCard'];
+  }
+
   get roleField() {
     return this.formUser.controls['roleId'];
   }
 
-  get passwordField() {
-    return this.formUser.controls['password'];
+  get genderField() {
+    return this.formUser.controls['genderId'];
   }
 }

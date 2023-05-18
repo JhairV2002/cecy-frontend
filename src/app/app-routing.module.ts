@@ -37,16 +37,15 @@ const routes: Routes = [
   //   loadChildren: () =>
   //     import('./pages/cecy/guest/guest.module').then((m) => m.GuestModule),
   // },
-  // {
-  //   path: 'common',
-  //   component: BlankComponent,
-  //   loadChildren: () =>
-  //     import('./pages/core/common/common.module').then((m) => m.CommonModule),
-  // },
-  // {
-  //   path: '**',
-  //   redirectTo: 'common/not-found',
-  // },
+  {
+    path: 'common',
+    loadChildren: () =>
+      import('./pages/core/common/common.module').then((m) => m.CommonModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'common/not-found',
+  },
 ];
 
 @NgModule({

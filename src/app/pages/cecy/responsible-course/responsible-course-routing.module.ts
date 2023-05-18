@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -12,9 +11,12 @@ import { TabsComponent } from './tabs/tabs.component';
 import { RegistrationManagementListComponent } from './registration-management/registration-management-list/registration-management-list.component';
 import { RegistrationManagementFormComponent } from './registration-management/registration-management-form/registration-management-form.component';
 import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: ResponsibleCourseComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  // { path: '', component: ResponsibleCourseComponent },
   { path: 'courses-list', component: CourseListComponent },
   { path: 'course-form', component: CourseFormComponent },
   { path: 'planification', component: PlanificationComponent },
@@ -22,14 +24,13 @@ const routes: Routes = [
   { path: 'curricular-design/:id', component: CurricularDesignComponent },
   { path: 'course/add/:id', component: TabsComponent },
   { path: 'course/edit/:id', component: TabEditComponent },
-
-  { path: 'registrations',component: RegistrationManagementListComponent },
-  { path: 'registration/:id',component: RegistrationManagementFormComponent }
+  { path: 'registrations', component: RegistrationManagementListComponent },
+  { path: 'registration/:id', component: RegistrationManagementFormComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ResponsibleCourseRoutingModule { }
+export class ResponsibleCourseRoutingModule {}

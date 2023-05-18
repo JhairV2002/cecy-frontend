@@ -13,32 +13,15 @@ import { PlanificationComponent } from './planification/planification.component'
 import { PoaFormComponent } from './poa/poa-form/poa-form.component';
 import { CourseListComponent } from './profile-instructor-courses/course-list/course-list.component';
 import { VisualizationCourseComponent } from './visualization-course/visualization-course.component';
+import { HomeComponent } from './home/home.component';
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'course',
-    pathMatch: 'full',
-  },
-  {
-    path: 'course',
-    component: CourseComponent,
-  },
-  {
-    path: 'course/visualization/:id',
-    component: VisualizationCourseComponent,
-  },
-  {
-    path: 'certificate',
-    component: CertificateComponent,
-  },
-  {
-    path: 'certificate-form',
-    component: CertificateFormComponent,
-  },
-  {
-    path: 'certificate-list',
-    component: CertificateListComponent,
-  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'course', component: CourseComponent },
+  { path: 'course/visualization/:id', component: VisualizationCourseComponent },
+  { path: 'certificate', component: CertificateComponent },
+  { path: 'certificate-form', component: CertificateFormComponent },
+  { path: 'certificate-list', component: CertificateListComponent },
   {
     path: 'course-visualization-form',
     component: CourseVisualizationFormComponent,
@@ -47,30 +30,15 @@ const routes: Routes = [
     path: 'course-visualization-list',
     component: CourseVisualizationListComponent,
   },
-  {
-    path: 'course-visualization',
-    component: CourseVisualizationComponent,
-  },
-  {
-    path: 'assignment-instructor',
-    component: AssignmentInstructorComponent,
-  },
+  { path: 'course-visualization', component: CourseVisualizationComponent },
+  { path: 'assignment-instructor', component: AssignmentInstructorComponent },
   {
     path: 'assignmented-instructor',
     component: AssignmentedInstructorComponent,
   },
-  {
-    path: 'profile-instructor-courses',
-    component: CourseListComponent,
-  },
-  {
-    path: 'planification/course/:id',
-    component: PlanificationComponent,
-  },
-  {
-    path: 'poa-form',
-    component: PoaFormComponent,
-  },
+  { path: 'profile-instructor-courses', component: CourseListComponent },
+  { path: 'planification/course/:id', component: PlanificationComponent },
+  { path: 'poa-form', component: PoaFormComponent },
 ];
 
 @NgModule({

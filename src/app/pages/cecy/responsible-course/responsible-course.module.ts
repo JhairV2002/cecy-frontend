@@ -61,6 +61,7 @@ import { PrerequisitesComponent } from './curricular-design/prerequisites/prereq
 import { TabsComponent } from './tabs/tabs.component';
 import { AddFormHorariosComponent } from './tabs/add-form-horarios/add-form-horarios.component';
 import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
     KpiRegistrationManagementComponent,
     AssignmentInstructorsFormComponent,
     AddFormHorariosComponent,
-    TabEditComponent
+    TabEditComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
