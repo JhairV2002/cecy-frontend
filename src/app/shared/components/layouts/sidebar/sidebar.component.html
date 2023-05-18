@@ -1,25 +1,21 @@
 <ul class="layout-menu">
   <p-menu
     *ngIf="user?.role?.name === 'admin'"
-    styleClass="menu"
     [style]="{ width: '280px' }"
     [model]="itemsAdmin"
   ></p-menu>
   <p-menu
     *ngIf="user?.role?.name === 'coordinator_career'"
-    styleClass="menu"
     [style]="{ width: '280px' }"
     [model]="itemsCoordinatorCareer"
   ></p-menu>
   <p-menu
     *ngIf="user?.role?.name === 'coordinator_cecy'"
-    styleClass="menu"
     [style]="{ width: '280px' }"
     [model]="itemsCoordinatorCecy"
   ></p-menu>
   <p-menu
     *ngIf="user?.role?.name === 'responsible_course'"
-    styleClass="menu"
     [style]="{ width: '280px' }"
     [model]="itemsDocente"
   ></p-menu>
