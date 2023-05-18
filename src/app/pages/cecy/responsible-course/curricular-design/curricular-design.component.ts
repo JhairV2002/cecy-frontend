@@ -83,7 +83,6 @@ export class CurricularDesignComponent implements OnInit {
       objective: [null, [Validators.required]],
       areaId: [null, [Validators.required]],
       specialityId: [null, [Validators.required]],
-      alignment: [null, [Validators.required]],
       bibliographies: [null],
       evaluationMechanisms: [null],
       learningEnvironments: [null],
@@ -419,9 +418,6 @@ export class CurricularDesignComponent implements OnInit {
     return this.formCurricularDesign.controls['specialityId'];
   }
 
-  get alignmentField() {
-    return this.formCurricularDesign.controls['alignment'];
-  }
 
   get evaluationMechanismsField() {
     return this.formCurricularDesign.controls['evaluationMechanisms'];

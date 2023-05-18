@@ -1,13 +1,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-
 import { CourseModel } from './../../../../../models/cecy-v1/course.model';
 import { CourseService } from './../../../../../services/cecy-v1/course.service';
 import { environment } from './../../../../../../environments/environment';
 import { MessageService } from '../../../../../services/core/message.service';
 import { AuthService } from '@services/auth';
-import { Planification } from '@models/cecy/coordinator-career/careers.model';
+import { PdfCourseService } from '@services/cecy-v1/pdf-course.service';
 
 
 @Component({
@@ -17,7 +16,7 @@ import { Planification } from '@models/cecy/coordinator-career/careers.model';
 })
 export class CourseListComponent implements OnInit {
   items: MenuItem[] = []; // optional
-  selectedPlanification: number= 0;
+  selectedPlanification: number = 0;
 
   public STORAGE_URL: string;
   idCourse: any;
@@ -29,14 +28,15 @@ export class CourseListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public messageService: MessageService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private pdfCourseService: PdfCourseService
   ) {
     this.items = [
       {
         label: 'Descargar informe de Necesidades',
         icon: 'pi pi-book',
         command: () => {
-          this.download(this.rowData)
+          this.downloadMen()
         }
       },
       {
@@ -132,6 +132,11 @@ export class CourseListComponent implements OnInit {
   }
   download2(planification: any) {
     // this.planificationHttpService.downloadinformeFinal(planification.id);
+  }
+
+
+  downloadMen() {
+    this.pdfCourseService.generatePDF()
   }
 
 

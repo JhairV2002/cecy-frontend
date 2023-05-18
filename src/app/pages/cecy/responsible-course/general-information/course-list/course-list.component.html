@@ -30,19 +30,6 @@
     <div class="p-2" *ngFor="let item of allCourses">
       <p-card [header]="item.name" [style]="{ width: '250px' }">
         <ng-template pTemplate="header">
-          <!-- <img
-            class="h-8rem"
-            onerror="this.src = 'assets/images/components/course/online-course.png' "
-            [src]="
-              STORAGE_URL +
-              '/images/' +
-              item.image +
-              '/' +
-              item.image +
-              '-sm.jpg'
-            "
-            alt="card"
-          /> -->
         </ng-template>
         <ng-template pTemplate="subtittle">
           Codigo: {{ item.codeCourse }} <br />
@@ -52,25 +39,6 @@
         <ng-template pTemplate="footer">
           <div class="text-center">
             <div class="flex flex-row-reverse gap-1">
-              <!-- {{ stateAprooved.statePlanification ? stateAprooved.statePlanification.length : 0 }} -->
-            <!-- <button
-              *ngIf="item.course.length > 0"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-warning"
-              (click)="editCourse(item)"
-            ></button>
-            <button
-            *ngIf="item.course.length === 0"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-plus-circle"
-              class="p-button-rounded p-button-success"
-              (click)="createCourse(item)"
-            ></button> -->
           </div>
             <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-user-edit"
               (onDropdownClick)="select(item)" (onClick)="editCourse(item)" [model]="items">
@@ -80,5 +48,8 @@
         </ng-template>
       </p-card>
     </div>
+    <!-- <button class="button bg-blue-700 p-3" (click)="downloadMen()">
+      hola
+    </button> -->
   </div>
 </div>

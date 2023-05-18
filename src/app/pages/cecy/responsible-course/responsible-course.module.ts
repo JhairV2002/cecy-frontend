@@ -61,6 +61,7 @@ import { PrerequisitesComponent } from './curricular-design/prerequisites/prereq
 import { TabsComponent } from './tabs/tabs.component';
 
 
+
 @NgModule({
   declarations: [
     ResponsibleCourseComponent,

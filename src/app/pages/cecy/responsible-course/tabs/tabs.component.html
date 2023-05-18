@@ -2,55 +2,47 @@
 <div>
   <form>
     <div class="container">
-      <div class="formgrid grid">
-        <p-card class="xl:col-12">
-          <div class="flex flex-row flex-wrap card-container blue-container">
-            <!-- <div class="field xl:col-3 lg:col-4 md:col-12 sm:col-12">
-              <div class="card-container blue-container flex align-items-center justify-content-start xl:col-12">
-                <img class=" xl:col-5 lg:col-5 md:col-2 sm:col-2 "
-                  onerror="this.src = 'assets/images/components/course/online-course.png' "
-                  [src]="STORAGE_URL + '/' + imageField.value?.fullPathSMJpg" alt="">
 
-
-                <button pButton type="text" pRipple  class="p-button-rounded" icon="pi pi-upload"
-                  (click)="showModalImages()"></button>
-              </div>
-            </div> -->
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Nombre del curso: </b> <br />
-              {{ selectedCourse?.name }}
-            </div>
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Código del curso: </b> <br />
-              {{
-                selectedCourse?.codeCourse
-                  ? selectedCourse.codeCourse
-                  : "No tiene código"
-              }}
-            </div>
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Estado del curso: </b> <br />
-              {{ selectedCourse?.state ? selectedCourse.state : "No asignado" }}
-            </div>
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Carrera: </b> <br />
-              {{ selectedCourse?.career.name }}
-            </div>
+      <div class="card">
+        <div class="md:flex">
+          <div class="w-full md:w-1/6">
+            <b>Nombre del curso: </b> <br />
+            {{ selectedCourse?.name }}
           </div>
-        </p-card>
+          <div class="w-full md:w-1/6">
+            <b>Código del curso: </b> <br />
+            {{
+              selectedCourse?.codeCourse
+                ? selectedCourse.codeCourse
+                : "No tiene código"
+            }}
+          </div>
+          <div class="w-full md:w-1/6">
+            <b>Estado del curso: </b> <br />
+            {{ selectedCourse?.state ? selectedCourse.state : "No asignado" }}
+          </div>
+          <div class="w-full md:w-1/6">
+            <b>Carrera: </b> <br />
+            {{ selectedCourse?.career.name }}
+          </div>
+          <div class="w-full md:w-1/6">
+            <b>Modalidad: </b> <br />
+            {{ selectedCourse?.course.modality.name }}
+          </div>
+        </div>
       </div>
 
-      <p-tabView>
+      <p-tabView >
         <p-tabPanel header="Datos generales">
           <app-course-form></app-course-form>
         </p-tabPanel>
 
-        <p-tabPanel header="Diseño curricular">
+        <p-tabPanel  header="Diseño curricular">
           <app-curricular-design ></app-curricular-design>
         </p-tabPanel>
 
-        <p-tabPanel header="Horarios">
-          <app-detail-planification-list></app-detail-planification-list>
+        <p-tabPanel  header="Horarios">
+          <app-detail-planification-list ></app-detail-planification-list>
         </p-tabPanel>
 
       </p-tabView>

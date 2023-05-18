@@ -47,12 +47,17 @@ export class CourseFormComponent implements OnInit {
     certifiedTypeId: [null, Validators.required],
     formationTypeId: [null, Validators.required],
     abbreviation: [null, [Validators.required, Validators.maxLength(5)]],
-    targetGroups: this.formBuilder.array([''], Validators.required),
-    participantTypes: this.formBuilder.array([''], Validators.required),
+
     summary: [null, Validators.required],
     project: [null, Validators.required],
     needs: this.formBuilder.array([''], Validators.required),
     sponsorId: [null, Validators.required],
+
+    // targetGroups: this.formBuilder.array([], Validators.required),
+    // participantTypes: this.formBuilder.array([], Validators.required),
+
+    targetGroups: [null, [Validators.required]],
+      participantTypes: [null, [Validators.required]],
 
   });
 
@@ -318,12 +323,22 @@ export class CourseFormComponent implements OnInit {
     return this.formCourse.controls['abbreviation'];
   }
 
-  get targetGroupsField(): FormArray {
-    return this.formCourse.controls['targetGroups'] as FormArray;
+  // get targetGroupsField(): FormArray {
+  //   return this.formCourse.controls['targetGroups'] as FormArray;
+  // }
+
+  // get participantTypeField(): FormArray {
+  //   return this.formCourse.controls['participantTypes'] as FormArray;
+  // }
+
+  get targetGroupsField() {
+    return this.formCourse.controls['targetGroups']
   }
 
-  get participantTypeField(): FormArray {
-    return this.formCourse.controls['participantTypes'] as FormArray;
+
+
+  get participantTypeField() {
+    return this.formCourse.controls['participantTypes']
   }
 
   get summaryField() {

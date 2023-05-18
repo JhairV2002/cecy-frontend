@@ -75,13 +75,13 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
       id: [null],
       dayId: [null, Validators.required],
       classroomId: [null, Validators.required],
+      classroom: [null],
       parallelId: [null, Validators.required],
       planificationCourseId: [null],
       workdayId: [null, Validators.required],
       endedTime: [null, Validators.required],
       observation: [null,],
       startedTime: [null, Validators.required],
-
       instructorId: [null, Validators.required],
       stateId: [null]
     });

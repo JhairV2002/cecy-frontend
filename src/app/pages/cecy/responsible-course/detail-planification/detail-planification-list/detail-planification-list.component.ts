@@ -51,19 +51,12 @@ export class DetailPlanificationListComponent {
       { field: 'day', header: 'Días' },
       { field: 'classroom', header: 'Aula' },
       { field: 'parallel', header: 'Paralelo' },
-      { field: 'instructors', header: 'Instructores' },
       { field: 'observation', header: 'Observación' },
-      { field: 'state', header: 'Estado' },
+      // { field: 'state', header: 'Estado' },
     ];
 
     this.items = [
-      {
-        label: 'Asignar instructores',
-        icon: 'pi pi-user-edit',
-        command: () => {
-          this.assignInstructors(this.selectedDetailPlanification);
-        }
-      },
+
       {
         label: 'Eliminar horario',
         icon: 'pi pi-trash',
