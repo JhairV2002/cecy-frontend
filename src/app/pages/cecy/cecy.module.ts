@@ -10,9 +10,12 @@ import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
+import { ResponsibleExecutionComponent } from './responsible-execution/responsible-execution/responsible-execution.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ResponsibleExecutionComponent
+  ],
   imports: [
     CommonModule,
     CecyRoutingModule,
