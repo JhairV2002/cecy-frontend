@@ -1,0 +1,37 @@
+/* footer */
+@use '../../../../layout/main/main.component.scss' as *;
+
+
+$primary-color: $colorPrimario ;
+
+.footer {
+  position: fixed;
+  bottom: 0rem;
+  width: 100%;
+  opacity: 86%;
+  color: get-text-color($primary-color);
+  background-color: lighten($primary-color, 1%);
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    p {
+      margin-top: 15px;
+      margin-left: 20px;
+    }
+
+      img {
+        width: 4%;
+        height: auto;
+        background-color: get-text-color($primary-color);
+        opacity: 70%;
+        border-radius: 20px;
+        padding: 5px;
+        margin: 6px;
+      }
+  }
+
+}

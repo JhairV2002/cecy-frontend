@@ -1,0 +1,16 @@
+<div class="p-inputgroup">
+  <input
+    pInputText
+    id="search"
+    placeholder="Buscar una planificacion"
+    [formControl]="search"
+    (keypress)="filter()"
+    />
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-search"
+    (click)="filter()"
+    ></button>
+</div>

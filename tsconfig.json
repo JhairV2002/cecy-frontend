@@ -22,7 +22,28 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@services/*": [
+        "src/app/services/*"
+      ],
+      "@env/*": [
+        "src/environments/*"
+      ],
+      "@layout/*": [
+        "src/app/layout/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@models/*": [
+        "src/app/models/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ]
+    },
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

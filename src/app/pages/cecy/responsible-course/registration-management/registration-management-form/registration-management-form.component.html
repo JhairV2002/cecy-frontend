@@ -1,0 +1,162 @@
+<p-dialog header="Gestionar Archivos" [(visible)]="displayModalFiles" [modal]="true">
+  <app-view-files [acceptAttributes]="'.pdf'"
+                  [loadingUpload]="loadingUploadFiles"
+                  [filesIn]="files"
+                  [loadingFiles]="loadingFiles"
+                  [paginatorIn]="paginatorFiles"
+                  (files)="uploadFiles($event)"
+                  (paginatorOut)="loadFiles()"
+                  (searchOut)="filterFiles.setValue($event);loadFiles()">
+  </app-view-files>
+</p-dialog>
+<div class="container">
+  <div class="p-fluid pb-8">
+    <button
+      pButton
+      pRipple
+      type="button"
+      pTooltip="Regresar"
+      tooltipPosition="bottom"
+      class="p-button-success p-button-rounded m-2"
+      icon="pi pi-arrow-left"
+      (click)="return()"
+    ></button>
+
+    <!-- información del participante -->
+    <p-fieldset
+      legend="Información del participante"
+      class="d-inline xl:col-6 lg:col-6 md:col-12 sm:col-12">
+      <div class="formgrid grid">
+        <!--username field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Número de identificación: "
+          >
+          </label>
+          <h5>{{ customRegistration.username }}</h5>
+        </div>
+        <!--name field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Nombres: "
+          >
+          </label>
+          <h5>{{ customRegistration.username }}</h5>
+        </div>
+        <!-- lastname field -->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Apellidos:"
+          >
+          </label>
+          <h5>{{ customRegistration.lastname }}</h5>
+        </div>
+        <!--email field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Correo electrónico:"
+          >
+          </label>
+          <h5>{{ customRegistration.email }}</h5>
+        </div>
+      </div>
+    </p-fieldset>
+    <!-- informacion adicional -->
+    <p-fieldset
+      legend="Información adicional del participante"
+      class="d-inline">
+      <div class="formgrid grid">
+        <!--instruction field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Nivel de instrucción:"
+          >
+          </label>
+          <h5>{{ customRegistration.instruction }}</h5>
+        </div>
+        <!--company name field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Nombre de la compañía:"
+          >
+          </label>
+          <h5>{{ customRegistration.companyName }}</h5>
+        </div>
+        <!--company address field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Dirección de la compañía:"
+          >
+          </label>
+          <h5>{{ customRegistration.companyAddress }}</h5>
+        </div>
+        <!--company activity field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Actividad de la compañía:"
+          >
+          </label>
+          <h5>{{ customRegistration.companyActivity }}</h5>
+        </div>
+        <!--company spoonsored field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            appLabel
+            label="Patrocinado por la compañía:"
+          >
+          </label>
+          <div>
+          <p-inputSwitch pInputSwitch 
+          [(ngModel)]="customRegistration.companySponsored" 
+          [readonly]="true"></p-inputSwitch>
+        </div>
+        </div>
+      </div>
+    </p-fieldset>
+    <!-- revisión de documentos -->
+    <p-fieldset legend="Revisión de documentos" class="d-inline mw-50">
+      <p-orderList
+        [value]="requirementlist"
+        [listStyle]="{ 'max-height': '30rem' }"
+        header="lista de requisitos"
+        filterBy="name"
+        filterPlaceholder="Buscar requisito"
+      >
+        <ng-template let-requirement index pTemplate="item">
+          <div class="requirement-item">
+            <div class="image-container">
+              <h5>{{ requirement.name }}</h5>
+            </div>
+            <div class="requirement-list-detail">
+              <button
+                  pButton
+                  pRipple
+                  pTooltip="Descargar documento"
+                  tooltipPosition="rigth"
+                  (click)="downloadRequirement(requirement.pivot)"
+                  class="p-button-rounded p-button-help"
+                  icon="pi pi-download"
+                ></button>
+            </div>
+          </div>
+        </ng-template>
+      </p-orderList>
+    </p-fieldset>
+    <p-fieldset legend="Observaciones" class="d-inline mw-50">
+      <div class="formgrid grid">
+        <!--observations field-->
+        <div class="field px-1">
+          <h5>{{ customRegistration.observations }}</h5>
+        </div>
+      </div>
+    </p-fieldset>
+  </div>
+</div>

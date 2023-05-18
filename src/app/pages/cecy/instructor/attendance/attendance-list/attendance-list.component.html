@@ -1,0 +1,51 @@
+<p-dialog header="Crear asistencia" [(visible)]="dialogForm" [maximizable]="true" [modal]="true">
+  <app-attendance-course-form *ngIf="dialogForm" (dialogForm)="dialogForm=$event"></app-attendance-course-form>
+</p-dialog>
+<div class="card">
+  <h5>Asistencias</h5>
+  <p-toolbar class="filter-options">
+    <div class="p-toolbar-group-left">
+      <div class="field col p-input-icon-right">
+        <button pButton pRipple type="button" label="Regresar"
+                class="p-badge-info ml-2" icon="pi-arrow-left"
+                (click)="redirectParticipantList()"></button>
+          <button pButton pRipple type="button" label="Refrescar"
+                  class="p-badge-info ml-2" icon="pi pi-sync"
+                  (click)="getAttendances()"></button>
+          <button pButton pRipple type="button" label="Crear" class="p-button-success ml-2"
+                  icon="pi pi-user" (click)="showForm()"></button>
+        <button pButton pRipple type="button" label="Registro fotografico" class="p-button-success ml-2"
+                icon="pi pi-camera" (click)="redirectPhotograficRecords()"></button>
+
+      </div>
+    </div>
+    <div class="p-toolbar-group-right">
+
+    </div>
+  </p-toolbar>
+  <p-table [columns]="cols" [value]="attendance" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+        <th>
+          <button pButton class="p-button-rounded" icon="pi pi-cog"></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td>
+          {{rowData['registeredAt']}}
+        </td>
+        <td>
+          <button pButton pRipple class="p-button-rounded p-button-warning m-2" [pTooltip]="'Ver detalle de asistencia'"
+                  icon="pi pi-pencil" (click)="redirectParticipants(rowData['id'])"></button>
+          <button pButton pRipple class="p-button-rounded p-button-danger m-2" [pTooltip]="'Eliminar asistencia'"
+                  icon="pi pi-trash" (click)="deleteAttendance(rowData)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
