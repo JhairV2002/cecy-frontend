@@ -5,6 +5,7 @@ import { UserAdministrationComponent } from './user-administration.component';
 import { MainComponent } from './../../../layout/main/main.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RolesListComponent } from './roles-list/roles-list.component';
+import { CareersListComponent } from './careers-list/careers-list.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
       { path: 'home', component: DashboardComponent },
       { path: 'users', component: UserAdministrationComponent },
       { path: 'roles', component: RolesListComponent },
-
+      { path: 'careers', component: CareersListComponent },
     ],
   },
 ];

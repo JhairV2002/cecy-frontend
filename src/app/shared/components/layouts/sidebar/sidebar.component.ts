@@ -33,6 +33,11 @@ export class SidebarComponent implements OnInit {
           icon: 'fa-solid fa-users-gear',
           routerLink: ['/administrator/roles'],
         },
+        {
+          label: 'Carreras',
+          icon: 'fa-solid fa-graduation-cap',
+          routerLink: ['/administrator/careers'],
+        },
       ],
     },
     {

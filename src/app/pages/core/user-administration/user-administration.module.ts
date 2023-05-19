@@ -29,6 +29,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChipsModule } from 'primeng/chips';
 import { RolesListComponent } from './roles-list/roles-list.component';
 import { RolesFormComponent } from './roles-form/roles-form.component';
+import { CareersListComponent } from './careers-list/careers-list.component';
+import { CareersFormComponent } from './careers-form/careers-form.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { RolesFormComponent } from './roles-form/roles-form.component';
     DashboardComponent,
     RolesListComponent,
     RolesFormComponent,
+    CareersListComponent,
+    CareersFormComponent,
   ],
     imports: [
         CommonModule,
