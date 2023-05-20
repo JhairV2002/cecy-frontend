@@ -17,6 +17,13 @@ const routes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
+  {
+    path: 'register-validation',
+    loadChildren: () => import('./register-validation/register-validation.module').then(
+      (m) => m.RegisterValidationModule
+    )
+  },
+  { path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule) }
   // {
   //   path: 'user-administration',
   //   canActivate: [HasRoleGuard],
