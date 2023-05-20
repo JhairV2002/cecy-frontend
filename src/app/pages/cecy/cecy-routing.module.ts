@@ -1,3 +1,4 @@
+import { ResponsibleExecuteModule } from './responsible-execute/responsible-execute.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RolesEnum } from '@shared/enums/roles.enum';
@@ -9,6 +10,7 @@ import { RoleGuard } from './../../guards/role.guard';
 import { MainComponent } from '@layout/main/main.component';
 import { HasRoleGuard } from 'src/app/guards/has-role.guard';
 import { HasTokenGuard } from 'src/app/guards/has-token.guard';
+
 
 const routes: Routes = [
   {
@@ -145,6 +147,13 @@ const routes: Routes = [
             (m) => m.ResponsibleExecutionModule
           ),
       },
+      {
+        path: 'responsible-execute',
+        loadChildren: () =>
+          import('./responsible-execute/responsible-execute.module').then(
+            (m) => m.ResponsibleExecuteModule
+          ),
+      }
     ],
   },
 ];
