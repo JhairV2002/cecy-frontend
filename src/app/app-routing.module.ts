@@ -12,17 +12,22 @@ import { RedirectGuard } from './guards/redirect.guard';
 //import { ResponsibleExecutionComponent } from './pages/cecy/responsible-execution/responsible-execution/responsible-execution.component';
 import { AsistenciaComponent } from './pages/cecy/responsible-execute/asistencia/asistencia.component';
 import { ResponsibleCecyComponent } from './pages/cecy/responsible-cecy/responsible-cecy.component';
-
+import { EstudiantesComponent } from './pages/cecy/responsible-execute/notas/estudiantes.component';
+import { CursoComponent } from './pages/cecy/responsible-execute/curso/curso.component';
 
 const routes: Routes = [
-  
   /*{
-    path: 'ejecucion', component:ResponsibleExecutionComponent,
+    path: 'curso', component:CursoComponent,
+  },
+  {
+    path: 'estudiantes', component:EstudiantesComponent,
+  },
 
-  },/*
+  {
+    path: 'ejecucion', component:ResponsibleExecutionComponent,
+  },
     {
     path: 'asistencia', component:AsistenciaComponent,
-
   },*/
   {
 
@@ -61,7 +66,7 @@ const routes: Routes = [
   //   path: '**',
   //   redirectTo: 'common/not-found',
   // },
-  
+
   //{ path: 'notas', component: EstudiantesComponent}
 ];
 
