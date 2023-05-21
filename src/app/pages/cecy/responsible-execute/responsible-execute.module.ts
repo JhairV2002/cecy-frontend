@@ -5,7 +5,7 @@ import { ResponsibleExecuteRoutingModule } from './responsible-execute-routing.m
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListadoFechaComponent } from './asistencia/listado-fecha/listado-fecha.component';
 import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
-import { StudentsListComponent } from "./feature/list/students-list/students-list/StudentsListComponent";
+//import { StudentsListComponent } from "./feature/list/students-list/students-list/StudentsListComponent";
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { StudentsListComponent } from "./feature/list/students-list/students-lis
     AsistenciaComponent,
     ListadoFechaComponent,
     RegistroFotograficoComponent,
-    StudentsListComponent
+    //StudentsListComponent
   ],
   imports: [
     CommonModule,

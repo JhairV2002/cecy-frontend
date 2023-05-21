@@ -10,17 +10,17 @@ import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
-import { ResponsibleExecutionComponent } from './responsible-execution/responsible-execution/responsible-execution.component';
-import { AssistanceComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/assistance.component';
-import { DateListComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/date-list/date-list/date-list.component';
-import { PhotographicRecordComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/photographic-record/photographic-record/photographic-record.component';
+//import { ResponsibleExecutionComponent } from './responsible-execution/responsible-execution/responsible-execution.component';
+//import { AssistanceComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/assistance.component';
+//import { DateListComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/date-list/date-list/date-list.component';
+//import { PhotographicRecordComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/photographic-record/photographic-record/photographic-record.component';
 
 @NgModule({
   declarations: [
-    ResponsibleExecutionComponent,
+    /*ResponsibleExecutionComponent,
     AssistanceComponent,
     DateListComponent,
-    PhotographicRecordComponent
+    PhotographicRecordComponent*/
   ],
   imports: [
     CommonModule,
