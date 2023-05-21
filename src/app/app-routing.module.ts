@@ -11,6 +11,7 @@ import { HasRoleGuard } from './guards/has-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
 import { ResponsibleExecutionComponent } from './pages/cecy/responsible-execution/responsible-execution/responsible-execution.component';
+import { AsistenciaComponent } from './pages/cecy/responsible-execute/asistencia/asistencia.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
   },
   {
     path: 'ejecucion', component:ResponsibleExecutionComponent,
+    
+  },
+    {
+    path: 'asistencia', component:AsistenciaComponent,
     
   },
   {
