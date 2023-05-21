@@ -16,10 +16,10 @@ import { EstudiantesComponent } from './pages/cecy/responsible-execute/notas/est
 import { CursoComponent } from './pages/cecy/responsible-execute/curso/curso.component';
 
 const routes: Routes = [
-  /*{
+  {
     path: 'curso', component:CursoComponent,
   },
-  {
+  /*{
     path: 'estudiantes', component:EstudiantesComponent,
   },
 
