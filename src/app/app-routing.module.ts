@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CursoComponent } from './curso/curso.component';
 /* import { MainComponent, BlankComponent } from '@layout/index';
  */
 import { RoleGuard } from '@shared/guards/role.guard';
@@ -15,10 +14,7 @@ import { AsistenciaComponent } from './pages/cecy/responsible-execute/asistencia
 
 
 const routes: Routes = [
-  {
-    path: 'curso', component:CursoComponent,
-
-  },
+  
   /*{
     path: 'ejecucion', component:ResponsibleExecutionComponent,
 
