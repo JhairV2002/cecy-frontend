@@ -1,0 +1,74 @@
+<mat-form-field>
+  <mat-label>Buscar</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Nombre o cedula" #input />
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Filtrar por estado</mat-label>
+  <mat-select [(value)]="selectedOption" (click)="applyFilter($event)">
+    <mat-option *ngFor="let option of selectOptions" [value]="option">
+      {{ option }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="cedula">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Cedula">
+      Cedula
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.cedula }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombres">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por nombre">
+      Nombre
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.nombreEstudiante }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nota1">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por primerParcial">
+      Nota Parcial 1
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.nota1 }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nota2">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por segundo Parcial">
+      Nota Parcial 2
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.nota2 }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="notaFinal">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por notaFinal">
+      Nota Final
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.notafinal }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por segundo Parcial">
+      Estado
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.estado }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por estado">
+      Editar Nota
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn">✏️</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+  aria-label="Siga a la siguiente pagina para ver mas estudiantes">
+</mat-paginator>
