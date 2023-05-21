@@ -6,16 +6,22 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { ListadoFechaComponent } from './asistencia/listado-fecha/listado-fecha.component';
 import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
 
+import { FormsModule } from '@angular/forms';
+import { EstudiantesComponent } from './notas/estudiantes.component';
 
 @NgModule({
   declarations: [
     AsistenciaComponent,
     ListadoFechaComponent,
-    RegistroFotograficoComponent
+    RegistroFotograficoComponent,
+    EstudiantesComponent
+    
+   
   ],
   imports: [
     CommonModule,
-    ResponsibleExecuteRoutingModule
+    ResponsibleExecuteRoutingModule,
+    FormsModule
   ]
 })
 export class ResponsibleExecuteModule { }

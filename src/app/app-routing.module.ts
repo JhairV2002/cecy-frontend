@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
 //import { ResponsibleExecutionComponent } from './pages/cecy/responsible-execution/responsible-execution/responsible-execution.component';
 import { AsistenciaComponent } from './pages/cecy/responsible-execute/asistencia/asistencia.component';
+import { ResponsibleCecyComponent } from './pages/cecy/responsible-cecy/responsible-cecy.component';
 
 
 const routes: Routes = [
@@ -60,6 +61,8 @@ const routes: Routes = [
   //   path: '**',
   //   redirectTo: 'common/not-found',
   // },
+  
+  //{ path: 'notas', component: EstudiantesComponent}
 ];
 
 @NgModule({

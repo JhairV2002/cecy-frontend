@@ -1,0 +1,17 @@
+<h2>Listado de Estudiantes</h2>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Nota</th>
+    <th>Editar Nota</th>
+  </tr>
+  <tr *ngFor="let estudiante of estudiantes">
+    <td>{{ estudiante.nombre }}</td>
+    <td>{{ estudiante.nota }}</td>
+    <td>
+      <input type="number" [(ngModel)]="estudiante.nota">
+      <button (click)="editarNota(estudiante, estudiante.nota)">Guardar</button>
+    </td>
+  </tr>
+</table>
