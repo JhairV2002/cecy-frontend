@@ -1,0 +1,17 @@
+<div class="w-screen prose">
+  <h1>{{ nombreCurso$ | async }}</h1>
+  <div class="flex flex-wrap w-screen gap-3">
+    <mat-tab-group class="w-2/4">
+      <mat-tab label="Resumen">
+        {{ cursoResumen$ | async }}
+      </mat-tab>
+      <mat-tab label="Contenido">
+        <ul *ngFor="let contenido of cursoContenido$ | async">
+          <li>{{ contenido.descripcion }}</li>
+        </ul>
+      </mat-tab>
+      <mat-tab label="Horarios"> Content 3 </mat-tab>
+    </mat-tab-group>
+    <app-curso-card [curso]="curso$ | async" [butonText]="'Inscribirse'"></app-curso-card>
+  </div>
+</div>

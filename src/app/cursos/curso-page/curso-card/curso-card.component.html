@@ -1,16 +1,30 @@
-<div class="card card-compact w-80 bg-base-100 shadow-xl mr-0">
+<div *ngIf="curso; else noData" class="card card-compact w-80 bg-base-100 shadow-xl">
   <figure><img [src]="curso.fotoUrl" alt="Curso url" /></figure>
   <div class="card-body">
     <h2 class="card-title">{{ curso.nombre }}</h2>
     <p>{{ curso.descripcion }}</p>
     <div class="card-actions justify-start">
-      <div class="badge badge-outline p-2">
+      <div class="badge badge-md gap-2" [ngClass]="curso.gratis ? 'badge-success' : 'badge-warning'">
         {{ curso.gratis ? "Gratis" : "Pagado" }}
       </div>
       <!-- <div class="badge badge-outline">Products</div> -->
     </div>
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary">Ver más</button>
+    <div *ngIf="butonText === 'Ver Más'; else inscribirse" class="card-actions justify-end">
+      <a class="btn btn-accent" [routerLink]="['/cursos/details', curso.nombre]">
+        {{ butonText }}
+      </a>
     </div>
   </div>
 </div>
+
+<ng-template #noData>
+  <div>Sin Datos</div>
+</ng-template>
+
+<ng-template #inscribirse>
+  <div class="card-actions justify-end">
+    <a class="btn btn-accent">
+      {{ butonText }}
+    </a>
+  </div>
+</ng-template>

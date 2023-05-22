@@ -10,9 +10,25 @@ import { FormsModule } from '@angular/forms';
 import { SearchPipe } from './curso-page/search.pipe';
 import { FilterFreePipe } from './curso-page/filter-free.pipe';
 import { FilterNonFreePipe } from './curso-page/filter-non-free.pipe';
+import { CursoDetailsComponent } from './curso-details/curso-details.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-  declarations: [CursosComponent, CursoPageComponent, CursoCardComponent, SearchPipe, FilterFreePipe, FilterNonFreePipe],
-  imports: [CommonModule, CursosRoutingModule, HttpClientModule, FormsModule],
+  declarations: [
+    CursosComponent,
+    CursoPageComponent,
+    CursoCardComponent,
+    SearchPipe,
+    FilterFreePipe,
+    FilterNonFreePipe,
+    CursoDetailsComponent,
+  ],
+  imports: [
+    CommonModule,
+    CursosRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MatTabsModule,
+  ],
 })
-export class CursosModule { }
+export class CursosModule {}

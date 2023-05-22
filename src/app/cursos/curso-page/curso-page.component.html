@@ -1,5 +1,5 @@
 <div class="prose-base">
-  <h1>{{ nombreCurso$ | async }}</h1>
+  <h1>{{ nombreCurso$ | async | titlecase }}</h1>
   <!-- <p>{{cursos$ | async |json}}</p> -->
   <div class="flex flex-wrap gap-3 w-fit">
     <div class="form-control max-w-xs">
@@ -36,10 +36,11 @@
   </div>
   <div class="flex flex-wrap gap-3">
     <app-curso-card *ngFor="
-        let curso of cursos
+        let curso of cursos$
+          | async
           | search : inputSearch
           | filterFree : checkedGratis
           | filterNonFree : checkedPago
-      " [curso]="curso"></app-curso-card>
+      " [curso]="curso" [butonText]="'Ver Más'"></app-curso-card>
   </div>
 </div>
