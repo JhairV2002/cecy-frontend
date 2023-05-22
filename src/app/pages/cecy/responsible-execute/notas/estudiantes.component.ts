@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
+  styleUrls: ['./estudiantes.component.scss'],
 })
 export class EstudiantesComponent {
   estudiantes = [

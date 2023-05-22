@@ -19,16 +19,17 @@ const routes: Routes = [
   {
     path: 'curso', component:CursoComponent,
   },
-  /*{
+  {
     path: 'estudiantes', component:EstudiantesComponent,
   },
 
-  {
+ /* {
     path: 'ejecucion', component:ResponsibleExecutionComponent,
   },
+  */
     {
     path: 'asistencia', component:AsistenciaComponent,
-  },*/
+  },
   {
 
     path: '',
