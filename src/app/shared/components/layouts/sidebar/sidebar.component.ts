@@ -144,6 +144,28 @@ export class SidebarComponent implements OnInit {
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/responsible-course'],
         },
+        {
+          label: 'Mis cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/responsible-course'],
+        },
+      ],
+    },
+  ];
+  itemsInstructorExecute: MenuItem[] = [
+    {
+      label: 'Docente responsable ejecuta',
+      items: [
+        {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/responsible-execute/home',
+        },
+        {
+          label: 'Mis cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/responsible-execute/mis-cursos'],
+        },
       ],
     },
   ];

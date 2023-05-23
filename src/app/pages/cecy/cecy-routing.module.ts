@@ -138,6 +138,13 @@ const routes: Routes = [
         },
         canActivate: [TokenGuard, RoleGuard], */
       },
+      {
+        path: 'responsible-execute',
+        loadChildren: () =>
+          import('./responsible-execute/responsible-execute.module').then(
+            (m) => m.ResponsibleExecuteModule
+          ),
+      },
     ],
   },
 ];

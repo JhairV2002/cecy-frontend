@@ -19,4 +19,9 @@
     [style]="{ width: '280px' }"
     [model]="itemsDocente"
   ></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'instructor_execute'"
+    [style]="{ width: '280px' }"
+    [model]="itemsInstructorExecute"
+  ></p-menu>
 </ul>
