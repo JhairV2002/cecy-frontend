@@ -24,4 +24,9 @@
     [style]="{ width: '280px' }"
     [model]="itemsInstructorExecute"
   ></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'secretary_cecy'"
+    [style]="{ width: '280px' }"
+    [model]="itemsSecretary"
+  ></p-menu>
 </ul>

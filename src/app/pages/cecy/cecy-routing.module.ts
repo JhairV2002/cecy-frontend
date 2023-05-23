@@ -145,6 +145,13 @@ const routes: Routes = [
             (m) => m.ResponsibleExecuteModule
           ),
       },
+      {
+        path: 'secretary-cecy',
+        loadChildren: () =>
+          import('./secretary-cecy/secretary-cecy.module').then(
+            (m) => m.SecretaryCecyModule
+          ),
+      },
     ],
   },
 ];

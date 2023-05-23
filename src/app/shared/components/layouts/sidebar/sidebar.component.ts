@@ -169,6 +169,23 @@ export class SidebarComponent implements OnInit {
       ],
     },
   ];
+  itemsSecretary: MenuItem[] = [
+    {
+      label: 'Secretaria del Cecy',
+      items: [
+        {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/secretary-cecy/home',
+        },
+        {
+          label: 'Visualizar cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/secretary-cecy/visualization-courses'],
+        },
+      ],
+    },
+  ];
   showedMenu: boolean = false;
   closed: boolean = true;
   menu: MenuItem[] = [];
