@@ -10,8 +10,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'mis-cursos', component: CursoComponent },
-  { path: 'notas', component: EstudiantesComponent },
-  { path: '', component: AsistenciaComponent },
+  { path: 'notas/estudiante', component: EstudiantesComponent },
+  { path: 'asistencia', component: AsistenciaComponent },
   { path: 'listadofecha', component: ListadoFechaComponent },
   //{ path: 'course-form', component: CourseFormComponent },
 ];

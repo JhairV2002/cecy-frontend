@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CursoService } from './curso.service';
 import { Curso } from './curso';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-curso',
@@ -10,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CursoComponent {
     constructor(
       private cursoService: CursoService,
-      private activateRouter: ActivatedRoute
+      private activateRouter: ActivatedRoute,
+      private router: Router
     ){}
 
     cursoList: Curso[]=[]
@@ -32,6 +33,11 @@ export class CursoComponent {
         }
       ) */
       this.findAll();
+        }
+
+        nextPage(){
+          console.log('click');
+          this.router.navigate(['/cecy/responsible-execute/mis-cursos/notas/estudiante']);
         }
 
     /* findById(id: number): void{
