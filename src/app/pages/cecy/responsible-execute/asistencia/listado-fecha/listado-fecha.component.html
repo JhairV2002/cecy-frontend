@@ -7,14 +7,13 @@
       </ul>
     </div> -->
   
-    <div class="background bg-gray-100 h-full px-12">
-      <br />
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h3 class="card-title">LISTA DE ESTUDIANTES</h3>
-          <a href="#" class="card-link">P=PRESENTE</a>
-          <a href="#" class="card-link">A=AUSENTE</a>
-          <a href="#" class="card-link">FJ=FALTA JUSTIFICADA</a>
+    <div class="background1">
+      <div class="table">
+        <div class="table-body">
+          <h3>LISTA DE ESTUDIANTES</h3>
+          <a >P=PRESENTE</a>&nbsp;
+          <a >A=AUSENTE</a>&nbsp;
+          <a >FJ=FALTA JUSTIFICADA</a>
         </div>
       </div>
       <br />
@@ -23,7 +22,7 @@
       <div class="botones">
         <button class="btn btn-accent" routerLink="../asistencia">Regresar</button>&nbsp;
         <button class="btn btn-accent" routerLink="../listado-fecha">Refrescar</button>&nbsp;
-        <button class="btn btn-info" routerLink="../registrofotografico">Registro Fotográfico </button> &nbsp;
+        <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp;
         
       </div>
       <br />
@@ -38,7 +37,7 @@
               <th>FJ</th>
             </tr>
           </thead>
-          <table mat-table matSort class="mat-elevation-z8">
+<!--           <table mat-table matSort class="mat-elevation-z8">
             <ng-container matColumnDef="nombres">
               <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por nombre">
                 Nombre
@@ -46,7 +45,7 @@
               <td mat-cell *matCellDef="let element">{{ element.nombreEstudiante }}</td>
             </ng-container>
   
-          </table>
+          </table> -->
           <tbody>
             <tr>
               <th>Lesly Abigail Campo</th>
@@ -92,13 +91,10 @@
   
     </div>
     <div class="form-group">
-      <label>Observaciones</label>
-      <textarea id="comment" class="form-control" placeholder="Introduzca las observaciones de la clase" media="screen"></textarea>
+      <label with px-2>Observaciones</label>
+      <textarea placeholder="Ingrese las obervaciones desarrolladas dutrante la clase"></textarea>
       </div>
-  
-    &nbsp;
-  
-    <button class="btn btn-info">GUARDAR REGISTRO </button> &nbsp;
+    <button class="btn btn-accent">GUARDAR REGISTRO </button> &nbsp;
   
   
   </div>
