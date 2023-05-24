@@ -80,7 +80,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
       planificationCourseId: [null],
       workdayId: [null, Validators.required],
       endedTime: [null, Validators.required],
-      observation: [null,],
+      observation: [null, Validators.maxLength(255)],
       startedTime: [null, Validators.required],
       instructorId: [null, Validators.required],
       stateId: [null]

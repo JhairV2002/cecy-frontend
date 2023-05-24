@@ -1,4 +1,3 @@
-
 <div>
   <form>
     <div class="container">
@@ -12,9 +11,9 @@
           <div class="w-full md:w-1/6">
             <b>Código del curso: </b> <br />
             {{
-              selectedCourse?.codeCourse
-                ? selectedCourse.codeCourse
-                : "No tiene código"
+            selectedCourse?.codeCourse
+            ? selectedCourse.codeCourse
+            : "No tiene código"
             }}
           </div>
           <div class="w-full md:w-1/6">
@@ -29,20 +28,49 @@
             <b>Modalidad: </b> <br />
             {{ selectedCourse?.course.modality.name }}
           </div>
+          <div class="w-full md:w-1/6">
+            <div class=" flex justify-content-center">
+              <p-button (click)="showDialog()" >
+                <img
+                onerror="this.src = 'assets/course-objects/empty-img.png' "
+                [src]="selectedCourse?.course.image" alt="" style="height: 2rem">
+              </p-button>
+
+
+              <p-dialog header="Ingresar Link de imagen" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                <div class="form-space">
+                  <div class="flex-col m-auto">
+                    <form [formGroup]="formImage" (ngSubmit)="onSubmit()">
+                      <div class="p-1 w-full ">
+                        <input class="w-full" type="text" pInputText id="imageUrl" formControlName="image"
+                          placeholder="Url de la imagen" />
+                        <small appErrorMessage [errors]="imageField.errors" [touched]="imageField.touched"
+                          [dirty]="imageField.dirty">
+                        </small>
+                      </div>
+                      <div class="w-full">
+                        <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full" icon="pi pi-save"></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </p-dialog>
+            </div>
+          </div>
         </div>
       </div>
 
-      <p-tabView >
+      <p-tabView>
         <p-tabPanel header="Datos generales">
           <app-course-form></app-course-form>
         </p-tabPanel>
 
-        <p-tabPanel  header="Diseño curricular">
-          <app-curricular-design ></app-curricular-design>
+        <p-tabPanel header="Diseño curricular">
+          <app-curricular-design></app-curricular-design>
         </p-tabPanel>
 
-        <p-tabPanel  header="Horarios">
-          <app-detail-planification-list ></app-detail-planification-list>
+        <p-tabPanel header="Horarios">
+          <app-detail-planification-list></app-detail-planification-list>
         </p-tabPanel>
 
       </p-tabView>

@@ -7,12 +7,14 @@ import { environment } from './../../../../../../environments/environment';
 import { MessageService } from '../../../../../services/core/message.service';
 import { AuthService } from '@services/auth';
 import { PdfCourseService } from '@services/cecy-v1/pdf-course.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
+  providers: [DatePipe],
 })
 export class CourseListComponent implements OnInit {
   items: MenuItem[] = []; // optional
@@ -22,6 +24,8 @@ export class CourseListComponent implements OnInit {
   idCourse: any;
   editing: boolean = false;
   rowData: any;
+  filterPlan: any[]=[];
+  namePlan: string='';
 
   constructor(
     private courseService: CourseService,
@@ -29,21 +33,22 @@ export class CourseListComponent implements OnInit {
     public messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    private pdfCourseService: PdfCourseService
+    private pdfCourseService: PdfCourseService,
+    private datePipe: DatePipe
   ) {
     this.items = [
       {
         label: 'Descargar informe de Necesidades',
         icon: 'pi pi-book',
         command: () => {
-          this.downloadMen()
+          this.downloadGeneralInformation(this.rowData)
         }
       },
       {
         label: 'Descargar Diseño curricular',
         icon: 'pi pi-book',
         command: () => {
-          this.download1(this.rowData)
+          this.downloadCurricularDesign(this.rowData)
 
 
         }
@@ -72,53 +77,29 @@ export class CourseListComponent implements OnInit {
     this.authService.getPlanificationsbyUser().subscribe((data) => {
       console.log('Planificaciones asignadas', data);
       this.allCourses = data
+      this.filterPlan = this.allCourses
     });
   }
 
 
 
-  // filter(search: string) {
-  //   this.courseService.findByName(search).subscribe((res) => {
-  //     //this.allCourses = res;
-  //   });
-  // }
   editCourse(planification: any) {
     this.router.navigate(['/cecy/responsible-course/course/edit', planification.id])
   }
 
   createCourse(planification: any) {
-    /* console.log(planification)
-    planification.id= null
-    planification.duration = planification.durationTime
-    planification.stateId= 96 */
     console.log(planification);
     this.router.navigate(['/cecy/responsible-course/course/add', planification.id])
-    /* this.courseService.findByCode(planification.codeCourse).subscribe(
-      res=> {
-        console.log('entro')
-        if (res) {
-          this.idCourse= res.id
-          this.router.navigate(['/cecy/responsible-course/course', this.idCourse]);
-        } else {
-          console.log(planification)
-          this.courseService.save(planification).subscribe(
-            res=>{
-              this.idCourse= res.id
-              this.router.navigate(['/cecy/responsible-course/course', this.idCourse]);
-            },
-            error => {
-              console.log('error');
-            }
-          )
-        }
-      },
-      error => {
-        console.log('error find');
-      }
-
-    ) */
+  }
 
 
+  //filter
+  filterPlanification(value: any): void {
+    const filterValue = value.toLowerCase();
+    this.filterPlan = this.allCourses.filter(
+      (item) =>
+        item.name.toLowerCase().includes(filterValue)
+    );
   }
 
   select(valor: any) { this.rowData = valor }
@@ -135,9 +116,30 @@ export class CourseListComponent implements OnInit {
   }
 
 
-  downloadMen() {
-    this.pdfCourseService.generatePDF()
+  downloadGeneralInformation(planificationCourse: any) {
+    try {
+      planificationCourse.startDate = this.datePipe.transform(planificationCourse.startDate, 'dd-MM-yyyy');
+      planificationCourse.finishDate = this.datePipe.transform(planificationCourse.finishDate, 'dd-MM-yyyy');
+      this.pdfCourseService.generatePDF(planificationCourse);
+    } catch (error) {
+      this.pdfCourseService.generatePDF(planificationCourse);
+
+    }
   }
+
+  downloadCurricularDesign(planificationCourse: any) {
+    try {
+      planificationCourse.startDate = this.datePipe.transform(planificationCourse.startDate, 'dd-MM-yyyy');
+      planificationCourse.finishDate = this.datePipe.transform(planificationCourse.finishDate, 'dd-MM-yyyy');
+      this.pdfCourseService.generatePDFCurricularDesign(planificationCourse);
+    } catch (error) {
+      this.pdfCourseService.generatePDFCurricularDesign(planificationCourse);
+
+    }
+  }
+
+
+
 
 
 }

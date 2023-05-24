@@ -47,17 +47,12 @@ export class CourseFormComponent implements OnInit {
     certifiedTypeId: [null, Validators.required],
     formationTypeId: [null, Validators.required],
     abbreviation: [null, [Validators.required, Validators.maxLength(5)]],
-
-    summary: [null, Validators.required],
-    project: [null, Validators.required],
+    summary: [null, [Validators.required, Validators.maxLength(255)] ],
+    project: [null, [Validators.required, Validators.maxLength(255)]],
     needs: this.formBuilder.array([''], Validators.required),
     sponsorId: [null, Validators.required],
-
-    // targetGroups: this.formBuilder.array([], Validators.required),
-    // participantTypes: this.formBuilder.array([], Validators.required),
-
     targetGroups: [null, [Validators.required]],
-      participantTypes: [null, [Validators.required]],
+    participantsRegistration: [null, [Validators.required]],
 
   });
 
@@ -121,7 +116,6 @@ export class CourseFormComponent implements OnInit {
     this.loadCertificationType();
     this.loadformationType();
     this.loadEntityCertification();
-    this.loadParticipantType();
     this.loadSponsor();
 
   }
@@ -337,8 +331,8 @@ export class CourseFormComponent implements OnInit {
 
 
 
-  get participantTypeField() {
-    return this.formCourse.controls['participantTypes']
+  get participantsRegistrationField() {
+    return this.formCourse.controls['participantsRegistration']
   }
 
   get summaryField() {
@@ -435,17 +429,6 @@ export class CourseFormComponent implements OnInit {
   }
 
   loadTargetGroups() {
-    this.courseService.getCatalogues('TARGET_GROUPS').subscribe(
-      (response) => {
-        this.targetGroups = response;
-      },
-      (error) => {
-        this.messageService.error(error);
-      }
-    );
-  }
-
-  loadParticipantType() {
     this.courseService.getCatalogues('PARTICIPANT').subscribe(
       (response) => {
         this.participantTypes = response;
@@ -455,6 +438,7 @@ export class CourseFormComponent implements OnInit {
       }
     );
   }
+
 
   loadSponsor(){
     this.courseService.getSponsors().subscribe(

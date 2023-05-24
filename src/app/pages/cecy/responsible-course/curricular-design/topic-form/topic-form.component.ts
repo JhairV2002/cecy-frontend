@@ -14,7 +14,7 @@ import { PlanificationsCoursesService } from '@services/cecy/coordinator-career'
   templateUrl: './topic-form.component.html',
   styleUrls: ['./topic-form.component.scss']
 })
-export class TopicFormComponent implements OnInit,OnChanges {
+export class TopicFormComponent implements OnInit {
 
   idTopicEdit: TopicModel | undefined;
   topics: Topic[]=[];
@@ -23,7 +23,7 @@ export class TopicFormComponent implements OnInit,OnChanges {
   dialogForm: boolean = false; // optional
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
-  @Input() courseId: number = 0;
+  courseId: number = 0;
 
   public progressBar: boolean = false;
   public newForm: FormGroup = this.newFormTopics;
@@ -37,16 +37,12 @@ export class TopicFormComponent implements OnInit,OnChanges {
     private activatedRoute: ActivatedRoute,
     private planificationCourseService: PlanificationsCoursesService,
   ) {
-    this.getPlanificationById();
+    // this.getPlanificationById();
 
   }
 
   ngOnInit(): void {
-    this.loadTopics();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.loadTopics()
+    this.getPlanificationById();
   }
 
   getPlanificationById() {
@@ -56,6 +52,7 @@ export class TopicFormComponent implements OnInit,OnChanges {
         .planificationById(id)
         .subscribe((data) => {
           this.selectedCourse = data;
+          this.courseId= this.selectedCourse.course.id
           this.loadTopics();
         });
     }

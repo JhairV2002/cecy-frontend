@@ -80,7 +80,7 @@ export class CurricularDesignComponent implements OnInit {
   get newFormCourse(): FormGroup {
     return this.formBuilder.group({
       id: [null],
-      objective: [null, [Validators.required]],
+      objective: [null, [Validators.required, Validators.maxLength(255)]],
       areaId: [null, [Validators.required]],
       specialityId: [null, [Validators.required]],
       bibliographies: [null],
@@ -103,13 +103,7 @@ export class CurricularDesignComponent implements OnInit {
     });
   }
 
-  get newFormEnviroment(): FormGroup {
-    return this.formBuilder.group({
-      installation: [null, [Validators.required]],
-      theoreticalPhase: [false],
-      practicalPhase: [false],
-    });
-  }
+
 
   get newFormTypeMechanism(): FormGroup {
     return this.formBuilder.group({
@@ -276,10 +270,33 @@ export class CurricularDesignComponent implements OnInit {
     this.onSubmit();
   }
 
+  get newFormEnviroment(): FormGroup {
+    return this.formBuilder.group({
+      installation: [null, [Validators.required]],
+      theoreticalPhase: [null],
+      practicalPhase: [null],
+    });
+  }
+
   deleteEnviroment(indice: number) {
     this.learningEnvironmentsField.value.splice(indice, 1)
     this.onSubmit();
   }
+
+  updateEnviroment() {
+    if (this.formEnviroment.valid) {
+      if (this.learningEnvironmentsField.value === null) {
+        this.formCurricularDesign.value.learningEnvironments = []
+      }
+      this.formCurricularDesign.value.learningEnvironments.push(this.formEnviroment.value)
+      this.onSubmit();
+      this.formEnviroment.reset()
+      this.dialogFormEnviroment = false;
+    } else {
+      this.formEnviroment.markAllAsTouched();
+    }
+  }
+
 
   storeStrategie() {
     if (this.formStrategies.valid) {
@@ -309,19 +326,6 @@ export class CurricularDesignComponent implements OnInit {
     this.dialogFormStrategie = false;
   }
 
-  updateEnviroment() {
-    if (this.formEnviroment.valid) {
-      if (this.learningEnvironmentsField.value === null) {
-        this.formCurricularDesign.value.learningEnvironments = []
-      }
-      this.formCurricularDesign.value.learningEnvironments.push(this.formEnviroment.value)
-      this.onSubmit();
-      this.formEnviroment.reset()
-      this.dialogFormEnviroment = false;
-    } else {
-      this.formEnviroment.markAllAsTouched();
-    }
-  }
 
   updateMechanisms() {
     if (this.formMechanisms.valid) {

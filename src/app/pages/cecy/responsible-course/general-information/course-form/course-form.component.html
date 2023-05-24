@@ -29,11 +29,6 @@
   </p-card>
 </p-dialog>
 
-<!-- <div class="card-container blue-container flex align-items-center justify-content-start xl:col-2">
-  <img  onerror="this.src = 'assets/images/components/course/online-course.png' " [src]="STORAGE_URL + '/' + imageField.value?.fullPathSMJpg" alt="">
-  <button pButton type="text" pRipple label="Cargar" class="p-button-rounded" icon="pi pi-upload"
-  (click)="showModalImages()"></button>
-</div> -->
 <p-card>
   <div class="p-fluid">
     <form [formGroup]="formCourse" (ngSubmit)="onSubmit()">
@@ -66,18 +61,6 @@
                 [dirty]="sponsorField.dirty">
               </small>
             </div>
-            <!-- <div class="p-3 w-full md:w-1/2 "><label for="modality" appLabel label="Modalidad de Curso:"
-                [required]="isRequired(modalityField)" [valid]="modalityField.valid" [touched]="modalityField.touched"
-                [dirty]="modalityField.dirty">
-              </label>
-              <p-dropdown id="modality" formControlName="modalityId" [options]="modalities" [filter]="true"
-                filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id" [disabled]="true" >
-              </p-dropdown>
-
-              <small appErrorMessage [errors]="modalityField.errors" [touched]="modalityField.touched"
-                [dirty]="modalityField.dirty">
-              </small>
-            </div> -->
           </div>
         </div>
 
@@ -182,23 +165,24 @@
                 [required]="isRequired(targetGroupsField)" [valid]="targetGroupsField.valid"
                 [touched]="targetGroupsField.touched" [dirty]="targetGroupsField.touched"></label>
 
-              <p-multiSelect [options]="targetGroups" optionLabel="name" formControlName="targetGroups"
+              <p-multiSelect [options]="participantTypes" optionLabel="name" formControlName="targetGroups"
                 [readonly]="this.courseStatus === 'APROBADO'? true : false"></p-multiSelect>
 
               <small appErrorMessage [errors]="targetGroupsField.errors" [touched]="targetGroupsField.touched"
                 [dirty]="targetGroupsField.dirty">
               </small>
             </div>
-            <div class="p-3 w-full md:w-1/2 "><label for="participantTypes" appLabel label="Tipo de participante"
-                [required]="isRequired(participantTypeField)" [valid]="participantTypeField.valid"
-                [touched]="participantTypeField.touched" [dirty]="participantTypeField.touched"></label>
-
-              <p-multiSelect [options]="participantTypes" optionLabel="name" formControlName="participantTypes"
-                [readonly]="this.courseStatus === 'APROBADO'? true : false"></p-multiSelect>
-              <small appErrorMessage [errors]="participantTypeField.errors" [touched]="participantTypeField.touched"
-                [dirty]="participantTypeField.dirty">
-              </small>
-            </div>
+            <div class="p-3 w-full md:w-1/2 "><label for="participantsRegistration" appLabel label="N° de participantes"
+              [required]="isRequired(participantsRegistrationField)" [valid]="participantsRegistrationField.valid"
+              [touched]="participantsRegistrationField.touched" [dirty]="participantsRegistrationField.dirty">
+            </label>
+            <p-inputNumber formControlName="participantsRegistration" placeholder="Ingrese numero de participantes" [showButtons]="true"
+              [min]="0" [step]="1" [useGrouping]="false" inputId="participantsRegistration">
+            </p-inputNumber>
+            <small appErrorMessage [errors]="participantsRegistrationField.errors" [touched]="participantsRegistrationField.touched"
+              [dirty]="participantsRegistrationField.dirty">
+            </small>
+          </div>
           </div>
         </div>
 
