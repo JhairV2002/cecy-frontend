@@ -38,6 +38,11 @@ export class SidebarComponent implements OnInit {
           icon: 'fa-solid fa-graduation-cap',
           routerLink: ['/administrator/careers'],
         },
+        {
+          label: 'Estudiantes',
+          icon: 'fa-solid fa-school',
+          routerLink: ['/administrator/careers'],
+        },
       ],
     },
     {
@@ -54,7 +59,7 @@ export class SidebarComponent implements OnInit {
           routerLink: '/cecy/coordinator-career/dashboard',
         },
         {
-          label: 'Cursos',
+          label: 'Planificacion cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/coordinator-career/course'],
         },
@@ -81,12 +86,12 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Inicio',
           icon: 'fa-solid fa-house',
-          routerLink: '/cecy/coordinator-career/home',
+          routerLink: '/cecy/responsible-course/home',
         },
         {
           label: 'Tus cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/coordinator-career/course'],
+          routerLink: ['/cecy/responsible-course/my-courses'],
         },
       ],
     },
@@ -106,7 +111,7 @@ export class SidebarComponent implements OnInit {
           routerLink: '/cecy/coordinator-career/dashboard',
         },
         {
-          label: 'Cursos',
+          label: 'Planificacion de cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/coordinator-career/course'],
         },
@@ -140,14 +145,9 @@ export class SidebarComponent implements OnInit {
           routerLink: '/cecy/responsible-course/home',
         },
         {
-          label: 'Tus cursos',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/responsible-course'],
-        },
-        {
           label: 'Mis cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/responsible-course'],
+          routerLink: ['/cecy/responsible-course/my-courses'],
         },
       ],
     },

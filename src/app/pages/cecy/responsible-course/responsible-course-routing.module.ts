@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   // { path: '', component: ResponsibleCourseComponent },
-  { path: 'courses-list', component: CourseListComponent },
+  { path: 'my-courses', component: CourseListComponent },
   { path: 'course-form', component: CourseFormComponent },
   { path: 'planification', component: PlanificationComponent },
   { path: 'horarios/:id', component: DetailPlanificationComponent },

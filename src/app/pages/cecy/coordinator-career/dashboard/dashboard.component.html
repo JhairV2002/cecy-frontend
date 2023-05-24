@@ -1,61 +1,48 @@
-<div>
-  <!-- <p-card header="header" subheader="subheader" [style]="{ width: '100%' }">
-    <div class="container">
-      <p-header>
-        <p-chart type="line" [data]="data" [options]="options" width="40vw" height="80vh"></p-chart>
-        <button type="button" pButton (click)="update($event)"></button>
-      </p-header>
-      your card template
-      <p-footer> your footer template </p-footer>
-    </div>
-  </p-card>
-   -->
-  <div class="grid">
-    <div class="col-8 justify-content-center">
-      <p-card
-        header="Total de planificaciones"
-        subheader="Total de estudiantes por carrera en este año lectivo"
-        [style]="{ width: '100%' }"
-      >
-        <div class="container">
-          <p-header>
-            <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
-            <!-- <button type="button" pButton></button> -->
-          </p-header>
-        </div>
-      </p-card>
-    </div>
-    <div class="col-4 justify-content-center">
-      <p-card
-        header="Carreras del Instituto Yavirac"
-        subheader="Periodo lectivo por carrera"
-        [style]="{ width: '100%' }"
-      >
-        <div class="container">
-          <p-header>
-            <p-chart
-              type="doughnut"
-              [data]="data1"
-              [options]="options"
-              [style]="{ width: '40%' }"
-            ></p-chart>
-          </p-header>
-        </div>
-      </p-card>
-    </div>
-    <div class="col-4 text-center">
-      <p-card header="Duracion de cada curso" [style]="{ width: '100%' }">
-        <div class="container">
-          <p-header>
-            <p-chart
-              type="pie"
-              [data]="data2"
-              [options]="options"
-              [style]="{ width: '40%' }"
-            ></p-chart>
-          </p-header>
-        </div>
-      </p-card>
-    </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+  <div class="justify-content-center">
+    <p-card
+      header="Total de planificaciones"
+      subheader="Total de estudiantes por carrera en este año lectivo"
+      [style]="{ width: '100%' }"
+    >
+      <div class="container">
+        <p-header>
+          <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+          <!-- <button type="button" pButton></button> -->
+        </p-header>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-4 justify-content-center">
+    <p-card
+      header="Carreras del Instituto Yavirac"
+      subheader="Periodo lectivo por carrera"
+      [style]="{ width: '100%' }"
+    >
+      <div class="container">
+        <p-header>
+          <p-chart
+            type="doughnut"
+            [data]="data1"
+            [options]="options"
+            [style]="{ width: '40%' }"
+          ></p-chart>
+        </p-header>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-4 text-center">
+    <p-card header="Duracion de cada curso" [style]="{ width: '100%' }">
+      <div class="container">
+        <p-header>
+          <p-chart
+            type="pie"
+            [data]="data2"
+            [options]="options"
+            [style]="{ width: '40%' }"
+          ></p-chart>
+        </p-header>
+      </div>
+    </p-card>
   </div>
 </div>

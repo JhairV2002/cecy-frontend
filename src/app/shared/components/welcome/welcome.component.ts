@@ -32,6 +32,8 @@ export class WelcomeComponent implements OnInit {
       this.welcome = 'Bienvenido';
     } else if (gender === 'femenino') {
       this.welcome = 'Bienvenida';
+    } else {
+      this.welcome = 'Bienvenido'
     }
   }
 
