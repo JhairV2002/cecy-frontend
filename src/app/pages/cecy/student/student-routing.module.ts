@@ -15,6 +15,8 @@ import {TokenGuard} from '@shared/guards/token.guard';
 import {RoleGuard} from '@shared/guards/role.guard';
 import {TopicCourseComponent} from "./topic-course/topic-course.component";
 import { InscriptionFormComponent } from './inscription-form/inscription-form.component';
+import { CoursesListComponent } from './courses/courses-list/courses-list.component';
+import { CoursesListaComponent } from './courses-list/courses-list.component';
 
 const routes: Routes = [
   {
@@ -42,6 +44,12 @@ const routes: Routes = [
     path: 'form',
     component: InscriptionFormComponent
   },
+
+  {
+    path: 'courses-list',
+    component: CoursesListaComponent
+  },
+
 //a
   {
     path: 'courses',
