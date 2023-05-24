@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -11,10 +10,13 @@ import { ResponsibleCourseComponent } from './responsible-course.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { RegistrationManagementListComponent } from './registration-management/registration-management-list/registration-management-list.component';
 import { RegistrationManagementFormComponent } from './registration-management/registration-management-form/registration-management-form.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: ResponsibleCourseComponent },
-  { path: 'courses-list', component: CourseListComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  // { path: '', component: ResponsibleCourseComponent },
+  { path: 'my-courses', component: CourseListComponent },
   { path: 'course-form', component: CourseFormComponent },
   { path: 'planification', component: PlanificationComponent },
   { path: 'horarios/:id', component: DetailPlanificationComponent },
@@ -29,6 +31,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ResponsibleCourseRoutingModule { }
+export class ResponsibleCourseRoutingModule {}

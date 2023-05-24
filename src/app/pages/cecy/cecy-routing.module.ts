@@ -17,10 +17,10 @@ const routes: Routes = [
     children: [
       {
         path: 'coordinator-career',
-        canLoad: [],
-        data: {
-          allowedRoles: ['coordinator_career', 'admin'],
-        },
+        // canLoad: [],
+        // data: {
+        //   allowedRoles: ['coordinator_career', 'admin'],
+        // },
         loadChildren: () =>
           import('./coordinator-career/coordinator-career.module').then(
             (m) => m.CoordinatorCareerModule
@@ -29,10 +29,10 @@ const routes: Routes = [
       {
         path: 'coordinator-cecy',
         canActivate: [],
-        canLoad: [],
-        data: {
-          allowedRoles: ['coordinator_cecy', 'admin'],
-        },
+        // canLoad: [],
+        // data: {
+        //   allowedRoles: ['coordinator_cecy', 'admin'],
+        // },
         loadChildren: () =>
           import('./coordinator-cecy/coordinator-cecy.module').then(
             (m) => m.CoordinatorCecyModule
@@ -137,6 +137,20 @@ const routes: Routes = [
           roles: [RolesEnum.ADMIN],
         },
         canActivate: [TokenGuard, RoleGuard], */
+      },
+      {
+        path: 'responsible-execute',
+        loadChildren: () =>
+          import('./responsible-execute/responsible-execute.module').then(
+            (m) => m.ResponsibleExecuteModule
+          ),
+      },
+      {
+        path: 'secretary-cecy',
+        loadChildren: () =>
+          import('./secretary-cecy/secretary-cecy.module').then(
+            (m) => m.SecretaryCecyModule
+          ),
       },
     ],
   },

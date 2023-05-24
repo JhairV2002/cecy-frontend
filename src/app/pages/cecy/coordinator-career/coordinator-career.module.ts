@@ -47,6 +47,7 @@ import { RequirementListComponent } from './requirement/requirement-list/require
 import { InitialCourseKpiComponent } from './course/initial-course-kpi/initial-course-kpi.component';
 import { InitialPlanificationKpiComponent } from './planification/initial-planification-kpi/initial-planification-kpi.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AssignmentInstructorsFormComponent,
@@ -68,6 +69,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     InitialPlanificationKpiComponent,
     RequirementListComponent,
     DashboardComponent,
+    HomeComponent,
   ],
   exports: [InitialPlanificationKpiComponent],
   imports: [

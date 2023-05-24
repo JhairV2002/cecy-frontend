@@ -2,7 +2,7 @@
   header="{{ titleModal }} usuario"
   [(visible)]="showModal"
   [maximizable]="true"
-  [style]="{ width: '490px' }"
+  [style]="{ width: '498px' }"
   [modal]="true"
   (onHide)="closeModal()"
 >
@@ -61,26 +61,77 @@
             >
             </small>
           </div>
-          <!-- Phone -->
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Phone -->
+            <div class="">
+              <label
+                for="phone"
+                appLabel
+                label="Teléfono:"
+                [required]="isRequired(phoneField)"
+              >
+              </label>
+              <span class="p-input-icon-left">
+                <i class="fa-solid fa-phone"></i>
+                <input
+                  pInputText
+                  formControlName="phone"
+                  pKeyFilter="pint"
+                  placeholder="Ej. 0987654321"
+                />
+              </span>
+
+              <small
+                appErrorMessage
+                [errors]="phoneField.errors"
+                [touched]="phoneField.touched"
+                [dirty]="phoneField.dirty"
+              ></small>
+            </div>
+            <div class="">
+              <!--Genero  -->
+              <label
+                for="gender"
+                appLabel
+                label="Género"
+                [required]="isRequired(genderField)"
+              >
+              </label>
+              <p-dropdown
+                placeholder="Seleccione el genero"
+                [options]="catalogue"
+                optionLabel="genders"
+                optionValue="id"
+                [showClear]="true"
+                [style]="{ width: '100%' }"
+                formControlName="genderId"
+              ></p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="genderField.errors"
+                [touched]="genderField.touched"
+                [dirty]="genderField.dirty"
+              ></small>
+            </div>
+          </div>
           <div class="field col-12">
             <label
-              for="phone"
+              for="identityCard"
               appLabel
-              label="Teléfono:"
-              [required]="isRequired(phoneField)"
-            >
-            </label>
+              label="Cédula"
+              [required]="isRequired(identityCardField)"
+            ></label>
             <input
               pInputText
-              formControlName="phone"
+              formControlName="identityCard"
               pKeyFilter="pint"
-              placeholder="Ej. 0987654321"
+              placeholder="Ej. 1728545355"
             />
             <small
               appErrorMessage
-              [errors]="phoneField.errors"
-              [touched]="phoneField.touched"
-              [dirty]="phoneField.dirty"
+              [errors]="identityCardField.errors"
+              [touched]="identityCardField.touched"
+              [dirty]="identityCardField.dirty"
             ></small>
           </div>
           <div class="field col-12">
@@ -99,6 +150,12 @@
               [style]="{ width: '100%' }"
               formControlName="roleId"
             ></p-dropdown>
+            <small
+              appErrorMessage
+              [errors]="roleField.errors"
+              [touched]="roleField.touched"
+              [dirty]="roleField.dirty"
+            ></small>
           </div>
           <div class="field col-12">
             <label
@@ -117,10 +174,13 @@
               formControlName="email"
               class="lowercase"
             />
-            <!-- <small appErrorMessage>
-              [errors]="emailField.errors" [touched]="emailField.touched"
+            <small
+              appErrorMessage
+              [errors]="emailField.errors"
+              [touched]="emailField.touched"
               [dirty]="emailField.dirty"
-            </small> -->
+            >
+            </small>
           </div>
           <div class="field col-12" *ngIf="!isEdit">
             <label
@@ -140,10 +200,13 @@
               weakLabel="Débil"
             >
             </p-password>
-            <!-- <small appErrorMessage>
-              [errors]="passwordField.errors" [touched]="passwordField.touched"
+            <small
+              appErrorMessage
+              [errors]="passwordField.errors"
               [dirty]="passwordField.dirty"
-            </small> -->
+              [touched]="passwordField.touched"
+            >
+            </small>
           </div>
         </div>
 

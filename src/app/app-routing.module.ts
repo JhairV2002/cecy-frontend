@@ -39,14 +39,13 @@ const routes: Routes = [
   // },
   {
     path: 'common',
-    component: BlankComponent,
     loadChildren: () =>
       import('./pages/core/common/common.module').then((m) => m.CommonModule),
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'common/not-found',
-  // },
+  {
+    path: '**',
+    redirectTo: 'common/not-found',
+  },
 ];
 
 @NgModule({

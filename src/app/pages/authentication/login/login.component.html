@@ -16,98 +16,98 @@
       </div>
       <div class="w-full md:w-1/2 mt-4 md:mt-0">
         <div class="text-center mb-5">
-          <h1 class="text-2xl font-semibold">Bienvenido</h1>
+          <h1 class="text-3xl font-semibold">Bienvenido</h1>
           <h2 class="text-gray-500">Iniciar sesión</h2>
         </div>
-        <form
-          *ngIf="!isLogged"
-          [formGroup]="formLogin"
-          (ngSubmit)="onSubmit()"
-          class="m-4"
-        >
-          <div class="mb-4">
-            <label
-              for="username"
-              appLabel
-              label="Correo electrónico:"
-              [required]="isRequired(emailField)"
-              [valid]="emailField.valid"
-              [touched]="emailField.touched"
-              [dirty]="emailField.dirty"
-            ></label>
-            <input
-              pInputText
-              id="username"
-              formControlName="email"
-              class="w-full"
-              placeholder="Ingrese su correo electrónico"
-            />
-            <small
-              appErrorMessage
-              [errors]="emailField.errors"
-              [touched]="emailField.touched"
-              [dirty]="emailField.dirty"
-            >
-            </small>
-          </div>
-          <div class="mb-4">
-            <label
-              for="password"
-              appLabel
-              label="Contraseña:"
-              [required]="isRequired(passwordField)"
-              [valid]="passwordField.valid"
-              [touched]="passwordField.touched"
-              [dirty]="passwordField.dirty"
-            ></label>
-            <p-password
-              id="password"
-              name="password"
-              class="w-full"
-              formControlName="password"
-              placeholder="Ingrese su contraseña"
-              [feedback]="false"
-              [toggleMask]="true"
-            ></p-password>
-            <small
-              appErrorMessage
-              [errors]="passwordField.errors"
-              [touched]="passwordField.touched"
-              [dirty]="passwordField.dirty"
-            >
-            </small>
-          </div>
-          <p-divider></p-divider>
-          <div class="mb-2">
+        <div class="p-fluid">
+          <form
+            *ngIf="!isLogged"
+            [formGroup]="formLogin"
+            (ngSubmit)="onSubmit()"
+            class="m-4"
+          >
+            <div class="field mb-4">
+              <label
+                for="username"
+                appLabel
+                label="Correo electrónico:"
+                [required]="isRequired(emailField)"
+                [valid]="emailField.valid"
+                [touched]="emailField.touched"
+                [dirty]="emailField.dirty"
+              ></label>
+              <input
+                pInputText
+                id="username"
+                formControlName="email"
+                placeholder="Ingrese su correo electrónico"
+              />
+              <small
+                appErrorMessage
+                [errors]="emailField.errors"
+                [touched]="emailField.touched"
+                [dirty]="emailField.dirty"
+              >
+              </small>
+            </div>
+            <div class="field mb-4">
+              <label
+                for="password"
+                appLabel
+                label="Contraseña:"
+                [required]="isRequired(passwordField)"
+                [valid]="passwordField.valid"
+                [touched]="passwordField.touched"
+                [dirty]="passwordField.dirty"
+              ></label>
+              <p-password
+                id="password"
+                name="password"
+                formControlName="password"
+                placeholder="Ingrese su contraseña"
+                [feedback]="false"
+                [toggleMask]="true"
+              ></p-password>
+              <small
+                appErrorMessage
+                [errors]="passwordField.errors"
+                [touched]="passwordField.touched"
+                [dirty]="passwordField.dirty"
+              >
+              </small>
+            </div>
+            <p-divider></p-divider>
+            <div class="mb-2">
+              <button
+                pButton
+                pRipple
+                label="Ingresar"
+                class="p-button-rounded w-full"
+                icon="pi pi-sign-in"
+              ></button>
+              <div *ngIf="progressBar" class="mt-3">
+                <app-progress-bar
+                  [message]="messageService.progressBarLogin"
+                ></app-progress-bar>
+              </div>
+            </div>
             <button
               pButton
               pRipple
-              label="Ingresar"
-              class="p-button-rounded w-full"
-              icon="pi pi-sign-in"
+              type="button"
+              label="¿Olvidó su contraseña?"
+              class="p-button-outlined p-button-secondary w-full"
+              icon="pi pi-key"
+              (click)="requestPasswordReset()"
             ></button>
-            <div *ngIf="progressBar" class="mt-3">
+
+            <div *ngIf="progressBarRequestPasswordReset" class="">
               <app-progress-bar
-                [message]="messageService.progressBarLogin"
+                [message]="messageService.progressBarRequestPasswordReset"
               ></app-progress-bar>
             </div>
-          </div>
-          <button
-            pButton
-            pRipple
-            type="button"
-            label="¿Olvidó su contraseña?"
-            class="p-button-outlined p-button-secondary w-full"
-            icon="pi pi-key"
-            (click)="requestPasswordReset()"
-          ></button>
-
-          <div *ngIf="progressBarRequestPasswordReset" class="">
-            <app-progress-bar
-              [message]="messageService.progressBarRequestPasswordReset"
-            ></app-progress-bar>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>

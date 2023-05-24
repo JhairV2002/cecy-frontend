@@ -12,6 +12,7 @@ export interface User {
   roleId: number;
   createdAt: Date;
   updateAt: Date;
+  gender: string;
   role: Role;
 }
 

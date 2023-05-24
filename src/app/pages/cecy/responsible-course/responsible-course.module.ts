@@ -59,7 +59,7 @@ import { CurricularDesignComponent } from './curricular-design/curricular-design
 import { TopicFormComponent } from './curricular-design/topic-form/topic-form.component';
 import { PrerequisitesComponent } from './curricular-design/prerequisites/prerequisites.component';
 import { TabsComponent } from './tabs/tabs.component';
-
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -81,7 +81,8 @@ import { TabsComponent } from './tabs/tabs.component';
     DetailPlanificationComponent,
     TabsComponent,
     KpiRegistrationManagementComponent,
-    AssignmentInstructorsFormComponent
+    AssignmentInstructorsFormComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

@@ -29,7 +29,7 @@ export class CourseListComponent implements OnInit, OnChanges {
   search: string = '';
   paginator: PaginatorModel = {};
 
-  courses: PlanificationCoursesCoordinatorCecy[] = [];
+  courses: any[] = [];
   @Input() stateAprooved: any = [];
   stateProcess: any = [];
 

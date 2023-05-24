@@ -44,6 +44,7 @@ import { TopbarComponent } from './components/layouts/topbar/topbar.component';
 import { MenubarModule } from 'primeng/menubar';
 import { UserComponent } from './components/user/user.component';
 import {ImageModule} from 'primeng/image';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 const routes: Routes = [
@@ -71,6 +72,7 @@ const routes: Routes = [
     SidebarComponent,
     TopbarComponent,
     UserComponent,
+    WelcomeComponent,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -92,6 +94,7 @@ const routes: Routes = [
     SidebarComponent,
     TopbarComponent,
     UserComponent,
+    WelcomeComponent
   ],
   imports: [
     CommonModule,
