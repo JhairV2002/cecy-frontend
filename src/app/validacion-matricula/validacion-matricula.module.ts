@@ -10,6 +10,7 @@ import { EstudiantesCursoComponent } from './estudiantes-curso/estudiantes-curso
 import { EstudiantesTableComponent } from './estudiantes-curso/estudiantes-table/estudiantes-table.component';
 import { CursoBannerComponent } from './estudiantes-curso/curso-banner/curso-banner.component';
 import { EstudianteDetallesComponent } from './estudiantes-curso/estudiante-detalles/estudiante-detalles.component';
+import { EstudiantesListaComponent } from './estudiantes-lista/estudiantes-lista.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EstudianteDetallesComponent } from './estudiantes-curso/estudiante-deta
     EstudiantesTableComponent,
     CursoBannerComponent,
     EstudianteDetallesComponent,
+    EstudiantesListaComponent,
   ],
   imports: [CommonModule, ValidacionMatriculaRoutingModule, HttpClientModule],
 })

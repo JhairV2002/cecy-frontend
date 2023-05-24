@@ -5,6 +5,7 @@ import { CursosCarreraComponent } from './cursos-carrera/cursos-carrera.componen
 import { CarrerasComponent } from './carreras/carreras.component';
 import { EstudiantesCursoComponent } from './estudiantes-curso/estudiantes-curso.component';
 import { EstudianteDetallesComponent } from './estudiantes-curso/estudiante-detalles/estudiante-detalles.component';
+import { EstudiantesListaComponent } from './estudiantes-lista/estudiantes-lista.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
             path: ':nombreCurso',
             component: EstudiantesCursoComponent,
             children: [
+              {
+                path: 'lista-estudiantes',
+                component: EstudiantesListaComponent,
+              },
               { path: ':idEstudiante', component: EstudianteDetallesComponent },
             ],
           },
@@ -41,4 +46,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ValidacionMatriculaRoutingModule {}
+export class ValidacionMatriculaRoutingModule { }

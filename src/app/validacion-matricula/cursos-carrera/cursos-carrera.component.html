@@ -12,7 +12,9 @@
       </li>
       <!-- Sidebar content here -->
       <li class="pl-4 my-3" *ngFor="let curso of cursos$ | async">
-        <a routerLink="{{ curso.nombre }}">{{ curso.nombre }}</a>
+        <a routerLink="{{ curso.nombre }}/lista-estudiantes">{{
+          curso.nombre
+          }}</a>
       </li>
     </ul>
   </div>

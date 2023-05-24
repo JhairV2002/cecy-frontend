@@ -17,7 +17,11 @@
         <th>{{ estudiante.apellido }}</th>
         <th>{{ estudiante.tipo }}</th>
         <th>{{ estudiante.nivel ? estudiante.nivel : "No Aplica" }}</th>
-        <th><button class="btn btn-accent">Detalles</button></th>
+        <th>
+          <button class="btn btn-accent">
+            <a routerLink="../{{ estudiante.id }}">Detalles</a>
+          </button>
+        </th>
       </tr>
     </tbody>
   </table>
