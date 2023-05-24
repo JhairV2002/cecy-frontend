@@ -1,9 +1,8 @@
 
-SI FUNCIONA EL PANEL
 <div class="flex w-full mt-10">
   <div
     *ngFor="let contador of cursoList"
-    class="grid card w-96 m-4 flex-grow bg-base-100 shadow-xl place-items-center"
+    class="grid card w-96 m-4  shadow-xl place-items-center"
   >
     <figure class="px-10 pt-10">
       <img
@@ -13,12 +12,11 @@ SI FUNCIONA EL PANEL
       />
     </figure>
     <div class="card-body items-center text-center">
-      <h2 class="card-title">{{ contador.name }}</h2>
-      <h2 class="card-title">Nombre curso</h2>
+      <h2 class="card-title">{{ contador.nombre }}</h2>
 
       <p>Matriculados 5</p>
       <div class="card-actions">
-        <!-- <a [routerLink]="['../curso-lista',contador.id]" class="btn btn-primary">Acceder</a> -->
+        <a [routerLink]="['../curso-lista',contador.id]" class="btn btn-primary">Acceder</a>
       </div>
     </div>
   </div>

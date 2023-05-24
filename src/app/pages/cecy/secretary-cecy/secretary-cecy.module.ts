@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ReporteComponent } from './reporte/reporte.component';
 import { HomeComponent } from './home/home.component';
 import { PanelCursoComponent } from './panel-curso/panel-curso.component';
+import { SearchCursoComponent } from './panel-curso/search-curso/search-curso.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PanelCursoComponent } from './panel-curso/panel-curso.component';
     ReporteComponent,
     HomeComponent,
     PanelCursoComponent,
+    SearchCursoComponent,
   ],
   imports: [CommonModule, SecretaryCecyRoutingModule, SharedModule],
 })

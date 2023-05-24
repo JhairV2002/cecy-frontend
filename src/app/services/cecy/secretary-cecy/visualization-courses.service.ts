@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlanificationCourses } from '@models/cecy/coordinator-career';
+import { Curso } from '@models/cecy/secretary-cecy';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
@@ -26,8 +26,8 @@ export class VisualizationCoursesService {
     return this.http.get(`${this.apiUrl}/edit/:id`);
   }
 
-  public findById(id: number): Observable<PlanificationCourses> {
-    return this.http.get<PlanificationCourses>(
+  public findById(id: number): Observable<Curso> {
+    return this.http.get<Curso>(
       this.apiUrl + '/' + id + '/',
       this.httpOptions
     );
@@ -38,16 +38,16 @@ export class VisualizationCoursesService {
   // }
 
   //Lista cursos
-  public findAll(): Observable<PlanificationCourses[]> {
-    return this.http.get<PlanificationCourses[]>(
+  public findAll(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(
       this.apiUrl + '/',
       this.httpOptions
     );
   }
 
   //search cursos
-  public findByName(term: string): Observable<PlanificationCourses[]> {
-    return this.http.get<PlanificationCourses[]>(
+  public findByName(term: string): Observable<Curso[]> {
+    return this.http.get<Curso[]>(
       this.apiUrl + '/findByName/' + term,
       this.httpOptions
     );

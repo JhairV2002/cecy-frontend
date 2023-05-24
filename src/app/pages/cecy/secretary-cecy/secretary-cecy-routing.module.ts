@@ -3,11 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { PanelCursoComponent } from './panel-curso/panel-curso.component';
+import { SolicitudCertificadoListaComponent } from './solicitud-certificado/solicitud-certificado-lista/solicitud-certificado-lista.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'visualization-courses', component: PanelCursoComponent },
+  {path: 'curso-lista/:id', component:SolicitudCertificadoListaComponent},
+  {path: 'curso-lista', component:SolicitudCertificadoListaComponent},
 ];
 
 @NgModule({
