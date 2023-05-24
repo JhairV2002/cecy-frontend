@@ -1,71 +1,262 @@
-<div class="container p-2">
-  <div class="card">
-    <span class="text-center"><h3>Vertical and Grid</h3></span>
-    <div class="formgrid grid">
-      <div class="field col">
-        <label for="firstname2">Firstname</label>
-        <input
-          id="firstname2"
-          type="text"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-        />
-      </div>
-      <div class="field col">
-        <label for="lastname2">Lastname</label>
-        <input
-          id="lastname2"
-          type="text"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-        />
+
+<!--<app-person-toolbar [entityName]="form.name"></app-person-toolbar>-->
+<div class="grid justify-center m-4">
+  <div class="card shadow-2xl shadow-black rounded-md mt-4">
+    <div class="p-fluid m-1">
+      <div class="formgrid grid px-8 py-4">
+        <div class="text-center mb-5">
+          <h1 class="text-2xl font-semibold">Creacion de Cuenta CECY</h1>
+        </div>
+
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Cedula de Ciudadania: </label>
+          <input
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+            type="text"
+            name=""
+            id="contacto"
+            placeholder="1234567890"
+          />
+        </div>
+
+        <div class="grid md:grid-cols-3 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nombres: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="Hugo Humberto"
+            />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Apellidos: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="Perez Hidalgo"
+            />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Fecha de Nacimiento: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="Ejemplo: Hugo Perez"
+            />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Sexo </label>
+            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
+              <option value="" selected >Seleccione una opcion</option>
+              <option value="value1" >Masculino</option>
+              <option value="value2" >Femenino</option>
+              <option value="value3">Otro</option>
+            </select>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Etnia </label>
+            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
+              <option value="" selected >Seleccione una opcion</option>
+              <option value="value1" >Meztizo</option>
+              <option value="value2" >Indigena</option>
+              <option value="value3">Montubio</option>
+              <option value="value3">Afrodescendiente</option>
+            </select>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">El curso esta auspiciado por la institucion a la que pertenece:</label>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <span class="ml-3 text-sm font-medium text-gray-900 mr-2">NO</span>
+              <input type="checkbox" value="" class="sr-only peer">
+              <div class="w-11 h-6 bg-gray-400 peer-focus:outline-none  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2.14px] after:right-[40.50px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <span class="ml-3 text-sm font-medium text-gray-900">SI</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Direccion: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="CARCELEN, CALLE LOS PELICANOS"
+            />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electronico: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="ejemplo@ejemplo.com"
+            />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Celular: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="0987654321"
+            />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Convencional: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="2423699"
+            />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nivel de instruccion </label>
+            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
+              <option value="" selected >Seleccione una opcion</option>
+              <option value="value1" >Meztizo</option>
+              <option value="value2" >Indigena</option>
+              <option value="value3">Montubio</option>
+              <option value="value3">Afrodescendiente</option>
+            </select>
+          </div>
+
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Cual es su condicion en su Institucion/Empresa? </label>
+            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
+              <option value="" selected >Seleccione una opcion</option>
+              <option value="value1" >Meztizo</option>
+              <option value="value2" >Indigena</option>
+              <option value="value3">Montubio</option>
+              <option value="value3">Afrodescendiente</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nombre de la institucion a la que pertence:</label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="Hugo Humberto"
+            />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Direccion de la Empresa: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="CARCELEN, CALLE LOS PELICANOS"
+            />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electronico: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="ejemplo@ejemplo.com"
+            />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Celular: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="0987654321"
+            />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Convencional: </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text"
+              name=""
+              id="contacto"
+              placeholder="2423699"
+            />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Actividad de la empresa </label>
+            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
+              <option value="" selected >Seleccione una opcion</option>
+              <option value="value1" >Meztizo</option>
+              <option value="value2" >Indigena</option>
+              <option value="value3">Montubio</option>
+              <option value="value3">Afrodescendiente</option>
+            </select>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Cual es su condicion en su Institucion/Empresa? </label>
+            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
+              <option value="" selected >Seleccione una opcion</option>
+              <option value="value1" >Meztizo</option>
+              <option value="value2" >Indigena</option>
+              <option value="value3">Montubio</option>
+              <option value="value3">Afrodescendiente</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Copia de Cedula de Ciudadania: </label>
+          <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-400 mt-1 mb-2 p-1" id="file_input" type="file">
+        </div>
+
+
+
+
+        <div class="field">
+          <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2">
+            Guardar
+          </button>
+          <button class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2">
+            Cancelar</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- <p-header>
-      <div class="text-center">
-        <h2>Registrar usuario</h2>
-      </div>
-      <div class="formgrid grid">
-        <div class="col-12">
-          <div class="field">
-            <label appLabel label="Nombre: "></label>
-            <input pInputText formControlName="username" />
-            <small appErrorMessage></small>
-          </div>
-          <div class="field">
-            <label appLabel label="Contraseña: "></label>
-            <input pInputText formControlName="username" />
-            <small appErrorMessage></small>
-          </div>
-          <div class="field">
-            <label appLabel label="Repetir contraseña: "></label>
-            <input pInputText formControlName="username" />
-            <small appErrorMessage></small>
-          </div>
-
-          <div class="field">
-            <button
-              pButton
-              pRipple
-              type="button"
-              label="Crear cuenta"
-              class="p-button-outlined p-button-info"
-              icon="pi pi-user-plus"
-              (click)="createUser()"
-            ></button>
-          </div>
-          <div class="field">
-            <button
-              pButton
-              pRipple
-              type="button"
-              label="Cancelar"
-              class="p-button-outlined p-button-danger"
-              icon="pi pi-user-plus"
-              routerLink="/login"
-            ></button>
-          </div>
-        </div>
-      </div>
-    </p-header> -->
-</div>
