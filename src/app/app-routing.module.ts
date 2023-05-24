@@ -34,11 +34,27 @@ const routes: Routes = [
   },
   {
     path: 'register-validation',
-    loadChildren: () => import('./register-validation/register-validation.module').then(
-      (m) => m.RegisterValidationModule
-    )
+    loadChildren: () =>
+      import('./register-validation/register-validation.module').then(
+        (m) => m.RegisterValidationModule
+      ),
   },
+  {
+    path: 'cursos',
+    loadChildren: () =>
+      import('./cursos/cursos.module').then((m) => m.CursosModule),
+  },
+  {
+    path: 'validacion-matricula',
+    loadChildren: () =>
+      import('./validacion-matricula/validacion-matricula.module').then(
+        (m) => m.ValidacionMatriculaModule
+      ),
+  },
+<<<<<<< HEAD
   { path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule) },
+=======
+>>>>>>> visualizacion_estudiantes
   // {
   //   path: 'user-administration',
   //   canActivate: [HasRoleGuard],
@@ -73,7 +89,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: false,
+      paramsInheritanceStrategy: 'always',
+    }),
+  ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,0 +1,34 @@
+<div class="overflow-x-auto w-full">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Tipo</th>
+        <th>Nivel</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="estudiantes; noData">
+      <tr *ngFor="let estudiante of estudiantes" class="hover">
+        <th></th>
+        <th>{{ estudiante.nombre }}</th>
+        <th>{{ estudiante.apellido }}</th>
+        <th>{{ estudiante.tipo }}</th>
+        <th>{{ estudiante.nivel ? estudiante.nivel : "No Aplica" }}</th>
+        <th>
+          <button class="btn btn-accent">
+            <a routerLink="../{{ estudiante.id }}">Detalles</a>
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noData>
+  <h2>No hay estudiantes todavía</h2>
+</ng-template>
+
+<ng-template #data> </ng-template>
