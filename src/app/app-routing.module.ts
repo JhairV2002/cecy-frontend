@@ -32,6 +32,30 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
   },
+  {
+    path: 'register-validation',
+    loadChildren: () => import('./register-validation/register-validation.module').then(
+      (m) => m.RegisterValidationModule
+    )
+  },
+  { path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule) },
+  // {
+  //   path: 'user-administration',
+  //   canActivate: [HasRoleGuard],
+  //   canLoad:[HasRoleGuard],
+  //   data: {
+  //     allowedRoles: ['admin']
+  //   },
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/core/user-administration/user-administration.module'
+  //     ).then((m) => m.UserAdministrationModule),
+  // },
+  // {
+  //   path: 'cecy',
+  //   loadChildren: () =>
+  //     import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
+  // },
   // {
   //   path: 'cecy/guest',
   //   loadChildren: () =>

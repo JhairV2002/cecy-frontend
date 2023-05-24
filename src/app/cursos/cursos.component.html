@@ -1,0 +1,24 @@
+<div class="drawer drawer-mobile">
+  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-wrap p-6 justify-start w-full">
+    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Nav</label>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="drawer-side">
+    <label for="my-drawer-2" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-80 bg-base-300 text-base-content">
+      <li>
+        <h2>Carreras</h2>
+      </li>
+      <!-- Sidebar content here -->
+      <li class="pl-4 my-3">
+        <a [routerLink]="['/cursos/carrera', 'todos']">Todos</a>
+      </li>
+      <li class="pl-4 my-3" *ngFor="let carrera of cursos$ | async as cursos">
+        <a [routerLink]="['/cursos/carrera', carrera.nombre]">{{
+          carrera.nombre
+          }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
