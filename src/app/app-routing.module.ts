@@ -23,7 +23,8 @@ const routes: Routes = [
       (m) => m.RegisterValidationModule
     )
   },
-  { path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule) }
+  { path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule) },
+  { path: 'validacion-matricula', loadChildren: () => import('./validacion-matricula/validacion-matricula.module').then(m => m.ValidacionMatriculaModule) }
   // {
   //   path: 'user-administration',
   //   canActivate: [HasRoleGuard],

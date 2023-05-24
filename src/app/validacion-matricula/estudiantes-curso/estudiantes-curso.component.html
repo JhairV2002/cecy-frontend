@@ -1,0 +1,7 @@
+<div class="grid auto-rows-max gap 5">
+  <div class="prose">
+    <h1>{{ cursoNombre$ | async }}</h1>
+  </div>
+  <app-curso-banner [curso]="curso$ | async"></app-curso-banner>
+  <app-estudiantes-table [estudiantes]="estudiantes$ | async"></app-estudiantes-table>
+</div>
