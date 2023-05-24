@@ -51,10 +51,6 @@ const routes: Routes = [
         (m) => m.ValidacionMatriculaModule
       ),
   },
-<<<<<<< HEAD
-  { path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule) },
-=======
->>>>>>> visualizacion_estudiantes
   // {
   //   path: 'user-administration',
   //   canActivate: [HasRoleGuard],
