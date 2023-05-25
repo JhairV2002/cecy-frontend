@@ -7,17 +7,21 @@ import { CursoDetailsComponent } from './curso-details/curso-details.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
     component: CursosComponent,
-    children: [
-      {
-        path: 'carrera/:nombreCarrera',
-        component: CursoPageComponent,
-      },
-      {
-        path: 'details/:nombreCurso',
-        component: CursoDetailsComponent,
-      },
-    ],
+  },
+
+  {
+    path: 'carrera/:nombreCarrera',
+    component: CursoPageComponent,
+  },
+  {
+    path: 'details/:nombreCurso',
+    component: CursoDetailsComponent,
   },
 ];
 
@@ -25,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CursosRoutingModule {}
+export class CursosRoutingModule { }

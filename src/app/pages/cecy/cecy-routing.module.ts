@@ -9,6 +9,7 @@ import { RoleGuard } from './../../guards/role.guard';
 import { MainComponent } from '@layout/main/main.component';
 import { HasRoleGuard } from 'src/app/guards/has-role.guard';
 import { HasTokenGuard } from 'src/app/guards/has-token.guard';
+import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
 
 const routes: Routes = [
   {
@@ -147,10 +148,22 @@ const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'estudiante',
+    component: EstudiantesComponent,
+    children: [
+      {
+        path: 'cursos',
+        loadChildren: () =>
+          import('./cursos/cursos.module').then((m) => m.CursosModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CecyRoutingModule {}
+export class CecyRoutingModule { }

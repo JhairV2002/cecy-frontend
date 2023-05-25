@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Estudiante } from 'src/app/cursos/models';
+import { Estudiante } from '@models/cecy';
 
 @Component({
   selector: 'app-estudiantes-table',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Curso } from '../../models';
+import { Curso } from '@models/cecy';
 
 @Component({
   selector: 'app-curso-card',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CursosService } from '@services/cecy/cursos';
 import { map, switchMap, tap } from 'rxjs';
-import { CursosService } from '../services/cursos.service';
 
 @Component({
   selector: 'app-curso-details',

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Curso } from '../models';
+import { Curso } from '@models/cecy';
 
 @Pipe({
   name: 'search',

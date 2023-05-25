@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Curso } from '@models/cecy';
 import { Observable } from 'rxjs';
-import { Curso } from 'src/app/cursos/models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,6 @@ export class CursosService {
   }
 
   getCursoByName(nombreCurso: string): Observable<Curso[]> {
-    return this.http.get<Curso[]>(`${this.url}findByName/${nombreCurso}/`)
+    return this.http.get<Curso[]>(`${this.url}findByName/${nombreCurso}/`);
   }
 }

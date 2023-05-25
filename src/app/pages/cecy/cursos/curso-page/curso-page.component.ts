@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CursosService } from '../services/cursos.service';
 import { map, switchMap, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { CursosService } from '@services/cecy/cursos';
 
 @Component({
   selector: 'app-curso-page',
@@ -11,7 +11,7 @@ export class CursoPageComponent {
   constructor(
     private cursosService: CursosService,
     private router: ActivatedRoute
-  ) {}
+  ) { }
 
   inputSearch = '';
   checkedGratis = false;

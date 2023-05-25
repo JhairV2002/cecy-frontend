@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CursosService } from '@services/cecy/cursos';
 import { map, switchMap } from 'rxjs';
-import { CursosService } from 'src/app/cursos/services/cursos.service';
 
 @Component({
   selector: 'app-estudiantes-curso',
@@ -12,7 +12,7 @@ export class EstudiantesCursoComponent {
   constructor(
     private router: ActivatedRoute,
     private cursoService: CursosService
-  ) {}
+  ) { }
 
   estudiantes = [];
 
