@@ -62,7 +62,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
     this.loadWorkdays();
     this.loadClassrooms();
     this.loadParallels();
-    this.loadInstructors();
+    // this.loadInstructors();
   }
 
   ngOnDestroy(): void {
@@ -82,7 +82,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
       endedTime: [null, Validators.required],
       observation: [null, Validators.maxLength(255)],
       startedTime: [null, Validators.required],
-      instructorId: [null, Validators.required],
+      // instructorId: [null, Validators.required],
       stateId: [null]
     });
   }
@@ -221,9 +221,9 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
     return this.formDetailPlanification.controls['planificationId'];
   }
 
-  get instructorField() {
-    return this.formDetailPlanification.controls['instructorId'];
-  }
+  // get instructorField() {
+  //   return this.formDetailPlanification.controls['instructorId'];
+  // }
 
   get startedTimeField() {
     return this.formDetailPlanification.controls['startedTime'];

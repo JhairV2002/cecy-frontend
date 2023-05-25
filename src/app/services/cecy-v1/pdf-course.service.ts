@@ -324,7 +324,7 @@ export class PdfCourseService {
                 {
                   ul: this.generateParticipantTypes(course.course.targetGroups)
                 },
-                { text: `${course.course.modality.name}`, },
+                { text: `${course?.course?.modality?.name}`, },
                 { text: `${course.durationTime} Horas` },
               ],
             ],

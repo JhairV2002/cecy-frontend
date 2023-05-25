@@ -24,8 +24,8 @@
       <p-card [header]="item.name" [style]="{ width: '250px' }">
         <ng-template pTemplate="header">
           <!-- <div class=" "> -->
-            <img onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="item?.course.image" alt=""
-            style="height: 1 rem">
+            <img class="max-h-32" onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="item?.course.image" alt=""
+            style="height: 1 rem;">
           <!-- </div> -->
         </ng-template>
         <ng-template pTemplate="subtittle">
@@ -35,27 +35,7 @@
         </ng-template>
         <ng-template pTemplate="footer">
           <div class="text-center">
-            <div class="flex flex-row-reverse gap-1">
-              <!-- {{ stateAprooved.statePlanification ? stateAprooved.statePlanification.length : 0 }} -->
-              <!-- *ngIf="item.course.length > 0" -->
-              <button
-                pButton
-                pRipple
-                type="button"
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-warning"
-                (click)="editCourse(item)"
-              ></button>
-              <!-- *ngIf="item.course.length === 0" -->
-              <button
-                pButton
-                pRipple
-                type="button"
-                icon="pi pi-plus-circle"
-                class="p-button-rounded p-button-success"
-                (click)="createCourse(item)"
-              ></button>
-            </div>
+
             <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-user-edit"
               (onDropdownClick)="select(item)" (onClick)="editCourse(item)" [model]="items">
             </p-splitButton>

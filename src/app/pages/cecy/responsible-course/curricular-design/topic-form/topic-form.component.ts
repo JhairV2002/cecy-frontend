@@ -42,7 +42,7 @@ export class TopicFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getPlanificationById();
+    this.getPlanificationById();
   }
 
   getPlanificationById() {
@@ -53,10 +53,8 @@ export class TopicFormComponent implements OnInit {
         .subscribe((data) => {
           this.selectedCourse = data;
           this.courseId= this.selectedCourse.course.id
-          console.log('ddddddddddddddddd', this.courseId)
-          if(this.courseId!=0){
-            this.loadTopics();
-          }
+          console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',this.selectedCourse)
+          this.loadTopics();
         });
     }
   }
@@ -109,7 +107,6 @@ export class TopicFormComponent implements OnInit {
   }
 
   onSubmit() {
-    
     console.log('topics', this.newForm.value)
 
     if (this.idTopicEdit) {
@@ -142,7 +139,7 @@ export class TopicFormComponent implements OnInit {
   }
 
   loadTopics(page: number = 1) {
-    this.courseService.getTopics(this.selectedCourse?.courseId).subscribe(
+    this.courseService.getTopics(this.selectedCourse?.course.id).subscribe(
       response => {
         this.topics = response
       }
