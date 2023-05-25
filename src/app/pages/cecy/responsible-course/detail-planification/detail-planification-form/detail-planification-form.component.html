@@ -66,20 +66,24 @@
 
     <div class="form-space">
       <div class="container  md:flex">
-        <div class="p-3 w-full md:w-1/2 "><label for="classroom" appLabel label="Aula:"
+        <div class="p-3 w-full md:w-1/2 ">
+          <label for="classroom" appLabel label="Aula:"
             [required]="isRequired(classroomField)" [valid]="classroomField.valid" [touched]="classroomField.touched"
             [dirty]="classroomField.dirty">
           </label>
           <p-dropdown id="classroom" formControlName="classroomId" [options]="classrooms" [filter]="true"
             filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}} <i class="pi pi-user p-mr-2"></i> {{item.capacity}}</div>
-            </div>
-          </ng-template>
-        </p-dropdown>
+          </p-dropdown>
+          <!-- <p-dropdown id="classroom" formControlName="classroomId" [options]="classrooms" [filter]="true"
+            filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
+            <ng-template let-item pTemplate="item">
+              <div>
+                <div>{{item.name}} <i class="pi pi-user p-mr-2"></i> {{item.capacity}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown> -->
           <!-- <small *ngIf="classroomField.value">Número de Participantes <i class="pi pi-user p-mr-2"></i>
-            {{classroomField.value?.capacity}} </small> -->
+          {{classroomField.value?.capacity}} </small> -->
           <small appErrorMessage [errors]="classroomField.errors" [touched]="classroomField.touched"
             [dirty]="classroomField.dirty">
           </small>
@@ -106,7 +110,7 @@
 
 
 
-    <!-- <div class="container">
+    <div class="container">
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
         <label for="instructor" appLabel label="Instrutor:" [required]="isRequired(instructorField)"
           [valid]="instructorField.valid" [touched]="instructorField.touched" [dirty]="instructorField.dirty">
@@ -123,7 +127,7 @@
           [dirty]="instructorField.dirty">
         </small>
       </div>
-    </div> -->
+    </div>
 
 
 

@@ -53,7 +53,6 @@ export class TopicFormComponent implements OnInit {
         .subscribe((data) => {
           this.selectedCourse = data;
           this.courseId= this.selectedCourse.course.id
-          console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',this.selectedCourse)
           this.loadTopics();
         });
     }

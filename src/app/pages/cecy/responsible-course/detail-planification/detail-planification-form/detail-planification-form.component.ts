@@ -15,7 +15,7 @@ import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
   templateUrl: './detail-planification-form.component.html',
   styleUrls: ['./detail-planification-form.component.scss']
 })
-export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
+export class DetailPlanificationFormComponent implements OnInit {
   @Input() data: any;
   @Input() planId: number=0;
 
@@ -62,27 +62,26 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
     this.loadWorkdays();
     this.loadClassrooms();
     this.loadParallels();
-    // this.loadInstructors();
+    this.loadInstructors();
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+  // ngOnDestroy(): void {
+  //   this.unsubscribe$.next();
+  //   this.unsubscribe$.complete();
+  // }
 
   get newFormDetailPlanification(): FormGroup {
     return this.formBuilder.group({
       id: [null],
       dayId: [null, Validators.required],
       classroomId: [null, Validators.required],
-      classroom: [null],
       parallelId: [null, Validators.required],
       planificationCourseId: [null],
       workdayId: [null, Validators.required],
       endedTime: [null, Validators.required],
       observation: [null, Validators.maxLength(255)],
       startedTime: [null, Validators.required],
-      // instructorId: [null, Validators.required],
+      instructorId: [null, Validators.required],
       stateId: [null]
     });
   }
@@ -90,6 +89,7 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.formDetailPlanification.patchValue({ planificationCourseId: this.planId })
+    console.log('este es el form para actualizar', this.formDetailPlanification.value)
     if (this.formDetailPlanification.valid) {
       if (this.idField.value) {
         this.updateDetailPlanification(this.formDetailPlanification.value);
@@ -221,9 +221,9 @@ export class DetailPlanificationFormComponent implements OnInit, OnDestroy {
     return this.formDetailPlanification.controls['planificationId'];
   }
 
-  // get instructorField() {
-  //   return this.formDetailPlanification.controls['instructorId'];
-  // }
+  get instructorField() {
+    return this.formDetailPlanification.controls['instructorId'];
+  }
 
   get startedTimeField() {
     return this.formDetailPlanification.controls['startedTime'];
