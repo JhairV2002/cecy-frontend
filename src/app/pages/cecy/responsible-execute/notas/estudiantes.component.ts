@@ -16,7 +16,7 @@ export class EstudiantesComponent {
     { nombre: 'Angel', nota1: 70, nota2: 60 }, */
 
   ];
-  
+
   filtroNombre: string = '';
 
 
@@ -26,7 +26,7 @@ export class EstudiantesComponent {
 
   determinarEstado(estudiante: any): string {
     const promedio = this.calcularPromedio(estudiante);
-    return promedio >= 60 ? 'Aprobado' : 'Reprobado';
+    return promedio >= 70 ? 'Aprobado' : 'Reprobado';
   }
   guardarNota(estudiante: any) {
     // Aquí puedes implementar la lógica para guardar las notas editadas del estudiante
