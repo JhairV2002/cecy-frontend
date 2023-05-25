@@ -146,6 +146,13 @@ const routes: Routes = [
             (m) => m.ResponsibleExecuteModule
           ),
       },
+      {
+        path: 'validacion-matricula',
+        loadChildren: () =>
+          import('./validacion-matricula/validacion-matricula.module').then(
+            (m) => m.ValidacionMatriculaModule
+          ),
+      },
     ],
   },
 

@@ -24,4 +24,6 @@
     [style]="{ width: '280px' }"
     [model]="itemsInstructorExecute"
   ></p-menu>
+
+  <p-menu [style]="{ width: '280px' }" [model]="(carreras$ | async)!"></p-menu>
 </ul>

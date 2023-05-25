@@ -39,13 +39,6 @@ const routes: Routes = [
         (m) => m.RegisterValidationModule
       ),
   },
-  {
-    path: 'validacion-matricula',
-    loadChildren: () =>
-      import('./validacion-matricula/validacion-matricula.module').then(
-        (m) => m.ValidacionMatriculaModule
-      ),
-  },
   // {
   //   path: 'user-administration',
   //   canActivate: [HasRoleGuard],

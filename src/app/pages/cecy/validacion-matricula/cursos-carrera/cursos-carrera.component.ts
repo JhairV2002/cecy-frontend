@@ -12,7 +12,7 @@ export class CursosCarreraComponent {
   constructor(
     private route: ActivatedRoute,
     private cursosCarreraService: CarrerasService
-  ) {}
+  ) { }
 
   cursos$ = this.route.paramMap.pipe(
     switchMap((params) =>
@@ -20,5 +20,9 @@ export class CursosCarreraComponent {
         .getCursosByCarrera(params.get('nombreCarrera')!)
         .pipe(map((res) => res[0].cursos))
     )
+  );
+
+  nombreCarrera$ = this.route.paramMap.pipe(
+    map((param) => param.get('nombreCarrera')!)
   );
 }

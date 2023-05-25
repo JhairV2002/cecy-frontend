@@ -10,6 +10,7 @@ import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
+import { ValidacionMatriculaModule } from './validacion-matricula/validacion-matricula.module';
 
 @NgModule({
   declarations: [],
@@ -26,7 +27,8 @@ import { DropdownModule } from 'primeng/dropdown';
     RippleModule,
     PasswordModule,
     DropdownModule,
+    ValidacionMatriculaModule,
   ],
   providers: [{ provide: Window, useValue: window }],
 })
-export class CecyModule {}
+export class CecyModule { }

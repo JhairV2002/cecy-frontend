@@ -20,25 +20,23 @@ const routes: Routes = [
   {
     path: 'delegado',
     component: ValidacionMatriculaComponent,
-    children: [
-      {
-        path: ':nombreCarrera',
-        component: CursosCarreraComponent,
-        children: [
-          {
-            path: ':nombreCurso',
-            component: EstudiantesCursoComponent,
-            children: [
-              {
-                path: 'lista-estudiantes',
-                component: EstudiantesListaComponent,
-              },
-              { path: ':idEstudiante', component: EstudianteDetallesComponent },
-            ],
-          },
-        ],
-      },
-    ],
+  },
+  {
+    path: 'delegado/:nombreCarrera',
+    component: CursosCarreraComponent,
+  },
+  {
+    path: 'delegado/:nombreCarrera/:nombreCurso',
+    component: EstudiantesCursoComponent,
+  },
+
+  {
+    path: 'delegado/:nombreCarrera/:nombreCurso/lista-estudiantes',
+    component: EstudiantesListaComponent,
+  },
+  {
+    path: 'delegado/:nombreCarrera/:nombreCurso/:idEstudiante',
+    component: EstudianteDetallesComponent,
   },
 ];
 

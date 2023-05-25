@@ -6,6 +6,7 @@ import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
 import { User } from '@models/authentication';
+import { CarrerasService } from 'src/app/pages/cecy/validacion-matricula/services/carreras.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,26 @@ import { User } from '@models/authentication';
 })
 export class SidebarComponent implements OnInit {
   display = false;
+  carreras$ = this.carreraService.getAllCarreras().pipe(
+    map((res) => {
+      let routes: any[] = [];
+      res.forEach((it) => {
+        routes = [
+          ...routes,
+          {
+            items: [
+              {
+                label: it.nombre,
+                icon: '',
+                routerLink: `/cecy/validacion-matricula/delegado/${it.nombre}`,
+              },
+            ],
+          },
+        ];
+      });
+      return routes;
+    })
+  );
   itemsAdmin: MenuItem[] = [
     {
       label: 'Administrador',
@@ -169,6 +190,24 @@ export class SidebarComponent implements OnInit {
       ],
     },
   ];
+
+  itemsValiDacionMatricula: MenuItem[] = [
+    {
+      label: 'Docente responsable ejecuta',
+      items: [
+        {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/validacion-matricula/carreras',
+        },
+        {
+          label: 'Mis cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/responsible-execute/mis-cursos'],
+        },
+      ],
+    },
+  ];
   showedMenu: boolean = false;
   closed: boolean = true;
   menu: MenuItem[] = [];
@@ -179,8 +218,9 @@ export class SidebarComponent implements OnInit {
     private menuHttpService: MenuHttpService,
     public layoutService: LayoutService,
     public el: ElementRef,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private carreraService: CarrerasService
+  ) { }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((user: any) => {

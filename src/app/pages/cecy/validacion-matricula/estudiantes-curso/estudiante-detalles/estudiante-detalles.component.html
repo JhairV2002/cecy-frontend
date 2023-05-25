@@ -1,13 +1,16 @@
-<!-- {{ estudiante$ | async | json }} -->
-
 <div class="prose my-4">
   <h2>Informacion Personal</h2>
 </div>
 
-<div class="w-full flex flex-wrap justify-between bg-base-100 shadow-xl p-[28px] rounded-2xl">
+<div
+  class="w-full flex flex-wrap justify-between bg-base-100 shadow-xl p-[28px] rounded-2xl"
+>
   <div>
     <figure>
-      <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" class="w-80 rounded-2xl" />
+      <img
+        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+        class="w-80 rounded-2xl"
+      />
     </figure>
   </div>
   <div class="flex flex-wrap flex-col gap-10">
@@ -20,9 +23,9 @@
     <p>
       <b>Nivel</b>
       {{
-      (estudiante$ | async)!.nivel
-      ? (estudiante$ | async)!.nivel
-      : "No Aplica"
+        (estudiante$ | async)!.nivel
+          ? (estudiante$ | async)!.nivel
+          : "No Aplica"
       }}
     </p>
   </div>
@@ -32,12 +35,16 @@
   <h2>Documentos</h2>
 </div>
 
-<div class="flex flex-wrap justify-between prose text-lg shadow-xl rounded-2xl text-center h-max">
+<div
+  class="flex flex-wrap justify-between prose text-lg shadow-xl rounded-2xl text-center h-max"
+>
   <div class="p-8">
     <figure>
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
-        alt="pdf-signal" class="w-36" />
+        alt="pdf-signal"
+        class="w-36"
+      />
       <figcaption>
         <p>Copia de Cédula</p>
       </figcaption>
@@ -49,7 +56,9 @@
     <figure>
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
-        alt="pdf-signal" class="w-36" />
+        alt="pdf-signal"
+        class="w-36"
+      />
       <figcaption>
         <p>Copia de Certificado</p>
       </figcaption>
@@ -80,7 +89,11 @@
           <td>
             <div class="form-control">
               <label class="cursor-pointer label">
-                <input type="checkbox" [checked]="observacion.completado" class="checkbox checkbox-success" />
+                <input
+                  type="checkbox"
+                  [checked]="observacion.completado"
+                  class="checkbox checkbox-success"
+                />
               </label>
             </div>
           </td>
@@ -91,7 +104,10 @@
 </div>
 
 <div>
-  <textarea class="textarea textarea-primary w-full" placeholder="Bio"></textarea>
+  <textarea
+    class="textarea textarea-primary w-full"
+    placeholder="Bio"
+  ></textarea>
   <div><button class="btn btn-accent">Agregar</button></div>
 </div>
 
