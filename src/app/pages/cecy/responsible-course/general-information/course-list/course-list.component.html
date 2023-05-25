@@ -28,6 +28,7 @@
 
   <div class="p-1 flex flex-wrap">
     <div class="p-2" *ngFor="let item of allCourses">
+      {{ item | json }}
       <p-card [header]="item.name" [style]="{ width: '250px' }">
         <ng-template pTemplate="header">
           <!-- <img
@@ -53,24 +54,24 @@
           <div class="text-center">
             <div class="flex flex-row-reverse gap-1">
               <!-- {{ stateAprooved.statePlanification ? stateAprooved.statePlanification.length : 0 }} -->
-            <button
-              *ngIf="item.course.length > 0"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-warning"
-              (click)="editCourse(item)"
-            ></button>
-            <button
-            *ngIf="item.course.length === 0"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-plus-circle"
-              class="p-button-rounded p-button-success"
-              (click)="createCourse(item)"
-            ></button>
+              <!-- *ngIf="item.course.length > 0" -->
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-warning"
+                (click)="editCourse(item)"
+              ></button>
+              <!-- *ngIf="item.course.length === 0" -->
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-plus-circle"
+                class="p-button-rounded p-button-success"
+                (click)="createCourse(item)"
+              ></button>
             </div>
           </div>
         </ng-template>

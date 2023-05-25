@@ -8,13 +8,13 @@ import { MessageService } from '@services/core';
 import { CareerModel, ColModel, PaginatorModel } from '@models/core';
 import { CourseModel } from '@models/cecy';
 import { Router } from '@angular/router';
-import { PlanificationsCoursesService } from './../../../../../services/cecy/coordinator-career';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 import {
   PlanificationCourses,
   Careers,
   getCareerDTO,
-} from './../../../../../models/cecy/coordinator-career';
-import { CareersService } from '../../../../../services/cecy/coordinator-career';
+} from '@models/cecy/coordinator-career';
+import { CareersService } from '@services/cecy/coordinator-career';
 
 @Component({
   selector: 'app-course-list',
@@ -146,8 +146,8 @@ export class CourseListComponent implements OnInit {
 
   addPlanification(newPlanification: any) {
     console.log(
-      'nueva planificacion',
-      newPlanification.newPlanificationCourse.careerId
+      'nueva planificacion QUIIIIIIIIIIIIIIIIIIIIIIIII',
+      newPlanification.newPlanificationCourse?.careerId
     );
     this.careersService
       .getPlanificationsCareers(
@@ -155,6 +155,7 @@ export class CourseListComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
+          console.log('PLANIFICACION DATA', data);
           this.planificationCourses = data.planificationCourse;
         },
       });

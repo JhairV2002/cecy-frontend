@@ -10,7 +10,7 @@
       pButton
       pRipple
       type="button"
-      label="Crear usuario"
+      label="Crear rol"
       class="p-button-success p-button-rounded"
       icon="pi pi-plus"
       (click)="showForm()"
@@ -25,9 +25,9 @@
       ></button> -->
     <!-- (click)="loadUsers(paginator.current_page)" -->
     <p-chip class="ml-4">
-      <i class="pi pi-user mr-2"></i>
+      <i class="fa-solid fa-users-gear mr-2"></i>
       <small
-        >Total de usuarios:
+        >Total de roles:
         {{ roles ? roles.length : 0 }}
       </small>
     </p-chip>
@@ -106,8 +106,9 @@
         </td>
         <td>{{ roles.name }}</td>
         <td>{{ roles.description }}</td>
-
         <td>{{ roles.createdAt | date }}</td>
+        <td>{{ roles.updateAt | date }}</td>
+
         <td>
           <div class="flex gap-1">
             <button

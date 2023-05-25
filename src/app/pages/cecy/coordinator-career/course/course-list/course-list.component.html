@@ -11,7 +11,7 @@
 <div class="container">
   <p-toolbar>
     <div class="p-toolbar-group-left">
-      <div class="p-inputgroup">
+      <div class="">
         <input
           pInputText
           id="search"
@@ -22,14 +22,17 @@
         <button pButton pRipple type="button" icon="pi pi-search"></button>
         <!-- (click)="filter($event)" -->
       </div>
-      <p-button
-        *ngIf="activeButton"
-        type="button"
-        icon="pi pi-plus"
-        styleClass="p-button-success p-button-rounded ml-2"
-        pTooltip="Crear nueva planificación del curso"
-        (click)="showForm()"
-      ></p-button>
+      <div class="ml-3">
+        <p-button
+          *ngIf="activeButton"
+          type="button"
+          icon="pi pi-plus"
+          styleClass="p-button-success p-button-rounded ml-2"
+          pTooltip="Crear nueva planificación del curso"
+          (click)="showForm()"
+        ></p-button>
+      </div>
+
       <i
         class="p-toolbar-separator pi pi-bars mr-2"
         style="vertical-align: middle"

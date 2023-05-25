@@ -30,10 +30,9 @@ export class RolesListComponent implements OnInit {
     private roleService: RolesService
   ) {
     this.cols = [
-      { field: 'username', header: 'Correo Electrónico' },
-      { field: 'name', header: 'Nombres' },
-      { field: 'lastname', header: 'Apellidos' },
-      { field: 'role', header: 'Rol' },
+      { field: 'name', header: 'Nombre' },
+      { field: 'Description', header: 'Descripción' },
+      { field: 'createdAt', header: 'Fecha creación' },
       { field: 'updatedAt', header: 'Última actualización' },
     ];
     this.items = [

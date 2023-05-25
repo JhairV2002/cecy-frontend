@@ -12,7 +12,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
 
 import { CourseModel } from '@models/cecy';
 import { CourseHttpService, InstructorHttpService } from '@services/cecy';
@@ -20,8 +19,7 @@ import { MessageService } from '@services/core';
 import {
   PlanificationsCoursesService,
   TeachersService,
-} from './../../../../../services/cecy/coordinator-career';
-import { Teacher, PlanificationCourses } from '@models/cecy/coordinator-career';
+} from '@services/cecy/coordinator-career';
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
@@ -40,7 +38,6 @@ export class CourseFormComponent implements OnInit, OnChanges {
   users: any = [];
   roles: [] = [];
   public formPlanification = new FormGroup({
-    id: new FormControl(null),
     lectiveYear: new FormControl('', [
       Validators.required,
       Validators.maxLength(10),
@@ -180,9 +177,6 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   // Getters
-  get idField() {
-    return this.formPlanification.controls['id'];
-  }
 
   get lectiveYear() {
     return this.formPlanification.controls['lectiveYear'];
