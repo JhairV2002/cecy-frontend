@@ -165,6 +165,15 @@ const routes: Routes = [
         loadChildren: () =>
           import('./cursos/cursos.module').then((m) => m.CursosModule),
       },
+      {
+        path: 'student',
+        loadChildren: () =>
+          import('./student/student.module').then((m) => m.StudentModule),
+        /* data: {
+          roles: [RolesEnum.ADMIN, RolesEnum.STUDENT],
+        },
+        canActivate: [TokenGuard, RoleGuard], */
+      },
     ],
   },
 ];

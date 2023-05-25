@@ -16,7 +16,7 @@ export class CoursesListaComponent implements OnInit {
   }
 
   updateForm(){
-    this.router.navigate(["/cecy/student/form"])
+    this.router.navigate(["/cecy/estudiante/student/form"])
   }
 
 }

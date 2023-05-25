@@ -16,6 +16,6 @@ export class InscriptionFormComponent implements OnInit {
   }
 
   updateForm(){
-    this.router.navigate(["/cecy/student/courses-list"])
+    this.router.navigate(["/cecy/estudiante/student/courses-list"])
   }
 }
