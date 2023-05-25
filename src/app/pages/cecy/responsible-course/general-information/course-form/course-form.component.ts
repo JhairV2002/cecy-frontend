@@ -23,6 +23,7 @@ import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '@services/cecy-v1/course.service';
 import { PlanificationsCoursesService } from '../../../../../services/cecy/coordinator-career';
+import { Sponsor } from '@models/cecy-v1/sponsor.model';
 
 @Component({
   selector: 'app-course-form',
@@ -36,25 +37,31 @@ export class CourseFormComponent implements OnInit {
   public progessBar: boolean = false;
   courseStatus: any = '';
 
-  formCourse = new FormGroup({
-    //foreing keys
-    planificationId: new FormControl(),
-    modalityId: new FormControl(null, [Validators.required]),
-    categoryId: new FormControl(null, [Validators.required]),
-    entityCertificationId: new FormControl(null, [Validators.required]),
-    courseTypeId: new FormControl(null, [Validators.required]),
-    certifiedTypeId: new FormControl(null, [Validators.required]),
-    formationTypeId: new FormControl(null, [Validators.required]),
-    abbreviation: new FormControl(null, [
-      Validators.required,
-      Validators.maxLength(5),
-    ]),
-    targetGroups: new FormControl(null, [Validators.required]),
-    participantTypes: new FormControl(null, [Validators.required]),
-    summary: new FormControl(null, [Validators.required]),
-    project: new FormControl(null, [Validators.required]),
-    //needs: new FormArray([''])
+  formCourse = this.fb.group({
+    id: [null],
+    planificationId: [null],
+    // modalityId: [null, Validators.required],
+    categoryId: [null, Validators.required],
+    entityCertificationId: [null, Validators.required],
+    courseTypeId: [null, Validators.required],
+    certifiedTypeId: [null, Validators.required],
+    formationTypeId: [null, Validators.required],
+    abbreviation: [null, [Validators.required, Validators.maxLength(5)]],
+    summary: [null, [Validators.required, Validators.maxLength(255)] ],
+    project: [null, [Validators.required, Validators.maxLength(255)]],
+    needs: this.formBuilder.array([''], Validators.required),
+    sponsorId: [null, Validators.required],
+    targetGroups: [null, [Validators.required]],
+    participantsRegistration: [null, [Validators.required]],
+
   });
+
+  formSponsor = this.fb.group({
+    id: [null],
+    name: [null, Validators.required],
+    description: [null],
+  });
+
 
   public progressBar: boolean = false; // falta programarlo
   public files: ImageModel[] = [];
@@ -75,8 +82,13 @@ export class CourseFormComponent implements OnInit {
   public entityCertifications: CecyCatalogueModel[] = [];
   public targetGroups: CecyCatalogueModel[] = [];
   public participantTypes: CecyCatalogueModel[] = [];
-  public STORAGE_URL: string;
-  public id: number = 0;
+  public STORAGE_URL: string ='';
+  public id: number= 0;
+  courseId: any;
+  selectedItems: any;
+  public sponsors: Sponsor[]=[];
+  visibleFormSponsor: boolean= false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,16 +96,18 @@ export class CourseFormComponent implements OnInit {
     private courseService: CourseService,
     private cataloguesHttpService: CatalogueHttpService,
     private activatedRoute: ActivatedRoute,
-    private planificationCoursesService: PlanificationsCoursesService
+    private planificationCourseService: PlanificationsCoursesService,
+    public fb: FormBuilder,
   ) {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.getCourse(id);
-    this.STORAGE_URL = environment.STORAGE_URL;
+    // const id = this.activatedRoute.snapshot.params['id'];
+    // this.getCourse(id);
+    // this.STORAGE_URL = environment.STORAGE_URL;
 
     //this.id = this.activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit(): void {
+    this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();
     this.loadCourseType();
@@ -102,56 +116,33 @@ export class CourseFormComponent implements OnInit {
     this.loadCertificationType();
     this.loadformationType();
     this.loadEntityCertification();
-    this.loadParticipantType();
+    this.loadSponsor();
 
-    const id = this.activatedRoute.snapshot.params['id'];
-    if (id) {
-      console.log(id);
-      this.planificationCoursesService
-        .planificationById(id)
-        .subscribe((data) => {
-          console.log('Planificacion por id es:', data);
-          // this.formCourse.patchValue({
-          //   modalityId: [data.course[0]?.modalityId.id],
-          //   categoryId: [data.course[0]?.categoryId],
-          //   entityCertificationId: [data.course[0]?.entityCertificationId],
-          //   courseTypeId: [data.course[0]?.courseTypeId.id],
-          //   certifiedTypeId: [data.course[0]?.certifiedTypeId],
-          //   formationTypeId: [data.course[0]?.formationTypeId],
-          //   abbreviation: [data.course[0]?.abbreviation],
-          //   targetGroups: [data.course[0]?.targetGroups.id],
-          //   participantTypes: [data.course[0]?.participantTypes],
-          //   summary: [data.course[0]?.summary],
-          //   project: [data.course[0]?.project],
-          // });
-          console.log('modalidad', data.course[0]?.modalityId);
-        });
-    }
   }
 
   getCourse(id: number) {
     this.courseService.getGeneralInformation(id).subscribe((response) => {
       console.log(response);
 
-      /* this.needsField.clear();
-      this.formCourse.reset(response);
- */
-      /* response.needs!.forEach((need: string) => {
-        this.addNeed(need);
-      }); */
 
-      /* if (response.participantTypes.length > 0) {
-        this.participantTypeField.patchValue(response.participantTypes!);
-      } else {
-        return;
-      }
-
-      if (response.targetGroups.length > 0) {
-        this.targetGroupsField.patchValue(response.targetGroups!);
-      } else {
-        return;
-      } */
     });
+  }
+
+  getPlanificationById() {
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
+      this.planificationCourseService
+        .planificationById(id)
+        .subscribe((data) => {
+          this.selectedCourse = data;
+          this.formCourse.patchValue(data.course);
+          console.log(this.formCourse.value)
+          this.needsField.clear();
+          data.course.needs!.forEach((need: string) => {
+            this.addNeed(need);
+          });
+        });
+    }
   }
 
   showModalImages() {
@@ -165,12 +156,206 @@ export class CourseFormComponent implements OnInit {
       formData.append('images[]', file);
     }
 
-    /*  this.coursesHttpService
-      .uploadImageCourse(this.idField.value, formData)
-      .subscribe((response) => {
-        this.imageField.setValue(response.data);
-        this.messageService.success(response);
-      }); */
+
+  }
+
+
+
+  //metodos para guardar
+
+  onSubmit() {
+    if (this.formCourse.valid) {
+      this.saveCourse();
+    } else {
+      this.formCourse.markAllAsTouched();
+    }
+  }
+  saveCourse() {
+    this.courseId = this.selectedCourse.course.id;
+    const valuesFormGeneralInformation = this.formCourse.value;
+    this.courseService.update(valuesFormGeneralInformation, this.courseId).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.messageService.successCourse(data);
+        this.progressBar = false;
+
+      },
+      error: (error) => {
+        console.log(error);
+        this.messageService.errorValid(error);
+        this.progressBar = false;
+      },
+    });
+  }
+
+  addNeed(data: string = '') {
+    this.needsField.push(this.formBuilder.control(data, Validators.required));
+  }
+
+  removeNeeds(index: number) {
+    if (this.needsField.length > 1) {
+      this.needsField.removeAt(index);
+    } else {
+      this.needsField.markAllAsTouched();
+      this.messageService.errorRequired();
+    }
+  }
+
+  isRequired(field: AbstractControl): boolean {
+    return field.hasValidator(Validators.required);
+  }
+
+
+  showFormSponsor(){
+    this.visibleFormSponsor = true;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Setter
+  set planificationId(value: any) {
+    this.formCourse.patchValue({
+      planificationId: value,
+    });
+  }
+
+  //getters campos propios
+  get planificationId() {
+    return this.formCourse.controls['planificationId'];
+  }
+
+  // get modalityField() {
+  //   return this.formCourse.controls['modalityId'];
+  // }
+
+  get categoryField() {
+    return this.formCourse.controls['categoryId'];
+  }
+
+  get entityCertificationField() {
+    return this.formCourse.controls['entityCertificationId'];
+  }
+
+  get courseTypeField() {
+    return this.formCourse.controls['courseTypeId'];
+  }
+
+  get certificationTypeField() {
+    return this.formCourse.controls['certifiedTypeId'];
+  }
+
+  get formationTypeField() {
+    return this.formCourse.controls['formationTypeId'];
+  }
+
+  get abbreviationField() {
+    return this.formCourse.controls['abbreviation'];
+  }
+
+  // get targetGroupsField(): FormArray {
+  //   return this.formCourse.controls['targetGroups'] as FormArray;
+  // }
+
+  // get participantTypeField(): FormArray {
+  //   return this.formCourse.controls['participantTypes'] as FormArray;
+  // }
+
+  get targetGroupsField() {
+    return this.formCourse.controls['targetGroups']
+  }
+
+
+
+  get participantsRegistrationField() {
+    return this.formCourse.controls['participantsRegistration']
+  }
+
+  get summaryField() {
+    return this.formCourse.controls['summary'];
+  }
+
+  get projectFiled() {
+    return this.formCourse.controls['project'];
+  }
+
+  get needsField(): FormArray {
+    return this.formCourse.controls['needs'] as FormArray;
+  }
+
+  get idField() {
+    return this.formCourse.controls['id'];
+  }
+  // get imageField() {
+  //   return this.formCourse.controls['image'];
+  // }
+
+  get sponsorField() {
+    return this.formCourse.controls['sponsorId'];
   }
 
   //carga categorias del curso
@@ -244,17 +429,6 @@ export class CourseFormComponent implements OnInit {
   }
 
   loadTargetGroups() {
-    this.courseService.getCatalogues('TARGET_GROUPS').subscribe(
-      (response) => {
-        this.targetGroups = response;
-      },
-      (error) => {
-        this.messageService.error(error);
-      }
-    );
-  }
-
-  loadParticipantType() {
     this.courseService.getCatalogues('PARTICIPANT').subscribe(
       (response) => {
         this.participantTypes = response;
@@ -265,118 +439,45 @@ export class CourseFormComponent implements OnInit {
     );
   }
 
-  //metodos para guardar
 
-  onSubmit() {
-    if (this.formCourse.valid) {
-      this.saveCourse();
-      console.log('Se esta guardando la información general del curso');
+  loadSponsor(){
+    this.courseService.getSponsors().subscribe(
+      (response) => {
+        this.sponsors = response;
+      },
+      (error) => {
+        this.messageService.error(error);
+      }
+    )
+  }
+
+  // isRequired(field: AbstractControl): boolean {
+  //   return field.hasValidator(Validators.required);
+  // }
+
+  onSubmitSponsor(){
+    if (this.formSponsor.valid) {
+      this.saveSponsor();
     } else {
-      this.formCourse.markAllAsTouched();
+      this.formSponsor.markAllAsTouched();
     }
   }
 
-  saveCourse() {
-    this.planificationId = this.selectedCourse.id;
-    const valuesFormGeneralInformation = this.formCourse.value;
-    console.log(valuesFormGeneralInformation);
-    this.progessBar = true;
-    this.courseService.save(valuesFormGeneralInformation).subscribe({
-      next: (data) => {
-        console.log(data);
-        //this.messageService.successCourse(data);
+  saveSponsor(){
+    this.courseService.saveSponsor(this.formSponsor.value).subscribe(
+      response=>{
+        console.log(response);
+        this.visibleFormSponsor=false;
+        this.formSponsor.reset()
+        this.messageService.successCourse(response);
+        this.loadSponsor();
+      }
 
-        this.progessBar = false;
-      },
-      error: (error) => {
-        console.log(error);
-        this.messageService.error(error);
-        this.progressBar = false;
-      },
-    });
+    )
   }
 
-  addNeed(data: string = '') {
-    //this.needsField.push(this.formBuilder.control(data, Validators.required));
+  get nameField() {
+    return this.formSponsor.controls['name'];
   }
 
-  removeNeeds(index: number) {
-    // if (this.needsField.length > 1) {
-    //   this.needsField.removeAt(index);
-    // } else {
-    //   this.needsField.markAllAsTouched();
-    //   this.messageService.errorRequired();
-    // }
-  }
-
-  isRequired(field: AbstractControl): boolean {
-    return field.hasValidator(Validators.required);
-  }
-
-  //Setter
-  set planificationId(value: any) {
-    this.formCourse.patchValue({
-      planificationId: value,
-    });
-  }
-
-  //getters campos propios
-  get planificationId() {
-    return this.formCourse.controls['planificationId'];
-  }
-
-  get modalityField() {
-    return this.formCourse.controls['modalityId'];
-  }
-
-  get categoryField() {
-    return this.formCourse.controls['categoryId'];
-  }
-
-  get entityCertificationField() {
-    return this.formCourse.controls['entityCertificationId'];
-  }
-
-  get courseTypeField() {
-    return this.formCourse.controls['courseTypeId'];
-  }
-
-  get certificationTypeField() {
-    return this.formCourse.controls['certifiedTypeId'];
-  }
-
-  get formationTypeField() {
-    return this.formCourse.controls['formationTypeId'];
-  }
-
-  get abbreviationField() {
-    return this.formCourse.controls['abbreviation'];
-  }
-
-  // get targetGroupsField(): FormArray {
-  //   return this.formCourse.controls['targetGroups'] as FormArray;
-  // }
-
-  // get participantTypeField(): FormArray {
-  //   return this.formCourse.controls['participantTypes'] as FormArray;
-  // }
-
-  get summaryField() {
-    return this.formCourse.controls['summary'];
-  }
-
-  get projectFiled() {
-    return this.formCourse.controls['project'];
-  }
-
-  // get needsField(): FormArray {
-  //   return this.formCourse.controls['needs'] as FormArray;
-  // }
-
-  // get idField() {
-  //   return this.formCourse.controls['id'];
-  // }
-  // get imageField() {
-  //   return this.formCourse.controls['image'];
-  // }
 }

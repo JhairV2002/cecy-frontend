@@ -3,180 +3,143 @@
 <div class="p-fluid">
   <form [formGroup]="formDetailPlanification" (ngSubmit)="onSubmit()">
     <!-- first row -->
-    <div class="formgrid grid">
-      <!--startedTime-->
-      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="startedTime"
-        appLabel
-        label="Hora inicio:"
-        [required]="isRequired(startedTimeField)"
-          [valid]="startedTimeField.valid"
-          [touched]="startedTimeField.touched"
-          [dirty]="startedTimeField.dirty">
-        </label>
-        <input type="time" pInputText id="startedTime" formControlName="startedTime">
-        <!-- <p-calendar id="startedTime" formControlName="startedTime" [timeOnly]="true" hourFormat="24"></p-calendar> -->
-        <small appErrorMessage
-        [errors]="startedTimeField.errors"
-        [touched]="startedTimeField.touched"
-          [dirty]="startedTimeField.dirty">
-        </small>
-      </div>
-      <!--endedTime-->
-      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="endedTime" appLabel
-        label="Hora final:"
-        [required]="isRequired(endedTimeField)"
-          [valid]="endedTimeField.valid"
-          [touched]="endedTimeField.touched"
-          [dirty]="endedTimeField.dirty">
-        </label>
-        <input type="time" pInputText id="endedTime" formControlName="endedTime">
-        <!-- <p-calendar id="endedTime" formControlName="endedTime" [timeOnly]="true" hourFormat="24"></p-calendar> -->
-        <small appErrorMessage
-        [errors]="endedTimeField.errors"
-        [touched]="endedTimeField.touched"
-          [dirty]="endedTimeField.dirty">
-        </small>
-      </div>
 
+    <div class="form-space">
+      <div class="container  md:flex">
+        <div class="p-3 w-full md:w-1/2 "><label for="startedTime" appLabel label="Hora inicio:"
+            [required]="isRequired(startedTimeField)" [valid]="startedTimeField.valid"
+            [touched]="startedTimeField.touched" [dirty]="startedTimeField.dirty">
+          </label>
+          <input type="time" pInputText id="startedTime" formControlName="startedTime">
+          <!-- <p-calendar id="startedTime" formControlName="startedTime" [timeOnly]="true" hourFormat="24"></p-calendar> -->
+          <small appErrorMessage [errors]="startedTimeField.errors" [touched]="startedTimeField.touched"
+            [dirty]="startedTimeField.dirty">
+          </small>
+        </div>
+        <div class="p-3 w-full md:w-1/2 "><label for="endedTime" appLabel label="Hora final:"
+            [required]="isRequired(endedTimeField)" [valid]="endedTimeField.valid" [touched]="endedTimeField.touched"
+            [dirty]="endedTimeField.dirty">
+          </label>
+          <input type="time" pInputText id="endedTime" formControlName="endedTime">
+          <!-- <p-calendar id="endedTime" formControlName="endedTime" [timeOnly]="true" hourFormat="24"></p-calendar> -->
+          <small appErrorMessage [errors]="endedTimeField.errors" [touched]="endedTimeField.touched"
+            [dirty]="endedTimeField.dirty">
+          </small>
+        </div>
+      </div>
     </div>
 
     <!-- second row -->
-    <div class="formgrid grid">
-      <!--days-->
-      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="days" appLabel
-        label="Días:"
-        [required]="isRequired(dayField)">
-          [valid]="dayField.valid"
-          [touched]="dayField.touched"
-          [dirty]="dayField.dirty">
-        </label>
-        <p-dropdown id="days"
-        formControlName="day"
-        [options]="days"
-        [filter]="true"
-        filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="dayField.value">
-              <div>{{dayField.value?.name}}</div>
-            </div>
-          </ng-template>
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}}</div>
-            </div>
-          </ng-template>
-        </p-dropdown>
-        <small appErrorMessage
-        [errors]="dayField.errors"
-        [touched]="dayField.touched"
-        [dirty]="dayField.dirty">
-        </small>
-      </div>
-      <!--workdays-->
-      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="workday" appLabel
-        label="Jornada:"
-        [required]="isRequired(workdayField)"
-          [valid]="workdayField.valid"
-          [touched]="workdayField.touched"
-          [dirty]="workdayField.dirty">
-        </label>
-        <p-dropdown id="workdays"
-        formControlName="workday"
-        [options]="workdays"
-        [filter]="true"
-        filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="workdayField.value">
-              <div>{{workdayField.value?.name}}</div>
-            </div>
-          </ng-template>
-          <ng-template let-item pTemplate="item">
-            <div>
-              <div>{{item.name}}</div>
-            </div>
-          </ng-template>
-        </p-dropdown>
-        <small appErrorMessage
-        [errors]="workdayField.errors"
-        [touched]="workdayField.touched"
-          [dirty]="workdayField.dirty">
-        </small>
+
+    <div class="form-space">
+      <div class="container  md:flex">
+        <div class="p-3 w-full md:w-1/2 "><label for="days" appLabel label="Días:" [required]="isRequired(dayField)"
+            [valid]="dayField.valid" [touched]="dayField.touched" [dirty]="dayField.dirty">
+          </label>
+          <p-dropdown id="days" formControlName="dayId" [options]="days" [filter]="true" filterBy="name"
+            placeholder="Seleccione" optionLabel="name" optionValue="id">
+
+          </p-dropdown>
+          <small appErrorMessage [errors]="dayField.errors" [touched]="dayField.touched" [dirty]="dayField.dirty">
+          </small>
+        </div>
+        <div class="p-3 w-full md:w-1/2 "><label for="workday" appLabel label="Jornada:"
+            [required]="isRequired(workdayField)" [valid]="workdayField.valid" [touched]="workdayField.touched"
+            [dirty]="workdayField.dirty">
+          </label>
+          <p-dropdown id="workdays" formControlName="workdayId" [options]="workdays" [filter]="true" filterBy="name"
+            placeholder="Seleccione" optionLabel="name" optionValue="id">
+
+          </p-dropdown>
+          <small appErrorMessage [errors]="workdayField.errors" [touched]="workdayField.touched"
+            [dirty]="workdayField.dirty">
+          </small>
+        </div>
       </div>
     </div>
+
 
 
 
     <!-- fourth row -->
-    <div class="formgrid grid">
-      <!--classroom-->
-      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="classroom" appLabel label="Aula:" [required]="isRequired(classroomField)"
-          [valid]="classroomField.valid" [touched]="classroomField.touched" [dirty]="classroomField.dirty">
-        </label>
-        <p-dropdown id="classroom" formControlName="classroom" [options]="classrooms" [filter]="true" filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="classroomField.value">
-              <div>
-                {{classroomField.value?.name}}
-                <i class="pi pi-user p-mr-2"></i>
-                {{classroomField.value?.capacity}}
-              </div>
-            </div>
-          </ng-template>
+
+
+    <div class="form-space">
+      <div class="container  md:flex">
+        <div class="p-3 w-full md:w-1/2 "><label for="classroom" appLabel label="Aula:"
+            [required]="isRequired(classroomField)" [valid]="classroomField.valid" [touched]="classroomField.touched"
+            [dirty]="classroomField.dirty">
+          </label>
+          <p-dropdown id="classroom" formControlName="classroomId" [options]="classrooms" [filter]="true"
+            filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
           <ng-template let-item pTemplate="item">
             <div>
               <div>{{item.name}} <i class="pi pi-user p-mr-2"></i> {{item.capacity}}</div>
             </div>
           </ng-template>
         </p-dropdown>
-        <small *ngIf="classroomField.value">Número de Participantes <i class="pi pi-user p-mr-2"></i>
-          {{classroomField.value?.capacity}} </small>
-        <small appErrorMessage [errors]="classroomField.errors" [touched]="classroomField.touched"
-          [dirty]="classroomField.dirty">
-        </small>
+          <!-- <small *ngIf="classroomField.value">Número de Participantes <i class="pi pi-user p-mr-2"></i>
+            {{classroomField.value?.capacity}} </small> -->
+          <small appErrorMessage [errors]="classroomField.errors" [touched]="classroomField.touched"
+            [dirty]="classroomField.dirty">
+          </small>
+        </div>
+        <div class="p-3 w-full md:w-1/2 "><label for="parallel" appLabel label="Paralelo:"
+            [required]="isRequired(parallelField)" [valid]="parallelField.valid" [touched]="parallelField.touched"
+            [dirty]="parallelField.dirty">
+          </label>
+          <p-dropdown id="parallel" formControlName="parallelId" [options]="parallels" [filter]="true" filterBy="name"
+            placeholder="Seleccione" optionLabel="name" optionValue="id">
+
+          </p-dropdown>
+          <small appErrorMessage [errors]="parallelField.errors" [touched]="parallelField.touched"
+            [dirty]="parallelField.dirty">
+          </small>
+        </div>
       </div>
-      <!--parallel-->
+    </div>
+
+
+
+
+
+
+
+
+    <div class="container">
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="parallel" appLabel label="Paralelo:" [required]="isRequired(parallelField)"
-          [valid]="parallelField.valid" [touched]="parallelField.touched" [dirty]="parallelField.dirty">
+        <label for="instructor" appLabel label="Instrutor:" [required]="isRequired(instructorField)"
+          [valid]="instructorField.valid" [touched]="instructorField.touched" [dirty]="instructorField.dirty">
         </label>
-        <p-dropdown id="parallel" formControlName="parallel" [options]="parallels" [filter]="true" filterBy="name"
-          placeholder="Seleccione">
-          <ng-template pTemplate="selectedItem">
-            <div *ngIf="parallelField.value">
-              <div>{{parallelField.value?.name}}</div>
-            </div>
-          </ng-template>
+        <p-dropdown id="instructor" formControlName="instructorId" [options]="instructors" [filter]="true"
+          filterBy="names" placeholder="Seleccione" optionLabel="names" optionValue="id">
           <ng-template let-item pTemplate="item">
             <div>
-              <div>{{item.name}}</div>
+              <div>{{item.names}} {{item.lastnames}}</div>
             </div>
           </ng-template>
         </p-dropdown>
-        <small appErrorMessage [errors]="parallelField.errors" [touched]="parallelField.touched"
-          [dirty]="parallelField.dirty">
+        <small appErrorMessage [errors]="instructorField.errors" [touched]="instructorField.touched"
+          [dirty]="instructorField.dirty">
         </small>
       </div>
     </div>
 
+
+
     <!--observation-->
-    <div class="field">
-      <label for="observation" appLabel label="Observación:" [required]="isRequired(observationField)"
-        [valid]="observationField.valid" [touched]="observationField.touched" [dirty]="observationField.dirty">
-      </label>
-      <!-- <input pInputText id="observation" formControlName="observation" class="text-uppercase"> -->
-      <textarea pInputTextarea name="observation" id="observation" formControlName="observation"
-        class="text-uppercase"></textarea>
-      <small appErrorMessage [errors]="observationField.errors" [touched]="observationField.touched"
-        [dirty]="observationField.dirty">
-      </small>
+    <div class="container">
+      <div class="field">
+        <label for="observation" appLabel label="Observación:" [required]="isRequired(observationField)"
+          [valid]="observationField.valid" [touched]="observationField.touched" [dirty]="observationField.dirty">
+        </label>
+        <!-- <input pInputText id="observation" formControlName="observation" class="text-uppercase"> -->
+        <textarea pInputTextarea name="observation" id="observation" formControlName="observation"
+          class="text-uppercase"></textarea>
+        <small appErrorMessage [errors]="observationField.errors" [touched]="observationField.touched"
+          [dirty]="observationField.dirty">
+        </small>
+      </div>
     </div>
 
     <p-divider></p-divider>

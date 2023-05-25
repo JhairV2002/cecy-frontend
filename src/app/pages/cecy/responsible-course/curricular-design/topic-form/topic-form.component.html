@@ -1,4 +1,4 @@
-<div class="p-fluid">
+<div class="p-fluid" *ngIf="topics">
   <div class="container">
     <div class="headerToolbar mb-3">
       <div>
@@ -12,9 +12,9 @@
       </div>
     </div>
     <div *ngFor="let topic of topics; let i = index;">
-      <div class="flex align-items-center justify-content-between flex-wrap">
-        <ul>{{ i + 1}}._ <b>{{ topic.description }}</b></ul>
-        <div class="flex align-items-center justify-content-between flex-wrap">
+      <div class="flex align-items-center justify-between flex-wrap">
+        <ul><i class="pi pi-reddit p-mr-2"></i>._ <b>{{ topic.description }}</b></ul>
+        <div class="flex align-items-center justify-between flex-wrap">
           <div>
             <button pButton pRipple type="button" pTooltip="Editar" icon="pi pi-pencil" (click)="editTopic(topic)"
               class="p-button-warning p-button-rounded">
@@ -28,7 +28,7 @@
       </div>
       <div class="ml-8">
         <div *ngFor="let subtopic of topic.children;  let indice = index;"
-          class="flex align-items-center justify-content-between flex-wrap mb-2">
+          class="flex align-items-center justify-between flex-wrap mb-2">
           <span>
             - {{ indice + 1}}. {{ subtopic.description }}
           </span>
