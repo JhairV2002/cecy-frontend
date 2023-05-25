@@ -46,7 +46,7 @@
           <label class="block mb-2 text-sm font-medium text-gray-900">El curso esta auspiciado por la institucion a la que pertenece:</label>
           <label class="relative inline-flex items-center cursor-pointer">
             <span class="ml-3 text-sm font-medium text-gray-900 mr-2">NO</span>
-            <input type="checkbox" value="" class="sr-only peer">
+            <input type="checkbox" value="" class="sr-only peer" [(ngModel)]="initialForm.sponsoredCourse" >
             <div class="w-11 h-6 bg-gray-400 peer-focus:outline-none  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1.77px] after:right-[41.28px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             <span class="ml-3 text-sm font-medium text-gray-900">SI</span>
           </label>
@@ -60,6 +60,7 @@
             name=""
             id="contacto"
             placeholder="Ejemplo: Hugo Perez"
+            [(ngModel)]="initialForm.institutionContact"
           />
         </div>
 
@@ -73,7 +74,7 @@
           </ul>
         </div>
         <div class="field">
-          <button (click)="updateForm()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+          <button (click)="save()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
             Guardar
           </button>
           <button class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">

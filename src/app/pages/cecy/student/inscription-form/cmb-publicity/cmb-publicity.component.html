@@ -1,0 +1,9 @@
+<select #selectPublicity (change)="onSelect(selectPublicity.value)" class="select select-primary" name="" id ="">
+  <option value="0" selected disable>Seleccione una opcion</option>
+  <option *ngFor="let publicity of publicities"
+  [value]="publicity.id"
+  [selected]="publicity.id === id"
+  >
+      {{publicity.value}}
+  </option>
+</select>
