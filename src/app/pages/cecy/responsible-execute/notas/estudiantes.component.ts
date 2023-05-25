@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
   styleUrls: ['./estudiantes.component.scss'],
 })
 export class EstudiantesComponent {
+  constructor(
+    private router: Router
+  ) {
+  }
+  redireccionar() {
+    this.router.navigate(["cecy/responsible-execute/asistencia"]);
+  }
+  
   estudiantes: any[] = [
     { nombre: 'Juan', nota1: 80, nota2: 75 },
     { nombre: 'Johan', nota1: 90, nota2: 85 },
@@ -16,6 +25,7 @@ export class EstudiantesComponent {
     { nombre: 'Angel', nota1: 70, nota2: 60 }, */
 
   ];
+
 
   filtroNombre: string = '';
 

@@ -1,6 +1,9 @@
 <body>
   <h2 class="text-3xl font-bold light:text-black" id="titulo">Listado de Estudiantes</h2>
   <div class="relative overflow-x-auto shadow-md">
+    <button class="btn btn-accent" icon="edit"  (click)="redireccionar()">Asistencia</button>
+    <br>
+    <br>
     <input type="text" [(ngModel)]="filtroNombre" placeholder="Buscar por nombre" class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600" />
     <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-10 light:text-gray-400">
