@@ -26,4 +26,9 @@
   ></p-menu>
 
   <p-menu [style]="{ width: '280px' }" [model]="(carreras$ | async)!"></p-menu>
+  <p-menu
+    *ngIf="user?.role?.name === 'secretary_cecy'"
+    [style]="{ width: '280px' }"
+    [model]="itemsSecretary"
+  ></p-menu>
 </ul>

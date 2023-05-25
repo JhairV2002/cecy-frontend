@@ -190,20 +190,19 @@ export class SidebarComponent implements OnInit {
       ],
     },
   ];
-
-  itemsValiDacionMatricula: MenuItem[] = [
+  itemsSecretary: MenuItem[] = [
     {
-      label: 'Docente responsable ejecuta',
+      label: 'Secretaria del Cecy',
       items: [
         {
           label: 'Inicio',
           icon: 'fa-solid fa-house',
-          routerLink: '/cecy/validacion-matricula/carreras',
+          routerLink: '/cecy/secretary-cecy/home',
         },
         {
-          label: 'Mis cursos',
+          label: 'Visualizar cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/responsible-execute/mis-cursos'],
+          routerLink: ['/cecy/secretary-cecy/visualization-courses'],
         },
       ],
     },
