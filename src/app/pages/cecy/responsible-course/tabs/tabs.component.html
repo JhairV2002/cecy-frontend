@@ -6,23 +6,21 @@
         <div class="md:flex">
           <div class="w-full md:w-1/6">
             <b>Nombre del curso: </b> <br />
-            {{ selectedCourse?.name }}
+            {{ selectedCourse?.name ?? 'No tiene nombre' }}
           </div>
           <div class="w-full md:w-1/6">
             <b>Código del curso: </b> <br />
             {{
-            selectedCourse?.codeCourse
-            ? selectedCourse.codeCourse
-            : "No tiene código"
+            selectedCourse?.codeCourse ?? "No tiene código"
             }}
           </div>
           <div class="w-full md:w-1/6">
             <b>Estado del curso: </b> <br />
-            {{ selectedCourse?.state ? selectedCourse.state : "No asignado" }}
+            {{ selectedCourse?.state ?? "No asignado" }}
           </div>
           <div class="w-full md:w-1/6">
             <b>Carrera: </b> <br />
-            {{ selectedCourse?.career.name }}
+            {{ selectedCourse?.career?.name ?? 'No definida' }}
           </div>
           <div class="w-full md:w-1/6">
             <b>Modalidad: </b> <br />
@@ -30,14 +28,14 @@
           </div>
           <div class="w-full md:w-1/6">
             <div class=" flex justify-content-center">
-              <p-button (click)="showDialog()" >
-                <img
-                onerror="this.src = 'assets/course-objects/empty-img.png' "
-                [src]="selectedCourse?.course.image" alt="" style="height: 2rem">
+              <p-button (click)="showDialog()">
+                <img onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="selectedCourse?.course.image"
+                  alt="" style="height: 2rem">
               </p-button>
 
 
-              <p-dialog header="Ingresar Link de imagen" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+              <p-dialog header="Ingresar Link de imagen" [(visible)]="visible" [modal]="true"
+                [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                 <div class="form-space">
                   <div class="flex-col m-auto">
                     <form [formGroup]="formImage" (ngSubmit)="onSubmit()">
@@ -49,12 +47,13 @@
                         </small>
                       </div>
                       <div class="w-full">
-                        <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full" icon="pi pi-save"></button>
+                        <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full"
+                          icon="pi pi-save"></button>
                       </div>
                     </form>
                   </div>
                 </div>
-            </p-dialog>
+              </p-dialog>
             </div>
           </div>
         </div>
