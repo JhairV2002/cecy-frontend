@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Curso } from '@models/cecy/secretary-cecy/curso';
+import { Course } from '@models/cecy/secretary-cecy';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy/visualization-courses.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class SearchCursoComponent implements OnInit {
     private visualizationCourseService: VisualizationCoursesService) { }
 
 
-  cursos: Curso[] = [];
+  cursos: Course[] = [];
   @Output() cursoIdEmitter = new EventEmitter<number>();
   @Input() id: number = 0;
 

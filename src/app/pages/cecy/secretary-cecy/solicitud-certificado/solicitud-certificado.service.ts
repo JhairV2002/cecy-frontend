@@ -16,7 +16,7 @@ export class SolicitudCertificadoService {
     headers: new HttpHeaders({"Content-Type":"application/json"})
   }
 
-  private url: string = "http://localhost:8089/api/certificado"
+  private url: string = "http://localhost:8080/api/certificado"
 
   public findAll(): Observable<SolicitudCertificado[]>{
     return this.http.get<SolicitudCertificado[]>(this.url+"/", this.httpOptions);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Curso } from '@models/cecy/secretary-cecy';
+import { Course } from '@models/cecy/secretary-cecy';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
@@ -10,7 +10,7 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = `${environment.api4}/api/curso`;
+  private apiUrl = `${environment.api4}/courses`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -22,12 +22,12 @@ export class VisualizationCoursesService {
   //acceder al curso
 
   // GET SENCILLO
-  getviewCourses() {
-    return this.http.get(`${this.apiUrl}/edit/:id`);
+  getviewCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(`${this.apiUrl}`);
   }
 
-  public findById(id: number): Observable<Curso> {
-    return this.http.get<Curso>(
+  public findById(id: number): Observable<Course> {
+    return this.http.get<Course>(
       this.apiUrl + '/' + id + '/',
       this.httpOptions
     );
@@ -38,16 +38,16 @@ export class VisualizationCoursesService {
   // }
 
   //Lista cursos
-  public findAll(): Observable<Curso[]> {
-    return this.http.get<Curso[]>(
+  public findAll(): Observable<Course[]> {
+    return this.http.get<Course[]>(
       this.apiUrl + '/',
       this.httpOptions
     );
   }
 
   //search cursos
-  public findByName(term: string): Observable<Curso[]> {
-    return this.http.get<Curso[]>(
+  public findByName(term: string): Observable<Course[]> {
+    return this.http.get<Course[]>(
       this.apiUrl + '/findByName/' + term,
       this.httpOptions
     );

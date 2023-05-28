@@ -6,7 +6,7 @@ import { MatriculaServiceService } from '../matricula-service.service';
 import { Matricula } from '../matricula';
 import { ActivatedRoute } from '@angular/router';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
-import { Curso } from '@models/cecy/secretary-cecy';
+import { Course } from '@models/cecy/secretary-cecy';
 import { CertificadoPdfServiceService } from '../certificado-pdf-service.service';
 import { Certificado } from '../certificado';
 import { CodigosCertificadoService } from '../../codigos-certificado/codigos-certificado.service';
@@ -98,7 +98,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   this.cursoService.findById(
   solicitud.courseId
   ).subscribe(
-  (nombreCurso) => solicitud.curso = nombreCurso.nombre
+  (nombreCurso) => solicitud.curso = nombreCurso.name
   )
   }
   )
@@ -119,12 +119,12 @@ export class SolicitudCertificadoListaComponent implements OnInit {
     )
   }
 
-  currentEntity: Curso =
+  currentEntity: Course =
   {
   id: 0,
-  nombre: "",
-  fechaInicio: new Date(),
-  fechaFin: new Date(),
+  name: "",
+  image: "",
+  planificationId: 0,
   };
 
   findById(id: number): void {
