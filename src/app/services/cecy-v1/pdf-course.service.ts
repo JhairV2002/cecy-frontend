@@ -22,7 +22,7 @@ export class PdfCourseService {
     const imageSecretaryEducation = await this.getBase64ImageFromURL("../../../assets/course-objects/logo-secretaria-educacion.png");
     const imageYavirac = await this.getBase64ImageFromURL("../../../assets/course-objects/Logo Yavirac.png");
 
-    var docDefinition = {
+    const docDefinition = {
       content: [
         //header images
         {
@@ -256,7 +256,7 @@ export class PdfCourseService {
     const imageSecretaryEducation = await this.getBase64ImageFromURL("../../../assets/course-objects/logo-secretaria-educacion.png");
     const imageYavirac = await this.getBase64ImageFromURL("../../../assets/course-objects/Logo Yavirac.png");
 
-    var docDefinition = {
+    var  docDefinition = {
       content: [
         //header images
         {

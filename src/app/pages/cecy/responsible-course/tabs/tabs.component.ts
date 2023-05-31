@@ -30,6 +30,7 @@ export class TabsComponent implements OnInit, OnChanges {
     private courseService: CourseService,
     private activatedRoute: ActivatedRoute,
     private planificationCourseService: PlanificationsCoursesService,
+
     public messageService: MessageService,
     public fb: FormBuilder,
     private router: Router

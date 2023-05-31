@@ -9,7 +9,6 @@ import { AuthService } from '@services/auth';
 import { PdfCourseService } from '@services/cecy-v1/pdf-course.service';
 import { DatePipe } from '@angular/common';
 
-
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
@@ -41,24 +40,15 @@ export class CourseListComponent implements OnInit {
         label: 'Descargar informe de Necesidades',
         icon: 'pi pi-book',
         command: () => {
-          this.downloadGeneralInformation(this.rowData)
-        }
+          this.downloadGeneralInformation(this.rowData);
+        },
       },
       {
         label: 'Descargar Diseño curricular',
         icon: 'pi pi-book',
         command: () => {
-          this.downloadCurricularDesign(this.rowData)
-
-
-        }
-      },
-      {
-        label: 'Descargar Informe final ',
-        icon: 'pi pi-book',
-        command: () => {
-          this.downloadCurricularDesign(this.rowData)
-        }
+          this.downloadCurricularDesign(this.rowData);
+        },
       }
     ]
 
@@ -72,36 +62,36 @@ export class CourseListComponent implements OnInit {
   allCourses: any[] = [];
 
   planificationsAsign() {
-    this.authService.getPlanificationsbyUser().subscribe((data) => {
+    this.authService.getPlanificationsbyUser().subscribe((data: any) => {
       console.log('Planificaciones asignadas', data);
-      this.allCourses = data
-      this.filterPlan = this.allCourses
+      this.allCourses = data;
+      this.filterPlan = this.allCourses;
     });
   }
 
-
-
   editCourse(planification: any) {
-    this.router.navigate(['/cecy/responsible-course/course/edit', planification.id])
+    this.router.navigate([
+      '/cecy/responsible-course/course/edit',
+      planification.id,
+    ]);
   }
 
-  createCourse(planification: any) {
-    console.log(planification);
-    this.router.navigate(['/cecy/responsible-course/course/add', planification.id])
+  createCourse(course: any) {
+    console.log(course);
+    this.router.navigate(['/cecy/responsible-course/course/add', course.id]);
   }
-
 
   //filter
   filterPlanification(value: any): void {
     const filterValue = value.toLowerCase();
-    this.filterPlan = this.allCourses.filter(
-      (item) =>
-        item.name.toLowerCase().includes(filterValue)
+    this.filterPlan = this.allCourses.filter((item) =>
+      item.name.toLowerCase().includes(filterValue)
     );
   }
 
-  select(valor: any) { this.rowData = valor }
-
+  select(valor: any) {
+    this.rowData = valor;
+  }
 
 
   downloadGeneralInformation(planificationCourse: any) {
@@ -119,9 +109,4 @@ export class CourseListComponent implements OnInit {
     } catch (error) { }
     this.pdfCourseService.generatePDFCurricularDesign(planificationCourse);
   }
-
-
-
-
-
 }
