@@ -11,7 +11,7 @@ export class EstudianteService {
     throw new Error('Method not implemented.');
   }
   private baseUrl = 'http://localhost:8080/api/matriculas/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
     return this.http.get<Matriculas[]>(this.baseUrl);
@@ -19,6 +19,10 @@ export class EstudianteService {
 
   guardarEstudiante(estudiante: any): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/${estudiante.id}`, estudiante);
+  }
+
+  obtenerEstudiantePorId(id: number): Observable<Matriculas> {
+    return this.http.get<Matriculas>(`${this.baseUrl}${id}/`)
   }
 
 }
