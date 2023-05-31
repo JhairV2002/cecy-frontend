@@ -10,7 +10,7 @@ export class WelcomeComponent implements OnInit {
   date: Date = new Date();
   dateFormat: string = '';
   greetingMessage: string = '';
-  welcome: string = '';
+  welcome: string = 'Bienvenido';
   user: any;
 
   constructor(private authService: AuthService) {}

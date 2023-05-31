@@ -35,8 +35,8 @@ export class DetailPlanificationListComponent {
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
   dialogHeader: string = '';
-  courseId: any;
-  codeCourse: string = '';
+  planId: any;
+  codeCourse: string='';
   selectedDetailPlanificationId: any;
 
   constructor(
@@ -51,19 +51,12 @@ export class DetailPlanificationListComponent {
       { field: 'day', header: 'Días' },
       { field: 'classroom', header: 'Aula' },
       { field: 'parallel', header: 'Paralelo' },
-      { field: 'instructors', header: 'Instructores' },
       { field: 'observation', header: 'Observación' },
-      { field: 'state', header: 'Estado' },
+      // { field: 'state', header: 'Estado' },
     ];
 
     this.items = [
-      {
-        label: 'Asignar instructores',
-        icon: 'pi pi-user-edit',
-        command: () => {
-          this.assignInstructors(this.selectedDetailPlanification);
-        }
-      },
+
       {
         label: 'Eliminar horario',
         icon: 'pi pi-trash',
@@ -77,29 +70,7 @@ export class DetailPlanificationListComponent {
       this.paginator = response;
     });
 
-    this.courseId = this.activatedRoute.snapshot.params['id'];
-    this.courseService.getCourse(this.courseId).subscribe(
-      res => {
-        this.codeCourse = res.codeCourse
-
-        this.courseService.getPlanId(this.codeCourse).subscribe(
-          res => {
-            this.planificationId = res
-            this.courseService.getDetailPlans(this.planificationId)
-              .subscribe(
-                response => {
-                  this.detailPlanifications = response;
-                  this.detailPlanifications;
-                  console.log(this.detailPlanifications)
-
-                }
-              );
-          }
-        )
-      }
-
-
-    )
+    this.planId = this.activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit(): void {
@@ -107,43 +78,30 @@ export class DetailPlanificationListComponent {
   }
 
   loadDetailPlanifications(page: number = 1) {
-    // this.courseService.getPlanId(this.codeCourse).subscribe(
-    //   res => {
-    //     this.planificationId = res
-    //     this.courseService.getDetailPlans(this.planificationId)
-    //       .subscribe(
-    //         response => {
-    //           this.detailPlanifications = response;
-    //           this.detailPlanifications;
-    //           console.log(this.detailPlanifications)
-
-    //         }
-    //       );
-    //   }
-    // )
-
-    this.courseService.getDetailPlans(this.planificationId)
-    .subscribe(
-      response => {
-        this.detailPlanifications = response;
-        this.detailPlanifications;
-        console.log(this.detailPlanifications)
-
-      }
-    );
+    this.courseService.getDetailPlans(this.planId)
+      .subscribe(
+        response => {
+          this.detailPlanifications = response;
+          this.detailPlanifications;
+        }
+      );
 
   }
 
   showForm(detailPlanification: DetailPlanificationModel = {}) {
+    this.dialogForm = true;
+    console.log('entro por show')
+    console.log('entro por show yd data', detailPlanification)
+
     detailPlanification.id
       ? this.dialogHeader = 'Editar Horario'
       : this.dialogHeader = 'Crear Horario';
 
-    this.selectedDetailPlan = detailPlanification.id;
+    this.selectedDetailPlan = detailPlanification;
 
     this.selectedDetailPlanificationId = this.planificationId;
     this.detailPlanificationHttpService.selectDetailPlanification(detailPlanification);
-    this.dialogForm = true;
+
   }
 
   selectDetailPlanification(detailPlanification: DetailPlanificationModel) {
@@ -174,25 +132,6 @@ export class DetailPlanificationListComponent {
         }
       });
   }
-  // this.courseService
-  //     .saveDetailPlan(detailPlanification)
-  //     .subscribe({
-  //       next: (data) => {
-  //         console.log(data);
-  //         this.messageService.successCourse(data);
-  //         // this.formPlanification.reset();
-  //         this.progressBar = false;
-  //         this.dialogForm.emit(false);
-  //         // this.clickClose.emit(false);
-  //         // this.addPlanification.emit(data);
-  //       },
-  //       error: (error) => {
-  //         console.log(error);
-  //         this.messageService.error(error);
-  //         this.progressBar = false;
-  //       },
-  //     });
-
   deleteDetailPlanifications(): void {
     this.messageService.questionDelete({})
       .then((result) => {

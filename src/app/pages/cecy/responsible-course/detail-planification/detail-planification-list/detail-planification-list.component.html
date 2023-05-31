@@ -1,6 +1,6 @@
 <p-dialog [header]="dialogHeader" [(visible)]="dialogForm" [maximizable]="true" [modal]="true" [style]="{width: '80vw'}"
   (onHide)="loadDetailPlanifications()">
-  <app-detail-planification-form *ngIf="dialogForm" [data]=selectedDetailPlan [planId]=selectedDetailPlanificationId (dialogForm)="dialogForm=$event">
+  <app-detail-planification-form *ngIf="dialogForm" [data]=selectedDetailPlan [planId]=planId (dialogForm)="dialogForm=$event">
   </app-detail-planification-form>
 </p-dialog>
 
@@ -67,18 +67,18 @@
           <td>
             {{rowData['parallel'].name}}
           </td>
-          <td>
+          <!-- <td>
             <ul>
               <li *ngFor="let instructor of rowData['instructors']">
                 {{instructor?.user?.fullname}}
               </li>
             </ul>
-          </td>
+          </td> -->
           <td>
             {{rowData['observation']}}
           </td>
 
-          <div [ngSwitch]="rowData['state'].name">
+          <!-- <div [ngSwitch]="rowData['state'].name">
             <td *ngSwitchCase="'APROBADO'">
               <span class="badge bg-primary rounded-pill">{{rowData['state'].name}}</span>
             </td>
@@ -94,7 +94,8 @@
             <td *ngSwitchDefault>
               {{rowData['state'].name}}
             </td>
-          </div>
+          </div> -->
+          <!-- <td>{{rowData['state'].name}}</td> -->
 
           <td>
             <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-pencil"
@@ -116,5 +117,4 @@
     </p-table>
   </p-card>
 </div>
-{{planificationId}}
-{{codeCourse}}
+

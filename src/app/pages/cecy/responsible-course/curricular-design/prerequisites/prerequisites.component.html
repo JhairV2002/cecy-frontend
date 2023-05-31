@@ -1,44 +1,40 @@
-<div class="p-fluid">
-  <form [formGroup]="formPrerequisites" (ngSubmit)="onSubmit()">
-    <p-card>
-      <div class="grid">
-        <div class="col">
-          <label for="prerequisites" appLabel label="Prerequisitos académicos"
-              [required]="isRequired(prerequisitesField)"
-              [valid]="prerequisitesField.valid"
-              [touched]="prerequisitesField.touched"
-              [dirty]="prerequisitesField.dirty">
-          </label>
-          <p-multiSelect
-            id="prerequisites"
-            dataKey="id"
-            formControlName="prerequisites"
-            [options]="cursos"
-            optionLabel="name"
-            [filter]="true"
-            filterBy="name"
-            display="chip"
-            placeholder="Seleccione el curso"
-            >
-          </p-multiSelect>
-          <small appErrorMessage
-            [errors]="prerequisitesField.errors"
-            [touched]="prerequisitesField.touched"
-            [dirty]="prerequisitesField.dirty">
-          </small>
-        </div>
-        <div class="col-fixed flex align-items-center" style="width:100px">
-          <div class="mt-4">
-            <button pButton pRipple type="submit" label="Guardar"></button>
-          </div>
-        </div>
-        <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-          <div *ngFor="let item of prerequisitesField.value; let i = index;"
-              class="flex align-items-center justify-content-between mb-2">
-            <li>{{item.name}}</li>
-          </div>
-        </div>
+<p-card>
+  <!-- Bibliografias -->
+  <!-- <div class="grid align-items-center justify-content-between mt-4">
+    <div>
+      <h4>Bibliografías</h4>
+    </div>
+    <div>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Nueva bibliografía"
+        icon="pi pi-plus"
+        class="p-button-success"
+        (click)="showFormStrategie('bibliograph')"
+      ></button>
+    </div>
+  </div>
+  <div class="formgrid grid">
+    <div
+      class="field xl:col-8 lg:col-6 md:col-12 sm:col-12"
+      formArrayName="bibliographies"
+    >
+      <div
+        *ngFor="let item of bibliographiesField.value; let i = index"
+        class="grid align-items-center justify-content-between mb-3"
+      >
+        <li>{{ item }}</li>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-danger p-button-sm"
+          (click)="deleteStrategy(i, 'bibliograph')"
+        ></button>
       </div>
-    </p-card>
-  </form>
-</div>
+    </div>
+  </div> -->
+</p-card>

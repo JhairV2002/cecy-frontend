@@ -16,6 +16,7 @@ import { MessageService } from '@services/core';
 import { PlanificationCourseInitial } from '@models/cecy-v1/course.model';
 import { ActivatedRoute } from '@angular/router';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-horario-form',
@@ -82,13 +83,13 @@ export class HorarioFormComponent implements OnInit {
     this.planificationCourseId = this.courseDate.id;
     const valuesFormHourCourse = this.formHourCourse.value;
     this.courseService.saveEditDetailPlan(valuesFormHourCourse, this.horarioSelect).subscribe({
-      next: (data) => {
+      next: (data: any) => {
         console.log('Se esta guardando el horario', data);
         this.messageService.successCourse(data);
         this.clickClose.emit(false);
         this.addUser.emit(data);
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.log(error);
         this.messageService.errorValid(error);
         this.progressBar = false;
