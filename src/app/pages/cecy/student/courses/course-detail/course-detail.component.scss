@@ -1,0 +1,67 @@
+.image{
+    object-fit: cover;
+    height: 200px;
+    border-top-left-radius:  2%;
+    border-top-right-radius:  2%;
+}
+.image-intructor{
+    margin-right: 20px;
+    object-fit: cover;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.custom-card{
+    align-items: center;  
+    border-radius: 30%;
+    position:relative;
+}
+.free{
+    position:absolute;
+    left: 20px;
+    top: 25px;
+}
+.free-text{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: -10px;
+    background-color: rgb(0, 110, 255);
+    border-radius: 4%;
+    border-color: black;
+    color: white;
+    border-width: 0.1;
+}
+.no-free-text{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: -10px;
+    background-color: rgb(0, 255, 42);
+    border-radius: 4%;
+    border-color: black;
+    color: white;
+    border-width: 0.1;
+}
+.custom-button{
+    margin: auto;
+    justify-content: center;
+    display: inline;
+    text-align: center;
+    right: auto;
+}
+.custom-icon{
+    right: 0px; 
+    top:12px; 
+    color:azure
+}
+.selection-schedule{
+    display: block;
+    justify-content: center;
+    right: 50%;
+}
+.left-content{
+    width: 600px;
+}
+.instructor-detail{
+    margin-bottom: 10px;
+}

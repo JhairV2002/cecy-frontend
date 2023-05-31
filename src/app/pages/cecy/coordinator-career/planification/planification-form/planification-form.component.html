@@ -1,0 +1,102 @@
+<p-toast position="top-center"></p-toast>
+
+<div class="p-fluid">
+    <form [formGroup]="formPlanification" (ngSubmit)="onSubmit()">
+       <!--startedAt-->
+       <div class="field xl:col-12 lg:col-12 md:col-6 sm:col-6">
+        <label for="startedAt" appLabel label="Fecha inicio:"
+               [required]="isRequired(startedAtField)"
+               [valid]="startedAtField.valid"
+               [touched]="startedAtField.touched"
+               [dirty]="startedAtField.dirty">
+        </label>
+        <!-- [minDate]="minDate"
+         [maxDate]="maxDate" -->
+        <p-calendar id="startedAt"
+          [readonlyInput]="true"
+              [showIcon]="true"
+              formControlName="startedAt"
+              dateFormat="yy-mm-dd"
+              [monthNavigator]="true"
+              [yearNavigator]="true"
+              [showButtonBar]="true">
+        </p-calendar>
+        <small appErrorMessage
+               [errors]="startedAtField.errors"
+               [touched]="startedAtField.touched"
+               [dirty]="startedAtField.dirty">
+        </small>
+      </div>
+       <!--endedAt-->
+       <div class="field xl:col-12 lg:col-12 md:col-6 sm:col-6">
+        <label for="endedAt" appLabel label="Fecha finalización:"
+               [required]="isRequired(endedAtField)"
+               [valid]="endedAtField.valid"
+               [touched]="endedAtField.touched"
+               [dirty]="endedAtField.dirty">
+        </label>
+        <!-- <input pInputText id="endedAt" formControlName="endedAt"> -->
+        <!-- [minDate]="minDate"
+         [maxDate]="maxDate" -->
+        <p-calendar id="endedAt"
+          [readonlyInput]="true"
+                [showIcon]="true"
+                formControlName="endedAt"
+                dateFormat="yy-mm-dd"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                [showButtonBar]="true">
+        </p-calendar>
+        <small appErrorMessage
+               [errors]="endedAtField.errors"
+               [touched]="endedAtField.touched"
+               [dirty]="endedAtField.dirty">
+        </small>
+      </div>
+
+       <!--responsibleCourse-->
+       <div class="field xl:col-12 lg:col-12 md:col-6 sm:col-6">
+        <label for="responsibleCourse" appLabel label="Responsable de planificación:"
+               [required]="isRequired(responsibleCourseField)"
+               [valid]="responsibleCourseField.valid"
+               [touched]="responsibleCourseField.touched"
+               [dirty]="responsibleCourseField.dirty">
+        </label>
+        <p-dropdown id="responsibleCourse"
+                    formControlName="responsibleCourse"
+                    dataKey="id"
+                    [options]="courseResponsibles"
+                    [filter]="true"
+                    filterBy="user.name"
+                    placeholder="Seleccione">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="responsibleCourseField.value">
+              <div>{{responsibleCourseField.value?.user.name}}</div>
+            </div>
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            <div>
+              <div>{{item.user.name}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <small appErrorMessage
+               [errors]="responsibleCourseField.errors"
+               [touched]="responsibleCourseField.touched"
+               [dirty]="responsibleCourseField.dirty">
+        </small>
+      </div>
+
+      <p-divider></p-divider>
+
+      <!--onSubmit()-->
+      <div class="field">
+        <button pButton type="submit" pRipple label="Guardar" class="p-button-rounded" icon="pi pi-save"></button>
+      </div>
+
+      <!--progressBar-->
+      <div class="field" *ngIf="progressBar">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div>
+    </form>
+  </div>

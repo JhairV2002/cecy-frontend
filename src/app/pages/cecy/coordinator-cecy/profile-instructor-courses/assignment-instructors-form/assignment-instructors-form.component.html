@@ -1,0 +1,30 @@
+<div class="p-fluid">
+    <p-pickList  [source]="sourceList" [target]="targetList" [responsive]="true" [dragdrop]="true"
+        sourceHeader="Instructores" targetHeader="Instructores Capacitados" [sourceStyle]="{'height':'400px'}"
+        [targetStyle]="{'height':'400px'}" filterBy="user.name,user.lastname">
+        <ng-template let-instructor pTemplate="item">
+            <div class="instructor-item">
+                <div class="instructor-list-detail">
+                    <h5 class="mb-2">{{instructor.user.name}}</h5>
+                    <div *ngIf="instructor.courseProfiles.length!==0">
+                        <i class="pi pi-check-circle instructor-check-icon me-2"></i>
+                    </div>
+                </div>
+                
+            </div>
+        </ng-template>
+    </p-pickList>
+
+    <p-divider></p-divider>
+
+    <div class="formgrid grid">
+        <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+            <button pButton pRipple label="Guardar" class="p-button-rounded" icon="pi pi-save" (click)="onSubmit()">
+            </button>
+        </div>
+
+        <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12" *ngIf="progressBar">
+            <p-progressBar mode="indeterminate"></p-progressBar>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<p-dialog header="PLAN OPERATIVO ANUAL" [maximizable]="true" [modal]="true">
+</p-dialog>
+<div class="grid">
+    <div class="container">
+        <p-toolbar class="filter-options">
+            <div class="p-toolbar-group-left ">
+                <div class="field col p-input-icon-right ">
+                    <div class="p-inputgroup">
+                        <h5>OFICIO DEL POA</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="p-toolbar-group-right">
+
+            </div>
+        </p-toolbar>
+        <p-card class="xl:col-6">
+            <div class="p-fluid">
+                <form>
+                    <div class="text-center">
+
+                    </div>
+                    <div>
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <input id="float-input" type="text" pInputText>
+                            <label for="float-input">Año</label>
+                        </span>
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <input id="float-input" type="text" pInputText>
+                            <label for="float-input">Número de oficio</label>
+                        </span>
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <p-calendar [(ngModel)]="value"></p-calendar>
+
+                            <label for="float-input">Fecha oficio</label>
+                        </span>
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <input id="float-input" type="text" pInputText>
+                            <label for="float-input">Nombre</label>
+
+
+                        </span>
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+                            <label for="float-input">Dirigido a :</label>
+
+                        </span>
+
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <p-calendar [(ngModel)]="value"></p-calendar>
+
+                            <label for="float-input">Periodo desde</label>
+                        </span>
+                        <span class="p-float-label field xl:col-6 lg:col-6 md:col-6 sm:col-9">
+                            <p-calendar [(ngModel)]="value"></p-calendar>
+
+                            <label for="float-input">Periodo Hasta</label>
+                        </span>
+
+                        <!-- duracion en horas y modalidad -->
+                        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                            <button pButton pRipple label="Guardar" class="p-button-rounded" icon="pi pi-save"></button>
+                        </div>
+                        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                            <button pButton pRipple label="Descargar Oficio" class="p-button-rounded p-button-success"
+                                icon="pi-download"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </p-card>
+    </div>
+</div>

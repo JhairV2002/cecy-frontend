@@ -1,0 +1,19 @@
+body {
+    margin-top: 0%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+#titulo{
+    padding-bottom: 2%;
+}
+
+#nota {
+    width: 11%;
+    border: 0;
+    outline: none;
+}
+#nota:focus{
+    border-color:#0079ff;
+}

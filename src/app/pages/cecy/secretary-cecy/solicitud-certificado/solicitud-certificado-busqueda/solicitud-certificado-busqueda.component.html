@@ -1,0 +1,65 @@
+<div class="flex w-full mt-1 card-bordered m-2">
+  <div class="grid  w-1/4 m-1 flex-grow place-items-center">
+    <div class="pt-1.5 pl-3 text-gray-600">
+      <input class="border-2 border-gray-300 bg-white h-12 px-5 pr-20 rounded-lg text-sm focus:outline-none"
+        type="search" name="search" placeholder="Cedula">
+      <button type="submit" class="absolute">
+        <svg class="svg-icon h-8 w-8" viewBox="0 0 20 20">
+          <path
+            d="M10.185,1.417c-4.741,0-8.583,3.842-8.583,8.583c0,4.74,3.842,8.582,8.583,8.582S18.768,14.74,18.768,10C18.768,5.259,14.926,1.417,10.185,1.417 M10.185,17.68c-4.235,0-7.679-3.445-7.679-7.68c0-4.235,3.444-7.679,7.679-7.679S17.864,5.765,17.864,10C17.864,14.234,14.42,17.68,10.185,17.68 M10.824,10l2.842-2.844c0.178-0.176,0.178-0.46,0-0.637c-0.177-0.178-0.461-0.178-0.637,0l-2.844,2.841L7.341,6.52c-0.176-0.178-0.46-0.178-0.637,0c-0.178,0.176-0.178,0.461,0,0.637L9.546,10l-2.841,2.844c-0.178,0.176-0.178,0.461,0,0.637c0.178,0.178,0.459,0.178,0.637,0l2.844-2.841l2.844,2.841c0.178,0.178,0.459,0.178,0.637,0c0.178-0.176,0.178-0.461,0-0.637L10.824,10z">
+          </path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid  w-3/4 m-1 flex-grow place-items-center">
+    <div class="flex w-full mt-1">
+      <div class="arreglo grid  w-1/2 m-1 flex-grow place-items-center">
+        <div class="buscador1">
+          <div class="pt-2 pl-2 text-gray-600">
+            <h4>Periodo Lectivo:</h4>
+            <select class="btn btn-outline m-1 h-12 px-2 pr-10" name="lenguajes" id="lang">
+              <option value="2022-2">2022-2</option>
+              <option value="2022-1">2022-1</option>
+              <option value="2021-2">2021-2</option>
+              <option value="2021-1">2021-1</option>
+            </select>
+            <button type="submit" class="absolute">
+              <svg class="svg-icon h-8 w-8" viewBox="0 0 20 20">
+                <path
+                  d="M10.185,1.417c-4.741,0-8.583,3.842-8.583,8.583c0,4.74,3.842,8.582,8.583,8.582S18.768,14.74,18.768,10C18.768,5.259,14.926,1.417,10.185,1.417 M10.185,17.68c-4.235,0-7.679-3.445-7.679-7.68c0-4.235,3.444-7.679,7.679-7.679S17.864,5.765,17.864,10C17.864,14.234,14.42,17.68,10.185,17.68 M10.824,10l2.842-2.844c0.178-0.176,0.178-0.46,0-0.637c-0.177-0.178-0.461-0.178-0.637,0l-2.844,2.841L7.341,6.52c-0.176-0.178-0.46-0.178-0.637,0c-0.178,0.176-0.178,0.461,0,0.637L9.546,10l-2.841,2.844c-0.178,0.176-0.178,0.461,0,0.637c0.178,0.178,0.459,0.178,0.637,0l2.844-2.841l2.844,2.841c0.178,0.178,0.459,0.178,0.637,0c0.178-0.176,0.178-0.461,0-0.637L10.824,10z">
+                </path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="arreglo1 grid  w-1/2 m-1 flex-grow place-items-center">
+        <div class="buscador2">
+          <div class="pt-2 pl-2 text-gray-600">
+            <h4>Estado Certificado:</h4>
+            <select class="btn btn-outline m-1 h-12 px-2 pr-10" name="lenguajes" id="lang">
+              <option value="Solicitado">Solicitado</option>
+              <option value="Generado">Generado</option>
+              <option value="En Proceso">En Proceso</option>
+            </select>
+            <button type="submit" class="absolute">
+              <svg class="svg-icon h-8 w-8" viewBox="0 0 20 20">
+                <path
+                  d="M10.185,1.417c-4.741,0-8.583,3.842-8.583,8.583c0,4.74,3.842,8.582,8.583,8.582S18.768,14.74,18.768,10C18.768,5.259,14.926,1.417,10.185,1.417 M10.185,17.68c-4.235,0-7.679-3.445-7.679-7.68c0-4.235,3.444-7.679,7.679-7.679S17.864,5.765,17.864,10C17.864,14.234,14.42,17.68,10.185,17.68 M10.824,10l2.842-2.844c0.178-0.176,0.178-0.46,0-0.637c-0.177-0.178-0.461-0.178-0.637,0l-2.844,2.841L7.341,6.52c-0.176-0.178-0.46-0.178-0.637,0c-0.178,0.176-0.178,0.461,0,0.637L9.546,10l-2.841,2.844c-0.178,0.176-0.178,0.461,0,0.637c0.178,0.178,0.459,0.178,0.637,0l2.844-2.841l2.844,2.841c0.178,0.178,0.459,0.178,0.637,0c0.178-0.176,0.178-0.461,0-0.637L10.824,10z">
+                </path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-outline justify-center btn-accent ">
+        buscar
+      </button>
+    </div>
+</div>
+
+

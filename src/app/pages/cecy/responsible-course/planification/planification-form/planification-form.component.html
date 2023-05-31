@@ -1,0 +1,116 @@
+<p-toast position="top-center"></p-toast>
+<div class="container">
+    <div class="p-fluid">
+        <form [formGroup]="formPlanification" (ngSubmit)="onSubmit()">
+            <p-divider align="left" >
+                <b>Fechas de Planificación</b>
+              </p-divider>
+            <!--startedAt & endedAt-->
+            <div class="formgrid grid">
+                <!--startedAt-->
+                <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label for="startedAt" appLabel label="Fecha de inicio:" [required]="isRequired(startedAtField)"
+                        [valid]="startedAtField.valid" [touched]="startedAtField.touched"
+                        [dirty]="startedAtField.dirty">
+                    </label>
+                    <p-calendar id="startedAt" [showIcon]="true" formControlName="startedAt" dateFormat="yy-mm-dd"
+                        [monthNavigator]="true" [yearNavigator]="true" [showButtonBar]="true" [disabled]="true"></p-calendar>
+                    <small appErrorMessage [errors]="startedAtField.errors" [touched]="startedAtField.touched"
+                        [dirty]="startedAtField.dirty">
+                    </small>
+                </div>
+                <!--endedAt-->
+                <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label for="endedAt" appLabel label="Fecha de finalización:" [required]="isRequired(endedAtField)"
+                        [valid]="endedAtField.valid" [touched]="endedAtField.touched" [dirty]="endedAtField.dirty">
+                    </label>
+                    <p-calendar id="endedAt" [showIcon]="true" formControlName="endedAt" dateFormat="yy-mm-dd"
+                        [monthNavigator]="true" [yearNavigator]="true" [showButtonBar]="true" [disabled]="true"></p-calendar>
+                    <small appErrorMessage [errors]="endedAtField.errors" [touched]="endedAtField.touched"
+                        [dirty]="endedAtField.dirty">
+                    </small>
+                </div>
+            </div>
+            <p-divider align="left" >
+                <b>Necesidades actuales de Curso</b>
+              </p-divider>
+            <!--addNeed()-->
+            <div class="formgrid grid">
+                <!--addNeed()-->
+                <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+                    <button pButton pRipple type="button" label="Añadir Necesidad"
+                        class="p-button-secondary p-button-rounded" icon="pi pi-plus" (click)="addNeedFromTemplate()"></button>
+                </div>
+            </div>
+
+            <!--needs-->
+            <div formArrayName="needs">
+                <div *ngFor="let need of needsField.value; let i = index;">
+                    <div class="formgrid grid">
+                        <!--need-->
+                        <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+                            <label [for]="'need'+i" appLabel [label]="'Necesidad ' + (i + 1) + ':'"
+                                [required]="isRequired(needsField.controls[i])" [valid]="needsField.controls[i].valid"
+                                [touched]="needsField.controls[i].touched"
+                                [dirty]="needsField.controls[i].dirty"></label>
+                        </div>
+                        <div class="field xl:col-9 lg:col-9 md:col-12 sm:col-12">
+                            <input pInputText [id]="'need'+i" [formControlName]="i" class="text-uppercase">
+                            <small appErrorMessage [errors]="needsField.controls[i].errors"
+                                [touched]="needsField.controls[i].touched" [dirty]="needsField.controls[i].dirty">
+                            </small>
+                        </div>
+
+                        <!--removeNeed()-->
+                        <div class="field xl:col-1 lg:col-1 md:col-12 sm:col-12">
+                            <button pButton pRipple type="button" (click)="removeNeed(i)" iconPos="right"
+                                icon="pi pi-trash" class="p-button-danger p-button-rounded"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p-divider align="left" >
+                <b>Observaciones</b>
+              </p-divider>
+
+            <!--observations-->
+            <div formArrayName="observations">
+                <div *ngFor="let observation of observationsField.controls; let i = index;">
+                    <div class="formgrid grid">
+                        <!--observation-->
+                        <div class="field xl:col-2 lg:col-2 md:col-12 sm:col-12">
+                            <label [for]="'observation'+i" appLabel [label]="'Observación ' + (i + 1) + ':'"
+                                [required]="isRequired(observationsField.controls[i])"
+                                [valid]="observationsField.controls[i].valid"
+                                [touched]="observationsField.controls[i].touched"
+                                [dirty]="observationsField.controls[i].dirty"></label>
+                        </div>
+
+                        <div class="field xl:col-9 lg:col-9 md:col-12 sm:col-12">
+                            <input pInputText [id]="'observation'+i" [formControlName]="i" class="text-uppercase">
+                            <small appErrorMessage [errors]="observationsField.controls[i].errors"
+                                [touched]="observationsField.controls[i].touched"
+                                [dirty]="observationsField.controls[i].dirty">
+                            </small>
+                        </div>
+                        <!--removeObservation()-->
+                            <!-- <div class="field xl:col-1 lg:col-1 md:col-12 sm:col-12">
+                                <button pButton pRipple type="button" class="p-button-danger p-button-rounded ml-2"
+                                    iconPos="right" icon="pi pi-trash" (click)="removeObservation(i)"></button>
+                            </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <!--onSubmit()-->
+            <div class="field">
+                <button pButton pRipple label="Actualizar" class="p-button-rounded" icon="pi pi-save"></button>
+            </div>
+
+            <!--progressBar-->
+            <!-- <div class="field" *ngIf="progressBar">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div> -->
+        </form>
+    </div>
+</div>
