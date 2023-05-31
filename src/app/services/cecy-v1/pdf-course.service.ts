@@ -19,9 +19,6 @@ export class PdfCourseService {
   async generatePDF(planificationCourse: any) {
     console.log(planificationCourse)
     const course = planificationCourse;
-
-    const text = 'rege';
-
     const imageSecretaryEducation = await this.getBase64ImageFromURL("../../../assets/course-objects/logo-secretaria-educacion.png");
     const imageYavirac = await this.getBase64ImageFromURL("../../../assets/course-objects/Logo Yavirac.png");
 
@@ -79,10 +76,10 @@ export class PdfCourseService {
               lineHeight: 1.5
             },
             {
-              text: `${course.user.names ?? 'No definido'} ${course.user.lastnames ?? ''}
-                    ${course.name ?? 'No definido'}
-                    ${course?.course?.courseType?.name ?? 'No definido'}
-                    ${course?.course?.modality?.name ?? 'No definido'}
+              text: `${course.planification.user.names ?? 'No definido'} ${course.planification.user.lastnames ?? ''}
+                    ${course.planification.name ?? 'No definido'}
+                    ${course?.courseType?.name ?? 'No definido'}
+                    ${course?.modality?.name ?? 'No definido'}
               `,
               lineHeight: 1.5
             },
@@ -94,7 +91,7 @@ export class PdfCourseService {
           bold: true
         },
         {
-          ul: course.course.needs
+          ul: course.needs
         },
         '\n',
         // duracion
@@ -107,7 +104,7 @@ export class PdfCourseService {
               width: 175
             },
             {
-              text: `${course.durationTime ?? 'no definido'} Horas`
+              text: `${course.planification.durationTime ?? 'no definido'} Horas`
             }
           ],
         },
@@ -121,7 +118,7 @@ export class PdfCourseService {
           table: {
             headerRows: 1,
             widths: [40, '*', '*', '*', '*'],
-            body: this.generateDetailPlan(course.detailPlan),
+            body: this.generateDetailPlan(course.planification.detailPlan),
           }
         },
         '\n',
@@ -139,9 +136,9 @@ export class PdfCourseService {
               lineHeight: 1.5
             },
             {
-              text: `${course.startDate ?? 'No definido'}
-                    ${course.finishDate ?? 'No definido'}
-                    ${course.id ?? 'No definido'}
+              text: `${course.planification.startDate ?? 'No definido'}
+                    ${course.planification.finishDate ?? 'No definido'}
+                    ${course.participantsRegistration ?? 'No definido'}
               `,
               lineHeight: 1.5
             },
@@ -153,8 +150,8 @@ export class PdfCourseService {
             layout: 'noBorders',
             widths: ['auto', '*'],
             body: [
-              [{ text: 'Resumen', border: [false, false, false, false] }, { text: `${course.course.summary}`, border: [false, false, false, false] }],
-              [{ text: 'Proyecto', border: [false, false, false, false] }, { text: `${course.course.project}`, border: [false, false, false, false] }]
+              [{ text: 'Resumen', border: [false, false, false, false] }, { text: `${course.summary}`, border: [false, false, false, false] }],
+              [{ text: 'Proyecto', border: [false, false, false, false] }, { text: `${course.project}`, border: [false, false, false, false] }]
             ],
             border: undefined
           }
@@ -170,7 +167,7 @@ export class PdfCourseService {
               width: 225,
             },
             {
-              ul: this.generateParticipantTypes(course.course.targetGroups)
+              ul: this.generateParticipantTypes(course.targetGroups)
             },
           ],
         },
@@ -239,7 +236,6 @@ export class PdfCourseService {
     } catch (error) {
       console.log(error);
     }
-
   }
 
 
@@ -302,9 +298,9 @@ export class PdfCourseService {
                 { text: 'Area: ', bold: true, fillColor: '#c6d9f0' },
               ],
               [
-                { text: `${course.name}` },
-                { text: `${course.course.area.name}` },
-                { text: `${course.course.speciality.name}`, fontSize: 9 }
+                { text: `${course?.planification?.name}` },
+                { text: `${course?.area?.name}` },
+                { text: `${course?.speciality?.name}`, fontSize: 9 }
               ]
             ],
 
@@ -322,10 +318,10 @@ export class PdfCourseService {
               ],
               [
                 {
-                  ul: this.generateParticipantTypes(course.course.targetGroups)
+                  ul: this.generateParticipantTypes(course.targetGroups)
                 },
-                { text: `${course?.course?.modality?.name}`, },
-                { text: `${course.durationTime} Horas` },
+                { text: `${course?.modality?.name}`, },
+                { text: `${course.planification.durationTime} Horas` },
               ],
             ],
 
@@ -352,7 +348,7 @@ export class PdfCourseService {
                 alignment: 'center',
               },
               {
-                ol: this.generateUlObject(course.course.techniquesRequisites.technical)
+                ol: this.generateUlObject(course?.techniquesRequisites?.technical)
               },
 
             ],
@@ -366,7 +362,7 @@ export class PdfCourseService {
                 alignment: 'center',
               },
               {
-                ol: this.generateUlObject(course.course.techniquesRequisites.general)
+                ol: this.generateUlObject(course?.techniquesRequisites?.general)
               },
 
             ],
@@ -376,7 +372,7 @@ export class PdfCourseService {
         //objective
         [
           { text: 'Objetivo del Curso.', bold: true },
-          { text: `${course.course.objective}`, margin: [10, 0, 0, 0] },
+          { text: `${course.objective}`, margin: [10, 0, 0, 0] },
         ],
         ////////////////////////////////////////////topics
         '\n',
@@ -384,7 +380,7 @@ export class PdfCourseService {
           text: 'Contenidos del Curso.', bold: true
         },
         {
-          ul: this.generateTopics(course.course.topics)
+          ul: this.generateTopics(course.topics)
         },
 
         '\n',
@@ -394,7 +390,7 @@ export class PdfCourseService {
           bold: true,
         },
         {
-          ul: this.generateUlObject(course.course.teachingStrategies)
+          ul: this.generateUlObject(course.teachingStrategies)
         },
 
         '\n',
@@ -413,7 +409,7 @@ export class PdfCourseService {
                   headerRows: 1,
                   widths: ['*', '*'],
 
-                  body: this.generateEvaluationItems(course.course.evaluationMechanisms.diagnostic)
+                  body: this.generateEvaluationItems(course?.evaluationMechanisms?.diagnostic)
                 }
               },
             ],
@@ -427,7 +423,7 @@ export class PdfCourseService {
                   headerRows: 1,
                   widths: ['*', '*'],
 
-                  body: this.generateEvaluationItems(course.course.evaluationMechanisms.formative)
+                  body: this.generateEvaluationItems(course?.evaluationMechanisms?.formative)
                 }
               },
             ],
@@ -443,7 +439,7 @@ export class PdfCourseService {
               headerRows: 1,
               widths: ['*', '*'],
 
-              body: this.generateEvaluationItems(course.course.evaluationMechanisms.final)
+              body: this.generateEvaluationItems(course?.evaluationMechanisms?.final)
             }
           },
         ],
@@ -457,7 +453,7 @@ export class PdfCourseService {
           table:{
             headerRows: 1,
               widths: ['*', '*', '*'],
-              body: this.generateLearningEnviroments(course.course.learningEnvironments)
+              body: this.generateLearningEnviroments(course?.learningEnvironments)
           }
         },
 
@@ -474,13 +470,13 @@ export class PdfCourseService {
                   margin:[0,0,0,0],
                   widths:['*','*'],
                   body: [
-                    [{ text: 'Horas prácticas:', bold: true, border:[false,false,false,false] }, {text: `${course.course.practiceHours} Horas`, border:[false,false,false,false]}],
-                    [{ text: 'Horas teóricas:', bold: true,border:[false,false,false,false] }, {text: `${course.course.theoryHours} Horas`, border:[false,false,false,false]}]
+                    [{ text: 'Horas prácticas:', bold: true, border:[false,false,false,false] }, {text: `${course.practiceHours} Horas`, border:[false,false,false,false]}],
+                    [{ text: 'Horas teóricas:', bold: true,border:[false,false,false,false] }, {text: `${course.theoryHours} Horas`, border:[false,false,false,false]}]
                   ]
                 }
               }
               ],
-              [{ text: 'Bibliografía:', bold: true, fillColor: '#c6d9f0' },{ul: this.generateUlObject(course.course.bibliographies)}]
+              [{ text: 'Bibliografía:', bold: true, fillColor: '#c6d9f0' },{ul: this.generateUlObject(course.bibliographies)}]
             ]
           }
         },
@@ -557,17 +553,21 @@ export class PdfCourseService {
     content.push(headerRow);
 
     // Filas de datos
-    detailPlan.forEach((item, count = 2) => {
-      const row = [
-        count.toString(),
-        item.startedTime,
-        item.endedTime,
-        item.day.name,
-        item.workday.name
-      ];
-      content.push(row);
-      count = +1
-    });
+    try {
+      detailPlan.forEach((item, count = 2) => {
+        const row = [
+          count.toString(),
+          item.startedTime,
+          item.endedTime,
+          item.day.name,
+          item.workday.name
+        ];
+        content.push(row);
+        count = +1
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     return content;
   }
@@ -577,6 +577,7 @@ export class PdfCourseService {
 
 
     // Filas de datos
+   try {
     participant.forEach((item) => {
       const row = [
         item.name
@@ -585,6 +586,9 @@ export class PdfCourseService {
         content.push(row);
       }
     });
+   } catch (error) {
+    console.log(error)
+   }
 
     return content;
   }
@@ -592,12 +596,16 @@ export class PdfCourseService {
   generateUlObject(technicsRequisites: any[]) {
     const content: any[] = [];
     // Filas de datos
-    technicsRequisites.forEach((item) => {
-      const row = [
-        item
-      ];
-      content.push(row);
-    });
+    try {
+      technicsRequisites.forEach((item) => {
+        const row = [
+          item
+        ];
+        content.push(row);
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     return content;
   }
@@ -606,27 +614,31 @@ export class PdfCourseService {
     var content = [];
 
     // Recorrer los temas
-    for (var i = 0; i < topics.length; i++) {
-      var topic = topics[i];
+    try {
+      for (var i = 0; i < topics.length; i++) {
+        var topic = topics[i];
 
-      // Agregar el elemento del tema al contenido
-      content.push({ text: topic.description, bold: true });
+        // Agregar el elemento del tema al contenido
+        content.push({ text: topic.description, bold: true });
 
-      // Verificar si el tema tiene subtemas
-      if (topic.children && topic.children.length > 0) {
-        var subitems = [];
+        // Verificar si el tema tiene subtemas
+        if (topic.children && topic.children.length > 0) {
+          var subitems = [];
 
-        // Recorrer los subtemas
-        for (var j = 0; j < topic.children.length; j++) {
-          var subtopic = topic.children[j];
+          // Recorrer los subtemas
+          for (var j = 0; j < topic.children.length; j++) {
+            var subtopic = topic.children[j];
 
-          // Agregar el subelemento al contenido de los subitems
-          subitems.push({ text: subtopic.description, margin: [20, 0, 0, 0] }); // Aplicar margen izquierdo para subitems
+            // Agregar el subelemento al contenido de los subitems
+            subitems.push({ text: subtopic.description, margin: [20, 0, 0, 0] }); // Aplicar margen izquierdo para subitems
+          }
+
+          // Agregar los subitems como una lista sin viñetas
+          content.push({ ul: subitems, style: 'subitemList' });
         }
-
-        // Agregar los subitems como una lista sin viñetas
-        content.push({ ul: subitems, style: 'subitemList' });
       }
+    } catch (error) {
+      console.log(error);
     }
 
     // Establecer los estilos para la lista sin viñetas de los subitems
@@ -655,13 +667,17 @@ export class PdfCourseService {
     content.push(headerRow);
 
     // Filas de datos
-    detailPlan.forEach((item) => {
-      const row = [
-        item.technique,
-        item.instrument,
-      ];
-      content.push(row);
-    });
+    try {
+      detailPlan.forEach((item) => {
+        const row = [
+          item.technique,
+          item.instrument,
+        ];
+        content.push(row);
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     return content;
   }
@@ -678,14 +694,18 @@ export class PdfCourseService {
     content.push(headerRow);
 
     // Filas de datos
-    detailPlan.forEach((item) => {
-      const row = [
-        item.installation.name,
-        item.theoreticalPhase+' Horas',
-        item.practicalPhase+' Horas'
-      ];
-      content.push(row);
-    });
+    try {
+      detailPlan.forEach((item) => {
+        const row = [
+          item.installation.name,
+          item.theoreticalPhase+' Horas',
+          item.practicalPhase+' Horas'
+        ];
+        content.push(row);
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     return content;
   }
