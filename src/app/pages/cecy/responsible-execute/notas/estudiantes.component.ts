@@ -1,45 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { EstudianteService } from './estudiante.service';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
   styleUrls: ['./estudiantes.component.scss'],
 })
-export class EstudiantesComponent {
+export class EstudiantesComponent  implements OnInit  {  
   constructor(
-    private router: Router
+    private router: Router,
+    private estudianteService : EstudianteService
+    
   ) {
   }
+  
+  ngOnInit(): void {
+    this.estudianteService.obtenerEstudiantes().subscribe(res=>this.estudiantes=res)
+  
+  }
+
+  estudiantes: any[] = [] ;
+
   redireccionar() {
     this.router.navigate(["cecy/responsible-execute/asistencia"]);
   }
   
-  estudiantes: any[] = [
-    { nombre: 'Juan', nota1: 80, nota2: 75 },
-    { nombre: 'Johan', nota1: 90, nota2: 85 },
-    { nombre: 'Carlos', nota1: 70, nota2: 60 },
-    { nombre: 'Esteban', nota1: 70, nota2: 60 },
-    { nombre: 'Gael', nota1: 70, nota2: 60 },
-   /*  { nombre: 'Luis', nota1: 60, nota2: 60 },
-    { nombre: 'Angel', nota1: 70, nota2: 60 }, */
-
-  ];
-
-
-  filtroNombre: string = '';
-
-
-  calcularPromedio(estudiante: any): number {
-    return (estudiante.nota1 + estudiante.nota2) / 2;
-  }
-
-  determinarEstado(estudiante: any): string {
-    const promedio = this.calcularPromedio(estudiante);
-    return promedio >= 70 ? 'Aprobado' : 'Reprobado';
-  }
-  guardarNota(estudiante: any) {
-    // Aquí puedes implementar la lógica para guardar las notas editadas del estudiante
-    console.log('Notas guardadas:', estudiante.nota1, estudiante.nota2);
-  }
-}
+  
+} 

@@ -10,6 +10,7 @@ import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
+import { EstudianteService } from './responsible-execute/notas/estudiante.service';
 
 @NgModule({
   declarations: [],
@@ -27,6 +28,6 @@ import { DropdownModule } from 'primeng/dropdown';
     PasswordModule,
     DropdownModule,
   ],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [{ provide: Window, useValue: window}, EstudianteService],
 })
 export class CecyModule {}
