@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
+import { Matriculas } from './estudiante.model';
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
@@ -21,7 +22,7 @@ export class EstudiantesComponent  implements OnInit  {
   
   }
 
-  estudiantes: any[] = [] ;
+  estudiantes: Matriculas[] = [] ;
 
   redireccionar() {
     this.router.navigate(["cecy/responsible-execute/asistencia"]);

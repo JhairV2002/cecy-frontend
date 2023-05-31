@@ -4,7 +4,7 @@
     <button class="btn btn-accent" icon="edit"  (click)="redireccionar()">Asistencia</button>
     <br>
     <br>
-    <input type="text" [(ngModel)]="filtroNombre" placeholder="Buscar por nombre" class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600" />
+    <input type="text" placeholder="Buscar por nombre" class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600" />
     <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-10 light:text-gray-400">
         <tr>
@@ -17,10 +17,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let estudiante of estudiantes | filter: filtroNombre"
+        <tr *ngFor="let estudiante of estudiantes "
           class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600">
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
-            {{ estudiante.nombre }}
+            {{ estudiante.estudiantes.nombres }}
           </th>
           <td class="px-6 py-4">
             <input type="number" id="nota1"
@@ -33,14 +33,14 @@
               [(ngModel)]="estudiante.nota2" />
           </td>
           <td class="px-6 py-4">
-            {{ calcularPromedio(estudiante) }}
+           
           </td>
           <td class="px-6 py-4">
-            {{ determinarEstado(estudiante) }}
+           
           </td>
           <td class="px-6 py-4 text-right">
             <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
-              (click)="guardarNota(estudiante)">
+              >
               Guardar
             </button>
           </td>
