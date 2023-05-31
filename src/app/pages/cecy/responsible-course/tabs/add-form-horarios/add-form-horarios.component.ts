@@ -79,19 +79,21 @@ export class AddFormHorariosComponent implements OnInit, OnChanges {
   addEditHorario() {
     this.planificationCourseId = this.courseDate.id;
     const valuesFormHourCourse = this.formHourCourse.value;
-    this.courseService.saveEditDetailPlan(valuesFormHourCourse, this.horarioSelect).subscribe({
-      next: (data) => {
-        console.log('Se esta guardando el horario', data);
-        this.messageService.successCourse(data);
-        this.clickClose.emit(false);
-        this.addUser.emit(data);
-      },
-      error: (error) => {
-        console.log(error);
-        this.messageService.errorValid(error);
-        this.progressBar = false;
-      },
-    });
+    this.courseService
+      .saveEditDetailPlan(valuesFormHourCourse, this.horarioSelect)
+      .subscribe({
+        next: (data) => {
+          console.log('Se esta guardando el horario', data);
+          this.messageService.successCourse(data);
+          this.clickClose.emit(false);
+          this.addUser.emit(data);
+        },
+        error: (error) => {
+          console.log(error);
+          this.messageService.errorValid(error);
+          this.progressBar = false;
+        },
+      });
   }
 
   onSubmit() {
@@ -132,7 +134,7 @@ export class AddFormHorariosComponent implements OnInit, OnChanges {
   loadClassrooms() {
     this.courseService.getClassrooms().subscribe(
       (response) => {
-        console.log('loadClassroms', response);
+        console.log('AULASSSSSSSSSSSS', response);
 
         this.classrooms = response;
       },

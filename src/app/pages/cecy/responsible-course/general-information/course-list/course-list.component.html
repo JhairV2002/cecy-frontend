@@ -28,8 +28,7 @@
 
   <div class="p-1 flex flex-wrap">
     <div class="p-2" *ngFor="let item of allCourses">
-      {{ item | json }}
-      <p-card [header]="item.name" [style]="{ width: '250px' }">
+      <p-card [header]="item.planification.name" [style]="{ width: '250px' }">
         <ng-template pTemplate="header">
           <!-- <img
             class="h-8rem"
@@ -46,24 +45,24 @@
           /> -->
         </ng-template>
         <ng-template pTemplate="subtittle">
-          Codigo: {{ item.codeCourse }} <br />
-          Estado: {{ item.state }}
+          Codigo: {{ item.planification.codeCourse }} <br />
+          Estado: {{ item.planification.state }}
           {{ item.image }}
         </ng-template>
         <ng-template pTemplate="footer">
           <div class="text-center">
             <div class="flex flex-row-reverse gap-1">
               <!-- {{ stateAprooved.statePlanification ? stateAprooved.statePlanification.length : 0 }} -->
-              <!-- *ngIf="item.course.length > 0" -->
-              <button
+              <!-- <button
+                *ngIf="item.modalityId > 0"
                 pButton
                 pRipple
                 type="button"
                 icon="pi pi-pencil"
                 class="p-button-rounded p-button-warning"
                 (click)="editCourse(item)"
-              ></button>
-              <!-- *ngIf="item.course.length === 0" -->
+              ></button> -->
+              <!-- *ngIf="item.modalityId === null" -->
               <button
                 pButton
                 pRipple

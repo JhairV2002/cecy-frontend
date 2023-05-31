@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@env/environment';
-import { PlanificationCourses } from './../../../models/cecy/coordinator-career';
-import { PlanificationCourseInitial } from './../../../models/cecy-v1/course.model';
+import { PlanificationCourses } from '@models/cecy/coordinator-career';
+import { PlanificationCourseInitial } from '@models/cecy-v1/course.model';
 
 @Injectable({
   providedIn: 'root',

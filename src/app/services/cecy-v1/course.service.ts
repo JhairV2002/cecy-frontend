@@ -1,7 +1,7 @@
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
-import { CareerModel } from './../../models/cecy-v1/career.model';
+import { CareerModel } from '@models/cecy-v1/career.model';
 import { CatalogueModel } from '@models/core';
-import { CourseModel } from './../../models/cecy-v1/course.model';
+import { Course, CourseModel } from '@models/cecy-v1/course.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,6 +21,10 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   // course crud
+
+  getCourseById(id: number) {
+    return this.http.get<Course>(`${this.apiUrl}/${id}`);
+  }
 
   public save(course: any) {
     return this.http.post<CourseModel>(`${this.apiUrl}`, course);

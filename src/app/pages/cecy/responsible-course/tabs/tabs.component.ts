@@ -1,11 +1,11 @@
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   CourseModel,
   PlanificationCourseInitial,
-} from './../../../../models/cecy-v1/course.model';
-import { CourseService } from './../../../../services/cecy-v1/course.service';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageService } from './../../../../services/core/message.service';
-import { ActivatedRoute, Router } from '@angular/router';
+} from '@models/cecy-v1/course.model';
+import { CourseService } from '@services/cecy-v1/course.service';
+import { MessageService } from '@services/core/message.service';
 import {
   FormBuilder,
   FormArray,
@@ -17,7 +17,7 @@ import { PlanificationsCoursesService } from '../../../../services/cecy/coordina
 import { CatalogueModel as CecyCatalogueModel } from '../../../../models/cecy/catalogue.model';
 import { ColModel, DetailPlanificationModel } from '@models/cecy';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-tabs',
@@ -83,6 +83,7 @@ export class TabsComponent implements OnInit, OnChanges {
     private courseService: CourseService,
     private activatedRoute: ActivatedRoute,
     private planificationCourseService: PlanificationsCoursesService,
+
     public messageService: MessageService,
     public fb: FormBuilder,
     private router: Router
@@ -99,7 +100,7 @@ export class TabsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-    this.getPlanificationById();
+    this.getGeneralInformationPlanificationById();
     this.loadCategoryCourses();
     this.loadCourseType();
     this.loadModality();
@@ -115,7 +116,7 @@ export class TabsComponent implements OnInit, OnChanges {
 
   loadHorarios() {
     const id = this.activatedRoute.snapshot.params['id'];
-    console.log('ID DE LA PLANIFICACION', id);
+    console.log('ID DEL CURSO', id);
 
     this.courseService.getDetailAllCourses(id).subscribe((data) => {
       console.log('Horarios depende del ID del la planificacion', data);
@@ -192,18 +193,26 @@ export class TabsComponent implements OnInit, OnChanges {
       }
     );
   }
-  getPlanificationById() {
-    const id = this.activatedRoute.snapshot.params['id'];
-    if (id) {
-      console.log(id);
-      this.planificationCourseService
-        .planificationById(id)
-        .subscribe((data) => {
-          this.selectedCourse = data;
-          this.formCourse.patchValue(data.course[0]);
-          this.formCurricularDesign.patchValue(data.course[0]);
-        });
-    }
+  getGeneralInformationPlanificationById() {
+    const id = parseInt(this.activatedRoute.snapshot.params['id']);
+    console.log('ID EN LA FUNCION', id, typeof id);
+    this.courseService
+      .getCourseById(id)
+      .pipe(
+        switchMap((course: any) => {
+          this.formCourse.patchValue(course);
+          this.formCurricularDesign.patchValue(course);
+          console.log('PRIMERA PETICION', typeof course.planificationId);
+          return this.planificationCourseService.getPlanificationById(
+            course.planificationId
+          );
+        })
+      )
+      .subscribe((planification) => {
+        console.log('SEGUNDA PETICION', planification);
+        this.selectedCourse = planification;
+      });
+    // ESTO DE AQUI DEBE DE SER IMPORTANTE PORFAVOR NO TE OLVIDES
   }
   loadformationType() {
     this.courseService.getCatalogues('FORMATION').subscribe(
@@ -231,10 +240,16 @@ export class TabsComponent implements OnInit, OnChanges {
   }
   saveCourse() {
     console.log('Se esta ejecuntando el guardado');
-    this.planificationId = this.selectedCourse.id;
+    //this.planificationId = this.selectedCourse.id;
+    const id = parseInt(this.activatedRoute.snapshot.params['id']);
     const valuesFormGeneralInformation = this.formCourse.value;
+    console.log(
+      'INFORMACION DEL PRIMER FORMULARIO',
+      valuesFormGeneralInformation
+    );
+
     this.progressBar = true;
-    this.courseService.save(valuesFormGeneralInformation).subscribe({
+    this.courseService.update(id, valuesFormGeneralInformation).subscribe({
       next: (data) => {
         console.log('guardando', data);
         this.messageService.successCourse(data);
@@ -242,11 +257,7 @@ export class TabsComponent implements OnInit, OnChanges {
         this.selectedTab = this.selectedTab === 0 ? 1 : 0;
         console.log('TAB POSITION', this.selectedTab);
       },
-      complete: () => {
-        location.reload();
-      },
       error: (error) => {
-        console.log(error);
         this.messageService.errorValid(error);
         this.progressBar = false;
       },
@@ -255,26 +266,24 @@ export class TabsComponent implements OnInit, OnChanges {
 
   updateCourse() {
     console.log('Se esta ejecuntando el guardado');
-    this.planificationId1 = this.selectedCourse.id;
+    //this.planificationId1 = this.selectedCourse.id;
+    const id = parseInt(this.activatedRoute.snapshot.params['id']);
     const valuesFormCurriculum = this.formCurricularDesign.value;
-    console.log('PLANIFICACION', this.selectedCourse);
+    console.log('FORMULARIO 2', valuesFormCurriculum);
     this.progressBar = true;
-    this.courseService
-      .update(this.selectedCourse.course[0].id, this.formCurricularDesign.value)
-      .subscribe({
-        next: (data) => {
-          console.log('editando', data);
-          this.messageService.successCourse(data);
-          this.progressBar = false;
-          //this.selectedTab = this.selectedTab === 0 ? 1 : 0;
-          console.log('TAB POSITION', this.selectedTab);
-        },
-        error: (error) => {
-          console.log(error);
-          this.messageService.errorValid(error);
-          this.progressBar = false;
-        },
-      });
+    this.courseService.update(id, this.formCurricularDesign.value).subscribe({
+      next: (data) => {
+        console.log('editando', data);
+        this.messageService.successCourse(data);
+        this.progressBar = false;
+        //this.selectedTab = this.selectedTab === 0 ? 1 : 0;
+        console.log('TAB POSITION', this.selectedTab);
+      },
+      error: (error) => {
+        this.messageService.errorValid(error);
+        this.progressBar = false;
+      },
+    });
   }
 
   hideModal(isClose: boolean) {

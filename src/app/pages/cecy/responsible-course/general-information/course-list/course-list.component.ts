@@ -9,7 +9,6 @@ import { MessageService } from '../../../../../services/core/message.service';
 import { AuthService } from '@services/auth';
 import { Planification } from '@models/cecy/coordinator-career/careers.model';
 
-
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
@@ -64,8 +63,8 @@ export class CourseListComponent implements OnInit {
 
   planificationsAsign() {
     this.authService.getPlanificationsbyUser().subscribe((data) => {
-      console.log('Planificaciones asignadas', data);
-      this.allCourses = data
+      console.log('Planificaciones y cursos asignados', data);
+      this.allCourses = data;
     });
   }
   filter(search: string) {
@@ -73,13 +72,16 @@ export class CourseListComponent implements OnInit {
       //this.allCourses = res;
     }); */
   }
-  editCourse(planification: any){
+  editCourse(planification: any) {
     console.log(planification);
-    this.router.navigate(['/cecy/responsible-course/course/edit', planification.id])
+    this.router.navigate([
+      '/cecy/responsible-course/course/edit',
+      planification.id,
+    ]);
   }
 
-  createCourse(planification: any) {
-    console.log(planification);
-    this.router.navigate(['/cecy/responsible-course/course/add', planification.id])
+  createCourse(course: any) {
+    console.log(course);
+    this.router.navigate(['/cecy/responsible-course/course/add', course.id]);
   }
 }
