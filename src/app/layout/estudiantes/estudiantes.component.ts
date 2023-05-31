@@ -10,6 +10,8 @@ import { tap } from 'rxjs';
 export class EstudiantesComponent {
   constructor(private cursosService: CursosService) { }
 
+  carreras$ = this.cursosService.getCarreras();
+
   cursos$ = this.cursosService
     .getCursosByCarrera('all')
     .pipe(tap((_) => console.log('Data Fetched')));

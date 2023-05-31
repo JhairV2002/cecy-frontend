@@ -26,10 +26,6 @@ export class CursoPageComponent {
       );
     })
   );
-
-  nombreCurso$ = this.router.paramMap.pipe(
-    map((params) => params.get('nombreCarrera'))
-  );
   onChangeFreeCheckbox(e: any) {
     this.checkedPago = false;
   }
@@ -37,4 +33,21 @@ export class CursoPageComponent {
   onChangeNonFreeCheckbox(e: any) {
     this.checkedGratis = false;
   }
+
+  nombreCursoApi$ = this.router.paramMap.pipe(
+    switchMap((params) =>
+      this.cursosService
+        .getCarrerasById(parseInt(params.get('id')!))
+        .pipe(map((res) => res.name))
+    )
+  );
+
+  cursosApi$ = this.router.paramMap.pipe(
+    switchMap((params) =>
+      this.cursosService
+        .getCarrerasById(parseInt(params.get('id')!))
+        .pipe(map((res) => res.planificationCourse))
+    )
+  );
+
 }

@@ -14,9 +14,9 @@
       <li class="pl-4 my-3">
         <a [routerLink]="['/cecy/estudiante/cursos/carrera', 'todos']">Todos</a>
       </li>
-      <li class="pl-4 my-3" *ngFor="let carrera of cursos$ | async as cursos">
-        <a [routerLink]="['/cecy/estudiante/cursos/carrera', carrera.nombre]">{{
-          carrera.nombre
+      <li class="pl-4 my-3" *ngFor="let carrera of carreras$ | async as carreras">
+        <a [routerLink]="['/cecy/estudiante/cursos/carrera', carrera.id]">{{
+          carrera.name
           }}</a>
       </li>
     </ul>

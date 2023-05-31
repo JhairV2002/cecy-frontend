@@ -44,3 +44,10 @@ export {
   PreRequisito,
   Observaciones,
 } from './cursos-model';
+
+export {
+  CarrerasApi,
+  PlanificationCourse,
+  Course,
+  Planification,
+} from './estudiantes/carreras';

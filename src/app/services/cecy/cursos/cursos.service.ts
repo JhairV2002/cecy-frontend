@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Carrera, Curso } from '@models/cecy/index';
+import { CarrerasApi, Course } from '@models/cecy/estudiantes/carreras';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,10 @@ export class CursosService {
 
   urlCursoByName: string = 'http://localhost:8083/api/cursos/findByName/';
 
+  carrerasUrlCursosApi: string = 'http://localhost:3000/api/v1/careers/';
+
+  cursosUrlCursosApi: string = 'http://localhost:3000/api/v1/courses/';
+
   getCursosByCarrera(endpoint: string): Observable<Carrera[]> {
     return this.http.get<Carrera[]>(`${this.urlCarrera}/${endpoint}/`);
   }
@@ -35,5 +40,17 @@ export class CursosService {
 
   getCursoByName(nombre: string) {
     return this.http.get<Curso[]>(`${this.urlCursoByName}${nombre}/`);
+  }
+
+  getCarreras() {
+    return this.http.get<CarrerasApi[]>(this.carrerasUrlCursosApi);
+  }
+
+  getCarrerasById(id: number) {
+    return this.http.get<CarrerasApi>(`${this.carrerasUrlCursosApi}/${id}`);
+  }
+
+  getCursoById(id: number) {
+    return this.http.get<Course>(`${this.cursosUrlCursosApi}${id}`);
   }
 }

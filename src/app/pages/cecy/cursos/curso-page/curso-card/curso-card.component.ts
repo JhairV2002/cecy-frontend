@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Curso } from '@models/cecy';
+import { PlanificationCourse } from '@models/cecy';
 
 @Component({
   selector: 'app-curso-card',
@@ -7,6 +7,6 @@ import { Curso } from '@models/cecy';
   styleUrls: ['./curso-card.component.css'],
 })
 export class CursoCardComponent {
-  @Input() curso!: Curso | null;
+  @Input() curso!: PlanificationCourse | null;
   @Input() butonText!: 'Ver Más' | 'Inscribirse';
 }

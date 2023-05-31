@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Curso } from '@models/cecy';
+import { Curso, PlanificationCourse } from '@models/cecy';
 
 @Pipe({
   name: 'search',
 })
 export class SearchPipe implements PipeTransform {
-  transform(items: Curso[] | null, searchText: string): any[] {
+  transform(items: PlanificationCourse[] | null, searchText: string): any[] {
     if (!items) return [];
 
     if (!searchText) return items;
@@ -13,7 +13,7 @@ export class SearchPipe implements PipeTransform {
     searchText = searchText.toLowerCase();
 
     return items.filter((it) => {
-      return it.nombre.toLowerCase().includes(searchText);
+      return it.name.toLowerCase().includes(searchText);
     });
   }
 }
