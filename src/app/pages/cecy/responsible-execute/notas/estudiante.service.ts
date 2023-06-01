@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 import { Matriculas } from './estudiante.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EstudianteService {
-  
   private baseUrl = 'http://localhost:8080/api/matriculas/';
   constructor(private http: HttpClient) { }
 
@@ -20,15 +19,20 @@ export class EstudianteService {
   }
 
   obtenerEstudiantePorId(id: number): Observable<Matriculas> {
-    return this.http.get<Matriculas>(`${this.baseUrl}${id}/`)
+    return this.http.get<Matriculas>(`${this.baseUrl}${id}/`);
   }
 
-  actualizarNotas(id: number, nota1: number, nota2: number): Observable<any> {
+  actualizarNotas(matricula: Matriculas, id: number): Observable<Matriculas> {
+    let promedio = (matricula.nota1 + matricula.nota2) / 2;
 
-    const body = { nota1, nota2 };
-    return this.http.put<any>(`${this.baseUrl}/estudiantes/${id}`, body);
+    if (promedio >= 70) {
+      matricula.estadoCurso = { descripcion: 'Aprobado' };
+      matricula.promedio = promedio;
+      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
+    } else {
+      matricula.estadoCurso = { descripcion: 'Reprobado' };
+      matricula.promedio = promedio;
+      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
+    }
   }
-  
-
-
 }

@@ -13,11 +13,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { EstudianteService } from './responsible-execute/notas/estudiante.service';
 import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
 
-
 @NgModule({
-  declarations: [
-    NombreFilterPipe
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     CecyRoutingModule,
@@ -32,6 +29,6 @@ import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
     PasswordModule,
     DropdownModule,
   ],
-  providers: [{ provide: Window, useValue: window}, EstudianteService],
+  providers: [{ provide: Window, useValue: window }, EstudianteService],
 })
-export class CecyModule {}
+export class CecyModule { }

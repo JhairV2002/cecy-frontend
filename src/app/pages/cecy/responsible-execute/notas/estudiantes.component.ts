@@ -21,9 +21,7 @@ export class EstudiantesComponent implements OnInit {
     this.estudianteService
       .obtenerEstudiantes()
       .subscribe((res) => (this.estudiantes = res));
-
   }
-
 
   estudiantes: Matriculas[] = [];
 
@@ -32,13 +30,17 @@ export class EstudiantesComponent implements OnInit {
   }
 
   filtrarPorNombre(): void {
-    this.estudiantes = this.estudiantes.filter(estudiante =>
-      estudiante.estudiantes && estudiante.estudiantes.nombres.toLowerCase().includes(this.nombreFiltrado.toLowerCase())
+    this.estudiantes = this.estudiantes.filter(
+      (estudiante) =>
+        estudiante.estudiantes &&
+        estudiante.estudiantes.nombres
+          .toLowerCase()
+          .includes(this.nombreFiltrado.toLowerCase())
     );
   }
-    
+
   guardarNotas(matricula: Matriculas): void {
-    this.estudianteService.actualizarNotas(matricula.id, matricula.nota1, matricula.nota2).subscribe(
+    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe(
       (res) => {
         console.log('Notas guardadas', res);
       },
@@ -48,12 +50,9 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
-
-
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
-
 }
