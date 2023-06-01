@@ -23,14 +23,11 @@ export class VisualizationCoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/state-course/aprobado`);
+    return this.http.get<Course[]>(`${this.apiUrl}/state-course/Aprobado`);
   }
 
   public findById(id: number): Observable<Course> {
-    return this.http.get<Course>(
-      this.apiUrl + '/' + id,
-      this.httpOptions
-    );
+    return this.http.get<Course>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
   // public deleteById(id: number): Observable<Sugerencia>{
