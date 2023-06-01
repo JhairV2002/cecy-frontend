@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class VisualizationCoursesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private apiUrl = `${environment.api4}/api/courses`;
 
@@ -23,7 +23,7 @@ export class VisualizationCoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/state-course/Aprobado`);
+    return this.http.get<Course[]>(`${this.apiUrl}/state-course/aprobado`);
   }
 
   public findById(id: number): Observable<Course> {
