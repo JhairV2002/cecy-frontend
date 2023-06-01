@@ -11,9 +11,13 @@ import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
 import { EstudianteService } from './responsible-execute/notas/estudiante.service';
+import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    NombreFilterPipe
+  ],
   imports: [
     CommonModule,
     CecyRoutingModule,

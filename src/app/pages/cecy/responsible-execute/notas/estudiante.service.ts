@@ -7,9 +7,7 @@ import { Matriculas } from './estudiante.model';
   providedIn: 'root'
 })
 export class EstudianteService {
-  actualizarEstudiante(estudiante: Matriculas) {
-    throw new Error('Method not implemented.');
-  }
+  
   private baseUrl = 'http://localhost:8080/api/matriculas/';
   constructor(private http: HttpClient) { }
 
@@ -24,5 +22,13 @@ export class EstudianteService {
   obtenerEstudiantePorId(id: number): Observable<Matriculas> {
     return this.http.get<Matriculas>(`${this.baseUrl}${id}/`)
   }
+
+  actualizarNotas(id: number, nota1: number, nota2: number): Observable<any> {
+
+    const body = { nota1, nota2 };
+    return this.http.put<any>(`${this.baseUrl}/estudiantes/${id}`, body);
+  }
+  
+
 
 }
