@@ -15,26 +15,26 @@ import { CarrerasService } from 'src/app/pages/cecy/validacion-matricula/service
 })
 export class SidebarComponent implements OnInit {
   display = false;
-  carreras$ = this.carreraService.getAllCarreras().pipe(
-    map((res) => {
-      let routes: any[] = [];
-      res.forEach((it) => {
-        routes = [
-          ...routes,
-          {
-            items: [
-              {
-                label: it.nombre,
-                icon: '',
-                routerLink: `/cecy/validacion-matricula/delegado/${it.nombre}`,
-              },
-            ],
-          },
-        ];
-      });
-      return routes;
-    })
-  );
+  // carreras$ = this.carreraService.getAllCarreras().pipe(
+  //   map((res) => {
+  //     let routes: any[] = [];
+  //     res.forEach((it) => {
+  //       routes = [
+  //         ...routes,
+  //         {
+  //           items: [
+  //             {
+  //               label: it.nombre,
+  //               icon: '',
+  //               routerLink: `/cecy/validacion-matricula/delegado/${it.nombre}`,
+  //             },
+  //           ],
+  //         },
+  //       ];
+  //     });
+  //     return routes;
+  //   })
+  // );
   itemsAdmin: MenuItem[] = [
     {
       label: 'Administrador',
@@ -219,7 +219,7 @@ export class SidebarComponent implements OnInit {
     public el: ElementRef,
     private authService: AuthService,
     private carreraService: CarrerasService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((user: any) => {

@@ -43,6 +43,8 @@ export {
   Instructor,
   PreRequisito,
   Observaciones,
+  Career,
+  PlanificationCursos,
 } from './cursos-model';
 
 export {
