@@ -155,7 +155,6 @@ const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'estudiante',
     component: EstudiantesComponent,

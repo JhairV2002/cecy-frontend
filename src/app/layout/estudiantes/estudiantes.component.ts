@@ -8,11 +8,13 @@ import { tap } from 'rxjs';
   styleUrls: ['./estudiantes.component.css'],
 })
 export class EstudiantesComponent {
-  constructor(private cursosService: CursosService) { }
+  constructor(private cursosService: CursosService) {}
 
   carreras$ = this.cursosService.getCarreras();
 
   cursos$ = this.cursosService
     .getCursosByCarrera('all')
     .pipe(tap((_) => console.log('Data Fetched')));
+
+  user: { id: number; nombre: string; url: string } | null = null;
 }
