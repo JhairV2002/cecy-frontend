@@ -15,6 +15,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CmbGenderComponent } from './register-user/cmb-gender/cmb-gender.component';
+import { CmbEtniaComponent } from './register-user/cmb-etnia/cmb-etnia.component';
+import { CmbInstructionComponent } from './register-user/cmb-instruction/cmb-instruction.component';
+import { CmbEconomyComponent } from './register-user/cmb-economy/cmb-economy.component';
+import { CmbInstPlaceComponent } from './register-user/cmb-inst-place/cmb-inst-place.component';
+import { CmbInstitutionComponent } from './register-user/cmb-institution/cmb-institution.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +28,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     RecoveryPasswordComponent,
     RegisterUserComponent,
     ChangePasswordComponent,
+    CmbGenderComponent,
+    CmbEtniaComponent,
+    CmbInstructionComponent,
+    CmbEconomyComponent,
+    CmbInstPlaceComponent,
+    CmbInstitutionComponent,
   ],
   imports: [
     CommonModule,

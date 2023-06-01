@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Catalogue } from './catalogue';
+import { Catalogue } from '@models/cecy';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class CatalogueService {
     headers: new HttpHeaders({'Content-Type': 'application/json' })
   };
 
-  private url: string = 'http://localhost:8082/api/catalogueCecy';
+  private url: string = 'http://localhost:8082/api/catalogos';
 
   public findById(id: number): Observable<Catalogue> {
     return this.http.get<Catalogue>(`${this.url}/${id}`, this.httpOptions);

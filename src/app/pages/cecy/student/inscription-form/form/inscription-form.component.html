@@ -10,16 +10,18 @@
         <div class="grid md:grid-cols-3 md:gap-10">
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
             <label class="block mb-2 text-sm font-medium text-gray-900">¿Como se entero del curso? </label>
-            <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            <app-cmb-publicity (idEmitter)="initialForm.publicity.id=$event" [id]="initialForm.publicity.id"></app-cmb-publicity>
+
+            <!-- <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">
               <option value="" selected >Seleccione una opcion</option>
               <option value="value1" >Redes Sociales</option>
               <option value="value2" >Un profesor me lo recomendo</option>
               <option value="value3">Otros...</option>
-            </select>
+            </select> -->
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <!-- <app-combobox-publicity (idEmitter)="initialForm.publicity.id=$event" [id]="initialForm.publicity.id"></app-combobox-publicity> -->
+
             <label class="block mb-2 text-sm font-medium text-gray-900">¿En que otro curso le gustaria inscribirse? </label>
             <select name="select" class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             aria-placeholder="Seleccione una opcion" style="margin-bottom: 12px;" required="false">

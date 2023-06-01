@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CatalogueService } from './catalogue.service';
-import { Catalogue } from './catalogue';
+import { Catalogue } from '@models/cecy';
+import { CatalogueService } from '@services/cecy';
 
 @Component({
   selector: 'app-cmb-publicity',
@@ -29,7 +29,7 @@ export class CmbPublicityComponent implements OnInit {
     this.catalogueService.findAll().subscribe(
       (response) =>
       response.forEach((t) => {
-        if (t.code == 'publicidad') {
+        if (t.nombre == 'publicidad') {
           this.publicities.push(t)
         }
       })

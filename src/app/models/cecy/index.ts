@@ -35,7 +35,10 @@ export { DetailPlanificationModel } from "./detail-planification.model";
 export { ParticipantUserModel } from "./participant-user.model";
 export { PhotographicRecordModel } from "./photographic-record.model";
 export { RecordModel } from "./photographic-record.model";
-
-
+export { Inscription } from "./inscription"
+export { Catalogue } from "./catalogue"
+export { PersonCecy } from "./person-cecy"
+export { Institution } from "./institution"
+export { Documents } from "./documents"
 
 

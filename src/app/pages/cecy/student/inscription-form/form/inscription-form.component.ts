@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InscriptionService } from '../inscription.service';
-import { Inscription } from '../inscription';
+import { Inscription } from '@models/cecy';
+import { InscriptionService } from '@services/cecy';
 
 @Component({
   selector: 'app-inscription-form',
@@ -21,16 +21,16 @@ export class InscriptionFormComponent implements OnInit {
     courseId: 1,
     publicity: {
       id: 0,
-      code: "",
-      value: ""
+      nombre: "",
+      descripcion: ""
     },
     otherCourses: 1,
     sponsoredCourse: false,
     institutionContact: "",
     state: {
       id: 1,
-      code: "",
-      value: ""
+      nombre: "",
+      descripcion: ""
     },
     personCecy: 1
   };
@@ -47,16 +47,16 @@ export class InscriptionFormComponent implements OnInit {
         courseId: 0,
         publicity: {
           id: 0,
-          code: "",
-          value: ""
+          nombre: "",
+          descripcion: ""
         },
         otherCourses: 0,
         sponsoredCourse: false,
         institutionContact: "",
         state: {
           id: 1,
-          code: "",
-          value: ""
+          nombre: "",
+          descripcion: ""
         },
         personCecy: 1
       };

@@ -1,4 +1,4 @@
-import { Catalogue } from "./cmb-publicity/catalogue";
+import { Catalogue } from "./catalogue";
 
 export interface Inscription {
   id: number;

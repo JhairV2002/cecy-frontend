@@ -1,6 +1,6 @@
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Inscription } from './inscription';
+import { Inscription } from '@models/cecy';
 import { Observable } from 'rxjs';
 
 @Injectable({

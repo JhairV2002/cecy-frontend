@@ -1,5 +1,5 @@
 export interface Catalogue{
   id: number,
-  code: string,
-  value: string
+  nombre: string,
+  descripcion: string
 }
