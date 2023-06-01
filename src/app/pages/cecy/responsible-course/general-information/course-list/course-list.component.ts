@@ -85,7 +85,7 @@ export class CourseListComponent implements OnInit {
   filterPlanification(value: any): void {
     const filterValue = value.toLowerCase();
     this.filterPlan = this.allCourses.filter((item) =>
-      item.name.toLowerCase().includes(filterValue)
+      item.planification.name.toLowerCase().includes(filterValue)
     );
   }
 

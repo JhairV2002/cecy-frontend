@@ -492,6 +492,6 @@ export class CurricularDesignComponent implements OnInit {
 
   filterSpeciality(value: string): void {
     const filterValue = value.toString();
-    this.filterSpecialityType = this.specialityType.filter((speciality: { parentId: string; }) => speciality.parentId === filterValue);
+    this.filterSpecialityType = this.specialityType.filter((speciality: { parentId: string; }) => speciality.parentId == filterValue);
   }
 }
