@@ -25,7 +25,7 @@ export class SearchCursoComponent implements OnInit {
   }
 
   public findAll(): void {
-    this.visualizationCourseService.findAll().subscribe(
+    this.visualizationCourseService.getviewCourses().subscribe(
       (respose) => {
         this.cursos = respose;
         console.log(this.cursos);

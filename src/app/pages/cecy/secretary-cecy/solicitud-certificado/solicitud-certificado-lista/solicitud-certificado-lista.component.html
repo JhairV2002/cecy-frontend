@@ -1,4 +1,4 @@
-<app-solicitud-certificado-toolbar []="currentEntity.name" ></app-solicitud-certificado-toolbar>
+
 <app-solicitud-certificado-busqueda></app-solicitud-certificado-busqueda>
 <div class="m-3 card card-bordered border-black shadow=x1">
   <div class="cabezera flex justify-end">
@@ -17,7 +17,6 @@
       <thead>
         <tr>
           <!--<th><input type="checkbox" [(ngModel)]="parentSelector" [value]="-1" (change)="onChangeFood($event)" class="checkbox checkbox-secondary"></th> -->
-          <th>Fecha Solicitado</th>
           <th>Cedula</th>
           <th>Nombre</th>
           <th>Curso</th>
@@ -43,7 +42,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let valor of certificadoList">
+        <tr *ngFor="let valor of solicitudCertificadoList">
          <!--
 <td>
             (change)="onChangeFood($event)"
@@ -55,10 +54,9 @@
             />
           </td>
          -->
-          <td>{{ valor.fecha }}</td>
           <td>{{ valor.cedula }}</td>
-          <td>{{ valor.nombrecompleto }}</td>
-          <td>{{ valor.curso }}</td>
+          <td>{{ valor.estudianteId }}</td>
+          <td>{{ valor.cursoId }}</td>
           <td>{{ valor.estado }}</td>
           <td>
             <button

@@ -10,7 +10,7 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = `${environment.api4}/courses`;
+  private apiUrl = `${environment.api4}/api/courses`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,12 +23,12 @@ export class VisualizationCoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}`);
+    return this.http.get<Course[]>(`${this.apiUrl}/state-course/aprobado`);
   }
 
   public findById(id: number): Observable<Course> {
     return this.http.get<Course>(
-      this.apiUrl + '/' + id + '/',
+      this.apiUrl + '/' + id,
       this.httpOptions
     );
   }
@@ -38,12 +38,6 @@ export class VisualizationCoursesService {
   // }
 
   //Lista cursos
-  public findAll(): Observable<Course[]> {
-    return this.http.get<Course[]>(
-      this.apiUrl + '/',
-      this.httpOptions
-    );
-  }
 
   //search cursos
   public findByName(term: string): Observable<Course[]> {

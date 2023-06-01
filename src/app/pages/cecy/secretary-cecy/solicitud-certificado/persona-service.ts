@@ -16,7 +16,7 @@ export class PersonaService {
     headers: new HttpHeaders({"Content-Type":"application/json"})
   }
 
-  private url: string = "http://localhost:8089/api/persona"
+  private url: string = "http://localhost:8080/api/estudiantes"
   //obtener lista de persona
   public findAll(): Observable<Persona[]>{
     return this.http.get<Persona[]>(this.url+"/", this.httpOptions);

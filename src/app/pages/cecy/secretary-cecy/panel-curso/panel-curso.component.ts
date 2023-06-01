@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MegaMenuItem } from 'primeng/api';
+import { PaginatorModel } from '@models/core';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
@@ -7,6 +9,7 @@ import { PlanificationsCoursesService } from '@services/cecy/coordinator-career'
   templateUrl: './panel-curso.component.html'
 })
 export class PanelCursoComponent implements OnInit {
+
   constructor(
     private visualizationCoursesService: VisualizationCoursesService,
     private planificationCourse: PlanificationsCoursesService

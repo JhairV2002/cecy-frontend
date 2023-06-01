@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SolicitudCertificado } from './solicitud-certificado';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,12 @@ export class SolicitudCertificadoService {
     headers: new HttpHeaders({"Content-Type":"application/json"})
   }
 
-  private url: string = "http://localhost:8080/api/certificado"
+  private apiUrl = `${environment.api4}/api/matriculas`;
 
   public findAll(): Observable<SolicitudCertificado[]>{
-    return this.http.get<SolicitudCertificado[]>(this.url+"/", this.httpOptions);
+    return this.http.get<SolicitudCertificado[]>(this.apiUrl+"/estadoCurso/Aprobado/", this.httpOptions);
   }
   public findById(id: number): Observable<SolicitudCertificado>{
-    return this.http.get<SolicitudCertificado>(this.url+"/"+id+"/", this.httpOptions);
+    return this.http.get<SolicitudCertificado>(this.apiUrl+"/"+id+"/", this.httpOptions);
   }
 }

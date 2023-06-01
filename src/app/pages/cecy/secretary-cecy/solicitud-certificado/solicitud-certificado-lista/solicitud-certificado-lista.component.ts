@@ -63,29 +63,31 @@ export class SolicitudCertificadoListaComponent implements OnInit {
     this.solicitudCertificadoService.findAll().subscribe(
       (response) => {
         this.solicitudCertificadoList = response
-        this.buscarPersona();
-        this.buscarCurso();
-        this.findMatricula();
+        console.log(this.solicitudCertificadoList)
+       this.buscarPersona();
+        //this.buscarCurso();
+        //this.findMatricula();
       }
     )
   }
-  public findMatricula(): void {
+  /*public findMatricula(): void {
     this.matriculaService.findAll().subscribe(
       (response) => {
         this.matriculaList = response
         this.buscarMatricula();
       }
     )
-  }
+  }*/
   public buscarPersona(): void {
     this.solicitudCertificadoList.forEach(
       (solicitud) => {
-        this.personaService.findById(
-          solicitud.userId
+                solicitud.cedula
+                this.personaService.findById(
+          solicitud.estudianteId.personaId
         ).subscribe(
           (persona) => {
             solicitud.nombrecompleto = persona.nombres + " " + persona.apellidos;
-            solicitud.cedula = persona.cedula;
+            solicitud.cedula = persona.dni;
           }
         )
       }
@@ -96,7 +98,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   this.solicitudCertificadoList.forEach(
   (solicitud) => {
   this.cursoService.findById(
-  solicitud.courseId
+  solicitud.cursoId
   ).subscribe(
   (nombreCurso) => solicitud.curso = nombreCurso.name
   )
@@ -104,20 +106,20 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   )
   }
 
-  public buscarMatricula(): void {
+  /*public buscarMatricula(): void {
     this.matriculaList.forEach(
     (matricula) => {
     if (matricula.state == 'Aprobado')
     this.solicitudCertificadoList.forEach(
     (certificado) => {
-    if (certificado.userId == matricula.userId && certificado.courseId == this.currentEntity.id) {
+    if (certificado.estudianteId == matricula.userId && certificado.cursoId == this.currentEntity.id) {
     this.certificadoList.push(certificado)
     }
     }
     )
     }
     )
-  }
+  }*/
 
   currentEntity: Course =
   {
@@ -180,43 +182,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
       }
     })
   }
-  public probarUno(): void {
-    const a = "";
-    const b = 0;
-    const c = 0;
-    const d = {
-      id: 1, userId: 1,
-      courseId: 1,
-      tuitionId: 1,
-      estado: "generado",
-      fecha: new Date,
-      nombrecompleto: "",
-      cedula: "",
-      curso: "",
-    };
-    const e = {
-      id: 1,
-      codigo: "",
-    };
-    this.savePdf(a, b, c, d, e)
-  }
-  public savePdf(a: string, b: number, c: number, d: SolicitudCertificado, e: CodigoCertificado): void {
-    this.certificadoPdf.save(this.certificadoEntity).subscribe(() => {
-      this.certificadoEntity =
-        {
-            id: 0,
-            name: "Prueba",
-            certicadoId:
-              {
-                id: 3, userId: 1, courseId: 4, tuitionId: 1, estado: 'Generado'
-              },
-            codigos:
-              { id: 2, codigo: 'cod0002', estado: true }
-            }
 
-      console.log(this.certificadoEntity)
-    })
-  }
   public findByIdCertificado(): void {
     this.certificadoPdf.findById(4).subscribe((response) => {
       this.certificadoEntity = response
