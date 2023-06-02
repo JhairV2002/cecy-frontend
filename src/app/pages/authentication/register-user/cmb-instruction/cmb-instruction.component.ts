@@ -22,7 +22,7 @@ export class CmbInstructionComponent {
     this.CatalogueService.findAll().subscribe(
       (response) =>
       response.forEach((t) => {
-        if (t.nombre == 'instruccion') {
+        if (t.nombre == 'nivel_instruccion') {
           this.lvlsInstruccion.push(t)
         }
       })

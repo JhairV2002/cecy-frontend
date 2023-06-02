@@ -22,7 +22,7 @@ export class CmbEconomyComponent implements OnInit{
     this.CatalogueService.findAll().subscribe(
       (response) =>
       response.forEach((t) => {
-        if (t.nombre == 'instruccion') {
+        if (t.nombre == 'situacion_economica') {
           this.listEconomies.push(t)
         }
       })

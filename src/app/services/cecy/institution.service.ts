@@ -13,7 +13,7 @@ export class InstitutionService {
     headers: new HttpHeaders({ "Content-Type": "application/json" })  ,
   };
 
-  private url: string = 'http://localhost:8082/api/empresas';
+  private url: string = 'http://localhost:8080/api/empresas';
 
   public save(institution: Institution): Observable<Institution> {
     return this.http.post<Institution>(this.url+"/", institution, this.httpOptions);

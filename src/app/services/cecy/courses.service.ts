@@ -10,7 +10,7 @@ export class CoursesService {
 
   constructor(private http: HttpClient) {}
 
-  private apiUrl = `http://localhost:8082/courses`;
+  private apiUrl = `http://localhost:8080/api/courses`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

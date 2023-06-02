@@ -22,7 +22,7 @@ export class CmbGenderComponent implements OnInit {
       this.CatalogueService.findAll().subscribe(
         (response) =>
         response.forEach((t) => {
-          if (t.nombre == 'sexo') {
+          if (t.nombre == 'genero') {
             this.gender.push(t)
           }
         })

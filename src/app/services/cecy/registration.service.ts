@@ -14,7 +14,7 @@ export class RegistrationService {
   };
 
   private url: string = 'http://localhost:8000/api/persona'; //api yavirac
-  private urlCecy: string = 'http://localhost:8082/api/estudiantes';
+  private urlCecy: string = 'http://localhost:8080/api/estudiantes';
 
   public save(personCecy: PersonCecy): Observable<PersonCecy> {
     return this.http.post<PersonCecy>(`${this.urlCecy}/`, personCecy, this.httpOptions);
