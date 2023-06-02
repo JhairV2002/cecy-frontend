@@ -3,66 +3,59 @@ import { Subject, takeUntil } from 'rxjs';
 import { PaginatorModel, TopicModel } from '@models/cecy';
 import { MessageService } from '@services/core/message.service';
 import { TopicHttpService } from '@services/cecy/topic-http.service';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  OnDestroy,
-} from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Topic } from '@models/cecy-v1/topic.model';
+import { ActivatedRoute } from '@angular/router';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 
 @Component({
   selector: 'app-topic-form',
   templateUrl: './topic-form.component.html',
-  styleUrls: ['./topic-form.component.scss'],
+  styleUrls: ['./topic-form.component.scss']
 })
-export class TopicFormComponent implements OnInit, OnDestroy {
-  topics$ = this.topicHttpService.topics$;
-  topic$ = this.topicHttpService.topic$;
-  loaded$ = this.topicHttpService.loaded$;
-  paginator$ = this.topicHttpService.paginator$;
-  idTopicEdit: any;
-  // topics: TopicModel[] = [];
-  topics: Topic[] = [];
+export class TopicFormComponent implements OnInit {
+
+  idTopicEdit: TopicModel | undefined;
+  topics: Topic[]=[];
 
   selectedTopic: TopicModel = {};
   dialogForm: boolean = false; // optional
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
-  @Input() courseId: number = 0;
+  courseId: number = 0;
 
   public progressBar: boolean = false;
-  private unsubscribe$ = new Subject<void>();
   public newForm: FormGroup = this.newFormTopics;
+  selectedCourse: any;
 
   constructor(
     private topicHttpService: TopicHttpService,
     public messageService: MessageService,
     private formBuilder: FormBuilder,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private activatedRoute: ActivatedRoute,
+    private planificationCourseService: PlanificationsCoursesService,
   ) {
-    this.paginator$.subscribe((response) => {
-      this.paginator = response;
-    });
+    // this.getPlanificationById();
+
   }
 
   ngOnInit(): void {
-    this.loadTopics();
+    this.getPlanificationById();
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+  getPlanificationById() {
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
+      this.planificationCourseService
+        .planificationById(id)
+        .subscribe((data) => {
+          this.selectedCourse = data;
+          this.courseId= this.selectedCourse.course.id
+          this.loadTopics();
+        });
+    }
   }
 
   get newFormTopics(): FormGroup {
@@ -74,14 +67,14 @@ export class TopicFormComponent implements OnInit, OnDestroy {
 
   editTopic(topic: TopicModel = {}) {
     if (topic.id !== undefined) {
-      // this.newForm.reset(topic);
-      // const nameChildrens = topic.children.map((x) => x.description);
-      // nameChildrens.forEach((e) => {
-      //   this.addSubtopic(e);
-      // });
-      // this.idTopicEdit = topic;
-      // console.log(this.idTopicEdit);
-      // this.dialogForm = true;
+      this.newForm.reset(topic)
+      const nameChildrens = topic.children?.map(x => x.description)
+      nameChildrens?.forEach(e => {
+        this.addSubtopic(e)
+      })
+      this.idTopicEdit = topic
+      console.log(this.idTopicEdit)
+      this.dialogForm = true
     }
   }
   addSubtopic(subtopic = '') {
@@ -90,44 +83,22 @@ export class TopicFormComponent implements OnInit, OnDestroy {
 
   storeTopic(topics: Topic[]): void {
     this.progressBar = true;
-    // this.topicHttpService.storeTopic(topics, this.courseId).subscribe(
-    //   response => {
-    //     if (!this.idTopicEdit) {
-    //       this.messageService.success(response);
-    //     } else {
-    //       response.msg = {
-    //         summary: "Tema y subtema Actualizado",
-    //         detail: "",
-    //         code: "200"
-    //       }
-    //       this.messageService.success(response);
-    //     }
-    //     this.loadTopics()
-    //     this.progressBar = false;
-    //   },
-    //   error => {
-    //     this.messageService.error(error);
-    //     this.progressBar = false;
-    //   }
-    // );
-    console.log('thats is send', topics);
-    this.courseService
-      .saveTopics(this.courseId, topics)
-      .subscribe((response) => {
+    this.courseService.saveTopics(this.courseId, topics).subscribe(
+      response => {
         this.loadTopics();
-        console.log(response);
         this.progressBar = false;
-      });
+      }
+    )
   }
 
   updateTopic(topic: TopicModel[]): void {
     this.progressBar = true;
     this.topicHttpService.updateTopics(topic, 1).subscribe(
-      (response) => {
+      response => {
         this.messageService.success(response);
         this.progressBar = false;
       },
-      (error) => {
+      error => {
         this.messageService.error(error);
         this.progressBar = false;
       }
@@ -135,48 +106,26 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log('topics', this.newForm.value);
-    // if (this.newForm.valid) {
-    //   const formDataChildren = []
-    //   const data = []
-    //   this.newForm.value.children.forEach(x => {
-    //     formDataChildren.push({ description: x})
-    //   })
-    //   this.newForm.value.children = formDataChildren
-    //   data.push(this.newForm.value)
-    //   if (this.idTopicEdit) {
-    //     this.topicHttpService.destroyTopic(this.idTopicEdit.id, this.courseId).subscribe(
-    //       response => {this.loadTopics()},error => {}
-    //     );
-    //     this.storeTopic(data);
-    //     this.childrenField.clear()
-    //     this.newForm.reset()
-    //   } else {
-    //     this.storeTopic(data);
-    //     this.newForm.reset()
-    //   }
-    //   this.dialogForm = false;
-    // } else {
-    //   this.newForm.markAllAsTouched();
-    // }
-    // console.log('formulario',this.newForm.value)
+    console.log('topics', this.newForm.value)
 
     if (this.idTopicEdit) {
-      console.log('detro if', this.idTopicEdit);
-      this.courseService
-        .deleteTopic(this.idTopicEdit.id)
-        .subscribe((response) => {
-          this.loadTopics();
-        });
+      console.log('detro if', this.idTopicEdit)
+      this.courseService.deleteTopic(this.idTopicEdit.id).subscribe(
+        response => {
+          this.loadTopics()
+        }
+      )
       this.storeTopic(this.newForm.value);
-      this.childrenField.clear();
-      this.newForm.reset();
+      this.childrenField.clear()
+      this.newForm.reset()
     } else {
-      this.storeTopic(this.newForm.value);
-      this.childrenField.clear();
-      this.newForm.reset();
+      this.storeTopic(this.newForm.value)
+      this.childrenField.clear()
+      this.newForm.reset()
     }
     this.dialogForm = false;
+
+
   }
 
   deleteTopicForm(index: number) {
@@ -189,17 +138,12 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   }
 
   loadTopics(page: number = 1) {
-    // this.topicHttpService.getTopics(page, this.search.value, this.courseId).subscribe(
-    //   response => {
-    //     this.topics = response.data
-    //   }, error => {
-    //     this.messageService.error(error);
-    //   }
-    // );
+    this.courseService.getTopics(this.selectedCourse?.course.id).subscribe(
+      response => {
+        this.topics = response
+      }
+    )
 
-    this.courseService.getTopics(this.courseId).subscribe((res) => {
-      this.topics = res;
-    });
   }
 
   selectTopic(topic: TopicModel) {
@@ -224,23 +168,31 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   //     });
   // }
   deleteTopicById(topicId: any): void {
-    this.messageService.questionDelete({}).then((result) => {
-      if (result.isConfirmed) {
-        this.courseService.deleteTopic(topicId).subscribe((response) => {
-          this.loadTopics();
-        });
-        this.loadTopics();
-      }
-    });
+    this.messageService.questionDelete({})
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.courseService.deleteTopic(topicId).subscribe(
+            response => {
+              this.loadTopics()
+            }
+          )
+          this.loadTopics()
+        }
+      });
   }
   deleteSubTopicById(subtopicId: any): void {
-    this.messageService.questionDelete({}).then((result) => {
-      if (result.isConfirmed) {
-        this.courseService.deleteSubTopic(subtopicId).subscribe((response) => {
-          this.loadTopics();
-        });
-      }
-    });
+    this.messageService.questionDelete({})
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.courseService.deleteSubTopic(subtopicId).subscribe(
+            response => {
+              this.loadTopics()
+            }
+
+          )
+
+        }
+      });
   }
 
   showForm() {
@@ -248,7 +200,7 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   }
 
   hideDialog() {
-    this.childrenField.clear();
+    this.childrenField.clear()
   }
 
   filter(event: any) {
@@ -273,4 +225,5 @@ export class TopicFormComponent implements OnInit, OnDestroy {
   get childrenField(): FormArray {
     return this.newForm.controls['children'] as FormArray;
   }
+
 }

@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    return this.http.get<Planification[]>(`${this.apiUrl2}/my`);
+    return this.http.get<any[]>(`${this.apiUrl2}/my`);
   }
 
   getProfile() {

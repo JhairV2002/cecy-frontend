@@ -17,7 +17,7 @@ export class MessageService {
     private router: Router
   ) {}
 
-  errorValid(error:HttpErrorResponse){
+  errorValid(error: any ){
     console.log(error, 'message');
     return Swal.fire({
       title: 'Ups algo salio mal!',

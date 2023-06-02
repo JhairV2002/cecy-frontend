@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
-import {
-  MessageService, //UserAdministrationHttpService
-} from '@services/core';
+import { MessageService } from '@services/core';
 import { ColModel, PaginatorModel, UserModel } from '@models/core';
 
 import { UserService } from '../../../../services/core/administrator/user.service';

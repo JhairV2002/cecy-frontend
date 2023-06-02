@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import {
-  Careers,
-} from '../../../models/cecy/coordinator-career';
+import { Careers } from '@models/cecy/coordinator-career';
 import { environment } from '@env/environment';
 
 @Injectable({

@@ -2,15 +2,8 @@
   <h1 class="mb-5">Tus Cursos Asignados</h1>
   <p-toolbar>
     <div class="p-toolbar-group-left">
-      <button
-        pButton
-        pRipple
-        type="button"
-        label="Refrescar"
-        class="p-button-rounded ml-2"
-        icon="pi pi-sync"
-        (click)="planificationsAsign()"
-      ></button>
+      <button pButton pRipple type="button" label="Refrescar" class="p-button-rounded ml-2" icon="pi pi-sync"
+        (click)="planificationsAsign()"></button>
       <!-- (click)="findAll()" -->
       <!-- <app-progress-bar *ngIf="progressBarDelete" [message]="messageService.progressBarDelete" class="ml-2">
       </app-progress-bar> -->
@@ -18,7 +11,7 @@
     <div class="p-toolbar-group-right">
       <div class="p-inputgroup">
         <!-- <input pInputText id="search" [formControl]="search" (keypress)="filter($event)"> -->
-        <input pInputText #inputSearch />
+        <input id="namePlan" pInputText #inputSearch [(ngModel)]="namePlan" (keyup)="filterPlanification(namePlan)" />
 
         <button pButton pRipple type="button" icon="pi pi-search"></button>
         <!-- (click)="filter(inputSearch.value)" -->
@@ -27,54 +20,29 @@
   </p-toolbar>
 
   <div class="p-1 flex flex-wrap">
-    <div class="p-2" *ngFor="let item of allCourses">
-      <p-card [header]="item.name" [style]="{ width: '250px' }">
+    <div class="p-2" *ngFor="let item of filterPlan">
+      <p-card [header]="item.planification.name" [style]="{ width: '250px' }">
         <ng-template pTemplate="header">
-          <!-- <img
-            class="h-8rem"
-            onerror="this.src = 'assets/images/components/course/online-course.png' "
-            [src]="
-              STORAGE_URL +
-              '/images/' +
-              item.image +
-              '/' +
-              item.image +
-              '-sm.jpg'
-            "
-            alt="card"
-          /> -->
+          <!-- <div class=" "> -->
+            <img class="object-contain h-32 " onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="item?.image" alt=""
+            style="height: 1 rem;">
+          <!-- </div> -->
         </ng-template>
         <ng-template pTemplate="subtittle">
-          Codigo: {{ item.codeCourse }} <br />
-          Estado: {{ item.state }}
-          {{ item.image }}
+          Codigo: {{ item.planification.codeCourse }} <br />
+          Estado: {{ item.planification.state }}
         </ng-template>
         <ng-template pTemplate="footer">
           <div class="text-center">
-            <div class="flex flex-row-reverse gap-1">
-              <!-- {{ stateAprooved.statePlanification ? stateAprooved.statePlanification.length : 0 }} -->
-            <button
-              *ngIf="item.course.length > 0"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-warning"
-              (click)="editCourse(item)"
-            ></button>
-            <button
-            *ngIf="item.course.length === 0"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-plus-circle"
-              class="p-button-rounded p-button-success"
-              (click)="createCourse(item)"
-            ></button>
-            </div>
+
+            <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-user-edit"
+              (onDropdownClick)="select(item)" (onClick)="editCourse(item)" [model]="items">
+            </p-splitButton>
+
           </div>
         </ng-template>
       </p-card>
     </div>
+
   </div>
 </div>

@@ -18,8 +18,8 @@ import { ProfileCustomerDTO } from '@models/authentication';
 })
 export class LoginComponent implements OnInit {
   formLogin = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    email: ['lav.ruiz@yavirac.edu.ec', [Validators.required, Validators.email]],
+    password: ['123', [Validators.required]],
   });
 
   profile: any;
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       next: (user) => {
         if (user) {
           this.profile = user[0];
+          console.log(this.profile)
           this.redirect();
         }
       },
@@ -62,6 +63,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirect() {
+    console.log('redirect ', this.profile.role.name)
     switch (this.profile.role.name) {
       case 'admin':
         this.router.navigate(['/administrator']);
@@ -82,6 +84,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/example']);
         break;
       case 'responsible_course':
+        console.log('redirigiendo a /cecy/responsible-course')
         this.router.navigate(['/cecy/responsible-course']);
         break;
       case 'responsible_cecy':

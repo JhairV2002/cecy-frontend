@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { SelecRoleDTO } from '../../../models/authentication'
 import { environment } from '@env/environment';
+import { Roles } from '@models/authentication/roles.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,6 @@ export class RolesService {
   constructor(private http: HttpClient) {}
 
   getRoles() {
-    return this.http.get<SelecRoleDTO[]>(`${this.apiUrl}/roles`)
+    return this.http.get<Roles[]>(`${this.apiUrl}/roles`);
   }
 }
