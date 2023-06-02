@@ -18,8 +18,8 @@ import { ProfileCustomerDTO } from '@models/authentication';
 })
 export class LoginComponent implements OnInit {
   formLogin = this.formBuilder.group({
-    email: ['lav.ruiz@yavirac.edu.ec', [Validators.required, Validators.email]],
-    password: ['123', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   profile: any;

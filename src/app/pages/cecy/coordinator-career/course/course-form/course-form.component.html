@@ -21,13 +21,23 @@
             [dirty]="lectiveYear.dirty"
           >
           </label>
-          <input
+          <p-dropdown
+            id="lectiveYear"
+            formControlName="schoolYearId"
+            dataKey="id"
+            [options]="schoolYears"
+            placeholder="Seleccione año lectivo"
+            optionLabel="year"
+            optionValue="id"
+          >
+          </p-dropdown>
+          <!-- <input
             placeholder="Ej. 2023-02-4"
             pInputText
             id="name"
-            formControlName="lectiveYear"
+            formControlName="schoolYearId"
             class="uppercase"
-          />
+          /> -->
           <small
             appErrorMessage
             [errors]="lectiveYear.errors"
@@ -134,32 +144,70 @@
           </small>
         </div>
 
-        <!--duration-->
-        <div class="field">
-          <label
-            for="duration"
-            appLabel
-            label="Duración (horas):"
-            [required]="isRequired(durationField)"
-            [valid]="durationField.valid"
-            [touched]="durationField.touched"
-            [dirty]="durationField.dirty"
-          >
-          </label>
-          <p-inputNumber
-            id="duration"
-            formControlName="durationTime"
-            [min]="50"
-            [max]="200"
-            [showButtons]="true"
-          ></p-inputNumber>
-          <small
-            appErrorMessage
-            [errors]="durationField.errors"
-            [touched]="durationField.touched"
-            [dirty]="durationField.dirty"
-          >
-          </small>
+        <div class="grid">
+          <div class="col-span-1">
+            <!--duration-->
+            <div class="field">
+              <label
+                for="duration"
+                appLabel
+                label="Duración (horas):"
+                [required]="isRequired(durationField)"
+                [valid]="durationField.valid"
+                [touched]="durationField.touched"
+                [dirty]="durationField.dirty"
+              >
+              </label>
+              <p-inputNumber
+                id="duration"
+                formControlName="durationTime"
+                [min]="50"
+                [max]="200"
+                [showButtons]="true"
+                placeholder="0"
+              ></p-inputNumber>
+              <small
+                appErrorMessage
+                [errors]="durationField.errors"
+                [touched]="durationField.touched"
+                [dirty]="durationField.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <div class="col-span-1">
+            <div class="field">
+              <!-- <label
+                appLabel
+                [required]="isRequired(freeField)"
+                [valid]="freeField.valid"
+                [touched]="freeField.touched"
+                [dirty]="freeField.dirty"
+                for="curso"
+                >Curso de pago:</label
+              > -->
+              <label
+                appLabel
+                [required]="isRequired(freeField)"
+                [valid]="freeField.valid"
+                [touched]="freeField.touched"
+                [dirty]="freeField.dirty"
+              >
+              </label>
+              <!-- <p-checkbox
+                formControlName="free"
+                value="New Yorksssaaaaaaaaaas"
+                (onChange)="onCheckboxChange()"
+              ></p-checkbox> -->
+
+              <!-- <p-selectButton
+                [options]="stateOptions"
+                formControlName="value"
+                optionLabel="label"
+                optionValue="value"
+              ></p-selectButton> -->
+            </div>
+          </div>
         </div>
 
         <!--responsible-->
