@@ -20,7 +20,7 @@ export class InscriptionService {
   }
 
   public findByid(id: number): Observable<Inscription> {
-    return this.http.get<Inscription>(`${this.url}/${id}`, this.httpOptions);
+    return this.http.get<Inscription>(`${this.url}/${id}/`, this.httpOptions);
   }
 
   /**
@@ -33,11 +33,18 @@ export class InscriptionService {
     );
   }
 
+  public findByUser(term: number): Observable<Inscription[]> {
+    return this.http.get<Inscription[]>(
+      `${this.url}/findByUser/${term}`,
+      this.httpOptions
+    );
+  }
+
   /**
    * findAll
    */
   public findAll(): Observable<Inscription[]> {
-    return this.http.get<Inscription[]>(`${this.url}/findAll`, this.httpOptions);
+    return this.http.get<Inscription[]>(`${this.url}/`, this.httpOptions);
   }
   /**
    * deleteByid

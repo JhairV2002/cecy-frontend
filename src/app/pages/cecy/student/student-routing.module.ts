@@ -46,6 +46,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'form/:id',
+    component: InscriptionFormComponent
+  },
+
+  {
     path: 'courses-list',
     component: CoursesListaComponent
   },

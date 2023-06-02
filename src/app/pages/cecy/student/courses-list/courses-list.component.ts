@@ -1,18 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Inscription } from '@models/cecy';
+import { InscriptionService } from '@services/cecy';
 
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListaComponent implements OnInit {
   constructor(
     private router:Router,
+    private inscriptionService: InscriptionService
     ) {}
 
-  ngOnInit(): void {
+    listInscription : Inscription[] = [];
 
+  ngOnInit(): void {
+    this.findAll();
+  }
+
+  public findAll():void {
+    this.inscriptionService.findAll().subscribe(
+      (response) => this.listInscription= response
+    )
   }
 
   updateForm(){

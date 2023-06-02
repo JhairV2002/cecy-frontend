@@ -40,5 +40,6 @@ export { Catalogue } from "./catalogue"
 export { PersonCecy } from "./person-cecy"
 export { Institution } from "./institution"
 export { Documents } from "./documents"
+export { Courses } from "./courses"
 
 
