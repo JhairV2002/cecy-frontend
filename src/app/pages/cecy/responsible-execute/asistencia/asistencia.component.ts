@@ -13,6 +13,16 @@ export class AsistenciaComponent {
   ) {
   }
 
+  fechas: any[] = [
+    { fecha: '01-02-2023'},
+    { fecha: '02-02-2023'},
+    { fecha: '03-02-2023'},
+    { fecha: '04-02-2023'},
+    { fecha: '05-02-2023'},
+    { fecha: '08-02-2023'},
+  ];
+
+  filtroFecha: string = '';
 
   listadofecha(){
     this.router.navigate([
@@ -20,9 +30,19 @@ export class AsistenciaComponent {
     ]);
   }
 
+  registrar(){
+    this.router.navigate([
+      'cecy/responsible-execute/notas/estudiante'
+    ]);
+  }
+
   registrofotografico(){
     this.router.navigate([
       '/cecy/responsible-execute/registro-fotografico/'
     ]);
+  }
+  guardarfecha(fecha: any) {
+    // Aquí puedes implementar la lógica para guardar las notas editadas del estudiante
+    console.log('Notas guardadas:', fecha.nota1, fecha.nota2);
   }
 }

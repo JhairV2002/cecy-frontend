@@ -1,7 +1,19 @@
 <body>
-  <h2 class="text-3xl font-bold light:text-black" id="titulo">Listado de Estudiantes</h2>
+  <h2 class="text-3xl font-bold light:text-black" id="titulo">
+    Listado de Estudiantes
+  </h2>
+  <!-- {{ estudiantes | json }} -->
   <div class="relative overflow-x-auto shadow-md">
-    <input type="text" [(ngModel)]="filtroNombre" placeholder="Buscar por nombre" class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600" />
+    <button class="btn btn-accent" icon="edit" (click)="redireccionar()">
+      Asistencia
+    </button>
+    <div></div>
+
+    <br />
+    <br />
+    <input type="text" placeholder="Buscar por nombre"
+      class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
+      [(ngModel)]="nombreFiltrado" (input)="filtrarPorNombre()" />
     <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-10 light:text-gray-400">
         <tr>
@@ -14,30 +26,36 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let estudiante of estudiantes | filter: filtroNombre"
-          class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600">
+        <tr *ngFor="
+            let matricula of matriculas$ | async | nombreFilter : nombreFiltrado
+          " class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600">
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
-            {{ estudiante.nombre }}
+            {{
+            matricula.estudiantes
+            ? matricula.estudiantes.nombres
+            : "Sin Estudiante"
+            }}
           </th>
           <td class="px-6 py-4">
             <input type="number" id="nota1"
               class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-              [(ngModel)]="estudiante.nota1" />
+              [(ngModel)]="matricula.nota1" [placeholder]="matricula.nota1 ? matricula.nota1 : 'Sin nota'" />
           </td>
           <td class="px-6 py-4">
             <input type="number" id="nota2"
               class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-              [(ngModel)]="estudiante.nota2" />
+              [(ngModel)]="matricula.nota2" [placeholder]="matricula.nota2 ? matricula.nota2 : 'Sin nota'" />
           </td>
           <td class="px-6 py-4">
-            {{ calcularPromedio(estudiante) }}
+            {{ matricula.promedio }}
           </td>
           <td class="px-6 py-4">
-            {{ determinarEstado(estudiante) }}
+            {{ matricula.estadoCurso.descripcion }}
           </td>
           <td class="px-6 py-4 text-right">
-            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
-              (click)="guardarNota(estudiante)">
+            <button type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
+              (click)="guardarNotas(matricula)">
               Guardar
             </button>
           </td>

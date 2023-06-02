@@ -11,6 +11,8 @@ import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
 import { ValidacionMatriculaModule } from './validacion-matricula/validacion-matricula.module';
+import { EstudianteService } from './responsible-execute/notas/estudiante.service';
+import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
 
 @NgModule({
   declarations: [],
@@ -28,7 +30,8 @@ import { ValidacionMatriculaModule } from './validacion-matricula/validacion-mat
     PasswordModule,
     DropdownModule,
     ValidacionMatriculaModule,
+    NombreFilterPipe
   ],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [{ provide: Window, useValue: window }, EstudianteService],
 })
 export class CecyModule { }

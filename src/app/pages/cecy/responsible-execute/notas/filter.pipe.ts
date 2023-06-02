@@ -1,18 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Matriculas } from './estudiante.model';
 
 @Pipe({
-  name: 'filter'
+  name: 'nombreFilter',
 })
-export class FilterPipe implements PipeTransform {
-  transform(items: any[], searchText: string): any[] {
-    if (!items || !searchText) {
-      return items;
-    }
+export class NombreFilterPipe implements PipeTransform {
+  transform(estudiantes: Matriculas[] | null, nombre: string): any[] {
+    if (!estudiantes) return [];
 
-    searchText = searchText.toLowerCase();
-
-    return items.filter(item => {
-      return item.nombre.toLowerCase().includes(searchText);
-    });
+    return estudiantes.filter(
+      (estudiante) =>
+        estudiante.estudiantes &&
+        estudiante.estudiantes.nombres
+          .toLowerCase()
+          .includes(nombre.toLowerCase())
+    );
   }
 }

@@ -15,14 +15,9 @@ export class CursoComponent {
       private router: Router
     ){}
 
-  redireccionar() {
-    // Aquí defines la ruta a la que quieres redirigir
-    const rutaDestino = '/notas/estudiantes.component.html';
-    
-    // Puedes agregar más lógica antes de la redirección si es necesario
-    
-    this.router.navigate([EstudiantesComponent]);
-  }
+    redireccionar() {
+      this.router.navigate(["cecy/responsible-execute/notas/estudiante"]);
+    }
 
     cursoList: Curso[]=[]
 

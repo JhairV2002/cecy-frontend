@@ -10,15 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';
-import { FilterPipe } from './notas/filter.pipe';
+import { NombreFilterPipe } from './notas/filter.pipe';
+
 @NgModule({
   declarations: [
     AsistenciaComponent,
     ListadoFechaComponent,
     RegistroFotograficoComponent,
     EstudiantesComponent,
+    NombreFilterPipe,
     HomeComponent,
-    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -27,4 +28,4 @@ import { FilterPipe } from './notas/filter.pipe';
     SharedModule,
   ],
 })
-export class ResponsibleExecuteModule {}
+export class ResponsibleExecuteModule { }

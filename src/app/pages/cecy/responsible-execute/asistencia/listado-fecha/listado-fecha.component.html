@@ -1,100 +1,94 @@
-<div class="grid">
-<!--     <div class="text-sm breadcrumbs">
-      <ul>
-        <li><a>Cursos</a></li>
-        <li><a>Python</a></li>
-        <li><a>Fecha1</a></li>
-      </ul>
-    </div> -->
+<div class="relative overflow-x-auto shadow-md">
+
   
-    <div class="background1">
-      <div class="table">
-        <div class="table-body">
-          <h3>LISTA DE ESTUDIANTES</h3>
-          <a >P=PRESENTE</a>&nbsp;
-          <a >A=AUSENTE</a>&nbsp;
-          <a >FJ=FALTA JUSTIFICADA</a>
-        </div>
+  <div class="background1">
+    <div class="table">
+      <div class="table-body">
+        <h2>LISTA DE ESTUDIANTES</h2>
+        <a class="text-black">P=PRESENTE</a>&nbsp;
+        <a class="text-black" >A=AUSENTE</a>&nbsp;
+        <a class="text-black">FJ=FALTA JUSTIFICADA</a>
       </div>
-      <br />
-  
-      <br />
-      <div class="botones">
-        <button class="btn btn-accent" routerLink="../asistencia">Regresar</button>&nbsp;
-        <button class="btn btn-accent" routerLink="../listado-fecha">Refrescar</button>&nbsp;
-        <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp;
-        
-      </div>
-      <br />
-      <div class="overflow-x-auto">
-        <table class="table w-full">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th>Nombres</th>
-              <th>P</th>
-              <th>A</th>
-              <th>FJ</th>
-            </tr>
-          </thead>
-<!--           <table mat-table matSort class="mat-elevation-z8">
-            <ng-container matColumnDef="nombres">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por nombre">
-                Nombre
-              </th>
-              <td mat-cell *matCellDef="let element">{{ element.nombreEstudiante }}</td>
-            </ng-container>
-  
-          </table> -->
-          <tbody>
-            <tr>
-              <th>Lesly Abigail Campo</th>
-              <td><input type="radio" name="radio-1" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-1" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-1" class="form-check-input" /></td>
-            <tr>
-              <th>Joel Sebastian Cervantes</th>
-              <td><input type="radio" name="radio-2" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-2" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-2" class="form-check-input" /></td>
-  
-            </tr>
-            <tr>
-              <th>Katherine Alexandra Collaguazo</th>
-              <td><input type="radio" name="radio-3" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-3" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-3" class="form-check-input" /></td>
-            </tr>
-            <tr>
-              <th>Daniel Sebastian Villaroel</th>
-              <td><input type="radio" name="radio-4" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-4" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-4" class="form-check-input" /></td>
-            </tr>
-            <tr>
-              <th>Jonathan Isac Caiza</th>
-              <td><input type="radio" name="radio-5" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-5" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-5" class="form-check-input" /></td>
-            </tr>
-            <tr>
-              <th>Ruby Bol</th>
-              <td><input type="radio" name="radio-6" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-6" class="form-check-input" /></td>
-              <td><input type="radio" name="radio-6" class="form-check-input" /></td>
-            </tr>
-          </tbody>
-        </table>
-        <br /><br />
-  
-      </div>
-  
     </div>
-    <div class="form-group">
-      <label with px-2>Observaciones</label>
-      <textarea placeholder="Ingrese las obervaciones desarrolladas dutrante la clase"></textarea>
-      </div>
-    <button class="btn btn-accent">GUARDAR REGISTRO </button> &nbsp;
-  
-  
+    <br />
+
+    <br />
+    <div class="botones">
+      <button class="btn btn-accent" routerLink="../asistencia">Regresar</button>&nbsp;
+      <button class="btn btn-accent" routerLink="../listado-fecha">Refrescar</button>&nbsp;
+      <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp;
+      
+    </div>
+    <br />
+    <div class="overflow-x-auto group bg-white-100 shadow-xs rounded-box">
+      <table class="table w-full group bg-white-100 shadow-xs rounded-box">
+        <!-- head -->
+        <thead>
+          <tr class="text-white">
+            <th>Nombres</th>
+            <th>P</th>
+            <th>A</th>
+            <th>FJ</th>
+          </tr>
+        </thead>
+        <tbody class="text-white">
+          <tr>
+            <th>Lesly Abigail Campo</th>
+            <td><input type="radio" name="radio-1" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-1" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-1" class="form-check-input" /></td>
+          <tr>
+            <th>Joel Sebastian Cervantes</th>
+            <td><input type="radio" name="radio-2" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-2" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-2" class="form-check-input" /></td>
+
+          </tr>
+          <tr>
+            <th>Katherine Alexandra Collaguazo</th>
+            <td><input type="radio" name="radio-3" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-3" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-3" class="form-check-input" /></td>
+          </tr>
+          <tr>
+            <th>Daniel Sebastian Villaroel</th>
+            <td><input type="radio" name="radio-4" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-4" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-4" class="form-check-input" /></td>
+          </tr>
+          <tr>
+            <th>Jonathan Isac Caiza</th>
+            <td><input type="radio" name="radio-5" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-5" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-5" class="form-check-input" /></td>
+          </tr>
+          <tr>
+            <th>Ruby Bol</th>
+            <td><input type="radio" name="radio-6" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-6" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-6" class="form-check-input" /></td>
+          </tr>
+        </tbody>
+      </table>
+      <br /><br />
+
+    </div>
+
   </div>
+  <div class="form-group">
+    <label with px-2>Observaciones</label>
+    <textarea placeholder="Ingrese las obervaciones desarrolladas dutrante la clase"></textarea>
+    </div>
+  <label for="my-modal-ca-6" fill="none" class="btn border-transparent btn-info aling-center">GUARDAR </label>&nbsp;
+  <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
+  <div class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box block text-white bg-blue-700  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-rigth ">
+      <h3 class="font-bold text-lg text-white text-center " >SE REGISTRO CORRECTAMENTE</h3>
+      <div class="modal-action">
+        <label for="my-modal-ca-6" class="btn bg-primary w-full border-transparent bg-blue-700 text-white aling-center" routerLink="../asistencia" >ACEPTAR</label>
+      </div>
+    </div>
+  </div>
+
+
+</div>
