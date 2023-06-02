@@ -11,6 +11,7 @@ import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';
 import { NombreFilterPipe } from './notas/filter.pipe';
+import { CursoComponent } from './curso/curso.component'
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NombreFilterPipe } from './notas/filter.pipe';
     EstudiantesComponent,
     NombreFilterPipe,
     HomeComponent,
+    CursoComponent,
   ],
   imports: [
     CommonModule,

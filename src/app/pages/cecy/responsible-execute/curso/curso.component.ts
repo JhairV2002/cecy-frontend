@@ -1,85 +1,43 @@
-import { Component } from '@angular/core';
-import { CursoService } from './curso.service';
+import { Component, OnInit } from '@angular/core';
 import { Curso } from './curso';
+import { CursoService } from './curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EstudiantesComponent } from '../notas/estudiantes.component';
 
 @Component({
   selector: 'app-curso',
   templateUrl: './curso.component.html'
 })
-export class CursoComponent {
-    constructor(
-      private cursoService: CursoService,
-      private activateRouter: ActivatedRoute,
-      private router: Router
-    ){}
+export class CursoComponent implements OnInit {
+  cursos: Curso[] = [];
+  cursosFiltrados: Curso[] = [];
+  filtroNombre: string = '';
 
-    redireccionar() {
-      this.router.navigate(["cecy/responsible-execute/notas/estudiante"]);
+  constructor(
+    private cursoService: CursoService,    
+    private activateRouter: ActivatedRoute,
+    private router: Router
+    ) { }
+
+  ngOnInit(): void {
+    this.cursoService.getCursos().subscribe(cursos => {
+      this.cursos = cursos;
+      this.filtrarCursos();
+    });
+  }
+
+  filtrarCursos(): void {
+    if (this.filtroNombre.trim() !== '') {
+      this.cursosFiltrados = this.cursos.filter(curso =>
+        curso.planification.name.toLowerCase().includes(this.filtroNombre.toLowerCase()) ||
+        curso.planification.codeCourse.toLowerCase().includes(this.filtroNombre.toLowerCase())
+      );
+    } else {
+      this.cursosFiltrados = this.cursos;
     }
+  }
 
-    cursoList: Curso[]=[]
-
-    /* currentEntity: Curso = {
-      id: 0,
-      codeCourse: "",
-      name: "",
-      modality: "",
-      schoolPeriod: ""
-    }; */
-
-    ngOnInit(): void{
-      /* this.activateRouter.paramMap.subscribe(
-        (params) => {
-          if(params.get("id")){
-            this.findById(parseInt(params.get("id")!))
-          }
-        }
-      ) */
-      this.findAll();
-        }
-
-        nextPage(){
-          console.log('click');
-          this.router.navigate(['/cecy/responsible-execute/mis-cursos/notas/estudiante']);
-        }
-
-    /* findById(id: number): void{
-      this.cursoService.findById(id).subscribe(
-        (response) => {
-          this.currentEntity=response;
-        }
-      )
-    } */
-
-    public findAll(): void {
-      this.cursoService.findAll().subscribe(
-        (response) => this.cursoList = response
-      )
-    }
-
-    public findByName(term: string): void{
-      if(term.length>=2){
-        this.cursoService.findByName(term).subscribe(
-          (response) => this.cursoList = response
-        )
-      }
-      if(term.length===0){
-        this.findAll();
-      }
-    }
-
-    public findBySchoolPeriod(term: string): void{
-      if(term.length>=3){
-        this.cursoService.findBySchoolPeriod(term).subscribe(
-          (response) => this.cursoList = response
-        )
-      }
-      if(term.length===0){
-        this.findAll();
-      }
-    }
-    
+  redireccionar() {
+    this.router.navigate(["cecy/responsible-execute/notas/estudiante"]);
+  }
 
 }
