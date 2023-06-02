@@ -3,4 +3,5 @@ export interface Course{
   name?: string,
   image?: string;
   planificationId: number;
+  list?:number;
 }

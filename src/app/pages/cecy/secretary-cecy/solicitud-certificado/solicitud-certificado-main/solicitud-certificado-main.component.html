@@ -1,0 +1,17 @@
+<app-solicitud-certificado-busqueda></app-solicitud-certificado-busqueda>
+<div class="m-3 card card-bordered border-black shadow=x1">
+  <div class="tabs">
+    <div class="tab tab-lifted" (click)="onTabClick('Estudiantes')" [class.active]="activeTab == 'Estudiantes'">Lista Estudiantes</div>
+    <div class="tab tab-lifted" (click)="onTabClick('Certificados')" [class.active]="activeTab == 'Certificados'">Lista Certificados</div>
+  </div>
+  <div *ngIf="activeTab == 'Estudiantes'">
+    <app-solicitud-certificado-lista></app-solicitud-certificado-lista>
+
+  </div>
+  <div *ngIf="activeTab == 'Certificados'">
+    <app-solicitud-certificado-lista-certificado></app-solicitud-certificado-lista-certificado>
+ asdasfsfsfs
+  </div>
+
+</div>
+
