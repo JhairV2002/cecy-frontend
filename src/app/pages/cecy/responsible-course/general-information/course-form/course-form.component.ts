@@ -47,13 +47,12 @@ export class CourseFormComponent implements OnInit {
     certifiedTypeId: [null, Validators.required],
     formationTypeId: [null, Validators.required],
     abbreviation: [null, [Validators.required, Validators.maxLength(5)]],
-    summary: [null, [Validators.required, Validators.maxLength(255)] ],
+    summary: [null, [Validators.required, Validators.maxLength(255)]],
     project: [null, [Validators.required, Validators.maxLength(255)]],
     needs: this.formBuilder.array([''], Validators.required),
     sponsorId: [null, Validators.required],
     targetGroups: [null, [Validators.required]],
     participantsRegistration: [null, [Validators.required]],
-
   });
 
   formSponsor = this.fb.group({
@@ -61,7 +60,6 @@ export class CourseFormComponent implements OnInit {
     name: [null, Validators.required],
     description: [null],
   });
-
 
   public progressBar: boolean = false; // falta programarlo
   public files: ImageModel[] = [];
@@ -82,13 +80,12 @@ export class CourseFormComponent implements OnInit {
   public entityCertifications: CecyCatalogueModel[] = [];
   public targetGroups: CecyCatalogueModel[] = [];
   public participantTypes: CecyCatalogueModel[] = [];
-  public STORAGE_URL: string ='';
-  public id: number= 0;
+  public STORAGE_URL: string = '';
+  public id: number = 0;
   courseId: any;
   selectedItems: any;
-  public sponsors: Sponsor[]=[];
-  visibleFormSponsor: boolean= false;
-
+  public sponsors: Sponsor[] = [];
+  visibleFormSponsor: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -97,12 +94,11 @@ export class CourseFormComponent implements OnInit {
     private cataloguesHttpService: CatalogueHttpService,
     private activatedRoute: ActivatedRoute,
     private planificationCourseService: PlanificationsCoursesService,
-    public fb: FormBuilder,
+    public fb: FormBuilder
   ) {
     // const id = this.activatedRoute.snapshot.params['id'];
     // this.getCourse(id);
     // this.STORAGE_URL = environment.STORAGE_URL;
-
     //this.id = this.activatedRoute.snapshot.params['id'];
   }
 
@@ -118,14 +114,11 @@ export class CourseFormComponent implements OnInit {
     this.loadformationType();
     this.loadEntityCertification();
     this.loadSponsor();
-
   }
 
   getCourse(id: number) {
     this.courseService.getGeneralInformation(id).subscribe((response) => {
       console.log(response);
-
-
     });
   }
 
@@ -137,7 +130,7 @@ export class CourseFormComponent implements OnInit {
         .subscribe((data) => {
           this.selectedCourse = data;
           this.formCourse.patchValue(data.course);
-          console.log(this.formCourse.value)
+          console.log(this.formCourse.value);
           this.needsField.clear();
           data.course.needs!.forEach((need: string) => {
             this.addNeed(need);
@@ -156,11 +149,7 @@ export class CourseFormComponent implements OnInit {
     for (const file of event) {
       formData.append('images[]', file);
     }
-
-
   }
-
-
 
   //metodos para guardar
 
@@ -173,20 +162,23 @@ export class CourseFormComponent implements OnInit {
   }
   saveCourse() {
     this.courseId = this.selectedCourse.course.id;
-    const valuesFormGeneralInformation = this.formCourse.value;
-    this.courseService.update(valuesFormGeneralInformation, this.courseId).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.messageService.successCourse(data);
-        this.progressBar = false;
+    console.log('ID DEL CURSO', this.courseId, typeof this.courseId);
 
-      },
-      error: (error) => {
-        console.log(error);
-        this.messageService.errorValid(error);
-        this.progressBar = false;
-      },
-    });
+    const valuesFormGeneralInformation = this.formCourse.value;
+    this.courseService
+      .update(valuesFormGeneralInformation, this.courseId)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.messageService.successCourse(data);
+          this.progressBar = false;
+        },
+        error: (error) => {
+          console.log(error);
+          this.messageService.errorValid(error);
+          this.progressBar = false;
+        },
+      });
   }
 
   addNeed(data: string = '') {
@@ -206,77 +198,9 @@ export class CourseFormComponent implements OnInit {
     return field.hasValidator(Validators.required);
   }
 
-
-  showFormSponsor(){
+  showFormSponsor() {
     this.visibleFormSponsor = true;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //Setter
   set planificationId(value: any) {
@@ -327,13 +251,11 @@ export class CourseFormComponent implements OnInit {
   // }
 
   get targetGroupsField() {
-    return this.formCourse.controls['targetGroups']
+    return this.formCourse.controls['targetGroups'];
   }
 
-
-
   get participantsRegistrationField() {
-    return this.formCourse.controls['participantsRegistration']
+    return this.formCourse.controls['participantsRegistration'];
   }
 
   get summaryField() {
@@ -440,8 +362,7 @@ export class CourseFormComponent implements OnInit {
     );
   }
 
-
-  loadSponsor(){
+  loadSponsor() {
     this.courseService.getSponsors().subscribe(
       (response) => {
         this.sponsors = response;
@@ -449,14 +370,14 @@ export class CourseFormComponent implements OnInit {
       (error) => {
         this.messageService.error(error);
       }
-    )
+    );
   }
 
   // isRequired(field: AbstractControl): boolean {
   //   return field.hasValidator(Validators.required);
   // }
 
-  onSubmitSponsor(){
+  onSubmitSponsor() {
     if (this.formSponsor.valid) {
       this.saveSponsor();
     } else {
@@ -464,21 +385,19 @@ export class CourseFormComponent implements OnInit {
     }
   }
 
-  saveSponsor(){
-    this.courseService.saveSponsor(this.formSponsor.value).subscribe(
-      response=>{
+  saveSponsor() {
+    this.courseService
+      .saveSponsor(this.formSponsor.value)
+      .subscribe((response) => {
         console.log(response);
-        this.visibleFormSponsor=false;
-        this.formSponsor.reset()
+        this.visibleFormSponsor = false;
+        this.formSponsor.reset();
         this.messageService.successCourse(response);
         this.loadSponsor();
-      }
-
-    )
+      });
   }
 
   get nameField() {
     return this.formSponsor.controls['name'];
   }
-
 }

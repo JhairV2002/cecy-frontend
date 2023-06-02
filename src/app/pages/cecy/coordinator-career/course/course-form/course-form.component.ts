@@ -56,7 +56,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
     startDate: new FormControl('', [Validators.required]),
     finishDate: new FormControl('', [Validators.required]),
     state: new FormControl('proceso'),
-    free: new FormControl(false, [Validators.required]),
+    free: new FormControl(false),
     userId: new FormControl(null, [Validators.required]),
     careerId: new FormControl(),
     roleId: new FormControl(null, [Validators.required]),
