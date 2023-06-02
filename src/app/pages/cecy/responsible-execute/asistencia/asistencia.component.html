@@ -56,20 +56,20 @@
         </tr>
         <br />
         <br />
-        <!-- <tr *ngFor="let fecha of fechas | filter: filtroFecha" -->
-        <!---->
-        <!--   class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"> -->
-        <!--   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white"> -->
-        <!--     {{ fecha.fecha }} -->
-        <!--   </th> -->
-        <!--   <td> -->
-        <!--     <label for="my-modal-6" fill="none" class="btn bg-primary btn-circle bg-primary border-transparent"> -->
-        <!--       <button (click)="listadofecha()"><i class="fa fa-pencil-square" aria-hidden="true"></i></button> -->
-        <!--     </label>&nbsp; -->
-        <!--     <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent"> -->
-        <!--       <button (click)="registrofotografico()"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
-        <!--     </label> -->
-        <!-- </tr> -->
+        <tr *ngFor="let fecha of fechas" 
+        
+        class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"> 
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white"> 
+            {{ fecha.fecha }} 
+          </th> 
+         <td> 
+           <label for="my-modal-6" fill="none" class="btn bg-primary btn-circle bg-primary border-transparent"> 
+              <button (click)="listadofecha()"><i class="fa fa-pencil-square" aria-hidden="true"></i></button> 
+        </label>&nbsp; 
+          <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent"> 
+            <button (click)="registrofotografico()"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </label> 
+        </tr> 
       </thead>
     </table>
   </div>

@@ -56,3 +56,7 @@ export class EstudiantesComponent implements OnInit {
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
 }
+
+
+
+
