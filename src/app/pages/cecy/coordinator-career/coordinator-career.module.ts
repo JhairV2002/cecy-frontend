@@ -41,6 +41,7 @@ import { ChipModule } from 'primeng/chip';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { RequirementComponent } from './requirement/requirement.component';
 import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
 import { RequirementListComponent } from './requirement/requirement-list/requirement-list.component';
@@ -101,6 +102,7 @@ import { HomeComponent } from './home/home.component';
     InputNumberModule,
     TooltipModule,
     CheckboxModule,
+    SelectButtonModule,
   ],
 })
 export class CoordinatorCareerModule {}
