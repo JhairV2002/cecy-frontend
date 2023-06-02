@@ -3,16 +3,18 @@
     <thead>
       <tr>
         <th></th>
+        <th>Dni</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Tipo</th>
-        <th>Nivel</th>
+        <th>Estado Matricula</th>
         <th></th>
       </tr>
     </thead>
     <tbody *ngIf="estudiantes; noData">
       <tr *ngFor="let estudiante of estudiantes" class="hover">
         <th></th>
+        <th>{{ estudiante.estudiantes.dni }}</th>
         <th>{{ estudiante.estudiantes.nombres }}</th>
         <th>{{ estudiante.estudiantes.apellidos }}</th>
         <th>{{ estudiante.estudiantes.tipoEstudiante.descripcion }}</th>

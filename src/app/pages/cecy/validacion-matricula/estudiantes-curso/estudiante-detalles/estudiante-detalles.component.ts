@@ -14,9 +14,10 @@ export class EstudianteDetallesComponent implements OnInit {
     private estudianteService: EstudiantesServiceService,
     private router: ActivatedRoute,
     private route: Router
-  ) { }
+  ) {}
 
   matricula!: Matricula;
+  search: string = '';
 
   ngOnInit(): void {
     this.router.paramMap.subscribe((res) => {
@@ -58,7 +59,7 @@ export class EstudianteDetallesComponent implements OnInit {
           console.log(res);
         });
     });
-    this.route.navigate(['../'])
+    this.route.navigate(['../']);
   }
 
   estudiante$ = this.router.paramMap.pipe(

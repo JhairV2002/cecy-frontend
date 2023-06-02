@@ -12,6 +12,7 @@ import { CursoBannerComponent } from './estudiantes-curso/curso-banner/curso-ban
 import { EstudianteDetallesComponent } from './estudiantes-curso/estudiante-detalles/estudiante-detalles.component';
 import { EstudiantesListaComponent } from './estudiantes-lista/estudiantes-lista.component';
 import { FormsModule } from '@angular/forms';
+import { SearchEstudiantesPipe } from './pipes/search-estudiantes.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     CursoBannerComponent,
     EstudianteDetallesComponent,
     EstudiantesListaComponent,
+    SearchEstudiantesPipe,
   ],
   imports: [
     CommonModule,

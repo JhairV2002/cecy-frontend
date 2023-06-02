@@ -12,9 +12,11 @@ export class EstudiantesCursoComponent {
   constructor(
     private router: ActivatedRoute,
     private cursoService: CursosService
-  ) { }
+  ) {}
 
+  search: string = '';
   estudiantes = [];
+  tipoEstudiante!: 'Interno' | 'Externo';
 
   estudiantes$ = this.router.paramMap.pipe(
     switchMap((param) =>
