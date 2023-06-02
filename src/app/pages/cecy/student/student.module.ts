@@ -46,10 +46,14 @@ import { SharedModule } from '@shared/shared.module';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CalendarModule } from 'primeng/calendar';
 import { TopicCourseComponent } from './topic-course/topic-course.component';
-import { InscriptionFormComponent } from './inscription-form/inscription-form.component';
+import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
+import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publicity.component';
+import { CmbCoursesComponent } from './inscription-form/cmb-courses/cmb-courses.component';
+import { CoursesListaComponent } from './courses-list/courses-list.component';
 
 @NgModule({
   declarations: [
+    CoursesListaComponent,
     StudentComponent,
     AttendanceRegistrationComponent,
     CertificatesStudentComponent,
@@ -62,7 +66,9 @@ import { InscriptionFormComponent } from './inscription-form/inscription-form.co
     CoursesListComponent,
     CourseDetailComponent,
     TopicCourseComponent,
-    InscriptionFormComponent
+    InscriptionFormComponent,
+    CmbPublicityComponent,
+    CmbCoursesComponent
 
   ],
   imports: [
