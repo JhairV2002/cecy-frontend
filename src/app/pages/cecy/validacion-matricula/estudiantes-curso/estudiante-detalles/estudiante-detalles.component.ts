@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EstudiantesServiceService } from '../../services/estudiantes-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 
@@ -12,8 +12,9 @@ import { Matricula } from '@models/cecy/estudiantes/carreras';
 export class EstudianteDetallesComponent implements OnInit {
   constructor(
     private estudianteService: EstudiantesServiceService,
-    private router: ActivatedRoute
-  ) {}
+    private router: ActivatedRoute,
+    private route: Router
+  ) { }
 
   matricula!: Matricula;
 
@@ -57,6 +58,7 @@ export class EstudianteDetallesComponent implements OnInit {
           console.log(res);
         });
     });
+    this.route.navigate(['../'])
   }
 
   estudiante$ = this.router.paramMap.pipe(
