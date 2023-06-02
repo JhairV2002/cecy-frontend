@@ -16,7 +16,6 @@ import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
 
 @NgModule({
   declarations: [
-    NombreFilterPipe
   ],
   imports: [
     CommonModule,
