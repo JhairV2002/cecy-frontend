@@ -75,18 +75,12 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.loadPlanificationCourses();
+    const careerId = localStorage.getItem('careerSelected');
+    if (careerId) {
+      //this.selectCareer = careerId;
+    }
     this.loadCareers();
   }
-
-  /* loadPlanificationCourses() {
-    this.planificationCourseService
-      .getPlanificationCourses()
-      .subscribe((data) => {
-        this.planificationCourses = data;
-        console.log('Planificaciones de los cursos', data);
-      });
-  } */
 
   loadCareers() {
     this.careersService.getCareers().subscribe((data) => {
@@ -112,6 +106,7 @@ export class CourseListComponent implements OnInit {
         this.planificationCourses = data.planificationCourse;
         this.selectCareer = this.planificationCourses.length ? true : false;
         this.activeButton = true;
+        localStorage.setItem('careerSelected', event.value);
       },
       error: (error) => {
         this.messageService.error(error);

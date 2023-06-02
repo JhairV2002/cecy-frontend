@@ -19,7 +19,9 @@ import { MessageService } from '@services/core';
 import {
   PlanificationsCoursesService,
   TeachersService,
+  SchoolYearService,
 } from '@services/cecy/coordinator-career';
+import { SchoolYear } from '@models/cecy/coordinator-career';
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
@@ -37,11 +39,9 @@ export class CourseFormComponent implements OnInit, OnChanges {
   progressBar: boolean = false;
   users: any = [];
   roles: [] = [];
+  schoolYears: SchoolYear[] = [];
   public formPlanification = new FormGroup({
-    lectiveYear: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(10),
-    ]),
+    schoolYearId: new FormControl(null, [Validators.required]),
     codeCourse: new FormControl('xxxxx', [
       Validators.required,
       Validators.maxLength(5),
@@ -56,6 +56,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
     startDate: new FormControl('', [Validators.required]),
     finishDate: new FormControl('', [Validators.required]),
     state: new FormControl('proceso'),
+    free: new FormControl(false, [Validators.required]),
     userId: new FormControl(null, [Validators.required]),
     careerId: new FormControl(),
     roleId: new FormControl(null, [Validators.required]),
@@ -64,20 +65,21 @@ export class CourseFormComponent implements OnInit, OnChanges {
   titleModal: string = '';
   titleButton: string = '';
   UserByRoleEspecific: [] = [];
-
-  // Foreign Key
+  checkboxText: string = 'Gratuito';
 
   constructor(
     private courseHttpService: CourseHttpService,
     private instructorHttpService: InstructorHttpService,
     public messageService: MessageService,
     private planificationsCoursesService: PlanificationsCoursesService,
-    private teacherService: TeachersService
+    private teacherService: TeachersService,
+    private schoolYearService: SchoolYearService
   ) {}
 
   ngOnInit(): void {
     this.loadUserByRole();
     this.loadRoles();
+    this.loadScholYears();
   }
 
   ngOnChanges() {
@@ -102,6 +104,13 @@ export class CourseFormComponent implements OnInit, OnChanges {
   loadRoles() {
     this.teacherService.getUserByRoleEspecific().subscribe((data) => {
       this.roles = data;
+    });
+  }
+
+  loadScholYears() {
+    this.schoolYearService.getSchoolYear().subscribe((data) => {
+      console.log('AÑOS ESCOLARES', data);
+      this.schoolYears = data;
     });
   }
 
@@ -172,6 +181,13 @@ export class CourseFormComponent implements OnInit, OnChanges {
       });
   }
 
+  onCheckboxChange() {
+    console.log('CAMBIA ESE CHECK');
+
+    this.checkboxText === 'Gratuito' ? 'De pago' : 'Gratuito';
+    console.log('TEXTOI CHECK', this.checkboxText);
+  }
+
   isRequired(field: AbstractControl): boolean {
     return field.hasValidator(Validators.required);
   }
@@ -179,7 +195,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   // Getters
 
   get lectiveYear() {
-    return this.formPlanification.controls['lectiveYear'];
+    return this.formPlanification.controls['schoolYearId'];
   }
 
   get codeCourse() {
@@ -204,6 +220,10 @@ export class CourseFormComponent implements OnInit, OnChanges {
 
   get finishDate() {
     return this.formPlanification.controls['finishDate'];
+  }
+
+  get freeField() {
+    return this.formPlanification.controls['free'];
   }
 
   set state(value: any) {

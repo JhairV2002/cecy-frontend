@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import { CoordinatorCareerRoutingModule } from './coordinator-career-routing.module';
 import { CoordinatorCareerComponent } from './coordinator-career.component';
 import { CourseComponent } from './course/course.component';
@@ -16,7 +15,7 @@ import { InstructorFormComponent } from './instructor/instructor-form/instructor
 import { AssignmentInstructorsFormComponent } from './assignment-instructor/assignment-instructors-form.component';
 
 /* Prime NG */
-import {ChartModule} from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { RippleModule } from 'primeng/ripple';
@@ -41,6 +40,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ChipModule } from 'primeng/chip';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
+import { CheckboxModule } from 'primeng/checkbox';
 import { RequirementComponent } from './requirement/requirement.component';
 import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
 import { RequirementListComponent } from './requirement/requirement-list/requirement-list.component';
@@ -100,6 +100,7 @@ import { HomeComponent } from './home/home.component';
     ChipModule,
     InputNumberModule,
     TooltipModule,
+    CheckboxModule,
   ],
 })
 export class CoordinatorCareerModule {}
