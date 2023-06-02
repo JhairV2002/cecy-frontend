@@ -26,11 +26,15 @@ export class EstudiantesCursoComponent {
 
   curso$ = this.router.paramMap.pipe(
     switchMap((param) =>
-      this.cursoService
-        .getCursoByName(param.get('nombreCurso')!)
-        .pipe(map((res) => res[0]))
+      this.cursoService.getCursoById(parseInt(param.get('idCurso')!))
     )
   );
 
-  cursoNombre$ = this.curso$.pipe(map((res) => res.nombre));
+  cursoNombre$ = this.curso$.pipe(map((res) => res.planification.name));
+
+  matriculas$ = this.router.paramMap.pipe(
+    switchMap((param) =>
+      this.cursoService.getMatriculasByCursoId(parseInt(param.get('idCurso')!))
+    )
+  );
 }
