@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SolicitudCertificado } from '../solicitud-certificado';
 import { SolicitudCertificadoService } from '../solicitud-certificado.service';
 import { PersonaService } from '../persona-service';
-//import { DashboardService } from 'src/app/layout/dashboard/dashboard.service';
 import { MatriculaServiceService } from '../matricula-service.service';
 import { Matricula } from '../matricula';
 import { ActivatedRoute } from '@angular/router';
-//import { Curso } from '../../../layout/dashboard/curso';
+import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
+import { Curso } from '@models/cecy/secretary-cecy';
 import { CertificadoPdfServiceService } from '../certificado-pdf-service.service';
 import { Certificado } from '../certificado';
 import { CodigosCertificadoService } from '../../codigos-certificado/codigos-certificado.service';
@@ -23,7 +23,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   constructor(
     private solicitudCertificadoService: SolicitudCertificadoService,
     private personaService: PersonaService,
-    // private cursoService: DashboardService,
+    private cursoService: VisualizationCoursesService ,
     private matriculaService: MatriculaServiceService,
     private activatedRoute: ActivatedRoute,
     private certificadoPdf: CertificadoPdfServiceService,
@@ -49,13 +49,13 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   }
   ngOnInit(): void {
     this.findAll();
-    // this.activatedRoute.paramMap.subscribe(
-    //   (params) => {
-    //     if (params.get("id")) {
-    //       this.findById(parseInt(params.get("id")!));
-    //     }
-    //   }
-    // )
+    this.activatedRoute.paramMap.subscribe(
+    (params) => {
+    if (params.get("id")) {
+    this.findById(parseInt(params.get("id")!));
+    }
+    }
+    )
   }
 
 
@@ -64,7 +64,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
       (response) => {
         this.solicitudCertificadoList = response
         this.buscarPersona();
-        //this.buscarCurso();
+        this.buscarCurso();
         this.findMatricula();
       }
     )
@@ -92,67 +92,67 @@ export class SolicitudCertificadoListaComponent implements OnInit {
     )
   }
 
-  // public buscarCurso(): void {
-  //   this.solicitudCertificadoList.forEach(
-  //     (solicitud) => {
-  //       this.cursoService.findById(
-  //         solicitud.courseId
-  //       ).subscribe(
-  //         (nombreCurso) => solicitud.curso = nombreCurso.nombre
-  //       )
-  //     }
-  //   )
-  // }
-
-  public buscarMatricula(): void {
-    // this.matriculaList.forEach(
-    //   (matricula) => {
-    //     if (matricula.state == 'Aprobado')
-    //       this.solicitudCertificadoList.forEach(
-    //         (certificado) => {
-    //           if (certificado.userId == matricula.userId && certificado.courseId == this.currentEntity.id) {
-    //             this.certificadoList.push(certificado)
-    //           }
-    //         }
-    //       )
-    //   }
-    // )
+  public buscarCurso(): void {
+  this.solicitudCertificadoList.forEach(
+  (solicitud) => {
+  this.cursoService.findById(
+  solicitud.courseId
+  ).subscribe(
+  (nombreCurso) => solicitud.curso = nombreCurso.nombre
+  )
+  }
+  )
   }
 
-  // currentEntity: Curso =
-  //   {
-  //     id: 0,
-  //     nombre: "",
-  //     fechaInicio: new Date(),
-  //     fechaFin: new Date(),
-  //   };
+  public buscarMatricula(): void {
+    this.matriculaList.forEach(
+    (matricula) => {
+    if (matricula.state == 'Aprobado')
+    this.solicitudCertificadoList.forEach(
+    (certificado) => {
+    if (certificado.userId == matricula.userId && certificado.courseId == this.currentEntity.id) {
+    this.certificadoList.push(certificado)
+    }
+    }
+    )
+    }
+    )
+  }
 
-  // findById(id: number): void {
-  //   this.cursoService.findById(id).subscribe(
-  //     (response) => {
-  //       this.currentEntity = response;
-  //     }
-  //   )
-  // }
+  currentEntity: Curso =
+  {
+  id: 0,
+  nombre: "",
+  fechaInicio: new Date(),
+  fechaFin: new Date(),
+  };
 
-  // onChangeFood($event) {
-  //   const numeroId = $event.target.value;
-  //   const isChecked = $event.target.checked;
-  //   this.certificadoList = this.certificadoList.map((d) => {
-  //     if (d.id == numeroId) {
-  //       d.checkeado = isChecked;
+  findById(id: number): void {
+     this.cursoService.findById(id).subscribe(
+       (response) => {
+         this.currentEntity = response;
+       }
+     )
+   }
 
-  //       this.parentSelector = false;
-  //       console.log(d)
-  //       return d;
-  //     }
-  //     if (numeroId == -1) {
-  //       d.checkeado = this.parentSelector;
-  //       return d;
-  //     }
-  //     return d;
-  //   });
-  // }
+   onChangeFood($event: { target: { value: any; checked: any; }; }) {
+     const numeroId = $event.target.value;
+     const isChecked = $event.target.checked;
+     this.certificadoList = this.certificadoList.map((d) => {
+       if (d.id == numeroId) {
+         d.checkeado = isChecked;
+
+         this.parentSelector = false;
+         console.log(d)
+         return d;
+       }
+       if (numeroId == -1) {
+         d.checkeado = this.parentSelector;
+         return d;
+       }
+       return d;
+     });
+   }
 
   generarCertificados(): void {
     this.certificadoList.forEach((a) => {

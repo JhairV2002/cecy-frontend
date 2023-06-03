@@ -1,10 +1,10 @@
-<!-- <app-solicitud-certificado-toolbar [entityName]="currentEntity.nombre" ></app-solicitud-certificado-toolbar> -->
-<!-- <app-solicitud-certificado-busqueda></app-solicitud-certificado-busqueda> -->
+<app-solicitud-certificado-toolbar [entityName]="currentEntity.nombre" ></app-solicitud-certificado-toolbar>
+<app-solicitud-certificado-busqueda></app-solicitud-certificado-busqueda>
 <div class="m-3 card card-bordered border-black shadow=x1">
   <div class="cabezera flex justify-end">
     <div>
-      <!-- <a [routerLink]="'../codigo-lista'" class="btn btn-active btn-accent m-1"
-        >Subir Codigos Senescyt</a -->
+      <a [routerLink]="'../codigo-lista'" class="btn btn-active btn-accent m-1"
+        >Subir Codigos Senescyt</a
       >
     </div>
     <div class="m-1 flex justify-end">
@@ -16,7 +16,7 @@
     <table class="table table-compact w-full">
       <thead>
         <tr>
-          <!-- <th><input type="checkbox" [(ngModel)]="parentSelector" [value]="-1" (change)="onChangeFood($event)" class="checkbox checkbox-secondary"></th> -->
+          <!--<th><input type="checkbox" [(ngModel)]="parentSelector" [value]="-1" (change)="onChangeFood($event)" class="checkbox checkbox-secondary"></th> -->
           <th>Fecha Solicitado</th>
           <th>Cedula</th>
           <th>Nombre</th>
@@ -44,8 +44,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let valor of certificadoList">
-          <td>
-            <!-- (change)="onChangeFood($event)" -->
+         <!--
+<td>
+            (change)="onChangeFood($event)"
             <input
               type="checkbox"
               [value]="valor.id"
@@ -53,6 +54,7 @@
               class="checkbox checkbox-secondary"
             />
           </td>
+         -->
           <td>{{ valor.fecha }}</td>
           <td>{{ valor.cedula }}</td>
           <td>{{ valor.nombrecompleto }}</td>

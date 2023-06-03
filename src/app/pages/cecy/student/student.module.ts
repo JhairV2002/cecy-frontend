@@ -46,6 +46,7 @@ import { SharedModule } from '@shared/shared.module';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CalendarModule } from 'primeng/calendar';
 import { TopicCourseComponent } from './topic-course/topic-course.component';
+import { InscriptionFormComponent } from './inscription-form/inscription-form.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { TopicCourseComponent } from './topic-course/topic-course.component';
     ViewAttendancesParticipantComponent,
     CoursesListComponent,
     CourseDetailComponent,
-    TopicCourseComponent
+    TopicCourseComponent,
+    InscriptionFormComponent
 
   ],
   imports: [

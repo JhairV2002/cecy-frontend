@@ -9,6 +9,7 @@ import { RoleGuard } from './../../guards/role.guard';
 import { MainComponent } from '@layout/main/main.component';
 import { HasRoleGuard } from 'src/app/guards/has-role.guard';
 import { HasTokenGuard } from 'src/app/guards/has-token.guard';
+import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
 
 const routes: Routes = [
   {
@@ -146,6 +147,34 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'validacion-matricula',
+        loadChildren: () =>
+          import('./validacion-matricula/validacion-matricula.module').then(
+            (m) => m.ValidacionMatriculaModule
+          ),
+      },
+    ],
+  },
+
+  {
+    path: 'estudiante',
+    component: EstudiantesComponent,
+    children: [
+      {
+        path: 'cursos',
+        loadChildren: () =>
+          import('./cursos/cursos.module').then((m) => m.CursosModule),
+      },
+      {
+        path: 'student',
+        loadChildren: () =>
+          import('./student/student.module').then((m) => m.StudentModule),
+        /* data: {
+          roles: [RolesEnum.ADMIN, RolesEnum.STUDENT],
+        },
+        canActivate: [TokenGuard, RoleGuard], */
+      },
+      {
         path: 'secretary-cecy',
         loadChildren: () =>
           import('./secretary-cecy/secretary-cecy.module').then(
@@ -160,4 +189,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CecyRoutingModule {}
+export class CecyRoutingModule { }

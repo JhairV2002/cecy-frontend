@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
-import { PlanificationCourses } from '@models/cecy/coordinator-career';
+import { Curso } from '@models/cecy/secretary-cecy';
 @Component({
   selector: 'app-panel-curso',
-  templateUrl: './panel-curso.component.html',
-  styleUrls: ['./panel-curso.component.css'],
+  templateUrl: './panel-curso.component.html'
 })
 export class PanelCursoComponent implements OnInit {
   constructor(
     private visualizationCoursesService: VisualizationCoursesService
   ) {}
 
-  cursoList: PlanificationCourses[] = [];
+  cursoList: Curso[] = [];
   ngOnInit(): void {
     this.findAll();
   }
