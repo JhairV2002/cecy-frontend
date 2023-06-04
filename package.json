@@ -26,11 +26,12 @@
     "daisyui": "2.51.6",
     "date-fns": "^2.30.0",
     "jwt-decode": "^3.1.2",
+    "ngx-loading-bar": "^0.0.9",
     "pdfmake": "^0.1.72",
     "primeicons": "^6.0.1",
     "primeng": "^16.0.0-rc.1",
     "rxjs": "~7.8.0",
-    "sweetalert2": "11.7.5",
+    "sweetalert2": "^11.4.8",
     "tslib": "2.3.0",
     "typescript-cookie": "1.0.6",
     "zone.js": "~0.13.0"

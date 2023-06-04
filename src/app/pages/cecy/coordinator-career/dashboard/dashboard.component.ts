@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppConfig } from '@services/layout.service';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { DashboardService } from './../../../../services/cecy/coordinator-career/dashboard.service';
+
+import { DashboardService } from '@services/cecy/coordinator-career/dashboard.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,7 +13,6 @@ export class DashboardComponent implements OnInit {
   data1: any;
   data2: any;
   chartOptions: any;
-  subscription: any;
   config: any;
   planificationCourses: [] = [];
 

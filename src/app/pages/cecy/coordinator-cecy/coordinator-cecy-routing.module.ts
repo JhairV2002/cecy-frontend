@@ -15,11 +15,13 @@ import { CourseListComponent } from './profile-instructor-courses/course-list/co
 //import { VisualizationCourseComponent } from './visualization-course/visualization-course.component';
 import { HomeComponent } from './home/home.component';
 import { TabsComponent } from '../responsible-course/tabs/tabs.component';
+import { SchoolYearComponent } from './school-year/school-year.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'course', component: CourseComponent },
+  { path: 'school-year', component: SchoolYearComponent },
   //{ path: 'course/visualization/:id', component: VisualizationCourseComponent },
   { path: 'course/visualization/:id', component: TabsComponent },
 

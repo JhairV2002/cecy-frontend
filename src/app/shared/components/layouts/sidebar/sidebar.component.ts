@@ -62,7 +62,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Estudiantes',
           icon: 'fa-solid fa-school',
-          routerLink: ['/administrator/careers'],
+          routerLink: ['/administrator/students'],
         },
       ],
     },
@@ -82,7 +82,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Planificacion cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/coordinator-career/course'],
+          routerLink: ['/cecy/coordinator-career/planification'],
         },
       ],
     },
@@ -134,7 +134,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Planificacion de cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/coordinator-career/course'],
+          routerLink: ['/cecy/coordinator-career/planification'],
         },
       ],
     },
@@ -152,6 +152,11 @@ export class SidebarComponent implements OnInit {
           label: 'Cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/coordinator-cecy/course'],
+        },
+        {
+          label: 'Periodo lectivo',
+          icon: 'fa-solid fa-school',
+          routerLink: ['/cecy/coordinator-cecy/school-year'],
         },
       ],
     },
@@ -219,7 +224,7 @@ export class SidebarComponent implements OnInit {
     public el: ElementRef,
     private authService: AuthService,
     private carreraService: CarrerasService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((user: any) => {

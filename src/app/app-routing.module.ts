@@ -23,9 +23,9 @@ const routes: Routes = [
     path: 'administrator',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import(
-        './pages/core/user-administration/user-administration.module'
-      ).then((m) => m.UserAdministrationModule),
+      import('./pages/core/administrator/administrator.module').then(
+        (m) => m.AdministratorModule
+      ),
   },
   {
     path: 'cecy',
@@ -81,4 +81,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

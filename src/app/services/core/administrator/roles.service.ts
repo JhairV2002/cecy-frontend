@@ -8,11 +8,23 @@ import { Roles } from '@models/authentication/roles.model';
   providedIn: 'root',
 })
 export class RolesService {
-  private apiUrl = `${environment.api2}`;
+  private apiUrl = `${environment.api2}/roles`;
 
   constructor(private http: HttpClient) {}
 
   getRoles() {
-    return this.http.get<Roles[]>(`${this.apiUrl}/roles`);
+    return this.http.get<Roles[]>(`${this.apiUrl}`);
+  }
+
+  addEditRole(data: any, selectedRol: any) {
+    if (!selectedRol) {
+      return this.http.post(`${this.apiUrl}`, data);
+    } else {
+      return this.http.put(`${this.apiUrl}/${selectedRol.id}`, data);
+    }
+  }
+
+  deleteRole(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

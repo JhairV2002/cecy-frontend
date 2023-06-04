@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CoordinatorCareerRoutingModule } from './coordinator-career-routing.module';
-import { CoordinatorCareerComponent } from './coordinator-career.component';
-import { CourseComponent } from './course/course.component';
-import { CourseListComponent } from './course/course-list/course-list.component';
-import { CourseFormComponent } from './course/course-form/course-form.component';
+import { HomeComponent } from './home/home.component';
 import { PlanificationComponent } from './planification/planification.component';
 import { PlanificationListComponent } from './planification/planification-list/planification-list.component';
 import { PlanificationFormComponent } from './planification/planification-form/planification-form.component';
+
+import { CoordinatorCareerRoutingModule } from './coordinator-career-routing.module';
+import { CoordinatorCareerComponent } from './coordinator-career.component';
 import { InstructorComponent } from './instructor/instructor.component';
 import { InstructorListComponent } from './instructor/instructor-list/instructor-list.component';
 import { InstructorFormComponent } from './instructor/instructor-form/instructor-form.component';
 import { AssignmentInstructorsFormComponent } from './assignment-instructor/assignment-instructors-form.component';
+
+import { RequirementComponent } from './requirement/requirement.component';
+import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
+import { RequirementListComponent } from './requirement/requirement-list/requirement-list.component';
+import { InitialCourseKpiComponent } from './planification/initial-course-kpi/initial-course-kpi.component';
+import { InitialPlanificationKpiComponent } from './planification/initial-planification-kpi/initial-planification-kpi.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 /* Prime NG */
 import { ChartModule } from 'primeng/chart';
@@ -42,23 +48,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { RequirementComponent } from './requirement/requirement.component';
-import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
-import { RequirementListComponent } from './requirement/requirement-list/requirement-list.component';
-import { InitialCourseKpiComponent } from './course/initial-course-kpi/initial-course-kpi.component';
-import { InitialPlanificationKpiComponent } from './planification/initial-planification-kpi/initial-planification-kpi.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
+
 @NgModule({
   declarations: [
     AssignmentInstructorsFormComponent,
     CoordinatorCareerComponent,
-    CourseComponent,
-    CourseListComponent,
-    CourseFormComponent,
-    PlanificationComponent,
-    PlanificationListComponent,
-    PlanificationFormComponent,
     InstructorComponent,
     InstructorListComponent,
     InstructorFormComponent,
@@ -71,6 +65,9 @@ import { HomeComponent } from './home/home.component';
     RequirementListComponent,
     DashboardComponent,
     HomeComponent,
+    PlanificationComponent,
+    PlanificationListComponent,
+    PlanificationFormComponent,
   ],
   exports: [InitialPlanificationKpiComponent],
   imports: [

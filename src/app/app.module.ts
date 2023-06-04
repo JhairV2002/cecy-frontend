@@ -35,7 +35,8 @@ import { CommonModule } from '@angular/common';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
 
 @NgModule({
-  declarations: [AppComponent,
+  declarations: [
+    AppComponent,
     //ShowForRolesDirective
   ],
   imports: [

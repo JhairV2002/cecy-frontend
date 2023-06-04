@@ -17,7 +17,7 @@ export class MessageService {
     private router: Router
   ) {}
 
-  errorValid(error: any ){
+  errorValid(error: any) {
     console.log(error, 'message');
     return Swal.fire({
       title: 'Ups algo salio mal!',
@@ -75,22 +75,20 @@ export class MessageService {
     });
   }
 
-
-
   successRecovery(serverResponse: ServerResponse) {
     console.log(serverResponse, 'message');
     return Swal.fire({
-      title:'Actualización exitosa' ,
-      text:  serverResponse.message,
+      title: 'Actualización exitosa',
+      text: serverResponse.message,
       icon: 'success',
     });
   }
 
-  succesAproveedCourse(serverResponse: ServerResponse){
+  succesAproveedCourse(serverResponse: ServerResponse) {
     console.log(serverResponse, 'message');
     return Swal.fire({
-      title: 'Fue aprobado el curso con éxito' ,
-      text:  serverResponse.message,
+      title: 'Fue aprobado el curso con éxito',
+      text: serverResponse.message,
       icon: 'success',
     });
   }
@@ -101,6 +99,15 @@ export class MessageService {
       title: serverResponse?.msg?.summary,
       text: serverResponse?.msg?.detail,
       icon: 'info',
+    });
+  }
+
+  successRol(serverResponse: ServerResponse) {
+    console.log(serverResponse, 'message');
+    return Swal.fire({
+      title: serverResponse.message,
+      text: serverResponse.detail,
+      icon: 'success',
     });
   }
 
@@ -117,6 +124,15 @@ export class MessageService {
     return Swal.fire({
       title: serverResponse.message,
       //text: serverResponse?.msg?.detail,
+      icon: 'success',
+    });
+  }
+
+  successCareer(serverResponse: any) {
+    console.log(serverResponse);
+    return Swal.fire({
+      title: serverResponse.message,
+      text: serverResponse.detail,
       icon: 'success',
     });
   }

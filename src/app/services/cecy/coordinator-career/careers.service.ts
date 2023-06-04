@@ -19,4 +19,16 @@ export class CareersService {
   getPlanificationsCareers(id: number) {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  addEditCareer(data: any, selectedCareer: any) {
+    if (!selectedCareer) {
+      return this.http.post(`${this.apiUrl}`, data);
+    } else {
+      return this.http.put(`${this.apiUrl}/${selectedCareer.id}`, data);
+    }
+  }
+
+  deleteCareerById(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
