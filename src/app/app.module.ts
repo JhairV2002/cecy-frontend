@@ -33,6 +33,7 @@ import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { CommonModule } from '@angular/common';
     ProgressSpinnerModule,
     MenuModule,
     LayoutModule,
+    NgProgressModule
   ],
   providers: [MessageService, ConfirmationService, HttpInterceptorProviders],
   bootstrap: [AppComponent],
