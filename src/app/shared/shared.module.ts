@@ -34,7 +34,7 @@ import { BadgeModule } from 'primeng/badge';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import {SidebarModule} from 'primeng/sidebar';
+import { SidebarModule } from 'primeng/sidebar';
 
 import { BlankComponent } from './components/layouts/blank/blank.component';
 import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
@@ -43,13 +43,10 @@ import { SidebarComponent } from './components/layouts/sidebar/sidebar.component
 import { TopbarComponent } from './components/layouts/topbar/topbar.component';
 import { MenubarModule } from 'primeng/menubar';
 import { UserComponent } from './components/user/user.component';
-import {ImageModule} from 'primeng/image';
+import { ImageModule } from 'primeng/image';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
-
-const routes: Routes = [
-  { path: 'user/profile', component: UserComponent },
-];
+const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
 @NgModule({
   declarations: [
@@ -94,7 +91,7 @@ const routes: Routes = [
     SidebarComponent,
     TopbarComponent,
     UserComponent,
-    WelcomeComponent
+    WelcomeComponent,
   ],
   imports: [
     CommonModule,
@@ -122,7 +119,7 @@ const routes: Routes = [
     MenubarModule,
     SidebarModule,
     ImageModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
 })
 export class SharedModule {}

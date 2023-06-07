@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { Careers } from '@models/cecy/coordinator-career';
 import { environment } from '@env/environment';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CareersService {
   private apiUrl = `${environment.api2}/careers`;
+  private planificationsSubject = new BehaviorSubject<any[]>([]);
+  planifications$ = this.planificationsSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 

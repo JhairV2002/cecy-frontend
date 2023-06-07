@@ -12,7 +12,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CourseModel } from '@models/cecy';
+import { CatalogueModel, CourseModel } from '@models/cecy';
 import { CourseHttpService, InstructorHttpService } from '@services/cecy';
 import { MessageService } from '@services/core';
 import {
@@ -21,25 +21,23 @@ import {
 } from '@services/cecy/coordinator-career';
 import { SchoolYearService } from '@services/cecy/coordinator-cecy';
 import { SchoolYear } from '@models/cecy/coordinator-career';
-
+import { CourseService } from '@services/cecy-v1/course.service';
 @Component({
   selector: 'app-planification-form',
   templateUrl: './planification-form.component.html',
   styleUrls: ['./planification-form.component.css'],
 })
 export class PlanificationFormComponent implements OnInit, OnChanges {
+  @Input() showModal: boolean = true;
   @Input() selectedCareer: any;
-  @Input() dialogForm: boolean = true;
-  @Input() selectedPlanificationCourse: any;
   @Output() clickClose = new EventEmitter<boolean>();
   @Output() addPlanification = new EventEmitter<any>();
   @Input() selectPlanification: any = null;
-  @Output() updataPlanification = new EventEmitter<any>();
-
   progressBar: boolean = false;
   users: any = [];
   roles: [] = [];
   schoolYears: SchoolYear[] = [];
+  modalities: CatalogueModel[] = [];
   public formPlanification = new FormGroup({
     schoolYearId: new FormControl(null, [Validators.required]),
     codeCourse: new FormControl('xxxxx', [
@@ -53,10 +51,11 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
       Validators.maxLength(3),
       Validators.pattern('^[0-9]*$'),
     ]),
-    startDate: new FormControl('', [Validators.required]),
-    finishDate: new FormControl('', [Validators.required]),
+    startDate: new FormControl(new Date(), [Validators.required]),
+    finishDate: new FormControl(new Date(), [Validators.required]),
     state: new FormControl('proceso'),
-    free: new FormControl(false),
+    free: new FormControl(false, [Validators.required]),
+    modalityId: new FormControl(null, Validators.required),
     userId: new FormControl(null, [Validators.required]),
     careerId: new FormControl(),
     roleId: new FormControl(null, [Validators.required]),
@@ -65,7 +64,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   titleModal: string = '';
   titleButton: string = '';
   UserByRoleEspecific: [] = [];
-  checkboxText: string = 'Gratuito';
+  isEdit: boolean = false;
 
   constructor(
     private courseHttpService: CourseHttpService,
@@ -73,24 +72,35 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     public messageService: MessageService,
     private planificationsCoursesService: PlanificationsCoursesService,
     private teacherService: TeachersService,
-    private schoolYearService: SchoolYearService
+    private schoolYearService: SchoolYearService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     this.loadUserByRole();
     this.loadRoles();
     this.loadScholYears();
+    this.loadAllModalities();
   }
 
   ngOnChanges() {
     if (this.selectPlanification) {
-      this.formPlanification.patchValue(this.selectPlanification);
+      const startDate = new Date(this.selectPlanification.startDate);
+      const finishDate = new Date(this.selectPlanification.finishDate);
+      this.formPlanification.patchValue({
+        startDate: startDate,
+        finishDate: finishDate,
+      });
+
+      //this.formPlanification.patchValue(this.selectPlanification);
       this.titleModal = 'Editar una';
       this.titleButton = 'Editar';
+      this.isEdit = true;
     } else {
       this.formPlanification.reset();
       this.titleModal = 'Crear un';
       this.titleButton = 'Crear';
+      this.isEdit = false;
     }
   }
 
@@ -109,8 +119,19 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   loadScholYears() {
     this.schoolYearService.getSchoolYear().subscribe((data) => {
-      console.log('AÑOS ESCOLARES', data);
       this.schoolYears = data;
+    });
+  }
+
+  loadAllModalities() {
+    this.courseService.getCatalogues('MODALITY').subscribe({
+      next: (data) => {
+        console.log('MODALIDADES', data);
+        this.modalities = data;
+      },
+      error: (error) => {
+        this.messageService.error(error);
+      },
     });
   }
 
@@ -119,22 +140,18 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     this.state = 'proceso';
     this.careerId = this.selectedCareer;
     const valuesFormPlanification = this.formPlanification.value;
-    console.log('Datos del form', valuesFormPlanification);
     this.planificationsCoursesService
       .createEdit(valuesFormPlanification, this.selectPlanification)
       .subscribe({
         next: (data) => {
           console.log(data);
-          this.messageService.successPlanification(data);
-          this.formPlanification.reset();
           this.progressBar = false;
+          this.messageService.successPlanification(data);
           this.clickClose.emit(false);
-          this.selectPlanification = this.selectPlanification
-            ? this.updataPlanification.emit(data)
-            : this.addPlanification.emit(data);
+          this.addPlanification.emit(data);
+          this.formPlanification.reset();
         },
         error: (error) => {
-          console.log(error);
           this.messageService.errorValid(error);
           this.progressBar = false;
         },
@@ -159,7 +176,6 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   closeModal() {
     this.clickClose.emit(false);
-    this.selectedPlanificationCourse = null;
   }
 
   updateCourse(course: CourseModel): void {
@@ -171,21 +187,12 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
         next: (response) => {
           this.messageService.success(response);
           this.progressBar = false;
-          //this.dialogForm.emit(false);
         },
         error: (error) => {
           this.messageService.errorValid(error);
           this.progressBar = false;
-          //this.dialogForm.emit(false);
         },
       });
-  }
-
-  onCheckboxChange() {
-    console.log('CAMBIA ESE CHECK');
-
-    this.checkboxText === 'Gratuito' ? 'De pago' : 'Gratuito';
-    console.log('TEXTOI CHECK', this.checkboxText);
   }
 
   isRequired(field: AbstractControl): boolean {
@@ -220,6 +227,10 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   get finishDate() {
     return this.formPlanification.controls['finishDate'];
+  }
+
+  get modalityField() {
+    return this.formPlanification.controls['modalityId'];
   }
 
   get freeField() {

@@ -48,7 +48,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
-
+import { RadioButtonModule } from 'primeng/radiobutton';
 @NgModule({
   declarations: [
     AssignmentInstructorsFormComponent,
@@ -100,6 +100,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     TooltipModule,
     CheckboxModule,
     SelectButtonModule,
+    RadioButtonModule,
   ],
 })
 export class CoordinatorCareerModule {}

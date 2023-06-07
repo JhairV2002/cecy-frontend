@@ -150,11 +150,6 @@ export class UserListComponent implements OnInit {
     this.selectedUser = null;
   }
 
-  selectUser(user: User) {
-    // this.selectedUser = user;
-    // console.log(user);
-  }
-
   filter(event: any) {
     if (event.key === 'Enter' || event.type === 'click') {
       this.getAllUSers();

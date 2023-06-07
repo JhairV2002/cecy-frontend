@@ -2,17 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
-//import { CourseHttpService } from '@services/cecy';
 import { MessageService } from '@services/core';
-import { CareerModel, ColModel, PaginatorModel } from '@models/core';
+import { ColModel, PaginatorModel } from '@models/core';
 import { CourseModel } from '@models/cecy';
 import { Router } from '@angular/router';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
-import {
-  PlanificationCourses,
-  Careers,
-  getCareerDTO,
-} from '@models/cecy/coordinator-career';
+import { PlanificationCourses, Careers } from '@models/cecy/coordinator-career';
 import { CareersService } from '@services/cecy/coordinator-career';
 
 @Component({
@@ -28,18 +23,19 @@ export class PlanificationListComponent implements OnInit {
   selectedCourse: any;
   cols: ColModel[];
   items: MenuItem[] = [];
-  dialogForm: boolean = false;
+  isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
-  selectedCareer: any;
+  selectedCareer: number = 0;
   careers: Careers[] = [];
   career: FormControl = new FormControl('');
   planificationCourses: any[] = [];
-  selectedPlanificationCourse: any;
   selectCareer: boolean = false;
   activeButton: boolean = false;
   selectPlanification: any = null;
+  nameCareer: String = '';
+  isLoadingPlanification: boolean = false;
   constructor(
     //private courseHttpService: CourseHttpService,
     public messageService: MessageService,
@@ -73,11 +69,27 @@ export class PlanificationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const careerId = localStorage.getItem('careerSelected');
-    if (careerId) {
-      //this.selectCareer = careerId;
-    }
     this.loadCareers();
+    const savecareerId = localStorage.getItem('careerSelected');
+    if (savecareerId) {
+      this.selectedCareer = parseInt(savecareerId);
+      this.isLoadingPlanification = true;
+      this.careersService
+        .getPlanificationsCareers(parseInt(savecareerId))
+        .subscribe({
+          next: (data) => {
+            this.planificationCourses = data.planificationCourse;
+            this.nameCareer = data.name;
+            this.selectCareer = this.planificationCourses.length ? true : false;
+            this.activeButton = true;
+            this.isLoadingPlanification = false;
+          },
+          error: (error) => {
+            this.messageService.error(error);
+            this.isLoadingPlanification = false;
+          },
+        });
+    }
   }
 
   loadCareers() {
@@ -98,63 +110,54 @@ export class PlanificationListComponent implements OnInit {
 
   onchange(event: any) {
     console.log(event.value);
+    localStorage.setItem('careerSelected', event.value);
+    this.isLoadingPlanification = true;
     this.careersService.getPlanificationsCareers(event.value).subscribe({
       next: (data) => {
-        console.log(data);
         this.planificationCourses = data.planificationCourse;
+        this.nameCareer = data.name;
         this.selectCareer = this.planificationCourses.length ? true : false;
         this.activeButton = true;
-        localStorage.setItem('careerSelected', event.value);
+        this.isLoadingPlanification = false;
       },
       error: (error) => {
+        this.isLoadingPlanification = false;
         this.messageService.error(error);
       },
     });
   }
 
   showForm() {
-    this.dialogForm = true;
-    this.selectedCourse = null;
+    this.isVisible = true;
     this.selectPlanification = null;
   }
 
-  hideModal(isClose: boolean) {
-    this.dialogForm = isClose;
-    console.log(isClose);
-  }
-
-  EditPlanification(newPlanification: any) {
-    console.log(
-      'planificacion actualizada',
-      newPlanification.planificationCourse.careerId
-    );
-    this.careersService
-      .getPlanificationsCareers(newPlanification.planificationCourse.careerId)
-      .subscribe({
-        next: (data) => {
-          this.planificationCourses = data.planificationCourse;
-        },
-      });
+  closeModal(state: boolean) {
+    this.isVisible = state;
+    console.log(state);
   }
 
   addPlanification(newPlanification: any) {
-    console.log(
-      'nueva planificacion QUIIIIIIIIIIIIIIIIIIIIIIIII',
-      newPlanification.newPlanificationCourse?.careerId
-    );
     this.careersService
-      .getPlanificationsCareers(
-        newPlanification.newPlanificationCourse.careerId
-      )
+      .getPlanificationsCareers(this.selectedCareer)
       .subscribe({
         next: (data) => {
-          console.log('PLANIFICACION DATA', data);
           this.planificationCourses = data.planificationCourse;
+          this.selectCareer = this.planificationCourses.length ? true : false;
+        },
+        error: (error) => {
+          this.messageService.error(error);
         },
       });
   }
 
-  deletePlanificationCourse(planification: any) {
+  editPlanification(planification: PlanificationCourses) {
+    console.log(planification);
+    this.isVisible = true;
+    this.selectPlanification = planification;
+  }
+
+  deletePlanification(planification: any) {
     this.messageService.questionDeletePlanificationCourse({}).then((result) => {
       if (result.isConfirmed) {
         this.planificationCourseService
@@ -162,15 +165,14 @@ export class PlanificationListComponent implements OnInit {
           .subscribe({
             next: (data) => {
               console.log(data);
-              /* this.careersService
-                .getPlanificationsCareers(data.planificationCourseId.id)
+              this.careersService
+                .getPlanificationsCareers(
+                  data.planificationCourseId.planificationCoursesId.careerId
+                )
                 .subscribe((data) => {
                   this.planificationCourses = data.planificationCourse;
-                }); */
+                });
               this.messageService.successPlanification(data);
-            },
-            complete: () => {
-              //this.loadPlanificationCourses();
             },
             error: (error) => {
               this.messageService.error(error);
@@ -178,12 +180,6 @@ export class PlanificationListComponent implements OnInit {
           });
       }
     });
-  }
-
-  editPlanificationCourse(planification: PlanificationCourses) {
-    console.log('PLANIFICACION', planification);
-    this.dialogForm = true;
-    this.selectPlanification = planification;
   }
 
   goToPlanifications(course: CourseModel) {
