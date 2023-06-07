@@ -1,0 +1,70 @@
+<div class="botones">
+    <button class="btn btn-accent" routerLink="../asistencia">Regresar</button>&nbsp;
+    <!-- <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp; -->
+</div>
+  <br>
+  <div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
+    <h1>LISTA DE ESTUDIANTES</h1>
+    <br>
+    <a class="text-black">P=PRESENTE</a>&nbsp;
+    <a class="text-black" >A=AUSENTE</a>&nbsp;
+    <a class="text-black">FJ=FALTA JUSTIFICADA</a>
+  </div>
+  <div class="relative overflow-x-auto shadow-md">
+  <div>
+    <div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
+    </div>
+    <br />
+    <br>
+    <br />
+    <div class=" group bg-white-100 shadow-xs rounded-box">
+      <table class="table w-full group bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 shadow-xs rounded-box">
+        <!-- head -->
+        <thead>
+          <tr class="text-lg text-black  bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
+            <th>Nombres</th>
+            <th>P</th>
+            <th>A</th>
+            <th>FJ</th>
+          </tr>
+        </thead>
+        <tbody class="text-lg text-black  bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
+          <tr>
+            <th>Pedro</th>
+            <td><input type="radio" name="radio-1" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-1" class="form-check-input" /></td>
+            <td><input type="radio" name="radio-1" class="form-check-input" /></td>
+        </tbody>
+      </table>
+      <br /><br />
+
+    </div>
+
+  </div>
+  <div class="form-group">
+    <label with px-2 class="text-lg text-black">Observaciones:</label>
+    <br>
+    <textarea placeholder="Ingrese las obervaciones desarrolladas durante la clase" name="observaciones" rows="5" cols="35"></textarea>
+    </div>
+    <br>
+    <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
+      <p class="text-lg text-black">
+        Suba la evidencia fotografica de la clase:  
+        <input type="file" name="archivosubido">&nbsp;
+      </p>
+    <h5>Formatos admitidos:JPG y PNG</h5>
+    </form>
+    <br>
+  <label for="my-modal-ca-6" fill="none" class="btn border-transparent btn-info aling-center font-bold text-lg text-white text-center">GUARDAR </label>&nbsp;
+  <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
+  <div class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box block text-white bg-blue-700  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-rigth ">
+      <h3 class="font-bold text-lg text-white text-center " >SE REGISTRO CORRECTAMENTE</h3>
+      <div class="modal-action">
+        <label for="my-modal-ca-6" class="btn btn-accent" routerLink="../asistencia" >ACEPTAR</label>
+      </div>
+    </div>
+  </div>
+
+
+</div>

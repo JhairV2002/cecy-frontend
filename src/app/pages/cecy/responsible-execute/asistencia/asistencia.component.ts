@@ -24,9 +24,9 @@ export class AsistenciaComponent {
 
   filtroFecha: string = '';
 
-  listadofecha(){
+  fecha(){
     this.router.navigate([
-      '/cecy/responsible-execute/listado-fecha/'
+      '/cecy/responsible-execute/fecha/'
     ]);
   }
 
@@ -42,7 +42,5 @@ export class AsistenciaComponent {
     ]);
   }
   guardarfecha(fecha: any) {
-    // Aquí puedes implementar la lógica para guardar las notas editadas del estudiante
-    console.log('Notas guardadas:', fecha.nota1, fecha.nota2);
   }
 }
