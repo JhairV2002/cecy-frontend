@@ -1,10 +1,10 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PlanificationsCoursesService } from '../../../../services/cecy/coordinator-career/planifications-courses.service';
-import { MessageService } from './../../../../services/core/message.service';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career/planifications-courses.service';
+import { MessageService } from '@services/core/message.service';
 
-import { CourseModel } from './../../../../models/cecy-v1/course.model';
-import { CourseService } from './../../../../services/cecy-v1/course.service';
+import { CourseModel } from '@models/cecy-v1/course.model';
+import { CourseService } from '@services/cecy-v1/course.service';
 import {
   FormBuilder,
   FormArray,
@@ -12,7 +12,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import { CatalogueModel as CecyCatalogueModel } from '../../../../models/cecy/catalogue.model';
+import { CatalogueModel as CecyCatalogueModel } from '@models/cecy/catalogue.model';
 import { ColModel, DetailPlanificationModel } from '@models/cecy';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
 import { PlanificationCoursesCoordinatorCecy } from '@models/cecy/coordinator-cecy';

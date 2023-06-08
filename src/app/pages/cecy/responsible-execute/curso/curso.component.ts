@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CursoService } from './curso.service';
 import { Curso } from './curso';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EstudiantesComponent } from '../notas/estudiantes.component';
 
 @Component({
   selector: 'app-curso',
@@ -13,6 +14,15 @@ export class CursoComponent {
       private activateRouter: ActivatedRoute,
       private router: Router
     ){}
+
+  redireccionar() {
+    // Aquí defines la ruta a la que quieres redirigir
+    const rutaDestino = '/notas/estudiantes.component.html';
+    
+    // Puedes agregar más lógica antes de la redirección si es necesario
+    
+    this.router.navigate([EstudiantesComponent]);
+  }
 
     cursoList: Curso[]=[]
 
@@ -75,5 +85,6 @@ export class CursoComponent {
         this.findAll();
       }
     }
+    
 
 }

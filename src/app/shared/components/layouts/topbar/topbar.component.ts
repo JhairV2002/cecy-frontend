@@ -27,6 +27,7 @@ export class TopbarComponent implements OnInit {
   showNav: boolean = true;
   items!: MenuItem[];
   user: User | null = null;
+  sidebarVisible: boolean = false;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -77,6 +78,7 @@ export class TopbarComponent implements OnInit {
     this.messageService.showLoading();
     this.authHttpService.logout().subscribe({
       next: (response) => {
+        localStorage.removeItem('careerSelected');
         this.messageService.success(response);
         this.messageService.hideLoading();
         this.router.navigate(['/login']);
@@ -90,6 +92,7 @@ export class TopbarComponent implements OnInit {
   }
 
   onlogout(): void {
+    localStorage.removeItem('careerSelected');
     this.authService.logout();
     this.router.navigate(['/login']);
   }

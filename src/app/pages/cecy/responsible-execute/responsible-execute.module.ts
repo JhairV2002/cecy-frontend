@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';
-
+import { FilterPipe } from './notas/filter.pipe';
 @NgModule({
   declarations: [
     AsistenciaComponent,
@@ -18,6 +18,7 @@ import { SharedModule } from '@shared/shared.module';
     RegistroFotograficoComponent,
     EstudiantesComponent,
     HomeComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,

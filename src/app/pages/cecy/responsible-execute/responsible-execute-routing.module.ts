@@ -5,6 +5,7 @@ import { ListadoFechaComponent } from './asistencia/listado-fecha/listado-fecha.
 import { CursoComponent } from './curso/curso.component';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
+import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'mis-cursos', component: CursoComponent },
   { path: 'notas/estudiante', component: EstudiantesComponent },
   { path: 'asistencia', component: AsistenciaComponent },
-  { path: 'listadofecha', component: ListadoFechaComponent },
+  { path: 'listado-fecha', component: ListadoFechaComponent },
+  { path: 'registro-fotografico', component: RegistroFotograficoComponent },
   //{ path: 'course-form', component: CourseFormComponent },
 ];
 

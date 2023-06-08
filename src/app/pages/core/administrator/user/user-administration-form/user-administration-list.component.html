@@ -1,0 +1,135 @@
+<app-form-add-user
+  [showModal]="isVisible"
+  [selectedUser]="selectedUser"
+  (clickClose)="closeModal($event)"
+  (addUser)="addUser($event)"
+></app-form-add-user>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Crear usuario"
+      class="p-button-success p-button-rounded"
+      icon="pi pi-plus"
+      (click)="showForm()"
+    ></button>
+    <!-- <button
+        pButton
+        pRipple
+        type="button"
+        label="Refrescar"
+        class="p-button-rounded ml-2"
+        icon="pi pi-sync"
+      ></button> -->
+    <!-- (click)="loadUsers(paginator.current_page)" -->
+    <p-chip class="ml-4">
+      <i class="pi pi-user mr-2"></i>
+      <small
+        >Total de usuarios:
+        {{ users ? users.length : 0 }}
+      </small>
+    </p-chip>
+    <!-- <button
+        *ngIf="selectedUsers?.length"
+        pButton
+        pRipple
+        type="button"
+        label="Eliminar seleccionados"
+        class="p-button-danger p-button-rounded ml-2"
+        icon="pi pi-trash"
+        ></button> -->
+    <!-- (click)="deleteUsers()" -->
+    <app-progress-bar
+      *ngIf="progressBarDelete"
+      [message]="messageService.progressBarDelete"
+      class="ml-2"
+    ></app-progress-bar>
+  </div>
+  <div class="p-toolbar-group-right">
+    <div class="p-inputgroup">
+      <input
+        pInputText
+        id="search"
+        [formControl]="search"
+        (keypress)="filter($event)"
+      />
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-search"
+        (click)="filter($event)"
+      ></button>
+    </div>
+  </div>
+</p-toolbar>
+<p-card>
+  <p-table
+    dataKey="id"
+    [columns]="cols"
+    [responsive]="true"
+    [value]="users"
+    [paginator]="true"
+    [rows]="5"
+    [loading]="isLoadingUsers"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{ col.header }}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th class="text-center">
+          <button
+            pButton
+            pRipple
+            type="button"
+            class="p-button-rounded p-button-secondary"
+            icon="pi pi-cog"
+          ></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-user
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr [pSelectableRow]="user" [pSelectableRowIndex]="rowIndex">
+        <td>
+          <p-tableCheckbox [value]="user"></p-tableCheckbox>
+        </td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.names }}</td>
+        <td>{{ user.lastnames }}</td>
+        <td>{{ user.role.name }}</td>
+        <td>{{ user.createdAt | date }}</td>
+        <td>
+          <div class="flex gap-1">
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger"
+              type="submit"
+              (click)="deleteUser(user)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-warning"
+              (click)="editUser(user)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
