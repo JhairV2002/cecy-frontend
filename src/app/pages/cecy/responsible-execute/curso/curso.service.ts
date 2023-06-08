@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { Curso } from './curso';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CursoService {
-  private url = 'http://localhost:8080/courses/state-course/aprobado';
+  private url = 'http://localhost:8080/api/courses/state-course/aprobado';
 
   constructor(private http: HttpClient) { }
 

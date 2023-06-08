@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable, filter, map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, filter, map, switchMap } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
 import { Matriculas } from './estudiante.model';
 import { NombreFilterPipe } from './filter.pipe';
@@ -13,6 +13,7 @@ import { NombreFilterPipe } from './filter.pipe';
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private estudianteService: EstudianteService
   ) { }
@@ -25,8 +26,20 @@ export class EstudiantesComponent implements OnInit {
 
   estudiantes: Matriculas[] = [];
 
+  estudiantes$ = this.activatedRoute.paramMap.pipe(
+    switchMap((param) =>
+      this.estudianteService
+        .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
+        .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
+    )
+  );
+
   redireccionar() {
-    this.router.navigate(['cecy/responsible-execute/asistencia']);
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.router.navigate([
+        `cecy/responsible-execute/asistencia/${param.get('cursoId')}`,
+      ]);
+    });
   }
 
   filtrarPorNombre(): void {
@@ -40,6 +53,8 @@ export class EstudiantesComponent implements OnInit {
   }
 
   guardarNotas(matricula: Matriculas): void {
+    console.log(matricula);
+
     this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe(
       (res) => {
         console.log('Notas guardadas', res);
@@ -56,7 +71,3 @@ export class EstudiantesComponent implements OnInit {
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
 }
-
-
-
-

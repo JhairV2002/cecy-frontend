@@ -22,6 +22,10 @@ export class EstudianteService {
     return this.http.get<Matriculas>(`${this.baseUrl}${id}/`);
   }
 
+  obtenerMatriculasPorCursoId(id: number): Observable<Matriculas[]> {
+    return this.http.get<Matriculas[]>(`${this.baseUrl}cursoId/${id}/`);
+  }
+
   actualizarNotas(matricula: Matriculas, id: number): Observable<Matriculas> {
     let promedio = (matricula.nota1 + matricula.nota2) / 2;
 

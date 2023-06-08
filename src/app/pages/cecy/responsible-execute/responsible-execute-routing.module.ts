@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'mis-cursos', component: CursoComponent },
-  { path: 'notas/estudiante', component: EstudiantesComponent },
-  { path: 'asistencia', component: AsistenciaComponent },
+  { path: 'notas/estudiante/:cursoId', component: EstudiantesComponent },
+  { path: 'asistencia/:cursoId', component: AsistenciaComponent },
   { path: 'fecha', component: FechaComponent },
   { path: 'registro-fotografico', component: RegistroFotograficoComponent },
   //{ path: 'course-form', component: CourseFormComponent },
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ResponsibleExecuteRoutingModule {}
+export class ResponsibleExecuteRoutingModule { }

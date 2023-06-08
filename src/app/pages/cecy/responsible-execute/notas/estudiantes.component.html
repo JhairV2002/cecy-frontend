@@ -3,6 +3,7 @@
     Listado de Estudiantes
   </h2>
   <!-- {{ estudiantes | json }} -->
+  <!-- {{ estudiantes$ | async | json }} -->
   <div class="relative overflow-x-auto shadow-md">
     <button class="btn btn-accent" icon="edit" (click)="redireccionar()">
       Asistencia
@@ -27,7 +28,9 @@
       </thead>
       <tbody>
         <tr *ngFor="
-            let matricula of matriculas$ | async | nombreFilter : nombreFiltrado
+            let matricula of estudiantes$
+              | async
+              | nombreFilter : nombreFiltrado
           " class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600">
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
             {{
@@ -39,12 +42,12 @@
           <td class="px-6 py-4">
             <input type="number" id="nota1"
               class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-              [(ngModel)]="matricula.nota1" [placeholder]="matricula.nota1 ? matricula.nota1 : 'Sin nota'" />
+              [(ngModel)]="matricula.nota1" [placeholder]="matricula.nota1" />
           </td>
           <td class="px-6 py-4">
             <input type="number" id="nota2"
               class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-              [(ngModel)]="matricula.nota2" [placeholder]="matricula.nota2 ? matricula.nota2 : 'Sin nota'" />
+              [(ngModel)]="matricula.nota2" [placeholder]="matricula.nota2" />
           </td>
           <td class="px-6 py-4">
             {{ matricula.promedio }}
