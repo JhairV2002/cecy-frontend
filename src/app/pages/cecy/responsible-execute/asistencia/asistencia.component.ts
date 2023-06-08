@@ -1,46 +1,32 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AsistenciaService } from './asistencia.service';
+import { Asistencia } from './asistencia.model';
+import { map } from 'rxjs';
+
 
 
 @Component({
   selector: 'app-asistencia',
   templateUrl: './asistencia.component.html',
-  styleUrls: ['./asistencia.component.css']
 })
-export class AsistenciaComponent {
-  constructor(
-    private router: Router
-  ) {
-  }
+export class AsistenciaComponent implements OnInit {
+  constructor (
 
-  fechas: any[] = [
-    { fecha: '01-02-2023'},
-    { fecha: '02-02-2023'},
-    { fecha: '03-02-2023'},
-    { fecha: '04-02-2023'},
-    { fecha: '05-02-2023'},
-    { fecha: '08-02-2023'},
-  ];
-
-  filtroFecha: string = '';
-
-  fecha(){
-    this.router.navigate([
-      '/cecy/responsible-execute/fecha/'
-    ]);
+    private AsistenciaService : AsistenciaService
+  ) {}
+  ngOnInit(): void {
+    this.AsistenciaService.obtenerEstudiantes().subscribe((res)=>(this.estudiantes=res));
   }
+  estudiantes: Asistencia[]=[];
+  asistencias$=this.AsistenciaService.obtenerEstudiantes().pipe(map((res)=>res.filter((it)=>it.estudiantes!=null)));
+  asistencia$=this.AsistenciaService.obtenerEstudiantePorId(4);
 
-  registrar(){
-    this.router.navigate([
-      'cecy/responsible-execute/notas/estudiante'
-    ]);
-  }
+  asistencias: Asistencia[] | null = null;
 
-  registrofotografico(){
-    this.router.navigate([
-      '/cecy/responsible-execute/registro-fotografico/'
-    ]);
-  }
-  guardarfecha(fecha: any) {
-  }
+/* ngOnInit() {
+  this.asistencias$.subscribe((data) => {
+    this.asistencias = data;
+  });
+} */
+
 }
