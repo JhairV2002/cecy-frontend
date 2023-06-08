@@ -72,7 +72,7 @@ export class CourseListComponent implements OnInit {
   editCourse(planification: any) {
     this.router.navigate([
       '/cecy/responsible-course/course/edit',
-      planification.id,
+      planification.planification.id,
     ]);
   }
 
