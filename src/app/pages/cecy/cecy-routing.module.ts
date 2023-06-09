@@ -153,6 +153,14 @@ const routes: Routes = [
             (m) => m.ValidacionMatriculaModule
           ),
       },
+
+      {
+        path: 'secretary-cecy',
+        loadChildren: () =>
+          import('./secretary-cecy/secretary-cecy.module').then(
+            (m) => m.SecretaryCecyModule
+          ),
+      },
     ],
   },
 
@@ -173,13 +181,6 @@ const routes: Routes = [
           roles: [RolesEnum.ADMIN, RolesEnum.STUDENT],
         },
         canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'secretary-cecy',
-        loadChildren: () =>
-          import('./secretary-cecy/secretary-cecy.module').then(
-            (m) => m.SecretaryCecyModule
-          ),
       },
     ],
   },

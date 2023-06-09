@@ -4,7 +4,7 @@
 const HOST = 'http://localhost:8000';
 const HOST2 = 'http://localhost:3000';
 const HOST3 = 'http://localhost:8081';
-const HOST4 = 'http://localhost:8089';
+const HOST4 = 'http://localhost:8080';
 
 
 export const environment = {
