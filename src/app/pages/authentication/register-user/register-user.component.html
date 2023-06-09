@@ -1,4 +1,3 @@
-
 <!--<app-person-toolbar [entityName]="form.name"></app-person-toolbar>-->
 <div class="grid justify-center m-4">
   <div class="card shadow-2xl shadow-black rounded-md mt-4">
@@ -9,61 +8,48 @@
         </div>
 
         <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Cedula de Ciudadania: </label>
+          <label class="block mb-2 text-sm font-medium text-gray-900">Cedula de Ciudadania:
+          </label>
           <input
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-            type="text"
-            name=""
-            id="contacto"
-            placeholder="1234567890"
-            [(ngModel)]="initialForm.cedula"
-          />
+            type="text" name="" id="contacto" placeholder="1234567890" [(ngModel)]="initialForm.cedula" />
         </div>
 
         <div class="grid md:grid-cols-3 md:gap-10">
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Nombres: </label>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Nombres:
+            </label>
             <input
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="Hugo Humberto"
-              [(ngModel)]="initialForm.nombres"
-            />
+              type="text" name="" id="contacto" placeholder="Hugo Humberto" [(ngModel)]="initialForm.nombres" />
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Apellidos: </label>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Apellidos:
+            </label>
             <input
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="Perez Hidalgo"
-              [(ngModel)]="initialForm.apellidos"
-            />
+              type="text" name="" id="contacto" placeholder="Perez Hidalgo" [(ngModel)]="initialForm.apellidos" />
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Fecha de Nacimiento: </label>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Fecha de Nacimiento:
+            </label>
             <input
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="Ejemplo: Hugo Perez"
-              [(ngModel)]="initialForm.fechaNacimiento"
-            />
+              type="text" name="" id="contacto" placeholder="Ejemplo: Hugo Perez"
+              [(ngModel)]="initialForm.fechaNacimiento" />
           </div>
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-10">
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Sexo </label>
-            <app-cmb-gender (idEmitter)="initialForm.genero.id=$event" [id]="initialForm.genero.id"></app-cmb-gender>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Sexo
+            </label>
+            <app-cmb-gender (idEmitter)="initialForm.genero.id = $event" [id]="initialForm.genero.id"></app-cmb-gender>
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Etnia </label>
-            <app-cmb-etnia (idEmitter)="initialForm.etnia.id=$event" [id]="initialForm.etnia.id"></app-cmb-etnia>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Etnia
+            </label>
+            <app-cmb-etnia (idEmitter)="initialForm.etnia.id = $event" [id]="initialForm.etnia.id"></app-cmb-etnia>
           </div>
         </div>
 
@@ -72,115 +58,101 @@
             <label class="block mb-2 text-sm font-medium text-gray-900">Tiene alguna discapacidad?:</label>
             <label class="relative inline-flex items-center cursor-pointer pt-2">
               <span class="ml-3 text-sm font-medium text-gray-900 mr-2">NO</span>
-              <input type="checkbox" value="" class="sr-only peer" [(ngModel)]="initialForm.discapacidad">
-              <div class="w-11 h-6 bg-gray-400 peer-focus:outline-none  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[8.8px] after:right-[40.50px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <input type="checkbox" value="" class="sr-only peer" [(ngModel)]="initialForm.discapacidad" />
+              <div
+                class="w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[8.8px] after:right-[40.50px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+              </div>
               <span class="ml-3 text-sm font-medium text-gray-900">SI</span>
             </label>
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-
-            <label class="block mb-2 text-sm font-medium text-gray-900">Ingrese una descripcion de su discapacidad: </label>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Ingrese una descripcion de su discapacidad:
+            </label>
             <input
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="CARCELEN, CALLE LOS PELICANOS"
-              [disabled]="!initialForm.discapacidad"
-              [(ngModel)]="initialForm.detallesDiscapacidad"
-            />
-          </div>
-        </div>
-
-
-        <div class="grid md:grid-cols-2 md:gap-10">
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Direccion: </label>
-            <input
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="CARCELEN, CALLE LOS PELICANOS"
-              [(ngModel)]="initialForm.direccion"
-            />
-          </div>
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electronico: </label>
-            <input
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="ejemplo@ejemplo.com"
-              [(ngModel)]="initialForm.email"
-            />
+              type="text" name="" id="contacto" placeholder="CARCELEN, CALLE LOS PELICANOS"
+              [disabled]="!initialForm.discapacidad" [(ngModel)]="initialForm.detallesDiscapacidad" />
           </div>
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-10">
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Celular: </label>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Direccion:
+            </label>
             <input
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="0987654321"
-              [(ngModel)]="initialForm.numeroCelular"
-            />
+              type="text" name="" id="contacto" placeholder="CARCELEN, CALLE LOS PELICANOS"
+              [(ngModel)]="initialForm.direccion" />
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Convencional: </label>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electronico:
+            </label>
             <input
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-              type="text"
-              name=""
-              id="contacto"
-              placeholder="2423699"
-              [(ngModel)]="initialForm.numeroConvencional"
-            />
+              type="text" name="" id="contacto" placeholder="ejemplo@ejemplo.com" [(ngModel)]="initialForm.email" />
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 md:gap-10">
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Celular:
+            </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text" name="" id="contacto" placeholder="0987654321" [(ngModel)]="initialForm.numeroCelular" />
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">Numero Convencional:
+            </label>
+            <input
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+              type="text" name="" id="contacto" placeholder="2423699" [(ngModel)]="initialForm.numeroConvencional" />
           </div>
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-10">
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
             <label class="block mb-2 text-sm font-medium text-gray-900">Nivel de instruccion:</label>
-            <app-cmb-instruction (idEmitter)="initialForm.nivelInstruccion.id=$event" [id]="initialForm.nivelInstruccion.id"></app-cmb-instruction>
+            <app-cmb-instruction (idEmitter)="initialForm.nivelInstruccion.id = $event"
+              [id]="initialForm.nivelInstruccion.id"></app-cmb-instruction>
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
             <label class="block mb-2 text-sm font-medium text-gray-900">Situacion economica:</label>
-            <app-cmb-economy (idEmitter)="initialForm.situacionEconomica.id=$event" [id]="initialForm.situacionEconomica.id"></app-cmb-economy>
+            <app-cmb-economy (idEmitter)="initialForm.situacionEconomica.id = $event"
+              [id]="initialForm.situacionEconomica.id"></app-cmb-economy>
           </div>
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-10">
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
             <label class="block mb-2 text-sm font-medium text-gray-900">Institucion a la que pertenece:</label>
-              <app-cmb-institution (idEmitter)="initialForm.empresaId.id=$event" [id]="initialForm.empresaId.id"></app-cmb-institution>
+            <app-cmb-institution (idEmitter)="initialForm.empresaId.id = $event"
+              [id]="initialForm.empresaId.id"></app-cmb-institution>
           </div>
           <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Cual es su condicion en su Institucion/Empresa?: </label>
-            <app-cmb-inst-place (idEmitter)="initialForm.tipoEstudiante.id=$event" [id]="initialForm.tipoEstudiante.id"></app-cmb-inst-place>
+            <label class="block mb-2 text-sm font-medium text-gray-900">Cual es su condicion en su Institucion/Empresa?:
+            </label>
+            <app-cmb-inst-place (idEmitter)="initialForm.tipoEstudiante.id = $event"
+              [id]="initialForm.tipoEstudiante.id"></app-cmb-inst-place>
           </div>
         </div>
 
         <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
           <label class="block mb-2 text-sm font-medium text-gray-900">Copia de Cedula de Ciudadania:</label>
-          <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-400 mt-1 mb-2
-          file:mr-3 file:p-2.5 file:px-4
-          file:rounded-l-lg file:border-0
-          file:text-sm
-          file:bg-blue-700 file:text-white
-          hover:file:bg-blue-800" id="file_input" type="file">
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-400 mt-1 mb-2 file:mr-3 file:p-2.5 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:bg-blue-700 file:text-white hover:file:bg-blue-800"
+            id="file_input" type="file" />
         </div>
 
         <div class="field">
-          <button (click)="saveUser()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 mr-2">
+          <button (click)="saveUser()"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 mr-2">
             Guardar
           </button>
-          <button class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-normal rounded-lg text-sm px-5 py-2.5 mr-2">
-            Cancelar</button>
+          <button
+            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-normal rounded-lg text-sm px-5 py-2.5 mr-2">
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
@@ -190,101 +162,89 @@
 
   <!-- Main modal fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full -->
   <div id="my-modal-2" tabindex="50" aria-hidden="true" class="modal">
-      <div class="fixed justify-center max-h-full">
-          <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow">
-            <div class="modal-action">
-                <label for="my-modal" class="btn btn-circle border border-gray-300 absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-slate-200 hover:text-gray-900 hover:ring-blue-500 hover:border-blue-500  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </label>
+    <div class="fixed justify-center max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow">
+        <div class="modal-action">
+          <label for="my-modal"
+            class="btn btn-circle border border-gray-300 absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-slate-200 hover:text-gray-900 hover:ring-blue-500 hover:border-blue-500 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </label>
+        </div>
+        <div class="px-6 py-6 lg:px-8">
+          <h3 class="mb-4 text-xl font-medium text-gray-900">
+            Informacion de la Empresa/Institucion
+          </h3>
+          <div class="grid md:grid-cols-3 md:gap-10">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Nombre de la Institucion/Empresa a la que
+                pertence:</label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+                type="text" name="" id="contacto" placeholder="Mi Empresa" [(ngModel)]="enterpriseForm.nombre" />
             </div>
-              <div class="px-6 py-6 lg:px-8">
-                  <h3 class="mb-4 text-xl font-medium text-gray-900">Informacion de la Empresa/Institucion</h3>
-                  <div class="grid md:grid-cols-3 md:gap-10">
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Nombre de la Institucion/Empresa a la que pertence:</label>
-                    <input
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-                      type="text"
-                      name=""
-                      id="contacto"
-                      placeholder="Mi Empresa"
-                      [(ngModel)]="enterpriseForm.nombre"
-                    />
-                  </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-10">
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Direccion de la Empresa: </label>
-                    <input
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-                      type="text"
-                      name=""
-                      id="contacto"
-                      placeholder="CARCELEN, CALLE LOS PELICANOS"
-                      [(ngModel)]="enterpriseForm.direccion"
-                    />
-                  </div>
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electronico/Empresa: </label>
-                    <input
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-                      type="text"
-                      name=""
-                      id="contacto"
-                      placeholder="ejemplo@ejemplo.com"
-                      [(ngModel)]="enterpriseForm.email"
-                    />
-                  </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-10">
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Numero Celular/Empresa: </label>
-                    <input
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-                      type="text"
-                      name=""
-                      id="contacto"
-                      placeholder="0987654321"
-                      [(ngModel)]="enterpriseForm.numeroCelular"
-                    />
-                  </div>
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Numero Convencional/Empresa: </label>
-                    <input
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-                      type="text"
-                      name=""
-                      id="contacto"
-                      placeholder="2423699"
-                      [(ngModel)]="enterpriseForm.numeroConvencional"
-                    />
-                  </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-10">
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Actividad de la Empresa: </label>
-                    <input
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
-                      type="text"
-                      name=""
-                      id="contacto"
-                      placeholder="Distribuidor de suministros de oficina"
-                      [(ngModel)]="enterpriseForm.actividad"
-                    />
-                  </div>
-                </div>
-                <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4 mt-4">
-                  <label for="my-modal" (click)="saveInstitution()" class="w-min text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 mr-2">
-                    Guardar
-                  </label>
-
-                </div>
-              </div>
           </div>
-      </div>
-  </div>
 
+          <div class="grid md:grid-cols-2 md:gap-10">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Direccion de la Empresa:
+              </label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+                type="text" name="" id="contacto" placeholder="CARCELEN, CALLE LOS PELICANOS"
+                [(ngModel)]="enterpriseForm.direccion" />
+            </div>
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electronico/Empresa:
+              </label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+                type="text" name="" id="contacto" placeholder="ejemplo@ejemplo.com"
+                [(ngModel)]="enterpriseForm.email" />
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 md:gap-10">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Numero Celular/Empresa:
+              </label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+                type="text" name="" id="contacto" placeholder="0987654321" [(ngModel)]="enterpriseForm.numeroCelular" />
+            </div>
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Numero Convencional/Empresa:
+              </label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+                type="text" name="" id="contacto" placeholder="2423699"
+                [(ngModel)]="enterpriseForm.numeroConvencional" />
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 md:gap-10">
+            <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900">Actividad de la Empresa:
+              </label>
+              <input
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-400 block w-full p-2.5"
+                type="text" name="" id="contacto" placeholder="Distribuidor de suministros de oficina"
+                [(ngModel)]="enterpriseForm.actividad" />
+            </div>
+          </div>
+          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 mb-4 mt-4">
+            <label for="my-modal" (click)="saveInstitution()"
+              class="w-min text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 mr-2">
+              Guardar
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

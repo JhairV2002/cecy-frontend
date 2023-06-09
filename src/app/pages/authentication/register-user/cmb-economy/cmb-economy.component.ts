@@ -5,33 +5,31 @@ import { CatalogueService } from '@services/cecy';
 @Component({
   selector: 'app-cmb-economy',
   templateUrl: './cmb-economy.component.html',
-  styleUrls: ['./cmb-economy.component.css']
+  styleUrls: ['./cmb-economy.component.css'],
 })
-export class CmbEconomyComponent implements OnInit{
-  constructor(private CatalogueService: CatalogueService){}
+export class CmbEconomyComponent implements OnInit {
+  constructor(private CatalogueService: CatalogueService) { }
 
   listEconomies: Catalogue[] = [];
   @Output() idEmitter = new EventEmitter<number>();
-  @Input() id: number = 0;
+  @Input() id: number | undefined = 0;
 
   ngOnInit(): void {
-      this.findAll();
+    this.findAll();
   }
 
-  public findAll():void{
-    this.CatalogueService.findAll().subscribe(
-      (response) =>
+  public findAll(): void {
+    this.CatalogueService.findAll().subscribe((response) =>
       response.forEach((t) => {
         if (t.nombre == 'situacion_economica') {
-          this.listEconomies.push(t)
+          this.listEconomies.push(t);
         }
       })
-    )
+    );
   }
 
-  public onSelect(id: string ){
-    console.log("la economia es:" + id);
+  public onSelect(id: string) {
+    console.log('la economia es:' + id);
     this.idEmitter.emit(parseInt(id));
   }
-
 }

@@ -5,32 +5,31 @@ import { CatalogueService } from '@services/cecy';
 @Component({
   selector: 'app-cmb-etnia',
   templateUrl: './cmb-etnia.component.html',
-  styleUrls: ['./cmb-etnia.component.css']
+  styleUrls: ['./cmb-etnia.component.css'],
 })
 export class CmbEtniaComponent {
-  constructor(private CatalogueService : CatalogueService){}
+  constructor(private CatalogueService: CatalogueService) { }
 
   etnias: Catalogue[] = [];
   @Output() idEmitter = new EventEmitter<number>();
-  @Input() id: number = 0;
+  @Input() id: number | undefined = 0;
 
   ngOnInit(): void {
-      this.findAll();
+    this.findAll();
   }
 
-  public findAll():void{
-    this.CatalogueService.findAll().subscribe(
-      (response) =>
+  public findAll(): void {
+    this.CatalogueService.findAll().subscribe((response) =>
       response.forEach((t) => {
         if (t.nombre == 'etnia') {
-          this.etnias.push(t)
+          this.etnias.push(t);
         }
       })
-    )
+    );
   }
 
-  public onSelect(id: string ){
-    console.log("la etnia es:" + id);
+  public onSelect(id: string) {
+    console.log('la etnia es:' + id);
     this.idEmitter.emit(parseInt(id));
   }
 }

@@ -5,33 +5,31 @@ import { CatalogueService } from '@services/cecy';
 @Component({
   selector: 'app-cmb-inst-place',
   templateUrl: './cmb-inst-place.component.html',
-  styleUrls: ['./cmb-inst-place.component.css']
+  styleUrls: ['./cmb-inst-place.component.css'],
 })
 export class CmbInstPlaceComponent {
-  constructor(private CatalogueService: CatalogueService){}
+  constructor(private CatalogueService: CatalogueService) { }
 
   roles: Catalogue[] = [];
   @Output() idEmitter = new EventEmitter<number>();
-  @Input() id: number = 0;
+  @Input() id: number | undefined = 0;
 
   ngOnInit(): void {
-      this.findAll();
+    this.findAll();
   }
 
-  public findAll():void{
-    this.CatalogueService.findAll().subscribe(
-      (response) =>
+  public findAll(): void {
+    this.CatalogueService.findAll().subscribe((response) =>
       response.forEach((t) => {
         if (t.nombre == 'roles') {
-          this.roles.push(t)
+          this.roles.push(t);
         }
       })
-    )
+    );
   }
 
-  public onSelect(id: string ){
-    console.log("El rol es:" + id);
+  public onSelect(id: string) {
+    console.log('El rol es:' + id);
     this.idEmitter.emit(parseInt(id));
   }
-
 }

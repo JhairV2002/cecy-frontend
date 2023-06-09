@@ -8,29 +8,29 @@ import { CatalogueService } from '@services/cecy';
   styleUrls: ['./cmb-gender.component.css']
 })
 export class CmbGenderComponent implements OnInit {
-    constructor(private CatalogueService: CatalogueService){}
+  constructor(private CatalogueService: CatalogueService) { }
 
-    gender: Catalogue[] = [];
-    @Output() idEmitter = new EventEmitter<number>();
-    @Input() id: number = 0;
+  gender: Catalogue[] = [];
+  @Output() idEmitter = new EventEmitter<number>();
+  @Input() id: number | undefined = 0;
 
-    ngOnInit(): void {
-        this.findAll();
-    }
+  ngOnInit(): void {
+    this.findAll();
+  }
 
-    public findAll():void{
-      this.CatalogueService.findAll().subscribe(
-        (response) =>
+  public findAll(): void {
+    this.CatalogueService.findAll().subscribe(
+      (response) =>
         response.forEach((t) => {
           if (t.nombre == 'genero') {
             this.gender.push(t)
           }
         })
-      )
-    }
+    )
+  }
 
-    public onSelect(id: string ){
-      console.log("El sexo es:" + id);
-      this.idEmitter.emit(parseInt(id));
-    }
+  public onSelect(id: string) {
+    console.log("El sexo es:" + id);
+    this.idEmitter.emit(parseInt(id));
+  }
 }

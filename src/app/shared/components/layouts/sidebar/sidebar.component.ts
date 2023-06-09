@@ -225,7 +225,7 @@ export class SidebarComponent implements OnInit {
     public el: ElementRef,
     private authService: AuthService,
     private carreraService: CarrerasService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((user: any) => {
