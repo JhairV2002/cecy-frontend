@@ -11,6 +11,7 @@ export class VisualizationCoursesService {
   constructor(private http: HttpClient) { }
 
   private apiUrl = `${environment.api4}/api/courses`;
+  private apiUrl2 = `${environment.api4}/api/cursos`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -27,7 +28,7 @@ export class VisualizationCoursesService {
   }
 
   public findById(id: number): Observable<Course> {
-    return this.http.get<Course>(this.apiUrl + '/' + id, this.httpOptions);
+    return this.http.get<Course>(this.apiUrl2 + '/' + id, this.httpOptions);
   }
 
   // public deleteById(id: number): Observable<Sugerencia>{

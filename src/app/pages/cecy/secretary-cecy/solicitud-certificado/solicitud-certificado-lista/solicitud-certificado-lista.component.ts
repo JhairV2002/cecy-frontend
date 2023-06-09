@@ -11,6 +11,10 @@ import { CertificadoPdfServiceService } from '../certificado-pdf-service.service
 import { Certificado } from '../certificado';
 import { CodigosCertificadoService } from '../../codigos-certificado/codigos-certificado.service';
 import { CodigoCertificado } from '../../codigos-certificado/codigos-certificado';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
+import { CursoService } from '../../../responsible-execute/curso/curso.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-solicitud-certificado-lista',
@@ -29,21 +33,30 @@ export class SolicitudCertificadoListaComponent implements OnInit {
 
   solicitudCertificadoList: Matricula[] = [];
   matriculaList: Matricula[] = [];
-  certificadoList: SolicitudCertificado[] = [];
+  certificadoList: Matricula[] = [];
   checkedList: SolicitudCertificado[] = [];
   parentSelector: boolean = false;
   codigoList: CodigoCertificado[] = [];
+  certificateFilter: Certificado[]=[];
   certificadoEntity: Certificado = {
-    id: 0,
-    name: '',
-    certicadoId: [],
-    codigos: [],
+    id:0,
+    userId:0,
+    courseId:0,
+    tuitionId:0,
+    estado:'',
+    fecha: new Date()
   };
   codigoEntity: CodigoCertificado = {
     id: 0,
     codigo: '',
     estado: true,
   };
+  courses: Course ={
+    id: 0,
+  name: '',
+  image: '',
+  planificationId:0,
+  }
   ngOnInit(): void {
     this.findAll();
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -52,14 +65,19 @@ export class SolicitudCertificadoListaComponent implements OnInit {
       }
     });
   }
-
+  findById(id: number): void {
+    this.cursoService.findById(id).subscribe((response) => {
+      this.courses = response;
+    });
+  }
   public findAll(): void {
     this.solicitudCertificadoService.findAll().subscribe((response) => {
       this.solicitudCertificadoList = response;
-      console.log(this.solicitudCertificadoList);
+
       // this.buscarPersona();
       //this.buscarCurso();
       //this.findMatricula();
+      this.conteo();
     });
   }
   /*public findMatricula(): void {
@@ -105,20 +123,19 @@ export class SolicitudCertificadoListaComponent implements OnInit {
     )
   }*/
 
-  currentEntity: Course = {
-    id: 0,
-    name: '',
-    image: '',
-    planificationId: 0,
-  };
-
-  findById(id: number): void {
-    this.cursoService.findById(id).subscribe((response) => {
-      this.currentEntity = response;
-    });
+  public conteo(): void {
+    this.solicitudCertificadoList.forEach(
+      (certificado) => {
+        if (certificado.cursoId == this.courses.id) {
+        this.certificadoList.push(certificado)
+        }
+        }
+    )
   }
 
-  onChangeFood($event: { target: { value: any; checked: any } }) {
+
+
+  /*onChangeFood($event: { target: { value: any; checked: any } }) {
     const numeroId = $event.target.value;
     const isChecked = $event.target.checked;
     this.certificadoList = this.certificadoList.map((d) => {
@@ -135,7 +152,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
       }
       return d;
     });
-  }
+  }*/
 
   generarCertificados(): void {
     this.certificadoList.forEach((a) => {
@@ -170,6 +187,9 @@ export class SolicitudCertificadoListaComponent implements OnInit {
     });
   }
 
+
+
+
   public descarga(id: any) {
     this.certificadoPdf.descarga(id).subscribe((data) => {
       let dowloadURL = window.URL.createObjectURL(data);
@@ -179,4 +199,44 @@ export class SolicitudCertificadoListaComponent implements OnInit {
       link.click();
     });
   }
+
+
+
+  public generateCertificates():void {
+
+    this.certificadoList.forEach(
+      (res)=>{
+        this.certificadoEntity={
+
+          userId:res.estudiantes.id,
+          courseId:res.cursoId,
+          tuitionId:res.id,
+          estado:'generado',
+          fecha: new Date()
+        }
+        this.certificadoPdf.save(this.certificadoEntity).subscribe();
+      }
+
+    )
+  }
+  //falta completar
+  public validateCertificates(user:any, course:any): void{
+    this.certificadoPdf.findAll().subscribe(
+      (data)=>{
+        this.certificateFilter=data
+        this.certificateFilter.forEach(
+          (res)=>{
+            if(user == res.userId&& course==res.courseId){
+              console.log("se repiten ")
+            }else{
+              return;
+
+            }
+          }
+        )
+      }
+    )
+
+  }
+
 }

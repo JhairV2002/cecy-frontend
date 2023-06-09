@@ -37,9 +37,9 @@
     <div class="card-body items-center text-center">
       <h2 class="card-title">{{ course.name }}</h2>
 
-      <p>Matriculados 5</p>
+      <p>Matriculados: {{course.list}}</p>
       <div class="card-actions">
-        <a [routerLink]="['../curso-lista',course.id]" class="btn btn-primary">Acceder</a>
+        <a [routerLink]="['../curso-main',course.id]" class="btn btn-primary">Acceder</a>
       </div>
     </div>
   </p-card>
