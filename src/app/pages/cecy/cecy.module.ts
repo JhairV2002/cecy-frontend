@@ -15,7 +15,8 @@ import { EstudianteService } from './responsible-execute/notas/estudiante.servic
 import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     CecyRoutingModule,

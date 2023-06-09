@@ -1,23 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { MegaMenuItem } from 'primeng/api';
+import { PaginatorModel } from '@models/core';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
-import { Curso } from '@models/cecy/secretary-cecy';
+import { Course } from '@models/cecy/secretary-cecy';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 @Component({
   selector: 'app-panel-curso',
   templateUrl: './panel-curso.component.html'
 })
 export class PanelCursoComponent implements OnInit {
+
   constructor(
-    private visualizationCoursesService: VisualizationCoursesService
+    private visualizationCoursesService: VisualizationCoursesService,
+    private planificationCourse: PlanificationsCoursesService
   ) {}
 
-  cursoList: Curso[] = [];
+  courses: Course[] = [];
   ngOnInit(): void {
     this.findAll();
   }
 
   public findAll(): void {
-    this.visualizationCoursesService.findAll().subscribe((response: any) => {
-      this.cursoList = response;
+    this.visualizationCoursesService.getviewCourses().subscribe((response: any) => {
+      this.courses = response;
+      this.nameCourse()
     });
+  }
+
+  public nameCourse(): void {
+    this.courses.forEach(
+      (solicitud) => {
+        this.planificationCourse.planificationById(
+          solicitud.planificationId
+        ).subscribe(
+          (course) => {
+            solicitud.name = course.name;
+          }
+        )
+      }
+    )
   }
 }

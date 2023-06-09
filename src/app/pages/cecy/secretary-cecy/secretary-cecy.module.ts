@@ -16,6 +16,9 @@ import { ReporteComponent } from './reporte/reporte.component';
 import { HomeComponent } from './home/home.component';
 import { PanelCursoComponent } from './panel-curso/panel-curso.component';
 import { SearchCursoComponent } from './panel-curso/search-curso/search-curso.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { SearchCursoComponent } from './panel-curso/search-curso/search-curso.co
     HomeComponent,
     PanelCursoComponent,
     SearchCursoComponent,
+
   ],
-  imports: [CommonModule, SecretaryCecyRoutingModule, SharedModule],
+  imports: [CommonModule, SecretaryCecyRoutingModule, SharedModule,PaginatorModule,CardModule,TableModule],
 })
 export class SecretaryCecyModule {}

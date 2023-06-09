@@ -163,7 +163,6 @@ const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'estudiante',
     component: EstudiantesComponent,
@@ -182,6 +181,7 @@ const routes: Routes = [
         },
         canActivate: [TokenGuard, RoleGuard], */
       },
+
     ],
   },
 ];
