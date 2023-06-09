@@ -1,3 +1,4 @@
+// curso.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Curso } from './curso';
 import { CursoService } from './curso.service';
@@ -11,12 +12,13 @@ export class CursoComponent implements OnInit {
   cursos: Curso[] = [];
   cursosFiltrados: Curso[] = [];
   filtroNombre: string = '';
+  ascendingOrder: boolean = true;
 
   constructor(
     private cursoService: CursoService,
     private activateRouter: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.cursoService.getCursos().subscribe((cursos) => {
@@ -41,9 +43,16 @@ export class CursoComponent implements OnInit {
     }
   }
 
-  redireccionar(cursoId: number) {
-    this.router.navigate([
-      `cecy/responsible-execute/notas/estudiante/${cursoId}`,
-    ]);
+  sortCards() {
+    this.cursosFiltrados.sort((a, b) =>
+      this.ascendingOrder
+        ? a.planification.name.localeCompare(b.planification.name)
+        : b.planification.name.localeCompare(a.planification.name)
+    );
+    this.ascendingOrder = !this.ascendingOrder;
+  }
+
+  redireccionar() {
+    this.router.navigate(['cecy/responsible-execute/notas/estudiante']);
   }
 }
