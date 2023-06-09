@@ -1,118 +1,87 @@
-<div class="grid">
-
-  <div class="background1">
-      <h1 class=" p-7 text-2xl font-bold align-middle">Registrar Asistencia</h1>
-<!--     <div class="text-sm breadcrumbs">
-      <ul>
-        <li><a>Curso</a></li>
-        <li><a>Asistencia</a></li>
-        <li>Fecha</li>
-      </ul>
-    </div> -->
+<div class="botones">
+  <button class="btn btn-accent" routerLink="../asistencia">Regresar</button>&nbsp;
+  <!-- <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp; -->
+</div>
+<br />
+<h2>LISTA DE ESTUDIANTES</h2>
+<br />
+<div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50" rows="5" cols="35">
+  <br />
+  <a class="text-black">P=PRESENTE</a>&nbsp;
+  <a class="text-black">A=AUSENTE</a>&nbsp;
+  <a class="text-black">FJ=FALTA JUSTIFICADA</a>
+</div>
+<div class="relative overflow-x-auto shadow-md">
+  <div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
     <br />
-    <div class="botones">
-      <button class="btn btn-accent" routerLink="../curso">Regresar</button>&nbsp;
-      <button class="btn btn-accent">Refrescar</button>&nbsp;
-      <label for="my-modal-ca-6" fill="none" class="btn border-transparent btn-info">Crear </label>&nbsp;
-      <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-          <h3 class="font-bold text-lg">Crear Asistencia</h3>
-
-          <div class="form-control">
-            <!-- <button type="button" class="btn-close" aria-label="Close">X</button> -->
-            <label class="nota py-2.5">Duracion:</label>
-            <input type="number" placeholder="Horas de clase" class="input input-bordered input-md" min="1" max="12">
-          </div>
-
-          <div class="form-control">
-            <label class="nota py-2.5">Fecha:</label>
-            <input type="date" class="input input-bordered input-md" />
-          </div>
-          <div class="modal-action">
-            <label for="my-modal-ca-6" class="btn bg-secondary w-full border-transparent">Crear</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br/>
-
-    <div class="overflow-x">
-      <table class="table w-full">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Acciones</th>
+    <br />
+    <div
+      class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 group bg-white-100 shadow-xs rounded-box">
+      <table class="table w-full group shadow-xs rounded-box">
+        <thead class="bg-white">
+          <tr class="text-lg text-white">
+            <th>Nombres</th>
+            <th>P</th>
+            <th>A</th>
+            <th>FJ</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>01/02/2023</td>
+        <tbody class="text-lg text-white">
+          <tr *ngFor="let estudiante of estudiantes$ | async">
+            <th>{{ estudiante.estudiantes.nombres }}</th>
             <td>
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-primary border-transparent">
-                <button (click)="listadofecha()"> <i class="pi pi-check"></i></button>
-              </label>&nbsp;
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent">
-                <button (click)="registrofotografico()"><i class="fa fa-file"></i></button>
-              </label>
+              <input type="radio" [name]="estudiante.id" class="form-check-input" />
             </td>
-          </tr>
-          <tr>
-            <td>02/02/2023</td>
             <td>
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-primary border-transparent">
-                <button (click)="listadofecha()"> <i class="pi pi-check"></i></button>
-              </label>&nbsp;
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent">
-                <button (click)="registrofotografico()"> <i class="pi pi-check"></i></button>
-              </label>
+              <input type="radio" [name]="estudiante.id" class="form-check-input" />
             </td>
-          </tr>
-          <tr>
-            <td>03/02/2023</td>
             <td>
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-primary border-transparent">
-                <button (click)="listadofecha()"> <i class="pi pi-check"></i></button>
-              </label>&nbsp;
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent">
-                <button (click)="registrofotografico()"> <i class="pi pi-check"></i></button>
-              </label>
-          </tr>
-          <tr>
-            <td>04/02/2023</td>
-            <td>
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-primary border-transparent">
-                <button (click)="listadofecha()"> <i class="pi pi-check"></i></button>
-              </label>&nbsp;
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent">
-                <button (click)="registrofotografico()"> <i class="pi pi-check"></i></button>
-              </label>
-          </tr>
-          <tr>
-            <td>05/02/2023</td>
-            <td>
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-primary border-transparent">
-                <button (click)="listadofecha()"> <i class="pi pi-check"></i></button>
-              </label>&nbsp;
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent">
-                <button (click)="registrofotografico()"> <i class="pi pi-check"></i></button>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>08/02/2023</td>
-            <td>
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-primary border-transparent">
-                <button (click)="listadofecha()"> <i class="pi pi-check"></i></button>
-              </label>&nbsp;
-              <label for="my-modal-6" fill="none" class="btn btn-circle bg-error border-transparent">
-                <button (click)="registrofotografico()"> <i class="pi pi-check"></i></button>
-              </label>
+              <input type="radio" [name]="estudiante.id" class="form-check-input" />
             </td>
           </tr>
         </tbody>
       </table>
+      <!-- {{ estudiantes$ | async | json }} -->
+      <!-- <table> -->
+      <!--   <tbody> -->
+      <!--     <tr -->
+      <!--       class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"> -->
+      <!--       <th *ngFor="let estudiante of estudiantes$ | async" scope="row" -->
+      <!--         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white"> -->
+      <!--         {{ -->
+      <!--         estudiante.estudiantes -->
+      <!--         ? estudiante.estudiantes.nombres -->
+      <!--         : "sin datos" -->
+      <!--         }} -->
+      <!--       </th> -->
+      <!--     </tr> -->
+      <!--   </tbody> -->
+      <!-- </table> -->
     </div>
   </div>
-
+  <div class="form-group">
+    <label with px-2 class="text-lg text-black">Observaciones:</label>
+    <br />
+    <textarea placeholder="Ingrese las obervaciones desarrolladas durante la clase" name="observaciones" rows="5"
+      cols="35"></textarea>
+  </div>
+  <br />
+  <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
+    <p class="text-lg text-black">
+      Suba la evidencia fotografica de la clase:
+      <input type="file" name="archivosubido" />&nbsp;
+    </p>
+    <h5>Formatos admitidos:JPG y PNG</h5>
+  </form>
+  <br />
+  <label for="my-modal-ca-6" fill="none" class="btn btn-accent">GUARDAR </label>&nbsp;
+  <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
+  <!-- <div class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box block text-white bg-blue-700  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-rigth ">
+    <h3 class="font-bold text-lg text-white text-center " >SE REGISTRO CORRECTAMENTE</h3>
+    <div class="modal-action">
+      <label for="my-modal-ca-6" class="btn btn-accent" routerLink="../asistencia" >ACEPTAR</label>
+    </div>
+  </div>
+</div> -->
 </div>
