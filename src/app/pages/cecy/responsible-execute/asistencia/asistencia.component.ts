@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AsistenciaService } from './asistencia.service';
 import { Asistencia } from './asistencia.model';
 import { map, switchMap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-asistencia',
@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class AsistenciaComponent implements OnInit {
   constructor(
     private AsistenciaService: AsistenciaService,
-    private router: ActivatedRoute
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) { }
   ngOnInit(): void {
     this.AsistenciaService.obtenerEstudiantes().subscribe(
@@ -27,7 +28,7 @@ export class AsistenciaComponent implements OnInit {
 
   asistencias: Asistencia[] | null = null;
 
-  estudiantes$ = this.router.paramMap.pipe(
+  estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((params) =>
       this.AsistenciaService.obtenerMatriculasPorId(
         Number(params.get('cursoId')!)
@@ -39,4 +40,12 @@ export class AsistenciaComponent implements OnInit {
       this.asistencias = data;
     });
   } */
+
+  redireccionar() {
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.router.navigate([
+        `cecy/responsible-execute/fecha/${param.get('cursoId')}`,
+      ]);
+    });
+  }
 }
