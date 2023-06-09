@@ -14,7 +14,7 @@ export class EstudianteDetallesComponent implements OnInit {
     private estudianteService: EstudiantesServiceService,
     private router: ActivatedRoute,
     private route: Router
-  ) { }
+  ) {}
 
   matricula!: Matricula;
   search: string = '';
@@ -44,7 +44,7 @@ export class EstudianteDetallesComponent implements OnInit {
   updateMatricula() {
     if (this.matricula.observaciones!.find((it) => it.completado === false)) {
       this.matricula.estadoMatricula = {
-        descripcion: 'Con Observaciones',
+        descripcion: 'Con observaciones',
       };
       console.log(this.matricula);
     } else {

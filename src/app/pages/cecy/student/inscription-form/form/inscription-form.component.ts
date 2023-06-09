@@ -8,6 +8,7 @@ import { switchMap } from 'rxjs';
 import { CursosService } from '@services/cecy/cursos';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { Estudiantes } from '@models/cecy/estudiantes/carreras';
+import { MatriculaService } from '@services/cecy/matricula.service';
 
 @Component({
   selector: 'app-inscription-form',
@@ -21,8 +22,9 @@ export class InscriptionFormComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private estudiantesService: EstudiantesService,
-    private cursosService: CursosService
-  ) {}
+    private cursosService: CursosService,
+    private matriculaService: MatriculaService
+  ) { }
 
   estudiantes$ = this.estudiantesService.obtenerEstudiantes();
 
@@ -82,8 +84,10 @@ export class InscriptionFormComponent implements OnInit {
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
 
-    // console.log('id User', this.user.id);
-    // const id = this.user.id;
+    this.matriculaService.guardarMatricula(this.matricula).subscribe(
+      res => console.log(res)
+    )
+
     // this.inscriptionService.save(this.initialForm).subscribe(() => {
     //   this.initialForm = {
     //     id: 0,
@@ -113,5 +117,5 @@ export class InscriptionFormComponent implements OnInit {
     });
   }
 
-  cancelar(): void {}
+  cancelar(): void { }
 }

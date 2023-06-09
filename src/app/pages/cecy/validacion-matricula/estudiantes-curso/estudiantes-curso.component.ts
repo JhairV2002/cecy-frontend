@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { CursosService } from '@services/cecy/cursos';
 import { map, switchMap } from 'rxjs';
 
@@ -12,11 +13,12 @@ export class EstudiantesCursoComponent {
   constructor(
     private router: ActivatedRoute,
     private cursoService: CursosService
-  ) {}
+  ) { }
 
   search: string = '';
   estudiantes = [];
   tipoEstudiante!: 'Interno' | 'Externo';
+
 
   estudiantes$ = this.router.paramMap.pipe(
     switchMap((param) =>

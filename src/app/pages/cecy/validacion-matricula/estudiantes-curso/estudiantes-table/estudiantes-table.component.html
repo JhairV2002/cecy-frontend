@@ -18,7 +18,13 @@
         <th>{{ estudiante.estudiantes!.nombres }}</th>
         <th>{{ estudiante.estudiantes!.apellidos }}</th>
         <th>{{ estudiante.estudiantes!.tipoEstudiante.descripcion }}</th>
-        <th>{{ estudiante.estadoMatricula.descripcion }}</th>
+        <th>
+          {{
+            estudiante.estadoMatricula.descripcion
+              ? estudiante.estadoMatricula.descripcion
+              : "Sin datos"
+          }}
+        </th>
         <th>
           <button class="btn btn-accent">
             <a routerLink="{{ estudiante.id }}">Detalles</a>
