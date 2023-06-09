@@ -1,3 +1,6 @@
+import { Catalogue } from '../catalogue';
+import { Inscription } from '../inscription';
+
 export interface CarrerasApi {
   id: number;
   name: string;
@@ -81,29 +84,18 @@ export interface Planification {
 }
 
 export interface Matricula {
-  id: number;
-  cursoId: number;
-  nota1: any;
-  nota2: any;
-  promedio: any;
-  porcentajeAsistencia: any;
-  observaciones: any[];
-  estadoMatricula: EstadoMatricula;
-  estadoCurso: EstadoCurso;
-  asistencias: any[];
-  estudiantes: Estudiantes;
-}
-
-export interface EstadoMatricula {
   id?: number;
-  nombre?: string;
-  descripcion: string;
-}
-
-export interface EstadoCurso {
-  id: number;
-  nombre: string;
-  descripcion: string;
+  cursoId: number;
+  nota1?: any;
+  nota2?: any;
+  promedio?: any;
+  porcentajeAsistencia?: any;
+  observaciones?: any[];
+  estadoMatricula: Catalogue;
+  estadoCurso: Catalogue;
+  asistencias?: any[];
+  estudiantes: Estudiantes | null;
+  formInscription: Inscription | null;
 }
 
 export interface Estudiantes {

@@ -4,40 +4,46 @@ import { CatalogueService } from '@services/cecy';
 
 @Component({
   selector: 'app-cmb-publicity',
-  templateUrl: './cmb-publicity.component.html'
+  templateUrl: './cmb-publicity.component.html',
 })
 export class CmbPublicityComponent implements OnInit {
-  constructor(private catalogueService: CatalogueService){}
+  constructor(private catalogueService: CatalogueService) {}
 
   publicities: Catalogue[] = [];
-  @Output() idEmitter = new EventEmitter<number>();
+  @Output() publicity = new EventEmitter<any>();
   @Input() id: number = 0;
-  roles: string = 'roles'
+  @Input() nombre!: string;
+  roles: string = 'roles';
 
   ngOnInit(): void {
-      this.findByCode();
+    this.findByNombre();
   }
 
-  public findAll():void{
-    this.catalogueService.findAll().subscribe(
-      (response) =>
-        this.publicities = response
-    )
+  public findAll(): void {
+    this.catalogueService
+      .findAll()
+      .subscribe((response) => (this.publicities = response));
   }
 
   public findByCode(): void {
-    this.catalogueService.findAll().subscribe(
-      (response) =>
+    this.catalogueService.findAll().subscribe((response) =>
       response.forEach((t) => {
         if (t.nombre == 'publicidad') {
-          this.publicities.push(t)
+          this.publicities.push(t);
         }
       })
-    )
+    );
   }
 
-  public onSelect(id: string ){
-    this.idEmitter.emit(parseInt(id));
+  public onSelect(publicity: any) {
+    console.log(publicity);
+    this.publicity.emit(JSON.parse(publicity));
   }
 
+  findByNombre() {
+    this.catalogueService.findByNombre(this.nombre).subscribe((res) => {
+      this.publicities = res;
+      console.log(res);
+    });
+  }
 }

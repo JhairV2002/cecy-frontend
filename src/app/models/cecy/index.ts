@@ -60,3 +60,6 @@ export {
   Course,
   Planification,
 } from './estudiantes/carreras';
+
+export { Estudiantes } from './estudiantes';
+

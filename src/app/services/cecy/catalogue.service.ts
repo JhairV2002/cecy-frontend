@@ -4,12 +4,12 @@ import { Catalogue } from '@models/cecy';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CatalogueService {
   constructor(private http: HttpClient) {}
   private httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
   private url: string = 'http://localhost:8080/api/catalogos';
@@ -20,5 +20,9 @@ export class CatalogueService {
 
   public findAll(): Observable<Catalogue[]> {
     return this.http.get<Catalogue[]>(`${this.url}/`, this.httpOptions);
+  }
+
+  public findByNombre(nombre: string): Observable<Catalogue[]> {
+    return this.http.get<Catalogue[]>(`${this.url}/findByNombre/${nombre}/`);
   }
 }

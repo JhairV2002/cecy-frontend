@@ -3,14 +3,32 @@
   <div class="flex flex-wrap w-screen gap-3">
     <mat-tab-group class="w-2/4">
       <mat-tab label="Resumen">
-        {{ (curso$ | async)!.planification.name }}
+        {{ (curso$ | async)!.summary }}
       </mat-tab>
       <mat-tab label="Contenido">
         <ul>
-          <li>{{ (curso$ | async)!.planification.name }}</li>
+          <li>{{ (curso$ | async)!.teachingStrategies }}</li>
         </ul>
       </mat-tab>
-      <mat-tab label="Horarios"> Content 3 </mat-tab>
+      <mat-tab label="Requisitos">
+        <h3>Requisitos Tecnicos</h3>
+        <ul>
+          <li *ngFor="
+              let requisito of (curso$ | async)!.techniquesRequisites.technical
+            ">
+            {{ requisito }}
+          </li>
+        </ul>
+
+        <h3>Requisitos Generales</h3>
+        <ul>
+          <li *ngFor="
+              let requisito of (curso$ | async)!.techniquesRequisites.general
+            ">
+            {{ requisito }}
+          </li>
+        </ul>
+      </mat-tab>
     </mat-tab-group>
     <app-curso-card [curso]="(curso$ | async)!.planification" [butonText]="'Inscribirse'"></app-curso-card>
   </div>

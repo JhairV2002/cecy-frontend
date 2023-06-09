@@ -14,7 +14,7 @@ export class EstudianteDetallesComponent implements OnInit {
     private estudianteService: EstudiantesServiceService,
     private router: ActivatedRoute,
     private route: Router
-  ) {}
+  ) { }
 
   matricula!: Matricula;
   search: string = '';
@@ -34,7 +34,7 @@ export class EstudianteDetallesComponent implements OnInit {
 
   handleAgregarObservacion() {
     this.matricula.observaciones = [
-      ...this.matricula.observaciones,
+      ...this.matricula.observaciones!,
       this.observationForm,
     ];
     console.log(this.matricula.observaciones);
@@ -42,7 +42,7 @@ export class EstudianteDetallesComponent implements OnInit {
   }
 
   updateMatricula() {
-    if (this.matricula.observaciones.find((it) => it.completado === false)) {
+    if (this.matricula.observaciones!.find((it) => it.completado === false)) {
       this.matricula.estadoMatricula = {
         descripcion: 'Con Observaciones',
       };

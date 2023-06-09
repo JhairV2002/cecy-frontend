@@ -46,8 +46,11 @@ export class CursoPageComponent {
     switchMap((params) =>
       this.cursosService
         .getCarrerasById(parseInt(params.get('id')!))
-        .pipe(map((res) => res.planificationCourse))
+        .pipe(
+          map((res) =>
+            res.planificationCourse.filter((res) => res.state === 'aprobado')
+          )
+        )
     )
   );
-
 }
