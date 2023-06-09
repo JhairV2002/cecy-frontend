@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'mis-cursos', component: CursoComponent },
   { path: 'notas/estudiante/:cursoId', component: EstudiantesComponent },
   { path: 'asistencia/:cursoId', component: AsistenciaComponent },
-  { path: 'fecha', component: FechaComponent },
+  { path: 'fecha/:cursoId', component: FechaComponent },
   { path: 'registro-fotografico', component: RegistroFotograficoComponent },
   //{ path: 'course-form', component: CourseFormComponent },
 ];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class FechaComponent {
   constructor(
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
   }
 
@@ -43,5 +44,13 @@ export class FechaComponent {
     ]);
   }
   guardarfecha(fecha: any) {
+  }
+
+  redireccionar() {
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.router.navigate([
+        `cecy/responsible-execute/asistencia/${param.get('cursoId')}`,
+      ]);
+    });
   }
 }
