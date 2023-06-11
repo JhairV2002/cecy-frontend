@@ -29,7 +29,7 @@ export class CourseListComponent implements OnInit, OnChanges {
   search: string = '';
   paginator: PaginatorModel = {};
 
-  courses: PlanificationCoursesCoordinatorCecy[] = [];
+  courses: any[] = [];
   @Input() stateAprooved: any = [];
   stateProcess: any = [];
 
@@ -139,6 +139,7 @@ export class CourseListComponent implements OnInit, OnChanges {
     });
   }
   goToPlanifications(id: number) {
-    this.router.navigate(['/cecy/coordinator-cecy/course/visualization/' + id]);
+    this.router.navigate(['/cecy/responsible-course/course/edit/' + id]);
+    // /cecy/responsible-course/course/edit/2
   }
 }

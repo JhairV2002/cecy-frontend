@@ -1,0 +1,80 @@
+<body>
+  <div class="botones">
+    <button class="btn btn-accent" (click)="nota()">Regresar</button>&nbsp;
+    <label for="my-modal-ca-6" fill="none" class="btn btn-accent">Crear </label>&nbsp;
+    <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle">
+      <div
+        class="modal-box block text-white group bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
+        <h3 class="font-bold text-lg  light:text-black">Crear Asistencia</h3>
+        <div class="form-control">
+          <label class="nota py-2.5 text-lg text-black">Duracion:</label>
+          <input type="number" placeholder="Horas de clase"
+            class="input input-bordered input-md text-black bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50"
+            min="1" max="12" />
+        </div>
+        <div class="form-control">
+          <label class="nota py-2.5 text-lg text-black">Fecha:</label>
+          <input type="date"
+            class="input input-bordered input-md text-black bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50" />
+        </div>
+        <div class="modal-action">
+          <button type="button"
+            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+            data-modal-hide="popup-modal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <label for="my-modal-ca-6"
+            class="btn  w-full border-transparent bg-black border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">Crear</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <h2 class="text-3xl font-bold light:text-black text-rigth" id="titulo">
+    Registro de Asistencia
+  </h2>
+  <br>
+  <div class="relative overflow-x-auto shadow-md">
+    <br />
+    <br />
+    <br />
+    <!-- <input type="text" [(ngModel)]="filtroFecha" placeholder="Buscar por fecha"
+      class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600" /> -->
+
+    <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-25 light:text-gray-400">
+        <br />
+        <br />
+        <br />
+        <tr>
+          <th scope="col" class="px-6 py-3">FECHAS</th>
+          <th scope="col" class="px-6 py-3"><button pripple="" type="button" icon="pi pi-cog"
+              class="p-element p-ripple p-button-rounded p-button-secondary p-button p-component p-button-icon-only"
+              ng-reflect-icon="pi pi-cog"><span class="p-button-icon pi pi-cog" aria-hidden="true"></span></button></th>
+        </tr>
+        <br />
+        <br />
+        <tr *ngFor="let fecha of fechas"
+          class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
+            {{ fecha.fecha }}
+          </th>
+          <td>
+            <label for="my-modal-6" fill="none">
+              <button (click)="redireccionar()" icon="pi pi-pencil"
+                class="p-element p-ripple p-button-rounded p-button-warning p-button p-component p-button-icon-only"
+                ng-reflect-icon="pi pi-pencil"><span class="p-button-icon pi pi-pencil"
+                  aria-hidden="true"></span></button>
+            </label>&nbsp;
+        </tr>
+      </thead>
+    </table>
+  </div>
+</body>

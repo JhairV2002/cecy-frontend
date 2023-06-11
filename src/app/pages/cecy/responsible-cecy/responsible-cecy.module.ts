@@ -44,6 +44,7 @@ import { SchoolPeriodFormComponent } from './school-period/school-period-form/sc
 import { SchoolPeriodListComponent } from './school-period/school-period-list/school-period-list.component';
 import { DetailSchoolPeriodListComponent } from './detail-school-period/detail-school-period-list/detail-school-period-list.component';
 import { DetailSchoolPeriodFormComponent } from './detail-school-period/detail-school-period-form/detail-school-period-form.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -66,6 +67,7 @@ import { DetailSchoolPeriodFormComponent } from './detail-school-period/detail-s
         KpiRegistrationManagementComponent,
         HistoricRegistrationManagementFormComponent,
         HistoricRegistrationManagementListComponent,
+        HomeComponent,
     ],
     exports: [
     ],

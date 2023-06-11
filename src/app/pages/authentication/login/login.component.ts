@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       next: (user) => {
         if (user) {
           this.profile = user[0];
+          console.log(this.profile)
           this.redirect();
         }
       },
@@ -62,6 +63,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirect() {
+    console.log('redirect ', this.profile.role.name)
     switch (this.profile.role.name) {
       case 'admin':
         this.router.navigate(['/administrator']);
@@ -72,10 +74,17 @@ export class LoginComponent implements OnInit {
       case 'coordinator_cecy':
         this.router.navigate(['/cecy/coordinator-cecy']);
         break;
+      case 'instructor_execute':
+        this.router.navigate(['/cecy/responsible-execute']);
+        break;
+      case 'secretary_cecy':
+        this.router.navigate(['/cecy/secretary-cecy']);
+        break;
       case 'public_company':
         this.router.navigate(['/example']);
         break;
       case 'responsible_course':
+        console.log('redirigiendo a /cecy/responsible-course')
         this.router.navigate(['/cecy/responsible-course']);
         break;
       case 'responsible_cecy':

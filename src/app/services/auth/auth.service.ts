@@ -20,6 +20,7 @@ export class AuthService {
   user$ = this.user.asObservable();
   userProfile$ = new BehaviorSubject<User | null>(null);
 
+
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   login(user: User) {
@@ -45,7 +46,7 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    return this.http.get<Planification[]>(`${this.apiUrl2}/my`);
+    return this.http.get<any[]>(`${this.apiUrl2}/my`);
   }
 
   getProfile() {

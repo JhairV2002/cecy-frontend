@@ -10,18 +10,12 @@ import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
-
-//import { ResponsibleExecutionComponent } from './responsible-execution/responsible-execution/responsible-execution.component';
-//import { AssistanceComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/assistance.component';
-//import { DateListComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/date-list/date-list/date-list.component';
-//import { PhotographicRecordComponent } from './responsible-execution/responsible-execution/responsible-assistance/assistance/photographic-record/photographic-record/photographic-record.component';
+import { ValidacionMatriculaModule } from './validacion-matricula/validacion-matricula.module';
+import { EstudianteService } from './responsible-execute/notas/estudiante.service';
+import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
 
 @NgModule({
   declarations: [
-    /*ResponsibleExecutionComponent,
-    AssistanceComponent,
-    DateListComponent,
-    PhotographicRecordComponent*/
   ],
   imports: [
     CommonModule,
@@ -36,7 +30,8 @@ import { DropdownModule } from 'primeng/dropdown';
     RippleModule,
     PasswordModule,
     DropdownModule,
+    ValidacionMatriculaModule,
   ],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [{ provide: Window, useValue: window }, EstudianteService],
 })
-export class CecyModule {}
+export class CecyModule { }

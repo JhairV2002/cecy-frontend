@@ -4,7 +4,7 @@ export interface Careers {
   planificationCourse: Planification;
 }
 
-export interface getCareerDTO extends Omit<Careers, 'planificationCourse'>{}
+export interface getCareerDTO extends Omit<Careers, 'planificationCourse'> {}
 
 export interface Planification {
   id: number;
@@ -19,23 +19,3 @@ export interface Planification {
   roleId: Role;
   courseId: Course; */
 }
-
-/* export interface Teacher {
-  id: number;
-  name: string;
-}
-
-export interface Career {
-  id: number;
-  name: string;
-}
-
-export interface Role {
-  id: number;
-  name: string;
-}
-
-export interface Course {
-  id: number;
-  name: string;
-} */

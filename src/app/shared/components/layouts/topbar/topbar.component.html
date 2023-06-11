@@ -27,6 +27,24 @@
     <i class="pi pi-ellipsis-v"></i>
   </button>
 
+  <!-- <i
+    class="pi pi-bell mr-4 p-text-secondary"
+    pBadge
+    style="font-size: 2rem"
+    value="2"
+  ></i>
+
+  <p-sidebar [(visible)]="sidebarVisible">
+    <h3>Sidebar</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.
+    </p>
+  </p-sidebar>
+  <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button> -->
+
   <div
     #topbarmenu
     class="layout-topbar-menu"
@@ -35,10 +53,6 @@
         layoutService.state.profileSidebarVisible
     }"
   >
-    <!-- <button class="p-link layout-topbar-button mr-6" (click)="visibleSidebar = true">
-      <i class="pi pi-bell"></i>
-      <span>Notificaciones</span>
-    </button> -->
     <p-sidebar
       [(visible)]="visibleSidebar"
       position="right"
@@ -52,54 +66,7 @@
         {{ user?.names }}
       </p>
     </a>
-    <!-- <div class="drop-down-menu" *ngFor="let item of customer">
-      <a class="p-link profile drop-down-button mr-5">
-        <i class="pi pi-user"></i>
-        <p class="ml-1 ">
-          {{ item.customer.name }}
-        </p>
-      </a>
-      <div class="drop-down-menu-content">
-        <a>
-          <div class="flex flex-row">
-            <img
-              width="25"
-              height="25"
-              src="assets/images/components/default.png"
-              alt="Imagen de perfil"
-              class="mr-4"
-            />
-            <p class="m-0">
-              {{ item.customer.name + " " + item.customer.lastname }}
-            </p>
-          </div>
-        </a>
-        <a>
-          <p>{{ item.role }}</p>
-        </a>
-        <a href="#">
-          <i class="pi pi-user"></i>
-          Perfil
-        </a>
-        <a href="#">
-          <i class="pi pi-cog"></i>
-          Configuración
-        </a>
-      </div>
-    </div> -->
-    <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
-      <i class="pi pi-cog"></i>
-      <span>Configuraciones</span>
-    </button> -->
-    <!-- <div class="ml-3 image-profile">
-      <img
-        width="40"
-        height="40"
-        class="mr-2"
-        src="assets/images/components/default.png"
-        alt="Imagen de perfil"
-      />
-    </div> -->
+
     <button class="p-link layout-topbar-button" (click)="onlogout()">
       <i class="pi pi-fw pi-sign-out"></i>
       <span>Salir</span>

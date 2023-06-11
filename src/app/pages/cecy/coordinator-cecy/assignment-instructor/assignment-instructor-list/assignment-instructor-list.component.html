@@ -8,10 +8,10 @@
 <button pButton type="button" label="Primary"
 class="p-button-rounded"></button>  -->
 
-<div class="container">
+<div class="">
     <p-toolbar>
       <div class="p-toolbar-group-left">
-        <button *ngIf="selectedUsers?.length" pButton pRipple type="button" 
+        <button *ngIf="selectedUsers?.length" pButton pRipple type="button"
               label="Agregar"
               class="p-button-success p-button-rounded" icon="pi pi-plus"
               (click)="redirect()"></button>
@@ -64,7 +64,7 @@ class="p-button-rounded"></button>  -->
                     {{rowData['email']}}
                 </td>
                 <td class="text-center">
-                  <p-button icon="pi pi-pencil"  
+                  <p-button icon="pi pi-pencil"
                   (click)="storeInstructor(rowData)"></p-button>
                       </td>
                 </tr>

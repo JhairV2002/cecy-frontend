@@ -6,6 +6,7 @@ import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
 import { User } from '@models/authentication';
+import { CarrerasService } from 'src/app/pages/cecy/validacion-matricula/services/carreras.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,19 +15,54 @@ import { User } from '@models/authentication';
 })
 export class SidebarComponent implements OnInit {
   display = false;
+  // carreras$ = this.carreraService.getAllCarreras().pipe(
+  //   map((res) => {
+  //     let routes: any[] = [];
+  //     res.forEach((it) => {
+  //       routes = [
+  //         ...routes,
+  //         {
+  //           items: [
+  //             {
+  //               label: it.nombre,
+  //               icon: '',
+  //               routerLink: `/cecy/validacion-matricula/delegado/${it.nombre}`,
+  //             },
+  //           ],
+  //         },
+  //       ];
+  //     });
+  //     return routes;
+  //   })
+  // );
   itemsAdmin: MenuItem[] = [
     {
-      label: 'Admnistrador',
+      label: 'Administrador',
       items: [
         {
-          label: 'Dashboard',
-          icon: 'pi pi-chart-pie',
-          routerLink: '/user-administration/dashboard',
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/administrator/home',
         },
         {
           label: 'Usuarios',
-          icon: 'pi pi-user',
-          routerLink: ['/user-administration/admin'],
+          icon: 'fa-solid fa-users-line',
+          routerLink: ['/administrator/users'],
+        },
+        {
+          label: 'Roles',
+          icon: 'fa-solid fa-users-gear',
+          routerLink: ['/administrator/roles'],
+        },
+        {
+          label: 'Carreras',
+          icon: 'fa-solid fa-graduation-cap',
+          routerLink: ['/administrator/careers'],
+        },
+        {
+          label: 'Estudiantes',
+          icon: 'fa-solid fa-school',
+          routerLink: ['/administrator/students'],
         },
       ],
     },
@@ -34,14 +70,19 @@ export class SidebarComponent implements OnInit {
       label: 'Coordinador de Carrera',
       items: [
         {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/coordinator-career/home',
+        },
+        {
           label: 'Dashboard',
-          icon: 'pi pi-chart-pie',
+          icon: 'fa-solid fa-chart-line',
           routerLink: '/cecy/coordinator-career/dashboard',
         },
         {
-          label: 'Cursos',
-          icon: 'pi pi-check-square',
-          routerLink: ['/cecy/coordinator-career/course'],
+          label: 'Planificacion cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/coordinator-career/planification'],
         },
       ],
     },
@@ -49,8 +90,13 @@ export class SidebarComponent implements OnInit {
       label: 'Coordinador del cecy',
       items: [
         {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/coordinator-cecy/home',
+        },
+        {
           label: 'Cursos',
-          icon: 'pi pi-check-square',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/coordinator-cecy/course'],
         },
       ],
@@ -59,9 +105,14 @@ export class SidebarComponent implements OnInit {
       label: 'Docente responsable',
       items: [
         {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/responsible-course/home',
+        },
+        {
           label: 'Tus cursos',
-          icon: 'pi pi-check-square',
-          routerLink: ['/cecy/responsible-course'],
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/responsible-course/my-courses'],
         },
       ],
     },
@@ -71,14 +122,19 @@ export class SidebarComponent implements OnInit {
       label: 'Coordinador de Carrera',
       items: [
         {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/coordinator-career/home',
+        },
+        {
           label: 'Dashboard',
-          icon: 'pi pi-chart-pie',
+          icon: 'fa-solid fa-chart-line',
           routerLink: '/cecy/coordinator-career/dashboard',
         },
         {
-          label: 'Cursos',
-          icon: 'pi pi-check-square',
-          routerLink: ['/cecy/coordinator-career/course'],
+          label: 'Planificacion de cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/coordinator-career/planification'],
         },
       ],
     },
@@ -88,9 +144,19 @@ export class SidebarComponent implements OnInit {
       label: 'Coordinador del cecy',
       items: [
         {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/coordinator-cecy/home',
+        },
+        {
           label: 'Cursos',
-          icon: 'pi pi-check-square',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/coordinator-cecy/course'],
+        },
+        {
+          label: 'Periodo lectivo',
+          icon: 'fa-solid fa-school',
+          routerLink: ['/cecy/coordinator-cecy/school-year'],
         },
       ],
     },
@@ -100,9 +166,49 @@ export class SidebarComponent implements OnInit {
       label: 'Docente responsable',
       items: [
         {
-          label: 'Tus cursos',
-          icon: 'pi pi-check-square',
-          routerLink: ['/cecy/responsible-course'],
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/responsible-course/home',
+        },
+        {
+          label: 'Mis cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/responsible-course/my-courses'],
+        },
+      ],
+    },
+  ];
+  itemsInstructorExecute: MenuItem[] = [
+    {
+      label: 'Docente responsable ejecuta',
+      items: [
+        {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/responsible-execute/home',
+        },
+        {
+          label: 'Mis cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/responsible-execute/mis-cursos'],
+        },
+
+      ],
+    },
+  ];
+  itemsSecretary: MenuItem[] = [
+    {
+      label: 'Secretaria del Cecy',
+      items: [
+        {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/secretary-cecy/home',
+        },
+        {
+          label: 'Visualizar cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/secretary-cecy/visualization-courses'],
         },
       ],
     },
@@ -111,13 +217,15 @@ export class SidebarComponent implements OnInit {
   closed: boolean = true;
   menu: MenuItem[] = [];
   user: User | null = null;
+  model: MenuItem[] = [];
 
   constructor(
     private menuHttpService: MenuHttpService,
     public layoutService: LayoutService,
     public el: ElementRef,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private carreraService: CarrerasService
+  ) { }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((user: any) => {

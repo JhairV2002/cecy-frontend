@@ -65,6 +65,10 @@ import { ShowPerfilFormComponent } from './profile-instructor-courses/showperfil
 import { VisualizationCourseComponent } from './visualization-course/visualization-course.component';
 import { SearchCourseComponent } from './course/search-course/search-course.component';
 import { HorarioFormComponent } from './horario-form/horario-form.component';
+import { HomeComponent } from './home/home.component';
+import { SchoolYearComponent } from './school-year/school-year.component';
+import { SchoolYearListComponent } from './school-year/school-year-list/school-year-list.component';
+import { SchoolYearFormComponent } from './school-year/school-year-form/school-year-form.component';
 //import { AddFormHorariosComponent } from './../responsible-course/tabs/add-form-horarios/add-form-horarios.component';
 
 
@@ -100,6 +104,10 @@ import { HorarioFormComponent } from './horario-form/horario-form.component';
     VisualizationCourseComponent,
     SearchCourseComponent,
     HorarioFormComponent,
+    HomeComponent,
+    SchoolYearComponent,
+    SchoolYearListComponent,
+    SchoolYearFormComponent,
     //AddFormHorariosComponent
   ],
   imports: [

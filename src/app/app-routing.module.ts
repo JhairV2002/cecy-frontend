@@ -9,29 +9,9 @@ import { AdminGuard } from './guards/admin.guard';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
-//import { ResponsibleExecutionComponent } from './pages/cecy/responsible-execution/responsible-execution/responsible-execution.component';
-import { AsistenciaComponent } from './pages/cecy/responsible-execute/asistencia/asistencia.component';
-import { ResponsibleCecyComponent } from './pages/cecy/responsible-cecy/responsible-cecy.component';
-import { EstudiantesComponent } from './pages/cecy/responsible-execute/notas/estudiantes.component';
-import { CursoComponent } from './pages/cecy/responsible-execute/curso/curso.component';
 
 const routes: Routes = [
   {
-    path: 'curso', component:CursoComponent,
-  },
-  /*{
-    path: 'estudiantes', component:EstudiantesComponent,
-  },*/
-
- /* {
-    path: 'ejecucion', component:ResponsibleExecutionComponent,
-  },
-  */
- /*   {
-    path: 'asistencia', component:AsistenciaComponent,
-  },*/
-  {
-
     path: '',
     canActivate: [RedirectGuard],
     loadChildren: () =>
@@ -43,36 +23,62 @@ const routes: Routes = [
     path: 'administrator',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import(
-        './pages/core/user-administration/user-administration.module'
-      ).then((m) => m.UserAdministrationModule),
+      import('./pages/core/administrator/administrator.module').then(
+        (m) => m.AdministratorModule
+      ),
   },
   {
     path: 'cecy',
     loadChildren: () =>
       import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
   },
+  {
+    path: 'register-validation',
+    loadChildren: () =>
+      import('./register-validation/register-validation.module').then(
+        (m) => m.RegisterValidationModule
+      ),
+  },
+  // {
+  //   path: 'user-administration',
+  //   canActivate: [HasRoleGuard],
+  //   canLoad:[HasRoleGuard],
+  //   data: {
+  //     allowedRoles: ['admin']
+  //   },
+  //   loadChildren: () =>
+  //     import(
+  //       './pages/core/user-administration/user-administration.module'
+  //     ).then((m) => m.UserAdministrationModule),
+  // },
+  // {
+  //   path: 'cecy',
+  //   loadChildren: () =>
+  //     import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
+  // },
   // {
   //   path: 'cecy/guest',
   //   loadChildren: () =>
   //     import('./pages/cecy/guest/guest.module').then((m) => m.GuestModule),
   // },
-  // {
-  //   path: 'common',
-  //   component: BlankComponent,
-  //   loadChildren: () =>
-  //     import('./pages/core/common/common.module').then((m) => m.CommonModule),
-  // },
-  // {
-  //   path: '**',
-  //   redirectTo: 'common/not-found',
-  // },
-
-  //{ path: 'notas', component: EstudiantesComponent}
+  {
+    path: 'common',
+    loadChildren: () =>
+      import('./pages/core/common/common.module').then((m) => m.CommonModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'common/not-found',
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: false,
+      paramsInheritanceStrategy: 'always',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

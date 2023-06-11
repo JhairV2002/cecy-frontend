@@ -1,73 +1,58 @@
-import { Component } from '@angular/core';
-import { CursoService } from './curso.service';
+// curso.component.ts
+import { Component, OnInit } from '@angular/core';
 import { Curso } from './curso';
-import { ActivatedRoute } from '@angular/router';
+import { CursoService } from './curso.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-curso',
-  templateUrl: './curso.component.html'
+  templateUrl: './curso.component.html',
 })
-export class CursoComponent {
-    constructor(
-      private cursoService: CursoService,
-      private activateRouter: ActivatedRoute
-    ){}
+export class CursoComponent implements OnInit {
+  cursos: Curso[] = [];
+  cursosFiltrados: Curso[] = [];
+  filtroNombre: string = '';
+  ascendingOrder: boolean = true;
 
-    cursoList: Curso[]=[]
+  constructor(
+    private cursoService: CursoService,
+    private activateRouter: ActivatedRoute,
+    private router: Router
+  ) {}
 
-    /* currentEntity: Curso = {
-      id: 0,
-      codeCourse: "",
-      name: "",
-      modality: "",
-      schoolPeriod: ""
-    }; */
+  ngOnInit(): void {
+    this.cursoService.getCursos().subscribe((cursos) => {
+      this.cursos = cursos;
+      this.filtrarCursos();
+    });
+  }
 
-    ngOnInit(): void{
-      /* this.activateRouter.paramMap.subscribe(
-        (params) => {
-          if(params.get("id")){
-            this.findById(parseInt(params.get("id")!))
-          }
-        }
-      ) */
-      this.findAll();
-        }
-
-    /* findById(id: number): void{
-      this.cursoService.findById(id).subscribe(
-        (response) => {
-          this.currentEntity=response;
-        }
-      )
-    } */
-
-    public findAll(): void {
-      this.cursoService.findAll().subscribe(
-        (response) => this.cursoList = response
-      )
+  filtrarCursos(): void {
+    if (this.filtroNombre.trim() !== '') {
+      this.cursosFiltrados = this.cursos.filter(
+        (curso) =>
+          curso.planification.name
+            .toLowerCase()
+            .includes(this.filtroNombre.toLowerCase()) ||
+          curso.planification.codeCourse
+            .toLowerCase()
+            .includes(this.filtroNombre.toLowerCase())
+      );
+    } else {
+      this.cursosFiltrados = this.cursos;
     }
+  }
 
-    public findByName(term: string): void{
-      if(term.length>=2){
-        this.cursoService.findByName(term).subscribe(
-          (response) => this.cursoList = response
-        )
-      }
-      if(term.length===0){
-        this.findAll();
-      }
-    }
+  sortCards() {
+    this.cursosFiltrados.sort((a, b) =>
+      this.ascendingOrder
+        ? a.planification.name.localeCompare(b.planification.name)
+        : b.planification.name.localeCompare(a.planification.name)
+    );
+    this.ascendingOrder = !this.ascendingOrder;
+  }
 
-    public findBySchoolPeriod(term: string): void{
-      if(term.length>=3){
-        this.cursoService.findBySchoolPeriod(term).subscribe(
-          (response) => this.cursoList = response
-        )
-      }
-      if(term.length===0){
-        this.findAll();
-      }
-    }
-
+  redireccionar(cursoId: number) {
+    this.router.navigate(['cecy/responsible-execute/notas/estudiante', cursoId ]);
+  }
 }
