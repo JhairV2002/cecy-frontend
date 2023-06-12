@@ -52,7 +52,7 @@ export class CursoComponent implements OnInit {
     this.ascendingOrder = !this.ascendingOrder;
   }
 
-  redireccionar() {
-    this.router.navigate(['cecy/responsible-execute/notas/estudiante']);
+  redireccionar(cursoId: number) {
+    this.router.navigate(['cecy/responsible-execute/notas/estudiante', cursoId ]);
   }
 }
