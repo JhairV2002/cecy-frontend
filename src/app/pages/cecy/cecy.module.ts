@@ -15,8 +15,7 @@ import { EstudianteService } from './responsible-execute/notas/estudiante.servic
 import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     CecyRoutingModule,
@@ -34,4 +33,4 @@ import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
   ],
   providers: [{ provide: Window, useValue: window }, EstudianteService],
 })
-export class CecyModule { }
+export class CecyModule {}

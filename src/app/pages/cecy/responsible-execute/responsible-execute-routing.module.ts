@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'mis-cursos', component: CursoComponent },
   { path: 'notas/estudiante/:cursoId', component: EstudiantesComponent },
-  { path: 'asistencia/:cursoId', component: AsistenciaComponent },
+  { path: 'asistencia/:asistenciaId', component: AsistenciaComponent },
+  { path: 'asistencia/:cursoId/new', component: AsistenciaComponent },
   { path: 'fecha/:cursoId', component: FechaComponent },
   { path: 'registro-fotografico', component: RegistroFotograficoComponent },
   //{ path: 'course-form', component: CourseFormComponent },
@@ -22,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ResponsibleExecuteRoutingModule { }
+export class ResponsibleExecuteRoutingModule {}
