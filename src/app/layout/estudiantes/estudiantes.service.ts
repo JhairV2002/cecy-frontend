@@ -14,4 +14,8 @@ export class EstudiantesService {
   obtenerEstudiantes(): Observable<Estudiantes[]> {
     return this.http.get<Estudiantes[]>(this.url);
   }
+
+  obtenerEstudiantePorId(id: number): Observable<Estudiantes> {
+    return this.http.get<Estudiantes>(`${this.url}${id}/`);
+  }
 }

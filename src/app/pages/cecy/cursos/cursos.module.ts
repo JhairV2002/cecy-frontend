@@ -12,6 +12,9 @@ import { FilterFreePipe } from './curso-page/filter-free.pipe';
 import { FilterNonFreePipe } from './curso-page/filter-non-free.pipe';
 import { CursoDetailsComponent } from './curso-details/curso-details.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { EstudianteCursosInscritoComponent } from './estudiante-cursos-inscrito/estudiante-cursos-inscrito.component';
+import { JsonToObjectPipe } from './estudiante-cursos-inscrito/json-to-object.pipe';
+import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudiante-cursos-lista.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     FilterFreePipe,
     FilterNonFreePipe,
     CursoDetailsComponent,
+    EstudianteCursosInscritoComponent,
+    JsonToObjectPipe,
+    EstudianteCursosListaComponent,
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,10 @@
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
         <li *ngFor="let estudiante of estudiantes$ | async" (click)="seleccionarEstudiante(estudiante)"
           class="justify-between cursor-pointer">
-          {{ estudiante.nombres + " " + estudiante.apellidos }}
+          <a [routerLink]="[
+              '/cecy/estudiante/cursos/estudiante/',
+              estudiante.id
+            ]">{{ estudiante.nombres + " " + estudiante.apellidos }}</a>
         </li>
       </ul>
     </div>
