@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 import { MessageService } from '@services/core';
 import { ColModel, PaginatorModel } from '@models/core';
 import { CourseModel } from '@models/cecy';
@@ -41,7 +42,8 @@ export class PlanificationListComponent implements OnInit {
     public messageService: MessageService,
     private router: Router,
     private planificationCourseService: PlanificationsCoursesService,
-    private careersService: CareersService
+    private careersService: CareersService,
+    private socket: Socket
   ) {
     this.cols = [
       { field: 'code', header: 'Código curso' },
@@ -90,6 +92,9 @@ export class PlanificationListComponent implements OnInit {
           },
         });
     }
+    this.socket.on('api:newPlanification', (data: any) => {
+      console.log('SOCKET', data);
+    });
   }
 
   loadCareers() {

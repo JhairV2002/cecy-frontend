@@ -20,7 +20,7 @@ export class PlanificationsCoursesService {
     return this.http.get<PlanificationCourseInitial>(`${this.apiUrl}/${id}`);
   }
 
-  planificationById(id : number) {
+  planificationById(id: number) {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
@@ -30,6 +30,10 @@ export class PlanificationsCoursesService {
     } else {
       return this.http.put(`${this.apiUrl}/${selectPlanification.id}`, data);
     }
+  }
+
+  editPlanificationById(data: any, id: number) {
+    return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
   removePlanificationCourse(planificationCourseId: number) {

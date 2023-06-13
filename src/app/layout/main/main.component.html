@@ -1,10 +1,63 @@
 <div class="layout-wrapper" [ngClass]="containerClass">
-  <app-topbar></app-topbar>
+  <app-topbar (notification)="openNotification($event)"></app-topbar>
   <div class="layout-sidebar">
     <app-sidebar></app-sidebar>
   </div>
   <div class="layout-main-container">
     <div class="layout-main">
+      <!-- <p-sidebar position="right" [(visible)]="sidebarVisible">
+        <ng-template pTemplate="header">
+          <h2 class="text-xl">Notificaciones</h2>
+        </ng-template>
+        <div *ngIf="planifications.length > 0; else noItems">
+          <ng-container *ngFor="let planification of planifications">
+            <div class="mt-2">
+              <p-card header="Nueva planificacion">
+                <p class="m-0">
+                  {{ planification.message }}
+                </p>
+              </p-card>
+            </div>
+          </ng-container>
+        </div>
+        <ng-template #noItems class="flex justify-center items-center">
+          <p>No hay notificaciones por leer</p>
+        </ng-template>
+      </p-sidebar> -->
+      <p-sidebar position="right" [(visible)]="sidebarVisible">
+        <ng-template pTemplate="header">
+          <h2 class="text-xl">Notificaciones</h2>
+        </ng-template>
+        <div *ngIf="planifications.length > 0; else noItems">
+          <ng-container *ngFor="let planification of planifications">
+            <div class="mt-2">
+              <p-card class="notification-card">
+                <div class="card-content">
+                  <div class="flex items-center">
+                    <div class="mr-2">
+                      <img
+                        src="assets/images/components/default.png"
+                        alt="Notification Icon"
+                        class="w-6 h-6"
+                      />
+                    </div>
+                    <div>
+                      <h3 class="text-lg">{{ planification.message }}</h3>
+                      <p class="text-sm text-gray-500" >
+                        {{ planification.createdAt | date }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </p-card>
+            </div>
+          </ng-container>
+        </div>
+        <ng-template #noItems class="flex justify-center items-center">
+          <p>No hay notificaciones por leer</p>
+        </ng-template>
+      </p-sidebar>
+
       <router-outlet></router-outlet>
       <!-- <app-network-status></app-network-status> -->
       <!-- <app-breadcrumb></app-breadcrumb> -->

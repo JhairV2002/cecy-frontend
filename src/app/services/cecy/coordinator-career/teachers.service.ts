@@ -10,12 +10,10 @@ import { User } from '@models/authentication';
 })
 export class TeachersService {
   responsible_course = 'responsible_course';
-  coordinator_cecy = 'coordinator_cecy';
 
   private apiUrl = `${environment.api2}/users/role`;
   private apiUrlRoles = `${environment.api2}/roles`;
-  private apiUrlRolesEspecific = `${environment.api2}/roles/especific`;
-  private apiUrlCustomerByRole = `${environment.api2}/users/role-especific`;
+  private apiUrlRolesEspecific = `${environment.api2}/users/all/search-user`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,9 +22,7 @@ export class TeachersService {
   }
 
   getUserByRoleEspecific() {
-    return this.http.get<any>(
-      `${this.apiUrlRolesEspecific}/${this.coordinator_cecy}`
-    );
+    return this.http.get<any>(`${this.apiUrlRolesEspecific}`);
   }
 
   getRoles() {

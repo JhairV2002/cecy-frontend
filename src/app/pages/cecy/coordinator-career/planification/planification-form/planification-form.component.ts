@@ -12,6 +12,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Socket } from 'ngx-socket-io';
+
 import { CatalogueModel, CourseModel } from '@models/cecy';
 import { CourseHttpService, InstructorHttpService } from '@services/cecy';
 import { MessageService } from '@services/core';
@@ -35,7 +37,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   @Input() selectPlanification: any = null;
   progressBar: boolean = false;
   users: any = [];
-  roles: [] = [];
+  review: [] = [];
   schoolYears: SchoolYear[] = [];
   modalities: CatalogueModel[] = [];
   public formPlanification = new FormGroup({
@@ -58,7 +60,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     modalityId: new FormControl(null, Validators.required),
     userId: new FormControl(null, [Validators.required]),
     careerId: new FormControl(),
-    roleId: new FormControl(null, [Validators.required]),
+    planningReviewId: new FormControl(null, [Validators.required]),
   });
 
   titleModal: string = '';
@@ -73,12 +75,13 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     private planificationsCoursesService: PlanificationsCoursesService,
     private teacherService: TeachersService,
     private schoolYearService: SchoolYearService,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private socket: Socket
   ) {}
 
   ngOnInit(): void {
     this.loadUserByRole();
-    this.loadRoles();
+    this.loadPlanningReviewBy();
     this.loadScholYears();
     this.loadAllModalities();
   }
@@ -87,12 +90,12 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     if (this.selectPlanification) {
       const startDate = new Date(this.selectPlanification.startDate);
       const finishDate = new Date(this.selectPlanification.finishDate);
-      this.formPlanification.patchValue({
-        startDate: startDate,
-        finishDate: finishDate,
-      });
+      // this.formPlanification.patchValue({
+      //   startDate: startDate,
+      //   finishDate: finishDate,
+      // });
 
-      //this.formPlanification.patchValue(this.selectPlanification);
+      this.formPlanification.patchValue(this.selectPlanification);
       this.titleModal = 'Editar una';
       this.titleButton = 'Editar';
       this.isEdit = true;
@@ -111,9 +114,10 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     });
   }
 
-  loadRoles() {
+  loadPlanningReviewBy() {
     this.teacherService.getUserByRoleEspecific().subscribe((data) => {
-      this.roles = data;
+      console.log('EN REVISION', data);
+      this.review = data;
     });
   }
 
@@ -140,22 +144,64 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     this.state = 'proceso';
     this.careerId = this.selectedCareer;
     const valuesFormPlanification = this.formPlanification.value;
-    this.planificationsCoursesService
-      .createEdit(valuesFormPlanification, this.selectPlanification)
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          this.progressBar = false;
-          this.messageService.successPlanification(data);
-          this.clickClose.emit(false);
-          this.addPlanification.emit(data);
-          this.formPlanification.reset();
-        },
-        error: (error) => {
-          this.messageService.errorValid(error);
-          this.progressBar = false;
-        },
-      });
+    console.log(valuesFormPlanification);
+    if (!this.selectPlanification) {
+      this.socket.emit(
+        'app:newPlanification',
+        valuesFormPlanification,
+        (response: any) => {
+          if (response.error) {
+            this.messageService.errorValid(response.error);
+            this.progressBar = false;
+          } else {
+            console.log('ALL', response);
+            this.progressBar = false;
+            this.messageService.successPlanification(response);
+            this.clickClose.emit(false);
+            this.addPlanification.emit(response.data);
+            this.formPlanification.reset();
+          }
+        }
+      );
+    } else {
+      console.log('EDITANDO');
+      this.planificationsCoursesService
+        .editPlanificationById(
+          valuesFormPlanification,
+          this.selectPlanification.id
+        )
+        .subscribe({
+          next: (data: any) => {
+            this.progressBar = false;
+            this.messageService.successPlanification(data);
+            this.clickClose.emit(false);
+            this.addPlanification.emit(data);
+            this.formPlanification.reset();
+          },
+          error: (error) => {
+            this.progressBar = false;
+            this.messageService.error(error);
+          },
+        });
+      // this.socket.emit(
+      //   'app:updatePlanification',
+      //   {
+      //     planificationId: this.selectPlanification.id,
+      //     valuesFormPlanification,
+      //   },
+      //   (response: any) => {
+      //     if (response.error) {
+      //       // Manejar el error
+      //       this.messageService.errorValid(response.error);
+      //       this.progressBar = false;
+      //     } else {
+      //       // Manejar la respuesta exitosa
+      //       console.log(response.data);
+      //
+      //     }
+      //   }
+      // );
+    }
   }
 
   onSubmit() {

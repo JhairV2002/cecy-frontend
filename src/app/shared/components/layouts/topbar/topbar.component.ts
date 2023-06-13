@@ -1,7 +1,10 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
+  Input,
   OnInit,
+  Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -12,7 +15,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '@services/layout.service';
 import { AuthService } from '@services/auth';
 import { ProfileCustomerDTO, Roles, User } from '@models/authentication';
-import { map, Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-topbar',
@@ -21,13 +24,14 @@ import { map, Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class TopbarComponent implements OnInit {
+  @Output() notification = new EventEmitter<boolean>();
   display = false;
   /* items: MenuItem[] = []; */
   visibleSidebar: boolean = false;
   showNav: boolean = true;
   items!: MenuItem[];
   user: User | null = null;
-  sidebarVisible: boolean = false;
+  planifications: [] = [];
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -41,7 +45,8 @@ export class TopbarComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private socket: Socket
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +77,10 @@ export class TopbarComponent implements OnInit {
         ],
       },
     ];
+    this.socket.on('api:newPlanification', (data: any) => {
+      this.planifications = data;
+      console.log('SOCKET TOPBAR', this.planifications);
+    });
   }
 
   logout() {
@@ -95,5 +104,9 @@ export class TopbarComponent implements OnInit {
     localStorage.removeItem('careerSelected');
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  openNotification() {
+    this.notification.emit(true);
   }
 }
