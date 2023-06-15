@@ -1,3 +1,5 @@
+import { User } from '@models/authentication';
+
 export interface Notification {
   id: number;
   type: string;
@@ -5,4 +7,5 @@ export interface Notification {
   isRead: boolean;
   userId: number;
   createdAt: Date;
+  user?: User;
 }
