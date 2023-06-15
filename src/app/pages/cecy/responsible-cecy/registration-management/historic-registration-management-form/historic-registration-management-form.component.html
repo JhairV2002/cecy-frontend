@@ -252,13 +252,13 @@
             [dirty]="companySponsoredField.dirty"
           >
           </label>
-          <p-toggleButton
+          <!-- <p-toggleButton
             onLabel="SI" offLabel="NO"
             onIcon="pi pi-money-bill" offIcon="pi pi-money-bill"
               id="companySponsored"
               formControlName="companySponsored">
-            </p-toggleButton>
-          
+            </p-toggleButton> -->
+
           <small
             appErrorMessage
             [errors]="companySponsoredField.errors"
@@ -270,7 +270,7 @@
       </div>
       </p-fieldset>
       <!-- revición de documentos -->
-      <p-fieldset legend="Revisión de documentos" class="d-inline mw-50">
+      <!-- <p-fieldset legend="Revisión de documentos" class="d-inline mw-50">
         <div *ngFor="let req of requirementlist">
           <h5 class="m-4">{{ req.name}}</h5>
           <button
@@ -284,8 +284,8 @@
           ></button>
           <p-divider></p-divider>
         </div>
-        
-      </p-fieldset>
+
+      </p-fieldset> -->
 
       <div class="formgrid grid">
         <!--observations field-->

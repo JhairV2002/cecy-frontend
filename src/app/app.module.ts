@@ -25,7 +25,6 @@ import { MenuModule } from 'primeng/menu';
 // Components
 import { AppComponent } from './app.component';
 import { LayoutModule } from '@layout/layout.module';
-
 import { SharedModule } from '@shared/shared.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MessageService } from 'primeng/api';
@@ -35,6 +34,13 @@ import { CommonModule } from '@angular/common';
 import { EstudianteService } from './pages/cecy/responsible-execute/notas/estudiante.service';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
 import { NgProgressModule } from 'ngx-progressbar';
+
+//Socket.io
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = {
+  url: 'http://localhost:3000',
+  options: { transports: ['websocket'] },
+};
 
 @NgModule({
   declarations: [
@@ -66,7 +72,8 @@ import { NgProgressModule } from 'ngx-progressbar';
     ProgressSpinnerModule,
     MenuModule,
     LayoutModule,
-    NgProgressModule
+    NgProgressModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [MessageService, ConfirmationService, HttpInterceptorProviders],
   bootstrap: [AppComponent],

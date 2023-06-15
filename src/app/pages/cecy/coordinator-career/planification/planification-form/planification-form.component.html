@@ -280,7 +280,7 @@
         <label
           for="name"
           appLabel
-          label="A quien va dirigido:"
+          label="En revisión por:"
           [required]="isRequired(finishDate)"
           [valid]="finishDate.valid"
           [touched]="finishDate.touched"
@@ -288,14 +288,22 @@
         >
         </label>
         <p-dropdown
-          formControlName="roleId"
+          formControlName="planningReviewId"
           dataKey="id"
-          [options]="roles"
+          [options]="review"
           placeholder="Seleccione"
-          optionLabel="name"
+          optionLabel="names"
           optionValue="id"
         >
+          <ng-template let-option pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              <div>
+                {{ option.names + " " }} <strong>{{ option.role.name }}</strong>
+              </div>
+            </div>
+          </ng-template>
         </p-dropdown>
+
         <small
           appErrorMessage
           [errors]="finishDate.errors"

@@ -1,7 +1,11 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
+  Input,
   OnInit,
+  Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -11,8 +15,8 @@ import { AuthHttpService, MessageService } from '@services/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '@services/layout.service';
 import { AuthService } from '@services/auth';
-import { ProfileCustomerDTO, Roles, User } from '@models/authentication';
-import { map, Observable } from 'rxjs';
+import { User } from '@models/authentication';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-topbar',
@@ -21,13 +25,15 @@ import { map, Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class TopbarComponent implements OnInit {
+  @Output() notification = new EventEmitter<boolean>();
   display = false;
   /* items: MenuItem[] = []; */
   visibleSidebar: boolean = false;
   showNav: boolean = true;
   items!: MenuItem[];
   user: User | null = null;
-  sidebarVisible: boolean = false;
+  planifications: [] = [];
+  private _numberNotifications: number = 0;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -41,13 +47,16 @@ export class TopbarComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private socket: Socket,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((data: any) => {
       console.log('cliente global', data[0]);
       this.user = data[0];
+      this.socket.emit('app:sendUser', this.user);
     });
     this.items = [
       {
@@ -72,6 +81,21 @@ export class TopbarComponent implements OnInit {
         ],
       },
     ];
+    this.socket.on('api:allNotificationByUser', (notification: any) => {
+      console.log('SOCKET desde API', notification);
+      this.planifications = notification;
+      this.updateNumberNotification(this.planifications.length);
+    });
+  }
+
+  get numeroNotificaciones(): string {
+    return this._numberNotifications.toString();
+  }
+
+  updateNumberNotification(newNumber: number): void {
+    console.log('NUMERO DE NOTIFICACIONES', newNumber);
+    this._numberNotifications = newNumber;
+    this.cdRef.detectChanges();
   }
 
   logout() {
@@ -95,5 +119,9 @@ export class TopbarComponent implements OnInit {
     localStorage.removeItem('careerSelected');
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  openNotification() {
+    this.notification.emit(true);
   }
 }
