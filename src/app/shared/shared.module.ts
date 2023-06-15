@@ -46,6 +46,7 @@ import { UserComponent } from './components/user/user.component';
 import { ImageModule } from 'primeng/image';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NotificationComponent } from './components/layouts/notification/notification.component';
+import { RelativeTimePipe } from './pipes/date/relative-time.pipe';
 
 const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
@@ -72,6 +73,7 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     UserComponent,
     WelcomeComponent,
     NotificationComponent,
+    RelativeTimePipe,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -94,7 +96,8 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     TopbarComponent,
     UserComponent,
     WelcomeComponent,
-    NotificationComponent
+    NotificationComponent,
+    RelativeTimePipe
   ],
   imports: [
     CommonModule,
