@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -14,7 +15,7 @@ import { AuthHttpService, MessageService } from '@services/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '@services/layout.service';
 import { AuthService } from '@services/auth';
-import { ProfileCustomerDTO, Roles, User } from '@models/authentication';
+import { User } from '@models/authentication';
 import { Socket } from 'ngx-socket-io';
 
 @Component({
@@ -32,6 +33,7 @@ export class TopbarComponent implements OnInit {
   items!: MenuItem[];
   user: User | null = null;
   planifications: [] = [];
+  private _numberNotifications: number = 0;
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -46,13 +48,15 @@ export class TopbarComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public layoutService: LayoutService,
-    private socket: Socket
+    private socket: Socket,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe((data: any) => {
       console.log('cliente global', data[0]);
       this.user = data[0];
+      this.socket.emit('app:sendUser', this.user);
     });
     this.items = [
       {
@@ -77,10 +81,21 @@ export class TopbarComponent implements OnInit {
         ],
       },
     ];
-    this.socket.on('api:newPlanification', (data: any) => {
-      this.planifications = data;
-      console.log('SOCKET TOPBAR', this.planifications);
+    this.socket.on('api:allNotificationByUser', (notification: any) => {
+      console.log('SOCKET desde API', notification);
+      this.planifications = notification;
+      this.updateNumberNotification(this.planifications.length);
     });
+  }
+
+  get numeroNotificaciones(): string {
+    return this._numberNotifications.toString();
+  }
+
+  updateNumberNotification(newNumber: number): void {
+    console.log('NUMERO DE NOTIFICACIONES', newNumber);
+    this._numberNotifications = newNumber;
+    this.cdRef.detectChanges();
   }
 
   logout() {
