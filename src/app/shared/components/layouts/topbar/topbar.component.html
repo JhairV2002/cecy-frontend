@@ -1,4 +1,66 @@
-<div class="layout-topbar">
+<div *ngIf="user?.role?.name === 'coordinator_cecy'" class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="">
+    <img
+      src="assets/layout/images/{{
+        layoutService.config.colorScheme === 'light'
+          ? 'logo-dark'
+          : 'logo-white'
+      }}.svg"
+      alt="logo"
+    />
+    <span>CECY</span>
+  </a>
+
+  <button
+    #menubutton
+    class="p-link layout-menu-button layout-topbar-button"
+    (click)="layoutService.onMenuToggle()"
+  >
+    <i class="pi pi-bars"></i>
+  </button>
+
+  <button
+    #topbarmenubutton
+    class="p-link layout-topbar-menu-button layout-topbar-button"
+    (click)="layoutService.showProfileSidebar()"
+  >
+    <i class="pi pi-ellipsis-v"></i>
+  </button>
+  <button (click)="openNotification()" class="hover">
+    <i
+      class="pi pi-bell mr-4 p-text-secondary"
+      pBadge
+      style="font-size: 1.5rem"
+      [value]="
+        planifications.length > 0 ? planifications.length.toString() : '0'
+      "
+    ></i>
+  </button>
+
+  <div
+    #topbarmenu
+    class="layout-topbar-menu"
+    [ngClass]="{
+      'layout-topbar-menu-mobile-active':
+        layoutService.state.profileSidebarVisible
+    }"
+  >
+    <a class="p-link layout-topbar-button1 mr-5">
+      <!-- [routerLink]="'/user/profile' -->
+      <i class="pi pi-user"></i>
+      <p class="ml-2">
+        {{ user?.names }}
+      </p>
+    </a>
+
+    <button class="p-link layout-topbar-button" (click)="onlogout()">
+      <i class="pi pi-fw pi-sign-out"></i>
+      <span>Salir</span>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="user?.role?.name === 'coordinator_career'" class="layout-topbar">
   <a class="layout-topbar-logo" routerLink="">
     <img
       src="assets/layout/images/{{
