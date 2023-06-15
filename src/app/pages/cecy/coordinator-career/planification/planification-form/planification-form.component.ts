@@ -183,24 +183,6 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
             this.messageService.error(error);
           },
         });
-      // this.socket.emit(
-      //   'app:updatePlanification',
-      //   {
-      //     planificationId: this.selectPlanification.id,
-      //     valuesFormPlanification,
-      //   },
-      //   (response: any) => {
-      //     if (response.error) {
-      //       // Manejar el error
-      //       this.messageService.errorValid(response.error);
-      //       this.progressBar = false;
-      //     } else {
-      //       // Manejar la respuesta exitosa
-      //       console.log(response.data);
-      //
-      //     }
-      //   }
-      // );
     }
   }
 
