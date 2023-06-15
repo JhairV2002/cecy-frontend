@@ -26,6 +26,10 @@ export class MainComponent implements OnDestroy, OnInit {
   profileMenuOutsideClickListener: any;
   sidebarVisible: boolean = false;
   planifications: Notification[] = [];
+  planifications1: Notification[] = [];
+
+  isLoadingNotifications: boolean = true;
+
   @ViewChild(SidebarComponent) appSidebar!: SidebarComponent;
 
   @ViewChild(TopbarComponent) appTopbar!: TopbarComponent;
@@ -98,14 +102,13 @@ export class MainComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe();
-    // this.socket.on('api:newPlanification', (data: any) => {
-    //   this.planifications = data;
-    //   console.log('SOCKET', this.planifications);
-    // });
-
-    this.socket.on('api:loadNotifications', (data: any) => {
+    this.socket.on('api:allNotificationByUser', (data: any) => {
       this.planifications = data;
-      console.log('TODAS NOTIFICACIONES', this.planifications);
+      console.log(' NOTIFICACIONES por usuario', this.planifications);
+    });
+
+    this.socket.on('api:newPlanification', (data: any) => {
+      console.log('NOTIFICACION ENVIADA A ESTE USUARIO', data);
     });
   }
 
