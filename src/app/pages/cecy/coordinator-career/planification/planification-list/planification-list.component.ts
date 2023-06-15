@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
 import { MessageService } from '@services/core';
 import { ColModel, PaginatorModel } from '@models/core';
@@ -92,9 +92,6 @@ export class PlanificationListComponent implements OnInit {
           },
         });
     }
-    this.socket.on('api:newPlanification', (data: any) => {
-      console.log('SOCKET', data);
-    });
   }
 
   loadCareers() {
