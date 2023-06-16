@@ -35,6 +35,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ChartModule } from 'primeng/chart';
+import { StyleClassModule } from 'primeng/styleclass';
 
 
 @NgModule({
@@ -74,7 +76,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
         InputTextareaModule,
         DropdownModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
+        ChartModule,
+  StyleClassModule
   ],
 })
 export class SecretaryCecyModule {}

@@ -28,4 +28,11 @@ export class SolicitudCertificadoService {
       this.httpOptions
     );
   }
+
+  public findAllReport(): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(
+      this.apiUrl +'/',
+      this.httpOptions
+    );
+  }
 }

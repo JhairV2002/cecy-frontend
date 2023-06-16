@@ -183,6 +183,11 @@ export class SidebarComponent implements OnInit {
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/secretary-cecy/visualization-courses'],
         },
+        {
+          label: 'Reportes',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/secretary-cecy/reporte'],
+        },
       ],
     },
   ];
