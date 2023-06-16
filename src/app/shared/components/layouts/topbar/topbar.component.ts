@@ -81,11 +81,11 @@ export class TopbarComponent implements OnInit {
         ],
       },
     ];
-    this.socket.on('api:allNotificationByUser', (notification: any) => {
-      console.log('SOCKET desde API', notification);
-      this.planifications = notification;
-      this.updateNumberNotification(this.planifications.length);
-    });
+    // this.socket.on('api:allNotificationByUser', (notification: any) => {
+    //   console.log('SOCKET desde API', notification);
+    //   this.planifications = notification;
+    //   this.updateNumberNotification(this.planifications.length);
+    // });
   }
 
   get numeroNotificaciones(): string {

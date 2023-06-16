@@ -101,15 +101,15 @@ export class MainComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe();
-    this.socket.on('api:allNotificationByUser', (data: any) => {
-      this.planifications = data;
-      console.log(' NOTIFICACIONES por usuario', this.planifications);
-    });
+    // this.authService.getProfile().subscribe();
+    // this.socket.on('api:allNotificationByUser', (data: any) => {
+    //   this.planifications = data;
+    //   console.log(' NOTIFICACIONES por usuario', this.planifications);
+    // });
 
-    this.socket.on('api:newPlanification', (data: any) => {
-      console.log('NOTIFICACION ENVIADA A ESTE USUARIO', data);
-    });
+    // this.socket.on('api:newPlanification', (data: any) => {
+    //   console.log('NOTIFICACION ENVIADA A ESTE USUARIO', data);
+    // });
   }
 
   hideMenu() {
