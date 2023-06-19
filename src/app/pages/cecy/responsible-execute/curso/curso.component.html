@@ -1,25 +1,73 @@
-<div class="">
+<div class="container">
   <div class="text-center p-5">
     <h1 class="text-5xl font-bold">Mis Cursos</h1>
   </div>
 
-  <div class="formgrid grid">
-    <div class="grid grid-cols-4 grid-flow-row gap-2 justify-items-center">
-      <div class="card-body w-120 bg-slate-300 shadow-x rounded-xl">
-        <h1 class="card-title">nombre</h1>
-        <h5>CODIGO DEL CURSO : q2345</h5>
-        <h5>MODALIDAD DEL CURSO : virtual</h5>
-        <h5>PERIODO LECTIVO : 2022</h5>
-        <a href="" (click)="nextPage()"></a>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary" icon="edit" (click)="redireccionar()">
+  <div class="flex justify-end items-center space-x-4 p-4">
+    <div class="relative">
+      <input
+        type="text"
+        #inputSearch
+        class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Buscar"
+        [(ngModel)]="filtroNombre"
+        (input)="filtrarCursos()"
+      />
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
+        <svg
+          class="h-5 w-5 text-gray-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 15l5-5-5-5"
+          />
+        </svg>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-md-4 p-4"
+      style="display: inline-block; width: 33%;"
+      *ngFor="let curso of cursosFiltrados; let i = index"
+
+    >
+      <div class="card" style="margin-bottom: 20px;"
+      [ngClass]="{
+        'bg-yellow-200': curso.courseStatus,
+        'bg-green-200': curso.courseStatus && !curso.courseStatus,
+        'bg-slate-300': !curso.courseStatus && !curso.courseStatus
+      }"
+      >
+        <div class="card-body">
+          <h1 class="card-title font-normal"><strong>{{ curso.planification.name }}</strong></h1>
+          <h5><strong>Código de curso:</strong>{{ curso.planification.codeCourse }}</h5>
+          <h5><strong>Modalidad:</strong> {{ curso.modality }}</h5>
+          <h5><strong>Estado del curso:</strong><div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="text">{{ curso.courseStatus ? 'Terminado' : 'En proceso' }}</span>
+              <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
+            </label>
+          </div>
+          </h5>
+          <h5></h5>
+          <button
+            class="btn btn-primary"
+            icon="edit"
+            (click)="redireccionar(curso.id)"
+          >
             Detalles
           </button>
-
         </div>
       </div>
     </div>
-    <br />
   </div>
   <br /><br />
   <!-- <footer class="footer footer-center p-3 bg-base-300 text-base-content">

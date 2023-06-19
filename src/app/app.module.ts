@@ -31,6 +31,7 @@ import { MessageService } from 'primeng/api';
 // import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { EstudianteService } from './pages/cecy/responsible-execute/notas/estudiante.service';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
 import { NgProgressModule } from 'ngx-progressbar';
 
