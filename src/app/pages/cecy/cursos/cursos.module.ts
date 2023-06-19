@@ -6,7 +6,7 @@ import { CursosComponent } from './cursos.component';
 import { CursoPageComponent } from './curso-page/curso-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CursoCardComponent } from './curso-page/curso-card/curso-card.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './curso-page/search.pipe';
 import { FilterFreePipe } from './curso-page/filter-free.pipe';
 import { FilterNonFreePipe } from './curso-page/filter-non-free.pipe';
@@ -15,6 +15,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { EstudianteCursosInscritoComponent } from './estudiante-cursos-inscrito/estudiante-cursos-inscrito.component';
 import { JsonToObjectPipe } from './estudiante-cursos-inscrito/json-to-object.pipe';
 import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudiante-cursos-lista.component';
+import { FormularioRegistroComponent } from './formulario-registro/formulario-registro.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudi
     EstudianteCursosInscritoComponent,
     JsonToObjectPipe,
     EstudianteCursosListaComponent,
+    FormularioRegistroComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudi
     HttpClientModule,
     FormsModule,
     MatTabsModule,
+    ReactiveFormsModule,
   ],
 })
-export class CursosModule {}
+export class CursosModule { }

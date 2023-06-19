@@ -33,4 +33,4 @@ import { NombreFilterPipe } from './responsible-execute/notas/filter.pipe';
   ],
   providers: [{ provide: Window, useValue: window }, EstudianteService],
 })
-export class CecyModule {}
+export class CecyModule { }

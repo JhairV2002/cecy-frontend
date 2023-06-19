@@ -5,6 +5,7 @@ import { CursoPageComponent } from './curso-page/curso-page.component';
 import { CursoDetailsComponent } from './curso-details/curso-details.component';
 import { EstudianteCursosInscritoComponent } from './estudiante-cursos-inscrito/estudiante-cursos-inscrito.component';
 import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudiante-cursos-lista.component';
+import { FormularioRegistroComponent } from './formulario-registro/formulario-registro.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'estudiante/cursos-lista/:estudianteId',
     component: EstudianteCursosListaComponent,
+  },
+  {
+    path: 'registro',
+    component: FormularioRegistroComponent,
   },
 ];
 

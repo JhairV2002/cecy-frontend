@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Estudiante } from '@models/cecy';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { Observable } from 'rxjs';
+import { Estudiantes } from '@models/cecy/estudiantes/carreras';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class EstudiantesServiceService {
 
   url: string = 'http://localhost:8083/api/estudiantes';
   urlMatricula: string = 'http://localhost:8080/api/matriculas/';
+  urlEstudiatnes: string = 'http://localhost:8080/api/estudiantes/';
 
   getEstudianteById(id: number): Observable<Estudiante> {
     return this.http.get<Estudiante>(`${this.url}/${id}/`);
@@ -23,5 +25,9 @@ export class EstudiantesServiceService {
 
   updateMatricula(id: number, body: Matricula): Observable<Matricula> {
     return this.http.put<Matricula>(`${this.urlMatricula}${id}/`, body);
+  }
+
+  crearEstudiante(body: any): Observable<any> {
+    return this.http.post<any>(this.urlEstudiatnes, body);
   }
 }
