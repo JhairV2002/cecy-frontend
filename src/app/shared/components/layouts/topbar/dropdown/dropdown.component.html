@@ -1,0 +1,66 @@
+<div [ngClass]="{ relative: true }">
+  <p-avatar
+    [styleClass]="'w-full h-auto hover:bg-red-500'"
+    [image]="
+      user?.image ? user?.image : 'assets/images/administrator/user-default.png'
+    "
+    size="large"
+    shape="circle"
+    (click)="toggleDropdown($event)"
+  >
+  </p-avatar>
+
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu">
+    <div
+      *ngIf="isOpen"
+      class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+    >
+      <a
+        routerLink=""
+        class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <img
+          class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+          [src]="user?.image"
+          alt="jane avatar"
+        />
+        <div class="mx-1">
+          <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+            {{ user?.names }}
+          </h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ user?.email }}
+          </p>
+        </div>
+      </a>
+
+      <hr class="border-gray-200 dark:border-gray-700" />
+
+      <a
+        routerLink=""
+        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <i class="pi pi-user"></i>
+        Ver perfil
+      </a>
+
+      <a
+        routerLink=""
+        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <i class="pi pi-cog"></i>
+        Configuración
+      </a>
+      <hr class="border-gray-200 dark:border-gray-700" />
+
+      <a
+        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        (click)="onlogout()"
+      >
+        <i class="pi pi-fw pi-sign-out"></i>
+        Salir
+      </a>
+    </div>
+  </div>
+</div>

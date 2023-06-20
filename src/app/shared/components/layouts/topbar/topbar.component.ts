@@ -35,11 +35,28 @@ export class TopbarComponent implements OnInit {
   planifications: [] = [];
   private _numberNotifications: number = 0;
 
+  tieredItems: MenuItem[] = [];
+  name: string | undefined = '';
+
   @ViewChild('menubutton') menuButton!: ElementRef;
 
   @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
 
   @ViewChild('topbarmenu') menu!: ElementRef;
+
+  userMenuItems: MenuItem[] = [
+    {
+      icon: 'pi pi-user',
+      label: this.name + 's',
+    },
+    {
+      label: 'Salir',
+      icon: 'pi pi-fw pi-sign-out',
+      command: () => {
+        this.onlogout();
+      },
+    },
+  ];
 
   constructor(
     private menuHttpService: MenuHttpService,
@@ -56,6 +73,7 @@ export class TopbarComponent implements OnInit {
     this.authService.getProfile().subscribe((data: any) => {
       console.log('cliente global', data[0]);
       this.user = data[0];
+      this.name = this.user?.names;
       this.socket.emit('app:sendUser', this.user);
     });
     this.items = [

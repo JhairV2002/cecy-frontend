@@ -35,6 +35,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { SidebarModule } from 'primeng/sidebar';
+import { AvatarModule } from 'primeng/avatar';
 
 import { BlankComponent } from './components/layouts/blank/blank.component';
 import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
@@ -47,6 +48,7 @@ import { ImageModule } from 'primeng/image';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NotificationComponent } from './components/layouts/notification/notification.component';
 import { RelativeTimePipe } from './pipes/date/relative-time.pipe';
+import { DropdownComponent } from './components/layouts/topbar/dropdown/dropdown.component';
 
 const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
@@ -74,6 +76,7 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     WelcomeComponent,
     NotificationComponent,
     RelativeTimePipe,
+    DropdownComponent,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -97,7 +100,8 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     UserComponent,
     WelcomeComponent,
     NotificationComponent,
-    RelativeTimePipe
+    RelativeTimePipe,
+    DropdownComponent,
   ],
   imports: [
     CommonModule,
@@ -126,6 +130,7 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     SidebarModule,
     ImageModule,
     RouterModule.forChild(routes),
+    AvatarModule,
   ],
 })
 export class SharedModule {}

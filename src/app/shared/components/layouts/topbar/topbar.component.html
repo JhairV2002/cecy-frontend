@@ -1,6 +1,12 @@
-<div class="layout-topbar">
-  <a class="layout-topbar-logo" routerLink="">
+<div
+  class="fixed top-0 left-0 w-full h-20 z-50 bg-gray-100 shadow-md flex items-center px-8"
+>
+  <a
+    routerLink=""
+    class="flex items-center justify-center text-gray-900 text-lg font-medium w-64 rounded-lg"
+  >
     <img
+      class="h-10 mr-2 rounded-full"
       src="assets/layout/images/{{
         layoutService.config.colorScheme === 'light'
           ? 'logo-dark'
@@ -13,111 +19,26 @@
 
   <button
     #menubutton
-    class="p-link layout-menu-button layout-topbar-button"
+    class="inline-flex justify-center items-center relative text-gray-500 bg-transparent rounded-full w-12 h-12 cursor-pointer transition-colors duration-200 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
     (click)="layoutService.onMenuToggle()"
   >
-    <i class="pi pi-bars"></i>
+    <i style="font-size: 1.2rem" class="pi pi-bars"></i>
   </button>
-
-  <button
-    #topbarmenubutton
-    class="p-link layout-topbar-menu-button layout-topbar-button"
-    (click)="layoutService.showProfileSidebar()"
-  >
-    <i class="pi pi-ellipsis-v"></i>
-  </button>
-  <button (click)="openNotification()" class="hover">
-    <i
-      class="pi pi-bell mr-4 p-text-secondary"
-      pBadge
-      style="font-size: 1.5rem"
-      [value]="
-        planifications.length > 0 ? planifications.length.toString() : '0'
-      "
-    ></i>
-  </button>
-
-  <div
-    #topbarmenu
-    class="layout-topbar-menu"
-    [ngClass]="{
-      'layout-topbar-menu-mobile-active':
-        layoutService.state.profileSidebarVisible
-    }"
-  >
-    <a class="p-link layout-topbar-button1 mr-5">
-      <!-- [routerLink]="'/user/profile' -->
-      <i class="pi pi-user"></i>
-      <p class="ml-2">
-        {{ user?.names }}
-      </p>
-    </a>
-
-    <button class="p-link layout-topbar-button" (click)="onlogout()">
-      <i class="pi pi-fw pi-sign-out"></i>
-      <span>Salir</span>
+  <div class="flex ml-auto">
+    <button (click)="openNotification()" class="hover mr-4">
+      <i
+        class="pi pi-bell mr-4 p-text-secondary"
+        pBadge
+        style="font-size: 1.5rem"
+        [value]="
+          planifications.length > 0 ? planifications.length.toString() : '0'
+        "
+      ></i>
     </button>
+    <app-dropdown></app-dropdown>
   </div>
 </div>
 
-<div *ngIf="user?.role?.name === 'coordinator_career'" class="layout-topbar">
-  <a class="layout-topbar-logo" routerLink="">
-    <img
-      src="assets/layout/images/{{
-        layoutService.config.colorScheme === 'light'
-          ? 'logo-dark'
-          : 'logo-white'
-      }}.svg"
-      alt="logo"
-    />
-    <span>CECY</span>
-  </a>
-
-  <button
-    #menubutton
-    class="p-link layout-menu-button layout-topbar-button"
-    (click)="layoutService.onMenuToggle()"
-  >
-    <i class="pi pi-bars"></i>
-  </button>
-
-  <button
-    #topbarmenubutton
-    class="p-link layout-topbar-menu-button layout-topbar-button"
-    (click)="layoutService.showProfileSidebar()"
-  >
-    <i class="pi pi-ellipsis-v"></i>
-  </button>
-  <button (click)="openNotification()" class="hover">
-    <i
-      class="pi pi-bell mr-4 p-text-secondary"
-      pBadge
-      style="font-size: 1.5rem"
-      [value]="
-        planifications.length > 0 ? planifications.length.toString() : '0'
-      "
-    ></i>
-  </button>
-
-  <div
-    #topbarmenu
-    class="layout-topbar-menu"
-    [ngClass]="{
-      'layout-topbar-menu-mobile-active':
-        layoutService.state.profileSidebarVisible
-    }"
-  >
-    <a class="p-link layout-topbar-button1 mr-5">
-      <!-- [routerLink]="'/user/profile' -->
-      <i class="pi pi-user"></i>
-      <p class="ml-2">
-        {{ user?.names }}
-      </p>
-    </a>
-
-    <button class="p-link layout-topbar-button" (click)="onlogout()">
-      <i class="pi pi-fw pi-sign-out"></i>
-      <span>Salir</span>
-    </button>
-  </div>
-</div>
+<!-- <button (click)="layoutService.showProfileSidebar()">
+      <i style="font-size: 1.2rem" class="pi pi-ellipsis-v"></i>
+    </button> -->
