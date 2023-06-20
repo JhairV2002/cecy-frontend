@@ -14,15 +14,19 @@
   <div class="dropdown-menu">
     <div
       *ngIf="isOpen"
-      class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+      class="absolute right-0 z-20 w-56 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
     >
       <a
         routerLink=""
-        class="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        class="flex items-center p-3 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
       >
         <img
           class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-          [src]="user?.image"
+          [src]="
+            user?.image
+              ? user?.image
+              : 'assets/images/administrator/user-default.png'
+          "
           alt="jane avatar"
         />
         <div class="mx-1">
