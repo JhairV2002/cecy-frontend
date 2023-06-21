@@ -192,7 +192,6 @@ export class SidebarComponent implements OnInit {
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/responsible-execute/mis-cursos'],
         },
-
       ],
     },
   ];

@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnInit,
   Output,
   ViewChild,
@@ -21,7 +20,6 @@ import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TopbarComponent implements OnInit {
@@ -43,20 +41,6 @@ export class TopbarComponent implements OnInit {
   @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
 
   @ViewChild('topbarmenu') menu!: ElementRef;
-
-  userMenuItems: MenuItem[] = [
-    {
-      icon: 'pi pi-user',
-      label: this.name + 's',
-    },
-    {
-      label: 'Salir',
-      icon: 'pi pi-fw pi-sign-out',
-      command: () => {
-        this.onlogout();
-      },
-    },
-  ];
 
   constructor(
     private menuHttpService: MenuHttpService,

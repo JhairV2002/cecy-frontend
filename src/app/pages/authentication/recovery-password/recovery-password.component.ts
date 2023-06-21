@@ -20,7 +20,8 @@ export class RecoveryPasswordComponent implements OnInit {
   });
   form: FormGroup;
   progressBar: boolean = false;
-  sendEmail: boolean = false
+  sendEmail: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,16 +43,16 @@ export class RecoveryPasswordComponent implements OnInit {
   }
 
   recoverPassword() {
-    this.progressBar = true;
+    this.loading = true;
     const userEmailValue = this.formReset.value;
     this.recoveryPasswordService.recoveryPassword(userEmailValue).subscribe({
-      complete: () => {
+      next: () => {
         this.formReset.reset();
-        this.progressBar = false;
-        this.sendEmail = true
+        this.sendEmail = true;
+        this.loading = false;
       },
       error: (error) => {
-        this.progressBar = false;
+        this.loading = false;
         this.messageService.error(error);
       },
     });
