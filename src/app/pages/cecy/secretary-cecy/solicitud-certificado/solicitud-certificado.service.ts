@@ -14,7 +14,7 @@ export class SolicitudCertificadoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private apiUrl = `${environment.api}/api/matriculas`;
+  private apiUrl = `${environment.api}/matriculas`;
 
   public findAll(): Observable<Matricula[]> {
     return this.http.get<Matricula[]>(
