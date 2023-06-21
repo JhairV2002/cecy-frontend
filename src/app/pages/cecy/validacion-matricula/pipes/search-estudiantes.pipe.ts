@@ -16,7 +16,7 @@ export class SearchEstudiantesPipe implements PipeTransform {
       return (
         matricula.estudiantes!.nombres.toLowerCase().includes(term) ||
         matricula.estudiantes!.apellidos.toLowerCase().includes(term) ||
-        matricula.estudiantes!.dni.includes(term)
+        matricula.estudiantes!.cedula.includes(term)
       );
     });
   }
