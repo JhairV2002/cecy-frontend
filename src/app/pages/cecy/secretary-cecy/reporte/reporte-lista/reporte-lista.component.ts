@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
-import { Product } from './produc';
-import { ProductService } from './product.service';
 import { ActivatedRoute } from '@angular/router';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
