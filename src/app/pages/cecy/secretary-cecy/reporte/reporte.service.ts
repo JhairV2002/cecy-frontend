@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Reporte } from './reporte';
+import { Matricula, Reporte } from './reporte';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ReporteService {
     headers: new HttpHeaders({"Content-Type":"application/json"})
   }
   private url: string = "http://localhost:8080/api/reporte";
+  private apiUrl = `${environment.api4}/api/matriculas`;
 
   public findAll(): Observable<Reporte[]> {
     return this.http.get<Reporte[]>(
@@ -33,5 +35,12 @@ export class ReporteService {
 
   public descarga(id: number) {
     return this.http.get(this.url+"/xls/"+id+"/",{responseType:'blob'});
+  }
+
+  public findAllReport(): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(
+      this.apiUrl +'/',
+      this.httpOptions
+    );
   }
 }

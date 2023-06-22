@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
-import { PaginatorModel } from '@models/core';
-import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
-import { SolicitudCertificadoService } from '../../solicitud-certificado/solicitud-certificado.service';
-import { Matricula } from '../../solicitud-certificado/solicitud-certificado';
+
+//Prime NG
+import { SelectItem } from 'primeng/api';
+import { ListReports } from '../certificateReport';
+import { CecyCertificateService } from '../cecy-certificate.service';
+
+
+
 @Component({
   selector: 'app-panel-curso',
   templateUrl: './panel-curso.component.html'
@@ -13,36 +16,95 @@ import { Matricula } from '../../solicitud-certificado/solicitud-certificado';
 export class PanelCursoComponent implements OnInit {
 
   constructor(
-    private visualizationCoursesService: VisualizationCoursesService,
+    private visualizationCoursesService: CecyCertificateService,
     private planificationCourse: PlanificationsCoursesService,
-    private matricula: SolicitudCertificadoService
+
   ) {}
-  solicitudEstudents: Matricula[] = [];
-  certificadoList: Matricula[] = [];
+
   courses: Course[] = [];
+  courseEntity: Course={
+    planificationId:0
+  }
   courseValidate: Course[] = [];
+
+  //New metod
+  reports: ListReports[]=[]
+  //prime NG
+  // products: Course[] = [];
+
+  // sortOptions: SelectItem[] = [];
+
+  // sortOrder: number = 0;
+
+  //   sortField: string = '';
   ngOnInit(): void {
     this.findAll();
+
+
+
+
+
   }
+
+
+
+
+//   onFilter(dv: DataView, event: Event) {
+//       dv.filter((event.target as HTMLInputElement).value);
+// }
+
 
   public findAll(): void {
-    this.visualizationCoursesService.getviewCourses().subscribe((response: any) => {
-      this.courses = response;
+
+    ;
+    //Lista de reportes
+    this.visualizationCoursesService.getviewReports().subscribe((res)=>{
+      this.reports=res;
+      this.reports.forEach((report)=>{
+        this.visualizationCoursesService.findById(report.reportes[0].matriculas.cursoId).subscribe(
+          (course)=>{
+            this.visualizationCoursesService.getPlanificationById(
+              course.planificationId
+            ).subscribe(
+              (planification)=>{
+                report.nameCourse = planification.name
+                report.startDate = planification.startDate
+                report.finishDate= planification.finishDate
+
+
+              }
+            )
+
+          }
+        )
+
+      }
+
+      )
+
       this.nameCourse();
-      this.findAllEstudents();
-    });
+    })
+
+    ;
+
+
+    // this.visualizationCoursesService.getviewCourses().subscribe((response: any) => {
+    //   this.courses = response;
+    //   this.nameCourse();
+    //   this.findAllEstudents();
+    // });
   }
 
-  public findAllEstudents(): void {
-    this.matricula.findAll().subscribe((response) => {
-      this.solicitudEstudents = response;
+  // public findAllEstudents(): void {
+  //   this.matricula.findAll().subscribe((response) => {
+  //     this.solicitudEstudents = response;
 
-      // this.buscarPersona();
-      //this.buscarCurso();
-      //this.findMatricula();
-      this.conteo();
-    });
-  }
+  //     // this.buscarPersona();
+  //     //this.buscarCurso();
+  //     //this.findMatricula();
+  //     this.conteo();
+  //   });
+  // }
 
   public nameCourse(): void {
     this.courses.forEach(
@@ -51,29 +113,11 @@ export class PanelCursoComponent implements OnInit {
           solicitud.planificationId
         ).subscribe(
           (course) => {
-            solicitud.name = course.name;
+            solicitud.name = course.name
           }
         )
       }
     )
-  }
-
-  public conteo(): void {
-
-    this.courses.forEach((solicitud)=>{
-         var contador = 0;
-         this.solicitudEstudents.forEach(
-        (certificado) => {
-          if (certificado.cursoId == solicitud.id) {
-            contador=contador+1;
-            solicitud.list=contador
-          }
-
-          }
-      )
-
-    })
-
   }
 
 }

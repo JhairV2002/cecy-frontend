@@ -179,14 +179,14 @@ export class SidebarComponent implements OnInit {
           routerLink: '/cecy/secretary-cecy/home',
         },
         {
-          label: 'Visualizar cursos',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/secretary-cecy/visualization-courses'],
-        },
-        {
-          label: 'Reportes',
+          label: 'Generar Reporte',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/secretary-cecy/reporte'],
+        },
+        {
+          label: 'Generar Certificado',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/secretary-cecy/certificado'],
         },
       ],
     },

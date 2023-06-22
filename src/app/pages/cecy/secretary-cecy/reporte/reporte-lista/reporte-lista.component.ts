@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
 import { Reporte, Reportes,Matricula } from '../reporte';
-import { SolicitudCertificadoService } from '../../solicitud-certificado/solicitud-certificado.service';
 import { ReporteService } from '../reporte.service';
 
 
@@ -20,7 +19,7 @@ import { ReporteService } from '../reporte.service';
 export class ReporteListaComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private matricula: SolicitudCertificadoService,
+    private matricula: ReporteService,
     private courseService: VisualizationCoursesService,
     private reporteService: ReporteService,
 
@@ -156,7 +155,7 @@ ngOnInit(): void {
 
         console.log("el reporte no existe",this.validateReport)
       }
-      setInterval("location.reload()", 60000)
+      setInterval("location.reload()", 6000)
     });
   }
   //consulta todos los reportes y comprueba si existe un reporte x curso

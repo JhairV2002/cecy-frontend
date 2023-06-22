@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Matricula, SolicitudCertificado } from '../solicitud-certificado';
-import { SolicitudCertificadoService } from '../solicitud-certificado.service';
-import { PersonaService } from '../persona-service';
-import { MatriculaServiceService } from '../matricula-service.service';
-// import { Matricula } from '../matricula';
 import { ActivatedRoute } from '@angular/router';
-import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
-import { Course } from '@models/cecy/secretary-cecy';
-import { CertificadoPdfServiceService } from '../certificado-pdf-service.service';
-import { Certificado } from '../certificado';
-import { CodigosCertificadoService } from '../../codigos-certificado/codigos-certificado.service';
-import { CodigoCertificado } from '../../codigos-certificado/codigos-certificado';
-import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
-import { CursoService } from '../../../responsible-execute/curso/curso.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { finalize } from 'rxjs';
+
+
+//Importaciones nuevas
+import { Report } from '../certificate';
+import { Certificate } from '../certificate';
+import { Codes } from '../certificate';
+import { Estudiantes } from '../certificate';
+import { Matricula } from '../certificate';
+import { CertificateRequestService } from '../certificate-request.service';
+
+
 
 @Component({
   selector: 'app-solicitud-certificado-lista',
@@ -22,173 +18,141 @@ import { finalize } from 'rxjs';
 })
 export class SolicitudCertificadoListaComponent implements OnInit {
   constructor(
-    private solicitudCertificadoService: SolicitudCertificadoService,
-    private cursoService: VisualizationCoursesService,
+    private solicitudCertificadoService: CertificateRequestService,
     private activatedRoute: ActivatedRoute,
-    private certificadoPdf: CertificadoPdfServiceService,
-    private codigoCertificadoService: CodigosCertificadoService
+
+
   ) { }
 
-  solicitudCertificadoList: Matricula[] = [];
-  matriculaList: Matricula[] = [];
-  certificadoList: Matricula[] = [];
-  checkedList: SolicitudCertificado[] = [];
-  parentSelector: boolean = false;
-  codigoList: CodigoCertificado[] = [];
-  certificateFilter: Certificado[]=[];
-  certificadoEntity: Certificado = {
+
+
+
+  //no se si sirva lo de arriva
+  //Lista de reporte
+  reportEntity: Report={
     id:0,
-    userId:0,
-    courseId:0,
-    tuitionId:0,
-    estado:'',
+    fechaReporte:new Date,
+    reportes:[]
+
+  }
+  //iniciamos el certificado
+  certificadoEntity: Certificate = {
+    id:0,
+    estado: false,
     fecha: new Date()
   };
-  codigoEntity: CodigoCertificado = {
+  estudentEntity: Estudiantes={
     id: 0,
-    codigo: '',
-    estado: true,
-  };
-  courses: Course ={
-    id: 0,
-  name: '',
-  image: '',
-  planificationId:0,
+    cedula: "",
+    fechaNacimiento: "",
+    nombres: "",
+    apellidos: "",
+    email:""
   }
+  matriculaEntity:Matricula={
+    id:0,
+    estudiantes: this.estudentEntity
+  }
+  codeEntity: Codes={
+    id:0,
+    codigo:"",
+    matriculas:this.matriculaEntity,
+    certificado:this.certificadoEntity
+  }
+  //cambia el estado para la validacion de certificado
+  generate: boolean=false;
+
+
   ngOnInit(): void {
-    this.findAll();
+    //this.findAll();
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.get('id')) {
         this.findById(parseInt(params.get('id')!));
       }
     });
   }
+
+  //Trae a la entdad de reporte con la lista de codigos-----
   findById(id: number): void {
-    this.cursoService.findById(id).subscribe((response) => {
-      this.courses = response;
+    this.solicitudCertificadoService.findById(id).subscribe((response) => {
+      this.reportEntity = response;
+
     });
-  }
-  public findAll(): void {
-    this.solicitudCertificadoService.findAll().subscribe((response) => {
-      this.solicitudCertificadoList = response;
-      this.conteo();
-    });
-  }
+  };
 
-  public conteo(): void {
-    this.solicitudCertificadoList.forEach(
-      (certificado) => {
-        if (certificado.cursoId == this.courses.id) {
-        this.certificadoList.push(certificado)
-        }
-        }
-    )
-  }
+  //Actualizar el codigo--------
+  updateEntity(id:number):void {
+    console.log(id,"este es el id")
+  };
 
 
 
-  /*onChangeFood($event: { target: { value: any; checked: any } }) {
-    const numeroId = $event.target.value;
-    const isChecked = $event.target.checked;
-    this.certificadoList = this.certificadoList.map((d) => {
-      if (d.id == numeroId) {
-        d.checkeado = isChecked;
-
-        this.parentSelector = false;
-        console.log(d);
-        return d;
-      }
-      if (numeroId == -1) {
-        d.checkeado = this.parentSelector;
-        return d;
-      }
-      return d;
-    });
-  }*/
-
-  generarCertificados(): void {
-    this.certificadoList.forEach((a) => {
-      this.consultarCodigos();
-      this.codigoList.forEach((codigo) => {
-        if (codigo.estado == true) {
-          this.actualizarCodigo(codigo.id, codigo.codigo);
-          //this.savePdf(a.cedula,codigo.id,a.courseId,a,codigo)
-        }
-      });
-    });
-  }
-  public consultarCodigos(): void {
-    this.codigoCertificadoService.findAll().subscribe((cod) => {
-      this.codigoList = cod;
-    });
-  }
-  public actualizarCodigo(codigoId: number, codigoNombre: string): void {
-    this.codigoCertificadoService.update(this.codigoEntity).subscribe(() => {
-      this.codigoEntity = {
-        id: codigoId,
-        codigo: codigoNombre,
-        estado: false,
-      };
-    });
-  }
-
-  public findByIdCertificado(): void {
-    this.certificadoPdf.findById(4).subscribe((response) => {
-      this.certificadoEntity = response;
-      console.log(this.certificadoEntity);
-    });
-  }
-
-
-
-
-  public descarga(id: any) {
-    this.certificadoPdf.descarga(id).subscribe((data) => {
-      let dowloadURL = window.URL.createObjectURL(data);
-      let link = document.createElement('a');
-      link.href = dowloadURL;
-      link.download = 'certificado.pdf';
-      link.click();
-    });
-  }
-
-
-
+  //vamos a ver si genera de la nueva forma-----
+  //genera sertificados
   public generateCertificates():void {
 
-    this.certificadoList.forEach(
+
+    this.reportEntity.reportes.forEach(
       (res)=>{
-        this.certificadoEntity={
+        if(res.certificado==null){
+          this.certificadoEntity={
 
-          userId:res.estudiantes.id,
-          courseId:res.cursoId,
-          tuitionId:res.id,
-          estado:'generado',
-          fecha: new Date()
+            estado:true,
+            fecha: new Date()
+          };
+          console.log("se a creado un nuevo certificado");
+
         }
-        this.certificadoPdf.save(this.certificadoEntity).subscribe();
+        if(res.certificado!=null){
+          // this.certificadoEntity={
+          //   id:res.certificado.id,
+          //   estado:res.certificado.estado,
+          //   fecha: res.certificado.fecha
+          // };
+
+          console.log("existe un certificado")
+          return ;
+
+        }
+
+
+        this.estudentEntity={
+          id: res.matriculas.estudiantes.id,
+          cedula: res.matriculas.estudiantes.cedula,
+          fechaNacimiento: res.matriculas.estudiantes.fechaNacimiento,
+          nombres: res.matriculas.estudiantes.nombres,
+          apellidos: res.matriculas.estudiantes.apellidos,
+          email:res.matriculas.estudiantes.email
+        };
+
+        this.matriculaEntity={
+            id:res.matriculas.id,
+            estudiantes:this.estudentEntity
+
+        };
+
+        this.codeEntity={
+          id:res.id,
+          codigo:res.codigo,
+          matriculas:this.matriculaEntity,
+          certificado: this.certificadoEntity
+
+        };
+
+        //console.log(JSON.stringify(this.codeEntity))
+        if(this.generate){
+          console.log('validacion de generacion de ceertificado true')
+          return
+        }
+        this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe();
+
       }
 
     )
+    this.generate=true;
+    console.log('primera ves generado',this.generate)
   }
-  //falta completar pala validar datos duplicados
-  public validateCertificates(user:any, course:any): void{
-    this.certificadoPdf.findAll().subscribe(
-      (data)=>{
-        this.certificateFilter=data
-        this.certificateFilter.forEach(
-          (res)=>{
-            if(user == res.userId&& course==res.courseId){
-              console.log("se repiten ")
-            }else{
-              return;
 
-            }
-          }
-        )
-      }
-    )
 
-  }
 
 }
