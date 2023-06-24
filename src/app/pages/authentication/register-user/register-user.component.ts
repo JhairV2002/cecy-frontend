@@ -20,7 +20,7 @@ export class RegisterUserComponent implements OnInit {
     public registrationService: RegistrationService,
     public institutionService: InstitutionService,
     public documentsService: DocumentsService
-  ) { }
+  ) {}
   initialForm: PersonCecy = {
     id: 0,
     nombres: '',
@@ -87,7 +87,7 @@ export class RegisterUserComponent implements OnInit {
     fechaSubida: new Date(),
   };
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   saveUser(): void {
     console.log(this.initialForm);

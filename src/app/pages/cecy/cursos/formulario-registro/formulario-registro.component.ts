@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CatalogueService } from '@services/cecy';
 import { EstudiantesServiceService } from '../../validacion-matricula/services/estudiantes-service.service';
+import { EstudiantesService } from '@services/estudiantes.service';
 
 @Component({
   selector: 'app-formulario-registro',
@@ -12,13 +13,15 @@ export class FormularioRegistroComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private catalogoService: CatalogueService,
-    private estudiantesService: EstudiantesServiceService
-  ) { }
+    // private estudiantesService: EstudiantesServiceService
+    private estudiantesService: EstudiantesService
+  ) {}
 
   formularioRegistro = this.fb.group({
     nombres: ['', Validators.required],
     apellidos: ['', Validators.required],
     cedula: ['', Validators.required],
+    clave: [''],
     fechaNacimiento: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     discapacidad: [false],
@@ -56,7 +59,7 @@ export class FormularioRegistroComponent implements OnInit {
   onSubmit() {
     console.log(this.formularioRegistro.value);
     this.estudiantesService
-      .crearEstudiante(this.formularioRegistro.value)
+      .registrarEstudiante(this.formularioRegistro.value)
       .subscribe((res) => console.log(res));
     // console.log(this.formularioRegistro.get('email'));
     // console.log(this.formularioRegistro.invalid);

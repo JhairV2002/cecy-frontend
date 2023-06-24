@@ -2,7 +2,8 @@ import { Matricula } from './estudiantes/carreras';
 
 export interface Estudiantes {
   id: number;
-  cedula: any;
+  cedula: string;
+  clave: string;
   fechaNacimiento: string;
   nombres: string;
   apellidos: string;

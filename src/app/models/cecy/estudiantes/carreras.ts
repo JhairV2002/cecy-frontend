@@ -102,6 +102,7 @@ export interface Estudiantes {
   id: number;
   cedula: string;
   fechaNacimiento: string;
+  clave?: string;
   nombres: string;
   apellidos: string;
   email: string;
