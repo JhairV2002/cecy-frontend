@@ -250,10 +250,4 @@ export class SidebarComponent implements OnInit {
   closeSide() {
     this.closed = !this.closed;
   }
-
-  userRoleIn(allowedRoles: any): Observable<boolean> {
-    return this.authService.user$.pipe(
-      map((user) => Boolean(user && allowedRoles.includes(user[0].role.name)))
-    );
-  }
 }

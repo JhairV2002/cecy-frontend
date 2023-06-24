@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from '@models/authentication';
@@ -19,6 +12,8 @@ import { AuthService } from '@services/auth';
 export class DropdownComponent implements OnInit {
   isOpen: boolean = false;
   user: User | null = null;
+  isModalOpen: boolean = false;
+  isVisible: boolean = false;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -41,12 +36,21 @@ export class DropdownComponent implements OnInit {
     if (!dropdownClicked && this.isOpen) {
       this.isOpen = false;
     }
-    console.log('ESTADO DROP DESPUES', this.isOpen);
   }
 
   toggleDropdown(event: MouseEvent) {
     event.stopPropagation();
     this.isOpen = !this.isOpen;
+  }
+
+  showForm(): void {
+    console.log('OPEN PROFILE FORM');
+    this.isVisible = true;
+  }
+
+  closeModal(state: boolean) {
+    console.log('STATE PROFILE FORM', state);
+    this.isVisible = state;
   }
 
   onlogout(): void {

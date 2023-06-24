@@ -36,6 +36,10 @@ import { MenuModule } from 'primeng/menu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { SidebarModule } from 'primeng/sidebar';
 import { AvatarModule } from 'primeng/avatar';
+import { DialogModule } from 'primeng/dialog';
+import { InplaceModule } from 'primeng/inplace';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
 
 import { BlankComponent } from './components/layouts/blank/blank.component';
 import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
@@ -49,6 +53,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NotificationComponent } from './components/layouts/notification/notification.component';
 import { RelativeTimePipe } from './pipes/date/relative-time.pipe';
 import { DropdownComponent } from './components/layouts/topbar/dropdown/dropdown.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
@@ -77,6 +82,7 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     NotificationComponent,
     RelativeTimePipe,
     DropdownComponent,
+    ProfileComponent,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -102,6 +108,7 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     NotificationComponent,
     RelativeTimePipe,
     DropdownComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -131,6 +138,10 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ImageModule,
     RouterModule.forChild(routes),
     AvatarModule,
+    DialogModule,
+    InplaceModule,
+    ConfirmPopupModule,
+    ToastModule,
   ],
 })
 export class SharedModule {}

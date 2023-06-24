@@ -27,7 +27,7 @@
               ? user?.image
               : 'assets/images/administrator/user-default.png'
           "
-          alt="jane avatar"
+          alt="avatar"
         />
         <div class="mx-1">
           <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
@@ -38,33 +38,57 @@
           </p>
         </div>
       </a>
-
-      <hr class="border-gray-200 dark:border-gray-700" />
-
-      <a
-        routerLink=""
-        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+      <!-- <p-button
+        styleClass="p-button-text p-button-secondary w-full flex items-center p-3 text-sm"
       >
-        <i class="pi pi-user"></i>
-        Ver perfil
-      </a>
-
-      <a
-        routerLink=""
-        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-      >
-        <i class="pi pi-cog"></i>
-        Configuración
-      </a>
+        <img
+          class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+          [src]="
+            user?.image
+              ? user?.image
+              : 'assets/images/administrator/user-default.png'
+          "
+          alt="jane avatar"
+        />
+        <div class="mx-1">
+          <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+            {{ user?.names }}
+          </h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ user?.email }}
+          </p>
+        </div>
+      </p-button> -->
       <hr class="border-gray-200 dark:border-gray-700" />
+      <p-button
+        (click)="showForm()"
+        class="w-full"
+        styleClass="p-button-text p-button-secondary w-full"
+      >
+        <i class="pi pi-user text-gray-600"></i>
+        <span class="ml-1 text-gray-600">Ver perfil</span>
+      </p-button>
 
-      <a
-        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+      <app-profile
+        [showModal]="isVisible"
+        (clickClose)="closeModal($event)"
+      ></app-profile>
+      <p-button
+        class="w-full"
+        styleClass="p-button-text p-button-secondary w-full"
+      >
+        <i class="pi pi-cog text-gray-600"></i>
+        <span class="ml-1 text-gray-600">Configuración</span>
+      </p-button>
+      <hr class="border-gray-200 dark:border-gray-700" />
+      <p-button
+        class="w-full"
+        styleClass="p-button-text p-button-secondary w-full"
         (click)="onlogout()"
       >
-        <i class="pi pi-fw pi-sign-out"></i>
-        Salir
-      </a>
+        <i class="pi pi-fw pi-sign-out text-gray-600"></i>
+        <span class="ml-1 text-gray-600">Salir</span>
+      </p-button>
     </div>
   </div>
 </div>
