@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnInit,
   Output,
   ViewChild,
@@ -21,7 +20,6 @@ import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TopbarComponent implements OnInit {
@@ -34,6 +32,9 @@ export class TopbarComponent implements OnInit {
   user: User | null = null;
   planifications: [] = [];
   private _numberNotifications: number = 0;
+
+  tieredItems: MenuItem[] = [];
+  name: string | undefined = '';
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -56,6 +57,7 @@ export class TopbarComponent implements OnInit {
     this.authService.getProfile().subscribe((data: any) => {
       console.log('cliente global', data[0]);
       this.user = data[0];
+      this.name = this.user?.names;
       this.socket.emit('app:sendUser', this.user);
     });
     this.items = [
@@ -81,11 +83,11 @@ export class TopbarComponent implements OnInit {
         ],
       },
     ];
-    this.socket.on('api:allNotificationByUser', (notification: any) => {
-      console.log('SOCKET desde API', notification);
-      this.planifications = notification;
-      this.updateNumberNotification(this.planifications.length);
-    });
+    // this.socket.on('api:allNotificationByUser', (notification: any) => {
+    //   console.log('SOCKET desde API', notification);
+    //   this.planifications = notification;
+    //   this.updateNumberNotification(this.planifications.length);
+    // });
   }
 
   get numeroNotificaciones(): string {

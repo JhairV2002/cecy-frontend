@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@env/environment';
-import { Teacher } from './../../../models/cecy/coordinator-career';
 import { User } from '@models/authentication';
 
 @Injectable({

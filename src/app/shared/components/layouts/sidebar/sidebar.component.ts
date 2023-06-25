@@ -192,7 +192,6 @@ export class SidebarComponent implements OnInit {
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/responsible-execute/mis-cursos'],
         },
-
       ],
     },
   ];
@@ -209,6 +208,11 @@ export class SidebarComponent implements OnInit {
           label: 'Visualizar cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/secretary-cecy/visualization-courses'],
+        },
+        {
+          label: 'Reportes',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/secretary-cecy/reporte'],
         },
       ],
     },
@@ -245,11 +249,5 @@ export class SidebarComponent implements OnInit {
 
   closeSide() {
     this.closed = !this.closed;
-  }
-
-  userRoleIn(allowedRoles: any): Observable<boolean> {
-    return this.authService.user$.pipe(
-      map((user) => Boolean(user && allowedRoles.includes(user[0].role.name)))
-    );
   }
 }

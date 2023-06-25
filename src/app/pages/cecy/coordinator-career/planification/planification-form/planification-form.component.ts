@@ -22,7 +22,7 @@ import {
   TeachersService,
 } from '@services/cecy/coordinator-career';
 import { SchoolYearService } from '@services/cecy/coordinator-cecy';
-import { SchoolYear } from '@models/cecy/coordinator-career';
+import { SchoolYear, AutoComplete } from '@models/cecy/coordinator-career';
 import { CourseService } from '@services/cecy-v1/course.service';
 @Component({
   selector: 'app-planification-form',
@@ -46,7 +46,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
       Validators.required,
       Validators.maxLength(5),
     ]),
-    name: new FormControl('', [Validators.minLength(4), Validators.required]),
+    name: new FormControl('', [Validators.required]),
     durationTime: new FormControl(null, [
       Validators.required,
       Validators.min(40),
@@ -67,6 +67,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   titleButton: string = '';
   UserByRoleEspecific: [] = [];
   isEdit: boolean = false;
+  planifications: any[] = [];
 
   constructor(
     private courseHttpService: CourseHttpService,
@@ -75,8 +76,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     private planificationsCoursesService: PlanificationsCoursesService,
     private teacherService: TeachersService,
     private schoolYearService: SchoolYearService,
-    private courseService: CourseService,
-    private socket: Socket
+    private courseService: CourseService // private socket: Socket
   ) {}
 
   ngOnInit(): void {
@@ -144,47 +144,60 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     this.state = 'proceso';
     this.careerId = this.selectedCareer;
     const valuesFormPlanification = this.formPlanification.value;
+    console.log('SELECCIONADO PLANIFICACION', this.selectPlanification);
     console.log(valuesFormPlanification);
-    if (!this.selectPlanification) {
-      this.socket.emit(
-        'app:newPlanification',
-        valuesFormPlanification,
-        (response: any) => {
-          if (response.error) {
-            this.messageService.errorValid(response.error);
-            this.progressBar = false;
-          } else {
-            console.log('ALL', response);
-            this.progressBar = false;
-            this.messageService.successPlanification(response);
-            this.clickClose.emit(false);
-            this.addPlanification.emit(response.data);
-            this.formPlanification.reset();
-          }
-        }
-      );
-    } else {
-      console.log('EDITANDO');
-      this.planificationsCoursesService
-        .editPlanificationById(
-          valuesFormPlanification,
-          this.selectPlanification.id
-        )
-        .subscribe({
-          next: (data: any) => {
-            this.progressBar = false;
-            this.messageService.successPlanification(data);
-            this.clickClose.emit(false);
-            this.addPlanification.emit(data);
-            this.formPlanification.reset();
-          },
-          error: (error) => {
-            this.progressBar = false;
-            this.messageService.error(error);
-          },
-        });
-    }
+    this.planificationsCoursesService
+      .createEdit(valuesFormPlanification, this.selectPlanification)
+      .subscribe({
+        next: (data: any) => {
+          this.progressBar = false;
+          this.messageService.successPlanification(data);
+          this.clickClose.emit(false);
+          this.addPlanification.emit(data);
+          this.formPlanification.reset();
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    // this.planificationsCoursesService
+    //   .createEdit(valuesFormPlanification, this.selectPlanification)
+    //   .subscribe({
+    //     next: (data: any) => {
+    //       this.progressBar = false;
+    //       //this.messageService.successPlanification(data);
+    //       this.clickClose.emit(false);
+    //       this.addPlanification.emit(data);
+    //       this.formPlanification.reset();
+    //     },
+    //     error: (error) => {
+    //       this.progressBar = false;
+    //       console.log(error);
+    //       //this.messageService.error(error);
+    //     },
+    //   });
   }
+  //}
+  // if (!this.selectPlanification) {
+  //   this.socket.emit(
+  //     'app:newPlanification',
+  //     valuesFormPlanification,
+  //     (response: any) => {
+  //       if (response.error) {
+  //         this.messageService.errorValid(response.error);
+  //         this.progressBar = false;
+  //       } else {
+  //         console.log('ALL', response);
+  //         this.progressBar = false;
+  //         this.messageService.successPlanification(response);
+  //         this.clickClose.emit(false);
+  //         this.addPlanification.emit(response.data);
+  //         this.formPlanification.reset();
+  //       }
+  //     }
+  //   );
+  // } else {
+  //   console.log('EDITANDO');
 
   onSubmit() {
     if (this.formPlanification.valid) {
@@ -219,6 +232,16 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
         error: (error) => {
           this.messageService.errorValid(error);
           this.progressBar = false;
+        },
+      });
+  }
+
+  search(event: AutoComplete) {
+    this.planificationsCoursesService
+      .searchPlanifications(event.query)
+      .subscribe({
+        next: (data) => {
+          this.planifications = data;
         },
       });
   }

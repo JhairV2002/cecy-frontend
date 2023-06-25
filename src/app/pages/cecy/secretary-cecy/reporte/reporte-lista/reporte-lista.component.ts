@@ -5,6 +5,12 @@ import { Table } from 'primeng/table';
 
 import { Product } from './produc';
 import { ProductService } from './product.service';
+import { ActivatedRoute } from '@angular/router';
+import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
+import { Course } from '@models/cecy/secretary-cecy';
+import { Reporte, Reportes,Matricula } from '../reporte';
+import { SolicitudCertificadoService } from '../../solicitud-certificado/solicitud-certificado.service';
+import { ReporteService } from '../reporte.service';
 
 
 @Component({
@@ -12,134 +18,208 @@ import { ProductService } from './product.service';
   templateUrl: './reporte-lista.component.html',
 })
 export class ReporteListaComponent implements OnInit {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private matricula: SolicitudCertificadoService,
+    private courseService: VisualizationCoursesService,
+    private reporteService: ReporteService,
 
-  productDialog: boolean = false;
+  ){}
+  solicitudEstudents: Matricula[] = [];
+  cursoEstudiantes: Matricula[] = [];
+  reporteList: Reporte[] = [];
+  courses: Course[] = [];
+  validateReportList: Reporte[] = [];
+  validateReport: Boolean = false;
+  listaMatriculados: Matricula[] = [];
+  validateReportEntity: Reporte={
+    id:0,
+    reportes:[]
+  }
+  course: Course = {
+    id:0,
+    name:'',
+    image: '',
+    planificationId: 0
+  }
+  reporteEntity: Reporte = {
+    id:0,
+    fechaReporte: new Date(),
+    reportes: []
+  }
+  cursoEstudiante: Matricula={
+    id:0,
+    cursoId: 0,
+    nota1: 0,
+    nota2: 0,
+    promedio: 0
+  };
+  cursoEstudianteLista: Matricula={
+    id:0,
+    cursoId: 0,
+    nota1: 0,
+    nota2: 0,
+    promedio: 0
+  };
 
-  deleteProductDialog: boolean = false;
 
-  deleteProductsDialog: boolean = false;
-
-  products: Product[] = [];
-
-  product: Product = {};
-
-  selectedProducts: Product[] = [];
-
-  submitted: boolean = false;
-
-  cols: any[] = [];
-
-  statuses: any[] = [];
-
-  rowsPerPageOptions = [5, 10, 20];
-
-  constructor(private productService: ProductService, private messageService: MessageService) { }
-
-  ngOnInit() {
-      this.productService.getProducts().then(data => this.products = data);
-
-      this.cols = [
-          { field: 'product', header: 'Product' },
-          { field: 'price', header: 'Price' },
-          { field: 'category', header: 'Category' },
-          { field: 'rating', header: 'Reviews' },
-          { field: 'inventoryStatus', header: 'Status' }
-      ];
-
-      this.statuses = [
-          { label: 'INSTOCK', value: 'instock' },
-          { label: 'LOWSTOCK', value: 'lowstock' },
-          { label: 'OUTOFSTOCK', value: 'outofstock' }
-      ];
+  reportesList: Reportes[] = []
+  reporteListEntity: Reportes={
+    matriculas:this.cursoEstudiante
   }
 
-  openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
+ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      if (params.get('id')) {
+        this.findByIdCourse(parseInt(params.get('id')!));
+      }
+    });
+    this.consulReport();
+    this.searchStudentsbyState();
   }
 
-  deleteSelectedProducts() {
-      this.deleteProductsDialog = true;
-  }
+ public findByIdCourse(id: number): void{
+  this.courseService.findById(id).subscribe((res)=>{
+    this.course = res;
 
-  editProduct(product: Product) {
-      this.product = { ...product };
-      this.productDialog = true;
-  }
+  })
+ }
+ public searchStudentsbyState():void{
+  var totalAprobados=0;
+  var totalReprobados=0;
 
-  deleteProduct(product: Product) {
-      this.deleteProductDialog = true;
-      this.product = { ...product };
-  }
+  this.matricula.findAllReport().subscribe((response) => {
 
-  confirmDeleteSelected() {
-      this.deleteProductsDialog = false;
-      this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-      this.selectedProducts = [];
-  }
+    this.solicitudEstudents = response;
+    this.solicitudEstudents.forEach((res)=>{
+      if(res.estadoCurso?.descripcion=="Aprobado" && res.cursoId == this.course.id ){
+        totalAprobados= totalAprobados+1;
+      }
+      if(res.estadoCurso?.descripcion=="Reprobado" && res.cursoId == this.course.id){
+        totalReprobados= totalReprobados+1;
+      }
+      this.cursoEstudianteLista={
+        id: res.id,
+        cursoId: res.cursoId,
+        nota1: res.nota1,
+        nota2:  res.nota2,
+        promedio: res.promedio,
+        aprobado: totalAprobados,
+        reprobado:totalReprobados
 
-  confirmDelete() {
-      this.deleteProductDialog = false;
-      this.products = this.products.filter(val => val.id !== this.product.id);
-      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-      this.product = {};
-  }
 
-  hideDialog() {
-      this.productDialog = false;
-      this.submitted = false;
-  }
 
-  saveProduct() {
-      this.submitted = true;
+      }
+      this.listaMatriculados.push(this.cursoEstudianteLista)
+    })})
+ }
 
-      if (this.product.name?.trim()) {
-          if (this.product.id) {
-              // @ts-ignore
-              this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-              this.products[this.findIndexById(this.product.id)] = this.product;
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-          } else {
-              this.product.id = this.createId();
-              this.product.code = this.createId();
-              this.product.image = 'product-placeholder.svg';
-              // @ts-ignore
-              this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-              this.products.push(this.product);
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
+ //sin validar reportes duplicados
+  public generateReports():void {
+    this.consulReport();
+    this.matricula.findAllReport().subscribe((response) => {
+      this.solicitudEstudents = response;
+      this.solicitudEstudents.forEach((res)=>{
+        if (res.cursoId == this.course.id) {
+          //matricula
+          this.cursoEstudiante={
+            id: res.id,
+            cursoId: res.cursoId,
+            nota1: res.nota1,
+            nota2:  res.nota2,
+            promedio: res.promedio
+
+
           }
-
-          this.products = [...this.products];
-          this.productDialog = false;
-          this.product = {};
-      }
-  }
-
-  findIndexById(id: string): number {
-      let index = -1;
-      for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].id === id) {
-              index = i;
-              break;
+          this.reporteListEntity={
+            matriculas:this.cursoEstudiante
           }
+          this.reportesList.push(this.reporteListEntity);
+
+        }
+      })
+
+      this.reporteEntity={
+          fechaReporte: new Date(),
+          reportes: this.reportesList
+        }
+      //guarda el reporte falta validar
+      //validar x el consultReport
+
+      if(this.validateReport){
+
+        console.log("el reporte existe")
+
+      }else{
+        this.reporteService.save(this.reporteEntity).subscribe();
+        this.validateReport=true;
+
+        console.log("el reporte no existe",this.validateReport)
       }
+      setInterval("location.reload()", 60000)
+    });
+  }
+  //consulta todos los reportes y comprueba si existe un reporte x curso
+  //si existe un reporte x curso, llama a la opcion de descargas
+  public consulReport(){
+    this.reporteService.findAll().subscribe(
+      (res)=>{
+        this.validateReportList=res;
+        this.validateReportList.forEach(
+          (response)=>{
+            response.reportes.forEach((add)=>{
 
-      return index;
+              if(add.matriculas.cursoId==this.course.id){
+                //si entra el reporte x curso existe
+                this.validateReport=true;
+                this.validateReportEntity={
+                  id:response.id,
+                  reportes:[]
+
+                }
+              };
+              console.log(this.validateReport,"se actualizo el id a",this.validateReportEntity.id)
+            });
+          })
+    });
+  };
+
+  public asd(){
+    this.reporteService.findAll().subscribe(
+      (res)=>{
+        this.validateReportList=res;
+        this.validateReportList.forEach(
+          (response)=>{
+            response.reportes.forEach((add)=>{
+
+              if(add.matriculas.cursoId==this.course.id){
+                //si entra el reporte x curso existe
+                this.validateReport=true;
+                this.validateReportEntity={
+                  id:response.id,
+                  reportes:[]
+
+                }
+              };
+              console.log(this.validateReport,"se actualizo el id a",this.validateReportEntity.id)
+            });
+          })
+    });
+  };
+
+
+  public downloadXls(id: any) {
+
+    //aqui va el nombre del curso y la fecha en la que se descargo
+    var name='nombre '+ new Date();
+    this.reporteService.descarga(id).subscribe((data) => {
+      let dowloadURL = window.URL.createObjectURL(data);
+      let link = document.createElement('a');
+      link.href = dowloadURL;
+      link.download = name+'.xls';
+      link.click();
+    });
   }
 
-  createId(): string {
-      let id = '';
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (let i = 0; i < 5; i++) {
-          id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
-  }
-
-  onGlobalFilter(table: Table, event: Event) {
-      table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-  }
 
 }

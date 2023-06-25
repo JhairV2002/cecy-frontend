@@ -23,9 +23,7 @@ import { finalize } from 'rxjs';
 export class SolicitudCertificadoListaComponent implements OnInit {
   constructor(
     private solicitudCertificadoService: SolicitudCertificadoService,
-    private personaService: PersonaService,
     private cursoService: VisualizationCoursesService,
-    private matriculaService: MatriculaServiceService,
     private activatedRoute: ActivatedRoute,
     private certificadoPdf: CertificadoPdfServiceService,
     private codigoCertificadoService: CodigosCertificadoService
@@ -73,55 +71,9 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   public findAll(): void {
     this.solicitudCertificadoService.findAll().subscribe((response) => {
       this.solicitudCertificadoList = response;
-
-      // this.buscarPersona();
-      //this.buscarCurso();
-      //this.findMatricula();
       this.conteo();
     });
   }
-  /*public findMatricula(): void {
-    this.matriculaService.findAll().subscribe(
-      (response) => {
-        this.matriculaList = response
-        this.buscarMatricula();
-      }
-    )
-  }*/
-  // public buscarPersona(): void {
-  //   this.solicitudCertificadoList.forEach((solicitud) => {
-  //     solicitud.cedula;
-  //     this.personaService
-  //       .findById(solicitud.estudianteId.personaId)
-  //       .subscribe((persona) => {
-  //         solicitud.nombrecompleto = persona.nombres + ' ' + persona.apellidos;
-  //         solicitud.cedula = persona.dni;
-  //       });
-  //   });
-  // }
-
-  // public buscarCurso(): void {
-  //   this.solicitudCertificadoList.forEach((solicitud) => {
-  //     this.cursoService
-  //       .findById(solicitud.cursoId)
-  //       .subscribe((nombreCurso) => (solicitud.curso = nombreCurso.name));
-  //   });
-  // }
-
-  /*public buscarMatricula(): void {
-    this.matriculaList.forEach(
-    (matricula) => {
-    if (matricula.state == 'Aprobado')
-    this.solicitudCertificadoList.forEach(
-    (certificado) => {
-    if (certificado.estudianteId == matricula.userId && certificado.cursoId == this.currentEntity.id) {
-    this.certificadoList.push(certificado)
-    }
-    }
-    )
-    }
-    )
-  }*/
 
   public conteo(): void {
     this.solicitudCertificadoList.forEach(
@@ -219,7 +171,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
 
     )
   }
-  //falta completar
+  //falta completar pala validar datos duplicados
   public validateCertificates(user:any, course:any): void{
     this.certificadoPdf.findAll().subscribe(
       (data)=>{

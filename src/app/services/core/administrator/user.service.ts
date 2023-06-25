@@ -30,4 +30,20 @@ export class UserService {
   removeUser(userId: any) {
     return this.http.delete(`${this.apiUrl}/${userId}`);
   }
+
+  updateByImage(id: any, image: any) {
+    return this.http.patch(`${this.apiUrl}/${id}/image`, { image });
+  }
+
+  updateByName(id: any, names: any) {
+    return this.http.patch(`${this.apiUrl}/${id}/names`, { names });
+  }
+
+  updateByLastNames(id: any, lastnames: any) {
+    return this.http.patch(`${this.apiUrl}/${id}/lastnames`, { lastnames });
+  }
+
+  updateByEmail(id: any, email: any) {
+    return this.http.patch(`${this.apiUrl}/${id}/email`, { email });
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ColModel, PaginatorModel, UserModel } from '@models/core';
+import { ColModel, PaginatorModel } from '@models/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
 import { Roles } from '@models/authentication';

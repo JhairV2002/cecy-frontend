@@ -1,88 +1,136 @@
 <p-toast position="top-center"></p-toast>
 
-<p-dialog header="Gestionar Archivos" [(visible)]="displayModalFiles" [modal]="true">
-  <app-view-files [acceptAttributes]="'.pdf'"
-                  [loadingUpload]="loadingUploadFiles"
-                  [filesIn]="files"
-                  [loadingFiles]="loadingFiles"
-                  [paginatorIn]="paginatorFiles"
-                  (files)="uploadFiles($event)"
-                  (paginatorOut)="loadFiles()"
-                  (searchOut)="filterFiles.setValue($event);loadFiles()">
+<p-dialog
+  header="Gestionar Archivos"
+  [(visible)]="displayModalFiles"
+  [modal]="true"
+>
+  <app-view-files
+    [acceptAttributes]="'.pdf'"
+    [loadingUpload]="loadingUploadFiles"
+    [filesIn]="files"
+    [loadingFiles]="loadingFiles"
+    [paginatorIn]="paginatorFiles"
+    (files)="uploadFiles($event)"
+    (paginatorOut)="loadFiles()"
+    (searchOut)="filterFiles.setValue($event); loadFiles()"
+  >
   </app-view-files>
 </p-dialog>
 
 <div class="p-fluid">
-    <form [formGroup]="formCourse" (ngSubmit)="onSubmit()">
-      
-      <!--approvedAt-->
-      <div class="field">
-        <label for="approvedAt" appLabel label="Fecha de aprobación:" 
-              [required]="isRequired(approvedAtField)"
-              [valid]="approvedAtField.valid" 
-              [touched]="approvedAtField.touched"
-              [dirty]="approvedAtField.dirty">
-        </label>
-        <p-calendar id="approvedAt" 
-         formControlName="approvedAt" dateFormat="yy-mm-dd"
-              [showIcon]="true"
-              [monthNavigator]="true" 
-              [yearNavigator]="true" 
-              [showButtonBar]="true" 
-             ></p-calendar>
-        <small appErrorMessage 
-              [errors]="approvedAtField.errors" 
-              [touched]="approvedAtField.touched"
-              [dirty]="approvedAtField.dirty">
-        </small>
-      </div>
+  <form [formGroup]="formCourse" (ngSubmit)="onSubmit()">
+    <!--approvedAt-->
+    <div class="field">
+      <label
+        for="approvedAt"
+        appLabel
+        label="Fecha de aprobación:"
+        [required]="isRequired(approvedAtField)"
+        [valid]="approvedAtField.valid"
+        [touched]="approvedAtField.touched"
+        [dirty]="approvedAtField.dirty"
+      >
+      </label>
+      <p-calendar
+        id="approvedAt"
+        formControlName="approvedAt"
+        dateFormat="yy-mm-dd"
+        [showIcon]="true"
+        [monthNavigator]="true"
+        [yearNavigator]="true"
+        [showButtonBar]="true"
+      ></p-calendar>
+      <small
+        appErrorMessage
+        [errors]="approvedAtField.errors"
+        [touched]="approvedAtField.touched"
+        [dirty]="approvedAtField.dirty"
+      >
+      </small>
+    </div>
 
-      <!--expiredAt-->
-      <div class="field">
-        <label for="expiredAt" appLabel label="Fecha de vencimiento:" 
+    <!--expiredAt-->
+    <div class="field">
+      <label
+        for="expiredAt"
+        appLabel
+        label="Fecha de vencimiento:"
         [required]="isRequired(expiredAtField)"
-            [valid]="expiredAtField.valid" 
-            [touched]="expiredAtField.touched" [dirty]="expiredAtField.dirty">
-        </label>
-        <p-calendar id="expiredAt" [showIcon]="true" formControlName="expiredAt" dateFormat="yy-mm-dd"
-            [monthNavigator]="true" [yearNavigator]="true" [showButtonBar]="true" ></p-calendar>
-        <small appErrorMessage [errors]="expiredAtField.errors" [touched]="expiredAtField.touched"
-            [dirty]="expiredAtField.dirty">
-        </small>
-      </div>
+        [valid]="expiredAtField.valid"
+        [touched]="expiredAtField.touched"
+        [dirty]="expiredAtField.dirty"
+      >
+      </label>
+      <p-calendar
+        id="expiredAt"
+        [showIcon]="true"
+        formControlName="expiredAt"
+        dateFormat="yy-mm-dd"
+        [monthNavigator]="true"
+        [yearNavigator]="true"
+        [showButtonBar]="true"
+      ></p-calendar>
+      <small
+        appErrorMessage
+        [errors]="expiredAtField.errors"
+        [touched]="expiredAtField.touched"
+        [dirty]="expiredAtField.dirty"
+      >
+      </small>
+    </div>
 
-      <!--code-->
-      <div class="field">
-        <label for="code" appLabel label="Código de curso:"
-               [required]="isRequired(codeField)"
-               [valid]="codeField.valid"
-               [touched]="codeField.touched"
-               [dirty]="codeField.dirty">
-        </label>
-        <input pInputText id="code" formControlName="code">
-        <small appErrorMessage
-               [errors]="codeField.errors"
-               [touched]="codeField.touched"
-               [dirty]="codeField.dirty">
-        </small>
-      </div>
+    <!--code-->
+    <div class="field">
+      <label
+        for="code"
+        appLabel
+        label="Código de curso:"
+        [required]="isRequired(codeField)"
+        [valid]="codeField.valid"
+        [touched]="codeField.touched"
+        [dirty]="codeField.dirty"
+      >
+      </label>
+      <input pInputText id="code" formControlName="code" />
+      <small
+        appErrorMessage
+        [errors]="codeField.errors"
+        [touched]="codeField.touched"
+        [dirty]="codeField.dirty"
+      >
+      </small>
+    </div>
 
-  
-      <p-divider></p-divider>
-  
-      <div class="field">
-        <button pButton type="button" pRipple label="Cargar" class="p-button-rounded" icon="pi pi-upload"
-                (click)="showModalFiles()"></button>
-      </div>
+    <p-divider></p-divider>
 
-      <!--onSubmit()-->
-      <div class="field">
-        <button pButton type="submit" pRipple label="Guardar" class="p-button-rounded" icon="pi pi-save"></button>
-      </div>
-  
-      <!--progressBar-->
-      <div class="field" *ngIf="progressBar">
-        <p-progressBar mode="indeterminate"></p-progressBar>
-      </div>
-    </form>
-  </div>
+    <div class="field">
+      <button
+        pButton
+        type="button"
+        pRipple
+        label="Cargar"
+        class="p-button-rounded"
+        icon="pi pi-upload"
+        (click)="showModalFiles()"
+      ></button>
+    </div>
+
+    <!--onSubmit()-->
+    <div class="field">
+      <button
+        pButton
+        type="submit"
+        pRipple
+        label="Guardar"
+        class="p-button-rounded"
+        icon="pi pi-save"
+      ></button>
+    </div>
+
+    <!--progressBar-->
+    <div class="field" *ngIf="progressBar">
+      <p-progressBar mode="indeterminate"></p-progressBar>
+    </div>
+  </form>
+</div>

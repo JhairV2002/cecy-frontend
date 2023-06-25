@@ -78,13 +78,21 @@
           [dirty]="nameField.dirty"
         >
         </label>
-        <input
+        <!-- <input
           placeholder="Ej. Desarrollo de software"
           pInputText
           id="name"
           formControlName="name"
           class="uppercase"
-        />
+        /> -->
+
+        <p-autoComplete
+          placeholder="Ej. Desarrollo de software"
+          formControlName="name"
+          [suggestions]="planifications"
+          (completeMethod)="search($event)"
+          field="name"
+        ></p-autoComplete>
         <small
           appErrorMessage
           [errors]="nameField.errors"

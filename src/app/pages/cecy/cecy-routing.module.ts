@@ -153,7 +153,6 @@ const routes: Routes = [
             (m) => m.ValidacionMatriculaModule
           ),
       },
-
       {
         path: 'secretary-cecy',
         loadChildren: () =>
@@ -181,7 +180,6 @@ const routes: Routes = [
         },
         canActivate: [TokenGuard, RoleGuard], */
       },
-
     ],
   },
 ];
@@ -190,4 +188,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CecyRoutingModule { }
+export class CecyRoutingModule {}

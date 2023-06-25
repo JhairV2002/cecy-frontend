@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel, UserModel } from '@models/core';
+import { ColModel, PaginatorModel } from '@models/core';
 
 import { UserService } from '@services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
@@ -108,6 +108,7 @@ export class UserListComponent implements OnInit {
         this.isLoadingUsers = false;
       },
       error: (error) => {
+        console.error(error);
         this.isLoadingUsers = false;
       },
     });

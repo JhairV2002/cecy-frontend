@@ -1,0 +1,114 @@
+<p-dialog
+  header="Perfil"
+  [(visible)]="showModal"
+  [style]="{ width: '400px' }"
+  [modal]="true"
+  (onHide)="closeModal()"
+>
+  <div class="flex justify-center items-center mb-4">
+    <img
+      [src]="
+        user.image ? user.image : 'assets/images/administrator/user-default.png'
+      "
+      alt="avatar"
+      class="h-64 w-64 object-cover rounded-full"
+    />
+    <i
+      *ngIf="!isEditingImage"
+      class="fa fa-pencil ml-2 cursor-pointer"
+      aria-hidden="true"
+      (click)="editImage($event)"
+    ></i>
+  </div>
+  <div *ngIf="isEditingImage" class="flex items-center">
+    <input
+      class="w-full"
+      type="url"
+      pInputText
+      [(ngModel)]="user.image"
+      placeholder="http://image.example.com"
+      name="user.image"
+    />
+    <i
+      class="fa fa-check flex items-center cursor-pointer ml-2"
+      aria-hidden="true"
+      (click)="saveImage($event)"
+    ></i>
+  </div>
+  <p-divider></p-divider>
+  <div class="p-fluid mt-2">
+    <form>
+      <div class="p-field">
+        <label for="names" appLabel label="Tus nombres:"></label>
+        <div class="relative">
+          <input
+            id="names"
+            type="text"
+            pInputText
+            [(ngModel)]="user.names"
+            name="names"
+            class="w-full"
+            [readOnly]="!isEditingNames"
+            [ngClass]="{ 'cursor-not-allowed': !isEditingNames }"
+          />
+          <i
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            [ngClass]="{
+              'fa-solid fa-pencil': !isEditingNames,
+              'pi pi-check': isEditingNames
+            }"
+            (click)="toggleEditingNames()"
+          ></i>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label for="lastnames" appLabel label="Tus apellidos:"></label>
+        <div class="relative">
+          <input
+            id="lastnames"
+            type="text"
+            pInputText
+            [(ngModel)]="user.lastnames"
+            name="lastnames"
+            class="w-full"
+            [readOnly]="!isEditingLastnames"
+            [ngClass]="{ 'cursor-not-allowed': !isEditingLastnames }"
+          />
+          <i
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            [ngClass]="{
+              'fa-solid fa-pencil': !isEditingLastnames,
+              'pi pi-check': isEditingLastnames
+            }"
+            (click)="toggleEditingLastnames()"
+          ></i>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label for="email" appLabel label="Tu correo electronico:"></label>
+        <div class="relative">
+          <input
+            id="email"
+            type="text"
+            pInputText
+            [(ngModel)]="user.email"
+            name="email"
+            class="w-full"
+            [readOnly]="!isEditingEmail"
+            [ngClass]="{ 'cursor-not-allowed': !isEditingEmail }"
+          />
+          <i
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            [ngClass]="{
+              'fa-solid fa-pencil': !isEditingEmail,
+              'pi pi-check': isEditingEmail
+            }"
+            (click)="toggleEditingEmail()"
+          ></i>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>
