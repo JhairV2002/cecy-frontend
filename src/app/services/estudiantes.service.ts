@@ -10,7 +10,7 @@ import { TokenService } from './auth';
   providedIn: 'root',
 })
 export class EstudiantesService {
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
 
   registerUrl: string = 'http://localhost:8080/api/auth/register/';
   authenticateUrl: string = 'http://localhost:8080/api/auth/authenticate/';
@@ -34,14 +34,15 @@ export class EstudiantesService {
       );
   }
 
-  private authenticateEstudiante(
-    body: AuthEstudianteRequest
+  public authenticateEstudiante(
+    body: any
   ): Observable<EstudianteRegisterResponse> {
     return this.http
       .post<EstudianteRegisterResponse>(this.authenticateUrl, body)
       .pipe(
         tap((res) => {
           this.tokenService.saveEstudianteTokenCedula(res);
+          console.log(res);
         })
       );
   }
