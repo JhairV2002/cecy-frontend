@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { MessageService } from '@services/core';
 import { ColModel, PaginatorModel } from '@models/core';
 import { CourseModel } from '@models/cecy';

@@ -11,7 +11,9 @@ import { LayoutService } from '@services/layout.service';
 import { SidebarComponent } from '@shared/components/layouts/sidebar/sidebar.component';
 import { TopbarComponent } from '@shared/components/layouts/topbar/topbar.component';
 import { filter, Subscription } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
+import { Notification } from '@models/core/notification';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -22,6 +24,10 @@ export class MainComponent implements OnDestroy, OnInit {
   overlayMenuOpenSubscription: Subscription;
   menuOutsideClickListener: any;
   profileMenuOutsideClickListener: any;
+  sidebarVisible: boolean = false;
+  planifications: Notification[] = [];
+  planifications1: Notification[] = [];
+
   @ViewChild(SidebarComponent) appSidebar!: SidebarComponent;
 
   @ViewChild(TopbarComponent) appTopbar!: TopbarComponent;
@@ -30,7 +36,8 @@ export class MainComponent implements OnDestroy, OnInit {
     public layoutService: LayoutService,
     public renderer: Renderer2,
     public router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private socket: Socket
   ) {
     this.overlayMenuOpenSubscription =
       this.layoutService.overlayOpen$.subscribe(() => {
@@ -92,7 +99,14 @@ export class MainComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe();
+    // this.authService.getProfile().subscribe();
+    // this.socket.on('api:allNotificationByUser', (data: any) => {
+    //   this.planifications = data;
+    //   console.log(' NOTIFICACIONES por usuario', this.planifications);
+    // });
+    // this.socket.on('api:newPlanification', (data: any) => {
+    //   console.log('NOTIFICACION ENVIADA A ESTE USUARIO', data);
+    // });
   }
 
   hideMenu() {
@@ -160,5 +174,10 @@ export class MainComponent implements OnDestroy, OnInit {
     if (this.menuOutsideClickListener) {
       this.menuOutsideClickListener();
     }
+  }
+
+  openNotification(state: boolean) {
+    console.log('valor recibido', state);
+    this.sidebarVisible = state;
   }
 }

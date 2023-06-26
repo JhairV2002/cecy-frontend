@@ -10,8 +10,8 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) { }
 
-  private apiUrl = `${environment.api4}/api/courses`;
-  private apiUrl2 = `${environment.api4}/api/cursos`;
+  private apiUrl = `${environment.api}/courses`;
+  private apiUrl2 = `${environment.api}/cursos`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

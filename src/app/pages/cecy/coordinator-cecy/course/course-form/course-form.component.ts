@@ -26,7 +26,7 @@ export class CourseFormComponent implements OnInit {
   private unsubscribe$ = new Subject<void>();
   private selectedCourse$ = this.courseHttpService.seletedCourse$;
   public formCourse: FormGroup = this.newFormCourse;
-  public progressBar: boolean = false;
+  progressBar: boolean = false;
   public files: FileModel[] = [];
   public paginatorFiles: PaginatorModel = {
     current_page: 1,

@@ -8,7 +8,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { CreateCustomer } from '@services/core/administrator/create.customer';
 import { CourseService } from '@services/cecy-v1/course.service';
 import { CatalogueModel } from '@models/cecy';
 import { ClassroomModel } from '@models/cecy-v1/classroom.model';
@@ -20,7 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-horario-form',
-  templateUrl: './horario-form.component.html'
+  templateUrl: './horario-form.component.html',
 })
 export class HorarioFormComponent implements OnInit {
   @Output() clickClose = new EventEmitter<boolean>();
@@ -82,19 +81,21 @@ export class HorarioFormComponent implements OnInit {
   addEditHorario() {
     this.planificationCourseId = this.courseDate.id;
     const valuesFormHourCourse = this.formHourCourse.value;
-    this.courseService.saveEditDetailPlan(valuesFormHourCourse, this.horarioSelect).subscribe({
-      next: (data: any) => {
-        console.log('Se esta guardando el horario', data);
-        this.messageService.successCourse(data);
-        this.clickClose.emit(false);
-        this.addUser.emit(data);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-        this.messageService.errorValid(error);
-        this.progressBar = false;
-      },
-    });
+    this.courseService
+      .saveEditDetailPlan(valuesFormHourCourse, this.horarioSelect)
+      .subscribe({
+        next: (data: any) => {
+          console.log('Se esta guardando el horario', data);
+          this.messageService.successCourse(data);
+          this.clickClose.emit(false);
+          this.addUser.emit(data);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+          this.messageService.errorValid(error);
+          this.progressBar = false;
+        },
+      });
   }
 
   onSubmit() {

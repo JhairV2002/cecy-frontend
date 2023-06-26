@@ -14,7 +14,7 @@ export class SolicitudCertificadoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private apiUrl = `${environment.api4}/api/matriculas`;
+  private apiUrl = `${environment.api}/matriculas`;
 
   public findAll(): Observable<Matricula[]> {
     return this.http.get<Matricula[]>(
@@ -25,6 +25,13 @@ export class SolicitudCertificadoService {
   public findById(id: number): Observable<Matricula> {
     return this.http.get<Matricula>(
       this.apiUrl + '/' + id + '/',
+      this.httpOptions
+    );
+  }
+
+  public findAllReport(): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(
+      this.apiUrl +'/',
       this.httpOptions
     );
   }

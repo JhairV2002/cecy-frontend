@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ColModel, PaginatorModel, UserModel } from '@models/core';
+import { ColModel, PaginatorModel } from '@models/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
 import { SchoolYearService } from '@services/cecy/coordinator-cecy';
@@ -25,6 +25,7 @@ export class SchoolYearListComponent implements OnInit {
   totalUsers: number = 0;
   // kpiModel: KpiUser = new KpiUser();
   data: any[] = [];
+  isLoadingSchoolYear: boolean = true;
   constructor(
     public messageService: MessageService,
     private schoolYearService: SchoolYearService
@@ -40,9 +41,16 @@ export class SchoolYearListComponent implements OnInit {
   }
 
   getAllSchoolPeriods() {
-    this.schoolYearService.getSchoolYear().subscribe((data) => {
-      console.log('PERIODOS LECTIVOS', data);
-      this.schoolPeriods = data;
+    this.schoolYearService.getSchoolYear().subscribe({
+      next: (data) => {
+        console.log('PERIODOS LECTIVOS', data);
+        this.schoolPeriods = data;
+        this.isLoadingSchoolYear = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.isLoadingSchoolYear = false;
+      },
     });
   }
 

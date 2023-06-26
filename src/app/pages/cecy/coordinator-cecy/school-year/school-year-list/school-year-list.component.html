@@ -73,6 +73,7 @@
     [value]="schoolPeriods"
     [paginator]="true"
     [rows]="5"
+    [loading]="isLoadingSchoolYear"
   >
     <ng-template pTemplate="header" let-columns>
       <tr>
@@ -128,6 +129,12 @@
           </div>
         </td>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        Actualmente hay
+        {{ schoolPeriods ? schoolPeriods.length : 0 }} Periodos lectivos
+      </div>
     </ng-template>
   </p-table>
 </p-card>

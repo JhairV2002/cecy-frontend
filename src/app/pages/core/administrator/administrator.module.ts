@@ -28,6 +28,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
+import { SkeletonModule } from 'primeng/skeleton';
 import { HomeComponent } from './home/home.component';
 import { CareerComponent } from './career/career.component';
 import { CareerListComponent } from './career/career-list/career-list.component';
@@ -73,6 +74,7 @@ import { RoleFormComponent } from './role/role-form/role-form.component';
     ConfirmPopupModule,
     ChipModule,
     ChipsModule,
+    SkeletonModule
   ],
 })
 export class AdministratorModule {}

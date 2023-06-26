@@ -5,25 +5,57 @@
     <!-- first row -->
 
     <div class="form-space">
-      <div class="container  md:flex">
-        <div class="p-3 w-full md:w-1/2 "><label for="startedTime" appLabel label="Hora inicio:"
-            [required]="isRequired(startedTimeField)" [valid]="startedTimeField.valid"
-            [touched]="startedTimeField.touched" [dirty]="startedTimeField.dirty">
+      <div class="container md:flex">
+        <div class="p-3 w-full md:w-1/2">
+          <label
+            for="startedTime"
+            appLabel
+            label="Hora inicio:"
+            [required]="isRequired(startedTimeField)"
+            [valid]="startedTimeField.valid"
+            [touched]="startedTimeField.touched"
+            [dirty]="startedTimeField.dirty"
+          >
           </label>
-          <input type="time" pInputText id="startedTime" formControlName="startedTime">
+          <input
+            type="time"
+            pInputText
+            id="startedTime"
+            formControlName="startedTime"
+          />
           <!-- <p-calendar id="startedTime" formControlName="startedTime" [timeOnly]="true" hourFormat="24"></p-calendar> -->
-          <small appErrorMessage [errors]="startedTimeField.errors" [touched]="startedTimeField.touched"
-            [dirty]="startedTimeField.dirty">
+          <small
+            appErrorMessage
+            [errors]="startedTimeField.errors"
+            [touched]="startedTimeField.touched"
+            [dirty]="startedTimeField.dirty"
+          >
           </small>
         </div>
-        <div class="p-3 w-full md:w-1/2 "><label for="endedTime" appLabel label="Hora final:"
-            [required]="isRequired(endedTimeField)" [valid]="endedTimeField.valid" [touched]="endedTimeField.touched"
-            [dirty]="endedTimeField.dirty">
+        <div class="p-3 w-full md:w-1/2">
+          <label
+            for="endedTime"
+            appLabel
+            label="Hora final:"
+            [required]="isRequired(endedTimeField)"
+            [valid]="endedTimeField.valid"
+            [touched]="endedTimeField.touched"
+            [dirty]="endedTimeField.dirty"
+          >
           </label>
-          <input type="time" pInputText id="endedTime" formControlName="endedTime">
+          <input
+            type="time"
+            pInputText
+            id="endedTime"
+            formControlName="endedTime"
+          />
           <!-- <p-calendar id="endedTime" formControlName="endedTime" [timeOnly]="true" hourFormat="24"></p-calendar> -->
-          <small appErrorMessage [errors]="endedTimeField.errors" [touched]="endedTimeField.touched"
-            [dirty]="endedTimeField.dirty">
+          <small
+            appErrorMessage
+            [errors]="endedTimeField.errors"
+            [touched]="endedTimeField.touched"
+            [dirty]="endedTimeField.dirty"
+          >
           </small>
         </div>
       </div>
@@ -32,47 +64,95 @@
     <!-- second row -->
 
     <div class="form-space">
-      <div class="container  md:flex">
-        <div class="p-3 w-full md:w-1/2 "><label for="days" appLabel label="Días:" [required]="isRequired(dayField)"
-            [valid]="dayField.valid" [touched]="dayField.touched" [dirty]="dayField.dirty">
+      <div class="container md:flex">
+        <div class="p-3 w-full md:w-1/2">
+          <label
+            for="days"
+            appLabel
+            label="Días:"
+            [required]="isRequired(dayField)"
+            [valid]="dayField.valid"
+            [touched]="dayField.touched"
+            [dirty]="dayField.dirty"
+          >
           </label>
-          <p-dropdown id="days" formControlName="dayId" [options]="days" [filter]="true" filterBy="name"
-            placeholder="Seleccione" optionLabel="name" optionValue="id">
-
+          <p-dropdown
+            id="days"
+            formControlName="dayId"
+            [options]="days"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
           </p-dropdown>
-          <small appErrorMessage [errors]="dayField.errors" [touched]="dayField.touched" [dirty]="dayField.dirty">
+          <small
+            appErrorMessage
+            [errors]="dayField.errors"
+            [touched]="dayField.touched"
+            [dirty]="dayField.dirty"
+          >
           </small>
         </div>
-        <div class="p-3 w-full md:w-1/2 "><label for="workday" appLabel label="Jornada:"
-            [required]="isRequired(workdayField)" [valid]="workdayField.valid" [touched]="workdayField.touched"
-            [dirty]="workdayField.dirty">
+        <div class="p-3 w-full md:w-1/2">
+          <label
+            for="workday"
+            appLabel
+            label="Jornada:"
+            [required]="isRequired(workdayField)"
+            [valid]="workdayField.valid"
+            [touched]="workdayField.touched"
+            [dirty]="workdayField.dirty"
+          >
           </label>
-          <p-dropdown id="workdays" formControlName="workdayId" [options]="workdays" [filter]="true" filterBy="name"
-            placeholder="Seleccione" optionLabel="name" optionValue="id">
-
+          <p-dropdown
+            id="workdays"
+            formControlName="workdayId"
+            [options]="workdays"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
           </p-dropdown>
-          <small appErrorMessage [errors]="workdayField.errors" [touched]="workdayField.touched"
-            [dirty]="workdayField.dirty">
+          <small
+            appErrorMessage
+            [errors]="workdayField.errors"
+            [touched]="workdayField.touched"
+            [dirty]="workdayField.dirty"
+          >
           </small>
         </div>
       </div>
     </div>
 
-
-
-
     <!-- fourth row -->
 
-
     <div class="form-space">
-      <div class="container  md:flex">
-        <div class="p-3 w-full md:w-1/2 ">
-          <label for="classroom" appLabel label="Aula:"
-            [required]="isRequired(classroomField)" [valid]="classroomField.valid" [touched]="classroomField.touched"
-            [dirty]="classroomField.dirty">
+      <div class="container md:flex">
+        <div class="p-3 w-full md:w-1/2">
+          <label
+            for="classroom"
+            appLabel
+            label="Aula:"
+            [required]="isRequired(classroomField)"
+            [valid]="classroomField.valid"
+            [touched]="classroomField.touched"
+            [dirty]="classroomField.dirty"
+          >
           </label>
-          <p-dropdown id="classroom" formControlName="classroomId" [options]="classrooms" [filter]="true"
-            filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
+          <p-dropdown
+            id="classroom"
+            formControlName="classroomId"
+            [options]="classrooms"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
           </p-dropdown>
           <!-- <p-dropdown id="classroom" formControlName="classroomId" [options]="classrooms" [filter]="true"
             filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
@@ -84,64 +164,112 @@
           </p-dropdown> -->
           <!-- <small *ngIf="classroomField.value">Número de Participantes <i class="pi pi-user p-mr-2"></i>
           {{classroomField.value?.capacity}} </small> -->
-          <small appErrorMessage [errors]="classroomField.errors" [touched]="classroomField.touched"
-            [dirty]="classroomField.dirty">
+          <small
+            appErrorMessage
+            [errors]="classroomField.errors"
+            [touched]="classroomField.touched"
+            [dirty]="classroomField.dirty"
+          >
           </small>
         </div>
-        <div class="p-3 w-full md:w-1/2 "><label for="parallel" appLabel label="Paralelo:"
-            [required]="isRequired(parallelField)" [valid]="parallelField.valid" [touched]="parallelField.touched"
-            [dirty]="parallelField.dirty">
+        <div class="p-3 w-full md:w-1/2">
+          <label
+            for="parallel"
+            appLabel
+            label="Paralelo:"
+            [required]="isRequired(parallelField)"
+            [valid]="parallelField.valid"
+            [touched]="parallelField.touched"
+            [dirty]="parallelField.dirty"
+          >
           </label>
-          <p-dropdown id="parallel" formControlName="parallelId" [options]="parallels" [filter]="true" filterBy="name"
-            placeholder="Seleccione" optionLabel="name" optionValue="id">
-
+          <p-dropdown
+            id="parallel"
+            formControlName="parallelId"
+            [options]="parallels"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione"
+            optionLabel="name"
+            optionValue="id"
+          >
           </p-dropdown>
-          <small appErrorMessage [errors]="parallelField.errors" [touched]="parallelField.touched"
-            [dirty]="parallelField.dirty">
+          <small
+            appErrorMessage
+            [errors]="parallelField.errors"
+            [touched]="parallelField.touched"
+            [dirty]="parallelField.dirty"
+          >
           </small>
         </div>
       </div>
     </div>
 
-
-
-
-
-
-
-
     <div class="container">
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <label for="instructor" appLabel label="Instrutor:" [required]="isRequired(instructorField)"
-          [valid]="instructorField.valid" [touched]="instructorField.touched" [dirty]="instructorField.dirty">
+        <label
+          for="instructor"
+          appLabel
+          label="Instrutor:"
+          [required]="isRequired(instructorField)"
+          [valid]="instructorField.valid"
+          [touched]="instructorField.touched"
+          [dirty]="instructorField.dirty"
+        >
         </label>
-        <p-dropdown id="instructor" formControlName="instructorId" [options]="instructors" [filter]="true"
-          filterBy="names" placeholder="Seleccione" optionLabel="names" optionValue="id">
+        <p-dropdown
+          id="instructor"
+          formControlName="instructorId"
+          [options]="instructors"
+          [filter]="true"
+          filterBy="names"
+          placeholder="Seleccione"
+          optionLabel="names"
+          optionValue="id"
+        >
           <ng-template let-item pTemplate="item">
             <div>
-              <div>{{item.names}} {{item.lastnames}}</div>
+              <div>{{ item.names }} {{ item.lastnames }}</div>
             </div>
           </ng-template>
         </p-dropdown>
-        <small appErrorMessage [errors]="instructorField.errors" [touched]="instructorField.touched"
-          [dirty]="instructorField.dirty">
+        <small
+          appErrorMessage
+          [errors]="instructorField.errors"
+          [touched]="instructorField.touched"
+          [dirty]="instructorField.dirty"
+        >
         </small>
       </div>
     </div>
 
-
-
     <!--observation-->
     <div class="container">
       <div class="field">
-        <label for="observation" appLabel label="Observación:" [required]="isRequired(observationField)"
-          [valid]="observationField.valid" [touched]="observationField.touched" [dirty]="observationField.dirty">
+        <label
+          for="observation"
+          appLabel
+          label="Observación:"
+          [required]="isRequired(observationField)"
+          [valid]="observationField.valid"
+          [touched]="observationField.touched"
+          [dirty]="observationField.dirty"
+        >
         </label>
         <!-- <input pInputText id="observation" formControlName="observation" class="text-uppercase"> -->
-        <textarea pInputTextarea name="observation" id="observation" formControlName="observation"
-          class="text-uppercase"></textarea>
-        <small appErrorMessage [errors]="observationField.errors" [touched]="observationField.touched"
-          [dirty]="observationField.dirty">
+        <textarea
+          pInputTextarea
+          name="observation"
+          id="observation"
+          formControlName="observation"
+          class="text-uppercase"
+        ></textarea>
+        <small
+          appErrorMessage
+          [errors]="observationField.errors"
+          [touched]="observationField.touched"
+          [dirty]="observationField.dirty"
+        >
         </small>
       </div>
     </div>
@@ -151,11 +279,20 @@
     <div class="formgrid grid">
       <!--onSubmit()-->
       <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-        <button pButton pRipple label="Guardar" class="p-button-rounded" icon="pi pi-save"></button>
+        <button
+          pButton
+          pRipple
+          label="Guardar"
+          class="p-button-rounded"
+          icon="pi pi-save"
+        ></button>
       </div>
 
       <!--progressBar-->
-      <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12" *ngIf="progressBar">
+      <div
+        class="field xl:col-6 lg:col-6 md:col-12 sm:col-12"
+        *ngIf="progressBar"
+      >
         <p-progressBar mode="indeterminate"></p-progressBar>
       </div>
     </div>

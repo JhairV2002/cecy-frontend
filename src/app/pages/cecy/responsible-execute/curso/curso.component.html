@@ -1,4 +1,3 @@
-<!-- curso.component.html -->
 <div class="container">
   <div class="text-center p-5">
     <h1 class="text-5xl font-bold">Mis Cursos</h1>
@@ -30,23 +29,35 @@
         </svg>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="sortCards()">
-      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M15,14h7v2.362l-4.698,5.638h4.698v2h-7v-2.362l4.698-5.638h-4.698v-2ZM22,3.5v6.5h-2v-3h-3v3h-2V3.5c0-1.93,1.57-3.5,3.5-3.5s3.5,1.57,3.5,3.5Zm-2,1.5v-1.5c0-.827-.673-1.5-1.5-1.5s-1.5,.673-1.5,1.5v1.5h3ZM7,21V0h-2V21l-3.5-3.5L.086,18.914l4.5,4.5c.39,.39,.902,.585,1.414,.585s1.024-.195,1.414-.585l4.5-4.5-1.414-1.414-3.5,3.5Z"/></svg>
-    </button>
+    <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
   </div>
 
   <div class="row">
     <div
       class="col-md-4 p-4"
       style="display: inline-block; width: 33%;"
-      *ngFor="let curso of cursosFiltrados"
+      *ngFor="let curso of cursosFiltrados; let i = index"
+
     >
-      <div class="card bg-slate-300" style="margin-bottom: 20px;">
+      <div class="card" style="margin-bottom: 20px;"
+      [ngClass]="{
+        'bg-yellow-200': curso.courseStatus,
+        'bg-green-200': curso.courseStatus && !curso.courseStatus,
+        'bg-slate-300': !curso.courseStatus && !curso.courseStatus
+      }"
+      >
         <div class="card-body">
-          <h5 class="card-title">{{ curso.planification.name }}</h5>
-          <h5>CODIGO DEL CURSO 5: {{ curso.planification.codeCourse }}</h5>
-          <h5>MODALIDAD DEL CURSO: {{ curso.modality }}</h5>
-          <h5>ESTADO: en proceso</h5>
+          <h1 class="card-title font-normal"><strong>{{ curso.planification.name }}</strong></h1>
+          <h5><strong>Código de curso:</strong>{{ curso.planification.codeCourse }}</h5>
+          <h5><strong>Modalidad:</strong> {{ curso.modality }}</h5>
+          <h5><strong>Estado del curso:</strong><div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="text">{{ curso.courseStatus ? 'Terminado' : 'En proceso' }}</span>
+              <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
+            </label>
+          </div>
+          </h5>
+          <h5></h5>
           <button
             class="btn btn-primary"
             icon="edit"
@@ -58,4 +69,13 @@
       </div>
     </div>
   </div>
+  <br /><br />
+  <!-- <footer class="footer footer-center p-3 bg-base-300 text-base-content">
+    <div>
+      <p>
+        Copyright © 2023 - Instituto Tecnológico Superior de Patrinomio y
+        Turismo YAVIRAC
+      </p>
+    </div>
+  </footer> -->
 </div>

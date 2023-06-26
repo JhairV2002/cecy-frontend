@@ -49,6 +49,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 @NgModule({
   declarations: [
     AssignmentInstructorsFormComponent,
@@ -101,6 +102,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CheckboxModule,
     SelectButtonModule,
     RadioButtonModule,
+    AutoCompleteModule,
   ],
 })
 export class CoordinatorCareerModule {}

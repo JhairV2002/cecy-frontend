@@ -12,4 +12,8 @@ export class AccessDeniedComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  goBack() {
+    window.history.back();
+  }
+
 }

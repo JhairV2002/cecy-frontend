@@ -14,7 +14,8 @@ const routes: Routes = [
   {path: 'curso-main', component:SolicitudCertificadoMainComponent},
   {path: 'curso-main/:id', component:SolicitudCertificadoMainComponent},
   {path: 'curso-lista/:id', component:SolicitudCertificadoListaComponent},
-  {path: 'reporte-lista', component:ReporteListaComponent},
+  {path: 'reporte-lista/:id', component:ReporteListaComponent},
+  {path: 'reporte', component:ReporteComponent},
 
 ];
 

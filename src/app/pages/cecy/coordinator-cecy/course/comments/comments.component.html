@@ -1,0 +1,53 @@
+<p-dialog
+  header="Comentar"
+  [(visible)]="openModal"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ width: '498px' }"
+  [maximizable]="true"
+  (onHide)="closeModal()"
+>
+  <form [formGroup]="formComment" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label
+        for="comment"
+        appLabel
+        label="Agregue el comentario:"
+        [required]="isRequired(commentField)"
+        [valid]="commentField.valid"
+        [touched]="commentField.touched"
+        [dirty]="commentField.dirty"
+      ></label>
+      <textarea
+        class="w-full"
+        rows="5"
+        cols="30"
+        pInputTextarea
+        formControlName="comment"
+        placeholder="Ej. Nombre usuario, le notifco que cierta informacion le falto modificar el horario ...."
+      ></textarea>
+      <small
+        appErrorMessage
+        [errors]="commentField.errors"
+        [touched]="commentField.touched"
+        [dirty]="commentField.dirty"
+      >
+      </small>
+    </div>
+    <p-divider></p-divider>
+    <div class="p-field">
+      <button
+        type="button"
+        (click)="saveComment()"
+        pButton
+        icon="icon"
+        label="Notificar"
+        class="w-full"
+        icon="pi pi-save"
+      ></button>
+      <div class="field mt-2" *ngIf="progressBar">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div>
+    </div>
+  </form>
+</p-dialog>

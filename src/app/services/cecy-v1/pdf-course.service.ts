@@ -79,7 +79,7 @@ export class PdfCourseService {
               text: `${course.planification.user.names ?? 'No definido'} ${course.planification.user.lastnames ?? ''}
                     ${course.planification.name ?? 'No definido'}
                     ${course?.courseType?.name ?? 'No definido'}
-                    ${course?.modality?.name ?? 'No definido'}
+                    ${course?.planification?.modality?.name ?? 'No definido'}
               `,
               lineHeight: 1.5
             },
@@ -294,8 +294,8 @@ export class PdfCourseService {
             body: [
               [
                 { text: 'Nombre del curso: ', bold: true, fillColor: '#c6d9f0' },
-                { text: 'Especialidad: ', bold: true, fillColor: '#c6d9f0' },
                 { text: 'Area: ', bold: true, fillColor: '#c6d9f0' },
+                { text: 'Especialidad: ', bold: true, fillColor: '#c6d9f0' },
               ],
               [
                 { text: `${course?.planification?.name}` },
@@ -320,7 +320,7 @@ export class PdfCourseService {
                 {
                   ul: this.generateParticipantTypes(course.targetGroups)
                 },
-                { text: `${course?.modality?.name}`, },
+                { text: `${course?.planification?.modality?.name}`, },
                 { text: `${course.planification.durationTime} Horas` },
               ],
             ],
