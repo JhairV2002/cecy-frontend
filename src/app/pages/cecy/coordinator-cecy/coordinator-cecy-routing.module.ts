@@ -12,13 +12,19 @@ import { CourseComponent } from './course/course.component';
 import { PlanificationComponent } from './planification/planification.component';
 import { PoaFormComponent } from './poa/poa-form/poa-form.component';
 import { CourseListComponent } from './profile-instructor-courses/course-list/course-list.component';
-import { VisualizationCourseComponent } from './visualization-course/visualization-course.component';
+//import { VisualizationCourseComponent } from './visualization-course/visualization-course.component';
 import { HomeComponent } from './home/home.component';
+import { TabsComponent } from '../responsible-course/tabs/tabs.component';
+import { SchoolYearComponent } from './school-year/school-year.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'course', component: CourseComponent },
-  { path: 'course/visualization/:id', component: VisualizationCourseComponent },
+  { path: 'school-year', component: SchoolYearComponent },
+  //{ path: 'course/visualization/:id', component: VisualizationCourseComponent },
+  { path: 'course/visualization/:id', component: TabsComponent },
+
   { path: 'certificate', component: CertificateComponent },
   { path: 'certificate-form', component: CertificateFormComponent },
   { path: 'certificate-list', component: CertificateListComponent },

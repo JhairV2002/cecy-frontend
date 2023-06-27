@@ -11,7 +11,6 @@ import { MenuItem } from 'primeng/api';
 import { PlanificationCareerService } from '@services/cecy/coordinator-cecy';
 import { CoreHttpService, MessageService } from '@services/core';
 import { CareerModel, ColModel, PaginatorModel } from '@models/core';
-import { PlanificationCoursesCoordinatorCecy } from '@models/cecy/coordinator-cecy';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./course-list.component.scss'],
 })
 export class CourseListComponent implements OnInit, OnChanges {
-  //selectedCourses: CourseModel[] = [];
+  @Input() stateAprooved: any = [];
   selectCourse: any = {};
   cols: ColModel[];
   items: MenuItem[] = [];
@@ -28,13 +27,12 @@ export class CourseListComponent implements OnInit, OnChanges {
   progressBarDelete: boolean = false;
   search: string = '';
   paginator: PaginatorModel = {};
-
-  courses: PlanificationCoursesCoordinatorCecy[] = [];
-  @Input() stateAprooved: any = [];
+  courses: any[] = [];
   stateProcess: any = [];
-
-  public careers: CareerModel[] = [];
+  careers: CareerModel[] = [];
   career: FormControl = new FormControl('');
+  isLoadingCourses: boolean = false;
+  openModalComment: boolean = false;
 
   constructor(
     private planificationCareerService: PlanificationCareerService,
@@ -89,9 +87,17 @@ export class CourseListComponent implements OnInit, OnChanges {
   }
 
   loadCourses() {
-    this.planificationCareerService.getCareerAndCourses().subscribe((data) => {
-      console.log('Me cargan los cursos', data);
-      this.courses = data;
+    this.isLoadingCourses = true;
+    this.planificationCareerService.getCareerAndCourses().subscribe({
+      next: (data) => {
+        console.log('Me cargan los cursos', data);
+        this.courses = data;
+        this.isLoadingCourses = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.isLoadingCourses = false;
+      },
     });
   }
 
@@ -139,6 +145,13 @@ export class CourseListComponent implements OnInit, OnChanges {
     });
   }
   goToPlanifications(id: number) {
-    this.router.navigate(['/cecy/coordinator-cecy/course/visualization/' + id]);
+    this.router.navigate(['/cecy/responsible-course/course/edit/' + id]);
+  }
+  openModal() {
+    this.openModalComment = true;
+  }
+
+  closeModal(state: boolean) {
+    this.openModalComment = state;
   }
 }

@@ -1,0 +1,11 @@
+<div *ngIf="curso; noData" class="card card-side bg-base-100 w-max shadow-xl">
+  <figure><img src="{{ curso.fotoUrl }}" alt="Movie" class="w-80" /></figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ curso.nombre }}</h2>
+    <p>{{ curso.descripcion }}</p>
+  </div>
+</div>
+
+<ng-template #noData>
+  <h2>Ha ocurrido un error</h2>
+</ng-template>

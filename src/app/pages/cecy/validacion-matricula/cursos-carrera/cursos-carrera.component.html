@@ -1,0 +1,33 @@
+<div class="prose py-8">
+  <h1>{{ nombreCarrera$ | async }}</h1>
+</div>
+
+<div class="flex flex-wrap gap-3 w-full">
+  <div
+    *ngFor="let curso of cursos$ | async"
+    class="card card-compact w-80 bg-base-100 shadow-xl"
+  >
+    <figure>
+      <img
+        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+        alt="Shoes"
+      />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">{{ curso.nombre }}</h2>
+      <p>{{ curso.descripcion }}</p>
+      <div class="card-actions justify-end">
+        <button
+          class="btn btn-primary"
+          [routerLink]="[
+            '/cecy/validacion-matricula/delegado/',
+            nombreCarrera$ | async,
+            curso.nombre
+          ]"
+        >
+          Ver Estudiantes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

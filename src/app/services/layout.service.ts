@@ -20,7 +20,7 @@ interface LayoutState {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LayoutService {
   config: AppConfig = {
@@ -30,69 +30,69 @@ export class LayoutService {
     colorScheme: 'light',
     theme: 'lara-light-indigo',
     scale: 14,
-};
+  };
 
-state: LayoutState = {
+  state: LayoutState = {
     staticMenuDesktopInactive: false,
     overlayMenuActive: false,
     profileSidebarVisible: false,
     configSidebarVisible: false,
     staticMenuMobileActive: false,
-    menuHoverActive: false
-};
+    menuHoverActive: false,
+  };
 
-private configUpdate = new Subject<AppConfig>();
+  private configUpdate = new Subject<AppConfig>();
 
-private overlayOpen = new Subject<any>();
+  private overlayOpen = new Subject<any>();
 
-configUpdate$ = this.configUpdate.asObservable();
+  configUpdate$ = this.configUpdate.asObservable();
 
-overlayOpen$ = this.overlayOpen.asObservable();
+  overlayOpen$ = this.overlayOpen.asObservable();
 
-onMenuToggle() {
+  onMenuToggle() {
     if (this.isOverlay()) {
-        this.state.overlayMenuActive = !this.state.overlayMenuActive;
-        if (this.state.overlayMenuActive) {
-            this.overlayOpen.next(null);
-        }
+      this.state.overlayMenuActive = !this.state.overlayMenuActive;
+      if (this.state.overlayMenuActive) {
+        this.overlayOpen.next(null);
+      }
     }
 
     if (this.isDesktop()) {
-        this.state.staticMenuDesktopInactive = !this.state.staticMenuDesktopInactive;
-    }
-    else {
-        this.state.staticMenuMobileActive = !this.state.staticMenuMobileActive;
+      this.state.staticMenuDesktopInactive =
+        !this.state.staticMenuDesktopInactive;
+    } else {
+      this.state.staticMenuMobileActive = !this.state.staticMenuMobileActive;
 
-        if (this.state.staticMenuMobileActive) {
-            this.overlayOpen.next(null);
-        }
+      if (this.state.staticMenuMobileActive) {
+        this.overlayOpen.next(null);
+      }
     }
-}
+  }
 
-showProfileSidebar() {
+  showProfileSidebar() {
     this.state.profileSidebarVisible = !this.state.profileSidebarVisible;
     if (this.state.profileSidebarVisible) {
-        this.overlayOpen.next(null);
+      this.overlayOpen.next(null);
     }
-}
+  }
 
-showConfigSidebar() {
+  showConfigSidebar() {
     this.state.configSidebarVisible = true;
-}
+  }
 
-isOverlay() {
+  isOverlay() {
     return this.config.menuMode === 'overlay';
-}
+  }
 
-isDesktop() {
+  isDesktop() {
     return window.innerWidth > 991;
-}
+  }
 
-isMobile() {
+  isMobile() {
     return !this.isDesktop();
-}
+  }
 
-onConfigUpdate() {
+  onConfigUpdate() {
     this.configUpdate.next(this.config);
-}
+  }
 }

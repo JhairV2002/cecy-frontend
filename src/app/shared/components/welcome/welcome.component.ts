@@ -10,15 +10,17 @@ export class WelcomeComponent implements OnInit {
   date: Date = new Date();
   dateFormat: string = '';
   greetingMessage: string = '';
-  welcome: string = '';
+  welcome: string = 'Bienvenido';
   user: any;
 
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
     this.authService.userProfile$.subscribe((user: any) => {
-      this.user = user[0];
-      this.setGreetingMessage();
-      this.getGender();
+      if (user && user.length > 0) {
+        this.user = user[0];
+        this.setGreetingMessage();
+        this.getGender();
+      }
     });
 
     setInterval(() => {
@@ -32,6 +34,8 @@ export class WelcomeComponent implements OnInit {
       this.welcome = 'Bienvenido';
     } else if (gender === 'femenino') {
       this.welcome = 'Bienvenida';
+    } else {
+      this.welcome = 'Bienvenido';
     }
   }
 

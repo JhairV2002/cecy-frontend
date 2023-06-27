@@ -81,23 +81,32 @@
       [value]="courses"
       [paginator]="true"
       [rows]="5"
+      [loading]="isLoadingCourses"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th
-            id="header"
-            *ngFor="let col of columns"
-            [pSortableColumn]="col.field"
-          >
-            {{ col.header }}
-            <p-sortIcon [field]="col.field"></p-sortIcon>
+          <th style="width: 5rem"></th>
+          <th pSortableColumn="name">
+            Código curso <p-sortIcon field="code"></p-sortIcon>
+          </th>
+          <th pSortableColumn="name">
+            Nombre <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="state">
+            Estado <p-sortIcon field="state"></p-sortIcon>
+          </th>
+          <th pSortableColumn="career">
+            Carrera <p-sortIcon field="career"></p-sortIcon>
+          </th>
+          <th pSortableColumn="responsible">
+            Responsable de curso <p-sortIcon field="responsible"></p-sortIcon>
           </th>
           <th class="text-center">
             <button
               pButton
               pRipple
               type="button"
-              class="p-button-rounded p-button-secondary"
+              class="w-full p-button-rounded p-button-secondary"
               icon="pi pi-cog"
             ></button>
           </th>
@@ -106,10 +115,21 @@
       <ng-template
         pTemplate="body"
         let-courses
+        let-expanded="expanded"
         let-columns="columns"
         let-rowIndex="rowIndex"
       >
         <tr [pSelectableRow]="courses" [pSelectableRowIndex]="rowIndex">
+          <td>
+            <button
+              type="button"
+              pButton
+              pRipple
+              [pRowToggler]="courses"
+              class="p-button-text p-button-rounded p-button-plain"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+            ></button>
+          </td>
           <td>{{ courses.codeCourse }}</td>
           <td>{{ courses.name }}</td>
           <td>
@@ -119,7 +139,7 @@
             ></p-chip>
           </td>
           <td>{{ courses.career.name }}</td>
-          <td>{{ courses.customer.name + " " + courses.customer.lastname }}</td>
+          <td>{{ courses.user.names + " " + courses.user.lastnames }}</td>
           <td>
             <div class="flex gap-1 justify-content-center">
               <button
@@ -141,16 +161,100 @@
                 class="p-button-rounded p-button-primary"
                 (click)="goToPlanifications(courses.id)"
               ></button>
+              <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-comment"
+                pTooltip="Comentar"
+                tooltipPosition="left"
+                class="p-button-rounded p-button-secondary"
+                (click)="openModal()"
+              ></button>
+              <app-comments
+                [openModal]="openModalComment"
+                (clickClose)="closeModal($event)"
+              ></app-comments>
             </div>
           </td>
-          <!-- <p-splitButton
-              label="Más"
-              styleClass="p-button-secondary"
-              icon="pi pi-user-edit"
-              [model]="items"
-              (onDropdownClick)="selectCourse(courses)"
-            >
-            </p-splitButton> -->
+        </tr>
+        <!-- <p-splitButton
+            label="Más"
+            styleClass="p-button-secondary"
+            icon="pi pi-user-edit"
+            [model]="items"
+            (onDropdownClick)="selectCourse(courses)"
+          >
+          </p-splitButton> -->
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-notifications>
+        <tr>
+          <td colspan="7">
+            <p-card [style]="{ width: '100%' }">
+              <span class="m-2 text-lg"><strong>Comentarios</strong></span>
+              <div class="p-3">
+                <p-table [value]="courses" dataKey="id">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Nº</th>
+                      <th>Comentario</th>
+                      <th>Estado actual curso</th>
+                      <th>Fecha del comentario</th>
+                      <th>
+                        <button
+                          pButton
+                          pRipple
+                          type="button"
+                          class="w-full p-button-rounded p-button-secondary"
+                          icon="pi pi-cog"
+                        ></button>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-yourColumnArrayVaraible>
+                    <tr>
+                      <th
+                        *ngFor="
+                          let yourColumnVaraible of yourColumnArrayVaraible
+                        "
+                      >
+                        {{ yourColumnVaraible.header }}
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template
+                    pTemplate="body"
+                    let-yourRowVaraible
+                    let-yourColumnArrayVaraible="columns"
+                  >
+                    <tr>
+                      <td
+                        *ngFor="
+                          let yourColumnVaraible of yourColumnArrayVaraible
+                        "
+                      >
+                        {{ yourRowVaraible[yourColumnVaraible.field] }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
+                    <tr>
+                      <td
+                        *ngFor="
+                          let yourColumnVaraible of yourColumnArrayVaraible
+                        "
+                      >
+                        {{ yourColumnVaraible.header }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <!-- <ng-template pTemplate="summary">
+                    your summary template
+                  </ng-template> -->
+                </p-table>
+              </div>
+            </p-card>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">

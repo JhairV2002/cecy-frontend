@@ -1,12 +1,13 @@
-import {PaginatorModel} from './paginator.model';
+import { PaginatorModel } from './paginator.model';
 
 export interface ServerResponse {
-  message?: string
+  message?: string;
   data?: any;
   msg?: Msg;
   token?: string;
   meta?: PaginatorModel;
   links?: Links;
+  detail?: string;
 }
 
 interface Msg {

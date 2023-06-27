@@ -6,7 +6,6 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { Roles, ProfileCustomerDTO } from '@models/authentication';
 import { AuthService } from '@services/auth';
 import { distinctUntilChanged, map, Subscription, tap } from 'rxjs';
 

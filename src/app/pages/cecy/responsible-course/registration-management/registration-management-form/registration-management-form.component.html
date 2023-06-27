@@ -114,8 +114,8 @@
           >
           </label>
           <div>
-          <p-inputSwitch pInputSwitch 
-          [(ngModel)]="customRegistration.companySponsored" 
+          <p-inputSwitch pInputSwitch
+          [(ngModel)]="customRegistration.companySponsored"
           [readonly]="true"></p-inputSwitch>
         </div>
         </div>
@@ -136,7 +136,7 @@
               <h5>{{ requirement.name }}</h5>
             </div>
             <div class="requirement-list-detail">
-              <button
+              <!-- <button
                   pButton
                   pRipple
                   pTooltip="Descargar documento"
@@ -144,7 +144,7 @@
                   (click)="downloadRequirement(requirement.pivot)"
                   class="p-button-rounded p-button-help"
                   icon="pi pi-download"
-                ></button>
+                ></button> -->
             </div>
           </div>
         </ng-template>

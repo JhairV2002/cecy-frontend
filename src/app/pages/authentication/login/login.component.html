@@ -80,16 +80,10 @@
             <div class="mb-2">
               <button
                 pButton
-                pRipple
                 label="Ingresar"
                 class="p-button-rounded w-full"
-                icon="pi pi-sign-in"
+                [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-sign-in'"
               ></button>
-              <div *ngIf="progressBar" class="mt-3">
-                <app-progress-bar
-                  [message]="messageService.progressBarLogin"
-                ></app-progress-bar>
-              </div>
             </div>
             <button
               pButton
@@ -100,12 +94,6 @@
               icon="pi pi-key"
               (click)="requestPasswordReset()"
             ></button>
-
-            <div *ngIf="progressBarRequestPasswordReset" class="">
-              <app-progress-bar
-                [message]="messageService.progressBarRequestPasswordReset"
-              ></app-progress-bar>
-            </div>
           </form>
         </div>
       </div>

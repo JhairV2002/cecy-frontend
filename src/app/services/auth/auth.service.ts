@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Auth, User, ProfileCustomerDTO } from '@models/authentication';
+import { Auth, User } from '@models/authentication';
 import { TokenService } from './token.service';
 import { checkTime } from './../../interceptors/time.interceptor';
 import { BehaviorSubject } from 'rxjs';
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    return this.http.get<Planification[]>(`${this.apiUrl2}/my`);
+    return this.http.get<any[]>(`${this.apiUrl2}/my`);
   }
 
   getProfile() {

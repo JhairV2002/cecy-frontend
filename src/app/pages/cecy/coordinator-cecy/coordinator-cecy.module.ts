@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 
 /**PrimeNG Modules */
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TableModule } from 'primeng/table';
 import { SpeedDialModule } from 'primeng/speeddial';
@@ -26,11 +26,10 @@ import { AccordionModule } from 'primeng/accordion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ButtonModule } from 'primeng/button';
-import { ChipModule } from "primeng/chip";
+import { ChipModule } from 'primeng/chip';
 import { CalendarModule } from 'primeng/calendar';
 import { PickListModule } from 'primeng/picklist';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 /**Components */
 import { CoordinatorCecyRoutingModule } from './coordinator-cecy-routing.module';
@@ -48,26 +47,29 @@ import { AssignmentedInstructorComponent } from './assignmented-instructor/assig
 import { ProfileInstructorCoursesComponent } from './profile-instructor-courses/profile-instructor-courses.component';
 import { ProfileInstructorCoursesFormComponent } from './profile-instructor-courses/profile-instructor-courses-form/profile-instructor-courses-form.component';
 import { ProfileInstructorCoursesListComponent } from './profile-instructor-courses/profile-instructor-courses-list/profile-instructor-courses-list.component';
-import { CourseComponent } from "./course/course.component";
-import { CourseFormComponent } from "./course/course-form/course-form.component";
-import { CourseListComponent } from "./course/course-list/course-list.component";
-import { PlanificationComponent } from "./planification/planification.component";
-import { PlanificationFormComponent } from "./planification/planification-form/planification-form.component";
-import { PlanificationListComponent } from "./planification/planification-list/planification-list.component";
+import { CourseComponent } from './course/course.component';
+import { CourseFormComponent } from './course/course-form/course-form.component';
+import { CourseListComponent } from './course/course-list/course-list.component';
+import { PlanificationComponent } from './planification/planification.component';
+import { PlanificationFormComponent } from './planification/planification-form/planification-form.component';
+import { PlanificationListComponent } from './planification/planification-list/planification-list.component';
 import { PoaComponent } from './poa/poa.component';
 import { PoaListComponent } from './poa/poa-list/poa-list.component';
 import { PoaFormComponent } from './poa/poa-form/poa-form.component';
 
-import { CourseListComponent as CourseList } from "./profile-instructor-courses/course-list/course-list.component";
-import { CourseFormComponent as CourseForm } from "./profile-instructor-courses/course-form/course-form.component";
-import { AssignmentInstructorsFormComponent } from "./profile-instructor-courses/assignment-instructors-form/assignment-instructors-form.component";
+import { CourseListComponent as CourseList } from './profile-instructor-courses/course-list/course-list.component';
+import { CourseFormComponent as CourseForm } from './profile-instructor-courses/course-form/course-form.component';
+import { AssignmentInstructorsFormComponent } from './profile-instructor-courses/assignment-instructors-form/assignment-instructors-form.component';
 import { ShowPerfilFormComponent } from './profile-instructor-courses/showperfil-form/showperfil-form.component';
 import { VisualizationCourseComponent } from './visualization-course/visualization-course.component';
 import { SearchCourseComponent } from './course/search-course/search-course.component';
 import { HorarioFormComponent } from './horario-form/horario-form.component';
 import { HomeComponent } from './home/home.component';
+import { SchoolYearComponent } from './school-year/school-year.component';
+import { SchoolYearListComponent } from './school-year/school-year-list/school-year-list.component';
+import { SchoolYearFormComponent } from './school-year/school-year-form/school-year-form.component';
+import { CommentsComponent } from './course/comments/comments.component';
 //import { AddFormHorariosComponent } from './../responsible-course/tabs/add-form-horarios/add-form-horarios.component';
-
 
 @NgModule({
   declarations: [
@@ -102,6 +104,10 @@ import { HomeComponent } from './home/home.component';
     SearchCourseComponent,
     HorarioFormComponent,
     HomeComponent,
+    SchoolYearComponent,
+    SchoolYearListComponent,
+    SchoolYearFormComponent,
+    CommentsComponent,
     //AddFormHorariosComponent
   ],
   imports: [
@@ -137,7 +143,7 @@ import { HomeComponent } from './home/home.component';
     ChipModule,
     CalendarModule,
     TooltipModule,
-    InputTextareaModule
-  ]
+    InputTextareaModule,
+  ],
 })
-export class CoordinatorCecyModule { }
+export class CoordinatorCecyModule {}

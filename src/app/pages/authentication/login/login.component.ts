@@ -8,9 +8,8 @@ import {
 } from '@angular/forms';
 import { PrimeIcons } from 'primeng/api';
 import { RoleModel } from '@models/core';
-import { AuthHttpService, MessageService } from '@services/core';
+import { MessageService } from '@services/core';
 import { UsersService, AuthService } from '@services/auth';
-import { ProfileCustomerDTO } from '@models/authentication';
 
 @Component({
   selector: 'app-login',
@@ -32,10 +31,10 @@ export class LoginComponent implements OnInit {
   role: FormControl = new FormControl(null);
   roles: RoleModel[] = [];
   listCusotumers: [] = [];
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authHttpService: AuthHttpService,
     public messageService: MessageService,
     private router: Router,
     private userService: UsersService,
@@ -44,24 +43,37 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  onSubmit() {
+    if (this.formLogin.valid) {
+      this.login();
+      console.log('login true');
+    } else {
+      this.formLogin.markAllAsTouched();
+      console.log('else if');
+    }
+  }
+
   login() {
-    this.progressBar = true;
+    this.loading = true;
     const userValue = this.formLogin.value;
     this.authService.loginAndGet(userValue).subscribe({
       next: (user) => {
         if (user) {
           this.profile = user[0];
+          console.log(this.profile);
           this.redirect();
+          this.loading = false;
         }
       },
       error: (error) => {
+        this.loading = false;
         this.messageService.error(error);
-        this.progressBar = false;
       },
     });
   }
 
   redirect() {
+    console.log('redirect ', this.profile.role.name);
     switch (this.profile.role.name) {
       case 'admin':
         this.router.navigate(['/administrator']);
@@ -75,10 +87,14 @@ export class LoginComponent implements OnInit {
       case 'instructor_execute':
         this.router.navigate(['/cecy/responsible-execute']);
         break;
+      case 'secretary_cecy':
+        this.router.navigate(['/cecy/secretary-cecy']);
+        break;
       case 'public_company':
         this.router.navigate(['/example']);
         break;
       case 'responsible_course':
+        console.log('redirigiendo a /cecy/responsible-course');
         this.router.navigate(['/cecy/responsible-course']);
         break;
       case 'responsible_cecy':
@@ -102,14 +118,6 @@ export class LoginComponent implements OnInit {
 
   isRequired(field: AbstractControl): boolean {
     return field.hasValidator(Validators.required);
-  }
-
-  onSubmit() {
-    if (this.formLogin.valid) {
-      this.login();
-    } else {
-      this.formLogin.markAllAsTouched();
-    }
   }
 
   requestPasswordReset() {

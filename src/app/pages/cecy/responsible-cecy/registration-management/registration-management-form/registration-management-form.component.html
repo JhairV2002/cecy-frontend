@@ -266,7 +266,7 @@
             ></label>
             <p-toggleButton
             onLabel="SI" offLabel="NO"
-            onIcon="pi pi-money-bill" offIcon="pi pi-money-bill"
+            onIcon=" pi-money-bill" offIcon="pi pi-money-bill"
               id="companySponsored"
               formControlName="companySponsored">
             </p-toggleButton>
@@ -284,7 +284,7 @@
       <p-fieldset legend="Revisión de documentos" class="d-inline mw-50">
         <div *ngFor="let req of requirementlist">
           <h5 class="m-4">{{req.name}}</h5>
-          <button
+          <!-- <button
             pButton
             pRipple
             pTooltip="Descargar documento"
@@ -292,7 +292,7 @@
             (click)="downloadRequirement(req.pivot)"
             class="p-button-rounded p-button-help"
             icon="pi pi-download"
-          ></button>
+          ></button> -->
           <p-divider></p-divider>
         </div>
 
