@@ -15,276 +15,278 @@
   >
   </app-view-files>
 </p-dialog>
-<div class="container">
-  <div class="p-fluid pb-8">
-    <button
-      pButton
-      pRipple
-      type="button"
-      pTooltip="Regresar"
-      tooltipPosition="bottom"
-      class="p-button-success p-button-rounded m-2"
-      icon="pi pi-arrow-left"
-      (click)="return()"
-    ></button>
-    <form [formGroup]="formRegistration">
-      <!-- información del participante -->
-      <p-fieldset
-        legend="Información del participante"
-        class="d-inline xl:col-6 lg:col-6 md:col-12 sm:col-12"
-      >
-        <!-- id field -->
-        <input pInputText id="id" formControlName="id" [hidden]="true" />
+<div class="p-fluid pb-8">
+  <button
+    pButton
+    pRipple
+    type="button"
+    pTooltip="Regresar"
+    tooltipPosition="bottom"
+    class="p-button-success p-button-rounded m-2"
+    icon="pi pi-arrow-left"
+    (click)="return()"
+  ></button>
+  <form [formGroup]="formRegistration">
+    <!-- información del participante -->
+    <p-fieldset
+      legend="Información del participante"
+      class="d-inline xl:col-6 lg:col-6 md:col-12 sm:col-12"
+    >
+      <!-- id field -->
+      <input pInputText id="id" formControlName="id" [hidden]="true" />
 
-        <div class="formgrid grid">
-          <!--username field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="username"
-              appLabel
-              label="Número de identificación: "
-              [required]="isRequired(usernameField)"
-              [valid]="usernameField.valid"
-              [touched]="usernameField.touched"
-              [dirty]="usernameField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="username"
-              formControlName="username"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="usernameField.errors"
-              [touched]="usernameField.touched"
-              [dirty]="usernameField.dirty"
-            >
-            </small>
-          </div>
+      <div class="formgrid grid">
+        <!--username field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="username"
+            appLabel
+            label="Número de identificación: "
+            [required]="isRequired(usernameField)"
+            [valid]="usernameField.valid"
+            [touched]="usernameField.touched"
+            [dirty]="usernameField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="username"
+            formControlName="username"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="usernameField.errors"
+            [touched]="usernameField.touched"
+            [dirty]="usernameField.dirty"
+          >
+          </small>
+        </div>
 
-          <!--name field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="name"
-              appLabel
-              label="Nombres:"
-              [required]="isRequired(nameField)"
-              [valid]="nameField.valid"
-              [touched]="nameField.touched"
-              [dirty]="nameField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="name"
-              formControlName="name"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="nameField.errors"
-              [touched]="nameField.touched"
-              [dirty]="nameField.dirty"
-            >
-            </small>
-          </div>
-          <!-- lastname field -->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="lastname"
-              appLabel
-              label="Apellidos:"
-              [required]="isRequired(lastnameField)"
-              [valid]="lastnameField.valid"
-              [touched]="lastnameField.touched"
-              [dirty]="lastnameField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="lastname"
-              formControlName="lastname"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="lastnameField.errors"
-              [touched]="lastnameField.touched"
-              [dirty]="lastnameField.dirty"
-            >
-            </small>
-          </div>
-          <!--email field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="email"
-              appLabel
-              label="Correo electrónico:"
-              [required]="isRequired(emailField)"
-              [valid]="emailField.valid"
-              [touched]="emailField.touched"
-              [dirty]="emailField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="email"
-              formControlName="email"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="emailField.errors"
-              [touched]="emailField.touched"
-              [dirty]="emailField.dirty"
-            >
-            </small>
-          </div>
+        <!--name field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="name"
+            appLabel
+            label="Nombres:"
+            [required]="isRequired(nameField)"
+            [valid]="nameField.valid"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="name"
+            formControlName="name"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="nameField.errors"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </small>
         </div>
-      </p-fieldset>
-      <!-- informacion adicional -->
-      <p-fieldset
-        legend="Información adicional del participante"
-        class="d-inline"
-      >
-        <div class="formgrid grid">
-          <!--instruction field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="instruction"
-              appLabel
-              label="Nivel de instrucción:"
-              [required]="isRequired(instructionField)"
-              [valid]="instructionField.valid"
-              [touched]="instructionField.touched"
-              [dirty]="instructionField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="instruction"
-              formControlName="instruction"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="instructionField.errors"
-              [touched]="instructionField.touched"
-              [dirty]="instructionField.dirty"
-            >
-            </small>
-          </div>
-          <!--company name field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="companyName"
-              appLabel
-              label="Nombre de la compañía:"
-              [required]="isRequired(companyNameField)"
-              [valid]="companyNameField.valid"
-              [touched]="companyNameField.touched"
-              [dirty]="companyNameField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="companyName"
-              formControlName="companyName"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="companyNameField.errors"
-              [touched]="companyNameField.touched"
-              [dirty]="companyNameField.dirty"
-            >
-            </small>
-          </div>
-          <!--company address field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="companyAddress"
-              appLabel
-              label="Dirección de la compañía:"
-              [required]="isRequired(companyAddressField)"
-              [valid]="companyAddressField.valid"
-              [touched]="companyAddressField.touched"
-              [dirty]="companyAddressField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="companyAddress"
-              formControlName="companyAddress"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="companyAddressField.errors"
-              [touched]="companyAddressField.touched"
-              [dirty]="companyAddressField.dirty"
-            >
-            </small>
-          </div>
-          <!--company activity field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="companyActivity"
-              appLabel
-              label="Actividad de la compañía:"
-              [required]="isRequired(companyActivityField)"
-              [valid]="companyActivityField.valid"
-              [touched]="companyActivityField.touched"
-              [dirty]="companyActivityField.dirty"
-            >
-            </label>
-            <input
-              pInputText
-              id="companyActivity"
-              formControlName="companyActivity"
-              class="uppercase"
-            />
-            <small
-              appErrorMessage
-              [errors]="companyActivityField.errors"
-              [touched]="companyActivityField.touched"
-              [dirty]="companyActivityField.dirty"
-            >
-            </small>
-          </div>
-          <!--company spoonsored field-->
-          <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <label
-              for="companySponsored"
-              appLabel
-              label="Patrocinado por la compañía:"
-              [valid]="companySponsoredField.valid"
-              [touched]="companySponsoredField.touched"
-              [dirty]="companySponsoredField.dirty"
-            ></label>
-            <p-toggleButton
-            onLabel="SI" offLabel="NO"
-            onIcon=" pi-money-bill" offIcon="pi pi-money-bill"
-              id="companySponsored"
-              formControlName="companySponsored">
-            </p-toggleButton>
-            <small
-              appErrorMessage
-              [errors]="companySponsoredField.errors"
-              [touched]="companySponsoredField.touched"
-              [dirty]="companySponsoredField.dirty"
-            >
-            </small>
-          </div>
+        <!-- lastname field -->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="lastname"
+            appLabel
+            label="Apellidos:"
+            [required]="isRequired(lastnameField)"
+            [valid]="lastnameField.valid"
+            [touched]="lastnameField.touched"
+            [dirty]="lastnameField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="lastname"
+            formControlName="lastname"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="lastnameField.errors"
+            [touched]="lastnameField.touched"
+            [dirty]="lastnameField.dirty"
+          >
+          </small>
         </div>
-      </p-fieldset>
-      <!-- revición de documentos -->
-      <p-fieldset legend="Revisión de documentos" class="d-inline mw-50">
-        <div *ngFor="let req of requirementlist">
-          <h5 class="m-4">{{req.name}}</h5>
-          <!-- <button
+        <!--email field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="email"
+            appLabel
+            label="Correo electrónico:"
+            [required]="isRequired(emailField)"
+            [valid]="emailField.valid"
+            [touched]="emailField.touched"
+            [dirty]="emailField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="email"
+            formControlName="email"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="emailField.errors"
+            [touched]="emailField.touched"
+            [dirty]="emailField.dirty"
+          >
+          </small>
+        </div>
+      </div>
+    </p-fieldset>
+    <!-- informacion adicional -->
+    <p-fieldset
+      legend="Información adicional del participante"
+      class="d-inline"
+    >
+      <div class="formgrid grid">
+        <!--instruction field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="instruction"
+            appLabel
+            label="Nivel de instrucción:"
+            [required]="isRequired(instructionField)"
+            [valid]="instructionField.valid"
+            [touched]="instructionField.touched"
+            [dirty]="instructionField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="instruction"
+            formControlName="instruction"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="instructionField.errors"
+            [touched]="instructionField.touched"
+            [dirty]="instructionField.dirty"
+          >
+          </small>
+        </div>
+        <!--company name field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="companyName"
+            appLabel
+            label="Nombre de la compañía:"
+            [required]="isRequired(companyNameField)"
+            [valid]="companyNameField.valid"
+            [touched]="companyNameField.touched"
+            [dirty]="companyNameField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="companyName"
+            formControlName="companyName"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="companyNameField.errors"
+            [touched]="companyNameField.touched"
+            [dirty]="companyNameField.dirty"
+          >
+          </small>
+        </div>
+        <!--company address field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="companyAddress"
+            appLabel
+            label="Dirección de la compañía:"
+            [required]="isRequired(companyAddressField)"
+            [valid]="companyAddressField.valid"
+            [touched]="companyAddressField.touched"
+            [dirty]="companyAddressField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="companyAddress"
+            formControlName="companyAddress"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="companyAddressField.errors"
+            [touched]="companyAddressField.touched"
+            [dirty]="companyAddressField.dirty"
+          >
+          </small>
+        </div>
+        <!--company activity field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="companyActivity"
+            appLabel
+            label="Actividad de la compañía:"
+            [required]="isRequired(companyActivityField)"
+            [valid]="companyActivityField.valid"
+            [touched]="companyActivityField.touched"
+            [dirty]="companyActivityField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="companyActivity"
+            formControlName="companyActivity"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="companyActivityField.errors"
+            [touched]="companyActivityField.touched"
+            [dirty]="companyActivityField.dirty"
+          >
+          </small>
+        </div>
+        <!--company spoonsored field-->
+        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+          <label
+            for="companySponsored"
+            appLabel
+            label="Patrocinado por la compañía:"
+            [valid]="companySponsoredField.valid"
+            [touched]="companySponsoredField.touched"
+            [dirty]="companySponsoredField.dirty"
+          ></label>
+          <p-toggleButton
+            onLabel="SI"
+            offLabel="NO"
+            onIcon=" pi-money-bill"
+            offIcon="pi pi-money-bill"
+            id="companySponsored"
+            formControlName="companySponsored"
+          >
+          </p-toggleButton>
+          <small
+            appErrorMessage
+            [errors]="companySponsoredField.errors"
+            [touched]="companySponsoredField.touched"
+            [dirty]="companySponsoredField.dirty"
+          >
+          </small>
+        </div>
+      </div>
+    </p-fieldset>
+    <!-- revición de documentos -->
+    <p-fieldset legend="Revisión de documentos" class="d-inline mw-50">
+      <div *ngFor="let req of requirementlist">
+        <h5 class="m-4">{{ req.name }}</h5>
+        <!-- <button
             pButton
             pRipple
             pTooltip="Descargar documento"
@@ -293,83 +295,81 @@
             class="p-button-rounded p-button-help"
             icon="pi pi-download"
           ></button> -->
-          <p-divider></p-divider>
+        <p-divider></p-divider>
+      </div>
+    </p-fieldset>
+
+    <div class="formgrid grid">
+      <!--observations field-->
+      <div class="field px-1">
+        <div class="flex flex-row-reverse mt-3">
+          <button
+            *ngIf="showButtons"
+            pButton
+            pRipple
+            type="button"
+            label="Limpiar observaciones"
+            class="p-button-danger p-button-text"
+            (click)="clearTextareaValue()"
+          ></button>
         </div>
-
-      </p-fieldset>
-
-      <div class="formgrid grid">
-        <!--observations field-->
-        <div class="field px-1">
-          <div class="flex flex-row-reverse mt-3">
-            <button
-              *ngIf="showButtons"
-              pButton
-              pRipple
-              type="button"
-              label="Limpiar observaciones"
-              class="p-button-danger p-button-text"
-              (click)="clearTextareaValue()"
-            ></button>
-          </div>
+        <label
+          for="observations"
+          appLabel
+          label="Observaciones: "
+          [required]="isRequired(observationsField)"
+          [valid]="observationsField.valid"
+          [touched]="observationsField.touched"
+          [dirty]="observationsField.dirty"
+        >
+        </label>
+        <span class="p-input-icon-left">
+          <textarea
+            [rows]="5"
+            pInputTextarea
+            id="observations"
+            formControlName="observations"
+            class="uppercase"
+            #observ
+          ></textarea>
           <label
-            for="observations"
-            appLabel
-            label="Observaciones: "
-            [required]="isRequired(observationsField)"
-            [valid]="observationsField.valid"
-            [touched]="observationsField.touched"
-            [dirty]="observationsField.dirty"
-          >
+            ><b>Nota:</b> Si la incripción no tiene observaciones borrelas y
+            proceda a matricular, caso contrario llene las observaciones y
+            notifique al participante
           </label>
-          <span class="p-input-icon-left">
-            <textarea
-              [rows]="5"
-              pInputTextarea
-              id="observations"
-              formControlName="observations"
-              class="uppercase"
-              #observ
-            ></textarea>
-            <label
-              ><b>Nota:</b> Si la incripción no tiene observaciones borrelas y
-              proceda a matricular, caso contrario llene las observaciones y
-              notifique al participante
-            </label>
-          </span>
-          <small
-            appErrorMessage
-            [errors]="observationsField.errors"
-            [touched]="observationsField.touched"
-            [dirty]="observationsField.dirty"
-          >
-          </small>
+        </span>
+        <small
+          appErrorMessage
+          [errors]="observationsField.errors"
+          [touched]="observationsField.touched"
+          [dirty]="observationsField.dirty"
+        >
+        </small>
+      </div>
+    </div>
+    <div *ngIf="showButtons">
+      <div class="flex flex-row-reverse mr-2">
+        <div *ngIf="observ.value === ''">
+          <button
+            pButton
+            pRipple
+            label="Matricular"
+            (click)="onSubmit()"
+            class="p-button-rounded p-button-primary"
+            icon="pi pi-save"
+          ></button>
+        </div>
+        <div *ngIf="observ.value !== ''">
+          <button
+            pButton
+            pRipple
+            label="Notificar Participante"
+            (click)="onSubmit()"
+            class="p-button-rounded p-button-success"
+            icon="pi pi-save"
+          ></button>
         </div>
       </div>
-      <div *ngIf="showButtons">
-        <div class="flex flex-row-reverse mr-2">
-          <div *ngIf="observ.value === ''">
-            <button
-              pButton
-              pRipple
-              label="Matricular"
-              (click)="onSubmit()"
-              class="p-button-rounded p-button-primary"
-              icon="pi pi-save"
-            ></button>
-          </div>
-          <div *ngIf="observ.value !== ''">
-            <button
-              pButton
-              pRipple
-              label="Notificar Participante"
-              (click)="onSubmit()"
-              class="p-button-rounded p-button-success"
-              icon="pi pi-save"
-            ></button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

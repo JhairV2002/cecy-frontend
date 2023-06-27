@@ -1,48 +1,67 @@
-<div class="container">
-  <h1 class="mb-5">Tus Cursos Asignados</h1>
-  <p-toolbar>
-    <div class="p-toolbar-group-left">
-      <button pButton pRipple type="button" label="Refrescar" class="p-button-rounded ml-2" icon="pi pi-sync"
-        (click)="planificationsAsign()"></button>
-      <!-- (click)="findAll()" -->
-      <!-- <app-progress-bar *ngIf="progressBarDelete" [message]="messageService.progressBarDelete" class="ml-2">
+<h1 class="mb-5">Tus Cursos Asignados</h1>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Refrescar"
+      class="p-button-rounded ml-2"
+      icon="pi pi-sync"
+      (click)="planificationsAsign()"
+    ></button>
+    <!-- (click)="findAll()" -->
+    <!-- <app-progress-bar *ngIf="progressBarDelete" [message]="messageService.progressBarDelete" class="ml-2">
       </app-progress-bar> -->
+  </div>
+  <div class="p-toolbar-group-right">
+    <div class="p-inputgroup">
+      <!-- <input pInputText id="search" [formControl]="search" (keypress)="filter($event)"> -->
+      <input
+        id="namePlan"
+        pInputText
+        #inputSearch
+        [(ngModel)]="namePlan"
+        (keyup)="filterPlanification(namePlan)"
+      />
+
+      <button pButton pRipple type="button" icon="pi pi-search"></button>
+      <!-- (click)="filter(inputSearch.value)" -->
     </div>
-    <div class="p-toolbar-group-right">
-      <div class="p-inputgroup">
-        <!-- <input pInputText id="search" [formControl]="search" (keypress)="filter($event)"> -->
-        <input id="namePlan" pInputText #inputSearch [(ngModel)]="namePlan" (keyup)="filterPlanification(namePlan)" />
+  </div>
+</p-toolbar>
 
-        <button pButton pRipple type="button" icon="pi pi-search"></button>
-        <!-- (click)="filter(inputSearch.value)" -->
-      </div>
-    </div>
-  </p-toolbar>
-
-  <div class="p-1 flex flex-wrap">
-    <div class="p-2" *ngFor="let item of filterPlan">
-      <p-card [header]="item.planification.name" [style]="{ width: '250px' }">
-        <ng-template pTemplate="header">
-          <!-- <div class=" "> -->
-            <img class="object-contain h-32 " onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="item?.image" alt=""
-            style="height: 1 rem;">
-          <!-- </div> -->
-        </ng-template>
-        <ng-template pTemplate="subtittle">
-          Codigo: {{ item.planification.codeCourse }} <br />
-          Estado: {{ item.planification.state }}
-        </ng-template>
-        <ng-template pTemplate="footer">
-          <div class="text-center">
-
-            <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-user-edit"
-              (onDropdownClick)="select(item)" (onClick)="editCourse(item)" [model]="items">
-            </p-splitButton>
-
-          </div>
-        </ng-template>
-      </p-card>
-    </div>
-
+<div class="p-1 flex flex-wrap">
+  <div class="p-2" *ngFor="let item of filterPlan">
+    <p-card [header]="item.planification.name" [style]="{ width: '250px' }">
+      <ng-template pTemplate="header">
+        <!-- <div class=" "> -->
+        <img
+          class="object-contain h-32"
+          onerror="this.src = 'assets/course-objects/empty-img.png' "
+          [src]="item?.image"
+          alt=""
+          style="height: 1 rem"
+        />
+        <!-- </div> -->
+      </ng-template>
+      <ng-template pTemplate="subtittle">
+        Codigo: {{ item.planification.codeCourse }} <br />
+        Estado: {{ item.planification.state }}
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <div class="text-center">
+          <p-splitButton
+            label="Editar"
+            styleClass="p-button-secondary"
+            icon="pi pi-user-edit"
+            (onDropdownClick)="select(item)"
+            (onClick)="editCourse(item)"
+            [model]="items"
+          >
+          </p-splitButton>
+        </div>
+      </ng-template>
+    </p-card>
   </div>
 </div>

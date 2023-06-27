@@ -1,10 +1,9 @@
 <div>
   <form>
-    <div class="container">
-      <div class="formgrid grid">
-        <p-card class="xl:col-12">
-          <div class="flex flex-row flex-wrap card-container blue-container">
-            <!-- <div class="field xl:col-3 lg:col-4 md:col-12 sm:col-12">
+    <div class="formgrid grid">
+      <p-card class="xl:col-12">
+        <div class="flex flex-row flex-wrap card-container blue-container">
+          <!-- <div class="field xl:col-3 lg:col-4 md:col-12 sm:col-12">
               <div class="card-container blue-container flex align-items-center justify-content-start xl:col-12">
                 <img class=" xl:col-5 lg:col-5 md:col-2 sm:col-2 "
                   onerror="this.src = 'assets/images/components/course/online-course.png' "
@@ -15,619 +14,615 @@
                   (click)="showModalImages()"></button>
               </div>
             </div> -->
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Nombre del curso: </b> <br />
-              {{ selectedCourse?.name }}
-            </div>
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Código del curso: </b> <br />
-              {{
-                selectedCourse?.codeCourse
-                  ? selectedCourse.codeCourse
-                  : "No tiene código"
-              }}
-            </div>
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Estado del curso: </b> <br />
-              {{ selectedCourse?.state ? selectedCourse.state : "No asignado" }}
-            </div>
-            <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
-              <b>Carrera: </b> <br />
-              {{ selectedCourse?.career.name }}
-            </div>
+          <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
+            <b>Nombre del curso: </b> <br />
+            {{ selectedCourse?.name }}
           </div>
-        </p-card>
-      </div>
+          <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
+            <b>Código del curso: </b> <br />
+            {{
+              selectedCourse?.codeCourse
+                ? selectedCourse.codeCourse
+                : "No tiene código"
+            }}
+          </div>
+          <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
+            <b>Estado del curso: </b> <br />
+            {{ selectedCourse?.state ? selectedCourse.state : "No asignado" }}
+          </div>
+          <div class="field xl:col-3 lg:col-4 md:col-6 sm:col-12">
+            <b>Carrera: </b> <br />
+            {{ selectedCourse?.career.name }}
+          </div>
+        </div>
+      </p-card>
+    </div>
 
-      <p-tabView [activeIndex]="selectedTab">
-        <p-tabPanel header="Datos Generales">
-          <p-toast position="top-center"></p-toast>
-          <p-card>
-            <div class="p-fluid">
-              <form [formGroup]="formCourse" (ngSubmit)="onSubmit()">
-                <div class="text-center">
-                  <h5>Datos generales</h5>
+    <p-tabView [activeIndex]="selectedTab">
+      <p-tabPanel header="Datos Generales">
+        <p-toast position="top-center"></p-toast>
+        <p-card>
+          <div class="p-fluid">
+            <form [formGroup]="formCourse" (ngSubmit)="onSubmit()">
+              <div class="text-center">
+                <h5>Datos generales</h5>
+              </div>
+              <div class="container">
+                <!-- duracion en horas y modalidad -->
+                <div class="formgrid grid">
+                  <!-- duracion en horas -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="duration"
+                      appLabel
+                      label="Duracion en Horas: "
+                    ></label>
+                    <br />
+                    <h4>{{ selectedCourse?.durationTime }}</h4>
+                  </div>
+                  <!-- modalidad -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="modality"
+                      appLabel
+                      label="Modalidad de Curso:"
+                      [required]="isRequired(modalityField)"
+                      [valid]="modalityField.valid"
+                      [touched]="modalityField.touched"
+                      [dirty]="modalityField.dirty"
+                    >
+                    </label>
+                    <p-dropdown
+                      id="modality"
+                      formControlName="modalityId"
+                      [options]="modalities"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+
+                    <small
+                      appErrorMessage
+                      [errors]="modalityField.errors"
+                      [touched]="modalityField.touched"
+                      [dirty]="modalityField.dirty"
+                    >
+                    </small>
+                  </div>
                 </div>
-                <div class="container">
-                  <!-- duracion en horas y modalidad -->
-                  <div class="formgrid grid">
-                    <!-- duracion en horas -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="duration"
-                        appLabel
-                        label="Duracion en Horas: "
-                      ></label>
-                      <br />
-                      <h4>{{ selectedCourse?.durationTime }}</h4>
-                    </div>
-                    <!-- modalidad -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="modality"
-                        appLabel
-                        label="Modalidad de Curso:"
-                        [required]="isRequired(modalityField)"
-                        [valid]="modalityField.valid"
-                        [touched]="modalityField.touched"
-                        [dirty]="modalityField.dirty"
-                      >
-                      </label>
-                      <p-dropdown
-                        id="modality"
-                        formControlName="modalityId"
-                        [options]="modalities"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
+                <!-- categoria y entidad que valida -->
 
-                      <small
-                        appErrorMessage
-                        [errors]="modalityField.errors"
-                        [touched]="modalityField.touched"
-                        [dirty]="modalityField.dirty"
-                      >
-                      </small>
-                    </div>
+                <div class="formgrid grid">
+                  <!-- categoria de curso -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="category"
+                      appLabel
+                      label="Categoria de Curso:"
+                      [required]="isRequired(categoryField)"
+                      [valid]="categoryField.valid"
+                      [touched]="categoryField.touched"
+                      [dirty]="categoryField.dirty"
+                    >
+                    </label>
+                    <p-dropdown
+                      id="category"
+                      formControlName="categoryId"
+                      [options]="categories"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small
+                      appErrorMessage
+                      [errors]="categoryField.errors"
+                      [touched]="categoryField.touched"
+                      [dirty]="categoryField.dirty"
+                    >
+                    </small>
                   </div>
-                  <!-- categoria y entidad que valida -->
-
-                  <div class="formgrid grid">
-                    <!-- categoria de curso -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="category"
-                        appLabel
-                        label="Categoria de Curso:"
-                        [required]="isRequired(categoryField)"
-                        [valid]="categoryField.valid"
-                        [touched]="categoryField.touched"
-                        [dirty]="categoryField.dirty"
-                      >
-                      </label>
-                      <p-dropdown
-                        id="category"
-                        formControlName="categoryId"
-                        [options]="categories"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        [errors]="categoryField.errors"
-                        [touched]="categoryField.touched"
-                        [dirty]="categoryField.dirty"
-                      >
-                      </small>
-                    </div>
-                    <!-- entidad que valida -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="entityCertification"
-                        appLabel
-                        label="Entidad que valida:"
-                        [required]="isRequired(entityCertificationField)"
-                        [valid]="entityCertificationField.valid"
-                        [touched]="entityCertificationField.touched"
-                        [dirty]="entityCertificationField.dirty"
-                      >
-                      </label>
-                      <p-dropdown
-                        id="entityCertification"
-                        formControlName="entityCertificationId"
-                        [options]="entityCertifications"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        [errors]="entityCertificationField.errors"
-                        [touched]="entityCertificationField.touched"
-                        [dirty]="entityCertificationField.dirty"
-                      >
-                      </small>
-                    </div>
+                  <!-- entidad que valida -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="entityCertification"
+                      appLabel
+                      label="Entidad que valida:"
+                      [required]="isRequired(entityCertificationField)"
+                      [valid]="entityCertificationField.valid"
+                      [touched]="entityCertificationField.touched"
+                      [dirty]="entityCertificationField.dirty"
+                    >
+                    </label>
+                    <p-dropdown
+                      id="entityCertification"
+                      formControlName="entityCertificationId"
+                      [options]="entityCertifications"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small
+                      appErrorMessage
+                      [errors]="entityCertificationField.errors"
+                      [touched]="entityCertificationField.touched"
+                      [dirty]="entityCertificationField.dirty"
+                    >
+                    </small>
                   </div>
+                </div>
 
-                  <!-- tipo de curso y tipo de certificado -->
+                <!-- tipo de curso y tipo de certificado -->
 
-                  <div class="formgrid grid">
-                    <!-- tipo de curso -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="courseType"
-                        appLabel
-                        label="Tipo de Curso:"
-                        [required]="isRequired(courseTypeField)"
-                        [valid]="courseTypeField.valid"
-                        [touched]="courseTypeField.touched"
-                        [dirty]="courseTypeField.dirty"
-                      >
-                      </label>
-                      <p-dropdown
-                        id="courseType"
-                        formControlName="courseTypeId"
-                        [options]="courseTypes"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        [errors]="courseTypeField.errors"
-                        [touched]="courseTypeField.touched"
-                        [dirty]="courseTypeField.dirty"
-                      >
-                      </small>
-                    </div>
-                    <!-- tipo de certificado -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="certifiedType"
-                        appLabel
-                        label="Tipo de Certificado:"
-                        [required]="isRequired(certificationTypeField)"
-                        [valid]="certificationTypeField.valid"
-                        [touched]="certificationTypeField.touched"
-                        [dirty]="certificationTypeField.dirty"
-                      >
-                      </label>
-                      <p-dropdown
-                        id="certifiedType"
-                        formControlName="certifiedTypeId"
-                        [options]="certifiedTypes"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        [errors]="certificationTypeField.errors"
-                        [touched]="certificationTypeField.touched"
-                        [dirty]="certificationTypeField.dirty"
-                      >
-                      </small>
-                    </div>
+                <div class="formgrid grid">
+                  <!-- tipo de curso -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="courseType"
+                      appLabel
+                      label="Tipo de Curso:"
+                      [required]="isRequired(courseTypeField)"
+                      [valid]="courseTypeField.valid"
+                      [touched]="courseTypeField.touched"
+                      [dirty]="courseTypeField.dirty"
+                    >
+                    </label>
+                    <p-dropdown
+                      id="courseType"
+                      formControlName="courseTypeId"
+                      [options]="courseTypes"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small
+                      appErrorMessage
+                      [errors]="courseTypeField.errors"
+                      [touched]="courseTypeField.touched"
+                      [dirty]="courseTypeField.dirty"
+                    >
+                    </small>
                   </div>
-                  <!-- Tipo de Curso 2 (Webinar, etc) -->
-
-                  <div class="formgrid grid">
-                    <!-- tipo de curso 2 -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="formationType"
-                        appLabel
-                        label="Seleccione Tipo de Formacion"
-                        [required]="isRequired(formationTypeField)"
-                        [valid]="formationTypeField.valid"
-                        [touched]="formationTypeField.touched"
-                        [dirty]="formationTypeField.touched"
-                      ></label>
-                      <p-dropdown
-                        id="formationType"
-                        dataKey="id"
-                        formControlName="formationTypeId"
-                        [options]="formationTypes"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        [errors]="formationTypeField.errors"
-                        [touched]="formationTypeField.touched"
-                        [dirty]="formationTypeField.dirty"
-                      >
-                      </small>
-                    </div>
-                    <!-- abreviatura -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="abbreviation"
-                        appLabel
-                        label="Abreviatura:"
-                        [required]="isRequired(abbreviationField)"
-                        [valid]="abbreviationField.valid"
-                        [touched]="abbreviationField.touched"
-                        [dirty]="abbreviationField.dirty"
-                      >
-                      </label>
-                      <input
-                        pInputText
-                        id="abbreviation"
-                        formControlName="abbreviation"
-                      />
-                      <small
-                        appErrorMessage
-                        [errors]="abbreviationField.errors"
-                        [touched]="abbreviationField.touched"
-                        [dirty]="abbreviationField.dirty"
-                      >
-                      </small>
-                    </div>
+                  <!-- tipo de certificado -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="certifiedType"
+                      appLabel
+                      label="Tipo de Certificado:"
+                      [required]="isRequired(certificationTypeField)"
+                      [valid]="certificationTypeField.valid"
+                      [touched]="certificationTypeField.touched"
+                      [dirty]="certificationTypeField.dirty"
+                    >
+                    </label>
+                    <p-dropdown
+                      id="certifiedType"
+                      formControlName="certifiedTypeId"
+                      [options]="certifiedTypes"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small
+                      appErrorMessage
+                      [errors]="certificationTypeField.errors"
+                      [touched]="certificationTypeField.touched"
+                      [dirty]="certificationTypeField.dirty"
+                    >
+                    </small>
                   </div>
+                </div>
+                <!-- Tipo de Curso 2 (Webinar, etc) -->
 
-                  <!-- grupo al que va dirigido y sector al que va dirigido -->
-                  <div class="formgrid grid">
-                    <!-- grupo al que va dirigido -->
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="targetGroups"
-                        appLabel
-                        label="Grupo al que va dirigido"
-                        ></label>
-                        <!-- [required]="isRequired(targetGroupsField)"
+                <div class="formgrid grid">
+                  <!-- tipo de curso 2 -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="formationType"
+                      appLabel
+                      label="Seleccione Tipo de Formacion"
+                      [required]="isRequired(formationTypeField)"
+                      [valid]="formationTypeField.valid"
+                      [touched]="formationTypeField.touched"
+                      [dirty]="formationTypeField.touched"
+                    ></label>
+                    <p-dropdown
+                      id="formationType"
+                      dataKey="id"
+                      formControlName="formationTypeId"
+                      [options]="formationTypes"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small
+                      appErrorMessage
+                      [errors]="formationTypeField.errors"
+                      [touched]="formationTypeField.touched"
+                      [dirty]="formationTypeField.dirty"
+                    >
+                    </small>
+                  </div>
+                  <!-- abreviatura -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="abbreviation"
+                      appLabel
+                      label="Abreviatura:"
+                      [required]="isRequired(abbreviationField)"
+                      [valid]="abbreviationField.valid"
+                      [touched]="abbreviationField.touched"
+                      [dirty]="abbreviationField.dirty"
+                    >
+                    </label>
+                    <input
+                      pInputText
+                      id="abbreviation"
+                      formControlName="abbreviation"
+                    />
+                    <small
+                      appErrorMessage
+                      [errors]="abbreviationField.errors"
+                      [touched]="abbreviationField.touched"
+                      [dirty]="abbreviationField.dirty"
+                    >
+                    </small>
+                  </div>
+                </div>
+
+                <!-- grupo al que va dirigido y sector al que va dirigido -->
+                <div class="formgrid grid">
+                  <!-- grupo al que va dirigido -->
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="targetGroups"
+                      appLabel
+                      label="Grupo al que va dirigido"
+                    ></label>
+                    <!-- [required]="isRequired(targetGroupsField)"
                         [valid]="targetGroupsField.valid"
                         [touched]="targetGroupsField.touched"
                         [dirty]="targetGroupsField.touched" -->
-                      <p-dropdown
-                        id="targetGroups"
-                        dataKey="id"
-                        formControlName="targetGroups"
-                        [options]="targetGroups"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        >
-                        <!-- [errors]="targetGroupsField.errors"
+                    <p-dropdown
+                      id="targetGroups"
+                      dataKey="id"
+                      formControlName="targetGroups"
+                      [options]="targetGroups"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small appErrorMessage>
+                      <!-- [errors]="targetGroupsField.errors"
                         [touched]="targetGroupsField.touched"
                         [dirty]="targetGroupsField.dirty" -->
-                      </small>
-                    </div>
-                    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                      <label
-                        for="participantTypes"
-                        appLabel
-                        label="Tipo de participante"
-                        ></label>
-                        <!-- [required]="isRequired(participantTypeField)"
+                    </small>
+                  </div>
+                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                    <label
+                      for="participantTypes"
+                      appLabel
+                      label="Tipo de participante"
+                    ></label>
+                    <!-- [required]="isRequired(participantTypeField)"
                         [valid]="participantTypeField.valid"
                         [touched]="participantTypeField.touched"
                         [dirty]="participantTypeField.touched" -->
-                      <p-dropdown
-                        id="participantTypes"
-                        dataKey="id"
-                        formControlName="participantTypes"
-                        [options]="participantTypes"
-                        [filter]="true"
-                        filterBy="name"
-                        placeholder="Seleccione"
-                        optionLabel="name"
-                        optionValue="id"
-                      >
-                      </p-dropdown>
-                      <small
-                        appErrorMessage
-                        >
-                        <!-- [errors]="participantTypeField.errors"
+                    <p-dropdown
+                      id="participantTypes"
+                      dataKey="id"
+                      formControlName="participantTypes"
+                      [options]="participantTypes"
+                      [filter]="true"
+                      filterBy="name"
+                      placeholder="Seleccione"
+                      optionLabel="name"
+                      optionValue="id"
+                    >
+                    </p-dropdown>
+                    <small appErrorMessage>
+                      <!-- [errors]="participantTypeField.errors"
                         [touched]="participantTypeField.touched"
                         [dirty]="participantTypeField.dirty" -->
-                      </small>
-                    </div>
-                  </div>
-
-                  <!-- resumen y proyecto de curso -->
-
-                  <div class="formgrid grid">
-                    <!-- Resumen -->
-                    <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                      <label
-                        for="summary"
-                        appLabel
-                        label="Resumen del Curso"
-                        [required]="isRequired(summaryField)"
-                        [valid]="summaryField.valid"
-                        [touched]="summaryField.touched"
-                        [dirty]="summaryField.dirty"
-                      ></label>
-                      <textarea
-                        pInputTextarea
-                        pInputText
-                        id="summary"
-                        formControlName="summary"
-                        class="uppercase"
-                      ></textarea>
-                      <small
-                        appErrorMessage
-                        [errors]="summaryField.errors"
-                        [touched]="summaryField.touched"
-                        [dirty]="summaryField.dirty"
-                      >
-                      </small>
-                    </div>
-                    <!-- proyecto de curso -->
-                    <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                      <label
-                        for="project"
-                        appLabel
-                        label="Proyecto del Curso"
-                        [required]="isRequired(projectFiled)"
-                        [valid]="projectFiled.valid"
-                        [touched]="projectFiled.touched"
-                        [dirty]="projectFiled.dirty"
-                      ></label>
-                      <textarea
-                        pInputTextarea
-                        pInputText
-                        id="project"
-                        formControlName="project"
-                        class="uppercase"
-                      ></textarea>
-                      <small
-                        appErrorMessage
-                        [errors]="projectFiled.errors"
-                        [touched]="projectFiled.touched"
-                        [dirty]="projectFiled.dirty"
-                      >
-                      </small>
-                    </div>
-                  </div>
-                  <div class="field mt-4">
-                    <button
-                      [disabled]="formCourse.invalid"
-                      pButton
-                      pRipple
-                      label="Guardar"
-                      type="submit"
-                      class="p-button-rounded"
-                      icon="pi pi-save"
-                    ></button>
+                    </small>
                   </div>
                 </div>
-              </form>
-            </div>
-          </p-card>
-        </p-tabPanel>
-        <p-tabPanel header="Diseño Curricular">
-          <form [formGroup]="formCurricularDesign" (ngSubmit)="onSubmit1()">
-            <div class="p-fluid">
-              <div class="grid align-items-center justify-content-between">
-                <h4>Diseño Curricular</h4>
-                <div>
+
+                <!-- resumen y proyecto de curso -->
+
+                <div class="formgrid grid">
+                  <!-- Resumen -->
+                  <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+                    <label
+                      for="summary"
+                      appLabel
+                      label="Resumen del Curso"
+                      [required]="isRequired(summaryField)"
+                      [valid]="summaryField.valid"
+                      [touched]="summaryField.touched"
+                      [dirty]="summaryField.dirty"
+                    ></label>
+                    <textarea
+                      pInputTextarea
+                      pInputText
+                      id="summary"
+                      formControlName="summary"
+                      class="uppercase"
+                    ></textarea>
+                    <small
+                      appErrorMessage
+                      [errors]="summaryField.errors"
+                      [touched]="summaryField.touched"
+                      [dirty]="summaryField.dirty"
+                    >
+                    </small>
+                  </div>
+                  <!-- proyecto de curso -->
+                  <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+                    <label
+                      for="project"
+                      appLabel
+                      label="Proyecto del Curso"
+                      [required]="isRequired(projectFiled)"
+                      [valid]="projectFiled.valid"
+                      [touched]="projectFiled.touched"
+                      [dirty]="projectFiled.dirty"
+                    ></label>
+                    <textarea
+                      pInputTextarea
+                      pInputText
+                      id="project"
+                      formControlName="project"
+                      class="uppercase"
+                    ></textarea>
+                    <small
+                      appErrorMessage
+                      [errors]="projectFiled.errors"
+                      [touched]="projectFiled.touched"
+                      [dirty]="projectFiled.dirty"
+                    >
+                    </small>
+                  </div>
+                </div>
+                <div class="field mt-4">
                   <button
+                    [disabled]="formCourse.invalid"
                     pButton
                     pRipple
-                    type="submit"
-                    [disabled]="formCurricularDesign.invalid"
                     label="Guardar"
+                    type="submit"
+                    class="p-button-rounded"
+                    icon="pi pi-save"
                   ></button>
                 </div>
               </div>
-              <div class="formgrid grid">
-                <!-- objetivo -->
-                <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                  <label
-                    for="objective"
-                    appLabel
-                    label="Objetivo del curso"
-                    [required]="isRequired(objectiveField)"
-                    [valid]="objectiveField.valid"
-                    [touched]="objectiveField.touched"
-                    [dirty]="objectiveField.dirty"
-                  >
-                    ></label
-                  >
-                  <textarea
-                    pInputTextarea
-                    formControlName="objective"
-                    placeholder="Objetivo del curso"
-                  ></textarea>
-                  <small
-                    appErrorMessage
-                    [errors]="objectiveField.errors"
-                    [touched]="objectiveField.touched"
-                    [dirty]="objectiveField.dirty"
-                  >
-                  </small>
-                </div>
-                <!-- alineacion -->
-                <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                  <label
-                    for="alignment"
-                    appLabel
-                    label="Alineación al eje de la ANC"
-                    [required]="isRequired(alignmentField)"
-                    [valid]="alignmentField.valid"
-                    [touched]="alignmentField.touched"
-                    [dirty]="alignmentField.dirty"
-                  >
-                  </label>
-                  <input
-                    type="text"
-                    pInputText
-                    id="alignment"
-                    formControlName="alignment"
-                    placeholder="Alineacición del curso"
-                  />
-                  <small
-                    appErrorMessage
-                    [errors]="alignmentField.errors"
-                    [touched]="alignmentField.touched"
-                    [dirty]="alignmentField.dirty"
-                  >
-                  </small>
-                </div>
-                <!-- especialidad -->
-                <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                  <label
-                    for="area"
-                    appLabel
-                    label="Area"
-                    [required]="isRequired(areaField)"
-                    [valid]="areaField.valid"
-                    [touched]="areaField.touched"
-                    [dirty]="areaField.dirty"
-                  >
-                  </label>
-                  <p-dropdown
-                    id="area"
-                    formControlName="areaId"
-                    [options]="areaType"
-                    [filter]="true"
-                    filterBy="name"
-                    placeholder="Seleccione el área"
-                    optionLabel="name"
-                    optionValue="id"
-                  >
-                  </p-dropdown>
-                  <small
-                    appErrorMessage
-                    [errors]="areaField.errors"
-                    [touched]="areaField.touched"
-                    [dirty]="areaField.dirty"
-                  >
-                  </small>
-                </div>
+            </form>
+          </div>
+        </p-card>
+      </p-tabPanel>
+      <p-tabPanel header="Diseño Curricular">
+        <form [formGroup]="formCurricularDesign" (ngSubmit)="onSubmit1()">
+          <div class="p-fluid">
+            <div class="grid align-items-center justify-content-between">
+              <h4>Diseño Curricular</h4>
+              <div>
+                <button
+                  pButton
+                  pRipple
+                  type="submit"
+                  [disabled]="formCurricularDesign.invalid"
+                  label="Guardar"
+                ></button>
               </div>
-              <div class="formgrid grid">
-                <!-- area -->
+            </div>
+            <div class="formgrid grid">
+              <!-- objetivo -->
+              <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+                <label
+                  for="objective"
+                  appLabel
+                  label="Objetivo del curso"
+                  [required]="isRequired(objectiveField)"
+                  [valid]="objectiveField.valid"
+                  [touched]="objectiveField.touched"
+                  [dirty]="objectiveField.dirty"
+                >
+                  ></label
+                >
+                <textarea
+                  pInputTextarea
+                  formControlName="objective"
+                  placeholder="Objetivo del curso"
+                ></textarea>
+                <small
+                  appErrorMessage
+                  [errors]="objectiveField.errors"
+                  [touched]="objectiveField.touched"
+                  [dirty]="objectiveField.dirty"
+                >
+                </small>
+              </div>
+              <!-- alineacion -->
+              <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                <label
+                  for="alignment"
+                  appLabel
+                  label="Alineación al eje de la ANC"
+                  [required]="isRequired(alignmentField)"
+                  [valid]="alignmentField.valid"
+                  [touched]="alignmentField.touched"
+                  [dirty]="alignmentField.dirty"
+                >
+                </label>
+                <input
+                  type="text"
+                  pInputText
+                  id="alignment"
+                  formControlName="alignment"
+                  placeholder="Alineacición del curso"
+                />
+                <small
+                  appErrorMessage
+                  [errors]="alignmentField.errors"
+                  [touched]="alignmentField.touched"
+                  [dirty]="alignmentField.dirty"
+                >
+                </small>
+              </div>
+              <!-- especialidad -->
+              <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                <label
+                  for="area"
+                  appLabel
+                  label="Area"
+                  [required]="isRequired(areaField)"
+                  [valid]="areaField.valid"
+                  [touched]="areaField.touched"
+                  [dirty]="areaField.dirty"
+                >
+                </label>
+                <p-dropdown
+                  id="area"
+                  formControlName="areaId"
+                  [options]="areaType"
+                  [filter]="true"
+                  filterBy="name"
+                  placeholder="Seleccione el área"
+                  optionLabel="name"
+                  optionValue="id"
+                >
+                </p-dropdown>
+                <small
+                  appErrorMessage
+                  [errors]="areaField.errors"
+                  [touched]="areaField.touched"
+                  [dirty]="areaField.dirty"
+                >
+                </small>
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <!-- area -->
 
+              <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                <label
+                  for="speciality"
+                  appLabel
+                  label="Especialidad"
+                  [required]="isRequired(specialityField)"
+                  [valid]="specialityField.valid"
+                  [touched]="specialityField.touched"
+                  [dirty]="specialityField.dirty"
+                >
+                </label>
+                <p-dropdown
+                  id="speciality"
+                  formControlName="specialityId"
+                  [options]="specialityType"
+                  [filter]="true"
+                  filterBy="name"
+                  placeholder="Seleccione la especialidad"
+                  optionLabel="name"
+                  optionValue="id"
+                >
+                </p-dropdown>
+                <small
+                  appErrorMessage
+                  [errors]="specialityField.errors"
+                  [touched]="specialityField.touched"
+                  [dirty]="specialityField.dirty"
+                >
+                </small>
+              </div>
+            </div>
+            <!-- Carga horaria -->
+            <div class="mt-4">
+              <h4>Carga horaria</h4>
+              <div class="formgrid grid">
                 <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
                   <label
-                    for="speciality"
+                    for="practiceHours"
                     appLabel
-                    label="Especialidad"
-                    [required]="isRequired(specialityField)"
-                    [valid]="specialityField.valid"
-                    [touched]="specialityField.touched"
-                    [dirty]="specialityField.dirty"
+                    label="Horas prácticas"
+                    [required]="isRequired(practiceHoursField)"
+                    [valid]="practiceHoursField.valid"
+                    [touched]="practiceHoursField.touched"
+                    [dirty]="practiceHoursField.dirty"
                   >
                   </label>
-                  <p-dropdown
-                    id="speciality"
-                    formControlName="specialityId"
-                    [options]="specialityType"
-                    [filter]="true"
-                    filterBy="name"
-                    placeholder="Seleccione la especialidad"
-                    optionLabel="name"
-                    optionValue="id"
+                  <p-inputNumber
+                    formControlName="practiceHours"
+                    placeholder="Ingrese la hora"
+                    [showButtons]="true"
+                    [min]="0"
+                    [step]="1"
+                    [useGrouping]="false"
+                    inputId="practiceHours"
                   >
-                  </p-dropdown>
+                  </p-inputNumber>
                   <small
                     appErrorMessage
-                    [errors]="specialityField.errors"
-                    [touched]="specialityField.touched"
-                    [dirty]="specialityField.dirty"
+                    [errors]="practiceHoursField.errors"
+                    [touched]="practiceHoursField.touched"
+                    [dirty]="practiceHoursField.dirty"
                   >
                   </small>
                 </div>
-              </div>
-              <!-- Carga horaria -->
-              <div class="mt-4">
-                <h4>Carga horaria</h4>
-                <div class="formgrid grid">
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                    <label
-                      for="practiceHours"
-                      appLabel
-                      label="Horas prácticas"
-                      [required]="isRequired(practiceHoursField)"
-                      [valid]="practiceHoursField.valid"
-                      [touched]="practiceHoursField.touched"
-                      [dirty]="practiceHoursField.dirty"
-                    >
-                    </label>
-                    <p-inputNumber
-                      formControlName="practiceHours"
-                      placeholder="Ingrese la hora"
-                      [showButtons]="true"
-                      [min]="0"
-                      [step]="1"
-                      [useGrouping]="false"
-                      inputId="practiceHours"
-                    >
-                    </p-inputNumber>
-                    <small
-                      appErrorMessage
-                      [errors]="practiceHoursField.errors"
-                      [touched]="practiceHoursField.touched"
-                      [dirty]="practiceHoursField.dirty"
-                    >
-                    </small>
-                  </div>
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-                    <label
-                      for="theoryHours"
-                      appLabel
-                      label="Horas teóricas"
-                      [required]="isRequired(theoryHoursField)"
-                      [valid]="theoryHoursField.valid"
-                      [touched]="theoryHoursField.touched"
-                      [dirty]="theoryHoursField.dirty"
-                    >
-                    </label>
-                    <p-inputNumber
-                      formControlName="theoryHours"
-                      placeholder="Ingrese la hora"
-                      [showButtons]="true"
-                      [min]="0"
-                      [step]="1"
-                      inputId="theoryHours"
-                      [useGrouping]="false"
-                    >
-                    </p-inputNumber>
-                    <small
-                      appErrorMessage
-                      [errors]="theoryHoursField.errors"
-                      [touched]="theoryHoursField.touched"
-                      [dirty]="theoryHoursField.dirty"
-                    >
-                    </small>
-                  </div>
+                <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+                  <label
+                    for="theoryHours"
+                    appLabel
+                    label="Horas teóricas"
+                    [required]="isRequired(theoryHoursField)"
+                    [valid]="theoryHoursField.valid"
+                    [touched]="theoryHoursField.touched"
+                    [dirty]="theoryHoursField.dirty"
+                  >
+                  </label>
+                  <p-inputNumber
+                    formControlName="theoryHours"
+                    placeholder="Ingrese la hora"
+                    [showButtons]="true"
+                    [min]="0"
+                    [step]="1"
+                    inputId="theoryHours"
+                    [useGrouping]="false"
+                  >
+                  </p-inputNumber>
+                  <small
+                    appErrorMessage
+                    [errors]="theoryHoursField.errors"
+                    [touched]="theoryHoursField.touched"
+                    [dirty]="theoryHoursField.dirty"
+                  >
+                  </small>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
+        </form>
 
-          <!--
+        <!--
 
 <p-tabPanel header="Principal">
           <p-card>
@@ -1342,102 +1337,98 @@
         </p-tabPanel>
 
            -->
-        </p-tabPanel>
-        <p-tabPanel header="Horarios">
-          <!-- Horarios -->
+      </p-tabPanel>
+      <p-tabPanel header="Horarios">
+        <!-- Horarios -->
 
-          <div class="text-center">
-            <h5>Horarios</h5>
+        <div class="text-center">
+          <h5>Horarios</h5>
+        </div>
+        <app-horario-form
+          [dialogForm]="dialogForm"
+          (clickClose)="hideModal($event)"
+          (addUser)="saveOrEditUser($event)"
+          [courseDate]="selectedCourse"
+          [horarioSelect]="horarioSelect"
+        >
+        </app-horario-form>
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <button
+              pButton
+              pRipple
+              type="button"
+              label="Nuevo Horario"
+              class="p-button-success p-button-rounded"
+              icon="pi pi-plus"
+              (click)="showForm()"
+            ></button>
           </div>
-          <app-horario-form
-            [dialogForm]="dialogForm"
-            (clickClose)="hideModal($event)"
-            (addUser)="saveOrEditUser($event)"
-            [courseDate]="selectedCourse"
-            [horarioSelect]="horarioSelect"
+        </p-toolbar>
+        <p-card>
+          <p-table
+            dataKey="id"
+            [columns]="cols"
+            [responsive]="true"
+            [value]="detailPlanifications"
           >
-          </app-horario-form>
-          <p-toolbar>
-            <div class="p-toolbar-group-left">
-              <button
-                pButton
-                pRipple
-                type="button"
-                label="Nuevo Horario"
-                class="p-button-success p-button-rounded"
-                icon="pi pi-plus"
-                (click)="showForm()"
-              ></button>
-            </div>
-          </p-toolbar>
-          <p-card>
-            <p-table
-              dataKey="id"
-              [columns]="cols"
-              [responsive]="true"
-              [value]="detailPlanifications"
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th id="" style="width: 3rem">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{ col.header }}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th class="text-center">
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    class="p-button-rounded p-button-secondary"
+                    icon="pi pi-cog"
+                  ></button>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template
+              pTemplate="body"
+              let-horarios
+              let-columns="columns"
+              let-rowIndex="rowIndex"
             >
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th id="" style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                  </th>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{ col.header }}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                  </th>
-                  <th class="text-center">
-                    <button
-                      pButton
-                      pRipple
-                      type="button"
-                      class="p-button-rounded p-button-secondary"
-                      icon="pi pi-cog"
-                    ></button>
-                  </th>
-                </tr>
-              </ng-template>
-              <ng-template
-                pTemplate="body"
-                let-horarios
-                let-columns="columns"
-                let-rowIndex="rowIndex"
-              >
-                <tr
-                  [pSelectableRow]="horarios"
-                  [pSelectableRowIndex]="rowIndex"
-                >
-                  <td>
-                    <p-tableCheckbox [value]="horarios"></p-tableCheckbox>
-                  </td>
-                  <td>{{ horarios.day.name }}</td>
-                  <td>{{ horarios.workday.name }}</td>
-                  <td>{{ horarios.classroom.name }}</td>
-                  <td>{{ horarios.parallel.name }}</td>
-                  <td>{{ horarios.observation }}</td>
-                  <td class="flex justify-content-center gap-1">
-                    <button
-                      pButton
-                      icon="pi pi-trash"
-                      class="p-button-rounded p-button-danger"
-                      type="submit"
-                      (click)="deleteHorarioforOne(horarios)"
-                    ></button>
-                    <button
-                      pButton
-                      icon="pi pi-pencil"
-                      class="p-button-rounded p-button-warning"
-                      type="submit"
-                      (click)="updateHorarioforOne(horarios)"
-                    ></button>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </p-card>
-        </p-tabPanel>
-      </p-tabView>
-    </div>
+              <tr [pSelectableRow]="horarios" [pSelectableRowIndex]="rowIndex">
+                <td>
+                  <p-tableCheckbox [value]="horarios"></p-tableCheckbox>
+                </td>
+                <td>{{ horarios.day.name }}</td>
+                <td>{{ horarios.workday.name }}</td>
+                <td>{{ horarios.classroom.name }}</td>
+                <td>{{ horarios.parallel.name }}</td>
+                <td>{{ horarios.observation }}</td>
+                <td class="flex justify-content-center gap-1">
+                  <button
+                    pButton
+                    icon="pi pi-trash"
+                    class="p-button-rounded p-button-danger"
+                    type="submit"
+                    (click)="deleteHorarioforOne(horarios)"
+                  ></button>
+                  <button
+                    pButton
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-warning"
+                    type="submit"
+                    (click)="updateHorarioforOne(horarios)"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-card>
+      </p-tabPanel>
+    </p-tabView>
   </form>
 </div>
 <!-- <app-horario-form
