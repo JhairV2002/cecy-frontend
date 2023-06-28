@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class EstudianteService {
-  private apiUrl = `${environment.api4}/matriculas/`;
+  private apiUrl = `${environment.api}/matriculas/`;
   constructor(private http: HttpClient) { }
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
