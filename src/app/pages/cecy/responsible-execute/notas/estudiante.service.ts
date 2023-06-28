@@ -8,8 +8,8 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class EstudianteService {
-  private apiUrl = `${environment.api4}/matriculas/`;
-  constructor(private http: HttpClient) { }
+  private apiUrl = `${environment.api}/matriculas/`;
+  constructor(private http: HttpClient) {}
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
     return this.http.get<Matriculas[]>(`${this.apiUrl}`);

@@ -13,6 +13,10 @@ import { SharedModule } from '@shared/shared.module';
 import { NombreFilterPipe } from './notas/filter.pipe';
 import { CursoComponent } from './curso/curso.component'
 
+// PRIME NG
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+
 @NgModule({
   declarations: [
     AsistenciaComponent,
@@ -28,6 +32,8 @@ import { CursoComponent } from './curso/curso.component'
     ResponsibleExecuteRoutingModule,
     FormsModule,
     SharedModule,
+    SkeletonModule,
+    TableModule
   ],
 })
 export class ResponsibleExecuteModule { }
