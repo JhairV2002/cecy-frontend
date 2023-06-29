@@ -47,13 +47,28 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<unknown>) {
-    const token = this.tokenService.getToken();
+    let token: string | undefined = '';
+    if (token) {
+      token = this.tokenService.getToken();
+    } else {
+      token = this.tokenService.getToken();
+    }
+
     if (token) {
       const authReq = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${token}`),
       });
       return authReq;
     }
+
     return request;
+    // const token = this.tokenService.getToken();
+    // if (token) {
+    //   const authReq = request.clone({
+    //     headers: request.headers.set('Authorization', `Bearer ${token}`),
+    //   });
+    //   return authReq;
+    // }
+    // return request;
   }
 }
