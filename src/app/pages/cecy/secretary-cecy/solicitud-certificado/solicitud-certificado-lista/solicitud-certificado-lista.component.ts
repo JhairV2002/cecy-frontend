@@ -3,31 +3,34 @@ import { ActivatedRoute } from '@angular/router';
 
 
 //Importaciones nuevas
-import { Report } from '../certificate';
+import { Report, UpdateCode, Codes } from '../certificate';
 import { Certificate } from '../certificate';
-import { Codes } from '../certificate';
 import { Estudiantes } from '../certificate';
 import { Matricula } from '../certificate';
 import { CertificateRequestService } from '../certificate-request.service';
+
+import { Table } from 'primeng/table';
+import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CodigoCertificateComponent } from '../codigo-certificate/codigo-certificate.component';
 
 
 
 @Component({
   selector: 'app-solicitud-certificado-lista',
   templateUrl: './solicitud-certificado-lista.component.html',
+  providers: [DialogService]
 })
 export class SolicitudCertificadoListaComponent implements OnInit {
+  ref: DynamicDialogRef | undefined;
   constructor(
     private solicitudCertificadoService: CertificateRequestService,
     private activatedRoute: ActivatedRoute,
-
+    private messageService: MessageService,
+    private dialogService: DialogService
 
   ) { }
 
-
-
-
-  //no se si sirva lo de arriva
   //Lista de reporte
   reportEntity: Report={
     id:0,
@@ -63,95 +66,229 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   generate: boolean=false;
 
 
+
+  //intento sakai
+  updateCode: UpdateCode={}
+  updateCodeDialog: boolean = false;
+
+    deleteProductDialog: boolean = false;
+
+
+    codigos: Codes[] = [];
+
+    codigo: any = {};
+
+
+    //----
+    submitted: boolean = false;
+    //----
+    cols: any[] = [];
+
+
+    rowsPerPageOptions = [5, 10, 20];
   ngOnInit(): void {
     //this.findAll();
+    // this.activatedRoute.paramMap.subscribe((params) => {
+    //   if (params.get('id')) {
+    //     this.findById(parseInt(params.get('id')!));
+    //   }
+    // });
+
+    //supuestamente trae a los productos
+    // this.solicitudCertificadoService.findById(id).then(data => this.products = data);
     this.activatedRoute.paramMap.subscribe((params) => {
-      if (params.get('id')) {
-        this.findById(parseInt(params.get('id')!));
-      }
-    });
+        if (params.get('id')) {
+          this.findById(parseInt(params.get('id')!));
+        }
+      });
+
+
+        this.cols = [
+            { field: 'cedula', header: 'DNI' },
+            { field: 'nombres', header: 'Nombres' },
+            { field: 'apellidos', header: 'Apellidos' },
+            { field: 'codigo', header: 'Codigo' }
+        ];
+
+
+
+
   }
 
-  //Trae a la entdad de reporte con la lista de codigos-----
+  openNew() {
+    this.codigo = {};
+    this.submitted = false;
+    this.updateCodeDialog = true;
+}
+
+show() {
+  this.ref = this.dialogService.open(CodigoCertificateComponent, { header: 'Lista de Codigos',
+  data:{Listcodes: this.codigos}});
+  this.ref.onClose.subscribe();
+}
+ngOnDestroy() {
+  if (this.ref) {
+      this.ref.close();
+  }
+}
+
+editProduct(codigo: any) {
+    this.codigo = { ...codigo };
+    this.updateCodeDialog = true;
+}
+
+
+
+// confirmDeleteSelected() {
+//     this.deleteProductsDialog = false;
+//     this.products = this.products.filter(val => !this.selectedProducts.includes(val));
+//     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+//     this.selectedProducts = [];
+// }
+
+// confirmDelete() {
+//     this.deleteProductDialog = false;
+//     this.products = this.products.filter(val => val.id !== this.product.id);
+//     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+//     this.product = {};
+// }
+
+hideDialog() {
+    this.updateCodeDialog = false;
+    this.submitted = false;
+}
+
+saveProduct() {
+    this.submitted = true;
+    if (this.codigo.codigo?.trim()) {
+      if (this.codigo.id){
+        // console.log(this.codigo.id,JSON.stringify(this.codigo={
+        //   codigo: this.codigo.codigo
+        // }))
+        this.solicitudCertificadoService.updateCode(
+          this.updateCode={
+            codigo: this.codigo.codigo
+          },
+          this.codigo.id
+          ).subscribe()
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Codigo Actualizado', life: 3000 });
+      }
+      // this.codigos = [...this.codigo];
+      this.updateCodeDialog = false;
+      this.codigo = {};
+    }
+
+
+}
+
+// findIndexById(id: string): number {
+//     let index = -1;
+//     for (let i = 0; i < this.products.length; i++) {
+//         if (this.products[i].id === id) {
+//             index = i;
+//             break;
+//         }
+//     }
+
+//     return index;
+// }
+
+// createId(): string {
+//     let id = '';
+//     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//     for (let i = 0; i < 5; i++) {
+//         id += chars.charAt(Math.floor(Math.random() * chars.length));
+//     }
+//     return id;
+// }
+
+onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+}
+
+
+
+  // //Trae a la entdad de reporte con la lista de codigos-----
   findById(id: number): void {
     this.solicitudCertificadoService.findById(id).subscribe((response) => {
       this.reportEntity = response;
+      this.codigos = response.reportes
 
     });
   };
 
-  //Actualizar el codigo--------
-  updateEntity(id:number):void {
-    console.log(id,"este es el id")
-  };
+  // //Actualizar el codigo--------
+  // updateEntity(id:number):void {
+  //   console.log(id,"este es el id")
+  // };
 
 
 
-  //vamos a ver si genera de la nueva forma-----
-  //genera sertificados
-  public generateCertificates():void {
+
+  // //genera sertificados
+  // public generateCertificates():void {
 
 
-    this.reportEntity.reportes.forEach(
-      (res)=>{
-        if(res.certificado==null){
-          this.certificadoEntity={
+  //   this.reportEntity.reportes.forEach(
+  //     (res)=>{
+  //       if(res.certificado==null){
+  //         this.certificadoEntity={
 
-            estado:true,
-            fecha: new Date()
-          };
-          console.log("se a creado un nuevo certificado");
+  //           estado:true,
+  //           fecha: new Date()
+  //         };
+  //         console.log("se a creado un nuevo certificado");
 
-        }
-        if(res.certificado!=null){
-          // this.certificadoEntity={
-          //   id:res.certificado.id,
-          //   estado:res.certificado.estado,
-          //   fecha: res.certificado.fecha
-          // };
+  //       }
+  //       if(res.certificado!=null){
+  //         // this.certificadoEntity={
+  //         //   id:res.certificado.id,
+  //         //   estado:res.certificado.estado,
+  //         //   fecha: res.certificado.fecha
+  //         // };
 
-          console.log("existe un certificado")
-          return ;
+  //         console.log("existe un certificado")
+  //         return ;
 
-        }
+  //       }
 
 
-        this.estudentEntity={
-          id: res.matriculas.estudiantes.id,
-          cedula: res.matriculas.estudiantes.cedula,
-          fechaNacimiento: res.matriculas.estudiantes.fechaNacimiento,
-          nombres: res.matriculas.estudiantes.nombres,
-          apellidos: res.matriculas.estudiantes.apellidos,
-          email:res.matriculas.estudiantes.email
-        };
+  //       this.estudentEntity={
+  //         id: res.matriculas.estudiantes.id,
+  //         cedula: res.matriculas.estudiantes.cedula,
+  //         fechaNacimiento: res.matriculas.estudiantes.fechaNacimiento,
+  //         nombres: res.matriculas.estudiantes.nombres,
+  //         apellidos: res.matriculas.estudiantes.apellidos,
+  //         email:res.matriculas.estudiantes.email
+  //       };
 
-        this.matriculaEntity={
-            id:res.matriculas.id,
-            estudiantes:this.estudentEntity
+  //       this.matriculaEntity={
+  //           id:res.matriculas.id,
+  //           estudiantes:this.estudentEntity
 
-        };
+  //       };
 
-        this.codeEntity={
-          id:res.id,
-          codigo:res.codigo,
-          matriculas:this.matriculaEntity,
-          certificado: this.certificadoEntity
+  //       this.codeEntity={
+  //         id:res.id,
+  //         codigo:res.codigo,
+  //         matriculas:this.matriculaEntity,
+  //         certificado: this.certificadoEntity
 
-        };
+  //       };
 
-        //console.log(JSON.stringify(this.codeEntity))
-        if(this.generate){
-          console.log('validacion de generacion de ceertificado true')
-          return
-        }
-        this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe();
+  //       //console.log(JSON.stringify(this.codeEntity))
+  //       if(this.generate){
+  //         console.log('validacion de generacion de ceertificado true')
+  //         return
+  //       }
+  //       this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe();
 
-      }
+  //     }
 
-    )
-    this.generate=true;
-    console.log('primera ves generado',this.generate)
-  }
+  //   )
+  //   this.generate=true;
+  //   console.log('primera ves generado',this.generate)
+  // }
 
 
 

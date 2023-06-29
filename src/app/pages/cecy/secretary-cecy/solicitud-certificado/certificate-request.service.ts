@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { Codes, Report } from './certificate';
+import { 
+  Codes, 
+  Report, 
+  UpdateCode } from './certificate';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +31,10 @@ export class CertificateRequestService {
   }
   public saveCertificate(generarCertificado:Codes, id: number): Observable<Codes> {
     return this.http.put<Codes>(this.apiUrl1+"/"+id+"/", generarCertificado);
+  }
+
+  public updateCode(generarCertificado:UpdateCode, id: number): Observable<UpdateCode> {
+    return this.http.patch<UpdateCode>(this.apiUrl1+"/"+id+"/", generarCertificado);
   }
 
   public downloadCertificate(id: number) {

@@ -5,6 +5,9 @@ export interface Codes{
     certificado?:Certificate,
 
 }
+export interface UpdateCode{
+  codigo?:string
+}
 
 export interface CodeValidate{
     id:number,

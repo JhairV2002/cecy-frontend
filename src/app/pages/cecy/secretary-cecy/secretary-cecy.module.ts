@@ -5,9 +5,7 @@ import { SecretaryCecyRoutingModule } from './secretary-cecy-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
 // submodules
-import { CodigosCertificadoListaComponent } from './codigos-certificado/lista/codigos-certificado-lista.component';
-import { EncabezadoCodigoComponent } from './codigos-certificado/encabezado-codigo/encabezado-codigo.component';
-import { ModalCodigoComponent } from './codigos-certificado/modal-codigo/modal-codigo.component';
+
 import { FormsModule } from '@angular/forms';
 import { ReporteComponent } from './reporte/reporte.component';
 import { HomeComponent } from './home/home.component';
@@ -34,9 +32,6 @@ import { StyleClassModule } from 'primeng/styleclass';
 
 @NgModule({
   declarations: [
-    CodigosCertificadoListaComponent,
-    EncabezadoCodigoComponent,
-    ModalCodigoComponent,
     ReporteComponent,
     HomeComponent,
     ReporteListaComponent,

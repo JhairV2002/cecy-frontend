@@ -2,26 +2,61 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CertificateRequestRoutingModule } from './certificate-request-routing.module';
-import { SolicitudCertificadoToolbarComponent } from './solicitud-certificado-toolbar/solicitud-certificado-toolbar.component';
 import { SolicitudCertificadoMainComponent } from './solicitud-certificado-main/solicitud-certificado-main.component';
-import { SolicitudCertificadoBusquedaComponent } from './solicitud-certificado-busqueda/solicitud-certificado-busqueda.component';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SolicitudCertificadoListaComponent } from './solicitud-certificado-lista/solicitud-certificado-lista.component';
-import { SolicitudCertificadoListaCertificadoComponent } from './solicitud-certificado-lista-certificado/solicitud-certificado-lista-certificado.component';
+
+import { TableModule } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogModule } from 'primeng/dialog';
+import { TabMenuCertificateComponent } from './tab-menu-certificate/tab-menu-certificate.component';
+import { SettingsCertificateComponent } from './settings-certificate/settings-certificate.component';
+import { TabViewModule } from 'primeng/tabview';
+import { CodigoCertificateComponent } from './codigo-certificate/codigo-certificate.component';
+
+
+
 @NgModule({
   declarations: [
-    SolicitudCertificadoToolbarComponent,
+
     SolicitudCertificadoMainComponent,
-    SolicitudCertificadoBusquedaComponent,
     SolicitudCertificadoListaComponent,
-    SolicitudCertificadoListaCertificadoComponent
+    TabMenuCertificateComponent,
+    SettingsCertificateComponent,
+    CodigoCertificateComponent
   ],
   imports: [
     CommonModule,
     CertificateRequestRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TableModule,
+    FileUploadModule,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    ToolbarModule,
+    RatingModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    DialogModule,
+    TabViewModule
+
+
   ]
 })
 export class CertificateRequestModule { }
