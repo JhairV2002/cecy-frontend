@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CatalogueService } from '@services/cecy';
-import { EstudiantesServiceService } from '../../validacion-matricula/services/estudiantes-service.service';
+// import { EstudiantesServiceService } from '../../validacion-matricula/services/estudiantes-service.service';
 import { EstudiantesService } from '@services/estudiantes.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class FormularioRegistroComponent implements OnInit {
     private catalogoService: CatalogueService,
     // private estudiantesService: EstudiantesServiceService
     private estudiantesService: EstudiantesService
-  ) {}
+  ) { }
 
   formularioRegistro = this.fb.group({
     nombres: ['', Validators.required],

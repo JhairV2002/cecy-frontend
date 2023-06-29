@@ -9,11 +9,12 @@ import { AdminGuard } from './guards/admin.guard';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
+import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RedirectGuard],
+    // canActivate: [RedirectGuard],
     loadChildren: () =>
       import('./pages/authentication/authentication.module').then(
         (m) => m.AuthenticationModule
@@ -37,6 +38,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./register-validation/register-validation.module').then(
         (m) => m.RegisterValidationModule
+      ),
+  },
+
+  {
+    path: 'estudiante',
+    component: EstudiantesComponent,
+    loadChildren: () =>
+      import('./pages/estudiante/estudiante.module').then(
+        (m) => m.EstudianteModule
       ),
   },
   // {
@@ -81,4 +91,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

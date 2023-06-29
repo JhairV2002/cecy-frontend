@@ -101,15 +101,6 @@ const routes: Routes = [
         canActivate: [TokenGuard, RoleGuard], */
       },
       {
-        path: 'student',
-        loadChildren: () =>
-          import('./student/student.module').then((m) => m.StudentModule),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.STUDENT],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
         path: 'responsible-cecy',
         canLoad: [],
         data: {
@@ -162,30 +153,26 @@ const routes: Routes = [
       },
     ],
   },
-  {
-    path: 'estudiante',
-    component: EstudiantesComponent,
-    children: [
-      {
-        path: 'cursos',
-        loadChildren: () =>
-          import('./cursos/cursos.module').then((m) => m.CursosModule),
-      },
-      {
-        path: 'student',
-        loadChildren: () =>
-          import('./student/student.module').then((m) => m.StudentModule),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.STUDENT],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-    ],
-  },
+  // {
+  //   path: 'estudiante',
+  //   component: EstudiantesComponent,
+  //   children: [
+  //     {
+  //       path: 'cursos',
+  //       loadChildren: () =>
+  //         import('./cursos/cursos.module').then((m) => m.CursosModule),
+  //     },
+  //     {
+  //       path: 'student',
+  //       loadChildren: () =>
+  //         import('./student/student.module').then((m) => m.StudentModule),
+  //     },
+  //   ],
+  // },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CecyRoutingModule {}
+export class CecyRoutingModule { }

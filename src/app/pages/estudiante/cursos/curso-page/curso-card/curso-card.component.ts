@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { PlanificationCourse } from '@models/cecy';
 
 @Component({
@@ -7,6 +8,11 @@ import { PlanificationCourse } from '@models/cecy';
   styleUrls: ['./curso-card.component.css'],
 })
 export class CursoCardComponent {
+  constructor(private router: Router) { }
   @Input() curso!: PlanificationCourse | null;
   @Input() butonText!: 'Ver Más' | 'Inscribirse';
+
+  redireccionar() {
+    this.router.navigate(['/estudiante/formInscription', this.curso!.id]);
+  }
 }

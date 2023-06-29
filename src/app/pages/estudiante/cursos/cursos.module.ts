@@ -17,6 +17,9 @@ import { JsonToObjectPipe } from './estudiante-cursos-inscrito/json-to-object.pi
 import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudiante-cursos-lista.component';
 import { FormularioRegistroComponent } from './formulario-registro/formulario-registro.component';
 import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/formulario-inicio-sesion.component';
+import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
+import { CmbCoursesComponent } from './inscription-form/cmb-courses/cmb-courses.component';
+import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publicity.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/form
     EstudianteCursosListaComponent,
     FormularioRegistroComponent,
     FormularioInicioSesionComponent,
+    InscriptionFormComponent,
+    CmbCoursesComponent,
+    CmbPublicityComponent,
   ],
   imports: [
     CommonModule,

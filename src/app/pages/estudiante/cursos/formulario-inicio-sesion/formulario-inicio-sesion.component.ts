@@ -22,6 +22,6 @@ export class FormularioInicioSesionComponent {
 
   login() {
     this.estudianteService.authenticateEstudiante(this.loginForm.value);
-    this.route.navigate(['/cecy/estudiante/cursos/home']);
+    this.route.navigate(['/estudiante/cursos/home']);
   }
 }
