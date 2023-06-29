@@ -6,7 +6,7 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { FechaComponent } from './asistencia/fecha/fecha.component';
 import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';

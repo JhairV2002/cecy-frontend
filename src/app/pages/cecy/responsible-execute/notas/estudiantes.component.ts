@@ -16,7 +16,7 @@ export class EstudiantesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private estudianteService: EstudianteService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.estudianteService
@@ -37,7 +37,7 @@ export class EstudiantesComponent implements OnInit {
   redireccionar() {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
-        `cecy/responsible-execute/asistencia/${param.get('cursoId')}`,
+        `cecy/responsible-execute/fecha/${param.get('cursoId')}`,
       ]);
     });
   }

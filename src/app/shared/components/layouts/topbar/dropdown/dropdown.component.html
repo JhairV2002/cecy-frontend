@@ -1,34 +1,20 @@
 <div [ngClass]="{ relative: true }">
-  <p-avatar
-    styleClass="'w-full h-auto hover'"
-    [image]="
+  <p-avatar styleClass="'w-full h-auto hover'" [image]="
       user?.image ? user?.image : 'assets/images/administrator/user-default.png'
-    "
-    size="large"
-    shape="circle"
-    (click)="toggleDropdown($event)"
-  >
+    " size="large" shape="circle" (click)="toggleDropdown($event)">
   </p-avatar>
 
   <!-- Dropdown menu -->
   <div class="dropdown-menu">
-    <div
-      *ngIf="isOpen"
-      class="absolute right-0 z-20 w-56 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
-    >
-      <a
-        routerLink=""
-        class="flex items-center p-3 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-      >
-        <img
-          class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-          [src]="
+    <div *ngIf="isOpen"
+      class="absolute right-0 z-20 w-56 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800">
+      <a routerLink=""
+        class="flex items-center p-3 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+        <img class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9" [src]="
             user?.image
               ? user?.image
               : 'assets/images/administrator/user-default.png'
-          "
-          alt="avatar"
-        />
+          " alt="avatar" />
         <div class="mx-1">
           <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
             {{ user?.names }}
@@ -60,32 +46,18 @@
         </div>
       </p-button> -->
       <hr class="border-gray-200 dark:border-gray-700" />
-      <p-button
-        (click)="showForm()"
-        class="w-full"
-        styleClass="p-button-text p-button-secondary w-full"
-      >
+      <p-button (click)="showForm()" class="w-full" styleClass="p-button-text p-button-secondary w-full">
         <i class="pi pi-user text-gray-600"></i>
         <span class="ml-1 text-gray-600">Ver perfil</span>
       </p-button>
 
-      <app-profile
-        [showModal]="isVisible"
-        (clickClose)="closeModal($event)"
-      ></app-profile>
-      <p-button
-        class="w-full"
-        styleClass="p-button-text p-button-secondary w-full"
-      >
+      <app-profile [showModal]="isVisible" (clickClose)="closeModal($event)"></app-profile>
+      <p-button class="w-full" styleClass="p-button-text p-button-secondary w-full">
         <i class="pi pi-cog text-gray-600"></i>
         <span class="ml-1 text-gray-600">Configuración</span>
       </p-button>
       <hr class="border-gray-200 dark:border-gray-700" />
-      <p-button
-        class="w-full"
-        styleClass="p-button-text p-button-secondary w-full"
-        (click)="onlogout()"
-      >
+      <p-button class="w-full" styleClass="p-button-text p-button-secondary w-full" (click)="onlogout()">
         <i class="pi pi-fw pi-sign-out text-gray-600"></i>
         <span class="ml-1 text-gray-600">Salir</span>
       </p-button>

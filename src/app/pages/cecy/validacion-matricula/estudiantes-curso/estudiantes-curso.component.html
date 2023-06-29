@@ -2,8 +2,19 @@
   <div class="prose">
     <h1>{{ cursoNombre$ | async }}</h1>
   </div>
-  <app-curso-banner [curso]="curso$ | async"></app-curso-banner>
-  <app-estudiantes-table
-    [estudiantes]="estudiantes$ | async"
-  ></app-estudiantes-table>
+  <!-- <app-curso-banner [curso]="curso$ | async"></app-curso-banner> -->
+  <!-- {{ matriculas$ | async | json }} -->
+  <div class="flex flex-wrap">
+    <input [(ngModel)]="search" type="text" placeholder="Type here"
+      class="input my-8 input-bordered input-accent w-full max-w-xs" />
+    <label class="cursor-pointer label flex w-min">
+      <span class="label-text mx-5">Interno</span>
+      <input type="checkbox" checked="checked" class="checkbox checkbox-success" />
+    </label>
+    <label class="cursor-pointer label flex w-min">
+      <span class="label-text mx-5">Externo</span>
+      <input type="checkbox" checked="checked" class="checkbox checkbox-success" />
+    </label>
+  </div>
+  <app-estudiantes-table [estudiantes]="(matriculas$ | async)! | searchEstudiantes : search"></app-estudiantes-table>
 </div>

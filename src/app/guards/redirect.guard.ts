@@ -6,9 +6,10 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class RedirectGuard implements CanActivate {
-  constructor(private tokenService: TokenService, private router: Router) {}
+  constructor(private tokenService: TokenService, private router: Router) { }
   canActivate(): boolean {
     const token = this.tokenService.getToken();
+
     if (token) {
       const decodeToken = jwt_decode(token) as { [key: string]: any };
       console.log('TOKEN REDIRECT', decodeToken);
@@ -26,8 +27,6 @@ export class RedirectGuard implements CanActivate {
         this.router.navigate(['/cecy/secretary-cecy']);
       } else if (role === 'responsible_course') {
         this.router.navigate(['/cecy/responsible-course']);
-      } else if (role === 'student') {
-        this.router.navigate(['/cecy/student/courses']);
       } else if (role === 'instructor') {
         this.router.navigate(['/cecy/instructor/courses']);
       } else {
