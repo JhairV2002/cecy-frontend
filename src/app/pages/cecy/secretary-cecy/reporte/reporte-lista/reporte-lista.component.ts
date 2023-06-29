@@ -8,6 +8,7 @@ import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
 import { Reporte, Reportes,Matricula } from '../reporte';
 import { ReporteService } from '../reporte.service';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ReporteListaComponent implements OnInit {
     private matricula: ReporteService,
     private courseService: VisualizationCoursesService,
     private reporteService: ReporteService,
+    private planificationCourse: PlanificationsCoursesService,
 
   ){}
   solicitudEstudents: Matricula[] = [];
@@ -78,7 +80,13 @@ ngOnInit(): void {
  public findByIdCourse(id: number): void{
   this.courseService.findById(id).subscribe((res)=>{
     this.course = res;
-
+    this.planificationCourse.planificationById(
+      res.planificationId
+    ).subscribe(
+      (planificacion) => {
+        this.course.name = planificacion.name;
+      }
+    )
   })
  }
  public searchStudentsbyState():void{
@@ -208,7 +216,7 @@ ngOnInit(): void {
   public downloadXls(id: any) {
 
     //aqui va el nombre del curso y la fecha en la que se descargo
-    var name='nombre '+ new Date();
+    var name='Anexo A7 '+ this.course.name;
     this.reporteService.descarga(id).subscribe((data) => {
       let dowloadURL = window.URL.createObjectURL(data);
       let link = document.createElement('a');
