@@ -16,7 +16,7 @@ export class EstudianteService {
   }
 
   guardarEstudiante(estudiante: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${estudiante.id}`, estudiante);
+    return this.http.put<Matriculas>(`${this.apiUrl}/${estudiante.id}`, estudiante);
   }
 
   obtenerEstudiantePorId(id: number): Observable<Matriculas> {
@@ -33,11 +33,11 @@ export class EstudianteService {
     if (promedio >= 70) {
       matricula.estadoCurso = { descripcion: 'Aprobado' };
       matricula.promedio = promedio;
-      return this.http.put<any>(`${this.apiUrl}${id}/`, matricula);
+      return this.http.put<Matriculas>(`${this.apiUrl}${id}/`, matricula);
     } else {
       matricula.estadoCurso = { descripcion: 'Reprobado' };
       matricula.promedio = promedio;
-      return this.http.put<any>(`${this.apiUrl}${id}/`, matricula);
+      return this.http.put<Matriculas>(`${this.apiUrl}${id}/`, matricula);
     }
   }
 }
