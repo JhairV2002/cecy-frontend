@@ -51,9 +51,10 @@ export class TopbarComponent implements OnInit {
     public layoutService: LayoutService,
     private socket: Socket,
     private cdRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    console.log('ejecuta topbar');
     this.authService.getProfile().subscribe((data: any) => {
       console.log('cliente global', data[0]);
       this.user = data[0];

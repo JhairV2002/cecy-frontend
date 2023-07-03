@@ -103,6 +103,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.warn(this.selectedCourse)
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();

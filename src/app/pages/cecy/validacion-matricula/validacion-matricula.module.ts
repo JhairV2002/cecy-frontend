@@ -11,6 +11,8 @@ import { EstudiantesTableComponent } from './estudiantes-curso/estudiantes-table
 import { CursoBannerComponent } from './estudiantes-curso/curso-banner/curso-banner.component';
 import { EstudianteDetallesComponent } from './estudiantes-curso/estudiante-detalles/estudiante-detalles.component';
 import { EstudiantesListaComponent } from './estudiantes-lista/estudiantes-lista.component';
+import { FormsModule } from '@angular/forms';
+import { SearchEstudiantesPipe } from './pipes/search-estudiantes.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,13 @@ import { EstudiantesListaComponent } from './estudiantes-lista/estudiantes-lista
     CursoBannerComponent,
     EstudianteDetallesComponent,
     EstudiantesListaComponent,
+    SearchEstudiantesPipe,
   ],
-  imports: [CommonModule, ValidacionMatriculaRoutingModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    ValidacionMatriculaRoutingModule,
+    HttpClientModule,
+    FormsModule,
+  ],
 })
 export class ValidacionMatriculaModule {}

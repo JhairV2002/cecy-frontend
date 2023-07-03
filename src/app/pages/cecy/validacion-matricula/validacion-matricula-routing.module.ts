@@ -22,11 +22,11 @@ const routes: Routes = [
     component: ValidacionMatriculaComponent,
   },
   {
-    path: 'delegado/:nombreCarrera',
+    path: 'delegado/:id',
     component: CursosCarreraComponent,
   },
   {
-    path: 'delegado/:nombreCarrera/:nombreCurso',
+    path: 'delegado/:nombreCarrera/:idCurso',
     component: EstudiantesCursoComponent,
   },
 
@@ -44,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ValidacionMatriculaRoutingModule { }
+export class ValidacionMatriculaRoutingModule {}

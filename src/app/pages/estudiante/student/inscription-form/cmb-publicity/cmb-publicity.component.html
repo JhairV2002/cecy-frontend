@@ -1,0 +1,16 @@
+<select
+  #selectPublicity
+  (change)="onSelect(selectPublicity.value)"
+  name=""
+  id=""
+  class="bg-slate-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+>
+  <option value="0" selected disable>Seleccione una opcion</option>
+  <option
+    *ngFor="let publicity of publicities"
+    [value]="publicity | json"
+    [selected]="publicity.id === id"
+  >
+    {{ publicity.descripcion }}
+  </option>
+</select>
