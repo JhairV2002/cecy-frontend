@@ -42,6 +42,14 @@ export class EstudiantesComponent implements OnInit {
     });
   }
 
+  regresar() {
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.router.navigate([
+        `cecy/responsible-execute/mis-cursos`,
+      ]);
+    });
+  }
+
   filtrarPorNombre(): void {
     this.estudiantes = this.estudiantes.filter(
       (estudiante) =>
