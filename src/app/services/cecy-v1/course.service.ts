@@ -170,4 +170,12 @@ export class CourseService {
   saveSponsor(sponsor: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/sponsor/', sponsor);
   }
+
+  ////////updateByAfterCourse
+  public updateByAfterCourse(courseAfter: any, id: any): Observable<any> {
+    console.log('este es el curso anterior:\n', courseAfter)
+    console.log('este es el id del curso nuevo:\n', id)
+
+    return this.http.put<any>(this.apiUrl + '/updateByAfterCourse/' + id, courseAfter);
+  }
 }

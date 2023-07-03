@@ -28,6 +28,10 @@ export class PlanificationsCoursesService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
+  paginator(page: number, size: number) {
+    return this.http.get(`${this.apiUrl}/pagination?page=${page}&size=${size}`);
+  }
+
   createEdit(data: any, selectPlanification: any) {
     if (!selectPlanification) {
       return this.http.post(`${this.apiUrl}`, data);

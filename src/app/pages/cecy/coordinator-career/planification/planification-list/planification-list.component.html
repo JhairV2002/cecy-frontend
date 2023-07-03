@@ -128,10 +128,15 @@
           {{ planification.user.names }} {{ planification.user.lastnames }}
         </td>
         <td>
-          <p-chip
-            label="{{ planification.state }}"
-            styleClass="mr-2 custom-chip"
-          ></p-chip>
+          <p-tag
+            [icon]="
+              planification.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'
+            "
+            [rounded]="true"
+            value="{{ planification.state }}"
+            [severity]="getSeverity(planification.state)"
+          >
+          </p-tag>
         </td>
 
         <td>
@@ -262,4 +267,36 @@
     No tiene planificaciones, seleccione una carrera para <br />
     empezar y agregue una nueva planificación!
   </p>
+  <p-table
+    [rows]="pageSize"
+    [value]="test"
+    [totalRecords]="totalRecords"
+    (onPage)="onPageChange($event)"
+    [paginator]="true"
+    [responsive]="true"
+    [rowsPerPageOptions]="[3, 5, 10]"
+  >
+    <ng-template pTemplate="header" let-yourColumnArrayVaraible>
+      <tr>
+        <th field="name" header="Nombre" sortable="true"></th>
+        <th field="startDate" header="Fecha de inicio" sortable="true"></th>
+        <!-- Otros campos de la tabla -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-planification>
+      <tr>
+        <td>{{ planification.name }}</td>
+        <td>{{ planification.startDate }}</td>
+        <!-- Otros campos de la tabla -->
+      </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
+      <tr>
+        <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+          {{ yourColumnVaraible.header }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary"> your summary template </ng-template> -->
+  </p-table>
 </p-card>

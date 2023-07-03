@@ -2,28 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Matriculas } from './estudiante.model';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstudianteService {
-  private baseUrl = 'http://localhost:8080/api/matriculas/';
-  constructor(private http: HttpClient) { }
+  private apiUrl = `${environment.api}/matriculas/`;
+  constructor(private http: HttpClient) {}
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
-    return this.http.get<Matriculas[]>(this.baseUrl);
+    return this.http.get<Matriculas[]>(`${this.apiUrl}`);
   }
 
   guardarEstudiante(estudiante: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${estudiante.id}`, estudiante);
+    return this.http.put<any>(`${this.apiUrl}/${estudiante.id}`, estudiante);
   }
 
   obtenerEstudiantePorId(id: number): Observable<Matriculas> {
-    return this.http.get<Matriculas>(`${this.baseUrl}${id}/`);
+    return this.http.get<Matriculas>(`${this.apiUrl}${id}/`);
   }
 
   obtenerMatriculasPorCursoId(id: number): Observable<Matriculas[]> {
-    return this.http.get<Matriculas[]>(`${this.baseUrl}cursoId/${id}/`);
+    return this.http.get<Matriculas[]>(`${this.apiUrl}cursoId/${id}/`);
   }
 
   actualizarNotas(matricula: Matriculas, id: number): Observable<Matriculas> {
@@ -32,11 +33,11 @@ export class EstudianteService {
     if (promedio >= 70) {
       matricula.estadoCurso = { descripcion: 'Aprobado' };
       matricula.promedio = promedio;
-      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
+      return this.http.put<any>(`${this.apiUrl}${id}/`, matricula);
     } else {
       matricula.estadoCurso = { descripcion: 'Reprobado' };
       matricula.promedio = promedio;
-      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
+      return this.http.put<any>(`${this.apiUrl}${id}/`, matricula);
     }
   }
 }

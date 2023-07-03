@@ -154,4 +154,15 @@ export class CourseListComponent implements OnInit, OnChanges {
   closeModal(state: boolean) {
     this.openModalComment = state;
   }
+  getSeverity(status: string) {
+    console.log('ESTADOS SWITCH', status);
+    switch (status) {
+      case 'aprobado':
+        return 'success';
+      case 'proceso':
+        return 'danger';
+      default:
+        return '';
+    }
+  }
 }
