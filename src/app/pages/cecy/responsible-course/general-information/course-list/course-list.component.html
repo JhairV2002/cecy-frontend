@@ -31,6 +31,10 @@
   </div>
 </p-toolbar>
 
+<p-card *ngIf="allCourses.length==0" class="m-auto w-full text-center">
+  <h2>No tienes cursos asignados</h2>
+</p-card>
+
 <div class="p-1 flex flex-wrap">
   <div class="p-2" *ngFor="let item of filterPlan">
     <p-card [header]="item.planification.name" [style]="{ width: '250px' }">

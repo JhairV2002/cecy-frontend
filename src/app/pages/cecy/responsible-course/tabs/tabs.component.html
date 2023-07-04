@@ -25,51 +25,25 @@
         <div class="w-full md:w-1/6">
           <div class="flex justify-content-center">
             <p-button (click)="showDialog()">
-              <img
-                onerror="this.src = 'assets/course-objects/empty-img.png' "
-                [src]="selectedCourse?.course?.image"
-                alt=""
-                style="height: 2rem"
-              />
+              <img onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="selectedCourse?.course?.image"
+                alt="" style="height: 2rem" />
             </p-button>
 
-            <p-dialog
-              header="Ingresar Link de imagen"
-              [(visible)]="visible"
-              [modal]="true"
-              [style]="{ width: '50vw' }"
-              [draggable]="false"
-              [resizable]="false"
-            >
+            <p-dialog header="Ingresar Link de imagen" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }"
+              [draggable]="false" [resizable]="false">
               <div class="form-space">
                 <div class="flex-col m-auto">
                   <form [formGroup]="formImage" (ngSubmit)="onSubmit()">
                     <div class="p-1 w-full">
-                      <input
-                        class="w-full"
-                        type="text"
-                        pInputText
-                        id="imageUrl"
-                        formControlName="image"
-                        placeholder="Url de la imagen"
-                      />
-                      <small
-                        appErrorMessage
-                        [errors]="imageField.errors"
-                        [touched]="imageField.touched"
-                        [dirty]="imageField.dirty"
-                      >
+                      <input class="w-full" type="text" pInputText id="imageUrl" formControlName="image"
+                        placeholder="Url de la imagen" />
+                      <small appErrorMessage [errors]="imageField.errors" [touched]="imageField.touched"
+                        [dirty]="imageField.dirty">
                       </small>
                     </div>
                     <div class="w-full">
-                      <button
-                        pButton
-                        pRipple
-                        label="Guardar"
-                        type="submit"
-                        class="p-button-rounded w-full"
-                        icon="pi pi-save"
-                      ></button>
+                      <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full"
+                        icon="pi pi-save"></button>
                     </div>
                   </form>
                 </div>
@@ -95,3 +69,15 @@
     </p-tabView>
   </form>
 </div>
+
+
+
+
+
+<!-- <div class="card flex flex-wrap flex-column align-items-center gap-2"> -->
+  <!-- <p-toast></p-toast> -->
+  <p-confirmDialog [style]="{ width: '50vw' }" key="positionDialog" [position]="'right'" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+  <!-- <div class="flex flex-wrap justify-content-center gap-2">
+      <p-button (click)="confirmationDialog()" icon="pi pix-arrow-left" label="Right" styleClass="p-button-help"></p-button>
+  </div>
+</div> -->
