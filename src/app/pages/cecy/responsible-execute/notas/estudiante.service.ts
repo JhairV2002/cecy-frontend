@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Matriculas } from './estudiante.model';
 import { environment } from '@env/environment';
+import * as fs from 'fs';
+import * as XLSX from 'xlsx';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,7 @@ export class EstudianteService {
   }
 
   guardarEstudiante(estudiante: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${estudiante.id}`, estudiante);
+    return this.http.put<Matriculas>(`${this.apiUrl}/${estudiante.id}`, estudiante);
   }
 
   obtenerEstudiantePorId(id: number): Observable<Matriculas> {
@@ -33,11 +35,18 @@ export class EstudianteService {
     if (promedio >= 70) {
       matricula.estadoCurso = { descripcion: 'Aprobado' };
       matricula.promedio = promedio;
-      return this.http.put<any>(`${this.apiUrl}${id}/`, matricula);
+      return this.http.put<Matriculas>(`${this.apiUrl}${id}/`, matricula);
     } else {
       matricula.estadoCurso = { descripcion: 'Reprobado' };
       matricula.promedio = promedio;
-      return this.http.put<any>(`${this.apiUrl}${id}/`, matricula);
+      return this.http.put<Matriculas>(`${this.apiUrl}${id}/`, matricula);
     }
   }
-}
+  
+    
+    }
+   
+  
+
+
+ 
