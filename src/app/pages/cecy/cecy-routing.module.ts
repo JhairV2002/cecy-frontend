@@ -162,7 +162,6 @@ const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'estudiante',
     component: EstudiantesComponent,
@@ -189,4 +188,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CecyRoutingModule { }
+export class CecyRoutingModule {}

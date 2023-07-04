@@ -12,13 +12,13 @@ export class CursosCarreraComponent {
   constructor(
     private route: ActivatedRoute,
     private cursosCarreraService: CarrerasService
-  ) { }
+  ) {}
 
   cursos$ = this.route.paramMap.pipe(
     switchMap((params) =>
-      this.cursosCarreraService
-        .getCursosByCarrera(params.get('nombreCarrera')!)
-        .pipe(map((res) => res[0].cursos))
+      this.cursosCarreraService.getCursosByCarreraId(
+        parseInt(params.get('id')!)
+      )
     )
   );
 

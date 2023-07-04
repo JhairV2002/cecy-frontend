@@ -17,3 +17,9 @@ export { AttendanceHttpService } from "./attendance-http.service";
 export { AuthorityHttpService } from "./authority-http.service";
 export { CatalogueHttpService } from './catalogue-http.service';
 export { CertificateHttpService } from "./certificate-http.service";
+export { InscriptionService } from "./inscription.service"
+export { CatalogueService } from './catalogue.service';
+export { RegistrationService } from './registration.service';
+export { InstitutionService } from './institution.service';
+export { DocumentsService } from './documents.service';
+export { CoursesService } from './courses.service';

@@ -2,6 +2,7 @@
   <h2>Informacion Personal</h2>
 </div>
 
+{{ matricula$ | async | json }}
 <div
   class="w-full flex flex-wrap justify-between bg-base-100 shadow-xl p-[28px] rounded-2xl"
 >
@@ -14,19 +15,14 @@
     </figure>
   </div>
   <div class="flex flex-wrap flex-col gap-10">
-    <p><b>Dni</b>{{ (estudiante$ | async)!.dni }}</p>
-    <p><b>Nombre</b>{{ (estudiante$ | async)!.nombre }}</p>
-    <p><b>Apellido</b>{{ (estudiante$ | async)!.apellido }}</p>
+    <p><b>Dni</b>{{ (matricula$ | async)!.estudiantes!.dni }}</p>
+    <p><b>Nombre</b>{{ (matricula$ | async)!.estudiantes!.nombres }}</p>
+    <p><b>Apellido</b>{{ (matricula$ | async)!.estudiantes!.nombres }}</p>
   </div>
   <div class="flex flex-wrap flex-col gap-10">
-    <p><b>Tipo</b>{{ (estudiante$ | async)!.tipo }}</p>
     <p>
-      <b>Nivel</b>
-      {{
-        (estudiante$ | async)!.nivel
-          ? (estudiante$ | async)!.nivel
-          : "No Aplica"
-      }}
+      <b>Tipo</b
+      >{{ (matricula$ | async)!.estudiantes!.tipoEstudiante.descripcion }}
     </p>
   </div>
 </div>
@@ -83,7 +79,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let observacion of (estudiante$ | async)!.observaciones">
+        <tr *ngFor="let observacion of matricula.observaciones">
           <td></td>
           <td>{{ observacion.descripcion }}</td>
           <td>
@@ -92,6 +88,7 @@
                 <input
                   type="checkbox"
                   [checked]="observacion.completado"
+                  [(ngModel)]="observacion.completado"
                   class="checkbox checkbox-success"
                 />
               </label>
@@ -105,15 +102,20 @@
 
 <div>
   <textarea
+    [(ngModel)]="observationForm.descripcion"
     class="textarea textarea-primary w-full"
     placeholder="Bio"
   ></textarea>
-  <div><button class="btn btn-accent">Agregar</button></div>
+  <div>
+    <button class="btn btn-accent" (click)="handleAgregarObservacion()">
+      Agregar
+    </button>
+  </div>
 </div>
 
 <div class="flex flex-wrap my-4 justify-around">
   <button class="btn btn-warning" routerLink="../lista-estudiantes">
     Cancelar
   </button>
-  <button class="btn btn-info">Guardar</button>
+  <button class="btn btn-info" (click)="updateMatricula()">Guardar</button>
 </div>

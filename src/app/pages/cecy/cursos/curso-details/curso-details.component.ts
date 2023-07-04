@@ -15,31 +15,41 @@ export class CursoDetailsComponent {
   ) { }
 
   nombreCurso$ = this.route.paramMap.pipe(
-    map((param) => param.get('nombreCurso'))
+    switchMap((param) =>
+      this.cursoService
+        .getCursoById(parseInt(param.get('id')!))
+        .pipe(map((res) => res.planification.name))
+    )
   );
 
   curso$ = this.route.paramMap.pipe(
     switchMap((param) =>
-      this.cursoService.getCursoByName(param.get('nombreCurso')!).pipe(
-        map((res) => res[0]),
-        tap((res) => console.log(res))
-      )
+      this.cursoService.getCursoById(parseInt(param.get('id')!))
     )
   );
 
-  cursoContenido$ = this.route.paramMap.pipe(
-    switchMap((param) =>
-      this.cursoService
-        .getCursoByName(param.get('nombreCurso')!)
-        .pipe(map((res) => res[0].contenidos))
-    )
-  );
-
-  cursoResumen$ = this.route.paramMap.pipe(
-    switchMap((param) =>
-      this.cursoService
-        .getCursoByName(param.get('nombreCurso')!)
-        .pipe(map((res) => res[0].descripcion))
-    )
-  );
+  // curso$ = this.route.paramMap.pipe(
+  //   switchMap((param) =>
+  //     this.cursoService.getCursoByName(param.get('nombreCurso')!).pipe(
+  //       map((res) => res[0]),
+  //       tap((res) => console.log(res))
+  //     )
+  //   )
+  // );
+  //
+  // cursoContenido$ = this.route.paramMap.pipe(
+  //   switchMap((param) =>
+  //     this.cursoService
+  //       .getCursoByName(param.get('nombreCurso')!)
+  //       .pipe(map((res) => res[0].contenidos))
+  //   )
+  // );
+  //
+  // cursoResumen$ = this.route.paramMap.pipe(
+  //   switchMap((param) =>
+  //     this.cursoService
+  //       .getCursoByName(param.get('nombreCurso')!)
+  //       .pipe(map((res) => res[0].descripcion))
+  //   )
+  // );
 }

@@ -16,11 +16,11 @@ const routes: Routes = [
   },
 
   {
-    path: 'carrera/:nombreCarrera',
+    path: 'carrera/:id',
     component: CursoPageComponent,
   },
   {
-    path: 'details/:nombreCurso',
+    path: 'details/:id',
     component: CursoDetailsComponent,
   },
 ];
