@@ -37,7 +37,6 @@
       class="col-md-4 p-4"
       style="display: inline-block; width: 33%;"
       *ngFor="let curso of cursosFiltrados; let i = index"
-
     >
       <div class="card" style="margin-bottom: 20px;"
       [ngClass]="{
@@ -47,9 +46,9 @@
       }"
       >
         <div class="card-body">
-          <h1 class="card-title font-normal"><strong>{{ curso.planification.name }}</strong></h1>
-          <h5><strong>Código de curso:</strong>{{ curso.planification.codeCourse }}</h5>
-          <h5><strong>Modalidad:</strong> {{ curso.modality }}</h5>
+          <h1 class="card-title font-normal"><strong>{{ curso.planificationCourse.name }}</strong></h1>
+          <h5><strong>Código de curso:</strong>{{ curso.planificationCourse.codeCourse }}</h5>
+          <h5><strong>Modalidad:</strong> {{ curso.workday.name }}</h5>
           <h5><strong>Estado del curso:</strong><div class="form-control">
             <label class="label cursor-pointer">
               <span class="text">{{ curso.courseStatus ? 'Terminado' : 'En proceso' }}</span>
@@ -69,13 +68,4 @@
       </div>
     </div>
   </div>
-  <br /><br />
-  <!-- <footer class="footer footer-center p-3 bg-base-300 text-base-content">
-    <div>
-      <p>
-        Copyright © 2023 - Instituto Tecnológico Superior de Patrinomio y
-        Turismo YAVIRAC
-      </p>
-    </div>
-  </footer> -->
 </div>
