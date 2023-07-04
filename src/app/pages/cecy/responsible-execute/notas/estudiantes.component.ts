@@ -12,6 +12,7 @@ import { NombreFilterPipe } from './filter.pipe';
 })
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -70,4 +71,21 @@ export class EstudiantesComponent implements OnInit {
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
-}
+
+
+  validarNumero(event: KeyboardEvent): void {
+    const input = event.key;
+    const currentValue = (event.target as HTMLInputElement).value.trim();
+    const minValue = 1;
+    const maxValue = 100;
+  
+    if (
+      (isNaN(Number(input)) && input !== 'ArrowUp' && input !== 'ArrowDown' && input !== 'Backspace') ||
+      (currentValue !== '' && (Number(currentValue) < minValue || Number(currentValue) > maxValue))
+    ) {
+      event.preventDefault();
+      alert('Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.');
+    }
+  }
+  }
+

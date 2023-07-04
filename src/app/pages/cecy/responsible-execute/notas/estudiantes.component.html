@@ -4,7 +4,7 @@
   </h2>
   <!-- {{ estudiantes | json }} -->
   <!-- {{ estudiantes$ | async | json }} -->
-  <div class="relative overflow-x-auto shadow-md">
+  <div class="overflow-x-hidden">
     <button class="btn btn-accent" icon="edit" (click)="redireccionar()">
       Asistencia
     </button>
@@ -15,8 +15,8 @@
     <input type="text" placeholder="Buscar por nombre"
       class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
       [(ngModel)]="nombreFiltrado" (input)="filtrarPorNombre()" />
-    <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-10 light:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs bg-gray-50 text-gray-700">
         <tr>
           <th scope="col" class="px-6 py-3">NOMBRE</th>
           <th scope="col" class="px-6 py-3">NOTA 1</th>
@@ -27,11 +27,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="
-            let matricula of estudiantes$
-              | async
-              | nombreFilter : nombreFiltrado
-          " class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600">
+        <tr *ngFor="let matricula of estudiantes$ | async | nombreFilter : nombreFiltrado"
+        class="bg-white border-b hover:bg-gray-50">
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white">
             {{
             matricula.estudiantes
@@ -40,15 +37,16 @@
             }}
           </th>
           <td class="px-6 py-4">
-            <input type="number" id="nota1"
-              class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-              [(ngModel)]="matricula.nota1" [placeholder]="matricula.nota1" />
+            <p-inputNumber id="nota1" [(ngModel)]="matricula.nota1" placeholder="Ingrese una nota"
+              [min]="1" [max]="100" [showButtons]="true" [buttonLayout]="'horizontal'"
+              (keydown)="validarNumero($event)"></p-inputNumber>
           </td>
           <td class="px-6 py-4">
-            <input type="number" id="nota2"
-              class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-              [(ngModel)]="matricula.nota2" [placeholder]="matricula.nota2" />
+            <p-inputNumber id="nota2" [(ngModel)]="matricula.nota2" placeholder="Ingrese una nota"
+              [min]="1" [max]="100" [showButtons]="true" [buttonLayout]="'horizontal'"
+              (keydown)="validarNumero($event)"></p-inputNumber>
           </td>
+          
           <td class="px-6 py-4">
             {{ matricula.promedio }}
           </td>
