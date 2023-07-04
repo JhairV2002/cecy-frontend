@@ -8,17 +8,15 @@
 <h1 class="text-center font-bold text-xl">{{ nameCareer }}</h1>
 <p-toolbar>
   <div class="p-toolbar-group-left">
-    <div class="">
-      <input
-        pInputText
-        id="search"
-        [formControl]="search"
-        placeholder="Buscar por nombre curso"
-      />
-      <!-- (keypress)="filter($event)" -->
-      <button pButton pRipple type="button" icon="pi pi-search"></button>
-      <!-- (click)="filter($event)" -->
-    </div>
+    <input
+      pInputText
+      id="search"
+      [formControl]="search"
+      placeholder="Buscar por nombre curso"
+    />
+    <!-- (keypress)="filter($event)" -->
+    <button pButton pRipple type="button" icon="pi pi-search"></button>
+    <!-- (click)="filter($event)" -->
     <div class="ml-3">
       <p-button
         *ngIf="activeButton"
@@ -34,14 +32,14 @@
       class="p-toolbar-separator pi pi-bars mr-2"
       style="vertical-align: middle"
     ></i>
-    <!-- <p-button
-        type="button"
-        [loading]="loading[0]"
-        pTooltip="Refrescar"
-        styleClass="p-button-primary p-button-rounded ml-2"
-        icon="pi pi-sync"
-      ></p-button> -->
-    <!-- (click)="loadCourses(paginator.current_page, career.value)" -->
+    <!-- [loading]="loading[0]" -->
+    <p-button
+      type="button"
+      pTooltip="Refrescar"
+      styleClass="p-button-primary p-button-rounded ml-2"
+      icon="pi pi-sync"
+      (click)="loadCoursesByCareer()"
+    ></p-button>
     <p-button
       *ngIf="selectedCourses?.length"
       type="button"
@@ -61,7 +59,7 @@
   <p-chip styleClass="mr-4">
     <i class="bi bi-file-earmark-break mr-2"></i>
     <small
-      >PLANIFICACIONES EN TOTAL:
+      >Planificaciones Total:
       {{ planificationCourses ? planificationCourses.length : 0 }}
     </small></p-chip
   >
@@ -80,6 +78,11 @@
     </p-dropdown>
   </div>
 </p-toolbar>
+
+<!-- <p-toolbar>
+  <app-initial-planification-kpi></app-initial-planification-kpi>
+</p-toolbar> -->
+
 <p-card>
   <p-table
     *ngIf="selectCareer"
@@ -158,19 +161,6 @@
             ></button>
           </div>
         </td>
-
-        <!-- <td *ngFor="let col of columns"> -->
-        <!--Objects-->
-        <!-- <div *ngIf="rowData[col.field]?.id" [ngSwitch]="col.field">
-              <div *ngSwitchCase="'responsible'">
-                {{ rowData[col.field].user.name }}
-                {{ rowData[col.field].user.lastname }}
-              </div>
-              <div *ngSwitchCase="'state'">
-                {{ rowData[col.field].name }}
-              </div>
-            </div> -->
-
         <!--Fields-->
         <!-- <div *ngIf="!rowData[col.field]?.id" [ngSwitch]="col.field">
               <div *ngSwitchDefault>{{ rowData[col.field] }}</div>
@@ -267,36 +257,4 @@
     No tiene planificaciones, seleccione una carrera para <br />
     empezar y agregue una nueva planificación!
   </p>
-  <p-table
-    [rows]="pageSize"
-    [value]="test"
-    [totalRecords]="totalRecords"
-    (onPage)="onPageChange($event)"
-    [paginator]="true"
-    [responsive]="true"
-    [rowsPerPageOptions]="[3, 5, 10]"
-  >
-    <ng-template pTemplate="header" let-yourColumnArrayVaraible>
-      <tr>
-        <th field="name" header="Nombre" sortable="true"></th>
-        <th field="startDate" header="Fecha de inicio" sortable="true"></th>
-        <!-- Otros campos de la tabla -->
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-planification>
-      <tr>
-        <td>{{ planification.name }}</td>
-        <td>{{ planification.startDate }}</td>
-        <!-- Otros campos de la tabla -->
-      </tr>
-    </ng-template>
-    <!-- <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
-      <tr>
-        <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
-          {{ yourColumnVaraible.header }}
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary"> your summary template </ng-template> -->
-  </p-table>
 </p-card>

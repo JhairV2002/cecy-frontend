@@ -97,6 +97,22 @@ export class PlanificationListComponent implements OnInit {
 
     this.testing();
   }
+
+  loadCoursesByCareer() {
+    // console.log('CARGANDO POR CARRERA')
+    // this.careersService
+    //   .getPlanificationsCareers(this.selectedCareer)
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.planificationCourses = data.planificationCourse;
+    //       this.selectCareer = this.planificationCourses.length ? true : false;
+    //     },
+    //     error: (error) => {
+    //       this.messageService.error(error);
+    //     },
+    //   });
+  }
+
   onPageChange(event: any) {
     console.log('EVENT PAGINATOR', event);
     this.page = event.rows;
@@ -214,7 +230,6 @@ export class PlanificationListComponent implements OnInit {
   }
 
   getSeverity(status: string) {
-    console.log('ESTADOS SWITCH', status);
     switch (status) {
       case 'aprobado':
         return 'success';

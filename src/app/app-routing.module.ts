@@ -14,7 +14,7 @@ import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component'
 const routes: Routes = [
   {
     path: '',
-    // canActivate: [RedirectGuard],
+    canActivate: [RedirectGuard],
     loadChildren: () =>
       import('./pages/authentication/authentication.module').then(
         (m) => m.AuthenticationModule
@@ -91,4 +91,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
