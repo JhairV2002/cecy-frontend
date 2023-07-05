@@ -7,6 +7,7 @@ import { SelectItem } from 'primeng/api';
 import { ListReports } from '../certificateReport';
 import { CecyCertificateService } from '../cecy-certificate.service';
 
+import { DataView, DataViewLayoutOptions } from 'primeng/dataview';
 
 
 @Component({
@@ -28,30 +29,28 @@ export class PanelCursoComponent implements OnInit {
   courseValidate: Course[] = [];
 
   //New metod
-  reports: ListReports[]=[]
-  //prime NG
-  // products: Course[] = [];
+  reports: any[]=[]
 
-  // sortOptions: SelectItem[] = [];
 
-  // sortOrder: number = 0;
+  //prime ng
+  layout: string = 'list';
 
-  //   sortField: string = '';
+
+  sortOrder: number = 0;
+
+  sortField: string = '';
+  
+
+
   ngOnInit(): void {
-    this.findAll();
+   this.findAll();
 
 
-
-
+   
+    
 
   }
 
-
-
-
-//   onFilter(dv: DataView, event: Event) {
-//       dv.filter((event.target as HTMLInputElement).value);
-// }
 
 
   public findAll(): void {
@@ -82,29 +81,16 @@ export class PanelCursoComponent implements OnInit {
 
       )
 
-      this.nameCourse();
+      
     })
 
     ;
 
 
-    // this.visualizationCoursesService.getviewCourses().subscribe((response: any) => {
-    //   this.courses = response;
-    //   this.nameCourse();
-    //   this.findAllEstudents();
-    // });
+    
   }
 
-  // public findAllEstudents(): void {
-  //   this.matricula.findAll().subscribe((response) => {
-  //     this.solicitudEstudents = response;
-
-  //     // this.buscarPersona();
-  //     //this.buscarCurso();
-  //     //this.findMatricula();
-  //     this.conteo();
-  //   });
-  // }
+  
 
   public nameCourse(): void {
     this.courses.forEach(
@@ -118,6 +104,10 @@ export class PanelCursoComponent implements OnInit {
         )
       }
     )
-  }
+  };
+
+
+
+
 
 }

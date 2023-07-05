@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { SecretaryCecyRoutingModule } from './secretary-cecy-routing.module';
 import { SharedModule } from '@shared/shared.module';
+import { SkeletonModule } from 'primeng/skeleton';
+import {DataViewModule} from 'primeng/dataview';
 
 // submodules
 
@@ -59,7 +61,9 @@ import { StyleClassModule } from 'primeng/styleclass';
         InputNumberModule,
         DialogModule,
         ChartModule,
-  StyleClassModule
+  StyleClassModule,
+  SkeletonModule,
+  DataViewModule
   ],
 })
 export class SecretaryCecyModule {}

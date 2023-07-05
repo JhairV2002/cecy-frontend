@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
-import { 
-  Codes, 
-  Report, 
+import {
+  Codes,
+  Report,
   UpdateCode } from './certificate';
 
 @Injectable({
@@ -21,6 +21,7 @@ export class CertificateRequestService {
   private apiUrl = `${environment.api4}/api/reporte`;
   private apiUrl1 = `${environment.api4}/api/codigo`;
   private apiUrl2 = `${environment.api4}/api/certificado`;
+  private apiUrl3 = `${environment.api4}`;
 
 
   public findById(id: number): Observable<Report> {
@@ -39,5 +40,9 @@ export class CertificateRequestService {
 
   public downloadCertificate(id: number) {
     return this.http.get(this.apiUrl2+"/pdf/"+id+"/",{responseType:'blob'});
+  }
+
+  uploadFile(formData: FormData): Observable<any>{
+    return this.http.post(this.apiUrl3+'/api/media/subir', formData);
   }
 }

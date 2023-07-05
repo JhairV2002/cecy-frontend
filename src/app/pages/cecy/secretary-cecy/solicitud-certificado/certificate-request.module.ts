@@ -21,10 +21,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { TabMenuCertificateComponent } from './tab-menu-certificate/tab-menu-certificate.component';
-import { SettingsCertificateComponent } from './settings-certificate/settings-certificate.component';
 import { TabViewModule } from 'primeng/tabview';
 import { CodigoCertificateComponent } from './codigo-certificate/codigo-certificate.component';
-
+import { SettingsCertificateComponent } from './settings-certificate/settings-certificate.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 @NgModule({
@@ -33,8 +34,8 @@ import { CodigoCertificateComponent } from './codigo-certificate/codigo-certific
     SolicitudCertificadoMainComponent,
     SolicitudCertificadoListaComponent,
     TabMenuCertificateComponent,
-    SettingsCertificateComponent,
-    CodigoCertificateComponent
+    CodigoCertificateComponent,
+    SettingsCertificateComponent
   ],
   imports: [
     CommonModule,
@@ -54,9 +55,9 @@ import { CodigoCertificateComponent } from './codigo-certificate/codigo-certific
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    TabViewModule
-
-
+    TabViewModule,
+    AutoCompleteModule,
+    CheckboxModule,
   ]
 })
 export class CertificateRequestModule { }

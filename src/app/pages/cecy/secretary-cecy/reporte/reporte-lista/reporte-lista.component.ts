@@ -81,10 +81,12 @@ ngOnInit(): void {
   this.courseService.findById(id).subscribe((res)=>{
     this.course = res;
     this.planificationCourse.planificationById(
-      res.planificationId
+      this.course.planificationId
     ).subscribe(
       (planificacion) => {
         this.course.name = planificacion.name;
+        console.log(this.course.planificationId);
+        console.log(planificacion.name);
       }
     )
   })

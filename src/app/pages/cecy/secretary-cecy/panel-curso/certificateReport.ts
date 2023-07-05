@@ -5,6 +5,7 @@ export interface ListReports{
   nameCourse?: string,
   startDate?: string,
   finishDate?: string
+  stateCertificate: boolean,
 
 
 }

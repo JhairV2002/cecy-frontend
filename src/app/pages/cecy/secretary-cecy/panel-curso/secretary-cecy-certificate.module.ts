@@ -5,7 +5,9 @@ import { SecretaryCecyCertificateRoutingModule } from './secretary-cecy-certific
 import { PanelCursoComponent } from './list-course/panel-curso.component';
 import { CardModule } from 'primeng/card';
 import { SearchCursoComponent } from './search-curso/search-curso.component';
-
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -16,7 +18,10 @@ import { SearchCursoComponent } from './search-curso/search-curso.component';
   imports: [
     CommonModule,
     CardModule,
-    SecretaryCecyCertificateRoutingModule
+    SecretaryCecyCertificateRoutingModule,
+    TagModule,
+    TableModule,
+    ButtonModule
   ]
 })
 export class SecretaryCecyCertificateModule { }

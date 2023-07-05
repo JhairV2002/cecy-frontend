@@ -1,1 +1,61 @@
-<p>settings-certificate works!</p>
+<div class="grid p-fluid">
+	<div class="col-12 md:col-6">
+		<div class="card">
+			<h5>AutoComplete</h5>
+			<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+			</p-autoComplete>
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+	<div class="col-12 md:col-6">
+		<div class="card">
+
+			<h5>Participantes</h5>
+			<div class="grid formgrid">
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="New York" [(ngModel)]="valCheck" id="ny"></p-checkbox>
+						<label for="ny">Cordinador Cecy</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="San Francisco" [(ngModel)]="valCheck" id="sf"></p-checkbox>
+						<label for="sf">Rector</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="Los Angeles" [(ngModel)]="valCheck" id="la"></p-checkbox>
+						<label for="la">Patrocinador</label>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="card">
+
+
+			<h5>Dropdown</h5>
+			<p-dropdown [options]="cities" [(ngModel)]="selectedDrop" placeholder="Select a City" [showClear]="true"></p-dropdown>
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+<div>
+  <input type="file" accept="image/*" (change)="onUpload($event)">
+</div>
