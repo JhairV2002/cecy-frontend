@@ -12,7 +12,8 @@ import { NombreFilterPipe } from './filter.pipe';
 })
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
-  
+  estudiantes: Matriculas[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -20,13 +21,11 @@ export class EstudiantesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.estudianteService
-      .obtenerEstudiantes()
-      .subscribe((res) => (this.estudiantes = res));
+    this.estudianteService.obtenerEstudiantes().subscribe((res) => {
+      console.log('ESTUDIANTES', res);
+      this.estudiantes = res;
+    });
   }
-
-  estudiantes: Matriculas[] = [];
-
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
@@ -45,9 +44,7 @@ export class EstudiantesComponent implements OnInit {
 
   regresar() {
     this.activatedRoute.paramMap.subscribe((param) => {
-      this.router.navigate([
-        `cecy/responsible-execute/mis-cursos`,
-      ]);
+      this.router.navigate([`cecy/responsible-execute/mis-cursos`]);
     });
   }
 
@@ -80,20 +77,24 @@ export class EstudiantesComponent implements OnInit {
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
 
-
   validarNumero(event: KeyboardEvent): void {
     const input = event.key;
     const currentValue = (event.target as HTMLInputElement).value.trim();
     const minValue = 1;
     const maxValue = 100;
-  
+
     if (
-      (isNaN(Number(input)) && input !== 'ArrowUp' && input !== 'ArrowDown' && input !== 'Backspace') ||
-      (currentValue !== '' && (Number(currentValue) < minValue || Number(currentValue) > maxValue))
+      (isNaN(Number(input)) &&
+        input !== 'ArrowUp' &&
+        input !== 'ArrowDown' &&
+        input !== 'Backspace') ||
+      (currentValue !== '' &&
+        (Number(currentValue) < minValue || Number(currentValue) > maxValue))
     ) {
       event.preventDefault();
-      alert('Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.');
+      alert(
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
+      );
     }
   }
-  }
-
+}

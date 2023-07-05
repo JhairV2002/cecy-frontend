@@ -31,14 +31,14 @@ import { MessageService } from 'primeng/api';
 // import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { EstudianteService } from './pages/cecy/responsible-execute/notas/estudiante.service';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
 import { NgProgressModule } from 'ngx-progressbar';
 
 //Socket.io
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from '@env/environment';
 const config: SocketIoConfig = {
-  url: 'http://localhost:3000',
+  url: environment.HOST2,
   options: { transports: ['websocket'] },
 };
 
