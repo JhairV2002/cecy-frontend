@@ -50,7 +50,7 @@ export class CourseFormComponent implements OnInit {
     summary: [null, [Validators.required, Validators.maxLength(255)]],
     project: [null, [Validators.required, Validators.maxLength(255)]],
     needs: this.formBuilder.array([''], Validators.required),
-    sponsorId: [null, Validators.required],
+    // sponsorId: [null, Validators.required],
     targetGroups: [null, [Validators.required]],
     participantsRegistration: [null, [Validators.required]],
   });
@@ -103,6 +103,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.warn(this.selectedCourse)
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();
@@ -276,9 +277,9 @@ export class CourseFormComponent implements OnInit {
   //   return this.formCourse.controls['image'];
   // }
 
-  get sponsorField() {
-    return this.formCourse.controls['sponsorId'];
-  }
+  // get sponsorField() {
+  //   return this.formCourse.controls['sponsorId'];
+  // }
 
   //carga categorias del curso
   loadCategoryCourses() {

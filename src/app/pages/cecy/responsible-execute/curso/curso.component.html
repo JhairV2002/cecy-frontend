@@ -35,27 +35,39 @@
   <div class="row">
     <div
       class="col-md-4 p-4"
-      style="display: inline-block; width: 33%;"
-      *ngFor="let curso of cursosFiltrados; let i = index"
-
+      style="display: inline-block; width: 33%"
+      *ngFor="let curso of cursos; let i = index"
     >
-      <div class="card" style="margin-bottom: 20px;"
-      [ngClass]="{
+      <div class="card" style="margin-bottom: 20px">
+        <!-- [ngClass]="{
         'bg-yellow-200': curso.courseStatus,
         'bg-green-200': curso.courseStatus && !curso.courseStatus,
         'bg-slate-300': !curso.courseStatus && !curso.courseStatus
-      }"
-      >
+      }" -->
         <div class="card-body">
-          <h1 class="card-title font-normal"><strong>{{ curso.planification.name }}</strong></h1>
-          <h5><strong>Código de curso:</strong>{{ curso.planification.codeCourse }}</h5>
-          <h5><strong>Modalidad:</strong> {{ curso.modality }}</h5>
-          <h5><strong>Estado del curso:</strong><div class="form-control">
-            <label class="label cursor-pointer">
-              <span class="text">{{ curso.courseStatus ? 'Terminado' : 'En proceso' }}</span>
-              <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
-            </label>
-          </div>
+          <h1 class="card-title font-normal">
+            <strong>{{ curso.planificationCourse.name }}</strong>
+          </h1>
+          <h5>
+            <strong>Código de curso:</strong
+            >{{ curso.planificationCourse.codeCourse }}
+          </h5>
+          <h5><strong>Modalidad:</strong> {{ curso.workday.name }}</h5>
+          <h5>
+            <strong>Estado del curso:</strong>
+            <div class="form-control">
+              <label class="label cursor-pointer">
+                <span class="text">{{
+                  curso.courseStatus ? "Terminado" : "En proceso"
+                }}</span>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="curso.courseStatus"
+                  class="toggle"
+                  checked
+                />
+              </label>
+            </div>
           </h5>
           <h5></h5>
           <button
@@ -69,13 +81,4 @@
       </div>
     </div>
   </div>
-  <br /><br />
-  <!-- <footer class="footer footer-center p-3 bg-base-300 text-base-content">
-    <div>
-      <p>
-        Copyright © 2023 - Instituto Tecnológico Superior de Patrinomio y
-        Turismo YAVIRAC
-      </p>
-    </div>
-  </footer> -->
 </div>

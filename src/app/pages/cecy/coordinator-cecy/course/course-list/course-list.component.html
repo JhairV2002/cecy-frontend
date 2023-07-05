@@ -10,19 +10,18 @@
     [career]="career.value"
   ></app-course-form>
 </p-dialog>
-<div class="container">
-  <p-toolbar>
-    <div class="p-toolbar-group-left">
-      <button
-        pButton
-        pRipple
-        type="button"
-        label="Refrescar"
-        class="p-button-rounded ml-2"
-        icon="pi pi-sync"
-        (click)="loadCourses()"
-      ></button>
-      <!-- <button
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Refrescar"
+      class="p-button-rounded ml-2"
+      icon="pi pi-sync"
+      (click)="loadCourses()"
+    ></button>
+    <!-- <button
         *ngIf="selectedCourses?.length"
         pButton
         pRipple
@@ -31,154 +30,159 @@
         class="p-button-danger p-button-rounded ml-2"
         icon="pi pi-trash"
         ></button> -->
-      <!-- (click)="deleteCourses()" -->
-      <p-chip styleClass="ml-4">
-        <i class="bi bi-file-earmark-break mr-2"></i>
-        <small
-          >Cursos en total
-          {{ courses ? courses.length : 0 }}
-        </small></p-chip
-      >
-      <p-chip styleClass="ml-4">
-        <i class="bi bi-file-earmark-break mr-2"></i>
-        <small
-          >Cursos aprobados
-          {{
-            stateAprooved.statePlanification
-              ? stateAprooved.statePlanification.length
-              : 0
-          }}
-        </small></p-chip
-      >
-      <p-chip styleClass="ml-4">
-        <i class="bi bi-file-earmark-break mr-2"></i>
-        <small
-          >Cursos en proceso
-          {{
-            stateProcess.statePlanification
-              ? stateProcess.statePlanification.length
-              : 0
-          }}
-        </small></p-chip
-      >
-      <app-progress-bar
-        *ngIf="progressBarDelete"
-        [message]="messageService.progressBarDelete"
-        class="ml-2"
-      >
-      </app-progress-bar>
-    </div>
-    <div class="p-toolbar-group-right">
-      <app-search-course></app-search-course>
-    </div>
-  </p-toolbar>
-  <p-card>
-    <p-table
-      dataKey="id"
-      styleClass="p-datatable-striped"
-      [columns]="cols"
-      [responsive]="true"
-      [value]="courses"
-      [paginator]="true"
-      [rows]="5"
-      [loading]="isLoadingCourses"
+    <!-- (click)="deleteCourses()" -->
+    <p-chip styleClass="ml-4">
+      <i class="bi bi-file-earmark-break mr-2"></i>
+      <small
+        >Cursos en total
+        {{ courses ? courses.length : 0 }}
+      </small></p-chip
     >
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th style="width: 5rem"></th>
-          <th pSortableColumn="name">
-            Código curso <p-sortIcon field="code"></p-sortIcon>
-          </th>
-          <th pSortableColumn="name">
-            Nombre <p-sortIcon field="name"></p-sortIcon>
-          </th>
-          <th pSortableColumn="state">
-            Estado <p-sortIcon field="state"></p-sortIcon>
-          </th>
-          <th pSortableColumn="career">
-            Carrera <p-sortIcon field="career"></p-sortIcon>
-          </th>
-          <th pSortableColumn="responsible">
-            Responsable de curso <p-sortIcon field="responsible"></p-sortIcon>
-          </th>
-          <th class="text-center">
+    <p-chip styleClass="ml-4">
+      <i class="bi bi-file-earmark-break mr-2"></i>
+      <small
+        >Cursos aprobados
+        {{
+          stateAprooved.statePlanification
+            ? stateAprooved.statePlanification.length
+            : 0
+        }}
+      </small></p-chip
+    >
+    <p-chip styleClass="ml-4">
+      <i class="bi bi-file-earmark-break mr-2"></i>
+      <small
+        >Cursos en proceso
+        {{
+          stateProcess.statePlanification
+            ? stateProcess.statePlanification.length
+            : 0
+        }}
+      </small></p-chip
+    >
+    <app-progress-bar
+      *ngIf="progressBarDelete"
+      [message]="messageService.progressBarDelete"
+      class="ml-2"
+    >
+    </app-progress-bar>
+  </div>
+  <div class="p-toolbar-group-right">
+    <app-search-course></app-search-course>
+  </div>
+</p-toolbar>
+<p-card>
+  <p-table
+    dataKey="id"
+    styleClass="p-datatable-striped"
+    [columns]="cols"
+    [responsive]="true"
+    [value]="courses"
+    [paginator]="true"
+    [rows]="5"
+    [loading]="isLoadingCourses"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 5rem"></th>
+        <th pSortableColumn="name">
+          Código curso <p-sortIcon field="code"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">
+          Nombre <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="state">
+          Estado <p-sortIcon field="state"></p-sortIcon>
+        </th>
+        <th pSortableColumn="career">
+          Carrera <p-sortIcon field="career"></p-sortIcon>
+        </th>
+        <th pSortableColumn="responsible">
+          Responsable de curso <p-sortIcon field="responsible"></p-sortIcon>
+        </th>
+        <th class="text-center">
+          <button
+            pButton
+            pRipple
+            type="button"
+            class="w-full p-button-rounded p-button-secondary"
+            icon="pi pi-cog"
+          ></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-courses
+      let-expanded="expanded"
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr [pSelectableRow]="courses" [pSelectableRowIndex]="rowIndex">
+        <td>
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="courses"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
+        </td>
+        <td>{{ courses.codeCourse }}</td>
+        <td>{{ courses.name }}</td>
+        <td>
+          <p-tag
+            [icon]="
+              courses.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'
+            "
+            [rounded]="true"
+            value="{{ courses.state }}"
+            [severity]="getSeverity(courses.state)"
+          >
+          </p-tag>
+        </td>
+        <td>{{ courses.career.name }}</td>
+        <td>{{ courses.user.names + " " + courses.user.lastnames }}</td>
+        <td>
+          <div class="flex gap-1 justify-content-center">
+            <button
+              pButton
+              icon="pi pi-check-square"
+              class="p-button-rounded p-button-success"
+              type="submit"
+              pTooltip="Aprobar un curso"
+              tooltipPosition="top"
+              (click)="approveCourse(courses.id)"
+            ></button>
             <button
               pButton
               pRipple
               type="button"
-              class="w-full p-button-rounded p-button-secondary"
-              icon="pi pi-cog"
+              icon="pi pi-eye"
+              pTooltip="Ver un curso"
+              tooltipPosition="top"
+              class="p-button-rounded p-button-primary"
+              (click)="goToPlanifications(courses.id)"
             ></button>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template
-        pTemplate="body"
-        let-courses
-        let-expanded="expanded"
-        let-columns="columns"
-        let-rowIndex="rowIndex"
-      >
-        <tr [pSelectableRow]="courses" [pSelectableRowIndex]="rowIndex">
-          <td>
             <button
-              type="button"
               pButton
               pRipple
-              [pRowToggler]="courses"
-              class="p-button-text p-button-rounded p-button-plain"
-              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+              type="button"
+              icon="pi pi-comment"
+              pTooltip="Comentar"
+              tooltipPosition="left"
+              class="p-button-rounded p-button-secondary"
+              (click)="openModal()"
             ></button>
-          </td>
-          <td>{{ courses.codeCourse }}</td>
-          <td>{{ courses.name }}</td>
-          <td>
-            <p-chip
-              label="{{ courses.state }}"
-              styleClass="custom-chip mr-1"
-            ></p-chip>
-          </td>
-          <td>{{ courses.career.name }}</td>
-          <td>{{ courses.user.names + " " + courses.user.lastnames }}</td>
-          <td>
-            <div class="flex gap-1 justify-content-center">
-              <button
-                pButton
-                icon="pi pi-check-square"
-                class="p-button-rounded p-button-success"
-                type="submit"
-                pTooltip="Aprobar un curso"
-                tooltipPosition="top"
-                (click)="approveCourse(courses.id)"
-              ></button>
-              <button
-                pButton
-                pRipple
-                type="button"
-                icon="pi pi-eye"
-                pTooltip="Ver un curso"
-                tooltipPosition="top"
-                class="p-button-rounded p-button-primary"
-                (click)="goToPlanifications(courses.id)"
-              ></button>
-              <button
-                pButton
-                pRipple
-                type="button"
-                icon="pi pi-comment"
-                pTooltip="Comentar"
-                tooltipPosition="left"
-                class="p-button-rounded p-button-secondary"
-                (click)="openModal()"
-              ></button>
-              <app-comments
-                [openModal]="openModalComment"
-                (clickClose)="closeModal($event)"
-              ></app-comments>
-            </div>
-          </td>
-        </tr>
-        <!-- <p-splitButton
+            <app-comments
+              [openModal]="openModalComment"
+              (clickClose)="closeModal($event)"
+            ></app-comments>
+          </div>
+        </td>
+      </tr>
+      <!-- <p-splitButton
             label="Más"
             styleClass="p-button-secondary"
             icon="pi pi-user-edit"
@@ -186,84 +190,78 @@
             (onDropdownClick)="selectCourse(courses)"
           >
           </p-splitButton> -->
-      </ng-template>
-      <ng-template pTemplate="rowexpansion" let-notifications>
-        <tr>
-          <td colspan="7">
-            <p-card [style]="{ width: '100%' }">
-              <span class="m-2 text-lg"><strong>Comentarios</strong></span>
-              <div class="p-3">
-                <p-table [value]="courses" dataKey="id">
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th>Nº</th>
-                      <th>Comentario</th>
-                      <th>Estado actual curso</th>
-                      <th>Fecha del comentario</th>
-                      <th>
-                        <button
-                          pButton
-                          pRipple
-                          type="button"
-                          class="w-full p-button-rounded p-button-secondary"
-                          icon="pi pi-cog"
-                        ></button>
-                      </th>
-                    </tr>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-yourColumnArrayVaraible>
-                    <tr>
-                      <th
-                        *ngFor="
-                          let yourColumnVaraible of yourColumnArrayVaraible
-                        "
-                      >
-                        {{ yourColumnVaraible.header }}
-                      </th>
-                    </tr>
-                  </ng-template>
-                  <ng-template
-                    pTemplate="body"
-                    let-yourRowVaraible
-                    let-yourColumnArrayVaraible="columns"
-                  >
-                    <tr>
-                      <td
-                        *ngFor="
-                          let yourColumnVaraible of yourColumnArrayVaraible
-                        "
-                      >
-                        {{ yourRowVaraible[yourColumnVaraible.field] }}
-                      </td>
-                    </tr>
-                  </ng-template>
-                  <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
-                    <tr>
-                      <td
-                        *ngFor="
-                          let yourColumnVaraible of yourColumnArrayVaraible
-                        "
-                      >
-                        {{ yourColumnVaraible.header }}
-                      </td>
-                    </tr>
-                  </ng-template>
-                  <!-- <ng-template pTemplate="summary">
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-notifications>
+      <tr>
+        <td colspan="7">
+          <p-card [style]="{ width: '100%' }">
+            <span class="m-2 text-lg"><strong>Comentarios</strong></span>
+            <div class="p-3">
+              <p-table [value]="courses" dataKey="id">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Nº</th>
+                    <th>Comentario</th>
+                    <th>Estado actual curso</th>
+                    <th>Estado comentario</th>
+                    <th>Fecha del comentario</th>
+                    <th>
+                      <button
+                        pButton
+                        pRipple
+                        type="button"
+                        class="w-full p-button-rounded p-button-secondary"
+                        icon="pi pi-cog"
+                      ></button>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-yourColumnArrayVaraible>
+                  <tr>
+                    <th
+                      *ngFor="let yourColumnVaraible of yourColumnArrayVaraible"
+                    >
+                      {{ yourColumnVaraible.header }}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template
+                  pTemplate="body"
+                  let-yourRowVaraible
+                  let-yourColumnArrayVaraible="columns"
+                >
+                  <tr>
+                    <td
+                      *ngFor="let yourColumnVaraible of yourColumnArrayVaraible"
+                    >
+                      {{ yourRowVaraible[yourColumnVaraible.field] }}
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
+                  <tr>
+                    <td
+                      *ngFor="let yourColumnVaraible of yourColumnArrayVaraible"
+                    >
+                      {{ yourColumnVaraible.header }}
+                    </td>
+                  </tr>
+                </ng-template>
+                <!-- <ng-template pTemplate="summary">
                     your summary template
                   </ng-template> -->
-                </p-table>
-              </div>
-            </p-card>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
-          Actualmente hay
-          {{ courses ? courses.length : 0 }}
-          cursos
-        </div>
-      </ng-template>
-    </p-table>
-  </p-card>
-</div>
+              </p-table>
+            </div>
+          </p-card>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        Actualmente hay
+        {{ courses ? courses.length : 0 }}
+        cursos
+      </div>
+    </ng-template>
+  </p-table>
+</p-card>

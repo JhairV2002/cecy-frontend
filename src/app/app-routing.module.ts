@@ -9,6 +9,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
+import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./register-validation/register-validation.module').then(
         (m) => m.RegisterValidationModule
+      ),
+  },
+
+  {
+    path: 'estudiante',
+    component: EstudiantesComponent,
+    loadChildren: () =>
+      import('./pages/estudiante/estudiante.module').then(
+        (m) => m.EstudianteModule
       ),
   },
   // {

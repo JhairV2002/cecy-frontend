@@ -27,8 +27,8 @@
   <p-menu
     *ngIf="user?.role?.name === 'student'"
     [style]="{ width: '280px' }"
-    [model]="(carreras$ | async)!"
-  ></p-menu>
+    ></p-menu>
+    <!-- [model]="(carreras$ | async)!" -->
   <p-menu
     *ngIf="user?.role?.name === 'secretary_cecy'"
     [style]="{ width: '280px' }"

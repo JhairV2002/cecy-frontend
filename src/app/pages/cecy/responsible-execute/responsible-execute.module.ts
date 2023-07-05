@@ -6,12 +6,20 @@ import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { FechaComponent } from './asistencia/fecha/fecha.component';
 import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';
 import { NombreFilterPipe } from './notas/filter.pipe';
 import { CursoComponent } from './curso/curso.component'
+import { InputNumberModule } from 'primeng/inputnumber';
+
+// PRIME NG
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -28,6 +36,12 @@ import { CursoComponent } from './curso/curso.component'
     ResponsibleExecuteRoutingModule,
     FormsModule,
     SharedModule,
+    InputNumberModule,
+    SkeletonModule,
+    TableModule,
+    ButtonModule,
+    CalendarModule,
+    ToolbarModule
   ],
 })
 export class ResponsibleExecuteModule { }

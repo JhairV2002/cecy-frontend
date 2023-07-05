@@ -6,6 +6,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import jwt_decode from 'jwt-decode';
 import { TokenService } from './../services/auth';
 
 @Injectable()
@@ -47,13 +48,36 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<unknown>) {
-    const token = this.tokenService.getToken();
+    let token: string | undefined = '';
+    const tokenUser = this.tokenService.getToken();
+    const tokenStudent = this.tokenService.getEstudianteToken();
+
+    if (tokenUser) {
+      const decode = jwt_decode(tokenUser) as { [key: string]: any };
+      if (decode['role']) {
+        console.log('se ejecuto 1 token user');
+        token = this.tokenService.getToken();
+      }
+    } else if (tokenStudent) {
+      console.log('se ejecuto 2 token student');
+      token = this.tokenService.getEstudianteToken();
+    }
+
     if (token) {
       const authReq = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${token}`),
       });
       return authReq;
     }
+
     return request;
+    // const token = this.tokenService.getToken();
+    // if (token) {
+    //   const authReq = request.clone({
+    //     headers: request.headers.set('Authorization', `Bearer ${token}`),
+    //   });
+    //   return authReq;
+    // }
+    // return request;
   }
 }

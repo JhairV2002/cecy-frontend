@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { Matriculas } from './estudiante.model';
 import { environment } from '@env/environment';
 import * as fs from 'fs';
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstudianteService {
   private apiUrl = `${environment.api}/matriculas/`;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
     return this.http.get<Matriculas[]>(`${this.apiUrl}`);
@@ -33,20 +33,20 @@ export class EstudianteService {
     let promedio = (matricula.nota1 + matricula.nota2) / 2;
 
     if (promedio >= 70) {
-      matricula.estadoCurso = { descripcion: 'Aprobado' };
+      matricula.estadoCurso = { descripcion: 'aprobado' };
       matricula.promedio = promedio;
       return this.http.put<Matriculas>(`${this.apiUrl}${id}/`, matricula);
     } else {
-      matricula.estadoCurso = { descripcion: 'Reprobado' };
+
+      matricula.estadoCurso = { descripcion: 'reprobado' };
       matricula.promedio = promedio;
       return this.http.put<Matriculas>(`${this.apiUrl}${id}/`, matricula);
     }
   }
-  
-    
+
+
     }
-   
-  
 
 
- 
+
+

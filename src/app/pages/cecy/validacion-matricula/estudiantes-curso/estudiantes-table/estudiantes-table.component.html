@@ -3,20 +3,28 @@
     <thead>
       <tr>
         <th></th>
+        <th>Dni</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Tipo</th>
-        <th>Nivel</th>
+        <th>Estado Matricula</th>
         <th></th>
       </tr>
     </thead>
     <tbody *ngIf="estudiantes; noData">
       <tr *ngFor="let estudiante of estudiantes" class="hover">
         <th></th>
-        <th>{{ estudiante.nombre }}</th>
-        <th>{{ estudiante.apellido }}</th>
-        <th>{{ estudiante.tipo }}</th>
-        <th>{{ estudiante.nivel ? estudiante.nivel : "No Aplica" }}</th>
+        <th>{{ estudiante.estudiantes!.cedula }}</th>
+        <th>{{ estudiante.estudiantes!.nombres }}</th>
+        <th>{{ estudiante.estudiantes!.apellidos }}</th>
+        <th>{{ estudiante.estudiantes!.tipoEstudiante.descripcion }}</th>
+        <th>
+          {{
+          estudiante.estadoMatricula.descripcion
+          ? estudiante.estadoMatricula.descripcion
+          : "Sin datos"
+          }}
+        </th>
         <th>
           <button class="btn btn-accent">
             <a routerLink="{{ estudiante.id }}">Detalles</a>

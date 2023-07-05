@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { CursosService } from '@services/cecy/cursos';
 import { map, switchMap } from 'rxjs';
 
@@ -14,7 +15,10 @@ export class EstudiantesCursoComponent {
     private cursoService: CursosService
   ) { }
 
+  search: string = '';
   estudiantes = [];
+  tipoEstudiante!: 'Interno' | 'Externo';
+
 
   estudiantes$ = this.router.paramMap.pipe(
     switchMap((param) =>
@@ -26,11 +30,15 @@ export class EstudiantesCursoComponent {
 
   curso$ = this.router.paramMap.pipe(
     switchMap((param) =>
-      this.cursoService
-        .getCursoByName(param.get('nombreCurso')!)
-        .pipe(map((res) => res[0]))
+      this.cursoService.getCursoById(parseInt(param.get('idCurso')!))
     )
   );
 
-  cursoNombre$ = this.curso$.pipe(map((res) => res.nombre));
+  cursoNombre$ = this.curso$.pipe(map((res) => res.planification.name));
+
+  matriculas$ = this.router.paramMap.pipe(
+    switchMap((param) =>
+      this.cursoService.getMatriculasByCursoId(parseInt(param.get('idCurso')!))
+    )
+  );
 }

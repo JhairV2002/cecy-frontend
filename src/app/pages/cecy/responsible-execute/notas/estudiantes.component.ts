@@ -16,11 +16,12 @@ import * as XLSX from 'xlsx';
 export class EstudiantesComponent implements OnInit {
  
   nombreFiltrado: string = '';
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private estudianteService: EstudianteService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.estudianteService
@@ -41,7 +42,7 @@ export class EstudiantesComponent implements OnInit {
   redireccionar() {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
-        `cecy/responsible-execute/asistencia/${param.get('cursoId')}`,
+        `cecy/responsible-execute/fecha/${param.get('cursoId')}`,
       ]);
     });
   }
@@ -83,27 +84,45 @@ export class EstudiantesComponent implements OnInit {
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
 
+  generarExcel(notas: Matriculas[]): void {
+    const datosExportar = notas.map(nota => {
+      const estado = nota.promedio >= 70 ? 'Aprobado' : 'Reprobado';
+  
+      return {
+        Nota1: nota.nota1,
+        Nota2: nota.nota2,
+        Promedio: nota.promedio,
+        Estado: estado,
+      };
+    });
+  
+    const libro = XLSX.utils.book_new();
+    const hoja = XLSX.utils.json_to_sheet(datosExportar);
+    XLSX.utils.book_append_sheet(libro, hoja, 'Notas');
+  
+    const nombreArchivo = 'notas.xlsx';
+    XLSX.writeFile(libro, nombreArchivo);
+  
+    console.log(`El archivo Excel "${nombreArchivo}" ha sido generado exitosamente.`);
+  }
+  
+  
 
- generarExcel(notas: Matriculas[]): void {
-  const datosExportar = notas.map(nota => {
-    const estado = nota.promedio >= 70 ? 'Aprobado' : 'Reprobado';
-
-    return {
-      Nota1: nota.nota1,
-      Nota2: nota.nota2,
-      Promedio: nota.promedio,
-      Estado: estado,
-    };
-  });
-
-  const libro = XLSX.utils.book_new();
-  const hoja = XLSX.utils.json_to_sheet(datosExportar);
-  XLSX.utils.book_append_sheet(libro, hoja, 'Notas');
-
-  const nombreArchivo = 'notas.xlsx';
-  XLSX.writeFile(libro, nombreArchivo);
-
-  console.log(`El archivo Excel "${nombreArchivo}" ha sido generado exitosamente.`);
+  validarNumero(event: KeyboardEvent): void {
+    const input = event.key;
+    const currentValue = (event.target as HTMLInputElement).value.trim();
+    const minValue = 1;
+    const maxValue = 100;
+  
+    if (
+      (isNaN(Number(input)) && input !== 'ArrowUp' && input !== 'ArrowDown' && input !== 'Backspace') ||
+      (currentValue !== '' && (Number(currentValue) < minValue || Number(currentValue) > maxValue))
+    ) {
+      event.preventDefault();
+      alert('Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.');
+    }
+  
+  
+  }
 }
 
-}

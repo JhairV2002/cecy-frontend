@@ -6,7 +6,6 @@ import { InitialPlanificationKpiModel } from '@models/cecy';
 @Component({
   selector: 'app-initial-planification-kpi',
   templateUrl: './initial-planification-kpi.component.html',
-  styleUrls: ['./initial-planification-kpi.component.scss']
 })
 export class InitialPlanificationKpiComponent implements OnInit {
 

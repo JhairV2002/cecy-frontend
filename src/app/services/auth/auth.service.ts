@@ -20,6 +20,7 @@ export class AuthService {
   user$ = this.user.asObservable();
   userProfile$ = new BehaviorSubject<User | null>(null);
 
+
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   login(user: User) {
