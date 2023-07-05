@@ -36,6 +36,10 @@ export class PlanificationListComponent implements OnInit {
   selectPlanification: any = null;
   nameCareer: String = '';
   isLoadingPlanification: boolean = false;
+  test: [] = [];
+  totalRecords: number = 0;
+  page: number = 0;
+  pageSize: number = 3;
   constructor(
     //private courseHttpService: CourseHttpService,
     public messageService: MessageService,
@@ -90,6 +94,38 @@ export class PlanificationListComponent implements OnInit {
           },
         });
     }
+
+    this.testing();
+  }
+
+  loadCoursesByCareer() {
+    // console.log('CARGANDO POR CARRERA')
+    // this.careersService
+    //   .getPlanificationsCareers(this.selectedCareer)
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.planificationCourses = data.planificationCourse;
+    //       this.selectCareer = this.planificationCourses.length ? true : false;
+    //     },
+    //     error: (error) => {
+    //       this.messageService.error(error);
+    //     },
+    //   });
+  }
+
+  onPageChange(event: any) {
+    console.log('EVENT PAGINATOR', event);
+    this.page = event.rows;
+    this.testing();
+  }
+  testing() {
+    this.planificationCourseService
+      .paginator(this.page, this.pageSize)
+      .subscribe((data: any) => {
+        console.log('paginator', data);
+        this.test = data.rows;
+        this.totalRecords = data.count;
+      });
   }
 
   loadCareers() {
@@ -191,6 +227,17 @@ export class PlanificationListComponent implements OnInit {
 
   selectCourse(course: CourseModel) {
     this.selectedCourse = course;
+  }
+
+  getSeverity(status: string) {
+    switch (status) {
+      case 'aprobado':
+        return 'success';
+      case 'proceso':
+        return 'danger';
+      default:
+        return '';
+    }
   }
 
   /* filter(event: any) {

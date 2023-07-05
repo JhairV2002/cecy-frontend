@@ -4,13 +4,13 @@ import { Courses } from '@models/cecy';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoursesService {
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private apiUrl = `http://localhost:8080/api/courses`;
+  private apiUrl2 = `http://localhost:3000/v1/courses`;
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,14 +23,11 @@ export class CoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Courses[]> {
-    return this.http.get<Courses[]>(`${this.apiUrl}/state-course/aprobado`);
+    return this.http.get<Courses[]>(`${this.apiUrl2}/state-course/aprobado`);
   }
 
   public findById(id: number): Observable<Courses> {
-    return this.http.get<Courses>(
-      this.apiUrl + '/' + id,
-      this.httpOptions
-    );
+    return this.http.get<Courses>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
   // public deleteById(id: number): Observable<Sugerencia>{

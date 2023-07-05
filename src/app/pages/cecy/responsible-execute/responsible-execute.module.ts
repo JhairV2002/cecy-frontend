@@ -14,6 +14,10 @@ import { NombreFilterPipe } from './notas/filter.pipe';
 import { CursoComponent } from './curso/curso.component'
 import { InputNumberModule } from 'primeng/inputnumber';
 
+// PRIME NG
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+
 @NgModule({
   declarations: [
     AsistenciaComponent,
@@ -29,7 +33,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ResponsibleExecuteRoutingModule,
     FormsModule,
     SharedModule,
-    InputNumberModule
+    InputNumberModule,
+    SkeletonModule,
+    TableModule
   ],
 })
 export class ResponsibleExecuteModule { }

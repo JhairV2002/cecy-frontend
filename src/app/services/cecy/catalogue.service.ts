@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CatalogueService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

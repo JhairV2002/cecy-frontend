@@ -28,7 +28,7 @@ export class InscriptionFormComponent implements OnInit {
 
   estudiantes$ = this.estudiantesService.obtenerEstudiantes();
 
-  estudianteSeleccionado!: string;
+  estudianteSeleccionado!: Estudiantes;
 
   curso$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
@@ -39,10 +39,10 @@ export class InscriptionFormComponent implements OnInit {
   user: any;
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((data: any) => {
-      this.user = data[0];
-      console.log('id User', data[0]);
-    });
+    // this.authService.getProfile().subscribe((data: any) => {
+    //   this.user = data[0];
+    //   console.log('id User', data[0]);
+    // });
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.get('id')) {
         this.findById(parseInt(params.get('id')!));
@@ -63,7 +63,7 @@ export class InscriptionFormComponent implements OnInit {
     state: null,
   };
 
-  matricula: Matricula = {
+  matricula = {
     id: 0,
     cursoId: 0,
     estadoMatricula: {
@@ -72,21 +72,28 @@ export class InscriptionFormComponent implements OnInit {
     estadoCurso: {
       descripcion: 'Cursando',
     },
-    estudiantes: null,
-    formInscription: null,
+    estudiantes: {
+      id: 0
+    },
+    formInscription: {
+
+    },
   };
 
   save(): void {
     this.activatedRoute.paramMap.subscribe(
       (res) => (this.matricula.cursoId = Number(res.get('id')))
     );
-    this.matricula.estudiantes = JSON.parse(this.estudianteSeleccionado);
+    this.matricula.estudiantes.id = this.estudianteSeleccionado.id;
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
 
-    this.matriculaService.guardarMatricula(this.matricula).subscribe(
-      res => console.log(res)
-    )
+    this.matriculaService
+      .guardarMatricula(this.matricula)
+      .subscribe((res) => {
+        console.log(res)
+        this.router.navigate(['/estudiante/home']);
+      });
 
     // this.inscriptionService.save(this.initialForm).subscribe(() => {
     //   this.initialForm = {

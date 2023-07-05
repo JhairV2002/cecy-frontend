@@ -11,7 +11,7 @@ import * as fs from 'fs';
 })
 export class EstudianteService {
   private apiUrl = `${environment.api}/matriculas/`;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
     return this.http.get<Matriculas[]>(`${this.apiUrl}`);

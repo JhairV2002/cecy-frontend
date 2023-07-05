@@ -15,22 +15,21 @@
         </div>
       </div>
     </div>
-    <div class="dropdown dropdown-end">
+    <div class="dropdown dropdown-end" *ngIf="estudiante | async; else noUser">
       <label tabindex="0" class="btn btn-ghost">
         <div>
           {{
-          estudianteSeleccionado
-          ? estudianteSeleccionado.nombres +
+          (estudiante | async)!.nombres +
           " " +
-          estudianteSeleccionado.apellidos
-          : "Estudiantes"
+          (estudiante | async)!.apellidos
           }}
         </div>
       </label>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li *ngFor="let estudiante of estudiantes$ | async" (click)="seleccionarEstudiante(estudiante)"
-          class="justify-between cursor-pointer">
-          {{ estudiante.nombres + " " + estudiante.apellidos }}
+        <li class="justify-between cursor-pointer">
+          <a>Perfil</a>
+          <a>Mis Cursos</a>
+          <button (click)="cerrarSesion()">Cerrar Sesión</button>
         </li>
       </ul>
     </div>
@@ -49,10 +48,10 @@
       </li>
       <!-- Sidebar content here -->
       <li class="pl-4 my-3">
-        <a [routerLink]="['/cecy/estudiante/cursos/carrera', 'todos']">Todos</a>
+        <a [routerLink]="['/estudiante/cursos/carrera', 'todos']">Todos</a>
       </li>
       <li class="pl-4 my-3" *ngFor="let carrera of carreras$ | async as carreras">
-        <a [routerLink]="['/cecy/estudiante/cursos/carrera', carrera.id]">{{
+        <a [routerLink]="['/estudiante/cursos/carrera', carrera.id]">{{
           carrera.name
           }}</a>
       </li>
@@ -62,6 +61,8 @@
 
 <ng-template #noUser>
   <div class="flex-none">
-    <p>Iniciar Sesion</p>
+    <a [routerLink]="['/estudiante/cursos/login']" class="btn-ghost">
+      Iniciar Sesion
+    </a>
   </div>
 </ng-template>

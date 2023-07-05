@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MatriculaService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   url: string = 'http://localhost:8080/api/matriculas/';
 
-  guardarMatricula(matricula: Matricula): Observable<Matricula> {
+  guardarMatricula(matricula: any): Observable<Matricula> {
     return this.http.post<Matricula>(this.url, matricula);
   }
 }

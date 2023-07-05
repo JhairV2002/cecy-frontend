@@ -1,110 +1,207 @@
 <div class="p-fluid">
   <form [formGroup]="formCurricularDesign" (ngSubmit)="onSubmit()">
-    <div class="container">
+    <div class=" ">
       <p-card>
         <div class="text-center">
           <div>
             <h4>Diseño Curricular</h4>
           </div>
-
         </div>
         <!-- objetivo y alineacion -->
         <div class="form-space">
-          <div class="container  md:flex">
-            <div class="p-3 w-full  "><label for="objective" appLabel label="Objetivo del curso"
-                [required]="isRequired(objectiveField)" [valid]="objectiveField.valid"
-                [touched]="objectiveField.touched" [dirty]="objectiveField.dirty">
-                ></label>
-              <input type="text" pInputText id="objective" formControlName="objective"
-                placeholder="Objetivo del curso" />
-              <small appErrorMessage [errors]="objectiveField.errors" [touched]="objectiveField.touched"
-                [dirty]="objectiveField.dirty">
+          <div class="md:flex">
+            <div class="p-3 w-full">
+              <label
+                for="objective"
+                appLabel
+                label="Objetivo del curso"
+                [required]="isRequired(objectiveField)"
+                [valid]="objectiveField.valid"
+                [touched]="objectiveField.touched"
+                [dirty]="objectiveField.dirty"
+              >
+                ></label
+              >
+              <input
+                type="text"
+                pInputText
+                id="objective"
+                formControlName="objective"
+                placeholder="Objetivo del curso"
+              />
+              <small
+                appErrorMessage
+                [errors]="objectiveField.errors"
+                [touched]="objectiveField.touched"
+                [dirty]="objectiveField.dirty"
+              >
               </small>
             </div>
-
           </div>
         </div>
 
         <!-- area y especialidad -->
 
         <div class="form-space">
-          <div class="container  md:flex">
-            <div class="p-3 w-full md:w-1/2 "><label for="area" appLabel label="Area" [required]="isRequired(areaField)"
-                [valid]="areaField.valid" [touched]="areaField.touched" [dirty]="areaField.dirty">
+          <div class="md:flex">
+            <div class="p-3 w-full md:w-1/2">
+              <label
+                for="area"
+                appLabel
+                label="Area"
+                [required]="isRequired(areaField)"
+                [valid]="areaField.valid"
+                [touched]="areaField.touched"
+                [dirty]="areaField.dirty"
+              >
               </label>
-              <p-dropdown id="area" formControlName="areaId" [options]="areaType" [filter]="true" filterBy="name"
-                placeholder="Seleccione" optionLabel="name" optionValue="id" (onChange)="updateSpecialityType($event)">
+              <p-dropdown
+                id="area"
+                formControlName="areaId"
+                [options]="areaType"
+                [filter]="true"
+                filterBy="name"
+                placeholder="Seleccione"
+                optionLabel="name"
+                optionValue="id"
+                (onChange)="updateSpecialityType($event)"
+              >
               </p-dropdown>
 
-              <small appErrorMessage [errors]="areaField.errors" [touched]="areaField.touched"
-                [dirty]="areaField.dirty">
+              <small
+                appErrorMessage
+                [errors]="areaField.errors"
+                [touched]="areaField.touched"
+                [dirty]="areaField.dirty"
+              >
               </small>
             </div>
-            <div class="p-3 w-full md:w-1/2 "> <label for="speciality" appLabel label="Especialidad"
-                [required]="isRequired(specialityField)" [valid]="specialityField.valid"
-                [touched]="specialityField.touched" [dirty]="specialityField.dirty">
+            <div class="p-3 w-full md:w-1/2">
+              <label
+                for="speciality"
+                appLabel
+                label="Especialidad"
+                [required]="isRequired(specialityField)"
+                [valid]="specialityField.valid"
+                [touched]="specialityField.touched"
+                [dirty]="specialityField.dirty"
+              >
               </label>
-              <p-dropdown id="speciality" formControlName="specialityId" [options]="filterSpecialityType"
-                [filter]="true" filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
+              <p-dropdown
+                id="speciality"
+                formControlName="specialityId"
+                [options]="filterSpecialityType"
+                [filter]="true"
+                filterBy="name"
+                placeholder="Seleccione"
+                optionLabel="name"
+                optionValue="id"
+              >
                 <ng-template let-item pTemplate="item">
                   <div>
-                    <div class="w-48 ">{{item.name}}</div>
+                    <div class="w-48">{{ item.name }}</div>
                   </div>
                 </ng-template>
               </p-dropdown>
 
-              <small appErrorMessage [errors]="specialityField.errors" [touched]="specialityField.touched"
-                [dirty]="specialityField.dirty">
+              <small
+                appErrorMessage
+                [errors]="specialityField.errors"
+                [touched]="specialityField.touched"
+                [dirty]="specialityField.dirty"
+              >
               </small>
             </div>
           </div>
         </div>
 
-
-
         <!-- Carga horaria -->
         <div class="mt-4">
-          <h4>Carga horaria <span>(completar {{selectedCourse?.durationTime}} horas)</span></h4>
+          <h4>
+            Carga horaria
+            <span>(completar {{ selectedCourse?.durationTime }} horas)</span>
+          </h4>
 
           <div class="form-space">
-            <div class="container  md:flex">
-              <div class="p-3 w-full md:w-1/2 ">
-                <label for="practiceHours" appLabel label="Horas prácticas" [required]="isRequired(practiceHoursField)"
-                  [valid]="practiceHoursField.valid" [touched]="practiceHoursField.touched"
-                  [dirty]="practiceHoursField.dirty">
+            <div class="md:flex">
+              <div class="p-3 w-full md:w-1/2">
+                <label
+                  for="practiceHours"
+                  appLabel
+                  label="Horas prácticas"
+                  [required]="isRequired(practiceHoursField)"
+                  [valid]="practiceHoursField.valid"
+                  [touched]="practiceHoursField.touched"
+                  [dirty]="practiceHoursField.dirty"
+                >
                 </label>
-                <p-inputNumber formControlName="practiceHours" placeholder="Ingrese la hora" [showButtons]="true"
-                  [min]="0" [step]="1" [useGrouping]="false" inputId="practiceHours"
-                  (keyup)="validateHours($event, 'practice')">
+                <p-inputNumber
+                  formControlName="practiceHours"
+                  placeholder="Ingrese la hora"
+                  [showButtons]="true"
+                  [min]="0"
+                  [step]="1"
+                  [useGrouping]="false"
+                  inputId="practiceHours"
+                  (keyup)="validateHours($event, 'practice')"
+                >
                 </p-inputNumber>
-                <small appErrorMessage [errors]="practiceHoursField.errors" [touched]="practiceHoursField.touched"
-                  [dirty]="practiceHoursField.dirty">
+                <small
+                  appErrorMessage
+                  [errors]="practiceHoursField.errors"
+                  [touched]="practiceHoursField.touched"
+                  [dirty]="practiceHoursField.dirty"
+                >
                 </small>
               </div>
-              <div class="p-3 w-full md:w-1/2 "><label for="theoryHours" appLabel label="Horas teóricas"
-                  [required]="isRequired(theoryHoursField)" [valid]="theoryHoursField.valid"
-                  [touched]="theoryHoursField.touched" [dirty]="theoryHoursField.dirty">
+              <div class="p-3 w-full md:w-1/2">
+                <label
+                  for="theoryHours"
+                  appLabel
+                  label="Horas teóricas"
+                  [required]="isRequired(theoryHoursField)"
+                  [valid]="theoryHoursField.valid"
+                  [touched]="theoryHoursField.touched"
+                  [dirty]="theoryHoursField.dirty"
+                >
                 </label>
-                <p-inputNumber formControlName="theoryHours" placeholder="Ingrese la hora" [showButtons]="true"
-                  [min]="0" [step]="1" inputId="theoryHours" [useGrouping]="false"
-                  (keyup)="validateHours($event, 'theory')">
+                <p-inputNumber
+                  formControlName="theoryHours"
+                  placeholder="Ingrese la hora"
+                  [showButtons]="true"
+                  [min]="0"
+                  [step]="1"
+                  inputId="theoryHours"
+                  [useGrouping]="false"
+                  (keyup)="validateHours($event, 'theory')"
+                >
                 </p-inputNumber>
-                <small appErrorMessage [errors]="theoryHoursField.errors" [touched]="theoryHoursField.touched"
-                  [dirty]="theoryHoursField.dirty">
+                <small
+                  appErrorMessage
+                  [errors]="theoryHoursField.errors"
+                  [touched]="theoryHoursField.touched"
+                  [dirty]="theoryHoursField.dirty"
+                >
                 </small>
               </div>
-
             </div>
             <div *ngIf="showAlert" class="w-full mb-1">
-              <p-message severity="warn" text="La suma de la horas práctias y teóricas sobrepasa la duración del curso"
-                styleClass="mr-2"></p-message>
+              <p-message
+                severity="warn"
+                text="La suma de la horas práctias y teóricas sobrepasa la duración del curso"
+                styleClass="mr-2"
+              ></p-message>
             </div>
           </div>
-
-
         </div>
         <div>
-          <button pButton pRipple type="submit" [disabled]="formCurricularDesign.invalid" label="Guardar"></button>
+          <button
+            pButton
+            pRipple
+            type="submit"
+            [disabled]="formCurricularDesign.invalid"
+            label="Guardar"
+          ></button>
         </div>
       </p-card>
       <br />
@@ -112,54 +209,100 @@
         <p-tabPanel header="Principal">
           <!-- prerequisitos -->
           <p-card>
-            <div class="flex  justify-between">
+            <div class="flex justify-between">
               <div>
-                <h5 class="text-2xl font-bold mb-4">Requisítos mínimos de entrada al curso</h5>
+                <h5 class="text-2xl font-bold mb-4">
+                  Requisítos mínimos de entrada al curso
+                </h5>
               </div>
               <div>
-                <button pButton pRipple type="button" label="Nuevo requisito" icon="pi pi-plus" class="p-button-success"
-                  (click)="showForm()"></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label="Nuevo requisito"
+                  icon="pi pi-plus"
+                  class="p-button-success"
+                  (click)="showForm()"
+                ></button>
               </div>
             </div>
 
             <div class="form-space">
-              <div class="container  md:flex">
-                <div class="p-3 w-full md:w-1/2 ">
+              <div class="md:flex">
+                <div class="p-3 w-full md:w-1/2">
                   <h5>Técnicos</h5>
-                  <div *ngFor="
+                  <div
+                    *ngFor="
                       let item of techniquesRequisitesField.value?.technical;
                       let i = index
-                    " class="flex justify-between mb-3">
+                    "
+                    class="flex justify-between mb-3"
+                  >
                     <li>{{ item }}</li>
-                    <button pButton pRipple type="button" icon="pi pi-trash"
+                    <button
+                      pButton
+                      pRipple
+                      type="button"
+                      icon="pi pi-trash"
                       class="p-button-rounded p-button-danger p-button-sm"
-                      (click)="deleteRequisite(i, 'technical')"></button>
+                      (click)="deleteRequisite(i, 'technical')"
+                    ></button>
                   </div>
                 </div>
                 <p-divider class="xl:col-2" layout="vertical"></p-divider>
-                <div class="p-3 w-full md:w-1/2 ">
+                <div class="p-3 w-full md:w-1/2">
                   <h5>Generales</h5>
-                  <div *ngFor="
+                  <div
+                    *ngFor="
                       let item of techniquesRequisitesField.value?.general;
                       let i = index
-                    " class="flex justify-between mb-3">
+                    "
+                    class="flex justify-between mb-3"
+                  >
                     <li>{{ item }}</li>
-                    <button pButton pRipple type="button" icon="pi pi-trash"
+                    <button
+                      pButton
+                      pRipple
+                      type="button"
+                      icon="pi pi-trash"
                       class="p-button-rounded p-button-danger p-button-sm"
-                      (click)="deleteRequisite(i, 'general')"></button>
+                      (click)="deleteRequisite(i, 'general')"
+                    ></button>
                   </div>
                 </div>
-                <p-dialog header="Requisitos" [(visible)]="dialogForm" [style]="{ width: '30vw' }" [modal]="true"
-                  [dismissableMask]="true">
-                  <form [formGroup]="formRequisites" (ngSubmit)="updateRequisites()">
-                    <div class="container">
+                <p-dialog
+                  header="Requisitos"
+                  [(visible)]="dialogForm"
+                  [style]="{ width: '30vw' }"
+                  [modal]="true"
+                  [dismissableMask]="true"
+                >
+                  <form
+                    [formGroup]="formRequisites"
+                    (ngSubmit)="updateRequisites()"
+                  >
+                    <div class=" ">
                       <div class="formgrid grid">
-                        <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                          <label for="type" appLabel label="Tipo" [required]="isRequired(typeField)"
-                            [valid]="typeField.valid" [touched]="typeField.touched" [dirty]="typeField.dirty">
+                        <div
+                          class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                        >
+                          <label
+                            for="type"
+                            appLabel
+                            label="Tipo"
+                            [required]="isRequired(typeField)"
+                            [valid]="typeField.valid"
+                            [touched]="typeField.touched"
+                            [dirty]="typeField.dirty"
+                          >
                           </label>
-                          <p-dropdown id="type" formControlName="type" [options]="typeRequisites"
-                            placeholder="Seleccione el tipo">
+                          <p-dropdown
+                            id="type"
+                            formControlName="type"
+                            [options]="typeRequisites"
+                            placeholder="Seleccione el tipo"
+                          >
                             <ng-template pTemplate="selectedItem">
                               <div *ngIf="typeField.value">
                                 <div>{{ typeField.value?.name }}</div>
@@ -171,24 +314,54 @@
                               </div>
                             </ng-template>
                           </p-dropdown>
-                          <small appErrorMessage [errors]="typeField.errors" [touched]="typeField.touched"
-                            [dirty]="typeField.dirty">
+                          <small
+                            appErrorMessage
+                            [errors]="typeField.errors"
+                            [touched]="typeField.touched"
+                            [dirty]="typeField.dirty"
+                          >
                           </small>
                         </div>
-                        <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                          <label for="value" appLabel label="Descripción" [required]="isRequired(valueField)"
-                            [valid]="valueField.valid" [touched]="valueField.touched" [dirty]="valueField.dirty">
+                        <div
+                          class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                        >
+                          <label
+                            for="value"
+                            appLabel
+                            label="Descripción"
+                            [required]="isRequired(valueField)"
+                            [valid]="valueField.valid"
+                            [touched]="valueField.touched"
+                            [dirty]="valueField.dirty"
+                          >
                           </label>
-                          <textarea rows="5" cols="30" pInputTextarea id="value" formControlName="value"
-                            placeholder="Descripción del requisito"></textarea>
-                          <small appErrorMessage [errors]="valueField.errors" [touched]="valueField.touched"
-                            [dirty]="valueField.dirty">
+                          <textarea
+                            rows="5"
+                            cols="30"
+                            pInputTextarea
+                            id="value"
+                            formControlName="value"
+                            placeholder="Descripción del requisito"
+                          ></textarea>
+                          <small
+                            appErrorMessage
+                            [errors]="valueField.errors"
+                            [touched]="valueField.touched"
+                            [dirty]="valueField.dirty"
+                          >
                           </small>
                         </div>
                       </div>
                       <div class="flex flex-row-reverse mt-4">
-                        <div class="flex align-items-center justify-content-center">
-                          <button pButton pRipple type="submit" label="Guardar"></button>
+                        <div
+                          class="flex align-items-center justify-content-center"
+                        >
+                          <button
+                            pButton
+                            pRipple
+                            type="submit"
+                            label="Guardar"
+                          ></button>
                         </div>
                       </div>
                     </div>
@@ -196,54 +369,107 @@
                 </p-dialog>
               </div>
             </div>
-
           </p-card>
           <!-- estrategias -->
           <br />
           <p-card>
             <div class="flex justify-between">
               <div>
-                <h4 class="text-2xl font-bold mb-4">Estrategias de enseñanzas</h4>
+                <h4 class="text-2xl font-bold mb-4">
+                  Estrategias de enseñanzas
+                </h4>
               </div>
               <div>
-                <button pButton pRipple type="button" label="Nueva estrategia" icon="pi pi-plus"
-                  class="p-button-success" (click)="showFormStrategie()"></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label="Nueva estrategia"
+                  icon="pi pi-plus"
+                  class="p-button-success"
+                  (click)="showFormStrategie()"
+                ></button>
               </div>
             </div>
             <div class="formgrid grid">
-              <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12" formArrayName="teachingStrategies">
+              <div
+                class="field xl:col-6 lg:col-6 md:col-12 sm:col-12"
+                formArrayName="teachingStrategies"
+              >
                 <!-- <h5>Estrategias</h5> -->
-                <div *ngFor="
+                <div
+                  *ngFor="
                     let item of teachingStrategysField.value;
                     let i = index
-                  " class="flex mt-2 justify-between mb-3">
+                  "
+                  class="flex mt-2 justify-between mb-3"
+                >
                   <li>{{ item }}</li>
                   <div>
-                    <button pButton pRipple type="button" icon="pi pi-trash"
-                      class="p-button-rounded p-button-danger p-button-sm" (click)="deleteStrategy(i)"></button>
+                    <button
+                      pButton
+                      pRipple
+                      type="button"
+                      icon="pi pi-trash"
+                      class="p-button-rounded p-button-danger p-button-sm"
+                      (click)="deleteStrategy(i)"
+                    ></button>
                   </div>
                 </div>
               </div>
-              <p-dialog [header]="titleModal" [(visible)]="dialogFormStrategie" [style]="{ width: '30vw' }"
-                [modal]="true" [dismissableMask]="true">
-                <form [formGroup]="formStrategies" (ngSubmit)="storeStrategie()">
-                  <div class="container">
+              <p-dialog
+                [header]="titleModal"
+                [(visible)]="dialogFormStrategie"
+                [style]="{ width: '30vw' }"
+                [modal]="true"
+                [dismissableMask]="true"
+              >
+                <form
+                  [formGroup]="formStrategies"
+                  (ngSubmit)="storeStrategie()"
+                >
+                  <div class=" ">
                     <div class="formgrid grid">
-                      <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                        <label for="strategie" appLabel label="Descripción" [required]="isRequired(strategieField)"
-                          [valid]="strategieField.valid" [touched]="strategieField.touched"
-                          [dirty]="strategieField.dirty">
+                      <div
+                        class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                      >
+                        <label
+                          for="strategie"
+                          appLabel
+                          label="Descripción"
+                          [required]="isRequired(strategieField)"
+                          [valid]="strategieField.valid"
+                          [touched]="strategieField.touched"
+                          [dirty]="strategieField.dirty"
+                        >
                         </label>
-                        <textarea rows="5" cols="30" pInputTextarea id="strategie" formControlName="strategie"
-                          placeholder="Ingrese una descripción"></textarea>
-                        <small appErrorMessage [errors]="strategieField.errors" [touched]="strategieField.touched"
-                          [dirty]="strategieField.dirty">
+                        <textarea
+                          rows="5"
+                          cols="30"
+                          pInputTextarea
+                          id="strategie"
+                          formControlName="strategie"
+                          placeholder="Ingrese una descripción"
+                        ></textarea>
+                        <small
+                          appErrorMessage
+                          [errors]="strategieField.errors"
+                          [touched]="strategieField.touched"
+                          [dirty]="strategieField.dirty"
+                        >
                         </small>
                       </div>
                     </div>
                     <div class="flex flex-row-reverse mt-4">
-                      <div class="flex align-items-center justify-content-center">
-                        <button pButton pRipple type="submit" label="Guardar"></button>
+                      <div
+                        class="flex align-items-center justify-content-center"
+                      >
+                        <button
+                          pButton
+                          pRipple
+                          type="submit"
+                          label="Guardar"
+                        ></button>
                       </div>
                     </div>
                   </div>
@@ -254,43 +480,94 @@
           <br />
           <p-card>
             <!-- Mecanismos -->
-            <h4 class=" font-bold mb-4">Mecanismos de evaluación</h4>
+            <h4 class="font-bold mb-4">Mecanismos de evaluación</h4>
 
             <div class="form-space">
-              <div class="container  md:flex">
-                <div class="p-3 w-full md:w-1/2 ">
-                  <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 m-0 p-0">
-                    <p-dialog [header]="titleMechanisms" [(visible)]="dialogFormMechanisns" [style]="{ width: '30vw' }"
-                      [modal]="true" [dismissableMask]="true">
-                      <form [formGroup]="formMechanisms" (ngSubmit)="updateMechanisms()">
-                        <div class="container">
+              <div class="md:flex">
+                <div class="p-3 w-full md:w-1/2">
+                  <div
+                    class="field xl:col-6 lg:col-6 md:col-12 sm:col-12 m-0 p-0"
+                  >
+                    <p-dialog
+                      [header]="titleMechanisms"
+                      [(visible)]="dialogFormMechanisns"
+                      [style]="{ width: '30vw' }"
+                      [modal]="true"
+                      [dismissableMask]="true"
+                    >
+                      <form
+                        [formGroup]="formMechanisms"
+                        (ngSubmit)="updateMechanisms()"
+                      >
+                        <div class=" ">
                           <div class="formgrid grid">
-                            <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                              <label for="technique" appLabel label="Técnica" [required]="isRequired(techniqueField)"
-                                [valid]="techniqueField.valid" [touched]="techniqueField.touched"
-                                [dirty]="techniqueField.dirty">
+                            <div
+                              class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                            >
+                              <label
+                                for="technique"
+                                appLabel
+                                label="Técnica"
+                                [required]="isRequired(techniqueField)"
+                                [valid]="techniqueField.valid"
+                                [touched]="techniqueField.touched"
+                                [dirty]="techniqueField.dirty"
+                              >
                               </label>
-                              <input pInputText id="technique" formControlName="technique"
-                                placeholder="Escriba la técnica" />
-                              <small appErrorMessage [errors]="techniqueField.errors" [touched]="techniqueField.touched"
-                                [dirty]="techniqueField.dirty">
+                              <input
+                                pInputText
+                                id="technique"
+                                formControlName="technique"
+                                placeholder="Escriba la técnica"
+                              />
+                              <small
+                                appErrorMessage
+                                [errors]="techniqueField.errors"
+                                [touched]="techniqueField.touched"
+                                [dirty]="techniqueField.dirty"
+                              >
                               </small>
                             </div>
-                            <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                              <label for="instrument" appLabel label="Instrumento"
-                                [required]="isRequired(instrumentField)" [valid]="instrumentField.valid"
-                                [touched]="instrumentField.touched" [dirty]="instrumentField.dirty">
+                            <div
+                              class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                            >
+                              <label
+                                for="instrument"
+                                appLabel
+                                label="Instrumento"
+                                [required]="isRequired(instrumentField)"
+                                [valid]="instrumentField.valid"
+                                [touched]="instrumentField.touched"
+                                [dirty]="instrumentField.dirty"
+                              >
                               </label>
-                              <textarea rows="5" cols="30" pInputTextarea id="instrument" formControlName="instrument"
-                                placeholder="Escriba el instrumento"></textarea>
-                              <small appErrorMessage [errors]="instrumentField.errors"
-                                [touched]="instrumentField.touched" [dirty]="instrumentField.dirty">
+                              <textarea
+                                rows="5"
+                                cols="30"
+                                pInputTextarea
+                                id="instrument"
+                                formControlName="instrument"
+                                placeholder="Escriba el instrumento"
+                              ></textarea>
+                              <small
+                                appErrorMessage
+                                [errors]="instrumentField.errors"
+                                [touched]="instrumentField.touched"
+                                [dirty]="instrumentField.dirty"
+                              >
                               </small>
                             </div>
                           </div>
                           <div class="flex flex-row-reverse mt-4">
-                            <div class="flex align-items-center justify-content-center">
-                              <button pButton pRipple type="submit" label="Guardar"></button>
+                            <div
+                              class="flex align-items-center justify-content-center"
+                            >
+                              <button
+                                pButton
+                                pRipple
+                                type="submit"
+                                label="Guardar"
+                              ></button>
                             </div>
                           </div>
                         </div>
@@ -300,34 +577,51 @@
                       <h5 class="text-2xl font-bold mb-4">
                         Evaluación diagnostica
                       </h5>
-                      <div class="grid card-container">
+                      <div class="grid card-">
                         <div class="flex justify-between">
-                          <div class="col-4 text-xl font-semibold mb-3">Técnica</div>
+                          <div class="col-4 text-xl font-semibold mb-3">
+                            Técnica
+                          </div>
                           <div class="col-4 text-xl font-semibold mb-3">
                             Instrumento
                           </div>
-                          <div class="col-4 text-xl font-semibold mb-3 grid justify-content-end">
+                          <div
+                            class="col-4 text-xl font-semibold mb-3 grid justify-content-end"
+                          >
                             <div class="pb-2">
-                              <button pButton pRipple type="button" label="Agregar" icon="pi pi-plus"
-                                class="p-button-success" (click)="showFormMechanisms('diagnostic')"></button>
+                              <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Agregar"
+                                icon="pi pi-plus"
+                                class="p-button-success"
+                                (click)="showFormMechanisms('diagnostic')"
+                              ></button>
                             </div>
                           </div>
                         </div>
 
-
-
                         <div class="col-12">
-                          <div *ngFor="
-                            let mec of evaluationMechanismsField.value
-                              ?.diagnostic;
-                            let i = index
-                          " class="flex justify-between">
+                          <div
+                            *ngFor="
+                              let mec of evaluationMechanismsField.value
+                                ?.diagnostic;
+                              let i = index
+                            "
+                            class="flex justify-between"
+                          >
                             <div class="col mb-4">{{ mec.technique }}</div>
                             <div class="col mb-4">{{ mec.instrument }}</div>
                             <div class="col mb-4 grid justify-content-end">
-                              <button pButton pRipple type="button" icon="pi pi-trash"
+                              <button
+                                pButton
+                                pRipple
+                                type="button"
+                                icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger p-button-sm"
-                                (click)="deleteMechanisms(i, 'diagnostic')"></button>
+                                (click)="deleteMechanisms(i, 'diagnostic')"
+                              ></button>
                             </div>
                           </div>
                         </div>
@@ -335,36 +629,56 @@
                     </div>
                   </div>
                 </div>
-                <div class="p-3 w-full md:w-1/2 ">
+                <div class="p-3 w-full md:w-1/2">
                   <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
                     <div class="card m-2 p-3">
                       <h5 class="text-2xl font-bold mb-4">
                         Evaluación proceso formativo
                       </h5>
-                      <div class="grid card-container">
+                      <div class="grid card-">
                         <div class="flex justify-between">
-                          <div class="col-4 text-xl font-semibold mb-3">Técnica</div>
+                          <div class="col-4 text-xl font-semibold mb-3">
+                            Técnica
+                          </div>
                           <div class="col-4 text-xl font-semibold mb-3">
                             Instrumento
                           </div>
-                          <div class="col-4 text-xl font-semibold mb-3 grid justify-content-end">
+                          <div
+                            class="col-4 text-xl font-semibold mb-3 grid justify-content-end"
+                          >
                             <div class="pb-2">
-                              <button pButton pRipple type="button" label="Agregar" icon="pi pi-plus"
-                                class="p-button-success" (click)="showFormMechanisms('formative')"></button>
+                              <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Agregar"
+                                icon="pi pi-plus"
+                                class="p-button-success"
+                                (click)="showFormMechanisms('formative')"
+                              ></button>
                             </div>
                           </div>
                         </div>
                         <div class="col-12">
-                          <div *ngFor="
-                            let mec of evaluationMechanismsField.value?.formative;
-                            let i = index
-                          " class="flex justify-between">
+                          <div
+                            *ngFor="
+                              let mec of evaluationMechanismsField.value
+                                ?.formative;
+                              let i = index
+                            "
+                            class="flex justify-between"
+                          >
                             <div class="col mb-4">{{ mec.technique }}</div>
                             <div class="col mb-4">{{ mec.instrument }}</div>
                             <div class="col mb-4 grid justify-content-end">
-                              <button pButton pRipple type="button" icon="pi pi-trash"
+                              <button
+                                pButton
+                                pRipple
+                                type="button"
+                                icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger p-button-sm"
-                                (click)="deleteMechanisms(i, 'formative')"></button>
+                                (click)="deleteMechanisms(i, 'formative')"
+                              ></button>
                             </div>
                           </div>
                         </div>
@@ -375,35 +689,54 @@
               </div>
             </div>
             <div class="form-space">
-              <div class="container  md:flex">
-                <div class="p-3 w-full ">
+              <div class="md:flex">
+                <div class="p-3 w-full">
                   <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
                     <div class="card m-2 p-3">
                       <h5 class="text-2xl font-bold mb-4">Evaluación final</h5>
-                      <div class="grid card-container">
+                      <div class="grid card-">
                         <div class="flex justify-between">
-                          <div class="col-4 text-xl font-semibold mb-3">Técnica</div>
+                          <div class="col-4 text-xl font-semibold mb-3">
+                            Técnica
+                          </div>
                           <div class="col-4 text-xl font-semibold mb-3">
                             Instrumento
                           </div>
-                          <div class="col-4 text-xl font-semibold mb-3 grid justify-content-end">
+                          <div
+                            class="col-4 text-xl font-semibold mb-3 grid justify-content-end"
+                          >
                             <div class="pb-2">
-                              <button pButton pRipple type="button" label="Agregar" icon="pi pi-plus"
-                                class="p-button-success" (click)="showFormMechanisms('final')"></button>
+                              <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Agregar"
+                                icon="pi pi-plus"
+                                class="p-button-success"
+                                (click)="showFormMechanisms('final')"
+                              ></button>
                             </div>
                           </div>
                         </div>
                         <div class="col-12">
-                          <div *ngFor="
-                            let mec of evaluationMechanismsField.value?.final;
-                            let i = index
-                          " class="flex justify-between">
+                          <div
+                            *ngFor="
+                              let mec of evaluationMechanismsField.value?.final;
+                              let i = index
+                            "
+                            class="flex justify-between"
+                          >
                             <div class="col mb-4">{{ mec.technique }}</div>
                             <div class="col mb-4">{{ mec.instrument }}</div>
                             <div class="col mb-4 grid justify-content-end">
-                              <button pButton pRipple type="button" icon="pi pi-trash"
+                              <button
+                                pButton
+                                pRipple
+                                type="button"
+                                icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger p-button-sm"
-                                (click)="deleteMechanisms(i, 'final')"></button>
+                                (click)="deleteMechanisms(i, 'final')"
+                              ></button>
                             </div>
                           </div>
                         </div>
@@ -426,39 +759,72 @@
                     <th>Fase teórica</th>
                     <th>Fase práctica</th>
                     <th>
-                      <button pButton pRipple type="button" label="Nuevo entorno" icon="pi pi-plus"
-                        class="p-button-success" (click)="showFormEnviroment()"></button>
+                      <button
+                        pButton
+                        pRipple
+                        type="button"
+                        label="Nuevo entorno"
+                        icon="pi pi-plus"
+                        class="p-button-success"
+                        (click)="showFormEnviroment()"
+                      ></button>
                     </th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-enviroment let-index="rowIndex">
+                <ng-template
+                  pTemplate="body"
+                  let-enviroment
+                  let-index="rowIndex"
+                >
                   <tr>
                     <td>{{ enviroment.installation.name }}</td>
-                    <td>
-                      {{ enviroment.theoreticalPhase }} Horas
-                    </td>
-                    <td>
-                      {{ enviroment.practicalPhase }} Horas
-                    </td>
+                    <td>{{ enviroment.theoreticalPhase }} Horas</td>
+                    <td>{{ enviroment.practicalPhase }} Horas</td>
                     <td class="text-center">
-                      <button pButton pRipple type="button" icon="pi pi-trash"
-                        class="p-button-rounded p-button-danger p-button-sm" (click)="deleteEnviroment(index)"></button>
+                      <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="deleteEnviroment(index)"
+                      ></button>
                     </td>
                   </tr>
                 </ng-template>
               </p-table>
-              <p-dialog header="Entorno de aprendizaje" [(visible)]="dialogFormEnviroment" [style]="{ width: '30vw' }"
-                [modal]="true" [dismissableMask]="true">
-                <form [formGroup]="formEnviroment" (ngSubmit)="updateEnviroment()">
-                  <div class="container">
+              <p-dialog
+                header="Entorno de aprendizaje"
+                [(visible)]="dialogFormEnviroment"
+                [style]="{ width: '30vw' }"
+                [modal]="true"
+                [dismissableMask]="true"
+              >
+                <form
+                  [formGroup]="formEnviroment"
+                  (ngSubmit)="updateEnviroment()"
+                >
+                  <div class=" ">
                     <div class="formgrid grid">
-                      <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-                        <label for="installation" appLabel label="Instalaciones"
-                          [required]="isRequired(installationField)" [valid]="installationField.valid"
-                          [touched]="installationField.touched" [dirty]="installationField.dirty">
+                      <div
+                        class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                      >
+                        <label
+                          for="installation"
+                          appLabel
+                          label="Instalaciones"
+                          [required]="isRequired(installationField)"
+                          [valid]="installationField.valid"
+                          [touched]="installationField.touched"
+                          [dirty]="installationField.dirty"
+                        >
                         </label>
-                        <p-dropdown id="installation" formControlName="installation" [options]="typeEnviroment"
-                          placeholder="Seleccione el tipo">
+                        <p-dropdown
+                          id="installation"
+                          formControlName="installation"
+                          [options]="typeEnviroment"
+                          placeholder="Seleccione el tipo"
+                        >
                           <ng-template pTemplate="selectedItem">
                             <div *ngIf="installationField.value">
                               <div>{{ installationField.value?.name }}</div>
@@ -470,28 +836,49 @@
                             </div>
                           </ng-template>
                         </p-dropdown>
-                        <small appErrorMessage [errors]="installationField.errors" [touched]="installationField.touched"
-                          [dirty]="installationField.dirty">
+                        <small
+                          appErrorMessage
+                          [errors]="installationField.errors"
+                          [touched]="installationField.touched"
+                          [dirty]="installationField.dirty"
+                        >
                         </small>
                       </div>
-                      <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
+                      <div
+                        class="field xl:col-12 lg:col-12 md:col-12 sm:col-12"
+                      >
                         <div class="field-checkbox">
                           <!-- <p-checkbox formControlName="theoreticalPhase" [binary]="true"
                             inputId="theoreticalPhase"></p-checkbox> -->
                           <!-- <label for="theoreticalPhase">Fase teórica</label>
                           <input inputId="theoreticalPhase" formControlName="theoreticalPhase"> -->
-                          <label for="theoreticalPhase" appLabel label="Horas prácticas"
-                            [required]="isRequired(theoreticalPhaseField)" [valid]="theoreticalPhaseField.valid"
-                            [touched]="theoreticalPhaseField.touched" [dirty]="theoreticalPhaseField.dirty">
+                          <label
+                            for="theoreticalPhase"
+                            appLabel
+                            label="Horas prácticas"
+                            [required]="isRequired(theoreticalPhaseField)"
+                            [valid]="theoreticalPhaseField.valid"
+                            [touched]="theoreticalPhaseField.touched"
+                            [dirty]="theoreticalPhaseField.dirty"
+                          >
                           </label>
-                          <p-inputNumber formControlName="theoreticalPhase" placeholder="Ingrese la hora"
-                            [showButtons]="true" [min]="0" [step]="1" [useGrouping]="false" inputId="theoreticalPhase">
+                          <p-inputNumber
+                            formControlName="theoreticalPhase"
+                            placeholder="Ingrese la hora"
+                            [showButtons]="true"
+                            [min]="0"
+                            [step]="1"
+                            [useGrouping]="false"
+                            inputId="theoreticalPhase"
+                          >
                           </p-inputNumber>
-                          <small appErrorMessage [errors]="theoreticalPhaseField.errors"
-                            [touched]="theoreticalPhaseField.touched" [dirty]="theoreticalPhaseField.dirty">
+                          <small
+                            appErrorMessage
+                            [errors]="theoreticalPhaseField.errors"
+                            [touched]="theoreticalPhaseField.touched"
+                            [dirty]="theoreticalPhaseField.dirty"
+                          >
                           </small>
-
-
                         </div>
                         <div class="field-checkbox">
                           <!-- <p-checkbox formControlName="practicalPhase" [binary]="true"
@@ -499,22 +886,46 @@
                           <!-- <label for="practicalPhase">Fase práctica</label>
                           <input inputId="practicalPhase" formControlName="practicalPhase"> -->
 
-                          <label for="practicalPhase" appLabel label="Horas prácticas"
-                            [required]="isRequired(practicalPhaseField)" [valid]="practicalPhaseField.valid"
-                            [touched]="practicalPhaseField.touched" [dirty]="practicalPhaseField.dirty">
+                          <label
+                            for="practicalPhase"
+                            appLabel
+                            label="Horas prácticas"
+                            [required]="isRequired(practicalPhaseField)"
+                            [valid]="practicalPhaseField.valid"
+                            [touched]="practicalPhaseField.touched"
+                            [dirty]="practicalPhaseField.dirty"
+                          >
                           </label>
-                          <p-inputNumber formControlName="practicalPhase" placeholder="Ingrese la hora"
-                            [showButtons]="true" [min]="0" [step]="1" [useGrouping]="false" inputId="practicalPhase">
+                          <p-inputNumber
+                            formControlName="practicalPhase"
+                            placeholder="Ingrese la hora"
+                            [showButtons]="true"
+                            [min]="0"
+                            [step]="1"
+                            [useGrouping]="false"
+                            inputId="practicalPhase"
+                          >
                           </p-inputNumber>
-                          <small appErrorMessage [errors]="practicalPhaseField.errors"
-                            [touched]="practicalPhaseField.touched" [dirty]="practicalPhaseField.dirty">
+                          <small
+                            appErrorMessage
+                            [errors]="practicalPhaseField.errors"
+                            [touched]="practicalPhaseField.touched"
+                            [dirty]="practicalPhaseField.dirty"
+                          >
                           </small>
                         </div>
                       </div>
                     </div>
                     <div class="flex flex-row-reverse mt-4">
-                      <div class="flex align-items-center justify-content-center">
-                        <button pButton pRipple type="submit" label="Guardar"></button>
+                      <div
+                        class="flex align-items-center justify-content-center"
+                      >
+                        <button
+                          pButton
+                          pRipple
+                          type="submit"
+                          label="Guardar"
+                        ></button>
                       </div>
                     </div>
                   </div>
@@ -530,17 +941,35 @@
                 <h4 class="text-2xl font-bold mb-4">Bibliografías</h4>
               </div>
               <div>
-                <button pButton pRipple type="button" label="Nueva bibliografía" icon="pi pi-plus"
-                  class="p-button-success" (click)="showFormStrategie('bibliograph')"></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label="Nueva bibliografía"
+                  icon="pi pi-plus"
+                  class="p-button-success"
+                  (click)="showFormStrategie('bibliograph')"
+                ></button>
               </div>
             </div>
             <div class="formgrid grid">
-              <div class="field xl:col-8 lg:col-6 md:col-12 sm:col-12" formArrayName="bibliographies">
-                <div *ngFor="let item of bibliographiesField.value; let i = index" class="flex justify-between mb-3">
+              <div
+                class="field xl:col-8 lg:col-6 md:col-12 sm:col-12"
+                formArrayName="bibliographies"
+              >
+                <div
+                  *ngFor="let item of bibliographiesField.value; let i = index"
+                  class="flex justify-between mb-3"
+                >
                   <li>{{ item }}</li>
-                  <button pButton pRipple type="button" icon="pi pi-trash"
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-trash"
                     class="p-button-rounded p-button-danger p-button-sm"
-                    (click)="deleteStrategy(i, 'bibliograph')"></button>
+                    (click)="deleteStrategy(i, 'bibliograph')"
+                  ></button>
                 </div>
               </div>
             </div>
@@ -553,17 +982,35 @@
                 <h4 class="text-2xl font-bold mb-4">Prerequisitos</h4>
               </div>
               <div>
-                <button pButton pRipple type="button" label="Nuevo Prerequisito" icon="pi pi-plus"
-                  class="p-button-success" (click)="showFormStrategie('prerequisite')"></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label="Nuevo Prerequisito"
+                  icon="pi pi-plus"
+                  class="p-button-success"
+                  (click)="showFormStrategie('prerequisite')"
+                ></button>
               </div>
             </div>
             <div class="formgrid grid">
-              <div class="field xl:col-8 lg:col-6 md:col-12 sm:col-12" formArrayName="prerequisites">
-                <div *ngFor="let item of prerequisitesField.value; let i = index" class="flex justify-between mb-3">
+              <div
+                class="field xl:col-8 lg:col-6 md:col-12 sm:col-12"
+                formArrayName="prerequisites"
+              >
+                <div
+                  *ngFor="let item of prerequisitesField.value; let i = index"
+                  class="flex justify-between mb-3"
+                >
                   <li>{{ item }}</li>
-                  <button pButton pRipple type="button" icon="pi pi-trash"
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-trash"
                     class="p-button-rounded p-button-danger p-button-sm"
-                    (click)="deleteStrategy(i, 'prerequisite')"></button>
+                    (click)="deleteStrategy(i, 'prerequisite')"
+                  ></button>
                 </div>
               </div>
             </div>
@@ -571,10 +1018,8 @@
         </p-tabPanel>
 
         <p-tabPanel header="Contenido">
-          <app-topic-form ></app-topic-form>
+          <app-topic-form></app-topic-form>
         </p-tabPanel>
-
-
       </p-tabView>
     </div>
   </form>

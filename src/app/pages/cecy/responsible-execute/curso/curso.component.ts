@@ -62,13 +62,14 @@ import { Curso } from './curso';
 import { CursoService } from './curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
+import { User } from '@models/authentication';
 
 @Component({
   selector: 'app-curso',
   templateUrl: './curso.component.html',
 })
 export class CursoComponent implements OnInit {
-  cursos: Curso[] = [];
+  cursos: any[] = [];
   cursosFiltrados: Curso[] = [];
   filtroNombre: string = '';
   ascendingOrder: boolean = true;
@@ -78,18 +79,24 @@ export class CursoComponent implements OnInit {
     private activateRouter: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-    ) {}
+  ) {}
 
-    ngOnInit(): void {
-      this.authService.getProfile().subscribe((user) => {
-        const instructorId = 8; // Asignar un valor predeterminado (en este caso, 0) si instructorId es undefined
-
-        this.cursoService.getCursosByInstructor(instructorId).subscribe((cursos) => {
+  ngOnInit(): void {
+    this.authService.getProfile().subscribe((user: any) => {
+      console.log('USUARIO INSTRUCTOR', user[0].id);
+      this.cursoService
+        .getCursosByInstructor(user[0].id)
+        .subscribe((cursos) => {
+          console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
+          this.cursos = cursos;
           // Filtrar los cursos por estado "aprobado"
-          this.cursos = cursos.filter((curso) => curso.planificationCourse.state === 'aprobado');
+          //TOCA AGREGAR ESE MISMO FILTRO EN LA PARTE DEL BACKEND YA LO HAGO ... ANDERSON
+          // this.cursos = cursos.filter(
+          //   (curso) => curso.planificationCourse.state === 'aprobado'
+          // );
         });
-      });
-    }
+    });
+  }
 
   filtrarCursos(): void {
     if (this.filtroNombre.trim() !== '') {
@@ -117,7 +124,9 @@ export class CursoComponent implements OnInit {
   }
 
   redireccionar(cursoId: number) {
-    this.router.navigate(['cecy/responsible-execute/notas/estudiante', cursoId ]);
+    this.router.navigate([
+      'cecy/responsible-execute/notas/estudiante',
+      cursoId,
+    ]);
   }
-
 }

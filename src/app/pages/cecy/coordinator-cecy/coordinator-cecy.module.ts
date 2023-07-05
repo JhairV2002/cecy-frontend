@@ -30,6 +30,7 @@ import { ChipModule } from 'primeng/chip';
 import { CalendarModule } from 'primeng/calendar';
 import { PickListModule } from 'primeng/picklist';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TagModule } from 'primeng/tag';
 
 /**Components */
 import { CoordinatorCecyRoutingModule } from './coordinator-cecy-routing.module';
@@ -144,6 +145,7 @@ import { CommentsComponent } from './course/comments/comments.component';
     CalendarModule,
     TooltipModule,
     InputTextareaModule,
+    TagModule,
   ],
 })
 export class CoordinatorCecyModule {}

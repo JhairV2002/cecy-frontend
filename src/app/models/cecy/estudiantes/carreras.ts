@@ -100,8 +100,9 @@ export interface Matricula {
 
 export interface Estudiantes {
   id: number;
-  dni: string;
+  cedula: string;
   fechaNacimiento: string;
+  clave?: string;
   nombres: string;
   apellidos: string;
   email: string;

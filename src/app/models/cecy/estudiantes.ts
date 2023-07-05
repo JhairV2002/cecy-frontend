@@ -1,6 +1,9 @@
+import { Matricula } from './estudiantes/carreras';
+
 export interface Estudiantes {
   id: number;
-  cedula: any;
+  cedula: string;
+  clave: string;
   fechaNacimiento: string;
   nombres: string;
   apellidos: string;
@@ -17,7 +20,7 @@ export interface Estudiantes {
   situacionEconomica: SituacionEconomica;
   preRequisitos: any[];
   empresaId: any;
-  matriculas: any[];
+  matriculas: Matricula[];
 }
 
 export interface Genero {
