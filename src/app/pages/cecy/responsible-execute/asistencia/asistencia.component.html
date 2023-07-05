@@ -1,28 +1,61 @@
 <div class="botones">
   <button class="btn btn-accent" (click)="redireccionar()">Fecha</button>&nbsp;
+
+  <p-button
+    label="Fecha"
+    (click)="redireccionar()"
+    styleClass="p-button-success"
+  ></p-button>
   <!-- <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp; -->
 </div>
 
-<h1>Creación de Asistencia</h1>
-<label for="fecha">Fecha:</label>
-<input type="date" id="fecha" name="birthday" [(ngModel)]="asistenciaForm.fecha" />
-<label for="duracionClase">Duración de la clase:</label>
-<input type="time" id="duracionClase" name="duracionClase" min="01:00" max="02:00"
-  [(ngModel)]="asistenciaForm.duracionClase" />
+<p-toolbar>
+  <h1>Creación de Asistencia</h1>
+
+  <div class="p-toolbar-group-start">
+    <label for="fecha">Fecha:</label>
+    <input
+      type="date"
+      id="fecha"
+      name="birthday"
+      [(ngModel)]="asistenciaForm.fecha"
+    />
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-calendar [(ngModel)]="asistenciaForm.fecha"></p-calendar>
+    <label class="ml-2" for="duracionClase">Duración de la clase:</label>
+    <input
+      type="time"
+      id="duracionClase"
+      name="duracionClase"
+      min="01:00"
+      max="02:00"
+      [(ngModel)]="asistenciaForm.duracionClase"
+      class="ml-4"
+    />
+  </div>
+</p-toolbar>
 
 <h2>LISTA DE ESTUDIANTES</h2>
 <!-- {{ estudiantes$ | async | json }} -->
 <!-- {{ asistenciaForm | json }} -->
-<div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50" rows="5" cols="35">
+<div
+  class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50"
+  rows="5"
+  cols="35"
+>
   <br />
   <a class="text-black">P=PRESENTE</a>&nbsp;
   <a class="text-black">A=AUSENTE</a>&nbsp;
   <a class="text-black">FJ=FALTA JUSTIFICADA</a>
 </div>
 <div class="relative overflow-x-auto shadow-md">
-  <div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
+  <div
+    class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50"
+  >
     <div
-      class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 group bg-white-100 shadow-xs rounded-box">
+      class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 group bg-white-100 shadow-xs rounded-box"
+    >
       <table class="table w-full group shadow-xs rounded-box">
         <thead class="bg-white">
           <tr class="text-lg text-white">
@@ -33,11 +66,13 @@
           </tr>
         </thead>
         <tbody class="text-lg">
-          <tr *ngIf="
+          <tr
+            *ngIf="
               asistenciaForm.id === 0;
               then nuevaAsistencia;
               else actualizarAsistencia
-            "></tr>
+            "
+          ></tr>
         </tbody>
       </table>
     </div>
@@ -49,13 +84,24 @@
         {{ observacion.descripcion }}
       </li>
     </ul>
-    <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"
-      placeholder="Escriba su observacion" style="resize: none"></textarea>
+    <textarea
+      [(ngModel)]="observacionesForm.descripcion"
+      class="textarea textarea-secondary"
+      placeholder="Escriba su observacion"
+      style="resize: none"
+    ></textarea>
     <button class="btn btn-secondary" (click)="agregarObservacion()">
       Agregar Observacion
     </button>
+
+    <p-button label="Agregar Observacion"></p-button>
   </div>
-  <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
+  <form
+    action="../../form-result.php"
+    method="post"
+    enctype="multipart/form-data"
+    target="_blank"
+  >
     <p class="text-lg text-black">
       Suba la evidencia fotografica de la clase:
       <input type="file" name="archivosubido" />&nbsp;
@@ -63,7 +109,13 @@
     <h5>Formatos admitidos:JPG y PNG</h5>
   </form>
   <br />
-  <label for="my-modal-ca-6" fill="none" class="btn btn-accent" (click)="guardar()">GUARDAR </label>&nbsp;
+  <label
+    for="my-modal-ca-6"
+    fill="none"
+    class="btn btn-accent"
+    (click)="guardar()"
+    >GUARDAR </label
+  >&nbsp;
   <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
   <!-- <div class="modal modal-bottom sm:modal-middle">
   <div class="modal-box block text-white bg-blue-700  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-rigth ">
@@ -80,16 +132,34 @@
     <div *ngFor="let est of estudiante.matriculas">
       <th>{{ est.estudiantes!.nombres }}</th>
       <td>
-        <input #radioPresente type="radio" [name]="est.id" id="Presente" class="form-check-input"
-          (change)="cambioEstado(radioPresente.id, est)" />
+        <input
+          #radioPresente
+          type="radio"
+          [name]="est.id"
+          id="Presente"
+          class="form-check-input"
+          (change)="cambioEstado(radioPresente.id, est)"
+        />
       </td>
       <td>
-        <input #radioAusente type="radio" [name]="est.id" id="Ausente" class="form-check-input"
-          (change)="cambioEstado(radioAusente.id, est)" />
+        <input
+          #radioAusente
+          type="radio"
+          [name]="est.id"
+          id="Ausente"
+          class="form-check-input"
+          (change)="cambioEstado(radioAusente.id, est)"
+        />
       </td>
       <td>
-        <input #radioFaltaJustificada type="radio" [name]="est.id" id="Falta Justificada" class="form-check-input"
-          (change)="cambioEstado(radioFaltaJustificada.id, est)" />
+        <input
+          #radioFaltaJustificada
+          type="radio"
+          [name]="est.id"
+          id="Falta Justificada"
+          class="form-check-input"
+          (change)="cambioEstado(radioFaltaJustificada.id, est)"
+        />
       </td>
     </div>
   </tr>
@@ -99,16 +169,34 @@
   <tr *ngFor="let estudiante of (estudiantes$ | async)!">
     <th>{{ estudiante.estudiantes!.nombres }}</th>
     <td>
-      <input #radioPresente type="radio" [name]="estudiante.id" id="Presente" class="form-check-input"
-        (change)="cambioEstado(radioPresente.id, estudiante)" />
+      <input
+        #radioPresente
+        type="radio"
+        [name]="estudiante.id"
+        id="Presente"
+        class="form-check-input"
+        (change)="cambioEstado(radioPresente.id, estudiante)"
+      />
     </td>
     <td>
-      <input #radioAusente type="radio" [name]="estudiante.id" id="Ausente" class="form-check-input"
-        (change)="cambioEstado(radioAusente.id, estudiante)" />
+      <input
+        #radioAusente
+        type="radio"
+        [name]="estudiante.id"
+        id="Ausente"
+        class="form-check-input"
+        (change)="cambioEstado(radioAusente.id, estudiante)"
+      />
     </td>
     <td>
-      <input #radioFaltaJustificada type="radio" [name]="estudiante.id" id="Falta Justificada" class="form-check-input"
-        (change)="cambioEstado(radioFaltaJustificada.id, estudiante)" />
+      <input
+        #radioFaltaJustificada
+        type="radio"
+        [name]="estudiante.id"
+        id="Falta Justificada"
+        class="form-check-input"
+        (change)="cambioEstado(radioFaltaJustificada.id, estudiante)"
+      />
     </td>
   </tr>
 </ng-template>

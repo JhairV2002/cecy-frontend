@@ -17,6 +17,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 // PRIME NG
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { TableModule } from 'primeng/table';
     SharedModule,
     InputNumberModule,
     SkeletonModule,
-    TableModule
+    TableModule,
+    ButtonModule,
+    CalendarModule,
+    ToolbarModule
   ],
 })
 export class ResponsibleExecuteModule { }
