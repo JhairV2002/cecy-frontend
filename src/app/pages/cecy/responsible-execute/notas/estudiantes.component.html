@@ -1,99 +1,105 @@
-<body>
-  <h2 class="text-3xl font-bold light:text-black" id="titulo">
-    Listado de Estudiantes
-  </h2>
-  <div class="overflow-x-hidden">
-    <tr>
-      <td>
-        <button class="btn btn-info" icon="edit" id="volver" (click)="regresar()">
-          Volver
-        </button>
-      </td>
-      <td>
-        ⠀⠀
-      </td>
-      <td>
-        <button class="btn btn-primary" icon="edit" id="asistencia" (click)="redireccionar()">
-          Asistencia
-        </button>
-      </td>      
-    </tr>
+<h2 class="text-3xl font-bold light:text-black" id="titulo">
+  Listado de Estudiantes
+</h2>
+<!-- {{ estudiantes | json }} -->
+<!-- {{ estudiantes$ | async | json }} -->
+<div class="overflow-x-hidden">
+  <tr>
+    <td>
+      <button class="btn btn-info" icon="edit" id="volver" (click)="regresar()">
+        Volver
+      </button>
+    </td>
+    <td>
+      ⠀⠀
+    </td>
+    <td>
+      <button class="btn btn-primary" icon="edit" id="asistencia" (click)="redireccionar()">
+        Asistencia
+      </button>
+    </td>      
+  </tr>
 
-    <br />
-    <br />
-
-    <input
-      type="text"
-      placeholder="Buscar por nombre"
-      class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-      [(ngModel)]="nombreFiltrado"
-      (input)="filtrarPorNombre()"
-    />
-    <table class="w-full text-sm text-left text-gray-500">
-      <thead class="text-xs bg-gray-50 text-gray-700">
-        <tr>
-          <th scope="col" class="px-6 py-3">NOMBRE</th>
-          <th scope="col" class="px-6 py-3">NOTA 1</th>
-          <th scope="col" class="px-6 py-3">NOTA 2</th>
-          <th scope="col" class="px-6 py-3">PROMEDIO</th>
-          <th scope="col" class="px-6 py-3">ESTADO</th>
-          <th scope="col" class="px-6 py-3">ACCIONES</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let matricula of estudiantes$
-              | async
-              | nombreFilter : nombreFiltrado
-          "
-          class="bg-white border-b hover:bg-gray-50"
+  <br />
+  <br />
+  <input
+    type="text"
+    placeholder="Buscar por nombre"
+    class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
+    [(ngModel)]="nombreFiltrado"
+    (input)="filtrarPorNombre()"
+  />
+  <table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-xs bg-gray-50 text-gray-700">
+      <tr>
+        <th scope="col" class="px-6 py-3">NOMBRE</th>
+        <th scope="col" class="px-6 py-3">NOTA 1</th>
+        <th scope="col" class="px-6 py-3">NOTA 2</th>
+        <th scope="col" class="px-6 py-3">PROMEDIO</th>
+        <th scope="col" class="px-6 py-3">ESTADO</th>
+        <th scope="col" class="px-6 py-3">ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let matricula of estudiantes$ | async | nombreFilter : nombreFiltrado
+        "
+        class="bg-white border-b hover:bg-gray-50"
+      >
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white"
         >
-          <th
-            scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white"
-          >
-            {{
-              matricula.estudiantes
-                ? matricula.estudiantes.nombres
-                : "Sin Estudiante"
-            }}
-          </th>
-          <td class="px-6 py-4">
-            <p-inputNumber id="nota1" [(ngModel)]="matricula.nota1" placeholder="Ingrese una nota" [min]="1" [max]="100" [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)">
-            </p-inputNumber>
-          </td>
-          <td class="px-6 py-4">
-            <p-inputNumber  id="nota2"  [(ngModel)]="matricula.nota2"  placeholder="Ingrese una nota"  [min]="1"  [max]="100"  [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)">
-            </p-inputNumber>
-          </td>
+          {{
+            matricula.estudiantes
+              ? matricula.estudiantes.nombres
+              : "Sin Estudiante"
+          }}
+        </th>
+        <td class="px-6 py-4">
+          <p-inputNumber
+            id="nota1"
+            [(ngModel)]="matricula.nota1"
+            placeholder="Ingrese una nota"
+            [min]="1"
+            [max]="100"
+            [showButtons]="true"
+            [buttonLayout]="'horizontal'"
+            (keydown)="validarNumero($event)"
+          ></p-inputNumber>
+        </td>
+        <td class="px-6 py-4">
+          <p-inputNumber
+            id="nota2"
+            [(ngModel)]="matricula.nota2"
+            placeholder="Ingrese una nota"
+            [min]="1"
+            [max]="100"
+            [showButtons]="true"
+            [buttonLayout]="'horizontal'"
+            (keydown)="validarNumero($event)"
+          ></p-inputNumber>
+        </td>
 
-          <td class="px-6 py-4">
-            {{ matricula.promedio }}
-          </td>
-          <td class="px-6 py-4">
-            {{ matricula.estadoCurso.descripcion }}
-          </td>
-          <td class="px-6 py-4 text-right">
-            <button
-              type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
-              (click)="guardarNotas(matricula)"
-            >
-              Guardar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <tr>        
-        <td>
-          <button class="btn btn-active" id="excel" (click)="generarExcel()">
-            Generar Excel
+        <td class="px-6 py-4">
+          {{ matricula.promedio }}
+        </td>
+        <td class="px-6 py-4">
+          {{ matricula.estadoCurso.descripcion }}
+        </td>
+        <td class="px-6 py-4 text-right">
+          <button
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
+            (click)="guardarNotas(matricula)">
+            Guardar
           </button>
         </td>
       </tr>
-    </table>
-  </div>
-</body>
+    </tbody>
+  </table>
+  <button class="btn btn-active" id="excel" (click)="generarExcel()">
+    Generar Excel
+  </button>
+</div>
