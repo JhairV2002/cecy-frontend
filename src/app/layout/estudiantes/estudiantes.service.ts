@@ -12,7 +12,7 @@ export class EstudiantesService {
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 
   url: string = 'http://localhost:8080/api/estudiantes/';
-  authenticateUrl: string = 'http://localhost:8080/api/auth/authenticate/';
+  authenticateUrl: string = 'http://localhost:3000/api/v1/auth/student/login';
 
   private estudianteActualSubject = new BehaviorSubject<Estudiantes | null>(
     null
@@ -41,7 +41,7 @@ export class EstudiantesService {
       .post<EstudianteRegisterResponse>(this.authenticateUrl, body)
       .subscribe((res) => {
         this.tokenService.saveEstudianteTokenCedula(res);
-        this.obtenerEstudiantePorCedula(res.cedula);
+        this.obtenerEstudiantePorCedula(res.student.cedula);
         console.log(res);
       });
   }
