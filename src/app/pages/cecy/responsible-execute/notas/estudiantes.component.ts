@@ -25,9 +25,13 @@ export class EstudiantesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.estudianteService.obtenerEstudiantes().subscribe((res) => {
-      console.log('ESTUDIANTES', res);
-      this.estudiantes = res;
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.estudianteService
+        .obtenerMatriculasPorCursoId(parseInt(param.get('cursoId')!))
+        .subscribe((res) => {
+          console.log('ESTUDIANTES', res);
+          this.estudiantes = res;
+        });
     });
   }
   estudiantes$ = this.activatedRoute.paramMap.pipe(
@@ -61,8 +65,6 @@ export class EstudiantesComponent implements OnInit {
           .includes(this.nombreFiltrado.toLowerCase())
     );
   }
-
-  
 
   guardarNotas(matricula: Matriculas): void {
     console.log(matricula);
@@ -104,15 +106,15 @@ export class EstudiantesComponent implements OnInit {
     }
   }
 
-   
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
-    
       return {
+        Nombres: nota.estudiantes.nombres,
+        Apellidos: nota.estudiantes.apellidos,
         Nota1: nota.nota1,
         Nota2: nota.nota2,
         Promedio: nota.promedio,
-        Estado: nota.estadoCurso.descripcion
+        Estado: nota.estadoCurso.descripcion,
       };
     });
 
@@ -123,10 +125,6 @@ export class EstudiantesComponent implements OnInit {
     const reporte = 'Reporte Promedio.xlsx';
     XLSX.writeFile(libro, reporte);
 
-    console.log(
-      `El archivo Excel "${reporte}" ha sido generado exitosamente.`
-    );
+    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
   }
-
-  
 }
