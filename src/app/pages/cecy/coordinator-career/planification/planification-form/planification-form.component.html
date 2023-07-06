@@ -78,15 +78,17 @@
           [dirty]="nameField.dirty"
         >
         </label>
-        <!-- <input
+        <input
+          *ngIf="isEdit"
           placeholder="Ej. Desarrollo de software"
           pInputText
           id="name"
           formControlName="name"
           class="uppercase"
-        /> -->
+        />
 
         <p-autoComplete
+          *ngIf="!isEdit"
           placeholder="Ej. Desarrollo de software"
           formControlName="name"
           [suggestions]="planifications"

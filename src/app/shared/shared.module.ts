@@ -96,7 +96,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ExtensionsPipe,
     UploadFilesComponent,
     ViewFilesComponent,
-    SearchComponent,
     TermsCondititonsPipe,
     BlankComponent,
     BreadcrumbComponent,

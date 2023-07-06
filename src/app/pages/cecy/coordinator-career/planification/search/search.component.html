@@ -2,16 +2,16 @@
   <input
     pInputText
     id="search"
-    placeholder="Buscar por el nombre"
+    placeholder="Buscar por nombre"
     [(ngModel)]="searchValue"
-    (input)="onSearchInput()"
-    (keypress)="onSearchInput()"
+    (input)="onSearchInputChange()"
+    (keypress)="onSearchInputChange()"
   />
   <button
     pButton
     pRipple
     type="button"
     icon="pi pi-search"
-    (click)="onSearchInput()"
+    (click)="onSearchInputChange()"
   ></button>
 </div>

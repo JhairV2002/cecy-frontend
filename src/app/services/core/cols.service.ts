@@ -1,20 +1,18 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as themes from '../../../assets/themes/themes.json';
-import {MenuItem} from 'primeng/api';
-import {ColModel} from "@models/core";
+import { MenuItem } from 'primeng/api';
+import { ColModel } from '@models/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ColsService {
-  constructor() {
-  }
+  constructor() {}
 
   get catalogue(): ColModel[] {
     return [
-      {field: 'name', header: 'Nombre'},
-      {field: 'description', header: 'Descripción'},
+      { field: 'name', header: 'Nombre' },
+      { field: 'description', header: 'Descripción' },
     ];
   }
 }

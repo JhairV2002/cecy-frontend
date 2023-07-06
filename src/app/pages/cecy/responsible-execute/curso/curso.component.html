@@ -1,83 +1,81 @@
-<div class="container">
-  <div class="text-center p-5">
-    <h1 class="text-5xl font-bold">Mis Cursos</h1>
-  </div>
+<div class="text-center p-5">
+  <h1 class="text-5xl font-bold">Mis Cursos</h1>
+</div>
 
-  <div class="flex justify-end items-center space-x-4 p-4">
-    <div class="relative">
-      <input
-        type="text"
-        #inputSearch
-        class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Buscar"
-        [(ngModel)]="filtroNombre"
-        (input)="filtrarCursos()"
-      />
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
-        <svg
-          class="h-5 w-5 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 15l5-5-5-5"
-          />
-        </svg>
-      </div>
+<div class="flex justify-end items-center space-x-4 p-4">
+  <div class="relative">
+    <input
+      type="text"
+      #inputSearch
+      class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+      placeholder="Buscar"
+      [(ngModel)]="filtroNombre"
+      (input)="filtrarCursos()"
+    />
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
+      <svg
+        class="h-5 w-5 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 15l5-5-5-5"
+        />
+      </svg>
     </div>
-    <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
   </div>
+  <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
+</div>
 
-  <div class="row">
-    <div
-      class="col-md-4 p-4"
-      style="display: inline-block; width: 33%"
-      *ngFor="let curso of cursos; let i = index"
-    >
-      <div class="card" style="margin-bottom: 20px">
-        <!-- [ngClass]="{
+<div class="row">
+  <div
+    class="col-md-4 p-4"
+    style="display: inline-block; width: 33%"
+    *ngFor="let curso of cursos; let i = index"
+  >
+    <div class="card" style="margin-bottom: 20px">
+      <!-- [ngClass]="{
         'bg-yellow-200': curso.courseStatus,
         'bg-green-200': curso.courseStatus && !curso.courseStatus,
         'bg-slate-300': !curso.courseStatus && !curso.courseStatus
       }" -->
-        <div class="card-body">
-          <h1 class="card-title font-normal">
-            <strong>{{ curso.planificationCourse.name }}</strong>
-          </h1>
-          <h5>
-            <strong>Código de curso:</strong
-            >{{ curso.planificationCourse.codeCourse }}
-          </h5>
-          <h5><strong>Modalidad:</strong> {{ curso.workday.name }}</h5>
-          <h5>
-            <strong>Estado del curso:</strong>
-            <div class="form-control">
-              <label class="label cursor-pointer">
-                <span class="text">{{
-                  curso.courseStatus ? "Terminado" : "En proceso"
-                }}</span>
-                <input
-                  type="checkbox"
-                  [(ngModel)]="curso.courseStatus"
-                  class="toggle"
-                  checked
-                />
-              </label>
-            </div>
-          </h5>
-          <h5></h5>
-          <button
-            class="btn btn-primary"
-            icon="edit"
-            (click)="redirect(curso.planificationCourseId)"
-          >
-            Detalles
-          </button>
-        </div>
+      <div class="card-body">
+        <h1 class="card-title font-normal">
+          <strong>{{ curso.planificationCourse.name }}</strong>
+        </h1>
+        <h5>
+          <strong>Código de curso:</strong
+          >{{ curso.planificationCourse.codeCourse }}
+        </h5>
+        <h5><strong>Modalidad:</strong> {{ curso.workday.name }}</h5>
+        <h5>
+          <strong>Estado del curso:</strong>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="text">{{
+                curso.courseStatus ? "Terminado" : "En proceso"
+              }}</span>
+              <input
+                type="checkbox"
+                [(ngModel)]="curso.courseStatus"
+                class="toggle"
+                checked
+              />
+            </label>
+          </div>
+        </h5>
+        <h5></h5>
+        <button
+          class="btn btn-primary"
+          icon="edit"
+          (click)="redirect(curso.planificationCourseId)"
+        >
+          Detalles
+        </button>
       </div>
     </div>
   </div>

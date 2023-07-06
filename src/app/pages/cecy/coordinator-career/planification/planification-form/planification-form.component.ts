@@ -24,6 +24,7 @@ import {
 import { SchoolYearService } from '@services/cecy/coordinator-cecy';
 import { SchoolYear, AutoComplete } from '@models/cecy/coordinator-career';
 import { CourseService } from '@services/cecy-v1/course.service';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-planification-form',
   templateUrl: './planification-form.component.html',
@@ -88,14 +89,24 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.selectPlanification) {
-      const startDate = new Date(this.selectPlanification.startDate);
-      const finishDate = new Date(this.selectPlanification.finishDate);
-      // this.formPlanification.patchValue({
-      //   startDate: startDate,
-      //   finishDate: finishDate,
-      // });
+      const patchedValue = {
+        ...this.selectPlanification,
+        startDate: new Date(this.selectPlanification.startDate),
+        finishDate: new Date(this.selectPlanification.finishDate),
+      };
 
-      this.formPlanification.patchValue(this.selectPlanification);
+      patchedValue.startDate = formatDate(
+        patchedValue.startDate,
+        'yyyy-MM-dd',
+        'en-US'
+      );
+      patchedValue.finishDate = formatDate(
+        patchedValue.finishDate,
+        'yyyy-MM-dd',
+        'en-US'
+      );
+
+      this.formPlanification.patchValue(patchedValue);
       this.titleModal = 'Editar una';
       this.titleButton = 'Editar';
       this.isEdit = true;
@@ -184,7 +195,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   //     valuesFormPlanification,
   //     (response: any) => {
   //       if (response.error) {
-  //         this.messageService.errorValid(response.error);
+  //         this.messageService.error(response.error);
   //         this.progressBar = false;
   //       } else {
   //         console.log('ALL', response);
@@ -230,7 +241,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
           this.progressBar = false;
         },
         error: (error) => {
-          this.messageService.errorValid(error);
+          this.messageService.error(error);
           this.progressBar = false;
         },
       });

@@ -88,7 +88,7 @@ export class TabsComponent implements OnInit, OnChanges {
         this.messageService.successCourse(data);
       },
       error: (error) => {
-        this.messageService.errorValid(error);
+        this.messageService.error(error);
       },
     });
   }

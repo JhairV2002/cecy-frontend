@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
-import { Subject } from 'rxjs';
 import { MessageService } from '@services/core';
 import { ColModel, PaginatorModel } from '@models/core';
 import { CourseModel } from '@models/cecy';
@@ -16,9 +15,8 @@ import { CareersService } from '@services/cecy/coordinator-career';
   styleUrls: ['./planification-list.component.css'],
 })
 export class PlanificationListComponent implements OnInit {
+  loading$ = this.careersService.loading$;
   loading = [false];
-  private unsubscribe$ = new Subject<void>();
-
   selectedCourses: CourseModel[] = [];
   selectedCourse: any;
   cols: ColModel[];
@@ -35,13 +33,12 @@ export class PlanificationListComponent implements OnInit {
   activeButton: boolean = false;
   selectPlanification: any = null;
   nameCareer: String = '';
-  isLoadingPlanification: boolean = false;
   test: [] = [];
   totalRecords: number = 0;
   page: number = 0;
   pageSize: number = 3;
+  selectedCareerId: number = 0;
   constructor(
-    //private courseHttpService: CourseHttpService,
     public messageService: MessageService,
     private router: Router,
     private planificationCourseService: PlanificationsCoursesService,
@@ -54,22 +51,7 @@ export class PlanificationListComponent implements OnInit {
       { field: 'responsible', header: 'Responsable' },
       { field: 'state', header: 'Estado' },
     ];
-    this.items = [
-      {
-        label: 'Ver planificaciones',
-        icon: 'pi pi-calendar-plus',
-        command: () => {
-          this.goToPlanifications(this.selectedCourse);
-        },
-      },
-      {
-        label: 'Eliminar curso',
-        icon: 'pi pi-trash',
-        command: () => {
-          //this.deleteCourse(this.selectedCourse);
-        },
-      },
-    ];
+    this.checkSearchParams();
   }
 
   ngOnInit(): void {
@@ -77,7 +59,6 @@ export class PlanificationListComponent implements OnInit {
     const savecareerId = localStorage.getItem('careerSelected');
     if (savecareerId) {
       this.selectedCareer = parseInt(savecareerId);
-      this.isLoadingPlanification = true;
       this.careersService
         .getPlanificationsCareers(parseInt(savecareerId))
         .subscribe({
@@ -86,11 +67,9 @@ export class PlanificationListComponent implements OnInit {
             this.nameCareer = data.name;
             this.selectCareer = this.planificationCourses.length ? true : false;
             this.activeButton = true;
-            this.isLoadingPlanification = false;
           },
           error: (error) => {
             this.messageService.error(error);
-            this.isLoadingPlanification = false;
           },
         });
     }
@@ -98,19 +77,25 @@ export class PlanificationListComponent implements OnInit {
     this.testing();
   }
 
+  checkSearchParams(): void {
+    const queryParams = this.router.parseUrl(this.router.url).queryParams;
+    if (queryParams['search']) {
+      history.replaceState(null, '', '/cecy/coordinator-career/planification');
+    }
+  }
+
   loadCoursesByCareer() {
-    // console.log('CARGANDO POR CARRERA')
-    // this.careersService
-    //   .getPlanificationsCareers(this.selectedCareer)
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.planificationCourses = data.planificationCourse;
-    //       this.selectCareer = this.planificationCourses.length ? true : false;
-    //     },
-    //     error: (error) => {
-    //       this.messageService.error(error);
-    //     },
-    //   });
+    this.careersService
+      .getPlanificationsCareers(this.selectedCareer)
+      .subscribe({
+        next: (data) => {
+          console.log('refrescando', data);
+          this.planificationCourses = data.planificationCourse;
+        },
+        error: (error) => {
+          this.messageService.error(error);
+        },
+      });
   }
 
   onPageChange(event: any) {
@@ -147,17 +132,14 @@ export class PlanificationListComponent implements OnInit {
   onchange(event: any) {
     console.log(event.value);
     localStorage.setItem('careerSelected', event.value);
-    this.isLoadingPlanification = true;
     this.careersService.getPlanificationsCareers(event.value).subscribe({
       next: (data) => {
         this.planificationCourses = data.planificationCourse;
         this.nameCareer = data.name;
         this.selectCareer = this.planificationCourses.length ? true : false;
         this.activeButton = true;
-        this.isLoadingPlanification = false;
       },
       error: (error) => {
-        this.isLoadingPlanification = false;
         this.messageService.error(error);
       },
     });
@@ -185,6 +167,11 @@ export class PlanificationListComponent implements OnInit {
           this.messageService.error(error);
         },
       });
+  }
+
+  searchPlanificationCourses(planification: any) {
+    this.planificationCourses = planification;
+    console.log('ESTO BUSCO', planification);
   }
 
   editPlanification(planification: PlanificationCourses) {
@@ -239,12 +226,6 @@ export class PlanificationListComponent implements OnInit {
         return '';
     }
   }
-
-  /* filter(event: any) {
-    if (event.key === 'Enter' || event.type === 'click') {
-      this.loadCourses(1, this.career.value);
-    }
-  } */
 
   get careerField() {
     return this.career;
