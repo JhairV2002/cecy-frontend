@@ -17,3 +17,35 @@ body {
 #nota:focus{
     border-color:#0079ff;
 }
+
+#excel {
+    background-color: #ffffff;
+    color: #008739;
+    border-color:#008739 ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    #excel:hover {
+        background-color: #008739;
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
+#volver {
+    background-color: #ffffff;
+    color: #00b2df;
+    border-color:#00b2df ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    #volver:hover {
+        background-color: #00b2df;
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
+#asistencia {
+    background-color: #36d399;
+    color:  #ffffff;
+    border:none;
+}

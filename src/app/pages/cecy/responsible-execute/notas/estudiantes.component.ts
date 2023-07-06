@@ -7,6 +7,7 @@ import { Matriculas } from './estudiante.model';
 import { NombreFilterPipe } from './filter.pipe';
 import * as fs from 'fs';
 import * as XLSX from 'xlsx';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-estudiantes',
@@ -14,9 +15,8 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./estudiantes.component.scss'],
 })
 export class EstudiantesComponent implements OnInit {
- 
   nombreFiltrado: string = '';
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -49,9 +49,7 @@ export class EstudiantesComponent implements OnInit {
 
   regresar() {
     this.activatedRoute.paramMap.subscribe((param) => {
-      this.router.navigate([
-        `cecy/responsible-execute/mis-cursos`,
-      ]);
+      this.router.navigate([`cecy/responsible-execute/mis-cursos`]);
     });
   }
 
@@ -64,6 +62,8 @@ export class EstudiantesComponent implements OnInit {
           .includes(this.nombreFiltrado.toLowerCase())
     );
   }
+
+  
 
   guardarNotas(matricula: Matriculas): void {
     console.log(matricula);
@@ -84,45 +84,54 @@ export class EstudiantesComponent implements OnInit {
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
 
-  generarExcel(notas: Matriculas[]): void {
-    const datosExportar = notas.map(nota => {
-      const estado = nota.promedio >= 70 ? 'Aprobado' : 'Reprobado';
-  
-      return {
-        Nota1: nota.nota1,
-        Nota2: nota.nota2,
-        Promedio: nota.promedio,
-        Estado: estado,
-      };
-    });
-  
-    const libro = XLSX.utils.book_new();
-    const hoja = XLSX.utils.json_to_sheet(datosExportar);
-    XLSX.utils.book_append_sheet(libro, hoja, 'Notas');
-  
-    const nombreArchivo = 'notas.xlsx';
-    XLSX.writeFile(libro, nombreArchivo);
-  
-    console.log(`El archivo Excel "${nombreArchivo}" ha sido generado exitosamente.`);
-  }
-  
-  
+ 
+
+
 
   validarNumero(event: KeyboardEvent): void {
     const input = event.key;
     const currentValue = (event.target as HTMLInputElement).value.trim();
     const minValue = 1;
     const maxValue = 100;
-  
+
     if (
-      (isNaN(Number(input)) && input !== 'ArrowUp' && input !== 'ArrowDown' && input !== 'Backspace') ||
-      (currentValue !== '' && (Number(currentValue) < minValue || Number(currentValue) > maxValue))
+      (isNaN(Number(input)) &&
+        input !== 'ArrowUp' &&
+        input !== 'ArrowDown' &&
+        input !== 'Backspace') ||
+      (currentValue !== '' &&
+        (Number(currentValue) < minValue || Number(currentValue) > maxValue))
     ) {
       event.preventDefault();
-      alert('Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.');
+      alert(
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
+      );
     }
-  
-  
   }
-}
 
+   
+  generarExcel(): void {
+    const datosExportar = this.estudiantes.map((nota) => {
+    
+      return {
+        Nota1: nota.nota1,
+        Nota2: nota.nota2,
+        Promedio: nota.promedio,
+        Estado: nota.estadoCurso.descripcion
+      };
+    });
+
+    const libro = XLSX.utils.book_new();
+    const hoja = XLSX.utils.json_to_sheet(datosExportar);
+    XLSX.utils.book_append_sheet(libro, hoja, 'Notas');
+
+    const reporte = 'Reporte Promedio.xlsx';
+    XLSX.writeFile(libro, reporte);
+
+    console.log(
+      `El archivo Excel "${reporte}" ha sido generado exitosamente.`
+    );
+  }
+
+  
+}
