@@ -22,7 +22,10 @@ export class PdfCourseService {
     const imageSecretaryEducation = await this.getBase64ImageFromURL("../../../assets/course-objects/logo-secretaria-educacion.png");
     const imageYavirac = await this.getBase64ImageFromURL("../../../assets/course-objects/Logo Yavirac.png");
 
-    const docDefinition = {
+    const 
+    
+    
+    docDefinition = {
       content: [
         //header images
         {
