@@ -106,16 +106,15 @@ export class EstudiantesComponent implements OnInit {
     }
   }
 
-
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
       return {
-        Nombres: nota.estudiantes.nombres ,
-        Apellidos: nota.estudiantes.apellidos ,
-        Nota1: nota.nota1 ,
-        Nota2: nota.nota2 ,
-        Promedio: nota.promedio ,
-        Estado: nota.estadoCurso.descripcion ,
+        Nombres: nota.estudiantes.nombres,
+        Apellidos: nota.estudiantes.apellidos,
+        Nota1: nota.nota1,
+        Nota2: nota.nota2,
+        Promedio: nota.promedio,
+        Estado: nota.estadoCurso.descripcion
       };
     });
 
