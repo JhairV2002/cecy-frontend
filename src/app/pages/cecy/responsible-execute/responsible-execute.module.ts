@@ -20,6 +20,10 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ToolbarModule } from 'primeng/toolbar';
+import { FieldsetModule } from 'primeng/fieldset';
+import {FileUploadModule} from 'primeng/fileupload';
+import { DividerModule } from 'primeng/divider';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,10 @@ import { ToolbarModule } from 'primeng/toolbar';
     TableModule,
     ButtonModule,
     CalendarModule,
-    ToolbarModule
+    ToolbarModule,
+    FieldsetModule,
+    FileUploadModule,
+    DividerModule,
   ],
 })
 export class ResponsibleExecuteModule { }

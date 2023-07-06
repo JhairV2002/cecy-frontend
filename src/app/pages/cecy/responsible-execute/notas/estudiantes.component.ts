@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
+  estudiantes: Matriculas[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -24,13 +25,11 @@ export class EstudiantesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.estudianteService
-      .obtenerEstudiantes()
-      .subscribe((res) => (this.estudiantes = res));
+    this.estudianteService.obtenerEstudiantes().subscribe((res) => {
+      console.log('ESTUDIANTES', res);
+      this.estudiantes = res;
+    });
   }
-
-  estudiantes: Matriculas[] = [];
-
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
@@ -83,10 +82,6 @@ export class EstudiantesComponent implements OnInit {
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
-
- 
-
-
 
   validarNumero(event: KeyboardEvent): void {
     const input = event.key;
