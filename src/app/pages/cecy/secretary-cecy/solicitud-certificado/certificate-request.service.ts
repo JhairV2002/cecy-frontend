@@ -5,8 +5,10 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 import {
   Codes,
+  Firms,
   Report,
-  UpdateCode } from './certificate';
+  UpdateCode, } from './certificate';
+  import { Firmas } from './firma';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +24,7 @@ export class CertificateRequestService {
   private apiUrl1 = `${environment.api4}/api/codigo`;
   private apiUrl2 = `${environment.api4}/api/certificado`;
   private apiUrl3 = `${environment.api4}`;
+
 
 
   public findById(id: number): Observable<Report> {
@@ -44,5 +47,16 @@ export class CertificateRequestService {
 
   uploadFile(formData: FormData): Observable<any>{
     return this.http.post(this.apiUrl3+'/api/media/subir', formData);
+  }
+
+  public subirfirma(firmas: Firmas): Observable<any>{
+    return this.http.post(this.apiUrl3+'/api/firma/',firmas);
+  }
+
+  public findAllFirms(): Observable<Firms[]> {
+    return this.http.get<Firms[]>(
+      this.apiUrl3 + '/api/firma/',
+      this.httpOptions
+    );
   }
 }

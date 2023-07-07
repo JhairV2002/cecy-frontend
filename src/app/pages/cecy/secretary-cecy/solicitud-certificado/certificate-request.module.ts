@@ -26,6 +26,7 @@ import { CodigoCertificateComponent } from './codigo-certificate/codigo-certific
 import { SettingsCertificateComponent } from './settings-certificate/settings-certificate.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownSettingsComponent } from './settings-certificate/dropdown-settings/dropdown-settings.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     SolicitudCertificadoListaComponent,
     TabMenuCertificateComponent,
     CodigoCertificateComponent,
-    SettingsCertificateComponent
+    SettingsCertificateComponent,
+    DropdownSettingsComponent
   ],
   imports: [
     CommonModule,

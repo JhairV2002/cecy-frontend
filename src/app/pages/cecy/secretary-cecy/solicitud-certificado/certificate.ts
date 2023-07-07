@@ -24,9 +24,9 @@ export interface Report{
     id: number;
     fechaReporte: Date,
     reportes: Codes[]
-    
 
-  
+
+
   }
 
 
@@ -37,13 +37,13 @@ export interface Report{
     name:string,
     startDate:string,
     finishDate:string
-    
+
 
   }
-  
 
- 
-  
+
+
+
   export interface Matricula {
     id: number;
     cursoId?: number;
@@ -57,19 +57,19 @@ export interface Report{
     asistencias?: any[];
     estudiantes: Estudiantes;
   }
-  
+
   export interface EstadoMatricula {
     id: number;
     nombre: string;
     descripcion: string;
   }
-  
+
   export interface EstadoCurso {
     id: number;
     nombre: string;
     descripcion: string;
   }
-  
+
   export interface Estudiantes {
     id: number;
     cedula: string;
@@ -91,35 +91,43 @@ export interface Report{
     empresas?: any[];
     matriculas?: number[];
   }
-  
+
   export interface Genero {
     id: number;
     nombre: string;
     descripcion: string;
   }
-  
+
   export interface TipoEstudiante {
     id: number;
     nombre: string;
     descripcion: string;
   }
-  
+
   export interface Etnia {
     id: number;
     nombre: any;
     descripcion: string;
   }
-  
+
   export interface NivelInstruccion {
     id: number;
     nombre: string;
     descripcion: string;
   }
-  
+
   export interface SituacionEconomica {
     id: number;
     nombre: string;
     descripcion: string;
   }
-  
+
+
+  export interface Firms{
+    id: number;
+    nombres: string;
+    apellidos: string;
+    cedula: string;
+    firma: string;
+  }
 
