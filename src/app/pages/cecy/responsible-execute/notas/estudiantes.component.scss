@@ -31,18 +31,7 @@
         border-color: #ffffff;
     }
 
-#volver {
-    background-color: #ffffff;
-    color: #00b2df;
-    border-color:#00b2df ;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-    #volver:hover {
-        background-color: #00b2df;
-        color: #ffffff;
-        border-color: #ffffff;
-    }
+
 
 #asistencia {
     background-color: #36d399;
@@ -50,3 +39,61 @@
     border:none;
 }
  */
+
+#search{
+    margin-left: 2%;
+}
+
+#buscar1{
+    background-color:  #2196f3;
+    color: #ffffff;
+    border-color:#2196f3 ;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+#buscar{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    border: none;
+}
+
+#nav{
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+ #volver {
+    margin-right: 1%;
+    margin-left: 2%;
+    background-color: #00b2df;
+    color: #ffffff;
+    border: none;
+    }
+
+#excel {
+    margin-top: 2%;
+    margin-left: 2%;
+    background-color: #ffffff;
+    color: #008739;
+    border-color:#008739 ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    #excel:hover {
+        background-color: #008739;
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
+#asistencia {
+    background-color: #ca1fec;
+    color:  #ffffff;
+    border:none;
+}
+
+#title {
+    margin-top: 1%;
+    margin-bottom: 4%;
+}

@@ -1,28 +1,27 @@
 <div class="p-grid p-dir-col">
-  <div class="p-col">
-    <h2 class="p-text-center">Listado de Estudiantes</h2>
-  </div>
-
-  <div class="p-col p-d-flex p-justify-between p-mb-3">
-    <div class="p-d-flex">
-      <button pButton type="button" class="p-button p-button-outlined" icon="pi pi-arrow-left" (click)="regresar()">
-        Volver
+   <div class="p-col p-d-flex p-justify-between p-mb-3">
+    <div class="p-d-flex" id="nav">
+      <button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left" (click)="regresar()">
+        ㅤVolver
       </button>
-      <button pButton type="button" class="p-button p-button-primary p-ml-2" icon="pi pi-user-plus" (click)="redireccionar()">
-        Asistencia
+      <button pButton  type="button" id="asistencia" class="p-button p-button-primary p-ml-2" icon="pi pi-user-plus" (click)="redireccionar()">
+        ㅤAsistencia
       </button>
     </div>
+    <div class="text-left p-5" id="title">
+      <h1 class="text-3xl font-semi-bold">Listado de Estudiantes</h1>
+    </div>
     <div class="p-col-auto p-ml-auto">
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
+      <div  id="search" class="p-inputgroup">
+        <span id="buscar1" class="p-inputgroup-addon">
           <i class="pi pi-search"></i>
         </span>
-        <input pInputText type="text" placeholder="Buscar por nombre" [(ngModel)]="nombreFiltrado" (input)="filtrarPorNombre()" />
+        <input pInputText id="buscar" type="text" placeholder="Buscar por nombre" [(ngModel)]="nombreFiltrado" (input)="filtrarPorNombre()" />
       </div>
     </div>
   </div>
 
-  <div class="p-col">
+  <div class="p-col" id="search">
     <p-table [value]="estudiantes$ | async | nombreFilter: nombreFiltrado" [responsive]="true" class="p-datatable">
       <ng-template pTemplate="header">
         <tr>
@@ -58,6 +57,6 @@
   </div>
 
   <div class="p-col p-text-center">
-    <button pButton type="button" class="p-button p-button-success" id="excel" (click)="generarExcel()">Generar Excel</button>
+    <button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel" (click)="generarExcel()">ㅤGenerar Excel</button>
   </div>
 </div>
