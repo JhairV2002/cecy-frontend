@@ -14,9 +14,7 @@ import { MessageService } from '@services/core';
 export class SearchComponent {
   @Input() selectedCareer: number = 0;
   @Output() planificationCourses = new EventEmitter<any>();
-
   searchValue: string = '';
-  //planificationCourses: any[] = [];
 
   constructor(
     private router: Router,

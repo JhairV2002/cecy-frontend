@@ -15,6 +15,7 @@ import { TopicCourseComponent } from './topic-course/topic-course.component';
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
 import { CoursesListComponent } from './courses/courses-list/courses-list.component';
 import { CoursesListaComponent } from './courses-list/courses-list.component';
+import { NotFoundComponent } from '../../core/common/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -82,10 +83,18 @@ const routes: Routes = [
     path: 'view-attendances-participant/:id',
     component: ViewAttendancesParticipantComponent,
   },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class StudentRoutingModule { }
+export class StudentRoutingModule {}

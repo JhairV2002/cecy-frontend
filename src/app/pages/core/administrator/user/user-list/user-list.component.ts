@@ -9,6 +9,7 @@ import { ColModel, PaginatorModel } from '@models/core';
 import { UserService } from '@services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
 import { User } from '@models/authentication';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -18,9 +19,9 @@ import { User } from '@models/authentication';
 export class UserListComponent implements OnInit {
   /* users$ = this.userAdministrationHttpService.users$;
   user$ = this.userAdministrationHttpService.user$;
-  loaded$ = this.userAdministrationHttpService.loaded$;
   paginator$ = this.userAdministrationHttpService.paginator$; */
 
+  loading$ = this.userService.loading$;
   selectedUser: any = null;
   cols: ColModel[];
   items: MenuItem[] = [];
@@ -34,13 +35,12 @@ export class UserListComponent implements OnInit {
   kpiModel: KpiUser = new KpiUser();
   data: any[] = [];
   userVisualizations$ = this.userService.users$;
-  isLoadingUsers: boolean = false;
-
   constructor(
     //private userAdministrationHttpService: UserAdministrationHttpService,
     public messageService: MessageService,
     private userService: UserService,
-    private socket: Socket
+    private socket: Socket,
+    private router: Router
   ) {
     this.cols = [
       { field: 'username', header: 'Correo Electrónico' },
@@ -79,9 +79,7 @@ export class UserListComponent implements OnInit {
         },
       }, */
     ];
-    /*  this.paginator$.subscribe((response) => {
-      this.paginator = response;
-    }); */
+    this.checkSearchParams();
   }
 
   ngOnInit(): void {
@@ -100,16 +98,20 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  checkSearchParams(): void {
+    const queryParams = this.router.parseUrl(this.router.url).queryParams;
+    if (queryParams['search']) {
+      history.replaceState(null, '', '/administrator/users');
+    }
+  }
+
   getAllUSers() {
-    this.isLoadingUsers = true;
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users = data;
-        this.isLoadingUsers = false;
       },
       error: (error) => {
-        console.error(error);
-        this.isLoadingUsers = false;
+        this.messageService.error(error);
       },
     });
   }
@@ -142,6 +144,11 @@ export class UserListComponent implements OnInit {
   addUser(newUser: User) {
     console.log('Nuevo usuario', newUser);
     this.getAllUSers();
+  }
+
+  searchPlanificationCourses(users: any) {
+    this.users = users;
+    console.log('ESTO BUSCO', users);
   }
 
   closeModal(state: boolean) {

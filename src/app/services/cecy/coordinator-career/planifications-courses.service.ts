@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { PlanificationCourses } from '@models/cecy/coordinator-career';
 import { PlanificationCourseInitial } from '@models/cecy-v1/course.model';
-import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
