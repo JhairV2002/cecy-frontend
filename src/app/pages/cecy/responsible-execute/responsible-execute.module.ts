@@ -23,6 +23,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { FieldsetModule } from 'primeng/fieldset';
 import {FileUploadModule} from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { DividerModule } from 'primeng/divider';
     FieldsetModule,
     FileUploadModule,
     DividerModule,
+    CardModule,
   ],
 })
 export class ResponsibleExecuteModule { }

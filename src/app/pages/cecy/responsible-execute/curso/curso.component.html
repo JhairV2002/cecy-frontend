@@ -32,53 +32,42 @@
     <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
   </div>
 
-  <div class="row">
+  <div>
     <div
       class="col-md-4 p-4"
       style="display: inline-block; width: 33%"
       *ngFor="let curso of cursos; let i = index"
     >
-      <div class="card" style="margin-bottom: 20px">
-        <!-- [ngClass]="{
-        'bg-yellow-200': curso.courseStatus,
-        'bg-green-200': curso.courseStatus && !curso.courseStatus,
-        'bg-slate-300': !curso.courseStatus && !curso.courseStatus
-      }" -->
-        <div class="card-body">
-          <h1 class="card-title font-normal">
-            <strong>{{ curso.planificationCourse.name }}</strong>
-          </h1>
-          <h5>
-            <strong>Código de curso:</strong
-            >{{ curso.planificationCourse.codeCourse }}
-          </h5>
-          <h5><strong>Modalidad:</strong> {{ curso.workday.name }}</h5>
-          <h5>
-            <strong>Estado del curso:</strong>
-            <div class="form-control">
-              <label class="label cursor-pointer">
-                <span class="text">{{
-                  curso.courseStatus ? "Terminado" : "En proceso"
-                }}</span>
-                <input
-                  type="checkbox"
-                  [(ngModel)]="curso.courseStatus"
-                  class="toggle"
-                  checked
-                />
-              </label>
-            </div>
-          </h5>
-          <h5></h5>
-          <button
-            class="btn btn-primary"
-            icon="edit"
-            (click)="redirect(curso.planificationCourseId)"
-          >
-            Detalles
-          </button>
-        </div>
-      </div>
+
+
+<p-card header="{{ curso.planificationCourse.name }}" subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}" [style]="{
+  width: '300px',
+
+}" class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+  <ng-template pTemplate="header">
+      <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+  </ng-template>
+  <p>
+    Modalidad: {{ curso.workday.name }}<br/>
+    Estado del curso: <label class="label cursor-pointer">
+      <span class="text">{{
+        curso.courseStatus ? "Terminado" : "En proceso"
+      }}</span>
+      <input
+        type="checkbox"
+        [(ngModel)]="curso.courseStatus"
+        class="toggle"
+        checked
+      />
+    </label>
+  </p>
+  <ng-template pTemplate="footer">
+      <p-button label="Detalles" icon="pi pi-check"
+      (click)="redirect(curso.planificationCourseId)"></p-button>
+  </ng-template>
+</p-card>
+
+
     </div>
   </div>
 </div>
