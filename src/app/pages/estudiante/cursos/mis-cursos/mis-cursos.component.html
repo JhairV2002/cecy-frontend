@@ -26,17 +26,25 @@
           </td>
           <td>
             {{
-              matricula.estadoCurso.descripcion != null
+              matricula.estadoCurso != null
                 ? matricula.estadoCurso.descripcion
                 : "Sin Estado"
             }}
           </td>
           <td>
             {{
-              matricula.estadoMatricula.descripcion != null
+              matricula.estadoMatricula != null
                 ? matricula.estadoMatricula.descripcion
                 : "Sin Estado"
             }}
+          </td>
+          <td>
+            <button
+              class="btn btn-accent"
+              (click)="navigateMisCursosDetails(matricula)"
+            >
+              Detalles
+            </button>
           </td>
         </tr>
       </tbody>
