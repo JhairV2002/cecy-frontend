@@ -6,7 +6,6 @@ import { ValidationErrors } from '@angular/forms';
 import { LoginResponse } from '@models/core/login.response';
 import { Message } from 'primeng/api';
 import { MessageService as MessagePNService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,63 +13,21 @@ import { Router } from '@angular/router';
 export class MessageService {
   constructor(
     private messageService: MessagePNService,
-    private router: Router
+
   ) {}
 
-  errorValid(error: any) {
-    console.log(error, 'message');
-    return Swal.fire({
-      title: 'Ups algo salio mal!',
-      text: error.error.message,
-      icon: 'error',
-    });
-  }
-
   error(error: HttpErrorResponse) {
-    if (error.status === 401) {
-      return Swal.fire({
-        title: 'Usuario no autorizado',
-        text: error.error.message,
-        icon: 'error',
-      });
-    }
-    if (error.status === 400) {
-      if (error.error.msg.code === '23505') {
-        return Swal.fire({
-          title: 'El registro ya existe',
-          text: error.error.data,
-          icon: 'error',
-        });
-      }
-    }
-    if (error.status === 404) {
-      return Swal.fire({
-        title: error.error.msg.summary,
-        text: error.error.msg.detail,
-        icon: 'warning',
-      });
-    }
-    if (error.status === 422) {
-      let i;
-      const fields = Object.values(error.error.msg.detail)
-        .toString()
-        .split('.,');
-      let html = '<ul>';
-      for (i = 0; i < fields.length - 1; i++) {
-        html += `<li>${fields[i]}.</li>`;
-      }
-      html += `<li>${fields[i]}</li>`;
-      html += '</ul>';
-      return Swal.fire({
-        title: error.error.msg.summary,
-        html,
-        icon: 'error',
-      });
+    let errorMessage = 'Ha ocurrido un error';
+
+    if (error.error && error.error.message) {
+      errorMessage = error.error.message;
+    } else if (error.message) {
+      errorMessage = error.message;
     }
 
-    return Swal.fire({
-      title: error.error?.msg?.summary,
-      text: error.error?.msg?.detail,
+    Swal.fire({
+      title: 'Ups algo salio mal!',
+      text: errorMessage,
       icon: 'error',
     });
   }
@@ -150,14 +107,6 @@ export class MessageService {
     return Swal.fire({
       title: 'Correo enviado',
       text: 'Correo de recuperación fue enviado correctamente',
-      icon: 'info',
-    });
-  }
-
-  finishTest() {
-    return Swal.fire({
-      title: 'Gracias por participar!',
-      text: 'Se enviará un correo electrónico con los resultados',
       icon: 'info',
     });
   }

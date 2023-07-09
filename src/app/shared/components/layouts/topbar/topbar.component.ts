@@ -9,7 +9,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthHttpService, MessageService } from '@services/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '@services/layout.service';
@@ -43,7 +42,6 @@ export class TopbarComponent implements OnInit {
   @ViewChild('topbarmenu') menu!: ElementRef;
 
   constructor(
-    private menuHttpService: MenuHttpService,
     private authHttpService: AuthHttpService,
     private messageService: MessageService,
     private router: Router,
@@ -51,15 +49,20 @@ export class TopbarComponent implements OnInit {
     public layoutService: LayoutService,
     private socket: Socket,
     private cdRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     console.log('ejecuta topbar');
-    this.authService.getProfile().subscribe((data: any) => {
-      console.log('cliente global', data[0]);
-      this.user = data[0];
-      this.name = this.user?.names;
-      this.socket.emit('app:sendUser', this.user);
+    this.authService.getProfile().subscribe({
+      next: (data: any) => {
+        console.log('cliente global', data[0]);
+        this.user = data[0];
+        this.name = this.user?.names;
+        this.socket.emit('app:sendUser', this.user);
+      },
+      error: (error) => {
+        console.error(error);
+      },
     });
     this.items = [
       {

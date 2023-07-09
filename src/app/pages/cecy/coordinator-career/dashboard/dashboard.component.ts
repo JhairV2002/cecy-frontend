@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   chartOptions: any;
   config: any;
   planificationCourses: [] = [];
+  loading$ = this.dashboardService.loading$;
 
   constructor(
     private router: Router,
