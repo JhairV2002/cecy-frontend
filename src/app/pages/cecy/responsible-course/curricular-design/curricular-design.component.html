@@ -201,6 +201,7 @@
             type="submit"
             [disabled]="formCurricularDesign.invalid"
             label="Guardar"
+            [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
           ></button>
         </div>
       </p-card>

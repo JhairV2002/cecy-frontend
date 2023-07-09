@@ -2,12 +2,10 @@ import { CourseService } from '@services/cecy-v1/course.service';
 import {
   Component,
   OnInit,
-  OnDestroy,
   Output,
   EventEmitter,
   Input,
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
 import {
   AbstractControl,
   FormBuilder,
@@ -18,8 +16,6 @@ import {
 import { MessageService } from '@services/core';
 import { CatalogueModel } from '@models/cecy';
 import {
-  ClassroomHttpService,
-  CatalogueHttpService,
   PlanificationHttpService,
   DetailPlanificationHttpService,
 } from '@services/cecy';
@@ -39,7 +35,6 @@ export class DetailPlanificationFormComponent implements OnInit {
   @Output() dialogForm = new EventEmitter<boolean>();
   private detailPlanification$ =
     this.detailPlanificationHttpService.detailPlanification$;
-  private unsubscribe$ = new Subject<void>();
   public formDetailPlanification: FormGroup = this.newFormDetailPlanification;
   public progressBar: boolean = false;
 
@@ -53,8 +48,6 @@ export class DetailPlanificationFormComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private catalogueHttpService: CatalogueHttpService,
-    private classroomHttpService: ClassroomHttpService,
     private detailPlanificationHttpService: DetailPlanificationHttpService,
     private formBuilder: FormBuilder,
     public messageService: MessageService,
@@ -76,11 +69,6 @@ export class DetailPlanificationFormComponent implements OnInit {
     this.loadParallels();
     this.loadInstructors();
   }
-
-  // ngOnDestroy(): void {
-  //   this.unsubscribe$.next();
-  //   this.unsubscribe$.complete();
-  // }
 
   get newFormDetailPlanification(): FormGroup {
     return this.formBuilder.group({

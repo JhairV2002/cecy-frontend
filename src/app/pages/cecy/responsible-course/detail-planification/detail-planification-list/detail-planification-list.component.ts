@@ -3,9 +3,17 @@ import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { ColModel, DetailPlanificationModel, PaginatorModel, PlanificationModel } from '@models/cecy';
+import {
+  ColModel,
+  DetailPlanificationModel,
+  PaginatorModel,
+  PlanificationModel,
+} from '@models/cecy';
 import { MessageService } from '@services/core';
-import { PlanificationHttpService, DetailPlanificationHttpService } from '@services/cecy';
+import {
+  PlanificationHttpService,
+  DetailPlanificationHttpService,
+} from '@services/cecy';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
 import { CourseService } from '@services/cecy-v1/course.service';
 // import { runInThisContext } from 'vm';
@@ -13,10 +21,11 @@ import { CourseService } from '@services/cecy-v1/course.service';
 @Component({
   selector: 'app-detail-planification-list',
   templateUrl: './detail-planification-list.component.html',
-  styleUrls: ['./detail-planification-list.component.scss']
+  styleUrls: ['./detail-planification-list.component.scss'],
 })
 export class DetailPlanificationListComponent {
   @Output() dialog = new EventEmitter<boolean>();
+  loading$ = this.courseService.loading$
 
   selectedDetailPlan: any;
 
@@ -36,7 +45,7 @@ export class DetailPlanificationListComponent {
   paginator: PaginatorModel = {};
   dialogHeader: string = '';
   planId: any;
-  codeCourse: string='';
+  codeCourse: string = '';
   selectedDetailPlanificationId: any;
 
   constructor(
@@ -56,17 +65,16 @@ export class DetailPlanificationListComponent {
     ];
 
     this.items = [
-
       {
         label: 'Eliminar horario',
         icon: 'pi pi-trash',
         command: () => {
           this.deleteDetailPlanification(this.selectedDetailPlanification);
-        }
-      }
+        },
+      },
     ];
 
-    this.paginator$.subscribe(response => {
+    this.paginator$.subscribe((response) => {
       this.paginator = response;
     });
 
@@ -78,30 +86,27 @@ export class DetailPlanificationListComponent {
   }
 
   loadDetailPlanifications(page: number = 1) {
-    this.courseService.getDetailPlans(this.planId)
-      .subscribe(
-        response => {
-          this.detailPlanifications = response;
-          this.detailPlanifications;
-        }
-      );
-
+    this.courseService.getDetailPlans(this.planId).subscribe((response) => {
+      this.detailPlanifications = response;
+      this.detailPlanifications;
+    });
   }
 
   showForm(detailPlanification: DetailPlanificationModel = {}) {
     this.dialogForm = true;
-    console.log('entro por show')
-    console.log('entro por show yd data', detailPlanification)
+    console.log('entro por show');
+    console.log('entro por show yd data', detailPlanification);
 
     detailPlanification.id
-      ? this.dialogHeader = 'Editar Horario'
-      : this.dialogHeader = 'Crear Horario';
+      ? (this.dialogHeader = 'Editar Horario')
+      : (this.dialogHeader = 'Crear Horario');
 
     this.selectedDetailPlan = detailPlanification;
 
     this.selectedDetailPlanificationId = this.planificationId;
-    this.detailPlanificationHttpService.selectDetailPlanification(detailPlanification);
-
+    this.detailPlanificationHttpService.selectDetailPlanification(
+      detailPlanification
+    );
   }
 
   selectDetailPlanification(detailPlanification: DetailPlanificationModel) {
@@ -110,49 +115,51 @@ export class DetailPlanificationListComponent {
 
   assignInstructors(detailPlanification: DetailPlanificationModel) {
     this.selectedDetailPlanification = detailPlanification;
-    this.detailPlanificationHttpService.selectDetailPlanification(detailPlanification);
+    this.detailPlanificationHttpService.selectDetailPlanification(
+      detailPlanification
+    );
     this.dialogList = true;
   }
 
-  deleteDetailPlanification(detailPlanification: DetailPlanificationModel): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.courseService
-            .deleteDetailPlan(detailPlanification.id!)
-            .subscribe(
-              response => {
-                this.loadDetailPlanifications();
-              },
-              error => {
-                console.log(error);
-                this.messageService.error(error);
-              }
-            );
-        }
-      });
+  deleteDetailPlanification(
+    detailPlanification: DetailPlanificationModel
+  ): void {
+    this.messageService.questionDelete({}).then((result) => {
+      if (result.isConfirmed) {
+        this.courseService.deleteDetailPlan(detailPlanification.id!).subscribe(
+          (response) => {
+            this.loadDetailPlanifications();
+          },
+          (error) => {
+            console.log(error);
+            this.messageService.error(error);
+          }
+        );
+      }
+    });
   }
   deleteDetailPlanifications(): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          const ids = this.selectedDetailPlanifications.map(element => element.id);
-          this.progressBarDelete = true;
-          this.detailPlanificationHttpService.destroysDetailPlanifications(ids).subscribe(
-            response => {
+    this.messageService.questionDelete({}).then((result) => {
+      if (result.isConfirmed) {
+        const ids = this.selectedDetailPlanifications.map(
+          (element) => element.id
+        );
+        this.progressBarDelete = true;
+        this.detailPlanificationHttpService
+          .destroysDetailPlanifications(ids)
+          .subscribe(
+            (response) => {
               this.progressBarDelete = false;
               this.messageService.success(response);
               this.loadDetailPlanifications();
-
             },
-            error => {
+            (error) => {
               this.progressBarDelete = false;
               this.messageService.error(error);
             }
           );
-        }
-      });
-
+      }
+    });
   }
 
   filter(event: any) {
