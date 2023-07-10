@@ -221,18 +221,21 @@ export class SidebarComponent implements OnInit {
   menu: MenuItem[] = [];
   user: User | null = null;
   model: MenuItem[] = [];
+  loading: boolean = false;
 
   constructor(
     public layoutService: LayoutService,
     public el: ElementRef,
     private authService: AuthService,
     private carreraService: CarrerasService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.authService.getProfile().subscribe((user: any) => {
       console.log('SEDEIBAR USER', user[0]);
       this.user = user[0];
+      this.loading = false;
     });
   }
 
