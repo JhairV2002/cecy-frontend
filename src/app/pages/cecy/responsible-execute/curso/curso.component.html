@@ -4,70 +4,114 @@
   </div>
 
   <div class="flex justify-end items-center space-x-4 p-4">
-    <div class="relative">
-      <input
-        type="text"
-        #inputSearch
-        class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Buscar"
-        [(ngModel)]="filtroNombre"
-        (input)="filtrarCursos()"
-      />
-      <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
-        <svg
-          class="h-5 w-5 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 15l5-5-5-5"
-          />
-        </svg>
+    <div class="p-col-auto p-ml-auto">
+      <div  id="search" class="p-inputgroup">
+        <span id="buscar1" class="p-inputgroup-addon">
+          <i class="pi pi-search"></i>
+        </span>
+        <input pInputText id="buscar" type="text" placeholder="Buscar por nombre" [(ngModel)]="filtroNombre" (input)="filtrarCursosPorNombre()" />
+
       </div>
     </div>
-    <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
+    <button class="btn btn-primary" (click)="sortCards()"><i class="pi pi-sort-alpha-up"></i></button>
   </div>
 
-  <div>
+  <!-- <div>
     <div
-      class="col-md-4 p-4"
+    class="col-md-4 p-4"
       style="display: inline-block; width: 33%"
-      *ngFor="let curso of cursos; let i = index"
-    >
+    *ngFor="let curso of cursos; let i = index">
+    <div *ngIf="cumpleFiltro(curso)">
+      <p-card header="{{ curso.planificationCourse.name }}" subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}" [style]="{width: '300px',}" class="p-col-12 p-sm-6 p-md-4 p-lg-3">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <p>
+          Modalidad: {{ curso.workday.name }}<br/>
+          Estado del curso: <label class="label cursor-pointer">
+          <span class="text">{{ curso.courseStatus ? "Terminado" : "En proceso" }}</span>
+          <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
+          </label>
+        </p>
+        <ng-template pTemplate="footer">
+          <p-button label="Detalles" icon="pi pi-check" (click)="redirect(curso.planificationCourseId)"></p-button>
+        </ng-template>
+      </p-card>
+    </div>
+    </div>
+  </div> -->
 
+  <!-- <div>
+    <div class="p-grid">
+      <div *ngFor="let curso of cursos; let i = index" class="p-col-12 p-sm-6 p-md-4 p-lg-3" class="col-md-4 p-4"
+      style="display: inline-block; width: 33%">
+        <div *ngIf="cumpleFiltro(curso)">
+          <p-card
+            header="{{ curso.planificationCourse.name }}"
+            subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}"
+            [style]="{ width: '300px' }"
+          >
+            <ng-template pTemplate="header">
+              <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+            </ng-template>
+            <p>
+              Modalidad: {{ curso.workday.name }}<br/>
+              Estado del curso:
+              <label class="label cursor-pointer">
+                <span class="text">{{ curso.courseStatus ? "Terminado" : "En proceso" }}</span>
+                <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
+              </label>
+            </p>
+            <ng-template pTemplate="footer">
+              <p-button label="Detalles" icon="pi pi-check" (click)="redirect(curso.planificationCourse)"></p-button>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
-<p-card header="{{ curso.planificationCourse.name }}" subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}" [style]="{
-  width: '300px',
-
-}" class="p-col-12 p-sm-6 p-md-4 p-lg-3">
-  <ng-template pTemplate="header">
-      <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-  </ng-template>
-  <p>
-    Modalidad: {{ curso.workday.name }}<br/>
-    Estado del curso: <label class="label cursor-pointer">
-      <span class="text">{{
-        curso.courseStatus ? "Terminado" : "En proceso"
-      }}</span>
-      <input
-        type="checkbox"
-        [(ngModel)]="curso.courseStatus"
-        class="toggle"
-        checked
-      />
-    </label>
-  </p>
-  <ng-template pTemplate="footer">
-      <p-button label="Detalles" icon="pi pi-check"
-      (click)="redirect(curso.planificationCourseId)"></p-button>
-  </ng-template>
-</p-card>
-
-
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div *ngFor="let curso of cursos" class="col-span-1">
+      <div *ngIf="cumpleFiltro(curso)">
+        <p-card
+          header="{{ curso.planificationCourse.name }}"
+          subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}"
+          [style]="{ width: '300px' }"
+          class="bg-white border border-gray-300 rounded-lg p-4"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          </ng-template>
+          <p>
+            Modalidad: {{ curso.workday.name }}<br/>
+            Estado del curso:
+            <label class="label cursor-pointer">
+              <span class="text">{{ curso.courseStatus ? "Terminado" : "En proceso" }}</span>
+              <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
+            </label>
+          </p>
+          <ng-template pTemplate="footer">
+            <p-button label="Detalles" icon="pi pi-check" (click)="redirect(curso.planificationCourseId)"></p-button>
+          </ng-template>
+        </p-card>
+      </div>
     </div>
   </div>
+
+  <div class="flex align-items-center justify-content-end mt-4">
+    <span class="mx-1 text-color">Items per page: </span>
+    <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows" (ngModelChange)="currentPage = 1"></p-dropdown>
+    <p-paginator
+      [rows]="rows"
+      [totalRecords]="cursos.length"
+      (onPageChange)="onPageChange($event)"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="{first} - {last} of {totalRecords}"
+      [showPageLinks]="false"
+      [showFirstLastIcon]="false"
+    ></p-paginator>
+  </div>
+
+  
 </div>

@@ -73,6 +73,14 @@ export class CursoComponent implements OnInit {
   cursosFiltrados: Curso[] = [];
   filtroNombre: string = '';
   ascendingOrder: boolean = true;
+  options: any[] = [
+    { label: '5', value: 5 },
+    { label: '10', value: 10 },
+    { label: '15', value: 15 },
+    { label: '20', value: 20 },
+  ];
+  currentPage: number = 1; // Variable para la paginación
+  rows: number = 5; // 
 
   constructor(
     private cursoService: CursoService,
@@ -89,6 +97,7 @@ export class CursoComponent implements OnInit {
         .subscribe((cursos) => {
           console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
           this.cursos = cursos;
+          this.filtrarCursos();
           // Filtrar los cursos por estado "aprobado"
           //TOCA AGREGAR ESE MISMO FILTRO EN LA PARTE DEL BACKEND YA LO HAGO ... ANDERSON
           // this.cursos = cursos.filter(
@@ -96,6 +105,28 @@ export class CursoComponent implements OnInit {
           // );
         });
     });
+  }
+
+  filtrarCursosPorNombre() {
+    if (!this.filtroNombre) {
+      // Si el campo de búsqueda está vacío, mostrar todos los cursos
+      this.cursosFiltrados = [...this.cursos];
+    } else {
+      // Filtrar los cursos por nombre en base al texto ingresado en el campo de búsqueda
+      this.cursosFiltrados = this.cursos.filter(curso =>
+        curso.planificationCourse.name.toLowerCase().includes(this.filtroNombre.toLowerCase())
+      );
+    }
+    this.currentPage = 1; // Reiniciar la página actual al aplicar el filtro
+  }
+
+  cumpleFiltro(curso: Curso): boolean {
+    if (!this.filtroNombre) {
+      return true; // Mostrar el curso si el filtro está vacío
+    }
+    const nombreCurso = curso.planificationCourse.name.toLowerCase();
+    const filtro = this.filtroNombre.toLowerCase();
+    return nombreCurso.includes(filtro); // Mostrar el curso si el nombre cumple con el filtro
   }
 
   filtrarCursos(): void {
@@ -130,4 +161,10 @@ export class CursoComponent implements OnInit {
       cursoId,
     ]);
   }
+
+  onPageChange(event: any) {
+    this.currentPage = event.page + 1; // Actualizar la página actual al cambiar de página en la paginación
+  }
 }
+
+
