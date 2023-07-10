@@ -32,7 +32,6 @@ import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
-import { NgProgressModule } from 'ngx-progressbar';
 
 //Socket.io
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -41,6 +40,9 @@ const config: SocketIoConfig = {
   url: environment.HOST2,
   options: { transports: ['websocket'] },
 };
+
+//Ngx Progress Bar
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
