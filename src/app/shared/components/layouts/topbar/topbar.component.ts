@@ -24,7 +24,6 @@ import { Socket } from 'ngx-socket-io';
 export class TopbarComponent implements OnInit {
   @Output() notification = new EventEmitter<boolean>();
   display = false;
-  /* items: MenuItem[] = []; */
   visibleSidebar: boolean = false;
   showNav: boolean = true;
   items!: MenuItem[];
@@ -58,7 +57,7 @@ export class TopbarComponent implements OnInit {
         console.log('cliente global', data[0]);
         this.user = data[0];
         this.name = this.user?.names;
-        this.socket.emit('app:sendUser', this.user);
+        this.socket.emit('app:sendUser', data[0]);
       },
       error: (error) => {
         console.error(error);

@@ -70,6 +70,7 @@
     [value]="careers"
     [paginator]="true"
     [rows]="5"
+     [loading]="(loading$ | async)!"
   >
     <ng-template pTemplate="header" let-columns>
       <tr>
@@ -125,6 +126,17 @@
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="summary"> your summary template </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        Actualmente hay
+        {{ careers ? careers.length : 0 }}
+        carreras
+      </div>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" style="width: 100%">No hay carreras</td>
+      </tr>
+    </ng-template>
   </p-table>
 </p-card>

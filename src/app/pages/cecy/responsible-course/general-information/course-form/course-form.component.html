@@ -521,7 +521,7 @@
             label="Guardar"
             type="submit"
             class="p-button-rounded"
-            icon="pi pi-save"
+            [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
           ></button>
         </div>
       </div>

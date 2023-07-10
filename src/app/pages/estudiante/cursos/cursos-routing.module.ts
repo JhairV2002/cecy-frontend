@@ -8,6 +8,7 @@ import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudi
 import { FormularioRegistroComponent } from './formulario-registro/formulario-registro.component';
 import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/formulario-inicio-sesion.component';
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
+import { NotFoundComponent } from '../../core/common/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -50,10 +51,18 @@ const routes: Routes = [
     path: 'formInscription/:id',
     component: InscriptionFormComponent,
   },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CursosRoutingModule { }
+export class CursosRoutingModule {}

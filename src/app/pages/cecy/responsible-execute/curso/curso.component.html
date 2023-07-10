@@ -1,39 +1,40 @@
-<div class="text-center p-5">
-  <h1 class="text-5xl font-bold">Mis Cursos</h1>
+<div class="text-center">
+  <h1 class="text-3xl font-bold">Mis Cursos</h1>
 </div>
-
-<div class="flex justify-end items-center space-x-4 p-4">
-  <div class="relative">
-    <input
-      type="text"
-      #inputSearch
-      class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-      placeholder="Buscar"
-      [(ngModel)]="filtroNombre"
-      (input)="filtrarCursos()"
-    />
-    <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
-      <svg
-        class="h-5 w-5 text-gray-400"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 15l5-5-5-5"
-        />
-      </svg>
+<p-toolbar>
+  <div class="p-toolbar-group-end">
+    <div class="relative">
+      <input
+        type="text"
+        #inputSearch
+        class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Buscar"
+        [(ngModel)]="filtroNombre"
+        (input)="filtrarCursos()"
+      />
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
+        <svg
+          class="h-5 w-5 text-gray-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 15l5-5-5-5"
+          />
+        </svg>
+      </div>
     </div>
+    <button class="btn btn-primary ml-4" (click)="sortCards()">Ordenar</button>
   </div>
-  <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
-</div>
+</p-toolbar>
 
 <div class="row">
   <div
-    class="col-md-4 p-4"
+    class="col-md-4 mt-2"
     style="display: inline-block; width: 33%"
     *ngFor="let curso of cursos; let i = index"
   >

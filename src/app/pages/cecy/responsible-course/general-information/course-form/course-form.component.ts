@@ -33,7 +33,7 @@ import { Sponsor } from '@models/cecy-v1/sponsor.model';
 export class CourseFormComponent implements OnInit {
   @Input() selectedCourse: any;
   // private seletedCourse$ = this.coursesHttpService.seletedCourse$;
-
+  loading$ = this.courseService.loading$;
   public progessBar: boolean = false;
   courseStatus: any = '';
 
@@ -103,7 +103,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn(this.selectedCourse)
+    console.warn(this.selectedCourse);
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();

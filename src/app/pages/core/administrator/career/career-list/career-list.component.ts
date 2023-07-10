@@ -11,6 +11,7 @@ import { MessageService } from '@services/core';
   styleUrls: ['./career-list.component.css'],
 })
 export class CareerListComponent implements OnInit {
+  loading$ = this.careerService.loading$;
   selectedCareer: any = null;
   cols: ColModel[];
   isVisible: boolean = false;

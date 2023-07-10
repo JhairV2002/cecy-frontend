@@ -26,7 +26,7 @@
     "daisyui": "2.51.6",
     "date-fns": "2.30.0",
     "jwt-decode": "3.1.2",
-    "ngx-progressbar": "11.0.0",
+    "ngx-progressbar": "^11.1.0",
     "ngx-socket-io": "4.5.1",
     "pdfmake": "0.1.72",
     "primeicons": "6.0.1",

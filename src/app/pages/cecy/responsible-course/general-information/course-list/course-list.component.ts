@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class CourseListComponent implements OnInit {
+  loading$ = this.authService.loading$;
   items: MenuItem[] = []; // optional
   selectedPlanification: number = 0;
 

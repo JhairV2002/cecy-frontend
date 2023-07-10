@@ -1,37 +1,104 @@
-<ul class="layout-menu">
-  <p-menu
-    *ngIf="user?.role?.name === 'admin'"
-    [style]="{ width: '270px' }"
-    [model]="itemsAdmin"
-  ></p-menu>
-  <p-menu
-    *ngIf="user?.role?.name === 'coordinator_career'"
-    [style]="{ width: '280px' }"
-    [model]="itemsCoordinatorCareer"
-  ></p-menu>
-  <p-menu
-    *ngIf="user?.role?.name === 'coordinator_cecy'"
-    [style]="{ width: '280px' }"
-    [model]="itemsCoordinatorCecy"
-  ></p-menu>
-  <p-menu
-    *ngIf="user?.role?.name === 'responsible_course'"
-    [style]="{ width: '280px' }"
-    [model]="itemsDocente"
-  ></p-menu>
-  <p-menu
-    *ngIf="user?.role?.name === 'instructor_execute'"
-    [style]="{ width: '280px' }"
-    [model]="itemsInstructorExecute"
-  ></p-menu>
-  <p-menu
-    *ngIf="user?.role?.name === 'student'"
-    [style]="{ width: '280px' }"
-    ></p-menu>
-    <!-- [model]="(carreras$ | async)!" -->
-  <p-menu
-    *ngIf="user?.role?.name === 'secretary_cecy'"
-    [style]="{ width: '280px' }"
-    [model]="itemsSecretary"
-  ></p-menu>
-</ul>
+<p-menu
+  *ngIf="user?.role?.name === 'admin'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsAdmin"
+></p-menu>
+<p-menu
+  *ngIf="user?.role?.name === 'coordinator_career'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsCoordinatorCareer"
+></p-menu>
+<p-menu
+  *ngIf="user?.role?.name === 'coordinator_cecy'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsCoordinatorCecy"
+></p-menu>
+<p-menu
+  *ngIf="user?.role?.name === 'responsible_course'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsDocente"
+></p-menu>
+<p-menu
+  *ngIf="user?.role?.name === 'instructor_execute'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsInstructorExecute"
+></p-menu>
+
+<p-menu
+  *ngIf="user?.role?.name === 'student'"
+  [style]="{ width: 'auto' }"
+></p-menu>
+<!-- [model]="(carreras$ | async)!" -->
+<p-menu
+  *ngIf="user?.role?.name === 'secretary_cecy'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsSecretary"
+></p-menu>
+
+<div class="border-round border-1 p-4" *ngIf="loading">
+  <ul class="m-0 p-0 list-none">
+    <li class="mb-3">
+      <div class="flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+    <li class="mb-3">
+      <div class="flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+    <li class="mb-3">
+      <div class="flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="mb-3 flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+    <li class="mb-3">
+      <div class="flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+    <li class="mb-3">
+      <div class="flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+    <li class="mb-3">
+      <div class="flex">
+        <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+        <div style="flex: 1">
+          <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+          <p-skeleton width="75%"></p-skeleton>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
