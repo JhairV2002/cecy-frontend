@@ -46,6 +46,10 @@ export class EstudiantesService {
       });
   }
 
+  updateEstudiante(body: Estudiantes): Observable<Estudiantes> {
+    return this.http.put<Estudiantes>(`${this.url}${body.id}/`, body);
+  }
+
   cerrarSesion() {
     this.tokenService.removeEstudianteAuth();
     this.estudianteActualSubject.next(null);

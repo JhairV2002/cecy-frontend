@@ -35,7 +35,7 @@
         class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li class="justify-between cursor-pointer">
-          <a>Perfil</a>
+          <a [routerLink]="['perfil']">Perfil</a>
           <a [routerLink]="['mis-cursos']">Mis Cursos</a>
           <button (click)="cerrarSesion()">Cerrar Sesión</button>
         </li>

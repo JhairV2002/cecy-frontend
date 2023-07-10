@@ -22,6 +22,7 @@ import { CmbCoursesComponent } from './inscription-form/cmb-courses/cmb-courses.
 import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publicity.component';
 import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
 import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
+import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-c
     CmbPublicityComponent,
     MisCursosComponent,
     MisCursosDetailsComponent,
+    PerfilEstudianteComponent,
   ],
   imports: [
     CommonModule,

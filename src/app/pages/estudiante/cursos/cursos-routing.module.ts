@@ -10,6 +10,7 @@ import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/form
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
 import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
 import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
+import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,10 @@ const routes: Routes = [
   {
     path: 'mis-cursos/details',
     component: MisCursosDetailsComponent,
+  },
+  {
+    path: 'perfil',
+    component: PerfilEstudianteComponent,
   },
 ];
 
