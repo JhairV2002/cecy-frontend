@@ -175,7 +175,7 @@ export class CourseFormComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
-          this.messageService.errorValid(error);
+          this.messageService.error(error);
           this.progressBar = false;
         },
       });

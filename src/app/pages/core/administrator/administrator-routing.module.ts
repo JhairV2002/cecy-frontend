@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { CareerComponent } from './career/career.component';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
+import { NotFoundComponent } from '../common/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,8 @@ const routes: Routes = [
       { path: 'users', component: UserComponent },
       { path: 'roles', component: RoleComponent },
       { path: 'careers', component: CareerComponent },
+      { path: 'not-found', component: NotFoundComponent },
+      { path: '**', redirectTo: 'not-found' },
     ],
   },
 ];

@@ -24,16 +24,16 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      return this.authService.user$.pipe(
-        map((user: any) => {
-          console.log('Usuario admin logueado', user);
-          if (user[0].role === 'admin') {
-            return true;
-          } else {
-            this.router.navigate(['/login']);
-            return false;
-          }
-        })
-      );
+    return this.authService.user$.pipe(
+      map((user: any) => {
+        console.log('Usuario admin logueado', user);
+        if (user[0].role === 'admin') {
+          return true;
+        } else {
+          this.router.navigate(['/login']);
+          return false;
+        }
+      })
+    );
   }
 }

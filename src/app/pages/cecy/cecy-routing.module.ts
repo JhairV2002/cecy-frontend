@@ -1,15 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RolesEnum } from '@shared/enums/roles.enum';
-//import { TokenGuard } from '@shared/guards/token.guard';
-import { DashboardComponent } from './coordinator-career/dashboard/dashboard.component';
-import { AuthGuard } from './../../guards/auth.guard';
-import { RoleGuard } from './../../guards/role.guard';
-
 import { MainComponent } from '@layout/main/main.component';
 import { HasRoleGuard } from 'src/app/guards/has-role.guard';
-import { HasTokenGuard } from 'src/app/guards/has-token.guard';
-import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
+import { NotFoundComponent } from '../core/common/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -151,28 +144,20 @@ const routes: Routes = [
             (m) => m.SecretaryCecyModule
           ),
       },
+      {
+        path: 'not-found',
+        component: NotFoundComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'not-found',
+      },
     ],
   },
-  // {
-  //   path: 'estudiante',
-  //   component: EstudiantesComponent,
-  //   children: [
-  //     {
-  //       path: 'cursos',
-  //       loadChildren: () =>
-  //         import('./cursos/cursos.module').then((m) => m.CursosModule),
-  //     },
-  //     {
-  //       path: 'student',
-  //       loadChildren: () =>
-  //         import('./student/student.module').then((m) => m.StudentModule),
-  //     },
-  //   ],
-  // },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CecyRoutingModule { }
+export class CecyRoutingModule {}

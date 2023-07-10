@@ -1,15 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as themes from '@assets/themes/themes.json';
-import {PermissionModel, RoleModel, UserModel} from '@models/core';
+import { PermissionModel, RoleModel, UserModel } from '@models/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-
-  constructor() {
-  }
+  constructor() {}
 
   changeTheme(theme: string) {
     // const themePath = themes.find(element => element.name == theme)?.path;
