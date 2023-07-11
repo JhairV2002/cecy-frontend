@@ -226,69 +226,70 @@ onGlobalFilter(table: Table, event: Event) {
 
 
   // //genera sertificados
-  // public generateCertificates():void {
+   public generateCertificates():void {
+    console.log(JSON.stringify( this.solicitudCertificadoService.tipoCertificado))
+
+     this.reportEntity.reportes.forEach(
+       (res)=>{
+         if(res.certificado==null){
+           this.certificadoEntity={
+
+             estado:true,
+             fecha: new Date(),
+             tipoCertificado: this.solicitudCertificadoService.tipoCertificado
+           };
+           console.log("se a creado un nuevo certificado");
+
+         }
+         if(res.certificado!=null){
+           // this.certificadoEntity={
+           //   id:res.certificado.id,
+           //   estado:res.certificado.estado,
+           //   fecha: res.certificado.fecha
+           // };
+
+           console.log("existe un certificado")
+          return ;
+
+         }
 
 
-  //   this.reportEntity.reportes.forEach(
-  //     (res)=>{
-  //       if(res.certificado==null){
-  //         this.certificadoEntity={
+        this.estudentEntity={
+           id: res.matriculas.estudiantes.id,
+           cedula: res.matriculas.estudiantes.cedula,
+           fechaNacimiento: res.matriculas.estudiantes.fechaNacimiento,
+          nombres: res.matriculas.estudiantes.nombres,
+           apellidos: res.matriculas.estudiantes.apellidos,
+           email:res.matriculas.estudiantes.email
+         };
 
-  //           estado:true,
-  //           fecha: new Date()
-  //         };
-  //         console.log("se a creado un nuevo certificado");
+         this.matriculaEntity={
+             id:res.matriculas.id,
+             estudiantes:this.estudentEntity
 
-  //       }
-  //       if(res.certificado!=null){
-  //         // this.certificadoEntity={
-  //         //   id:res.certificado.id,
-  //         //   estado:res.certificado.estado,
-  //         //   fecha: res.certificado.fecha
-  //         // };
+         };
 
-  //         console.log("existe un certificado")
-  //         return ;
+         this.codeEntity={
+           id:res.id,
+           codigo:res.codigo,
+           matriculas:this.matriculaEntity,
+           certificado: this.certificadoEntity
 
-  //       }
+         };
 
 
-  //       this.estudentEntity={
-  //         id: res.matriculas.estudiantes.id,
-  //         cedula: res.matriculas.estudiantes.cedula,
-  //         fechaNacimiento: res.matriculas.estudiantes.fechaNacimiento,
-  //         nombres: res.matriculas.estudiantes.nombres,
-  //         apellidos: res.matriculas.estudiantes.apellidos,
-  //         email:res.matriculas.estudiantes.email
-  //       };
+         if(this.generate){
+           console.log('validacion de generacion de ceertificado true')
+           return
+         }
+         this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe();
+         console.log(JSON.stringify(this.codeEntity))
+       }
 
-  //       this.matriculaEntity={
-  //           id:res.matriculas.id,
-  //           estudiantes:this.estudentEntity
-
-  //       };
-
-  //       this.codeEntity={
-  //         id:res.id,
-  //         codigo:res.codigo,
-  //         matriculas:this.matriculaEntity,
-  //         certificado: this.certificadoEntity
-
-  //       };
-
-  //       //console.log(JSON.stringify(this.codeEntity))
-  //       if(this.generate){
-  //         console.log('validacion de generacion de ceertificado true')
-  //         return
-  //       }
-  //       this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe();
-
-  //     }
-
-  //   )
-  //   this.generate=true;
-  //   console.log('primera ves generado',this.generate)
-  // }
+     )
+     this.generate=true;
+     console.log('primera ves generado',this.generate)
+  }
 
 
 

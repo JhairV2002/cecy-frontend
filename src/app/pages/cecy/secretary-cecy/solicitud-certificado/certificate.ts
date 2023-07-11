@@ -1,3 +1,17 @@
+import { Firmas } from "./firma";
+
+//Sirve para identificar el tipo de certificado que se va a generar
+export interface TipoCertificado{
+  id?: number,
+  tipo?: string,
+  firmas?: tipo[]
+}
+
+export interface tipo{
+  rol: string,
+  firma: Firmas
+}
+
 export interface Codes{
     id:number,
     codigo:string,
@@ -18,6 +32,7 @@ export interface Certificate{
     id?:number,
     estado?: boolean,
     fecha?:Date;
+    tipoCertificado?:TipoCertificado
 }
 
 export interface Report{

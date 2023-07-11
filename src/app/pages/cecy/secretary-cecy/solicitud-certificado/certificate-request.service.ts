@@ -7,15 +7,23 @@ import {
   Codes,
   Firms,
   Report,
-  UpdateCode, } from './certificate';
+  TipoCertificado,
+  UpdateCode,
+  tipo, } from './certificate';
   import { Firmas } from './firma';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CertificateRequestService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+    ) { }
 
+
+  tipoCertificado: TipoCertificado = {
+    id: 0
+  }
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -58,5 +66,9 @@ export class CertificateRequestService {
       this.apiUrl3 + '/api/firma/',
       this.httpOptions
     );
+  }
+
+  postTypeCertificate(tipoCertificado:TipoCertificado): Observable<TipoCertificado>{
+    return this.http.post(this.apiUrl3+'/api/tipo-certificado/',tipoCertificado);
   }
 }
