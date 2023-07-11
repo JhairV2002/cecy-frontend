@@ -25,7 +25,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -54,6 +54,7 @@ import { PaginatorModule } from 'primeng/paginator';
     DividerModule,
     CardModule,
     PaginatorModule,
+    ProgressSpinnerModule,
   ],
 })
 export class ResponsibleExecuteModule { }

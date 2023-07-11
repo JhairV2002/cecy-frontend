@@ -4,12 +4,10 @@ export interface PlanificationCourse {
   name: string;
   state: string;
 }
-
 export interface Workday{
   id: number;
   name: string;
 }
-
 export interface Curso {
   id: number;
   workday: Workday;
