@@ -24,6 +24,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import {FileUploadModule} from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { CardModule } from 'primeng/card';
     FileUploadModule,
     DividerModule,
     CardModule,
+    PaginatorModule,
   ],
 })
 export class ResponsibleExecuteModule { }
