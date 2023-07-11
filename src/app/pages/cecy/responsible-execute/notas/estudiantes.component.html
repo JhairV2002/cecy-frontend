@@ -1,10 +1,12 @@
 <div class="p-grid p-dir-col">
-   <div class="p-col p-d-flex p-justify-between p-mb-3">
+  <div class="p-col p-d-flex p-justify-between p-mb-3">
     <div class="p-d-flex" id="nav">
-      <button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left" (click)="regresar()">
+      <button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left"
+        (click)="regresar()">
         ㅤVolver
       </button>
-      <button pButton  type="button" id="asistencia" class="p-button p-button-primary p-ml-2" icon="pi pi-user-plus" (click)="redireccionar()">
+      <button pButton type="button" id="asistencia" class="p-button p-button-primary p-ml-2" icon="pi pi-user-plus"
+        (click)="redireccionar()">
         ㅤAsistencia
       </button>
     </div>
@@ -12,11 +14,12 @@
       <h1 class="text-3xl font-semi-bold">Listado de Estudiantes</h1>
     </div>
     <div class="p-col-auto p-ml-auto">
-      <div  id="search" class="p-inputgroup">
+      <div id="search" class="p-inputgroup">
         <span id="buscar1" class="p-inputgroup-addon">
           <i class="pi pi-search"></i>
         </span>
-        <input pInputText id="buscar" type="text" placeholder="Buscar por nombre" [(ngModel)]="nombreFiltrado" (input)="filtrarPorNombre()" />
+        <input pInputText id="buscar" type="text" placeholder="Buscar por nombre" [(ngModel)]="nombreFiltrado"
+          (input)="filtrarPorNombre()" />
       </div>
     </div>
   </div>
@@ -26,9 +29,9 @@
       <ng-template pTemplate="header">
         <tr>
           <th>NOMBRE</th>
-          <th>% ASISTENCIA</th>
           <th>NOTA 1</th>
           <th>NOTA 2</th>
+          <th>% ASISTENCIA</th>
           <th>PROMEDIO</th>
           <th>ESTADO</th>
           <th>ACCIONES</th>
@@ -37,10 +40,7 @@
       <ng-template pTemplate="body" let-matricula>
         <tr>
           <td>{{ matricula.estudiantes ? matricula.estudiantes.nombres : "Sin Estudiante" }}</td>
-          <td>
-            <p-inputNumber id="asistencia" [(ngModel)]="matricula.asistencia" placeholder="Ingrese el % asistencia" [min]="1" [max]="100"
-              [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
-          </td>
+          
           <td>
             <p-inputNumber id="nota1" [(ngModel)]="matricula.nota1" placeholder="Ingrese una nota" [min]="1" [max]="100"
               [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
@@ -49,10 +49,16 @@
             <p-inputNumber id="nota2" [(ngModel)]="matricula.nota2" placeholder="Ingrese una nota" [min]="1" [max]="100"
               [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
           </td>
+          <td>
+            <p-inputNumber id="asistencia" [(ngModel)]="matricula.asistencia" placeholder="Ingrese el % asistencia"
+              [min]="1" [max]="100" [showButtons]="true" [buttonLayout]="'horizontal'"
+              (keydown)="validarNumero($event)"></p-inputNumber>
+          </td>
           <td>{{ matricula.promedio }}</td>
           <td>{{ matricula.estadoCurso.descripcion }}</td>
           <td>
-            <button pButton type="button" class="p-button p-button-rounded p-button-success" (click)="guardarNotas(matricula)">
+            <button pButton type="button" class="p-button p-button-rounded p-button-success"
+              (click)="guardarNotas(matricula)">
               Guardar
             </button>
           </td>
@@ -62,6 +68,7 @@
   </div>
 
   <div class="p-col p-text-center">
-    <button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel" (click)="generarExcel()">ㅤGenerar Excel</button>
+    <button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel"
+      (click)="generarExcel()">ㅤGenerar Excel</button>
   </div>
 </div>
