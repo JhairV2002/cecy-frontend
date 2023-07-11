@@ -26,6 +26,7 @@
       <ng-template pTemplate="header">
         <tr>
           <th>NOMBRE</th>
+          <th>% ASISTENCIA</th>
           <th>NOTA 1</th>
           <th>NOTA 2</th>
           <th>PROMEDIO</th>
@@ -36,6 +37,10 @@
       <ng-template pTemplate="body" let-matricula>
         <tr>
           <td>{{ matricula.estudiantes ? matricula.estudiantes.nombres : "Sin Estudiante" }}</td>
+          <td>
+            <p-inputNumber id="asistencia" [(ngModel)]="matricula.asistencia" placeholder="Ingrese el % asistencia" [min]="1" [max]="100"
+              [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
+          </td>
           <td>
             <p-inputNumber id="nota1" [(ngModel)]="matricula.nota1" placeholder="Ingrese una nota" [min]="1" [max]="100"
               [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>

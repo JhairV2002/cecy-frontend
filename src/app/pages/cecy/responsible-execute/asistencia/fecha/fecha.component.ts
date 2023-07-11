@@ -43,6 +43,12 @@ export class FechaComponent {
     });
   }
 
+  regresar() {
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.router.navigate([`cecy/responsible-execute/notas/estudiante/:cursoId`]);
+    });
+  }
+
   fechas$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.asistenciaService.obtenerFechas(parseInt(param.get('cursoId')!))
