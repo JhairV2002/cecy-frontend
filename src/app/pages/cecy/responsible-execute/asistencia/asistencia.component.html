@@ -1,72 +1,13 @@
 <p-button label="Fecha" (click)="redireccionar()" styleClass="p-button-success"></p-button>&nbsp;&nbsp;
-<p-button label="Registro Fotografico" (click)="redireccionar()" styleClass="p-button-success"></p-button>
-<!-- <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp; -->
-<br>
 <br>
 <p-toolbar>
   <h1>Creación de Asistencia</h1>
   <div class="p-toolbar-group-start">
     <label for="fecha">Fecha:</label>
-    <p-calendar [(ngModel)]="asistenciaForm.fecha"></p-calendar>
-  </div>
-  <div class="p-toolbar-group-end">
-    <label class="ml-2" for="duracionClase">Duración de la clase:</label>
-    <input type="time" id="duracionClase" name="duracionClase" min="01:00" max="02:00"
-      [(ngModel)]="asistenciaForm.duracionClase" class="ml-2" />
+    <p-calendar [(ngModel)]="asistenciaForm.fecha" class="ml-2"></p-calendar>
   </div>
 </p-toolbar>
 <br>
-<!-- {{ estudiantes$ | async | json }} -->
-<!-- {{ asistenciaForm | json }} -->
-<p-fieldset legend="Leyenda" [toggleable]="true">
-  <ul class="text-black">
-    <a class="ml-90" >P=PRESENTE</a>
-    <a class="ml-80">A=AUSENTE</a>
-    <a >FJ=FALTA JUSTIFICADA</a>
-  </ul>
-</p-fieldset>
-<br>
-<h2 class="text-3xl font-bold light:text-black">LISTA DE ESTUDIANTES</h2>
-<!-- <div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
-      <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs bg-gray-50 text-gray-700">
-          <tr class="bg-white border-b hover:bg-gray-50 text-lg">
-            <th>Nombres</th>
-            <th>P</th>
-            <th>A</th>
-            <th>FJ</th>
-          </tr>
-        </thead>
-        <tbody class="text-lg">
-          <tr *ngIf="
-              asistenciaForm.id === 0;
-              then nuevaAsistencia;
-              else actualizarAsistencia
-            "></tr>
-        </tbody>
-      </table>
-  </div> -->
-
-  <p-table [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Nombres</th>
-            <th>P</th>
-            <th>A</th>
-            <th>FJ</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-      <tbody class="text-lg">
-        <tr *ngIf="
-            asistenciaForm.id === 0;
-            then nuevaAsistencia;
-            else actualizarAsistencia
-          "></tr>
-      </tbody>
-    </ng-template>
-</p-table>
-  <br>
   <p-fieldset legend="Observaciones:">
     <div class="flex flex-col flex-wrap gap-4">
       <ul>
@@ -86,51 +27,3 @@
   </form>
   <br>
 <p-button label="Guardar" (click)="guardar()" styleClass="p-button-success"></p-button>&nbsp;&nbsp;
-
-  <!-- <div class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box block text-white bg-blue-700  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-rigth ">
-    <h3 class="font-bold text-lg text-white text-center " >SE REGISTRO CORRECTAMENTE</h3>
-    <div class="modal-action">
-      <label for="my-modal-ca-6" class="btn btn-accent" routerLink="../asistencia" >ACEPTAR</label>
-    </div>
-  </div>
-</div> -->
-
-
-<ng-template #actualizarAsistencia>
-  <tr *ngFor="let estudiante of asistenciaForm.detalleAsistencia">
-    <div *ngFor="let est of estudiante.matriculas">
-      <th>{{ est.estudiantes!.nombres }}</th>
-      <td>
-        <input #radioPresente type="radio" [name]="est.id" id="Presente" class="form-check-input"
-          (change)="cambioEstado(radioPresente.id, est)" />
-      </td>
-      <td>
-        <input #radioAusente type="radio" [name]="est.id" id="Ausente" class="form-check-input"
-          (change)="cambioEstado(radioAusente.id, est)" />
-      </td>
-      <td>
-        <input #radioFaltaJustificada type="radio" [name]="est.id" id="Falta Justificada" class="form-check-input"
-          (change)="cambioEstado(radioFaltaJustificada.id, est)" />
-      </td>
-    </div>
-  </tr>
-</ng-template>
-
-<ng-template #nuevaAsistencia>
-  <tr *ngFor="let estudiante of (estudiantes$ | async)!">
-    <th>{{ estudiante.estudiantes!.nombres }}</th>
-    <td>
-      <input #radioPresente type="radio" [name]="estudiante.id" id="Presente" class="form-check-input"
-        (change)="cambioEstado(radioPresente.id, estudiante)" />
-    </td>
-    <td>
-      <input #radioAusente type="radio" [name]="estudiante.id" id="Ausente" class="form-check-input"
-        (change)="cambioEstado(radioAusente.id, estudiante)" />
-    </td>
-    <td>
-      <input #radioFaltaJustificada type="radio" [name]="estudiante.id" id="Falta Justificada" class="form-check-input"
-        (change)="cambioEstado(radioFaltaJustificada.id, estudiante)" />
-    </td>
-  </tr>
-</ng-template>
