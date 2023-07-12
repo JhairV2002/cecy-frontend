@@ -115,6 +115,8 @@ export class EstudiantesComponent implements OnInit {
         Nota2: nota.nota2,
         Promedio: nota.promedio,
         Estado: nota.estadoCurso.descripcion
+      
+       
       };
     });
 
