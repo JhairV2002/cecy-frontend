@@ -74,8 +74,8 @@ export class DetailPlanificationFormComponent implements OnInit {
     return this.formBuilder.group({
       id: [null],
       dayId: [null, Validators.required],
-      classroomId: [null, Validators.required],
-      parallelId: [null, Validators.required],
+      classroomId: [null],
+      parallelId: [null],
       planificationCourseId: [null],
       workdayId: [null, Validators.required],
       endedTime: [null, Validators.required],

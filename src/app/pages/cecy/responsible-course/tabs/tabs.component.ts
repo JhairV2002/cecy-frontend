@@ -57,7 +57,8 @@ export class TabsComponent implements OnInit, OnChanges {
         .planificationById(id)
         .subscribe((data) => {
           this.selectedCourse = data;
-          console.log('selected course target', this.selectedCourse.course.targetGroups)
+
+          console.warn('selected course target', this.selectedCourse)
           if (this.selectedCourse.course.targetGroups == null) {
             this.reviewPlan(this.selectedCourse.name)
           }
