@@ -15,8 +15,8 @@
   <p-fieldset legend="Observaciones:">
     <div class="flex flex-col flex-wrap gap-4">
       <ul>
-        <li *ngFor="let observacion of asistenciaForm.observacion">
-          {{ observacion }}
+        <li *ngFor="let observacion of asistenciaForm.observaciones">
+          {{ observacion.descripcion }}
         </li>
       </ul>
       <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"

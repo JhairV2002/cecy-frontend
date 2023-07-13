@@ -130,6 +130,6 @@ export class AsistenciaComponent implements OnInit {
     this.observacionesForm = {
       descripcion: '',
       completado: false,
-    };
-  }
+    };
+  }
 }
