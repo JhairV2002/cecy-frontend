@@ -16,7 +16,7 @@ export const environment = {
   API_URL_PUBLIC: HOST + '/api/v1/public',
   api2: HOST2 + '/api/v1',
   api3: HOST3,
-  api4: HOST4,
+  api4: HOST4+ '/api',
 
 };
 

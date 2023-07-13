@@ -28,9 +28,9 @@ export class CertificateRequestService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private apiUrl = `${environment.api4}/api/reporte`;
-  private apiUrl1 = `${environment.api4}/api/codigo`;
-  private apiUrl2 = `${environment.api4}/api/certificado`;
+  private apiUrl = `${environment.api4}/reporte`;
+  private apiUrl1 = `${environment.api4}/codigo`;
+  private apiUrl2 = `${environment.api4}/certificado`;
   private apiUrl3 = `${environment.api4}`;
 
 
@@ -54,21 +54,21 @@ export class CertificateRequestService {
   }
 
   uploadFile(formData: FormData): Observable<any>{
-    return this.http.post(this.apiUrl3+'/api/media/subir', formData);
+    return this.http.post(this.apiUrl3+'/media/subir', formData);
   }
 
   public subirfirma(firmas: Firmas): Observable<any>{
-    return this.http.post(this.apiUrl3+'/api/firma/',firmas);
+    return this.http.post(this.apiUrl3+'/firma/',firmas);
   }
 
   public findAllFirms(): Observable<Firms[]> {
     return this.http.get<Firms[]>(
-      this.apiUrl3 + '/api/firma/',
+      this.apiUrl3 + '/firma/',
       this.httpOptions
     );
   }
 
   postTypeCertificate(tipoCertificado:TipoCertificado): Observable<TipoCertificado>{
-    return this.http.post(this.apiUrl3+'/api/tipo-certificado/',tipoCertificado);
+    return this.http.post(this.apiUrl3+'/tipo-certificado/',tipoCertificado);
   }
 }
