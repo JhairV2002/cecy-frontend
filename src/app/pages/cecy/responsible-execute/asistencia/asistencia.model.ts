@@ -3,19 +3,18 @@ import { Matricula } from '@models/cecy/estudiantes/carreras';
 
 export interface Asistencia {
   id: number;
-  periodo: string;
   cursoId: number;
   evidenciaFotografica: string;
-  duracionClase: string;
   fecha: String;
   detalleAsistencia: DetalleAsistencia[];
-  observaciones: {
+  observacion: string;
+  /* observaciones: {
     id?: number | null;
     descripcion: string;
     completado: boolean;
     createdAt?: string | null;
     updatedAt?: string | null;
-  }[];
+  }[]; */
 }
 
 export interface DetalleAsistencia {

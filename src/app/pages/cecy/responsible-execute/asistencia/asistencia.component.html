@@ -4,20 +4,19 @@
       </button>
 <br>
 <br>
-
 <p-toolbar>
-  <h1>Creación de Asistencia</h1>
   <div class="p-toolbar-group-start">
-    <label for="fecha">Fecha:</label>
-    <p-calendar [(ngModel)]="asistenciaForm.fecha" class="ml-2"></p-calendar>
+    <h1>Creación de Asistencia</h1>
+    <label for="fecha" class="ml-40">Fecha:</label>
+    <p-calendar [(ngModel)]="asistenciaForm.fecha"></p-calendar>
   </div>
 </p-toolbar>
 <br>
   <p-fieldset legend="Observaciones:">
     <div class="flex flex-col flex-wrap gap-4">
       <ul>
-        <li *ngFor="let observacion of asistenciaForm.observaciones">
-          {{ observacion.descripcion }}
+        <li *ngFor="let observacion of asistenciaForm.observacion">
+          {{ observacion }}
         </li>
       </ul>
       <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"
