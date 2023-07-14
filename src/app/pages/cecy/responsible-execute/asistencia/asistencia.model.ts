@@ -21,5 +21,5 @@ export interface Asistencia {
 export interface DetalleAsistencia {
   id?: number;
   estado: Catalogue;
-  matriculas: Matricula[];
+  matriculas: Matricula[];
 }
