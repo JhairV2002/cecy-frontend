@@ -37,10 +37,11 @@ export class AsistenciaComponent implements OnInit {
   asistencias: Asistencia[] | null = null;
   asistenciaForm: Asistencia = {
     id: 0,
+    periodo: '2024',
     cursoId: 0,
     evidenciaFotografica: '',
+    duracionClase: '',
     fecha: '',
-    observacion: '',
     detalleAsistencia: [
       {
         estado: {
@@ -62,7 +63,7 @@ export class AsistenciaComponent implements OnInit {
         matriculas: [],
       },
     ],
-    /* observaciones: [], */
+    observaciones: [],
   };
   // cambio de estado del estudiante
   cambioEstado(estadoAsis: string, estudiante: Matricula) {
@@ -125,7 +126,7 @@ export class AsistenciaComponent implements OnInit {
   }
 
   agregarObservacion() {
-    this.asistenciaForm.observacion.push(this.observacionesForm);
+    this.asistenciaForm.observaciones.push(this.observacionesForm);
     this.observacionesForm = {
       descripcion: '',
       completado: false,

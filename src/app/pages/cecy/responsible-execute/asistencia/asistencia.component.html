@@ -15,28 +15,14 @@
   <p-fieldset legend="Observaciones:">
     <div class="flex flex-col flex-wrap gap-4">
       <ul>
-        <li *ngFor="let observacion of asistenciaForm.observacion">
-          {{ asistencias.observacion }}
+        <li *ngFor="let observacion of asistenciaForm.observaciones">
+          {{ observacion.descripcion }}
         </li>
       </ul>
       <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"
         placeholder="Escriba su observacion" style="resize: none"></textarea>
       <p-button label="Agregar Observacion" (click)="agregarObservacion()"></p-button>
     </div>
-</p-fieldset>
-
-<br>
-<p-fieldset legend="Evidencia Fotografica:">
-  <div class="flex flex-col flex-wrap gap-4">
-    <ul>
-      <li *ngFor="let observacion of asistenciaForm.observacion">
-        {{ asistencias.observacion }}
-      </li>
-    </ul>
-    <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"
-      placeholder="Escriba su observacion" style="resize: none"></textarea>
-    <p-button label="Agregar Observacion" (click)="agregarObservacion()"></p-button>
-  </div>
 </p-fieldset>
 <br>
 <p-fileUpload mode="basic" chooseLabel="Evidencia fotografica" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"></p-fileUpload>
