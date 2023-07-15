@@ -27,11 +27,34 @@ export class UserService {
     );
   }
 
+  getAssistants() {
+    this.loading.next(true);
+    return this.http.get<User[]>(`${this.apiUrl}/assistants-all`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
   searchUsers(query: string) {
     this.loading.next(true);
     const params = new HttpParams().set('name', query);
     return this.http
       .get<any[]>(`${this.apiUrl}/search`, {
+        params,
+      })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
+  }
+
+  searchAssistants(query: string) {
+    this.loading.next(true);
+    const params = new HttpParams().set('name', query);
+    return this.http
+      .get<any[]>(`${this.apiUrl}/search-assistants`, {
         params,
       })
       .pipe(

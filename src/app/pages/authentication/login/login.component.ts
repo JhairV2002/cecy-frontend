@@ -10,6 +10,7 @@ import { PrimeIcons } from 'primeng/api';
 import { RoleModel } from '@models/core';
 import { MessageService } from '@services/core';
 import { UsersService, AuthService } from '@services/auth';
+import { User } from '@models/authentication';
 
 @Component({
   selector: 'app-login',
@@ -82,7 +83,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/cecy/coordinator-career']);
         break;
       case 'coordinator_cecy':
-        this.router.navigate(['/cecy/coordinator-cecy']);
+      case 'assistant_cecy':
+        this.router.navigate(['/cecy/coordinator-cecy']).then((data) => {
+          console.log('QUE ROL ESTA ACCEDIENDO AHI', data);
+        });
         break;
       case 'instructor_execute':
         this.router.navigate(['/cecy/responsible-execute']);
@@ -94,7 +98,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/example']);
         break;
       case 'responsible_course':
-        console.log('redirigiendo a /cecy/responsible-course');
         this.router.navigate(['/cecy/responsible-course']);
         break;
       case 'responsible_cecy':
@@ -105,11 +108,6 @@ export class LoginComponent implements OnInit {
         break;
       case 'instructor':
         this.router.navigate(['/cecy/instructor/courses']);
-        break;
-      case 'coordinator_cecy':
-        this.router.navigate([
-          '/cecy/coordinator-cecy/profile-instructor-courses',
-        ]);
         break;
       default:
         this.router.navigate(['/common/not-found']);

@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable, finalize } from 'rxjs';
 export class PlanificationCareerService {
   private apiUrl = `${environment.api2}/planifications-courses`;
   statusAprooved: string = 'aprobado';
-  statusProcess: string = 'proceso';
+  statusProcess: string = 'creado';
   private loading = new BehaviorSubject<boolean>(true);
   public loading$: Observable<boolean> = this.loading.asObservable();
 

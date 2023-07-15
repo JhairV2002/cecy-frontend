@@ -137,7 +137,7 @@
               courses.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'
             "
             [rounded]="true"
-            value="{{ courses.state }}"
+            value="{{ courses.state ? courses.state : 'sin estado' }}"
             [severity]="getSeverity(courses.state)"
           >
           </p-tag>

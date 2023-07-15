@@ -11,10 +11,7 @@ import { MessageService as MessagePNService } from 'primeng/api';
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(
-    private messageService: MessagePNService,
-
-  ) {}
+  constructor(private messageService: MessagePNService) {}
 
   error(error: HttpErrorResponse) {
     let errorMessage = 'Ha ocurrido un error';
@@ -302,7 +299,9 @@ export class MessageService {
   }
 
   fieldMax(errors: ValidationErrors): string {
-    return `Numero maximo permitido es ${errors['max']['requiredMax']}.`;
+    const max = errors['max'].max;
+    const actual = errors['max'].actual;
+    return `Numero maximo permitido es ${max}. valor actual ${actual}`;
   }
 
   get fieldPattern() {

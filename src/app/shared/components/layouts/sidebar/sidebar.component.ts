@@ -1,11 +1,10 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { map, Observable } from 'rxjs';
 
 import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
 import { User } from '@models/authentication';
-import { CarrerasService } from 'src/app/pages/cecy/validacion-matricula/services/carreras.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,26 +13,6 @@ import { CarrerasService } from 'src/app/pages/cecy/validacion-matricula/service
 })
 export class SidebarComponent implements OnInit {
   display = false;
-  // carreras$ = this.carreraService.getAllCarreras().pipe(
-  //   map((res) => {
-  //     let routes: any[] = [];
-  //     res.forEach((it) => {
-  //       routes = [
-  //         ...routes,
-  //         {
-  //           items: [
-  //             {
-  //               label: it.nombre,
-  //               icon: '',
-  //               routerLink: `/cecy/validacion-matricula/delegado/${it.nombre}`,
-  //             },
-  //           ],
-  //         },
-  //       ];
-  //     });
-  //     return routes;
-  //   })
-  // );
   itemsAdmin: MenuItem[] = [
     {
       label: 'Administrador',
@@ -153,9 +132,31 @@ export class SidebarComponent implements OnInit {
           routerLink: ['/cecy/coordinator-cecy/course'],
         },
         {
+          label: 'Asistentes',
+          icon: 'fa-solid fa-users',
+          routerLink: ['/cecy/coordinator-cecy/assistant'],
+        },
+        {
           label: 'Periodo lectivo',
           icon: 'fa-solid fa-school',
           routerLink: ['/cecy/coordinator-cecy/school-year'],
+        },
+      ],
+    },
+  ];
+  itemsCoordinatorCecyAssistant: MenuItem[] = [
+    {
+      label: 'Asistente del Cecy',
+      items: [
+        {
+          label: 'Inicio',
+          icon: 'fa-solid fa-house',
+          routerLink: '/cecy/coordinator-cecy/home',
+        },
+        {
+          label: 'Cursos',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/coordinator-cecy/course'],
         },
       ],
     },
@@ -221,21 +222,23 @@ export class SidebarComponent implements OnInit {
   menu: MenuItem[] = [];
   user: User | null = null;
   model: MenuItem[] = [];
-  loading: boolean = false;
+  loading$ = this.authService.loading$;
+  selectedItem: MenuItem | null = null;
+  items: MenuItem[] = [];
+  dropdownOpen = false;
 
   constructor(
     public layoutService: LayoutService,
     public el: ElementRef,
     private authService: AuthService,
-    private carreraService: CarrerasService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
-    this.authService.getProfile().subscribe((user: any) => {
-      console.log('SEDEIBAR USER', user[0]);
-      this.user = user[0];
-      this.loading = false;
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        this.user = user[0];
+      }
     });
   }
 
@@ -250,5 +253,30 @@ export class SidebarComponent implements OnInit {
 
   closeSide() {
     this.closed = !this.closed;
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  redirectConfigurate(role: any) {
+    console.log(role);
+    if (role === 'admin') {
+      this.router.navigate(['/administrator/change-password']);
+    } else if (role === 'coordinator_career') {
+      this.router.navigate(['/cecy/coordinator-career/change-password']);
+    } else if (role === 'coordinator_cecy') {
+      this.router.navigate(['/cecy/coordinator-cecy/change-password']);
+    } else if (role === 'assistant_cecy') {
+      this.router.navigate(['/cecy/coordinator-cecy/change-password']);
+    } else if (role === 'instructor_execute') {
+      this.router.navigate(['/cecy/responsible-execute/change-password']);
+    } else if (role === 'secretary_cecy') {
+      this.router.navigate(['/cecy/secretary-cecy/change-password']);
+    } else if (role === 'responsible_course') {
+      this.router.navigate(['/cecy/responsible-course/change-password']);
+    } else if (role === 'instructor') {
+      this.router.navigate(['/cecy/instructor/courses/change-password']);
+    }
   }
 }

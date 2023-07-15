@@ -1,12 +1,10 @@
-$colorPrimario: #002A32;
+$colorPrimario: #002a32;
 
 @function get-text-color($color) {
   @if (lightness($color) > 80) {
     @return #000;
-  }
-
-  @else {
-    @return #FFF;
+  } @else {
+    @return #fff;
   }
 }
 

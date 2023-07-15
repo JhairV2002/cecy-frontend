@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class RedirectGuard implements CanActivate {
-  constructor(private tokenService: TokenService, private router: Router) { }
+  constructor(private tokenService: TokenService, private router: Router) {}
   canActivate(): boolean {
     const token = this.tokenService.getToken();
 
@@ -29,6 +29,8 @@ export class RedirectGuard implements CanActivate {
         this.router.navigate(['/cecy/responsible-course']);
       } else if (role === 'instructor') {
         this.router.navigate(['/cecy/instructor/courses']);
+      } else if (role === 'assistant_cecy') {
+        this.router.navigate(['/cecy/coordinator-cecy']);
       } else {
         console.log('error de redireccion de pagina');
         this.router.navigate(['/common/access-denied']);

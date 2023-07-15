@@ -39,10 +39,6 @@ export class InscriptionFormComponent implements OnInit {
   user: any;
 
   ngOnInit(): void {
-    // this.authService.getProfile().subscribe((data: any) => {
-    //   this.user = data[0];
-    //   console.log('id User', data[0]);
-    // });
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.get('id')) {
         this.findById(parseInt(params.get('id')!));

@@ -119,10 +119,12 @@
         <td>
           <p-tag
             [icon]="
-              planification.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'
+              planification.state === 'create' ? 'pi pi-check' : 'pi pi-clock'
             "
             [rounded]="true"
-            value="{{ planification.state }}"
+            value="{{
+              planification.state ? planification?.state : 'sin estado'
+            }}"
             [severity]="getSeverity(planification.state)"
           >
           </p-tag>

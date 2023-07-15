@@ -9,4 +9,4 @@ import { StudentModule } from './student/student.module';
   declarations: [],
   imports: [CommonModule, EstudianteRoutingModule, CursosModule, StudentModule],
 })
-export class EstudianteModule { }
+export class EstudianteModule {}

@@ -1,21 +1,24 @@
-<div class="text-center">
-  <div class="row">
-    <div class="col-12">
-      <img src="assets/images/components/core/common/error-404.png" alt="" />
+<div class="h-full w-full">
+  <p-card
+    [style]="{ width: '50%' }"
+    styleClass="flex flex-col items-center justify-center text-center mx-auto"
+  >
+    <div class="">
+      <img src="assets/images/components/common/404-rocket.png" alt="" />
+      <div>
+        <h1 class="text-red-600 text-2xl">403 ¡Acceso denegado!</h1>
+        <small class="text-sm">¡No tiene autorización para acceder!</small>
+      </div>
+      <div>
+        <button
+          pButton
+          pRipple
+          label="Regresar al Login"
+          icon="pi pi-arrow-left"
+          class="p-button-lg"
+          (click)="backLogin()"
+        ></button>
+      </div>
     </div>
-    <div class="col-12">
-      <h1 class="text-danger">403 ¡Acceso denegado!</h1>
-      <small class="text-secondary">¡No tiene autorización para acceder!</small>
-    </div>
-    <div class="col-12">
-      <button
-        pButton
-        pRipple
-        label="Regresar al Login"
-        icon="pi pi-arrow-left"
-        class="p-button-lg"
-        [routerLink]="['/login']"
-      ></button>
-    </div>
-  </div>
+  </p-card>
 </div>

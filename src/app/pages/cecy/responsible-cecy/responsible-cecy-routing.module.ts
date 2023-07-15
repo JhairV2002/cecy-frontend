@@ -9,6 +9,7 @@ import { DetailSchoolPeriodComponent } from './detail-school-period/detail-schoo
 import { HistoricRegistrationManagementFormComponent } from './registration-management/historic-registration-management-form/historic-registration-management-form.component';
 import { HistoricRegistrationManagementListComponent } from './registration-management/historic-registration-management-list/historic-registration-management-list.component';
 import { HomeComponent } from './home/home.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -34,6 +35,7 @@ const routes: Routes = [
   },
   { path: 'school-period', component: SchoolPeriodComponent },
   { path: 'detail-school-period', component: DetailSchoolPeriodComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({

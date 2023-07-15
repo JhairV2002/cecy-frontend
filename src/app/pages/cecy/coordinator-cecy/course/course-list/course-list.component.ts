@@ -94,7 +94,7 @@ export class CourseListComponent implements OnInit, OnChanges {
     console.log(id);
     const index = this.courses.findIndex((value) => value.id === id);
     const state =
-      this.courses[index].state === 'aprobado' ? 'proceso' : 'aprobado';
+      this.courses[index].state === 'aprobado' ? 'creado' : 'aprobado';
     this.courses[index].state = state;
     this.planificationCareerService.updatePlanification(id, state).subscribe({
       next: (data) => {
@@ -103,7 +103,7 @@ export class CourseListComponent implements OnInit, OnChanges {
       },
       error: (error) => {
         this.courses[index].state =
-          this.courses[index].state === 'aprobado' ? 'proceso' : 'aprobado';
+          this.courses[index].state === 'aprobado' ? 'creado' : 'aprobado';
         console.log(error);
       },
     });
@@ -135,7 +135,7 @@ export class CourseListComponent implements OnInit, OnChanges {
     switch (status) {
       case 'aprobado':
         return 'success';
-      case 'proceso':
+      case 'creado':
         return 'danger';
       default:
         return '';

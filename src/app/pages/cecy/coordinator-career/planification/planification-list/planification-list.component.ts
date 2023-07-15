@@ -220,7 +220,7 @@ export class PlanificationListComponent implements OnInit {
     switch (status) {
       case 'aprobado':
         return 'success';
-      case 'proceso':
+      case 'creado':
         return 'danger';
       default:
         return '';

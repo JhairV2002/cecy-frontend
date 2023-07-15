@@ -25,6 +25,8 @@ import { SchoolYearService } from '@services/cecy/coordinator-cecy';
 import { SchoolYear, AutoComplete } from '@models/cecy/coordinator-career';
 import { CourseService } from '@services/cecy-v1/course.service';
 import { formatDate } from '@angular/common';
+import jwt_decode from 'jwt-decode';
+import { TokenService } from '@services/auth';
 @Component({
   selector: 'app-planification-form',
   templateUrl: './planification-form.component.html',
@@ -50,13 +52,13 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     name: new FormControl('', [Validators.required]),
     durationTime: new FormControl(null, [
       Validators.required,
-      Validators.min(40),
-      Validators.maxLength(3),
+      Validators.min(0),
+      Validators.max(75),
       Validators.pattern('^[0-9]*$'),
     ]),
     startDate: new FormControl(new Date(), [Validators.required]),
     finishDate: new FormControl(new Date(), [Validators.required]),
-    state: new FormControl('proceso'),
+    state: new FormControl('creado'),
     free: new FormControl(false, [Validators.required]),
     modalityId: new FormControl(null, Validators.required),
     userId: new FormControl(null, [Validators.required]),
@@ -78,7 +80,8 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     private teacherService: TeachersService,
     private schoolYearService: SchoolYearService,
     private courseService: CourseService,
-    private socket: Socket
+    private socket: Socket,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -153,16 +156,22 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   addEditPlanification() {
     this.progressBar = true;
-    this.state = 'proceso';
+    this.state = 'creado';
     this.careerId = this.selectedCareer;
     const valuesFormPlanification = this.formPlanification.value;
     console.log('SELECCIONADO PLANIFICACION', this.selectPlanification);
-    console.log(valuesFormPlanification);
-    if (!this.selectPlanification) {
-      this.socket.emit(
-        'app:newPlanification',
-        valuesFormPlanification,
-        (response: any) => {
+
+    const tokenUser = this.tokenService.getToken();
+    if (tokenUser) {
+      const decode = jwt_decode(tokenUser) as { [key: string]: any };
+      console.log(valuesFormPlanification);
+      console.log(decode);
+      const data = {
+        ...valuesFormPlanification,
+        idEmitUser: decode,
+      };
+      if (!this.selectPlanification) {
+        this.socket.emit('app:newPlanification', data, (response: any) => {
           if (response.error) {
             this.messageService.error(response.error);
             this.progressBar = false;
@@ -174,10 +183,10 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
             this.addPlanification.emit(response.data);
             this.formPlanification.reset();
           }
-        }
-      );
-    } else {
-      console.log('EDITANDO');
+        });
+      } else {
+        console.log('EDITANDO');
+      }
     }
 
     // this.planificationsCoursesService

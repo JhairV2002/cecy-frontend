@@ -40,8 +40,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InplaceModule } from 'primeng/inplace';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
+import { TimelineModule } from 'primeng/timeline';
 
-import { BlankComponent } from './components/layouts/blank/blank.component';
 import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { SidebarComponent } from './components/layouts/sidebar/sidebar.component';
@@ -50,10 +50,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { UserComponent } from './components/user/user.component';
 import { ImageModule } from 'primeng/image';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { NotificationComponent } from './components/layouts/notification/notification.component';
 import { RelativeTimePipe } from './pipes/date/relative-time.pipe';
 import { DropdownComponent } from './components/layouts/topbar/dropdown/dropdown.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { NotificationComponent } from './components/layouts/topbar/notification/notification.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 
 const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
@@ -72,17 +75,17 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ExtensionsPipe,
     SearchComponent,
     TermsCondititonsPipe,
-    BlankComponent,
     BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
     UserComponent,
     WelcomeComponent,
-    NotificationComponent,
     RelativeTimePipe,
     DropdownComponent,
     ProfileComponent,
+    NotificationComponent,
+    ChangePasswordComponent,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -97,17 +100,16 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     UploadFilesComponent,
     ViewFilesComponent,
     TermsCondititonsPipe,
-    BlankComponent,
     BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
     UserComponent,
     WelcomeComponent,
-    NotificationComponent,
     RelativeTimePipe,
     DropdownComponent,
     ProfileComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -141,6 +143,9 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     InplaceModule,
     ConfirmPopupModule,
     ToastModule,
+    ProgressSpinnerModule,
+    PanelMenuModule,
+    TimelineModule,
   ],
 })
 export class SharedModule {}

@@ -28,7 +28,9 @@ export class TopbarComponent implements OnInit {
   showNav: boolean = true;
   items!: MenuItem[];
   user: User | null = null;
-  planifications: [] = [];
+
+  notifications: [] = [];
+
   private _numberNotifications: number = 0;
 
   tieredItems: MenuItem[] = [];
@@ -51,46 +53,29 @@ export class TopbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('ejecuta topbar');
-    this.authService.getProfile().subscribe({
+    this.authService.user$.subscribe({
       next: (data: any) => {
-        console.log('cliente global', data[0]);
-        this.user = data[0];
-        this.name = this.user?.names;
-        this.socket.emit('app:sendUser', data[0]);
+        if (data !== null) {
+          this.user = data[0];
+          this.name = this.user?.names;
+          this.socket.emit('app:sendUser', data[0]);
+        }
       },
       error: (error) => {
         console.error(error);
       },
     });
-    this.items = [
-      {
-        label: 'coNFIRMA',
-        icon: 'pi pi-fw pi-user',
-        items: [
-          { label: 'Anderson asasas' },
-          { label: 'Soy el rol de tu corazón' },
-          {
-            label: 'Mi Perfil',
-            icon: 'pi pi-fw pi-users',
-            // routerLink:['/footer']
-          },
-          {
-            label: 'Cerrar Sesión',
-            icon: 'pi pi-fw pi-sign-out',
-            routerLink: ['javascript:void(0)'],
-            command: () => {
-              this.logout();
-            },
-          },
-        ],
-      },
-    ];
-    // this.socket.on('api:allNotificationByUser', (notification: any) => {
-    //   console.log('SOCKET desde API', notification);
-    //   this.planifications = notification;
-    //   this.updateNumberNotification(this.planifications.length);
-    // });
+
+    if (this.socket.connect()) {
+      this.socket.on('api:allNotificationByUser', (notification: any) => {
+        this.notifications = notification;
+        this.notifications.sort((a: any, b: any) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
+      });
+    }
   }
 
   get numeroNotificaciones(): string {
