@@ -57,7 +57,8 @@ export class TabsComponent implements OnInit, OnChanges {
         .planificationById(id)
         .subscribe((data) => {
           this.selectedCourse = data;
-          console.log('selected course target', this.selectedCourse.course.targetGroups)
+
+          console.warn('selected course target', this.selectedCourse)
           if (this.selectedCourse.course.targetGroups == null) {
             this.reviewPlan(this.selectedCourse.name)
           }
@@ -144,17 +145,21 @@ export class TabsComponent implements OnInit, OnChanges {
   }
 
   filterPlanification(valueSearch: any, valueList: any): void {
-    console.log('valores de la lista', valueList);
-    console.log('nombre del curso a buscar', valueSearch);
+    // console.log('valores de la lista', valueList);
+    // console.log('nombre del curso a buscar', valueSearch);
 
 
     const filterValue = valueSearch.toLowerCase();
     this.filterPlan = valueList.filter((item: any) =>
       item.planification.name.toLowerCase().includes(filterValue) && item.planification.state == 'aprobado'
     );
-    console.log('valores ya filtrados',this.filterPlan)
-    this.fillCourseSelect = this.filterPlan.length > 0 ? this.filterPlan[0] : null;
-    console.log('valor ya almacenado del filtro el seeleccionado para copiar',this.fillCourseSelect)
+    // console.log('valores ya filtrados',this.filterPlan)
+    // this.fillCourseSelect = this.filterPlan.length > 0 ? this.filterPlan[0] : null;`
+    if (this.filterPlan.length > 0 && this.filterPlan[0].targetGroups!=null) {
+      this.fillCourseSelect = this.filterPlan[0]
+    }
+
+    // console.log('valor ya almacenado del filtro el seleccionado para copiar',this.fillCourseSelect)
     if (this.fillCourseSelect) {
       this.confirmationDialog();
     }

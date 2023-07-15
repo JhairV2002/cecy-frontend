@@ -50,7 +50,7 @@ export class CourseFormComponent implements OnInit {
     summary: [null, [Validators.required, Validators.maxLength(255)]],
     project: [null, [Validators.required, Validators.maxLength(255)]],
     needs: this.formBuilder.array([''], Validators.required),
-    // sponsorId: [null, Validators.required],
+    sponsorId: [null],
     targetGroups: [null, [Validators.required]],
     participantsRegistration: [null, [Validators.required]],
   });
@@ -59,6 +59,13 @@ export class CourseFormComponent implements OnInit {
     id: [null],
     name: [null, Validators.required],
     description: [null],
+  });
+
+  formCategory = this.fb.group({
+    id: [null],
+    name: [null, Validators.required],
+    description: [null, Validators.required],
+    type: 'CATEGORY'
   });
 
   public progressBar: boolean = false; // falta programarlo
@@ -86,12 +93,13 @@ export class CourseFormComponent implements OnInit {
   selectedItems: any;
   public sponsors: Sponsor[] = [];
   visibleFormSponsor: boolean = false;
+  visibleFormCategory: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
     public messageService: MessageService,
     private courseService: CourseService,
-    private cataloguesHttpService: CatalogueHttpService,
     private activatedRoute: ActivatedRoute,
     private planificationCourseService: PlanificationsCoursesService,
     public fb: FormBuilder
@@ -201,6 +209,10 @@ export class CourseFormComponent implements OnInit {
   showFormSponsor() {
     this.visibleFormSponsor = true;
   }
+  showFormCategory() {
+    this.visibleFormCategory = true;
+  }
+
 
   //Setter
   set planificationId(value: any) {
@@ -277,9 +289,9 @@ export class CourseFormComponent implements OnInit {
   //   return this.formCourse.controls['image'];
   // }
 
-  // get sponsorField() {
-  //   return this.formCourse.controls['sponsorId'];
-  // }
+  get sponsorField() {
+    return this.formCourse.controls['sponsorId'];
+  }
 
   //carga categorias del curso
   loadCategoryCourses() {
@@ -399,5 +411,32 @@ export class CourseFormComponent implements OnInit {
 
   get nameField() {
     return this.formSponsor.controls['name'];
+  }
+
+  onSubmitCategory() {
+    if (this.formCategory.valid) {
+      this.saveCategory();
+    } else {
+      this.formCategory.markAllAsTouched();
+    }
+  }
+
+  saveCategory() {
+    this.courseService
+      .saveCatalogue(this.formCategory.value)
+      .subscribe((response) => {
+        this.visibleFormCategory = false;
+        this.formCategory.reset();
+        this.messageService.successCourse(response);
+        this.loadCategoryCourses();
+      });
+  }
+
+  get nameCategoryField() {
+    return this.formCategory.controls['name'];
+  }
+
+  get nameDescriptionField() {
+    return this.formCategory.controls['description'];
   }
 }
