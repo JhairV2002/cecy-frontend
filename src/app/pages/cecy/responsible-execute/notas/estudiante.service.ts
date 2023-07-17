@@ -33,12 +33,12 @@ export class EstudianteService {
     let promedio = (matricula.nota1 + matricula.nota2) / 2;
 
     if (promedio >= 70) {
-      matricula.estadoCurso = { descripcion: 'aprobado' };
+      matricula.estadoCurso = { descripcion: 'Aprobado' };
       matricula.promedio = promedio;
 
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     } else {
-      matricula.estadoCurso = { descripcion: 'reprobado' };
+      matricula.estadoCurso = { descripcion: 'Reprobado' };
       matricula.promedio = promedio;
       
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
