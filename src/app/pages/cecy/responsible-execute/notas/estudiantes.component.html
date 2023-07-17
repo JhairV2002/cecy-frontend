@@ -25,6 +25,7 @@
     <p-table [value]="estudiantes$ | async | nombreFilter: nombreFiltrado" [responsive]="true" class="p-datatable">
       <ng-template pTemplate="header">
         <tr>
+          <th>CEDULA</th>
           <th>NOMBRE</th>
           <th>% ASISTENCIA</th>
           <th>NOTA 1</th>
@@ -36,9 +37,10 @@
       </ng-template>
       <ng-template pTemplate="body" let-matricula>
         <tr>
+          <td>{{ matricula.estudiantes ? matricula.estudiantes.cedula : "Sin Estudiante" }}</td>
           <td>{{ matricula.estudiantes ? matricula.estudiantes.nombres : "Sin Estudiante" }}</td>
           <td>
-            <p-inputNumber id="asistencia" [(ngModel)]="matricula.asistencia" placeholder="Ingrese el % asistencia" [min]="1" [max]="100"
+            <p-inputNumber id="asistencia" [(ngModel)]="matricula.porcentajeAsistencia" placeholder="Ingrese el % asistencia" [min]="1" [max]="100"
               [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
           </td>
           <td>

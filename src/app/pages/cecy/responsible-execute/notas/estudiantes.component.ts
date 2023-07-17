@@ -21,8 +21,8 @@ export class EstudiantesComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private estudianteService: EstudianteService
-  ) {}
+    private estudianteService: EstudianteService,
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
@@ -38,8 +38,8 @@ export class EstudiantesComponent implements OnInit {
     switchMap((param) =>
       this.estudianteService
         .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
-        .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
-    )
+        .pipe(map((res) => res.filter((res) => res.estudiantes != null))),
+    ),
   );
 
   redireccionar() {
@@ -62,7 +62,7 @@ export class EstudiantesComponent implements OnInit {
         estudiante.estudiantes &&
         estudiante.estudiantes.nombres
           .toLowerCase()
-          .includes(this.nombreFiltrado.toLowerCase())
+          .includes(this.nombreFiltrado.toLowerCase()),
     );
   }
 
@@ -75,9 +75,19 @@ export class EstudiantesComponent implements OnInit {
       },
       (error) => {
         console.log('Error al guardar notas', error);
-      }
+      },
     );
   }
+
+  // guardarPorcentaje(matricula: Matriculas): void {
+  //   console.log(matricula);
+  //
+  //   this.estudianteService
+  //     .porcentaje(matricula, matricula.id)
+  //     .subscribe((res) => {
+  //       console.log('Asistencia guardada', res);
+  //     });
+  // }
 
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
@@ -101,7 +111,7 @@ export class EstudiantesComponent implements OnInit {
     ) {
       event.preventDefault();
       alert(
-        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.',
       );
     }
   }
@@ -109,14 +119,14 @@ export class EstudiantesComponent implements OnInit {
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
       return {
+        Cedula: nota.estudiantes.cedula,
         Nombres: nota.estudiantes.nombres,
         Apellidos: nota.estudiantes.apellidos,
+        Asistencia: nota.porcentajeAsistencia,
         Nota1: nota.nota1,
         Nota2: nota.nota2,
         Promedio: nota.promedio,
-        Estado: nota.estadoCurso.descripcion
-      
-       
+        Estado: nota.estadoCurso,
       };
     });
 
