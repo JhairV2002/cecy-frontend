@@ -44,4 +44,20 @@ export class EstudianteService {
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     }
   }
+
+  porcentaje(matricula: Matriculas, id: number): Observable<Matriculas> {
+    let porcentaje = (matricula.porcentajeAsistencia);
+
+    if (porcentaje >= 70) {
+      matricula.estadoCurso = { descripcion: 'aprobado' };
+      matricula.promedio = porcentaje;
+
+      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
+    } else {
+      matricula.estadoCurso = { descripcion: 'reprobado' };
+      matricula.promedio = porcentaje;
+      
+      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
+    }
+  }
 }

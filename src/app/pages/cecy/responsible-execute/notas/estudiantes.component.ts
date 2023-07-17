@@ -79,6 +79,16 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
+  guardarPorcentaje(matricula: Matriculas): void {
+    console.log(matricula);
+
+    this.estudianteService.porcentaje(matricula, matricula.id).subscribe(
+      (res) => {
+        console.log('Asistencia guardada', res);
+      },
+    );
+  }
+
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
@@ -109,13 +119,15 @@ export class EstudiantesComponent implements OnInit {
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
       return {
+        Cedula: nota.estudiantes.cedula,
         Nombres: nota.estudiantes.nombres,
         Apellidos: nota.estudiantes.apellidos,
+        Asistencia: nota.porcentajeAsistencia,
         Nota1: nota.nota1,
         Nota2: nota.nota2,
         Promedio: nota.promedio,
         Estado: nota.estadoCurso.descripcion
-      
+        
        
       };
     });
