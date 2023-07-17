@@ -38,17 +38,17 @@ export class EstudianteService {
     matricula.estudiantes.matriculas = null;
     matricula.promedio = promedio;
     if (promedio >= 70) {
-      matricula.estadoCurso = { descripcion: 'Aprobado' };
+      matricula.estadoCurso = { descripcion: 'aprobado' };
 
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     } else {
-      matricula.estadoCurso = { descripcion: 'Reprobado' };
+      matricula.estadoCurso = { descripcion: 'reprobado' };
 
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     }
   }
 
-  porcentaje(matricula: Matriculas, id: number): Observable<Matriculas> {
+  /* porcentaje(matricula: Matriculas, id: number): Observable<Matriculas> {
     let porcentaje = matricula.porcentajeAsistencia;
 
     if (porcentaje >= 70) {
@@ -62,5 +62,5 @@ export class EstudianteService {
 
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     }
-  }
+  } */
 }
