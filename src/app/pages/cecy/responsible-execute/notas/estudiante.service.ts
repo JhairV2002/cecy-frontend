@@ -18,7 +18,10 @@ export class EstudianteService {
   }
 
   guardarEstudiante(estudiante: any): Observable<any> {
-    return this.http.put<Matriculas>(`${this.baseUrl}/${estudiante.id}`, estudiante);
+    return this.http.put<Matriculas>(
+      `${this.baseUrl}/${estudiante.id}`,
+      estudiante,
+    );
   }
 
   obtenerEstudiantePorId(id: number): Observable<Matriculas> {
@@ -30,23 +33,23 @@ export class EstudianteService {
   }
 
   actualizarNotas(matricula: Matriculas, id: number): Observable<Matriculas> {
-    let promedio = (matricula.nota1 + matricula.nota2) / 2;
-
+    let promedio =
+      (matricula.porcentajeAsistencia + matricula.nota1 + matricula.nota2) / 3;
+    matricula.estudiantes.matriculas = null;
+    matricula.promedio = promedio;
     if (promedio >= 70) {
       matricula.estadoCurso = { descripcion: 'Aprobado' };
-      matricula.promedio = promedio;
 
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     } else {
       matricula.estadoCurso = { descripcion: 'Reprobado' };
-      matricula.promedio = promedio;
-      
+
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     }
   }
 
   porcentaje(matricula: Matriculas, id: number): Observable<Matriculas> {
-    let porcentaje = (matricula.porcentajeAsistencia);
+    let porcentaje = matricula.porcentajeAsistencia;
 
     if (porcentaje >= 70) {
       matricula.estadoCurso = { descripcion: 'aprobado' };
@@ -56,8 +59,8 @@ export class EstudianteService {
     } else {
       matricula.estadoCurso = { descripcion: 'reprobado' };
       matricula.promedio = porcentaje;
-      
+
       return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
-    }
-  }
+    }
+  }
 }
