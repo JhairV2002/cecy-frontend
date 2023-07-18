@@ -5,12 +5,20 @@
       subheader="Total de estudiantes por carrera en este año lectivo"
       [style]="{ width: '100%' }"
     >
-      <div class="container">
-        <p-header>
-          <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
-          <!-- <button type="button" pButton></button> -->
-        </p-header>
-      </div>
+      <ng-container *ngIf="(loading$ | async)!; else donut">
+        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton
+          class="flex items-center justify-center"
+          shape="circle"
+          width="90%"
+          height="375px"
+        ></p-skeleton>
+      </ng-container>
+      <ng-template #donut>
+        <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+      </ng-template>
     </p-card>
   </div>
   <div class="col-4 justify-content-center">
@@ -19,30 +27,45 @@
       subheader="Periodo lectivo por carrera"
       [style]="{ width: '100%' }"
     >
-      <div class="container">
-        <p-header>
-          <p-chart
-            type="doughnut"
-            [data]="data1"
-            [options]="options"
-            [style]="{ width: '40%' }"
-          ></p-chart>
-        </p-header>
-      </div>
+      <ng-container *ngIf="(loading$ | async)!; else donut">
+        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton
+          class="flex items-center justify-center"
+          shape="circle"
+          width="90%"
+          height="375px"
+        ></p-skeleton>
+      </ng-container>
+      <ng-template #donut>
+        <p-chart
+          type="doughnut"
+          [data]="data1"
+          [options]="options"
+          [style]="{ width: '40%' }"
+        ></p-chart>
+      </ng-template>
     </p-card>
   </div>
   <div class="col-4 text-center">
     <p-card header="Duracion de cada curso" [style]="{ width: '100%' }">
-      <div class="container">
-        <p-header>
-          <p-chart
-            type="pie"
-            [data]="data2"
-            [options]="options"
-            [style]="{ width: '40%' }"
-          ></p-chart>
-        </p-header>
-      </div>
+      <ng-container *ngIf="(loading$ | async)!; else donut">
+        <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="2rem" styleClass="mb-2"></p-skeleton>
+        <div class="flex items-center justify-center">
+          <p-skeleton shape="circle" width="90%" height="375px"></p-skeleton>
+        </div>
+      </ng-container>
+      <ng-template #donut>
+        <p-chart
+          type="pie"
+          [data]="data2"
+          [options]="options"
+          [style]="{ width: '40%' }"
+        ></p-chart>
+      </ng-template>
     </p-card>
   </div>
 </div>

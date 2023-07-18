@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '@env/environment';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ServerResponse } from '@models/core';
 import { User } from '@models/authentication';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,35 +15,94 @@ export class UserService {
 
   private user = new BehaviorSubject<ServerResponse>({});
   public users$ = this.user.asObservable();
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
 
   getUsers() {
-    return this.http.get<User[]>(`${this.apiUrl}`);
+    this.loading.next(true);
+    return this.http.get<User[]>(`${this.apiUrl}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
+  searchUsers(query: string) {
+    this.loading.next(true);
+    const params = new HttpParams().set('name', query);
+    return this.http
+      .get<any[]>(`${this.apiUrl}/search`, {
+        params,
+      })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 
   addEditUser(data: any, selectedUser: any) {
     if (!selectedUser) {
-      return this.http.post(`${this.apiUrl}`, data);
+      this.loading.next(true);
+      return this.http.post(`${this.apiUrl}`, data).pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
     } else {
-      return this.http.put(`${this.apiUrl}/${selectedUser.id}`, data);
+      this.loading.next(true);
+      return this.http.put(`${this.apiUrl}/${selectedUser.id}`, data).pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
     }
   }
+
   removeUser(userId: any) {
-    return this.http.delete(`${this.apiUrl}/${userId}`);
+    this.loading.next(true);
+    return this.http.delete(`${this.apiUrl}/${userId}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   updateByImage(id: any, image: any) {
-    return this.http.patch(`${this.apiUrl}/${id}/image`, { image });
+    this.loading.next(true);
+    return this.http.patch(`${this.apiUrl}/${id}/image`, { image }).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   updateByName(id: any, names: any) {
-    return this.http.patch(`${this.apiUrl}/${id}/names`, { names });
+    this.loading.next(true);
+    return this.http.patch(`${this.apiUrl}/${id}/names`, { names }).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   updateByLastNames(id: any, lastnames: any) {
-    return this.http.patch(`${this.apiUrl}/${id}/lastnames`, { lastnames });
+    this.loading.next(true);
+    return this.http
+      .patch(`${this.apiUrl}/${id}/lastnames`, { lastnames })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 
   updateByEmail(id: any, email: any) {
-    return this.http.patch(`${this.apiUrl}/${id}/email`, { email });
+    this.loading.next(true);
+    return this.http.patch(`${this.apiUrl}/${id}/email`, { email }).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 }

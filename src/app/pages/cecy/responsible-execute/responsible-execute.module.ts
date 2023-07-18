@@ -12,6 +12,21 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';
 import { NombreFilterPipe } from './notas/filter.pipe';
 import { CursoComponent } from './curso/curso.component'
+import { InputNumberModule } from 'primeng/inputnumber';
+
+// PRIME NG
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FieldsetModule } from 'primeng/fieldset';
+import {FileUploadModule} from 'primeng/fileupload';
+import { DividerModule } from 'primeng/divider';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +43,18 @@ import { CursoComponent } from './curso/curso.component'
     ResponsibleExecuteRoutingModule,
     FormsModule,
     SharedModule,
+    InputNumberModule,
+    SkeletonModule,
+    TableModule,
+    ButtonModule,
+    CalendarModule,
+    ToolbarModule,
+    FieldsetModule,
+    FileUploadModule,
+    DividerModule,
+    CardModule,
+    PaginatorModule,
+    ProgressSpinnerModule,
   ],
 })
 export class ResponsibleExecuteModule { }

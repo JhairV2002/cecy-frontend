@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { map, Observable } from 'rxjs';
 
-import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
 import { User } from '@models/authentication';
@@ -222,19 +221,21 @@ export class SidebarComponent implements OnInit {
   menu: MenuItem[] = [];
   user: User | null = null;
   model: MenuItem[] = [];
+  loading: boolean = false;
 
   constructor(
-    private menuHttpService: MenuHttpService,
     public layoutService: LayoutService,
     public el: ElementRef,
     private authService: AuthService,
     private carreraService: CarrerasService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.authService.getProfile().subscribe((user: any) => {
       console.log('SEDEIBAR USER', user[0]);
       this.user = user[0];
+      this.loading = false;
     });
   }
 

@@ -13,6 +13,7 @@ import { RolesService } from '@services/core/administrator';
   styleUrls: ['./role-list.component.css'],
 })
 export class RoleListComponent implements OnInit {
+  loading$ = this.roleService.loading$;
   selectedRole: any = null;
   cols: ColModel[] = [];
   items: MenuItem[] = [];

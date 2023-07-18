@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Auth, User } from '@models/authentication';
 import { TokenService } from './token.service';
-import { checkTime } from './../../interceptors/time.interceptor';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 import { Planification } from '@models/cecy/coordinator-career/careers.model';
 
 @Injectable({
@@ -19,7 +18,8 @@ export class AuthService {
   user = new BehaviorSubject<User[] | null>(null);
   user$ = this.user.asObservable();
   userProfile$ = new BehaviorSubject<User | null>(null);
-
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -46,7 +46,12 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    return this.http.get<any[]>(`${this.apiUrl2}/my`);
+    this.loading.next(true);
+    return this.http.get<any[]>(`${this.apiUrl2}/my`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   getProfile() {

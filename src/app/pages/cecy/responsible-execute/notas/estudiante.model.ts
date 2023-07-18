@@ -1,6 +1,7 @@
 export interface Matriculas {
   id: number;
   cursoId: number;
+
   nota1: any;
   nota2: any;
   promedio: any;
@@ -28,6 +29,7 @@ export interface Estudiantes {
   id: number;
   dni: string;
   fechaNacimiento: string;
+  cedula: string;
   nombres: string;
   apellidos: string;
   email: string;

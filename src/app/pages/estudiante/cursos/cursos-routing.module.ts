@@ -11,6 +11,7 @@ import { InscriptionFormComponent } from './inscription-form/form/inscription-fo
 import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
 import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
 import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
+import { NotFoundComponent } from '../../core/common/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,14 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilEstudianteComponent,
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
   },
 ];
 

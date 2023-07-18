@@ -5,6 +5,10 @@ import { Observable, filter, map, switchMap } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
 import { Matriculas } from './estudiante.model';
 import { NombreFilterPipe } from './filter.pipe';
+import * as fs from 'fs';
+import * as XLSX from 'xlsx';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
@@ -12,26 +16,30 @@ import { NombreFilterPipe } from './filter.pipe';
 })
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
+  estudiantes: Matriculas[] = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private estudianteService: EstudianteService
-  ) {}
+    private estudianteService: EstudianteService,
+  ) { }
 
   ngOnInit(): void {
-    this.estudianteService
-      .obtenerEstudiantes()
-      .subscribe((res) => (this.estudiantes = res));
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.estudianteService
+        .obtenerMatriculasPorCursoId(parseInt(param.get('cursoId')!))
+        .subscribe((res) => {
+          console.log('ESTUDIANTES', res);
+          this.estudiantes = res;
+        });
+    });
   }
-
-  estudiantes: Matriculas[] = [];
-
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
         .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
-        .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
-    )
+        .pipe(map((res) => res.filter((res) => res.estudiantes != null))),
+    ),
   );
 
   redireccionar() {
@@ -42,13 +50,19 @@ export class EstudiantesComponent implements OnInit {
     });
   }
 
+  regresar() {
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.router.navigate([`cecy/responsible-execute/mis-cursos`]);
+    });
+  }
+
   filtrarPorNombre(): void {
     this.estudiantes = this.estudiantes.filter(
       (estudiante) =>
         estudiante.estudiantes &&
         estudiante.estudiantes.nombres
           .toLowerCase()
-          .includes(this.nombreFiltrado.toLowerCase())
+          .includes(this.nombreFiltrado.toLowerCase()),
     );
   }
 
@@ -61,13 +75,68 @@ export class EstudiantesComponent implements OnInit {
       },
       (error) => {
         console.log('Error al guardar notas', error);
-      }
+      },
     );
   }
+
+  // guardarPorcentaje(matricula: Matriculas): void {
+  //   console.log(matricula);
+  //
+  //   this.estudianteService
+  //     .porcentaje(matricula, matricula.id)
+  //     .subscribe((res) => {
+  //       console.log('Asistencia guardada', res);
+  //     });
+  // }
 
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
+
+  validarNumero(event: KeyboardEvent): void {
+    const input = event.key;
+    const currentValue = (event.target as HTMLInputElement).value.trim();
+    const minValue = 1;
+    const maxValue = 100;
+
+    if (
+      (isNaN(Number(input)) &&
+        input !== 'ArrowUp' &&
+        input !== 'ArrowDown' &&
+        input !== 'Backspace') ||
+      (currentValue !== '' &&
+        (Number(currentValue) < minValue || Number(currentValue) > maxValue))
+    ) {
+      event.preventDefault();
+      alert(
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.',
+      );
+    }
+  }
+
+  generarExcel(): void {
+    const datosExportar = this.estudiantes.map((nota) => {
+      return {
+        Cedula: nota.estudiantes.cedula,
+        Nombres: nota.estudiantes.nombres,
+        Apellidos: nota.estudiantes.apellidos,
+        Asistencia: nota.porcentajeAsistencia,
+        Nota1: nota.nota1,
+        Nota2: nota.nota2,
+        Promedio: nota.promedio,
+        Estado: nota.estadoCurso.descripcion,
+      };
+    });
+
+    const libro = XLSX.utils.book_new();
+    const hoja = XLSX.utils.json_to_sheet(datosExportar);
+    XLSX.utils.book_append_sheet(libro, hoja, 'Notas');
+
+    const reporte = 'Reporte Promedio.xlsx';
+    XLSX.writeFile(libro, reporte);
+
+    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
+  }
 }

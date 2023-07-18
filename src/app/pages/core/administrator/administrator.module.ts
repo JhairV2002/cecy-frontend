@@ -36,6 +36,7 @@ import { CareerFormComponent } from './career/career-form/career-form.component'
 import { RoleComponent } from './role/role.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
 import { RoleFormComponent } from './role/role-form/role-form.component';
+import { SearchComponent } from './user/search/search.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { RoleFormComponent } from './role/role-form/role-form.component';
     RoleComponent,
     RoleListComponent,
     RoleFormComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,

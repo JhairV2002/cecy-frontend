@@ -8,7 +8,7 @@ import { EstudianteRegisterResponse } from '@models/cecy/estudianteRegister';
   providedIn: 'root',
 })
 export class TokenService {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   saveToken(token: string) {
     setCookie('token-cecy', token, { expires: 365, path: '/' });

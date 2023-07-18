@@ -2,15 +2,16 @@
   <input
     pInputText
     id="search"
-    placeholder="Buscar una planificacion"
-    [formControl]="search"
-    (keypress)="filter()"
-    />
+    placeholder="Buscar por el nombre"
+    [(ngModel)]="searchValue"
+    (input)="onSearchInput()"
+    (keypress)="onSearchInput()"
+  />
   <button
     pButton
     pRipple
     type="button"
     icon="pi pi-search"
-    (click)="filter()"
-    ></button>
+    (click)="onSearchInput()"
+  ></button>
 </div>

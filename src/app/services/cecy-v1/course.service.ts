@@ -5,7 +5,7 @@ import { Course, CourseModel } from '@models/cecy-v1/course.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 import { GeneralInformation } from '@models/cecy-v1/generalInformation.model';
 import { CurricularDesign } from '@models/cecy-v1/curricularDesign.model';
 import { ClassroomModel } from '@models/cecy-v1/classroom.model';
@@ -19,6 +19,8 @@ import { Sponsor } from '@models/cecy-v1/sponsor.model';
 export class CourseService {
   private apiUrl = `${environment.api2}/courses`;
   private apiUrlUser = `${environment.api2}/users`;
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -33,7 +35,12 @@ export class CourseService {
   }
 
   public update(course: any, id: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/' + id, course);
+    this.loading.next(true);
+    return this.http.put<any>(this.apiUrl + '/' + id, course).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   public findAll(): Observable<CourseModel[]> {
@@ -105,9 +112,14 @@ export class CourseService {
   }
 
   public getDetailPlans(planId: number): Observable<DetailPlanModel[]> {
-    return this.http.get<DetailPlanModel[]>(
-      this.apiUrl + '/detailPlan/all/' + planId
-    );
+    this.loading.next(true);
+    return this.http
+      .get<DetailPlanModel[]>(this.apiUrl + '/detailPlan/all/' + planId)
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 
   public getDetailPlan(id: number): Observable<DetailPlanModel> {
@@ -169,5 +181,16 @@ export class CourseService {
 
   saveSponsor(sponsor: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/sponsor/', sponsor);
+  }
+
+  ////////updateByAfterCourse
+  public updateByAfterCourse(courseAfter: any, id: any): Observable<any> {
+    console.log('este es el curso anterior:\n', courseAfter);
+    console.log('este es el id del curso nuevo:\n', id);
+
+    return this.http.put<any>(
+      this.apiUrl + '/updateByAfterCourse/' + id,
+      courseAfter
+    );
   }
 }

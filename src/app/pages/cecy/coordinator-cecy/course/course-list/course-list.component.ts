@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 
 import { PlanificationCareerService } from '@services/cecy/coordinator-cecy';
-import { CoreHttpService, MessageService } from '@services/core';
+import { MessageService } from '@services/core';
 import { CareerModel, ColModel, PaginatorModel } from '@models/core';
 import { Router } from '@angular/router';
 
@@ -31,14 +31,13 @@ export class CourseListComponent implements OnInit, OnChanges {
   stateProcess: any = [];
   careers: CareerModel[] = [];
   career: FormControl = new FormControl('');
-  isLoadingCourses: boolean = false;
   openModalComment: boolean = false;
+  loading$ = this.planificationCareerService.loading$;
 
   constructor(
     private planificationCareerService: PlanificationCareerService,
     public messageService: MessageService,
-    private router: Router,
-    private coreHttpService: CoreHttpService
+    private router: Router
   ) {
     this.cols = [
       { field: 'code', header: 'Código curso' },
@@ -47,31 +46,7 @@ export class CourseListComponent implements OnInit, OnChanges {
       { field: 'career', header: 'Carrera' },
       { field: 'responsible', header: 'Responsable de curso' },
     ];
-    this.items = [
-      {
-        label: 'Ver planificaciones',
-        icon: 'pi pi-key',
-        command: () => {
-          //this.goToPlanifications(this.selectedCourse);
-        },
-      },
-
-      {
-        label: 'Aprobar curso',
-        icon: 'pi pi-check',
-        command: () => {
-          //this.approveCourse(courses.id);
-        },
-      },
-
-      {
-        label: 'Rechazar curso',
-        icon: 'pi pi-trash',
-        command: () => {
-          //this.declineCourse(this.selectedCourse);
-        },
-      },
-    ];
+    this.checkSearchParams();
   }
 
   ngOnInit(): void {
@@ -87,16 +62,13 @@ export class CourseListComponent implements OnInit, OnChanges {
   }
 
   loadCourses() {
-    this.isLoadingCourses = true;
     this.planificationCareerService.getCareerAndCourses().subscribe({
       next: (data) => {
         console.log('Me cargan los cursos', data);
         this.courses = data;
-        this.isLoadingCourses = false;
       },
       error: (error) => {
-        console.error(error);
-        this.isLoadingCourses = false;
+        this.messageService.error(error);
       },
     });
   }
@@ -137,13 +109,18 @@ export class CourseListComponent implements OnInit, OnChanges {
     });
   }
 
-  filter(value: any) {
-    console.log(value);
-    this.planificationCareerService.filterByName(value).subscribe((data) => {
-      console.log('Buscando', data);
-      this.loadCourses();
-    });
+  checkSearchParams(): void {
+    const queryParams = this.router.parseUrl(this.router.url).queryParams;
+    if (queryParams['search']) {
+      history.replaceState(null, '', '/cecy/coordinator-cecy/course');
+    }
   }
+
+  searchCourses(courses: any) {
+    console.log('PADRE ESTO ME BUSCO', courses);
+    this.courses = courses;
+  }
+
   goToPlanifications(id: number) {
     this.router.navigate(['/cecy/responsible-course/course/edit/' + id]);
   }
@@ -153,5 +130,15 @@ export class CourseListComponent implements OnInit, OnChanges {
 
   closeModal(state: boolean) {
     this.openModalComment = state;
+  }
+  getSeverity(status: string) {
+    switch (status) {
+      case 'aprobado':
+        return 'success';
+      case 'proceso':
+        return 'danger';
+      default:
+        return '';
+    }
   }
 }

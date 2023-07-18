@@ -33,7 +33,7 @@ import { Sponsor } from '@models/cecy-v1/sponsor.model';
 export class CourseFormComponent implements OnInit {
   @Input() selectedCourse: any;
   // private seletedCourse$ = this.coursesHttpService.seletedCourse$;
-
+  loading$ = this.courseService.loading$;
   public progessBar: boolean = false;
   courseStatus: any = '';
 
@@ -50,7 +50,7 @@ export class CourseFormComponent implements OnInit {
     summary: [null, [Validators.required, Validators.maxLength(255)]],
     project: [null, [Validators.required, Validators.maxLength(255)]],
     needs: this.formBuilder.array([''], Validators.required),
-    sponsorId: [null, Validators.required],
+    // sponsorId: [null, Validators.required],
     targetGroups: [null, [Validators.required]],
     participantsRegistration: [null, [Validators.required]],
   });
@@ -103,7 +103,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn(this.selectedCourse)
+    console.warn(this.selectedCourse);
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();
@@ -175,7 +175,7 @@ export class CourseFormComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
-          this.messageService.errorValid(error);
+          this.messageService.error(error);
           this.progressBar = false;
         },
       });
@@ -277,9 +277,9 @@ export class CourseFormComponent implements OnInit {
   //   return this.formCourse.controls['image'];
   // }
 
-  get sponsorField() {
-    return this.formCourse.controls['sponsorId'];
-  }
+  // get sponsorField() {
+  //   return this.formCourse.controls['sponsorId'];
+  // }
 
   //carga categorias del curso
   loadCategoryCourses() {

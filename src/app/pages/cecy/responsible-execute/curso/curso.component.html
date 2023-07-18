@@ -1,9 +1,8 @@
-<div class="container">
-  <div class="text-center p-5">
-    <h1 class="text-5xl font-bold">Mis Cursos</h1>
-  </div>
-
-  <div class="flex justify-end items-center space-x-4 p-4">
+<div class="text-center">
+  <h1 class="text-3xl font-bold">Mis Cursos</h1>
+</div>
+<p-toolbar>
+  <div class="p-toolbar-group-end">
     <div class="relative">
       <input
         type="text"
@@ -29,53 +28,46 @@
         </svg>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="sortCards()">Ordenar</button>
+    <p-button class="ml-4" styleClass="p-button-success" (click)="sortCards()"><i class="pi pi-sort-alpha-up"></i></p-button>
   </div>
-
-  <div class="row">
-    <div
-      class="col-md-4 p-4"
-      style="display: inline-block; width: 33%;"
-      *ngFor="let curso of cursosFiltrados; let i = index"
-
-    >
-      <div class="card" style="margin-bottom: 20px;"
-      [ngClass]="{
-        'bg-yellow-200': curso.courseStatus,
-        'bg-green-200': curso.courseStatus && !curso.courseStatus,
-        'bg-slate-300': !curso.courseStatus && !curso.courseStatus
-      }"
+</p-toolbar><br/>
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div *ngIf="cursos.length === 0" class="text-center text-gray-500">
+    <h3 *ngIf="!loading">No tienes cursos asignados</h3>
+    <p-progressSpinner *ngIf="loading" [style]="{ 'width.px': '50', 'height.px': '50' }" strokeWidth="4" animationDuration="1s"></p-progressSpinner>
+  </div>
+  <div *ngFor="let curso of cursos ; let i = index">
+    <div *ngIf="cumpleFiltro(curso)">
+      <p-card
+        header="{{ curso.planificationCourse.name }}"
+        subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}"
+        [style]="{ width: '300px' }"
       >
-        <div class="card-body">
-          <h1 class="card-title font-normal"><strong>{{ curso.planification.name }}</strong></h1>
-          <h5><strong>Código de curso:</strong>{{ curso.planification.codeCourse }}</h5>
-          <h5><strong>Modalidad:</strong> {{ curso.modality }}</h5>
-          <h5><strong>Estado del curso:</strong><div class="form-control">
-            <label class="label cursor-pointer">
-              <span class="text">{{ curso.courseStatus ? 'Terminado' : 'En proceso' }}</span>
-              <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
-            </label>
-          </div>
-          </h5>
-          <h5></h5>
-          <button
-            class="btn btn-primary"
-            icon="edit"
-            (click)="redireccionar(curso.id)"
-          >
-            Detalles
-          </button>
-        </div>
-      </div>
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <p>
+          Modalidad: {{ curso.workday.name }}<br/>
+          Estado del curso:
+          <label class="label cursor-pointer">
+            <span class="text">{{ curso.courseStatus ? "Terminado" : "En proceso" }}</span>
+            <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
+          </label>
+        </p>
+        <ng-template pTemplate="footer">
+          <p-button label="Detalles" icon="pi pi-check" (click)="redirect(curso.planificationCourseId)"></p-button>
+        </ng-template>
+      </p-card>
     </div>
   </div>
-  <br /><br />
-  <!-- <footer class="footer footer-center p-3 bg-base-300 text-base-content">
-    <div>
-      <p>
-        Copyright © 2023 - Instituto Tecnológico Superior de Patrinomio y
-        Turismo YAVIRAC
-      </p>
-    </div>
-  </footer> -->
 </div>
+
+<p-paginator
+  [rows]="3"
+  [totalRecords]="cursos.length"
+  (onPageChange)="onPageChange($event)"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="{first} - {last} of {totalRecords}"
+  [showPageLinks]="true"
+  [showFirstLastIcon]="true"
+></p-paginator>

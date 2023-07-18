@@ -1,114 +1,33 @@
-<div class="botones">
-  <button class="btn btn-accent" (click)="redireccionar()">Fecha</button>&nbsp;
-  <!-- <button class="btn btn-accent" routerLink="../registro-fotografico">Registro Fotográfico </button> &nbsp; -->
-</div>
-
-<h1>Creación de Asistencia</h1>
-<label for="fecha">Fecha:</label>
-<input type="date" id="fecha" name="birthday" [(ngModel)]="asistenciaForm.fecha" />
-<label for="duracionClase">Duración de la clase:</label>
-<input type="time" id="duracionClase" name="duracionClase" min="01:00" max="02:00"
-  [(ngModel)]="asistenciaForm.duracionClase" />
-
-<h2>LISTA DE ESTUDIANTES</h2>
-<!-- {{ estudiantes$ | async | json }} -->
-<!-- {{ asistenciaForm | json }} -->
-<div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50" rows="5" cols="35">
-  <br />
-  <a class="text-black">P=PRESENTE</a>&nbsp;
-  <a class="text-black">A=AUSENTE</a>&nbsp;
-  <a class="text-black">FJ=FALTA JUSTIFICADA</a>
-</div>
-<div class="relative overflow-x-auto shadow-md">
-  <div class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50">
-    <div
-      class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 group bg-white-100 shadow-xs rounded-box">
-      <table class="table w-full group shadow-xs rounded-box">
-        <thead class="bg-white">
-          <tr class="text-lg text-white">
-            <th>Nombres</th>
-            <th>P</th>
-            <th>A</th>
-            <th>FJ</th>
-          </tr>
-        </thead>
-        <tbody class="text-lg">
-          <tr *ngIf="
-              asistenciaForm.id === 0;
-              then nuevaAsistencia;
-              else actualizarAsistencia
-            "></tr>
-        </tbody>
-      </table>
+<button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left"
+        (click)="redireccionar()">
+        Volver
+      </button>
+<br>
+<br>
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <h1>Creación de Asistencia</h1>
+    <label for="fecha" class="ml-40">Fecha:</label>
+    <p-calendar [(ngModel)]="asistenciaForm.fecha"></p-calendar>
+  </div>
+</p-toolbar>
+<br>
+  <p-fieldset legend="Observaciones:">
+    <div class="flex flex-col flex-wrap gap-4">
+      <ul>
+        <li *ngFor="let observacion of asistenciaForm.observaciones">
+          {{ observacion.descripcion }}
+        </li>
+      </ul>
+      <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"
+        placeholder="Escriba su observacion" style="resize: none"></textarea>
+      <p-button label="Agregar Observacion" (click)="agregarObservacion()"></p-button>
     </div>
-  </div>
-  <div class="flex flex-col flex-wrap gap-4">
-    <label with px-2 class="text-lg text-black">Observaciones:</label>
-    <ul>
-      <li *ngFor="let observacion of asistenciaForm.observaciones">
-        {{ observacion.descripcion }}
-      </li>
-    </ul>
-    <textarea [(ngModel)]="observacionesForm.descripcion" class="textarea textarea-secondary"
-      placeholder="Escriba su observacion" style="resize: none"></textarea>
-    <button class="btn btn-secondary" (click)="agregarObservacion()">
-      Agregar Observacion
-    </button>
-  </div>
+</p-fieldset>
+<br>
+<p-fileUpload mode="basic" chooseLabel="Evidencia fotografica" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"></p-fileUpload>
   <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
-    <p class="text-lg text-black">
-      Suba la evidencia fotografica de la clase:
-      <input type="file" name="archivosubido" />&nbsp;
-    </p>
     <h5>Formatos admitidos:JPG y PNG</h5>
   </form>
-  <br />
-  <label for="my-modal-ca-6" fill="none" class="btn btn-accent" (click)="guardar()">GUARDAR </label>&nbsp;
-  <input type="checkbox" id="my-modal-ca-6" class="modal-toggle" />
-  <!-- <div class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box block text-white bg-blue-700  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-rigth ">
-    <h3 class="font-bold text-lg text-white text-center " >SE REGISTRO CORRECTAMENTE</h3>
-    <div class="modal-action">
-      <label for="my-modal-ca-6" class="btn btn-accent" routerLink="../asistencia" >ACEPTAR</label>
-    </div>
-  </div>
-</div> -->
-</div>
-
-<ng-template #actualizarAsistencia>
-  <tr *ngFor="let estudiante of asistenciaForm.detalleAsistencia">
-    <div *ngFor="let est of estudiante.matriculas">
-      <th>{{ est.estudiantes!.nombres }}</th>
-      <td>
-        <input #radioPresente type="radio" [name]="est.id" id="Presente" class="form-check-input"
-          (change)="cambioEstado(radioPresente.id, est)" />
-      </td>
-      <td>
-        <input #radioAusente type="radio" [name]="est.id" id="Ausente" class="form-check-input"
-          (change)="cambioEstado(radioAusente.id, est)" />
-      </td>
-      <td>
-        <input #radioFaltaJustificada type="radio" [name]="est.id" id="Falta Justificada" class="form-check-input"
-          (change)="cambioEstado(radioFaltaJustificada.id, est)" />
-      </td>
-    </div>
-  </tr>
-</ng-template>
-
-<ng-template #nuevaAsistencia>
-  <tr *ngFor="let estudiante of (estudiantes$ | async)!">
-    <th>{{ estudiante.estudiantes!.nombres }}</th>
-    <td>
-      <input #radioPresente type="radio" [name]="estudiante.id" id="Presente" class="form-check-input"
-        (change)="cambioEstado(radioPresente.id, estudiante)" />
-    </td>
-    <td>
-      <input #radioAusente type="radio" [name]="estudiante.id" id="Ausente" class="form-check-input"
-        (change)="cambioEstado(radioAusente.id, estudiante)" />
-    </td>
-    <td>
-      <input #radioFaltaJustificada type="radio" [name]="estudiante.id" id="Falta Justificada" class="form-check-input"
-        (change)="cambioEstado(radioFaltaJustificada.id, estudiante)" />
-    </td>
-  </tr>
-</ng-template>
+  <br>
+<p-button label="Guardar" (click)="guardar()" styleClass="p-button-success"></p-button>&nbsp;&nbsp;

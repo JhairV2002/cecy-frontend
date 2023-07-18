@@ -17,8 +17,9 @@ import { RequirementComponent } from './requirement/requirement.component';
 import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
 import { RequirementListComponent } from './requirement/requirement-list/requirement-list.component';
 import { InitialCourseKpiComponent } from './planification/initial-course-kpi/initial-course-kpi.component';
-import { InitialPlanificationKpiComponent } from './planification/initial-planification-kpi/initial-planification-kpi.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { KpiComponent } from './planification/kpi/kpi.component';
+
 
 /* Prime NG */
 import { ChartModule } from 'primeng/chart';
@@ -50,6 +51,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TagModule } from 'primeng/tag';
+import { SearchComponent } from './planification/search/search.component';
+import { SkeletonModule } from 'primeng/skeleton';
+
 @NgModule({
   declarations: [
     AssignmentInstructorsFormComponent,
@@ -62,15 +67,15 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     RequirementListComponent,
     AssignmentInstructorsFormComponent,
     InitialCourseKpiComponent,
-    InitialPlanificationKpiComponent,
     RequirementListComponent,
     DashboardComponent,
     HomeComponent,
     PlanificationComponent,
     PlanificationListComponent,
     PlanificationFormComponent,
+    KpiComponent,
+    SearchComponent,
   ],
-  exports: [InitialPlanificationKpiComponent],
   imports: [
     CommonModule,
     CoordinatorCareerRoutingModule,
@@ -103,6 +108,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     SelectButtonModule,
     RadioButtonModule,
     AutoCompleteModule,
+    TagModule,
+    SkeletonModule
   ],
 })
 export class CoordinatorCareerModule {}
