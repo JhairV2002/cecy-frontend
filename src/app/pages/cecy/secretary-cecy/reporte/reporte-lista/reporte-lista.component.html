@@ -1,6 +1,7 @@
 <div class="cabezera flex justify-start">
   <div class="m-1 flex justify-end">
-    <button class="btn mx-2 btn-primary" (click)="generateReports()">Generar Reporte</button>
+    <button class="btn mx-2 btn-primary" (click)="generateReport()">Generar Reporte</button>
+
   </div>
   <div class="m-1 flex justify-end">
     <button class="btn mx-2 btn-success" (click)="downloadXls(validateReportEntity.id)">Descargar Reporte</button>
@@ -32,7 +33,16 @@
       </p-card>
     </div>
 
-
+    <p-dialog [(visible)]="dialogReport" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+          <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+          <span>¿Desea Generar el Reporte?</span>
+      </div>
+      <ng-template pTemplate="footer">
+          <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Cancelar" (click)="dialogReport = false"></button>
+          <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Aceptar" (click)="generateReports()"></button>
+      </ng-template>
+  </p-dialog>
 
 
 

@@ -15,13 +15,21 @@ export class ReporteService {
   private httpOptions = {
     headers: new HttpHeaders({"Content-Type":"application/json"})
   }
- 
+
   private apiUrl1 = `${environment.api4}/matriculas`;
+  private apiUrl2 = `${environment.api4}/matriculas/cursoId/`;
   private apiUrl = `${environment.api4}/reporte`;
 
   public findAll(): Observable<Reporte[]> {
     return this.http.get<Reporte[]>(
       this.apiUrl + '/',
+      this.httpOptions
+    );
+  }
+
+  public findAllMatricula(id: number): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(
+      this.apiUrl2 + id+'/',
       this.httpOptions
     );
   }
