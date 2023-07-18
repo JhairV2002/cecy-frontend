@@ -51,7 +51,8 @@
       </ng-template>
       <ng-template pTemplate="subtittle">
         Codigo: {{ item.planification.codeCourse }} <br />
-        Estado: {{ item.planification.state }}
+        Estado: {{ item.planification.state }} <br />
+        Creado: {{ item.planification.createdAt | date}}
       </ng-template>
       <ng-template pTemplate="footer">
         <div class="text-center">

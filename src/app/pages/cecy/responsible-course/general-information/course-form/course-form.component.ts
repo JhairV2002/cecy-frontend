@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -101,7 +102,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn(this.selectedCourse);
+    console.warn('se cargo nuevamente el comp form',this.selectedCourse);
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();

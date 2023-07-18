@@ -12,7 +12,7 @@
         </div>
         <div class="w-full md:w-1/6">
           <b>Estado del curso: </b> <br />
-          {{ selectedCourse?.state ?? "No asignado" }}
+          {{ selectedCourse?.course.state ?? "No asignado" }}
         </div>
         <div class="w-full md:w-1/6">
           <b>Carrera: </b> <br />
@@ -76,7 +76,12 @@
 
 <!-- <div class="card flex flex-wrap flex-column align-items-center gap-2"> -->
   <!-- <p-toast></p-toast> -->
-  <p-confirmDialog [style]="{ width: '50vw' }" key="positionDialog" [position]="'right'" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+  <p-confirmDialog [style]="{ width: '50vw' }" #cd key="positionDialog" [position]="'right'" rejectButtonStyleClass="p-button-outlined">
+    <ng-template pTemplate="footer">
+      <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+      <button type="button" pButton icon="pi pi-check" label="Si" (click)="cd.accept()"></button>
+  </ng-template>
+  </p-confirmDialog>
   <!-- <div class="flex flex-wrap justify-content-center gap-2">
       <p-button (click)="confirmationDialog()" icon="pi pix-arrow-left" label="Right" styleClass="p-button-help"></p-button>
   </div>

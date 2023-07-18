@@ -1,5 +1,6 @@
+import { TargetGroup } from './../../../../models/cecy/cursos-model';
 import { CourseService } from './../../../../services/cecy-v1/course.service';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MessageService as CoreMessageService } from './../../../../services/core/message.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -108,14 +109,17 @@ export class TabsComponent implements OnInit, OnChanges {
   confirmationDialog() {
 
     this.confirmationService.confirm({
-      message: 'Mira tu ya has llenado una planificacion similar. ¿Deseas autocompletar con esa misma información ?',
+      message: 'Mira, tu ya has llenado una planificacion similar. ¿Deseas autocompletar con esa misma información ?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.courseService.updateByAfterCourse(this.fillCourseSelect, this.selectedCourse.id).subscribe({
           next: (data) => {
-            this.primeMessageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Curso actualizado correctamente.' });
-            this.ngOnInit();
+            // this.ngOnInit();
+            console.warn('curso de seleccion now:', this.selectedCourse)
+            this.router.navigate(['/cecy/responsible-course/course/add', this.selectedCourse.id]);
+
+            this.primeMessageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Curso actualizado correctamente, si no se reflejan los datos actualiza la pagina.' });
           },
           error: (error) => {
             this.primeMessageService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error.' });
@@ -126,10 +130,10 @@ export class TabsComponent implements OnInit, OnChanges {
       reject: (type: ConfirmEventType) => {
         switch (type) {
           case ConfirmEventType.REJECT:
-            this.primeMessageService.add({ severity: 'error', summary: 'Rechazado', detail: 'Lo has rechazado' });
+            // this.primeMessageService.add({ severity: 'warn', summary: 'Rechazado', detail: 'Lo has rechazado' });
             break;
           case ConfirmEventType.CANCEL:
-            this.primeMessageService.add({ severity: 'warn', summary: 'Cancelado', detail: 'Lo has cancelado' });
+            // this.primeMessageService.add({ severity: 'warn', summary: 'Cancelado', detail: 'Lo has cancelado' });
             break;
         }
       },
@@ -145,21 +149,23 @@ export class TabsComponent implements OnInit, OnChanges {
   }
 
   filterPlanification(valueSearch: any, valueList: any): void {
-    // console.log('valores de la lista', valueList);
-    // console.log('nombre del curso a buscar', valueSearch);
+    console.log('valores de la lista', valueList);
+    console.log('nombre del curso a buscar', valueSearch);
 
 
     const filterValue = valueSearch.toLowerCase();
     this.filterPlan = valueList.filter((item: any) =>
-      item.planification.name.toLowerCase().includes(filterValue) && item.planification.state == 'aprobado'
+      item.planification.name.toLowerCase().includes(filterValue)
+      && item.planification.state == 'aprobado'
+      && item.targetGroups != null
     );
-    // console.log('valores ya filtrados',this.filterPlan)
+    console.log('valores ya filtrados',this.filterPlan)
     // this.fillCourseSelect = this.filterPlan.length > 0 ? this.filterPlan[0] : null;`
     if (this.filterPlan.length > 0 && this.filterPlan[0].targetGroups!=null) {
       this.fillCourseSelect = this.filterPlan[0]
     }
 
-    // console.log('valor ya almacenado del filtro el seleccionado para copiar',this.fillCourseSelect)
+    console.log('valor ya almacenado del filtro el seleccionado para copiar',this.fillCourseSelect)
     if (this.fillCourseSelect) {
       this.confirmationDialog();
     }
