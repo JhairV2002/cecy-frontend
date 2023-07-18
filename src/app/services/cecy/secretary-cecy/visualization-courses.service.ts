@@ -10,8 +10,8 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) { }
 
-  private apiUrl = `${environment.api}/courses`;
-  private apiUrl2 = `${environment.api}/cursos`;
+  private apiUrl = `${environment.api}/cursos/statusCourse/Terminado`;
+
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -24,11 +24,11 @@ export class VisualizationCoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/state-course/aprobado`);
+    return this.http.get<Course[]>(`${this.apiUrl}/`);
   }
 
   public findById(id: number): Observable<Course> {
-    return this.http.get<Course>(this.apiUrl2 + '/' + id, this.httpOptions);
+    return this.http.get<Course>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
   // public deleteById(id: number): Observable<Sugerencia>{
