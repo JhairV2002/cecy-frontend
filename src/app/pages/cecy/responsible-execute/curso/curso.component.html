@@ -1,5 +1,5 @@
 <div class="text-center">
-  <h1 class="text-3xl font-bold">Mis Cursos</h1>
+  <h1 class="text-3xl font-bold">Mis Cursos </h1>
 </div>
 <p-toolbar>
   <div class="p-toolbar-group-end">
@@ -28,15 +28,26 @@
         </svg>
       </div>
     </div>
-    <p-button class="ml-4" styleClass="p-button-success" (click)="sortCards()"><i class="pi pi-sort-alpha-up"></i></p-button>
+    <p-button class="ml-4" styleClass="p-button-success" (click)="sortCards()">
+      <i class="pi pi-sort-amount-down-alt"></i>
+    </p-button>
   </div>
-</p-toolbar><br/>
- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+</p-toolbar>
+
+<br />
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <div *ngIf="cursos.length === 0" class="text-center text-gray-500">
     <h3 *ngIf="!loading">No tienes cursos asignados</h3>
-    <p-progressSpinner *ngIf="loading" [style]="{ 'width.px': '50', 'height.px': '50' }" strokeWidth="4" animationDuration="1s"></p-progressSpinner>
+    <p-progressSpinner
+      *ngIf="loading"
+      [style]="{ 'width.px': '50', 'height.px': '50' }"
+      strokeWidth="4"
+      animationDuration="1s"
+    ></p-progressSpinner>
   </div>
-  <div *ngFor="let curso of cursos ; let i = index">
+
+  <div *ngFor="let curso of cursos; let i = index">
     <div *ngIf="cumpleFiltro(curso)">
       <p-card
         header="{{ curso.planificationCourse.name }}"
@@ -44,18 +55,31 @@
         [style]="{ width: '300px' }"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          <img
+            alt="Card"
+            src="https://primefaces.org/cdn/primeng/images/usercard.png"
+          />
         </ng-template>
+
         <p>
-          Modalidad: {{ curso.workday.name }}<br/>
+          Modalidad: {{ curso.workday.name }}<br />
+          Fecha de inicio: {{ curso.planificationCourse.startDate | date: 'yyyy-MM-dd' }}<br />
           Estado del curso:
-          <label class="label cursor-pointer">
-            <span class="text">{{ curso.courseStatus ? "Terminado" : "En proceso" }}</span>
-            <input type="checkbox" [(ngModel)]="curso.courseStatus" class="toggle" checked />
-          </label>
+          <p-dropdown
+  [options]="statusOptions"
+  optionLabel="label"
+  optionValue="value"
+  (ngModelChange)="actualizarStatus(curso.id, $event.value)"
+  [ngModel]="curso.statusCourse"
+></p-dropdown>
         </p>
+
         <ng-template pTemplate="footer">
-          <p-button label="Detalles" icon="pi pi-check" (click)="redirect(curso.planificationCourseId)"></p-button>
+          <p-button
+            label="Detalles"
+            icon="pi pi-check"
+            (click)="redirect(curso.planificationCourseId)"
+          ></p-button>
         </ng-template>
       </p-card>
     </div>
@@ -64,7 +88,7 @@
 
 <p-paginator
   [rows]="3"
-  [totalRecords]="cursos.length"
+  [totalRecords]="cursosFiltrados.length"
   (onPageChange)="onPageChange($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first} - {last} of {totalRecords}"
