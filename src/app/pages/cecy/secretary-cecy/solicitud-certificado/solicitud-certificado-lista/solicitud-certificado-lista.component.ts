@@ -88,6 +88,9 @@ export class SolicitudCertificadoListaComponent implements OnInit {
     rowsPerPageOptions = [5, 10, 20];
 
     dialogCertificate: boolean = false;
+    stateCertificateReport: any = {
+      stateCertificate: false
+    }
   ngOnInit(): void {
     //this.findAll();
     // this.activatedRoute.paramMap.subscribe((params) => {
@@ -286,7 +289,9 @@ onGlobalFilter(table: Table, event: Event) {
          }
          this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe((e)=>{
           //this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Certificado Generado', life: 3000 })
-        console.log(e) ;
+          this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
+            stateCertificate: true
+          },this.reportEntity.id)
         });
          console.log(JSON.stringify(this.codeEntity))
        }
