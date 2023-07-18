@@ -3,14 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
-import { Product } from './produc';
-import { ProductService } from './product.service';
 import { ActivatedRoute } from '@angular/router';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
 import { Reporte, Reportes,Matricula } from '../reporte';
-import { SolicitudCertificadoService } from '../../solicitud-certificado/solicitud-certificado.service';
 import { ReporteService } from '../reporte.service';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 
 
 @Component({
@@ -20,9 +18,10 @@ import { ReporteService } from '../reporte.service';
 export class ReporteListaComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private matricula: SolicitudCertificadoService,
+    private matricula: ReporteService,
     private courseService: VisualizationCoursesService,
     private reporteService: ReporteService,
+    private planificationCourse: PlanificationsCoursesService,
 
   ){}
   solicitudEstudents: Matricula[] = [];
@@ -81,7 +80,15 @@ ngOnInit(): void {
  public findByIdCourse(id: number): void{
   this.courseService.findById(id).subscribe((res)=>{
     this.course = res;
-
+    this.planificationCourse.planificationById(
+      this.course.planificationId
+    ).subscribe(
+      (planificacion) => {
+        this.course.name = planificacion.name;
+        console.log(this.course.planificationId);
+        console.log(planificacion.name);
+      }
+    )
   })
  }
  public searchStudentsbyState():void{
@@ -156,7 +163,7 @@ ngOnInit(): void {
 
         console.log("el reporte no existe",this.validateReport)
       }
-      setInterval("location.reload()", 60000)
+      setInterval("location.reload()", 6000)
     });
   }
   //consulta todos los reportes y comprueba si existe un reporte x curso
@@ -211,7 +218,7 @@ ngOnInit(): void {
   public downloadXls(id: any) {
 
     //aqui va el nombre del curso y la fecha en la que se descargo
-    var name='nombre '+ new Date();
+    var name='Anexo A7 '+ this.course.name;
     this.reporteService.descarga(id).subscribe((data) => {
       let dowloadURL = window.URL.createObjectURL(data);
       let link = document.createElement('a');

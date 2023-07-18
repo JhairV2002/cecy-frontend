@@ -1,0 +1,89 @@
+<div class="grid p-fluid">
+	<div class="col-12 md:col-6">
+		<div class="card">
+			<h5>Tipo de certificado</h5>
+			<p-dropdown [options]="type" [(ngModel)]="selectedDrop" placeholder="Selecione el tipo de certificado" [showClear]="true"></p-dropdown>
+		</div>
+	</div>
+
+	<div class="col-12 md:col-6">
+		<div class="card">
+
+			<h5>Participantes</h5>
+			<div class="grid formgrid">
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="New York" [(ngModel)]="valCheck" id="ny"></p-checkbox>
+						<label for="ny">Cordinador Cecy</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="San Francisco" [(ngModel)]="valCheck" id="sf"></p-checkbox>
+						<label for="sf">Rector</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="Los Angeles" [(ngModel)]="valCheck" id="la"></p-checkbox>
+						<label for="la">Patrocinador</label>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="card">
+			<app-dropdown-settings (firmasIdEmitter)="rector=$event" [id]="rector"></app-dropdown-settings>
+		</div>
+
+    <div class="card">
+			<app-dropdown-settings (firmasIdEmitter)="patrocinador=$event" [id]="patrocinador"></app-dropdown-settings>
+		</div>
+
+    <div class="card">
+			<app-dropdown-settings (firmasIdEmitter)="coordinador=$event" [id]="coordinador"></app-dropdown-settings>
+		</div>
+
+	</div>
+
+  <button class="btn" (click)="sendSetings()"></button>
+</div>
+
+
+<div class="card" >
+  <input
+ [(ngModel)]="firma.nombres"
+  type="text"
+  class="p-inputtext-sm"
+  placeholder="Nombres."
+  pInputText
+
+/>
+<br /><br />
+<input
+[(ngModel)]="firma.apellidos"
+  type="text"
+  class="p-inputtext-sm"
+  placeholder="Apellidos"
+  pInputText
+
+/>
+<br /><br />
+<input
+[(ngModel)]="firma.cedula"
+  type="text"
+  class="p-inputtext-sm"
+  placeholder="Cedula"
+  pInputText
+
+/>
+
+<div>
+<input type="file" accept="image/*" (change)="onUpload($event)">
+</div>
+<button class="btn btn-accent h-2 m-1" (click)="subirFirma()">Subir</button>
+
+</div>
+

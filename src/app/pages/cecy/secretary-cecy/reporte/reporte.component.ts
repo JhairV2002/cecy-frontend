@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
 import { Course } from '@models/cecy/secretary-cecy';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
-import { SolicitudCertificadoService } from '../solicitud-certificado/solicitud-certificado.service';
-import { Matricula } from '../solicitud-certificado/solicitud-certificado';
+import { ReporteService } from './reporte.service';
+import { Matricula } from './reporte';
 
 
 
@@ -16,7 +16,7 @@ export class ReporteComponent implements OnInit {
   constructor(
     private visualizationCoursesService: VisualizationCoursesService,
     private planificationCourse: PlanificationsCoursesService,
-    private matricula: SolicitudCertificadoService
+    private matricula: ReporteService
   ) { }
   solicitudEstudents: Matricula[] = [];
   courses: Course[] = [];
