@@ -9,13 +9,16 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class EstudiantesService {
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService,
+  ) { }
 
   url: string = 'http://localhost:8080/api/estudiantes/';
   authenticateUrl: string = 'http://localhost:3000/api/v1/auth/student/login';
 
   private estudianteActualSubject = new BehaviorSubject<Estudiantes | null>(
-    null
+    null,
   );
   public readonly estudianteActual: Observable<Estudiantes | null> =
     this.estudianteActualSubject.asObservable();
@@ -32,6 +35,7 @@ export class EstudiantesService {
     return this.http
       .get<Estudiantes>(`${this.url}findByCedula/${cedula}/`)
       .subscribe((res) => {
+        console.log(res);
         this.estudianteActualSubject.next(res);
       });
   }
