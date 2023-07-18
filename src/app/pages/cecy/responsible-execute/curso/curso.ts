@@ -3,14 +3,17 @@ export interface PlanificationCourse {
   codeCourse: string;
   name: string;
   state: string;
+  startDate: string;
 }
-export interface Workday{
+
+export interface Workday {
   id: number;
   name: string;
 }
+
 export interface Curso {
   id: number;
   workday: Workday;
   planificationCourse: PlanificationCourse;
-  courseStatus: boolean;
+  statusCourse: string;
 }
