@@ -25,6 +25,19 @@
     </div>
 </p-fieldset>
 <br>
+<br>
+<p-fieldset legend="Links:">
+  <div class="flex flex-col flex-wrap gap-4">
+    <ul>
+      <li *ngFor="let link of asistenciaForm.links">
+        {{ link.descripcion }}
+      </li>
+    </ul>
+    <textarea [(ngModel)]="linksForm.descripcion" class="textarea textarea-secondary"
+      placeholder="Ingrese el link de la imagen" style="resize: none"></textarea>
+    <p-button label="Agregar imagen" (click)="agregarLink()"></p-button>
+  </div>
+</p-fieldset>
 <p-fileUpload mode="basic" chooseLabel="Evidencia fotografica" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"></p-fileUpload>
   <form action="../../form-result.php" method="post" enctype="multipart/form-data" target="_blank">
     <h5>Formatos admitidos:JPG y PNG</h5>

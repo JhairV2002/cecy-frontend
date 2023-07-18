@@ -45,7 +45,7 @@ export class FechaComponent {
 
   regresar() {
     this.activatedRoute.paramMap.subscribe((param) => {
-      this.router.navigate([`cecy/responsible-execute/notas/estudiante/:cursoId`]);
+      this.router.navigate([`cecy/responsible-execute/notas/estudiante/${param.get('cursoId')}`]);
     });
   }
 
