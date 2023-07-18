@@ -8,6 +8,7 @@ import { AttendanceFormComponent } from './attendance/attendance-form/attendance
 import { AttendanceRecordsComponent } from './attendance/attendance-records/attendance-records.component';
 import { TemariCourseComponent } from './temari-course/temari-course.component';
 import { HomeComponent } from './home/home.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'courses', component: InstructorCourseComponent },
   { path: 'temari-courses/:id', component: TemariCourseComponent },
   { path: 'participant', component: ParticipantComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({

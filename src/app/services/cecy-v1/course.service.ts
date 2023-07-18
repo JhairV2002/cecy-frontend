@@ -65,6 +65,11 @@ export class CourseService {
     return this.http.get<CatalogueModel[]>(this.apiUrl + '/catalogue/' + name);
   }
 
+  public saveCatalogue(catalogue: any) {
+    return this.http.post<any>(`${this.apiUrl}/catalogue/`, catalogue);
+  }
+
+
   public getClassrooms(): Observable<ClassroomModel[]> {
     return this.http.get<ClassroomModel[]>(this.apiUrl + '/classrooms/class');
   }

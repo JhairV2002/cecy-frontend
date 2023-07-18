@@ -6,6 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { TabsComponent } from '../responsible-course/tabs/tabs.component';
 import { SchoolYearComponent } from './school-year/school-year.component';
 import { AssignmentInstructorsFormComponent } from '../coordinator-career/assignment-instructor/assignment-instructors-form.component';
+import { AssistantComponent } from './assistant/assistant.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
+import { PlanificationComponent } from './planification/planification.component';
+import { UnsavedStateGuard } from '@guards/unsaved-state.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -13,8 +17,15 @@ const routes: Routes = [
   { path: 'course', component: CourseComponent },
   { path: 'school-year', component: SchoolYearComponent },
   { path: 'course/visualization/:id', component: TabsComponent },
+  { path: 'assistant', component: AssistantComponent },
   { path: 'profile-instructor', component: AssignmentInstructorsFormComponent },
   { path: 'poa-form', component: PoaFormComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
+  {
+    path: 'planification/:id',
+    component: PlanificationComponent,
+    // canDeactivate: [UnsavedStateGuard],
+  },
 ];
 
 @NgModule({

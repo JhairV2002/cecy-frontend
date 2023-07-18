@@ -31,6 +31,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { PickListModule } from 'primeng/picklist';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TagModule } from 'primeng/tag';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DragDropModule } from 'primeng/dragdrop';
+import { MessagesModule } from 'primeng/messages';
 
 /**Components */
 import { CoordinatorCecyRoutingModule } from './coordinator-cecy-routing.module';
@@ -46,6 +50,11 @@ import { SchoolYearComponent } from './school-year/school-year.component';
 import { SchoolYearListComponent } from './school-year/school-year-list/school-year-list.component';
 import { SchoolYearFormComponent } from './school-year/school-year-form/school-year-form.component';
 import { CommentsComponent } from './course/comments/comments.component';
+import { AssistantComponent } from './assistant/assistant.component';
+import { AssistantFormComponent } from './assistant/assistant-form/assistant-form.component';
+import { AssistantListComponent } from './assistant/assistant-list/assistant-list.component';
+import { SearchComponent } from './assistant/search/search.component';
+import { PlanificationComponent } from './planification/planification.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +70,11 @@ import { CommentsComponent } from './course/comments/comments.component';
     SchoolYearListComponent,
     SchoolYearFormComponent,
     CommentsComponent,
+    AssistantComponent,
+    AssistantFormComponent,
+    AssistantListComponent,
+    SearchComponent,
+    PlanificationComponent,
   ],
   imports: [
     CommonModule,
@@ -97,6 +111,10 @@ import { CommentsComponent } from './course/comments/comments.component';
     TooltipModule,
     InputTextareaModule,
     TagModule,
+    RadioButtonModule,
+    BreadcrumbModule,
+    DragDropModule,
+    MessagesModule,
   ],
 })
 export class CoordinatorCecyModule {}

@@ -28,10 +28,10 @@ export class CertificateRequestService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private apiUrl = `${environment.api4}/reporte`;
-  private apiUrl1 = `${environment.api4}/codigo`;
-  private apiUrl2 = `${environment.api4}/certificado`;
-  private apiUrl3 = `${environment.api4}`;
+  private apiUrl = `${environment.api}/reporte`;
+  private apiUrl1 = `${environment.api}/codigo`;
+  private apiUrl2 = `${environment.api}/certificado`;
+  private apiUrl3 = `${environment.api}`;
 
 
 

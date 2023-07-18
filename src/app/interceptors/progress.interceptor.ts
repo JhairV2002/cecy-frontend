@@ -17,14 +17,12 @@ export class ProgressInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('ANTES DEL RETORNO');
     if (this.activeRequest === 0) {
       this.progress.ref().start();
     }
     this.activeRequest++;
     return next.handle(request).pipe(
       finalize(() => {
-        console.log('FINALIZANDO RES PROGRESS', this.activeRequest);
         this.activeRequest--;
         if (this.activeRequest === 0) {
           this.progress.ref().complete();

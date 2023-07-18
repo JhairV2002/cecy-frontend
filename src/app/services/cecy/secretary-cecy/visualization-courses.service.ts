@@ -10,7 +10,7 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) { }
 
-  private apiUrl = `${environment.api4}/cursos/statusCourse/Terminado`;
+  private apiUrl = `${environment.api}/cursos/statusCourse/Terminado`;
 
 
   private httpOptions = {

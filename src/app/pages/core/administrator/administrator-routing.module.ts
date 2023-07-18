@@ -6,6 +6,7 @@ import { CareerComponent } from './career/career.component';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { NotFoundComponent } from '../common/not-found/not-found.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'users', component: UserComponent },
       { path: 'roles', component: RoleComponent },
       { path: 'careers', component: CareerComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
       { path: 'not-found', component: NotFoundComponent },
       { path: '**', redirectTo: 'not-found' },
     ],

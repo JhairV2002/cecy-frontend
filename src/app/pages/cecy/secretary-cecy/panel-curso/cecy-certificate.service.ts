@@ -11,9 +11,9 @@ import { ListReports, Planification } from './certificateReport';
 export class CecyCertificateService {
   constructor(private http: HttpClient) { }
 
-  private apiUrl = `${environment.api4}/courses`;
-  private apiUrl2 = `${environment.api4}/cursos`;
-  private apiUrlReporte= `${environment.api4}/reporte`;
+  private apiUrl = `${environment.api}/courses`;
+  private apiUrl2 = `${environment.api}/cursos`;
+  private apiUrlReporte= `${environment.api}/reporte`;
   private apiUrlPlanification = `${environment.api2}/planifications-courses`;
 
   private httpOptions = {

@@ -146,7 +146,7 @@ export class UserListComponent implements OnInit {
     this.getAllUSers();
   }
 
-  searchPlanificationCourses(users: any) {
+  searchUsers(users: any) {
     this.users = users;
     console.log('ESTO BUSCO', users);
   }
@@ -166,11 +166,5 @@ export class UserListComponent implements OnInit {
   showForm(): void {
     this.isVisible = true;
     this.selectedUser = null;
-  }
-
-  filter(event: any) {
-    if (event.key === 'Enter' || event.type === 'click') {
-      this.getAllUSers();
-    }
   }
 }

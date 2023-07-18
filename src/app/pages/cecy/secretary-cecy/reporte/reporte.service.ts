@@ -16,9 +16,9 @@ export class ReporteService {
     headers: new HttpHeaders({"Content-Type":"application/json"})
   }
 
-  private apiUrl1 = `${environment.api4}/matriculas`;
-  private apiUrl2 = `${environment.api4}/matriculas/cursoId/`;
-  private apiUrl = `${environment.api4}/reporte`;
+  private apiUrl1 = `${environment.api}/matriculas`;
+  private apiUrl2 = `${environment.api}/matriculas/cursoId/`;
+  private apiUrl = `${environment.api}/reporte`;
 
   public findAll(): Observable<Reporte[]> {
     return this.http.get<Reporte[]>(

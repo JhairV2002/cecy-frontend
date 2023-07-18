@@ -1,3 +1,50 @@
+<div class="flex justify-between p-2">
+  <div class="flex">
+    <img
+      class="flex-shrink-0 object-cover mx-1 rounded-full w-12 h-12"
+      [src]="
+        user?.image
+          ? user?.image
+          : 'assets/images/administrator/user-default.png'
+      "
+      alt="avatar"
+    />
+    <div class="flex flex-col justify-center ml-1">
+      <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+        {{
+          user?.names
+            ? user?.names
+            : "Nombres" + " " + user?.lastnames
+            ? user?.lastnames
+            : "Apellidos"
+        }}
+      </h1>
+      <div class="relative">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          {{ user?.email ? user?.email : "nombre@yavirac.edu.ec" }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button
+      class="h-full flex items-center focus:outline-none"
+      (click)="toggleDropdown()"
+    >
+      <i class="pi pi-angle-down"></i>
+    </button>
+  </div>
+</div>
+<div [ngClass]="{ hidden: !dropdownOpen }">
+  <p-button
+    class="w-full"
+    styleClass="p-button-text p-button-secondary w-full"
+    (onClick)="redirectConfigurate(user?.role?.name)"
+  >
+    <i class="pi pi-cog text-gray-600"></i>
+    <span class="ml-1 text-gray-600 text-sm">Configuración</span>
+  </p-button>
+</div>
 <p-menu
   *ngIf="user?.role?.name === 'admin'"
   [style]="{ width: 'auto' }"
@@ -13,6 +60,13 @@
   [style]="{ width: 'auto' }"
   [model]="itemsCoordinatorCecy"
 ></p-menu>
+
+<p-menu
+  *ngIf="user?.role?.name === 'assistant_cecy'"
+  [style]="{ width: 'auto' }"
+  [model]="itemsCoordinatorCecyAssistant"
+></p-menu>
+
 <p-menu
   *ngIf="user?.role?.name === 'responsible_course'"
   [style]="{ width: 'auto' }"
@@ -28,14 +82,13 @@
   *ngIf="user?.role?.name === 'student'"
   [style]="{ width: 'auto' }"
 ></p-menu>
-<!-- [model]="(carreras$ | async)!" -->
 <p-menu
   *ngIf="user?.role?.name === 'secretary_cecy'"
   [style]="{ width: 'auto' }"
   [model]="itemsSecretary"
 ></p-menu>
 
-<div class="border-round border-1 p-4" *ngIf="loading">
+<div class="border-round border-1 p-4" *ngIf="(loading$ | async)!">
   <ul class="m-0 p-0 list-none">
     <li class="mb-3">
       <div class="flex">

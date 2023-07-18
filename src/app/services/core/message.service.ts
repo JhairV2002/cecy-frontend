@@ -11,10 +11,7 @@ import { MessageService as MessagePNService } from 'primeng/api';
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(
-    private messageService: MessagePNService,
-
-  ) {}
+  constructor(private messageService: MessagePNService) {}
 
   error(error: HttpErrorResponse) {
     let errorMessage = 'Ha ocurrido un error';
@@ -47,6 +44,15 @@ export class MessageService {
       title: 'Fue aprobado el curso con éxito',
       text: serverResponse.message,
       icon: 'success',
+    });
+  }
+
+  suspendPlanification(serverResponse: ServerResponse) {
+    console.log(serverResponse, 'message');
+    return Swal.fire({
+      title: 'Fue suspendido la planificacion',
+      text: serverResponse.message,
+      icon: 'warning',
     });
   }
 
@@ -220,6 +226,22 @@ export class MessageService {
     });
   }
 
+  questionDeleteComments({
+    title = '¿Está seguro de eliminar el comentario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
+    });
+  }
+
   questionDeclineParticipant({
     title = '¿Está seguro de rechazar participante?',
     text = '',
@@ -302,7 +324,9 @@ export class MessageService {
   }
 
   fieldMax(errors: ValidationErrors): string {
-    return `Numero maximo permitido es ${errors['max']['requiredMax']}.`;
+    const max = errors['max'].max;
+    const actual = errors['max'].actual;
+    return `Numero maximo permitido es ${max}. valor actual ${actual}`;
   }
 
   get fieldPattern() {

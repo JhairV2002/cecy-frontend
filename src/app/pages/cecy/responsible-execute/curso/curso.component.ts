@@ -24,23 +24,21 @@ export class CursoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((user: any) => {
-      console.log('USUARIO INSTRUCTOR', user[0].id);
-      this.cursoService
-        .getCursosByInstructor(user[0].id)
-        .subscribe((cursos) => {
-          console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
-          this.cursos = cursos;
-          this.filtrarCursos();
-          // Filtrar los cursos por estado "aprobado"
-          //TOCA AGREGAR ESE MISMO FILTRO EN LA PARTE DEL BACKEND YA LO HAGO ... ANDERSON
-          // this.cursos = cursos.filter(
-          //   (curso) => curso.planificationCourse.state === 'aprobado'
-          // );
-          this.loading = false;
-        }, () => {
-          this.loading = false;
-        });
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        console.log('USUARIO INSTRUCTOR', user[0].id);
+        this.cursoService
+          .getCursosByInstructor(user[0].id)
+          .subscribe((cursos) => {
+            console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
+            this.cursos = cursos;
+            // Filtrar los cursos por estado "aprobado"
+            //TOCA AGREGAR ESE MISMO FILTRO EN LA PARTE DEL BACKEND YA LO HAGO ... ANDERSON
+            // this.cursos = cursos.filter(
+            //   (curso) => curso.planificationCourse.state === 'aprobado'
+            // );
+          });
+      }
     });
   }
 

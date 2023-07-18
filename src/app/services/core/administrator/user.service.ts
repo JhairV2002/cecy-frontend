@@ -5,13 +5,14 @@ import { environment } from '@env/environment';
 import { ServerResponse } from '@models/core';
 import { User } from '@models/authentication';
 import { BehaviorSubject, Observable, finalize } from 'rxjs';
+import { TokenService } from '@services/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private apiUrl = `${environment.api2}/users`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   private user = new BehaviorSubject<ServerResponse>({});
   public users$ = this.user.asObservable();
@@ -27,11 +28,34 @@ export class UserService {
     );
   }
 
+  getAssistants() {
+    this.loading.next(true);
+    return this.http.get<User[]>(`${this.apiUrl}/assistants-all`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
   searchUsers(query: string) {
     this.loading.next(true);
     const params = new HttpParams().set('name', query);
     return this.http
       .get<any[]>(`${this.apiUrl}/search`, {
+        params,
+      })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
+  }
+
+  searchAssistants(query: string) {
+    this.loading.next(true);
+    const params = new HttpParams().set('name', query);
+    return this.http
+      .get<any[]>(`${this.apiUrl}/search-assistants`, {
         params,
       })
       .pipe(
@@ -104,5 +128,25 @@ export class UserService {
         this.loading.next(false);
       })
     );
+  }
+
+  changePassword(currentPassword: any, newPassword: any) {
+    this.loading.next(true);
+    const token = this.tokenService.getToken();
+    const payload = {
+      currentPassword,
+      newPassword,
+    };
+    return this.http
+      .put(`${this.apiUrl}/change-password`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 }

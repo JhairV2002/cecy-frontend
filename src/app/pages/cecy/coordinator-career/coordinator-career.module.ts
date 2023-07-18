@@ -20,7 +20,6 @@ import { InitialCourseKpiComponent } from './planification/initial-course-kpi/in
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { KpiComponent } from './planification/kpi/kpi.component';
 
-
 /* Prime NG */
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
@@ -109,7 +108,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     RadioButtonModule,
     AutoCompleteModule,
     TagModule,
-    SkeletonModule
+    SkeletonModule,
   ],
 })
 export class CoordinatorCareerModule {}

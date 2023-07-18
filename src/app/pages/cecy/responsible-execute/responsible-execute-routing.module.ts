@@ -6,6 +6,7 @@ import { CursoComponent } from './curso/curso.component';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
 import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,7 +17,7 @@ const routes: Routes = [
   { path: 'asistencia/:cursoId/new', component: AsistenciaComponent },
   { path: 'fecha/:cursoId', component: FechaComponent },
   { path: 'registro-fotografico', component: RegistroFotograficoComponent },
-  //{ path: 'course-form', component: CourseFormComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({
