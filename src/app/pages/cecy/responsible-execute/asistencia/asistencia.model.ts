@@ -17,6 +17,13 @@ export interface Asistencia {
     createdAt?: string | null;
     updatedAt?: string | null;
   }[];
+  links: {
+    id?: number | null;
+    descripcion: string;
+    completado: boolean;
+    createdAt?: string | null;
+    updatedAt?: string | null;
+  }[];
 }
 
 export interface DetalleAsistencia {

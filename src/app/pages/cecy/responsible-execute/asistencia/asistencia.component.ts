@@ -33,6 +33,10 @@ export class AsistenciaComponent implements OnInit {
     descripcion: '',
     completado: false,
   };
+  linksForm = {
+    descripcion: '',
+    completado: false,
+  };
 
   asistencias: Asistencia[] | null = null;
   asistenciaForm: Asistencia = {
@@ -64,6 +68,7 @@ export class AsistenciaComponent implements OnInit {
       },
     ],
     observaciones: [],
+    links: []
   };
   // cambio de estado del estudiante
   cambioEstado(estadoAsis: string, estudiante: Matricula) {
@@ -108,7 +113,11 @@ export class AsistenciaComponent implements OnInit {
   guardar() {
     this.activatedRoute.paramMap.subscribe((param) => {
       if (param.get('cursoId')) {
-        // this.asistenciaForm.detalleAsistencia = this.detalleAsistencias;
+        this.activatedRoute.paramMap.subscribe((param) => {
+          this.router.navigate([
+            `cecy/responsible-execute/fecha/${param.get('cursoId')}`,
+          ]);
+        });
         this.asistenciaForm.cursoId = parseInt(param.get('cursoId')!);
         this.AsistenciaService.guardarAsistencia(this.asistenciaForm).subscribe(
           (res) => console.log(res)
@@ -132,4 +141,13 @@ export class AsistenciaComponent implements OnInit {
       completado: false,
     };
   }
+
+agregarLink() {
+  this.asistenciaForm.links.push(this.linksForm);
+  this.linksForm = {
+    descripcion: '',
+    completado: false,
+    };
+  }
+
 }
