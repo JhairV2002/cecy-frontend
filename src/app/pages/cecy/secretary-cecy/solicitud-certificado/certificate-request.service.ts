@@ -71,4 +71,8 @@ export class CertificateRequestService {
   postTypeCertificate(tipoCertificado:TipoCertificado): Observable<TipoCertificado>{
     return this.http.post(this.apiUrl3+'/tipo-certificado/',tipoCertificado);
   }
+
+  patchReport(report: any, id: number){
+    return this.http.patch(this.apiUrl+'/'+id+'/',report)
+  }
 }
