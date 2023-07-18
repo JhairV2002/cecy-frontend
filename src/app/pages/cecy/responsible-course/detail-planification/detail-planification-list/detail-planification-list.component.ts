@@ -172,4 +172,79 @@ export class DetailPlanificationListComponent {
     this.paginator.current_page = event.page + 1;
     this.loadDetailPlanifications(this.paginator.current_page);
   }
+
+
+
+
+  calculo() {
+    const planificacionCurso = {
+      id: 1,
+      startDate: "2023-06-01T05:00:00.000Z",
+      finishDate: "2023-06-30T05:00:00.000Z",
+      workDay: "weekends",
+    };
+
+    const startDate = new Date(planificacionCurso.startDate);
+    const finishDate = new Date(planificacionCurso.finishDate);
+    const workDay = planificacionCurso.workDay;
+
+    const diasLaborables = this.calcularDiasLaborables(startDate, finishDate, workDay);
+    console.log("Días laborables:", diasLaborables);
+  }
+
+  calcularDiasLaborables(startDate: Date, finishDate: Date, workDay: string): number {
+    let diasLaborables = 0;
+    const diaInicio = new Date(startDate);
+    const diaFin = new Date(finishDate);
+
+    while (diaInicio <= diaFin) {
+      const diaSemana = diaInicio.getDay();
+      if (this.esDiaLaborable(diaSemana, workDay)) {
+        diasLaborables++;
+      }
+      diaInicio.setDate(diaInicio.getDate() + 1);
+    }
+
+    return diasLaborables;
+  }
+
+  esDiaLaborable(diaSemana: number, workDay: string): boolean {
+    if (workDay === "monday-to-friday") {
+      return diaSemana >= 1 && diaSemana <= 5; // De lunes a viernes
+    } else if (workDay === "saturday") {
+      return diaSemana === 6; // Solo sábado
+    } else if (workDay === "sunday") {
+      return diaSemana === 0; // Solo domingo
+    } else if (workDay === "weekends") {
+      return diaSemana === 0 || diaSemana === 6; // Fines de semana (sábado y domingo)
+    }
+
+    // Si workDay no coincide con ninguna configuración conocida, se considera que todos los días son laborables
+    return true;
+  }
+
+
+
+
+  calcularHora(){
+    const planificationCourse = {
+      id: 1,
+      startedTime: "12:12:00",
+      endTime: "17:10:00",
+    };
+
+    const startTimeParts = planificationCourse.startedTime.split(":");
+    const startHours = parseInt(startTimeParts[0]);
+    const startMinutes = parseInt(startTimeParts[1]);
+
+    const endTimeParts = planificationCourse.endTime.split(":");
+    const endHours = parseInt(endTimeParts[0]);
+    const endMinutes = parseInt(endTimeParts[1]);
+
+    const durationHours = endHours - startHours;
+    const durationMinutes = endMinutes - startMinutes;
+
+    console.log("Duration: ", durationHours, " hours ", durationMinutes, " minutes");
+
+  }
 }

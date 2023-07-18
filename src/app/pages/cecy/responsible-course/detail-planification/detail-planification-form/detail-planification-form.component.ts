@@ -46,6 +46,15 @@ export class DetailPlanificationFormComponent implements OnInit {
   planificationId: number = 0;
   instructors: any;
 
+  datatest = {
+    "planificationCourse": {
+      "id": 1,
+      "startDate": "2023-06-01T05:00:00.000Z",
+      "finishDate": "2023-06-30T05:00:00.000Z",
+      "workDay": "monday-to-friday",
+    }
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private detailPlanificationHttpService: DetailPlanificationHttpService,
@@ -53,7 +62,7 @@ export class DetailPlanificationFormComponent implements OnInit {
     public messageService: MessageService,
     private planificationHttpService: PlanificationHttpService,
     private courseService: CourseService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     console.log('este es el id de horario', this.planId);
@@ -234,4 +243,17 @@ export class DetailPlanificationFormComponent implements OnInit {
       this.instructors = response;
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }

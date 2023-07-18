@@ -364,7 +364,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   loadTargetGroups() {
-    this.courseService.getCatalogues('PARTICIPANT').subscribe(
+    this.courseService.getCatalogues('TARGET_GROUPS').subscribe(
       (response) => {
         this.participantTypes = response;
       },
