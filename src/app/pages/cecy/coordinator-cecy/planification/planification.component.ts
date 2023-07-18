@@ -190,9 +190,11 @@ export class PlanificationComponent implements OnInit {
   }
 
   loadPlanningReviewBy() {
-    this.teacherService.getUserByRoleEspecific().subscribe((data) => {
-      this.review = data;
-    });
+    this.teacherService
+      .getUsersByCoordinatorCecyAndAssitant()
+      .subscribe((data) => {
+        this.review = data;
+      });
   }
 
   loadScholYears() {

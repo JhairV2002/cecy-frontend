@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { PlanificationCourses } from '@models/cecy/coordinator-career';
 import { BehaviorSubject, Observable, finalize } from 'rxjs';
+import { TokenService } from '@services/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class PlanificationCareerService {
   private loading = new BehaviorSubject<boolean>(true);
   public loading$: Observable<boolean> = this.loading.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   getCareerAndCourses() {
     this.loading.next(true);
@@ -23,6 +24,22 @@ export class PlanificationCareerService {
         this.loading.next(false);
       })
     );
+  }
+
+  getPlanificationForState() {
+    this.loading.next(true);
+    const token = this.tokenService.getToken();
+    return this.http
+      .get<any>(`${this.apiUrl}/search-planification-review`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 
   search(query: string) {

@@ -84,14 +84,19 @@ export class CourseListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.loadCourses();
-    this.filterStateAprooved();
-    this.filterStateProcess();
     this.authService.user$.subscribe((data: any) => {
       if (data !== null) {
         this.user = data[0];
+        if (this.user?.role?.name === 'assistant_cecy') {
+          this.loadCoursesAssitantCecy();
+        } else {
+          this.loadCourses();
+        }
       }
     });
+
+    // this.filterStateAprooved();
+    // this.filterStateProcess();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -103,9 +108,8 @@ export class CourseListComponent implements OnInit, OnChanges {
   loadCourses() {
     this.planificationCareerService.getCareerAndCourses().subscribe({
       next: (data) => {
-        console.log(data);
+        console.log('CECY TODO', data);
         this.courses = data;
-        this.comments = data.comments;
       },
       error: (error) => {
         this.messageService.error(error);
@@ -113,21 +117,33 @@ export class CourseListComponent implements OnInit, OnChanges {
     });
   }
 
-  filterStateAprooved() {
-    this.planificationCareerService
-      .filterByStateAprooved()
-      .subscribe((data) => {
-        this.stateAprooved = data;
-        this.loadCourses();
-      });
-  }
-
-  filterStateProcess() {
-    this.planificationCareerService.filterByStateProcess().subscribe((data) => {
-      this.stateProcess = data;
-      this.loadCourses();
+  loadCoursesAssitantCecy() {
+    this.planificationCareerService.getPlanificationForState().subscribe({
+      next: (data) => {
+        console.log('ASSISTAN CECY', data);
+        this.courses = data;
+      },
+      error: (error) => {
+        this.messageService.error(error);
+      },
     });
   }
+
+  // filterStateAprooved() {
+  //   this.planificationCareerService
+  //     .filterByStateAprooved()
+  //     .subscribe((data) => {
+  //       this.stateAprooved = data;
+  //       this.loadCourses();
+  //     });
+  // }
+
+  // filterStateProcess() {
+  //   this.planificationCareerService.filterByStateProcess().subscribe((data) => {
+  //     this.stateProcess = data;
+  //     this.loadCourses();
+  //   });
+  // }
 
   approveCourse(id: number) {
     console.log(id);
