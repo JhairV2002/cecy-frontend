@@ -27,7 +27,24 @@ export class PerfilEstudianteComponent implements OnInit {
   ngOnInit(): void {
     this.estudianteService.estudianteActual.subscribe((estudiante) => {
       console.log(estudiante);
-      this.estudianteForm = this.fb.group(estudiante!);
+      this.estudianteForm = this.fb.group({
+        id: [estudiante!.id],
+        cedula: [estudiante!.cedula],
+        nombres: [estudiante!.nombres],
+        apellidos: [estudiante!.apellidos],
+        etnia: [estudiante!.etnia],
+        genero: [estudiante!.genero],
+        situacionEconomica: [estudiante!.situacionEconomica],
+        nivelInstruccion: [estudiante!.nivelInstruccion],
+        fechaNacimiento: [estudiante!.fechaNacimiento],
+        email: [estudiante!.email],
+        numeroCelular: [estudiante!.numeroCelular],
+        numeroConvencional: [estudiante!.numeroConvencional],
+        discapacidad: [estudiante!.discapacidad],
+        detallesDiscapacidad: [estudiante!.detallesDiscapacidad],
+        tipoEstudiante: [estudiante!.tipoEstudiante],
+        matriculas: this.fb.array(estudiante?.matriculas!),
+      });
       console.log(this.estudianteForm.value);
       if (this.estudianteForm.controls['discapacidad']!.value == false) {
         this.estudianteForm.controls['detallesDiscapacidad'].disable();
@@ -47,11 +64,10 @@ export class PerfilEstudianteComponent implements OnInit {
 
   updateEstudiante() {
     console.log(this.estudianteForm.value);
-    // this.estudianteForm.value.matriculas = null;
-    this.estudianteService
-      .updateEstudiante(this.estudianteForm.value)
-      .subscribe((res) => {
-        console.log(res);
-      });
+    // this.estudianteService
+    //   .updateEstudiante(this.estudianteForm.value)
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //   });
   }
 }
