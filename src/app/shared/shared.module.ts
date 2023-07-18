@@ -41,6 +41,7 @@ import { InplaceModule } from 'primeng/inplace';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { TimelineModule } from 'primeng/timeline';
+import { PasswordModule } from 'primeng/password';
 
 import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
@@ -146,6 +147,7 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ProgressSpinnerModule,
     PanelMenuModule,
     TimelineModule,
+    PasswordModule,
   ],
 })
 export class SharedModule {}

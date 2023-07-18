@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '@services/core/administrator';
+
+import { CustomValidators } from '@shared/validators/custom-validators';
+import { MessageService } from '@services/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-change-password',
@@ -6,11 +12,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./change-password.component.css'],
 })
 export class ChangePasswordComponent {
-  currentPassword: string = '';
-  newPassword: string = '';
-  confirmPassword: string = '';
   events: any[];
-  constructor() {
+  formChangePassword = this.fb.group({
+    currentPassword: ['', [Validators.required]],
+    newPassword: ['', [Validators.required]],
+    confirm_password: ['', [Validators.required]],
+  });
+  loading$ = new BehaviorSubject<boolean>(false);
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    public messageService: MessageService
+  ) {
     this.events = [
       {
         status: 'Ordered',
@@ -38,5 +51,52 @@ export class ChangePasswordComponent {
         color: '#607D8B',
       },
     ];
+
+    this.formChangePassword.setValidators(
+      CustomValidators.passwordMatch('newPassword', 'confirm_password')
+    );
+  }
+
+  onSubmit() {
+    if (this.formChangePassword.valid) {
+      this.changePassword();
+    } else {
+      this.formChangePassword.markAllAsTouched();
+    }
+  }
+
+  changePassword() {
+    this.loading$.next(true);
+    const { currentPassword, newPassword } = this.formChangePassword.value;
+    this.userService.changePassword(currentPassword, newPassword).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        setTimeout(() => {
+          this.formChangePassword.reset();
+        }, 1000);
+        this.messageService.successUser(response);
+        this.loading$.next(false);
+      },
+      error: (error) => {
+        this.messageService.error(error);
+        this.loading$.next(false);
+      },
+    });
+  }
+
+  isRequired(field: AbstractControl): boolean {
+    return field.hasValidator(Validators.required);
+  }
+
+  get currentPasswordField() {
+    return this.formChangePassword.controls['currentPassword'];
+  }
+
+  get passwordField() {
+    return this.formChangePassword.controls['newPassword'];
+  }
+
+  get rePasswordField() {
+    return this.formChangePassword.controls['confirm_password'];
   }
 }

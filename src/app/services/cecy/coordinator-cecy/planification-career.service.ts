@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
-import { PlanificationCoursesCoordinatorCecy } from '@models/cecy/coordinator-cecy';
 import { PlanificationCourses } from '@models/cecy/coordinator-career';
 import { BehaviorSubject, Observable, finalize } from 'rxjs';
 

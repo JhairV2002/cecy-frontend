@@ -47,6 +47,15 @@ export class MessageService {
     });
   }
 
+  suspendPlanification(serverResponse: ServerResponse) {
+    console.log(serverResponse, 'message');
+    return Swal.fire({
+      title: 'Fue suspendido la planificacion',
+      text: serverResponse.message,
+      icon: 'warning',
+    });
+  }
+
   success(serverResponse: ServerResponse | LoginResponse | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
@@ -214,6 +223,22 @@ export class MessageService {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: '<i class="pi pi-trash"> Si rechazar</i>',
+    });
+  }
+
+  questionDeleteComments({
+    title = '¿Está seguro de eliminar el comentario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
     });
   }
 

@@ -10,6 +10,7 @@
     [career]="career.value"
   ></app-course-form>
 </p-dialog>
+
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button
@@ -92,7 +93,8 @@
           Nombre <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="state">
-          Estado <p-sortIcon field="state"></p-sortIcon>
+          Estado Planificación
+          <p-sortIcon field="state"></p-sortIcon>
         </th>
         <th pSortableColumn="career">
           Carrera <p-sortIcon field="career"></p-sortIcon>
@@ -100,53 +102,57 @@
         <th pSortableColumn="responsible">
           Responsable de curso <p-sortIcon field="responsible"></p-sortIcon>
         </th>
-        <th class="text-center">
-          <button
-            pButton
-            pRipple
-            type="button"
-            class="w-full p-button-rounded p-button-secondary"
-            icon="pi pi-cog"
-          ></button>
-        </th>
+        <th class="text-center"></th>
       </tr>
     </ng-template>
     <ng-template
       pTemplate="body"
-      let-courses
+      let-course
       let-expanded="expanded"
       let-columns="columns"
       let-rowIndex="rowIndex"
     >
-      <tr [pSelectableRow]="courses" [pSelectableRowIndex]="rowIndex">
+      <tr [pSelectableRow]="course" [pSelectableRowIndex]="rowIndex">
         <td>
           <button
             type="button"
             pButton
             pRipple
-            [pRowToggler]="courses"
+            [pRowToggler]="course"
             class="p-button-text p-button-rounded p-button-plain"
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
           ></button>
         </td>
-        <td>{{ courses.codeCourse }}</td>
-        <td>{{ courses.name }}</td>
+        <td>{{ course.codeCourse }}</td>
+        <td>{{ course.name }}</td>
         <td>
           <p-tag
-            [icon]="
-              courses.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'
-            "
+            [icon]="course.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'"
             [rounded]="true"
-            value="{{ courses.state ? courses.state : 'sin estado' }}"
-            [severity]="getSeverity(courses.state)"
+            value="{{ course.state ? course.state : 'sin estado' }}"
+            [severity]="getSeverity(course.state)"
           >
           </p-tag>
         </td>
-        <td>{{ courses.career.name }}</td>
-        <td>{{ courses.user.names + " " + courses.user.lastnames }}</td>
+        <td>{{ course.career.name }}</td>
+        <td>{{ course.user.names + " " + course.user.lastnames }}</td>
         <td>
           <div class="flex gap-1 justify-content-center">
-            <button
+            <p-splitButton
+              *ngIf="user?.role?.name === 'coordinator_cecy'"
+              styleClass="p-button-rounded p-button-outlined p-button-secondary p-button-sm mr-2 mb-2"
+              label="Planificación"
+              [model]="planification"
+              (onDropdownClick)="selectPlanificationById(course)"
+            ></p-splitButton>
+            <p-splitButton
+              styleClass="p-button-rounded p-button-outlined p-button-sm mr-2 mb-2"
+              label="Curso"
+              [model]="courseMenu"
+              (onDropdownClick)="selectPlanificationById(course)"
+            >
+            </p-splitButton>
+            <!-- <button
               pButton
               icon="pi pi-check-square"
               class="p-button-rounded p-button-success"
@@ -154,8 +160,8 @@
               pTooltip="Aprobar un curso"
               tooltipPosition="top"
               (click)="approveCourse(courses.id)"
-            ></button>
-            <button
+            ></button> -->
+            <!-- <button
               pButton
               pRipple
               type="button"
@@ -163,83 +169,59 @@
               pTooltip="Ver un curso"
               tooltipPosition="top"
               class="p-button-rounded p-button-primary"
-              (click)="goToPlanifications(courses.id)"
-            ></button>
-            <button
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-comment"
-              pTooltip="Comentar"
-              tooltipPosition="left"
-              class="p-button-rounded p-button-secondary"
-              (click)="openModal()"
-            ></button>
-            <app-comments
-              [openModal]="openModalComment"
-              (clickClose)="closeModal($event)"
-            ></app-comments>
+              (click)="selectCourse(course.id)"
+            ></button> -->
           </div>
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="rowexpansion" let-notifications>
+    <ng-template pTemplate="rowexpansion" let-course>
       <tr>
         <td colspan="7">
           <p-card [style]="{ width: '100%' }">
             <span class="m-2 text-lg"><strong>Comentarios</strong></span>
             <div class="p-3">
-              <p-table [value]="courses" dataKey="id">
-                <ng-template pTemplate="header">
+              <table style="width: 100%" class="table">
+                <thead>
                   <tr>
                     <th>Nº</th>
-                    <th>Comentario</th>
-                    <th>Estado actual curso</th>
-                    <th>Estado comentario</th>
-                    <th>Fecha del comentario</th>
-                    <th>
-                      <button
-                        pButton
-                        pRipple
-                        type="button"
-                        class="w-full p-button-rounded p-button-secondary"
-                        icon="pi pi-cog"
-                      ></button>
-                    </th>
+                    <th>Comentarios</th>
+                    <th>Fecha creacion</th>
+                    <th></th>
                   </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-yourColumnArrayVaraible>
-                  <tr>
-                    <th
-                      *ngFor="let yourColumnVaraible of yourColumnArrayVaraible"
-                    >
-                      {{ yourColumnVaraible.header }}
-                    </th>
-                  </tr>
-                </ng-template>
-                <ng-template
-                  pTemplate="body"
-                  let-yourRowVaraible
-                  let-yourColumnArrayVaraible="columns"
-                >
-                  <tr>
-                    <td
-                      *ngFor="let yourColumnVaraible of yourColumnArrayVaraible"
-                    >
-                      {{ yourRowVaraible[yourColumnVaraible.field] }}
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let comment of course.comments; let i = index"
+                    key="comment.id"
+                  >
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ comment.comments }}</td>
+                    <td>
+                      {{ comment.createdAt | date : "dd/MM/yyyy HH:mm:ss" }}
+                    </td>
+                    <td>
+                      <div class="flex gap-1 justify-center">
+                        <!-- <button
+                          pButton
+                          pRipple
+                          type="button"
+                          icon="pi pi-pencil"
+                          class="p-button-rounded p-button-warning"
+                          (click)="goToPlanifications(comment.id)"
+                        ></button> -->
+                        <button
+                          pButton
+                          icon="pi pi-trash"
+                          class="p-button-rounded p-button-danger"
+                          type="submit"
+                          (click)="deleteComment(comment)"
+                        ></button>
+                      </div>
                     </td>
                   </tr>
-                </ng-template>
-                <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
-                  <tr>
-                    <td
-                      *ngFor="let yourColumnVaraible of yourColumnArrayVaraible"
-                    >
-                      {{ yourColumnVaraible.header }}
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
+                </tbody>
+              </table>
             </div>
           </p-card>
         </td>

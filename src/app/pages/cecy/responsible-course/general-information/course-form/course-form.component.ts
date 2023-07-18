@@ -1,9 +1,4 @@
-import {
-  CourseModel,
-  PlanificationCourseInitial,
-} from './../../../../../models/cecy-v1/course.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
 import {
   AbstractControl,
   FormArray,
@@ -13,16 +8,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { ImageModel } from '@models/core';
-import { MessageService } from '../../../../../services/core/message.service';
-import { CatalogueModel as CecyCatalogueModel } from '../../../../../models/cecy/catalogue.model';
-import { CourseHttpService } from '../../../../../services/cecy/course-http.service';
-import { CatalogueHttpService } from '../../../../../services/cecy/catalogue-http.service';
-//import { ImageModel } from './../../../../../models/core/image.model';
+import { MessageService } from '@services/core/message.service';
+import { CatalogueModel as CecyCatalogueModel } from '@models/cecy/catalogue.model';
 import { PaginatorModel } from '@models/cecy';
-import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '@services/cecy-v1/course.service';
-import { PlanificationsCoursesService } from '../../../../../services/cecy/coordinator-career';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 import { Sponsor } from '@models/cecy-v1/sponsor.model';
 
 @Component({
@@ -65,7 +56,7 @@ export class CourseFormComponent implements OnInit {
     id: [null],
     name: [null, Validators.required],
     description: [null, Validators.required],
-    type: 'CATEGORY'
+    type: 'CATEGORY',
   });
 
   public progressBar: boolean = false; // falta programarlo
@@ -94,7 +85,6 @@ export class CourseFormComponent implements OnInit {
   public sponsors: Sponsor[] = [];
   visibleFormSponsor: boolean = false;
   visibleFormCategory: boolean = false;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -212,7 +202,6 @@ export class CourseFormComponent implements OnInit {
   showFormCategory() {
     this.visibleFormCategory = true;
   }
-
 
   //Setter
   set planificationId(value: any) {

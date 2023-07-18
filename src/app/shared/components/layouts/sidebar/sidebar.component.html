@@ -11,11 +11,17 @@
     />
     <div class="flex flex-col justify-center ml-1">
       <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
-        {{ user?.names + " " + user?.lastnames }}
+        {{
+          user?.names
+            ? user?.names
+            : "Nombres" + " " + user?.lastnames
+            ? user?.lastnames
+            : "Apellidos"
+        }}
       </h1>
       <div class="relative">
         <p class="text-sm text-gray-500 dark:text-gray-400">
-          {{ user?.email }}
+          {{ user?.email ? user?.email : "nombre@yavirac.edu.ec" }}
         </p>
       </div>
     </div>

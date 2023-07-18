@@ -8,10 +8,18 @@ import {
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 
-import { PlanificationCareerService } from '@services/cecy/coordinator-cecy';
-import { MessageService } from '@services/core';
-import { CareerModel, ColModel, PaginatorModel } from '@models/core';
+import {
+  CommentsService,
+  PlanificationCareerService,
+} from '@services/cecy/coordinator-cecy';
+import { MessageService as MessageLocal } from '@services/core';
+import { ColModel, PaginatorModel } from '@models/core';
 import { Router } from '@angular/router';
+import { PlanificationCourses } from '@models/cecy/coordinator-career';
+import { Comment } from '@models/cecy/coordinator-cecy';
+import { MessageService } from '@services/core';
+import { AuthService } from '@services/auth';
+import { User } from '@models/authentication';
 
 @Component({
   selector: 'app-approve-course-list',
@@ -20,24 +28,31 @@ import { Router } from '@angular/router';
 })
 export class CourseListComponent implements OnInit, OnChanges {
   @Input() stateAprooved: any = [];
-  selectCourse: any = {};
   cols: ColModel[];
   items: MenuItem[] = [];
   dialogForm: boolean = false;
   progressBarDelete: boolean = false;
   search: string = '';
   paginator: PaginatorModel = {};
-  courses: any[] = [];
+  courses: PlanificationCourses[] = [];
+  comments: Comment[] = [];
   stateProcess: any = [];
-  careers: CareerModel[] = [];
   career: FormControl = new FormControl('');
-  openModalComment: boolean = false;
   loading$ = this.planificationCareerService.loading$;
+  selectPlanification: PlanificationCourses = {};
+  selectCourse: PlanificationCourses = {};
+  selectedCareer: number = 0;
+  planification: MenuItem[] = [];
+  courseMenu: MenuItem[] = [];
+  user: User | null = null;
 
   constructor(
     private planificationCareerService: PlanificationCareerService,
-    public messageService: MessageService,
-    private router: Router
+    public messageService: MessageLocal,
+    private router: Router,
+    private commentService: CommentsService,
+    public messageService2: MessageService,
+    private authService: AuthService
   ) {
     this.cols = [
       { field: 'code', header: 'Código curso' },
@@ -47,12 +62,36 @@ export class CourseListComponent implements OnInit, OnChanges {
       { field: 'responsible', header: 'Responsable de curso' },
     ];
     this.checkSearchParams();
+
+    this.planification = [
+      {
+        label: 'Ver planificación',
+        icon: 'fa-solid fa-sheet-plastic',
+        command: (course: any) => {
+          this.redirectPlanification(this.selectPlanification);
+        },
+      },
+    ];
+    this.courseMenu = [
+      {
+        label: 'Ver curso',
+        icon: 'fa-solid fa-sheet-plastic',
+        command: (course: any) => {
+          this.redirectCourse(this.selectPlanification);
+        },
+      },
+    ];
   }
 
   ngOnInit(): void {
     this.loadCourses();
     this.filterStateAprooved();
     this.filterStateProcess();
+    this.authService.user$.subscribe((data: any) => {
+      if (data !== null) {
+        this.user = data[0];
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,8 +103,9 @@ export class CourseListComponent implements OnInit, OnChanges {
   loadCourses() {
     this.planificationCareerService.getCareerAndCourses().subscribe({
       next: (data) => {
-        console.log('Me cargan los cursos', data);
+        console.log(data);
         this.courses = data;
+        this.comments = data.comments;
       },
       error: (error) => {
         this.messageService.error(error);
@@ -84,7 +124,6 @@ export class CourseListComponent implements OnInit, OnChanges {
 
   filterStateProcess() {
     this.planificationCareerService.filterByStateProcess().subscribe((data) => {
-      console.log('Cursos en proceso', data);
       this.stateProcess = data;
       this.loadCourses();
     });
@@ -121,24 +160,58 @@ export class CourseListComponent implements OnInit, OnChanges {
     this.courses = courses;
   }
 
-  goToPlanifications(id: number) {
-    this.router.navigate(['/cecy/responsible-course/course/edit/' + id]);
-  }
-  openModal() {
-    this.openModalComment = true;
-  }
-
-  closeModal(state: boolean) {
-    this.openModalComment = state;
-  }
   getSeverity(status: string) {
     switch (status) {
       case 'aprobado':
         return 'success';
       case 'creado':
         return 'danger';
+      case 'suspendido':
+        return 'warning';
       default:
         return '';
     }
+  }
+
+  addPlanification(newPlanification: any) {
+    console.log('NUEVA PLANIFICACION', newPlanification);
+  }
+
+  selectPlanificationById(planification: PlanificationCourses) {
+    this.selectPlanification = planification;
+  }
+
+  redirectPlanification(planification: PlanificationCourses) {
+    console.log('REDIRECCION', planification);
+    this.router.navigate([
+      `cecy/coordinator-cecy/planification/${planification.id}`,
+    ]);
+  }
+
+  selectCourseById(planification: PlanificationCourses) {
+    console.log('PLANIFICACION CURSO', planification);
+    this.selectCourse = planification;
+  }
+
+  redirectCourse(planification: PlanificationCourses) {
+    this.router.navigate([
+      '/cecy/responsible-course/course/edit/' + planification.id,
+    ]);
+  }
+
+  deleteComment(comment: Comment) {
+    console.log('COMEMNT', comment);
+    this.messageService2.questionDeleteComments({}).then((result) => {
+      if (result.isConfirmed) {
+        this.commentService.deleteComment(comment.id).subscribe({
+          next: (data) => {
+            this.loadCourses();
+          },
+          error: (error) => {
+            this.messageService.error(error);
+          },
+        });
+      }
+    });
   }
 }

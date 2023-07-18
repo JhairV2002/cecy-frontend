@@ -127,7 +127,7 @@ export class SidebarComponent implements OnInit {
           routerLink: '/cecy/coordinator-cecy/home',
         },
         {
-          label: 'Cursos',
+          label: 'Planificaciones & Cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
           routerLink: ['/cecy/coordinator-cecy/course'],
         },

@@ -1,10 +1,10 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { CourseModel } from './../../../../../models/cecy-v1/course.model';
-import { CourseService } from './../../../../../services/cecy-v1/course.service';
-import { environment } from './../../../../../../environments/environment';
-import { MessageService } from '../../../../../services/core/message.service';
+
+import { CourseService } from '@services/cecy-v1/course.service';
+import { environment } from '@env/environment';
+import { MessageService } from '@services/core/message.service';
 import { AuthService } from '@services/auth';
 import { PdfCourseService } from '@services/cecy-v1/pdf-course.service';
 import { DatePipe } from '@angular/common';
@@ -50,8 +50,8 @@ export class CourseListComponent implements OnInit {
         command: () => {
           this.downloadCurricularDesign(this.rowData);
         },
-      }
-    ]
+      },
+    ];
 
     this.STORAGE_URL = environment.STORAGE_URL;
   }
@@ -94,20 +94,31 @@ export class CourseListComponent implements OnInit {
     this.rowData = valor;
   }
 
-
   downloadGeneralInformation(planificationCourse: any) {
     try {
-      planificationCourse.planification.startDate = this.datePipe.transform(planificationCourse.planification.startDate, 'dd-MM-yyyy');
-      planificationCourse.planification.finishDate = this.datePipe.transform(planificationCourse.planification.finishDate, 'dd-MM-yyyy');
-    } catch (error) { }
+      planificationCourse.planification.startDate = this.datePipe.transform(
+        planificationCourse.planification.startDate,
+        'dd-MM-yyyy'
+      );
+      planificationCourse.planification.finishDate = this.datePipe.transform(
+        planificationCourse.planification.finishDate,
+        'dd-MM-yyyy'
+      );
+    } catch (error) {}
     this.pdfCourseService.generatePDF(planificationCourse);
   }
 
   downloadCurricularDesign(planificationCourse: any) {
     try {
-      planificationCourse.planification.startDate = this.datePipe.transform(planificationCourse.planification.startDate, 'dd-MM-yyyy');
-      planificationCourse.planification.finishDate = this.datePipe.transform(planificationCourse.planification.finishDate, 'dd-MM-yyyy');
-    } catch (error) { }
+      planificationCourse.planification.startDate = this.datePipe.transform(
+        planificationCourse.planification.startDate,
+        'dd-MM-yyyy'
+      );
+      planificationCourse.planification.finishDate = this.datePipe.transform(
+        planificationCourse.planification.finishDate,
+        'dd-MM-yyyy'
+      );
+    } catch (error) {}
     this.pdfCourseService.generatePDFCurricularDesign(planificationCourse);
   }
 }

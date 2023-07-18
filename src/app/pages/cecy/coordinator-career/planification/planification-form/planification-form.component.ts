@@ -74,7 +74,6 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   constructor(
     private courseHttpService: CourseHttpService,
-    private instructorHttpService: InstructorHttpService,
     public messageService: MessageService,
     private planificationsCoursesService: PlanificationsCoursesService,
     private teacherService: TeachersService,
