@@ -1,27 +1,26 @@
-export interface Reporte{
+export interface Reporte {
   id?: number;
-  fechaReporte?: Date,
-  reportes: Reportes[]
-
+  fechaReporte?: Date;
+  reportes: Reportes[];
 }
-export interface Reportes{
-  matriculas:Matricula
+export interface Reportes {
+  matriculas: Matricula;
 }
 
 export interface Matricula {
-  id: number;
-  cursoId: number;
-  nota1: any;
-  nota2: any;
-  promedio: any;
+  id?: number;
+  cursoId?: number;
+  nota1?: any;
+  nota2?: any;
+  promedio?: any;
   porcentajeAsistencia?: any;
   observaciones?: any[];
   estadoMatricula?: EstadoMatricula;
   estadoCurso?: EstadoCurso;
   asistencias?: any[];
   estudiantes?: Estudiantes;
-  aprobado?: number,
-  reprobado?: number
+  aprobado?: number;
+  reprobado?: number;
 }
 
 export interface EstadoMatricula {

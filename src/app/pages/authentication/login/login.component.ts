@@ -83,10 +83,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/cecy/coordinator-career']);
         break;
       case 'coordinator_cecy':
+        this.router.navigate(['/cecy/coordinator-cecy']);
+        break;
       case 'assistant_cecy':
-        this.router.navigate(['/cecy/coordinator-cecy']).then((data) => {
-          console.log('QUE ROL ESTA ACCEDIENDO AHI', data);
-        });
+        this.router.navigate(['/cecy/assistant-cecy']);
         break;
       case 'instructor_execute':
         this.router.navigate(['/cecy/responsible-execute']);

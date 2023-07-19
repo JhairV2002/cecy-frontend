@@ -138,11 +138,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'secretary-cecy',
+        path: 'assistant-cecy',
         loadChildren: () =>
-          import('./secretary-cecy/secretary-cecy.module').then(
-            (m) => m.SecretaryCecyModule
-          ),
+          import('./assistant/assistant.module').then((m) => m.AssistantModule),
       },
       {
         path: 'not-found',

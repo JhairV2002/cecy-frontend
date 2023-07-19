@@ -151,12 +151,27 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Inicio',
           icon: 'fa-solid fa-house',
-          routerLink: '/cecy/coordinator-cecy/home',
+          routerLink: '/cecy/assistant-cecy/home',
         },
         {
           label: 'Cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/coordinator-cecy/course'],
+          routerLink: ['/cecy/assistant-cecy/course'],
+        },
+        {
+          label: 'Matriculacion Estudiantes',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/assistant-cecy/'],
+        },
+        {
+          label: 'Generar Reportes',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/assistant-cecy/reporte'],
+        },
+        {
+          label: 'Generar Certificado',
+          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          routerLink: ['/cecy/assistant-cecy/certificado'],
         },
       ],
     },
@@ -195,28 +210,7 @@ export class SidebarComponent implements OnInit {
       ],
     },
   ];
-  itemsSecretary: MenuItem[] = [
-    {
-      label: 'Secretaria del Cecy',
-      items: [
-        {
-          label: 'Inicio',
-          icon: 'fa-solid fa-house',
-          routerLink: '/cecy/secretary-cecy/home',
-        },
-        {
-          label: 'Generar Reporte',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/secretary-cecy/reporte'],
-        },
-        {
-          label: 'Generar Certificado',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/secretary-cecy/certificado'],
-        },
-      ],
-    },
-  ];
+
   showedMenu: boolean = false;
   closed: boolean = true;
   menu: MenuItem[] = [];
@@ -268,11 +262,9 @@ export class SidebarComponent implements OnInit {
     } else if (role === 'coordinator_cecy') {
       this.router.navigate(['/cecy/coordinator-cecy/change-password']);
     } else if (role === 'assistant_cecy') {
-      this.router.navigate(['/cecy/coordinator-cecy/change-password']);
+      this.router.navigate(['/cecy/assistan-cecy/change-password']);
     } else if (role === 'instructor_execute') {
       this.router.navigate(['/cecy/responsible-execute/change-password']);
-    } else if (role === 'secretary_cecy') {
-      this.router.navigate(['/cecy/secretary-cecy/change-password']);
     } else if (role === 'responsible_course') {
       this.router.navigate(['/cecy/responsible-course/change-password']);
     } else if (role === 'instructor') {

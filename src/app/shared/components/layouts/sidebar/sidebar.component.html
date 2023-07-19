@@ -42,7 +42,7 @@
     (onClick)="redirectConfigurate(user?.role?.name)"
   >
     <i class="pi pi-cog text-gray-600"></i>
-    <span class="ml-1 text-gray-600 text-sm">Configuración</span>
+    <span class="ml-1 text-gray-600 text-base">Configuración</span>
   </p-button>
 </div>
 <p-menu
@@ -81,11 +81,6 @@
 <p-menu
   *ngIf="user?.role?.name === 'student'"
   [style]="{ width: 'auto' }"
-></p-menu>
-<p-menu
-  *ngIf="user?.role?.name === 'secretary_cecy'"
-  [style]="{ width: 'auto' }"
-  [model]="itemsSecretary"
 ></p-menu>
 
 <div class="border-round border-1 p-4" *ngIf="(loading$ | async)!">
