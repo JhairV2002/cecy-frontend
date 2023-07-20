@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Handler } from '../../exceptions/handler';
-import { PaginatorModel as PeriodModel } from '@models/core';
 import { SchoolPeriodModel } from '@models/cecy';
 
 @Injectable({
@@ -19,7 +18,7 @@ export class SchoolPeriodHttpService {
   public schoolPeriods$ = this.schoolPeriods.asObservable();
 
   private schoolPeriodModel: SchoolPeriodModel = {};
-  private schoolPeriod = new BehaviorSubject<PeriodModel>({});
+  private schoolPeriod = new BehaviorSubject<any>({});
   public schoolPeriod$ = this.schoolPeriod.asObservable();
 
   private loaded = new BehaviorSubject<boolean>(true);

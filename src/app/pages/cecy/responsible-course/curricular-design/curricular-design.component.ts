@@ -7,7 +7,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CourseHttpService } from '@services/cecy';
 import { MessageService } from '@services/core/message.service';
 import { CatalogueModel as CecyCatalogueModel } from '@models/cecy/catalogue.model';
 import { Subject, takeUntil } from 'rxjs';
@@ -21,7 +20,6 @@ import { PlanificationsCoursesService } from '@services/cecy/coordinator-career'
   styleUrls: ['./curricular-design.component.scss'],
 })
 export class CurricularDesignComponent implements OnInit {
-  course$ = this.courseHttpService.courses$;
   loading$ = this.courseService.loading$;
   public progressBar: boolean = false;
   public formCurricularDesign: FormGroup = this.newFormCourse;
@@ -56,7 +54,6 @@ export class CurricularDesignComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public messageService: MessageService,
-    private courseHttpService: CourseHttpService,
     private planificationCourseService: PlanificationsCoursesService,
     private courseService: CourseService,
     private activatedRoute: ActivatedRoute

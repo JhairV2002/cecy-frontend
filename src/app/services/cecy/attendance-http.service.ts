@@ -5,7 +5,6 @@ import {catchError, map} from 'rxjs/operators';
 import {environment} from '@env/environment';
 import {ServerResponse} from '@models/core/server.response';
 import {Handler} from '../../exceptions/handler';
-import {PaginatorModel} from '@models/core';
 import {AttendanceModel} from '@models/cecy';
 import {DetailAttendanceModel} from '../../models/cecy/detail-attendance.model';
 import {MessageService} from "@services/core";
@@ -34,7 +33,7 @@ export class AttendanceHttpService {
   private loaded = new BehaviorSubject<boolean>(true);
   public loaded$ = this.loaded.asObservable();
 
-  private paginator = new BehaviorSubject<PaginatorModel>({current_page: 1, per_page: 15, total: 0});
+  private paginator = new BehaviorSubject<any>({current_page: 1, per_page: 15, total: 0});
   public paginator$ = this.paginator.asObservable();
 
   constructor(private httpClient: HttpClient, public messageService: MessageService) {

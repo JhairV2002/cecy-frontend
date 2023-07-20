@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 import { CourseModel } from '@models/cecy';
 import { Router } from '@angular/router';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
@@ -24,7 +24,7 @@ export class PlanificationListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
+  paginator: any = {};
   selectedCareer: number = 0;
   careers: Careers[] = [];
   career: FormControl = new FormControl('');

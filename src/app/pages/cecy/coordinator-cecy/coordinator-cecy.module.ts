@@ -40,7 +40,6 @@ import { FileUploadModule } from 'primeng/fileupload';
 /**Components */
 import { CoordinatorCecyRoutingModule } from './coordinator-cecy-routing.module';
 import { CourseComponent } from './course/course.component';
-import { CourseFormComponent } from './course/course-form/course-form.component';
 import { CourseListComponent } from './course/course-list/course-list.component';
 import { PoaComponent } from './poa/poa.component';
 import { PoaListComponent } from './poa/poa-list/poa-list.component';
@@ -64,7 +63,6 @@ import { SearchSignatureComponent } from './signature/search-signature/search-si
 @NgModule({
   declarations: [
     CourseComponent,
-    CourseFormComponent,
     CourseListComponent,
     PoaComponent,
     PoaListComponent,
@@ -124,7 +122,7 @@ import { SearchSignatureComponent } from './signature/search-signature/search-si
     BreadcrumbModule,
     DragDropModule,
     MessagesModule,
-    FileUploadModule
+    FileUploadModule,
   ],
 })
 export class CoordinatorCecyModule {}

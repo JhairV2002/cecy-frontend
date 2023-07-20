@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AttendanceComponent } from './attendance/attendance.component';
-import { InstructorCourseComponent } from './instructor-course/instructor-course.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { AttendanceRecordsComponent } from './attendance/attendance-records/attendance-records.component';
 import { TemariCourseComponent } from './temari-course/temari-course.component';
@@ -13,7 +12,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'attendance/:id', component: AttendanceComponent },
   { path: 'attendance-records/:id', component: AttendanceRecordsComponent },
-  { path: 'courses', component: InstructorCourseComponent },
   { path: 'temari-courses/:id', component: TemariCourseComponent },
   { path: 'participant', component: ParticipantComponent },
   { path: 'change-password', component: ChangePasswordComponent },

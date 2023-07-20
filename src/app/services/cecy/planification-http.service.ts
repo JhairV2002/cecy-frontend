@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { ServerResponse } from '@models/core/server.response';
 import { Handler } from '../../exceptions/handler';
-import { PaginatorModel } from '@models/core';
 import { PlanificationModel } from "@models/cecy/planification.model";
 import { AuthService } from '@services/core';
 
@@ -31,7 +30,7 @@ export class PlanificationHttpService {
   private loaded = new BehaviorSubject<boolean>(true);
   public loaded$ = this.loaded.asObservable();
 
-  private paginator = new BehaviorSubject<PaginatorModel>({ current_page: 1, per_page: 25, total: 0 });
+  private paginator = new BehaviorSubject<any>({ current_page: 1, per_page: 25, total: 0 });
   public paginator$ = this.paginator.asObservable();
 
   constructor(private httpClient: HttpClient, private authService: AuthService) {
@@ -331,7 +330,7 @@ export class PlanificationHttpService {
     return this.httpClient.get(url, { params, responseType: 'blob' as 'json' });
   }
 
-  getFiles(userId: number, paginator: PaginatorModel = {}, filter: string = ''): Observable<ServerResponse> {
+  getFiles(userId: number, paginator: any = {}, filter: string = ''): Observable<ServerResponse> {
     const url = `${this.API_URL_PRIVATE}/catalogue/${userId}/file`;
     let params = new HttpParams()
       .set('page', paginator.current_page!)

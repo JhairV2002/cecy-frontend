@@ -1,6 +1,5 @@
 export { TopicHttpService } from './topic-http.service';
 export { ClassroomHttpService } from './classroom-http.service';
-export { CourseHttpService } from './course-http.service';
 export { DetailAttendanceHttpService } from './detail-attendance-http.service';
 export { DetailPlanificationHttpService } from './detail-planification-http.service';
 export { DetailSchoolPeriodHttpService } from './detail-school-period-http.service';
@@ -9,7 +8,6 @@ export { InstructorHttpService } from './instructor-http.service';
 export { ParticipantHttpService } from './participant-http.service';
 export { PlanificationHttpService } from './planification-http.service';
 export { PrerequisiteHttpService } from './prerequisite-http.service';
-export { ProfileInstructorCourseHttpService } from './profile-instructor-course-http.service';
 export { RequirementHttpService } from './requirement-http.service';
 export { SchoolPeriodHttpService } from './school-period-http.service';
 export { AttendanceHttpService } from './attendance-http.service';

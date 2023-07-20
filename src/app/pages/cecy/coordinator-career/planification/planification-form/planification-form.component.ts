@@ -14,8 +14,7 @@ import {
 } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 
-import { CatalogueModel, CourseModel } from '@models/cecy';
-import { CourseHttpService, InstructorHttpService } from '@services/cecy';
+import { CatalogueModel } from '@models/cecy';
 import { MessageService } from '@services/core';
 import {
   PlanificationsCoursesService,
@@ -73,7 +72,6 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   planifications: any[] = [];
 
   constructor(
-    private courseHttpService: CourseHttpService,
     public messageService: MessageService,
     private planificationsCoursesService: PlanificationsCoursesService,
     private teacherService: TeachersService,
@@ -224,22 +222,22 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     this.clickClose.emit(false);
   }
 
-  updateCourse(course: CourseModel): void {
-    this.progressBar = true;
+  // updateCourse(course: CourseModel): void {
+  //   this.progressBar = true;
 
-    this.courseHttpService
-      .updateCourseNameAndDuration(course.id!, course)
-      .subscribe({
-        next: (response) => {
-          this.messageService.success(response);
-          this.progressBar = false;
-        },
-        error: (error) => {
-          this.messageService.error(error);
-          this.progressBar = false;
-        },
-      });
-  }
+  //   this.courseHttpService
+  //     .updateCourseNameAndDuration(course.id!, course)
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.messageService.success(response);
+  //         this.progressBar = false;
+  //       },
+  //       error: (error) => {
+  //         this.messageService.error(error);
+  //         this.progressBar = false;
+  //       },
+  //     });
+  // }
 
   search(event: AutoComplete) {
     this.planificationsCoursesService

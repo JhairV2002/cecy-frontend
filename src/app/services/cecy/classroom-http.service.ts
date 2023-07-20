@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { ServerResponse } from '@models/core/server.response';
 import { Handler } from '../../exceptions/handler';
-import { PaginatorModel } from '@models/core';
 import { ClassroomModel } from '@models/cecy';
 
 @Injectable({
@@ -27,7 +26,7 @@ export class ClassroomHttpService {
   private loaded = new BehaviorSubject<boolean>(true);
   public loaded$ = this.loaded.asObservable();
 
-  private paginator = new BehaviorSubject<PaginatorModel>({ current_page: 1, per_page: 25, total: 0 });
+  private paginator = new BehaviorSubject<any>({ current_page: 1, per_page: 25, total: 0 });
   public paginator$ = this.paginator.asObservable();
 
   constructor(private httpClient: HttpClient) {

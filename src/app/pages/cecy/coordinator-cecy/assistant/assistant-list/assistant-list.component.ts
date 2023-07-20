@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
 
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 
 import { UserService } from '@services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
@@ -36,7 +36,7 @@ export class AssistantListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
+  paginator: any = {};
   assistants: User[] = [];
   modelName: any;
   totalUsers: number = 0;

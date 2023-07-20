@@ -13,7 +13,7 @@ import {
   PlanificationCareerService,
 } from '@services/cecy/coordinator-cecy';
 import { MessageService as MessageLocal } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 import { Router } from '@angular/router';
 import { PlanificationCourses } from '@models/cecy/coordinator-career';
 import { Comment } from '@models/cecy/coordinator-cecy';
@@ -33,7 +33,7 @@ export class CourseListComponent implements OnInit, OnChanges {
   dialogForm: boolean = false;
   progressBarDelete: boolean = false;
   search: string = '';
-  paginator: PaginatorModel = {};
+  paginator: any = {};
   courses: PlanificationCourses[] = [];
   comments: Comment[] = [];
   stateProcess: any = [];

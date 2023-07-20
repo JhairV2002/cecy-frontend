@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { PaginatorModel, ServerResponse } from '@models/core';
+import { ServerResponse } from '@models/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationErrors } from '@angular/forms';
 import { Message } from 'primeng/api';
@@ -376,7 +376,7 @@ export class MessageService {
     return 'Este teléfono no está disponible.';
   }
 
-  paginatorTotalRegisters(paginator: PaginatorModel): string {
+  paginatorTotalRegisters(paginator: any): string {
     return (
       'En total hay ' + (paginator?.total ? paginator.total : 0) + ' registros.'
     );

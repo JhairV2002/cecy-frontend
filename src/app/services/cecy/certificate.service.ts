@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Handler } from '../../exceptions/handler';
-import { PaginatorModel } from '@models/core';
 import { CertificateModel, RegistrationModel } from '@models/cecy';
 
 @Injectable({
@@ -23,7 +22,7 @@ export class CertificateService {
   private certificateModel: CertificateModel = {};
   private certificate = new BehaviorSubject<CertificateModel>({});
   public certificate$ = this.certificate.asObservable();
-  private paginator = new BehaviorSubject<PaginatorModel>({
+  private paginator = new BehaviorSubject<any>({
     current_page: 1,
     per_page: 25,
     total: 0,

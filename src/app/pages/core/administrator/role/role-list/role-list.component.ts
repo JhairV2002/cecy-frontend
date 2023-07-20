@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
 import { Roles } from '@models/authentication';
@@ -20,7 +20,7 @@ export class RoleListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
+  paginator: any = {};
   roles: Roles[] = [];
   modelName: any;
   totalUsers: number = 0;

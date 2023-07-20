@@ -1,9 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {  PaginatorModel, PrerequisiteModel} from '@models/cecy';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PaginatorModel, PrerequisiteModel } from '@models/cecy';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { PrerequisiteHttpService } from '@services/cecy/prerequisite-http.service';
 import { MessageService } from '@services/core/message.service';
-import { CourseHttpService } from '@services/cecy';
 import { Subject, takeUntil } from 'rxjs';
 import { CourseService } from '@services/cecy-v1/course.service';
 import { CourseModel } from '@models/cecy-v1/course.model';
@@ -11,29 +17,23 @@ import { CourseModel } from '@models/cecy-v1/course.model';
 @Component({
   selector: 'app-prerequisites',
   templateUrl: './prerequisites.component.html',
-  styleUrls: ['./prerequisites.component.scss']
+  styleUrls: ['./prerequisites.component.scss'],
 })
 export class PrerequisitesComponent implements OnInit {
-
   // @Input() courseId: number = 0;
   // typeModal: string;
   // titleModal: string;
   // dialogFormStrategie: boolean;
   // public formCurricularDesign: FormGroup = this.newFormCourse;
 
-
   constructor(
     private formBuilder: FormBuilder,
     private prerequisiteHttpService: PrerequisiteHttpService,
-    private coursesHttpService: CourseHttpService,
     public messageService: MessageService,
     private courseService: CourseService
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   // get newFormCourse(): FormGroup {
   //   return this.formBuilder.group({
@@ -53,7 +53,6 @@ export class PrerequisitesComponent implements OnInit {
 
   //   });
   // }
-
 
   // showFormStrategie(type?: string) {
   //   this.typeModal = type;

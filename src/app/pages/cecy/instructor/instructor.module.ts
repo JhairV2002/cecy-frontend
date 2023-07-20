@@ -27,12 +27,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { ParticipantFormComponent } from './participant/participant-form/participant-form.component';
-import { ParticipantListComponent } from './participant/participant-list/participant-list.component';
-import { InstructorCourseComponent } from './instructor-course/instructor-course.component';
 import { AttendanceCourseFormComponent } from './attendance/attendance-course-form/attendance-course-form.component';
 import { AttendanceListComponent } from './attendance/attendance-list/attendance-list.component';
 import { TemariCourseComponent } from './temari-course/temari-course.component';
-import { InstructorCourseCardComponent } from './instructor-course/instructor-course-card/instructor-course-card.component';
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { ListboxModule } from 'primeng/listbox';
@@ -45,9 +42,6 @@ import { HomeComponent } from './home/home.component';
     AttendanceComponent,
     ParticipantComponent,
     ParticipantFormComponent,
-    ParticipantListComponent,
-    InstructorCourseComponent,
-    InstructorCourseCardComponent,
     AttendanceCourseFormComponent,
     AttendanceListComponent,
     TemariCourseComponent,
@@ -55,7 +49,6 @@ import { HomeComponent } from './home/home.component';
     ImageComponent,
     HomeComponent,
   ],
-  exports: [InstructorCourseCardComponent],
   imports: [
     CommonModule,
     InstructorRoutingModule,

@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StudentRoutingModule } from './student-routing.module';
-import { CoursesComponent } from './courses/courses.component';
-import { ViewAttendanceDetailsComponent } from './view-attendance-details/view-attendance-details.component';
-import { AttendanceRegistrationComponent } from './attendance-registration/attendance-registration.component';
 import { CertificatesStudentComponent } from './certificates-student/certificates-student.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +21,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { PaginatorModule } from 'primeng/paginator';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DropdownModule } from 'primeng/dropdown';
-import { CoursesListComponent } from './courses/courses-list/courses-list.component';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { AccordionModule } from 'primeng/accordion';
@@ -40,7 +36,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { SharedModule } from '@shared/shared.module';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CalendarModule } from 'primeng/calendar';
-import { TopicCourseComponent } from './topic-course/topic-course.component';
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
 import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publicity.component';
 import { CmbCoursesComponent } from './inscription-form/cmb-courses/cmb-courses.component';
@@ -50,12 +45,7 @@ import { CoursesListaComponent } from './courses-list/courses-list.component';
   declarations: [
     CoursesListaComponent,
     StudentComponent,
-    AttendanceRegistrationComponent,
     CertificatesStudentComponent,
-    ViewAttendanceDetailsComponent,
-    CoursesComponent,
-    CoursesListComponent,
-    TopicCourseComponent,
     InscriptionFormComponent,
     CmbPublicityComponent,
     CmbCoursesComponent,

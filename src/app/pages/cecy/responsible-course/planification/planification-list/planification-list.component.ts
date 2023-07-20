@@ -3,18 +3,21 @@ import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
 import { MessageService } from '@services/core';
 import { PlanificationHttpService } from '@services/cecy/planification-http.service';
-import { ColModel, CourseModel, PaginatorModel, PlanificationModel } from '@models/cecy';
+import {
+  ColModel,
+  CourseModel,
+  PaginatorModel,
+  PlanificationModel,
+} from '@models/cecy';
 import { Router } from '@angular/router';
-import { CourseHttpService } from '@services/cecy';
 import { PlanificationKpiModel } from '@models/cecy/planificaton-kpi.model';
 
 @Component({
   selector: 'app-planification-list',
   templateUrl: './planification-list.component.html',
-  styleUrls: ['./planification-list.component.scss']
+  styleUrls: ['./planification-list.component.scss'],
 })
 export class PlanificationListComponent implements OnInit {
-
   planifications: PlanificationKpiModel[] = [];
   planifications$ = this.planificationHttpService.planifications$;
   planification$ = this.planificationHttpService.planification$;
@@ -22,7 +25,6 @@ export class PlanificationListComponent implements OnInit {
   paginator$ = this.planificationHttpService.paginator$;
   kpiModel = new PlanificationKpiModel();
   dialogForm: boolean = false;
-
 
   selectedPlanifications: PlanificationModel[] = [];
   selectedPlanification: PlanificationModel = {};
@@ -37,7 +39,7 @@ export class PlanificationListComponent implements OnInit {
   constructor(
     private planificationHttpService: PlanificationHttpService,
     public messageService: MessageService,
-    private router: Router,
+    private router: Router
   ) {
     this.cols = [
       // { field: 'code', header: 'Código' },
@@ -53,12 +55,11 @@ export class PlanificationListComponent implements OnInit {
         icon: 'pi pi-calendar',
         command: () => {
           this.editPlanification(this.selectedPlanification);
-        }
-      }
+        },
+      },
     ];
 
-
-    this.paginator$.subscribe(response => {
+    this.paginator$.subscribe((response) => {
       this.paginator = response;
     });
   }
@@ -68,21 +69,22 @@ export class PlanificationListComponent implements OnInit {
   }
 
   loadPlanifications(page: number = 1) {
-    this.planificationHttpService.getPlanificationsByCourse(page,'',this.courseId)
-      .subscribe(response => {
+    this.planificationHttpService
+      .getPlanificationsByCourse(page, '', this.courseId)
+      .subscribe((response) => {
         this.planifications = response.data;
         this.kpiModel = new PlanificationKpiModel();
       });
   }
 
   editPlanification(planification: PlanificationModel) {
-    this.router.navigate(['/cecy/responsible-course/horarios/', planification.id]);
-
+    this.router.navigate([
+      '/cecy/responsible-course/horarios/',
+      planification.id,
+    ]);
   }
 
-  addNeeds(planification: PlanificationModel) {
-
-  }
+  addNeeds(planification: PlanificationModel) {}
 
   showForm(detailPlanification: PlanificationModel = {}) {
     this.selectedPlanification = detailPlanification;

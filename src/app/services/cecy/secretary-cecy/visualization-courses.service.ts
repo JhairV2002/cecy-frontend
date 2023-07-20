@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Course } from '@models/cecy/secretary-cecy';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VisualizationCoursesService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private apiUrl = `${environment.api}/cursos/statusCourse/Terminado`;
-
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -24,7 +25,12 @@ export class VisualizationCoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/`);
+    this.loading.next(true);
+    return this.http.get<Course[]>(`${this.apiUrl}/`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   public findById(id: number): Observable<Course> {

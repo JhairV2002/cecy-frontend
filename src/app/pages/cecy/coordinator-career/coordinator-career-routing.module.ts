@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InstructorListComponent } from './instructor/instructor-list/instructor-list.component';
-import { RequirementComponent } from './requirement/requirement.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
@@ -12,8 +10,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'planification', component: PlanificationComponent },
-  { path: 'instructor', component: InstructorListComponent },
-  { path: 'requirement', component: RequirementComponent },
   { path: 'change-password', component: ChangePasswordComponent },
 ];
 

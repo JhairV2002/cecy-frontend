@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from '@models/cecy/secretary-cecy';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 import { environment } from '@env/environment';
 import { ListReports, Planification } from './certificateReport';
 
@@ -9,19 +9,26 @@ import { ListReports, Planification } from './certificateReport';
   providedIn: 'root',
 })
 export class CecyCertificateService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private apiUrl = `${environment.api}/courses`;
   private apiUrl2 = `${environment.api}/cursos`;
-  private apiUrlReporte= `${environment.api}/reporte`;
+  private apiUrlReporte = `${environment.api}/reporte`;
   private apiUrlPlanification = `${environment.api2}/planifications-courses`;
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
   public getviewReports(): Observable<ListReports[]> {
-    return this.http.get<ListReports[]>(`${this.apiUrlReporte}/`);
+    this.loading.next(true);
+    return this.http.get<ListReports[]>(`${this.apiUrlReporte}/`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   public findById(id: number): Observable<Course> {

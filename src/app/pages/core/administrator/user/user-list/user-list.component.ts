@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 
 import { UserService } from '@services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
   users: User[] = [];
   modelName: any;
   totalUsers: number = 0;
