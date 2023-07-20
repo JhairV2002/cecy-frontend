@@ -87,16 +87,11 @@ export class CourseListComponent implements OnInit, OnChanges {
     this.authService.user$.subscribe((data: any) => {
       if (data !== null) {
         this.user = data[0];
-        if (this.user?.role?.name === 'assistant_cecy') {
-          this.loadCoursesAssitantCecy();
-        } else {
-          this.loadCourses();
-        }
       }
     });
-
-    // this.filterStateAprooved();
-    // this.filterStateProcess();
+    this.loadCourses();
+    this.filterStateAprooved();
+    this.filterStateProcess();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -110,6 +105,11 @@ export class CourseListComponent implements OnInit, OnChanges {
       next: (data) => {
         console.log('CECY TODO', data);
         this.courses = data;
+        this.courses.sort((a: any, b: any) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
       },
       error: (error) => {
         this.messageService.error(error);
@@ -129,21 +129,21 @@ export class CourseListComponent implements OnInit, OnChanges {
     });
   }
 
-  // filterStateAprooved() {
-  //   this.planificationCareerService
-  //     .filterByStateAprooved()
-  //     .subscribe((data) => {
-  //       this.stateAprooved = data;
-  //       this.loadCourses();
-  //     });
-  // }
+  filterStateAprooved() {
+    this.planificationCareerService
+      .filterByStateAprooved()
+      .subscribe((data) => {
+        this.stateAprooved = data;
+        this.loadCourses();
+      });
+  }
 
-  // filterStateProcess() {
-  //   this.planificationCareerService.filterByStateProcess().subscribe((data) => {
-  //     this.stateProcess = data;
-  //     this.loadCourses();
-  //   });
-  // }
+  filterStateProcess() {
+    this.planificationCareerService.filterByStateProcess().subscribe((data) => {
+      this.stateProcess = data;
+      this.loadCourses();
+    });
+  }
 
   approveCourse(id: number) {
     console.log(id);

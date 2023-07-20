@@ -76,6 +76,7 @@
         (clickClose)="closeModal($event)"
       ></app-profile>
       <p-button
+        (click)="redirectConfigurate(user?.role?.name)"
         class="w-full"
         styleClass="p-button-text p-button-secondary w-full"
       >

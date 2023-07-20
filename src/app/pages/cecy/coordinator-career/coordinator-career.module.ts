@@ -11,7 +11,6 @@ import { CoordinatorCareerComponent } from './coordinator-career.component';
 import { InstructorComponent } from './instructor/instructor.component';
 import { InstructorListComponent } from './instructor/instructor-list/instructor-list.component';
 import { InstructorFormComponent } from './instructor/instructor-form/instructor-form.component';
-import { AssignmentInstructorsFormComponent } from './assignment-instructor/assignment-instructors-form.component';
 
 import { RequirementComponent } from './requirement/requirement.component';
 import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
@@ -56,7 +55,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
-    AssignmentInstructorsFormComponent,
     CoordinatorCareerComponent,
     InstructorComponent,
     InstructorListComponent,
@@ -64,7 +62,6 @@ import { SkeletonModule } from 'primeng/skeleton';
     RequirementComponent,
     RequirementFormComponent,
     RequirementListComponent,
-    AssignmentInstructorsFormComponent,
     InitialCourseKpiComponent,
     RequirementListComponent,
     DashboardComponent,

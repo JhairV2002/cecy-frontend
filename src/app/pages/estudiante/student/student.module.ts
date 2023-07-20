@@ -3,22 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { StudentRoutingModule } from './student-routing.module';
 import { CoursesComponent } from './courses/courses.component';
-import { RegistrationCourseComponent } from './registration-course/registration-course.component';
 import { ViewAttendanceDetailsComponent } from './view-attendance-details/view-attendance-details.component';
 import { AttendanceRegistrationComponent } from './attendance-registration/attendance-registration.component';
 import { CertificatesStudentComponent } from './certificates-student/certificates-student.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentComponent } from './student.component';
-import { ViewCoursesParticipantComponent } from './view-courses-participant/view-courses-participant.component';
-import { ViewAttendancesParticipantComponent } from './view-attendances-participant/view-attendances-participant.component';
-import { ViewGradesParticipantComponent } from './view-grades-participant/view-grades-participant.component';
 
 // PrimeNg Modules
 import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CardModule } from 'primeng/card';
 import { SidebarModule } from 'primeng/sidebar';
@@ -29,7 +25,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { CoursesListComponent } from './courses/courses-list/courses-list.component';
-import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { AccordionModule } from 'primeng/accordion';
@@ -57,19 +52,13 @@ import { CoursesListaComponent } from './courses-list/courses-list.component';
     StudentComponent,
     AttendanceRegistrationComponent,
     CertificatesStudentComponent,
-    RegistrationCourseComponent,
     ViewAttendanceDetailsComponent,
     CoursesComponent,
-    ViewCoursesParticipantComponent,
-    ViewGradesParticipantComponent,
-    ViewAttendancesParticipantComponent,
     CoursesListComponent,
-    CourseDetailComponent,
     TopicCourseComponent,
     InscriptionFormComponent,
     CmbPublicityComponent,
-    CmbCoursesComponent
-
+    CmbCoursesComponent,
   ],
   imports: [
     StudentRoutingModule,
@@ -108,7 +97,7 @@ import { CoursesListaComponent } from './courses-list/courses-list.component';
     TableModule,
     SharedModule,
     FieldsetModule,
-    CalendarModule
-  ]
+    CalendarModule,
+  ],
 })
-export class StudentModule { }
+export class StudentModule {}

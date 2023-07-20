@@ -1,19 +1,26 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PhotographicRecordHttpService} from "@services/cecy/photographicRecord-http.service";
-import {PhotographicRecordModel, RecordModel} from "@models/cecy/photographic-record.model";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {DetailAttendanceModel} from "@models/cecy";
-import {MessageService} from "@services/core";
-import {FileModel, ImageModel, PaginatorModel} from "@models/core";
+import { Component, Input, OnInit } from '@angular/core';
+import { PhotographicRecordHttpService } from '@services/cecy/photographicRecord-http.service';
+import {
+  PhotographicRecordModel,
+  RecordModel,
+} from '@models/cecy/photographic-record.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { DetailAttendanceModel } from '@models/cecy';
+import { MessageService } from '@services/core';
 
 @Component({
   selector: 'app-attendance-records',
   templateUrl: './attendance-records.component.html',
-  styleUrls: ['./attendance-records.component.scss']
+  styleUrls: ['./attendance-records.component.scss'],
 })
 export class AttendanceRecordsComponent implements OnInit {
-
   record: PhotographicRecordModel[] = [];
   detailPlanificationId: any;
   id: FormControl = new FormControl('');
@@ -22,7 +29,7 @@ export class AttendanceRecordsComponent implements OnInit {
 
   @Input() detailPlanification: DetailAttendanceModel = {};
   selectedPhotographicRecords: PhotographicRecordModel = {};
-  selectedPhotographicRecord: number = 0 ;
+  selectedPhotographicRecord: number = 0;
   dialogForms: boolean = false; // optional
 
   constructor(
@@ -30,15 +37,17 @@ export class AttendanceRecordsComponent implements OnInit {
     private photographicRecordHttpService: PhotographicRecordHttpService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
-    public messageService: MessageService,
-  ) {
-  }
+    public messageService: MessageService
+  ) {}
   get newFormRecords(): FormGroup {
     return this.formBuilder.group({
       id: [null],
       detailPlanificationId: [this.detailPlanificationId],
-      description: [null, [Validators.required,Validators.minLength(20)]],
-      numberWeek: [null, [Validators.required,Validators.min(1),Validators.max(4)]],
+      description: [null, [Validators.required, Validators.minLength(20)]],
+      numberWeek: [
+        null,
+        [Validators.required, Validators.min(1), Validators.max(4)],
+      ],
     });
   }
 
@@ -47,12 +56,13 @@ export class AttendanceRecordsComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.formRecords);
-    this.detailPlanificationIdField.setValue(this.activatedRouter.snapshot.params['id']);
+    this.detailPlanificationIdField.setValue(
+      this.activatedRouter.snapshot.params['id']
+    );
     if (this.formRecords.valid) {
       if (this.idField.value) {
-         this.update(this.formRecords.value);
-      }
-      else {
+        this.update(this.formRecords.value);
+      } else {
         this.store(this.formRecords.value);
       }
     } else {
@@ -61,17 +71,15 @@ export class AttendanceRecordsComponent implements OnInit {
   }
   update(record: any): void {
     this.progressBar = true;
-    this.photographicRecordHttpService.updatePhotographicRecord(this.detailPlanification.id, record).subscribe(
-      response => {
-      }
-    );
+    this.photographicRecordHttpService
+      .updatePhotographicRecord(this.detailPlanification.id, record)
+      .subscribe((response) => {});
   }
   store(record: PhotographicRecordModel): void {
     this.progressBar = true;
-    this.photographicRecordHttpService.storePhotographicRecord(record).subscribe(
-      response => {
-      }
-    );
+    this.photographicRecordHttpService
+      .storePhotographicRecord(record)
+      .subscribe((response) => {});
   }
   isRequired(field: AbstractControl): boolean {
     return field.hasValidator(Validators.required);
@@ -90,17 +98,20 @@ export class AttendanceRecordsComponent implements OnInit {
     return this.formRecords.controls['numberWeek'];
   }
 
-  showForm(children: number){
-    this.selectedPhotographicRecord =  children;
+  showForm(children: number) {
+    this.selectedPhotographicRecord = children;
     // this.topicHttpService.selectTopic(children)
     this.dialogForms = true;
-    console.log(this.selectedPhotographicRecord)
+    console.log(this.selectedPhotographicRecord);
   }
 
-  selectPhotographicRecords(photographicRecord: PhotographicRecordModel){
-    this.selectedPhotographicRecords =  photographicRecord;
+  selectPhotographicRecords(photographicRecord: PhotographicRecordModel) {
+    this.selectedPhotographicRecords = photographicRecord;
   }
   redirectAttendance() {
-    this.router.navigate(['/cecy/instructor/attendance/',this.detailPlanificationId ]);
+    this.router.navigate([
+      '/cecy/instructor/attendance/',
+      this.detailPlanificationId,
+    ]);
   }
 }

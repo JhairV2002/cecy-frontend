@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
-import { ParticipantModel } from '@models/cecy';
 import { ColModel, PaginatorModel } from '@models/core';
 import { ParticipantHttpService } from '@services/cecy';
 import { MessageService } from '@services/core';
@@ -17,8 +16,8 @@ export class ParticipantListComponent implements OnInit {
   loaded$ = this.participantHttpService.loaded$;
   paginator$ = this.participantHttpService.paginator$;
 
-  selectedParticipants: ParticipantModel[] = [];
-  selectedParticipant: ParticipantModel = {};
+  selectedParticipants: any[] = [];
+  selectedParticipant: any = {};
   cols: ColModel[]; // conditional
   items: MenuItem[] = []; // optional
   dialogForm: boolean = false; // optional
@@ -86,17 +85,17 @@ export class ParticipantListComponent implements OnInit {
   }
 
   // optional
-  showForm(participant: ParticipantModel = {}) {
+  showForm(participant: any = {}) {
     this.selectedParticipant = participant;
     this.participantHttpService.selectParticipant(participant);
     this.dialogForm = true;
   }
 
-  selectParticipant(participant: ParticipantModel) {
+  selectParticipant(participant: any) {
     this.selectedParticipant = participant;
   }
 
-  acceptParticipant(participant: ParticipantModel): void {
+  acceptParticipant(participant: any): void {
     console.log(this.selectedParticipant);
 
     this.messageService.questionAcceptParticipant({})
@@ -115,7 +114,7 @@ export class ParticipantListComponent implements OnInit {
       });
   }
 
-  declineParticipant(participant: ParticipantModel): void {
+  declineParticipant(participant: any): void {
     console.log(this.selectedParticipant);
     this.messageService.questionDeclineParticipant({})
       .then((result) => {
@@ -132,8 +131,8 @@ export class ParticipantListComponent implements OnInit {
         }
       });
   }
-  
-  deleteParticipant(participant: ParticipantModel): void {
+
+  deleteParticipant(participant: any): void {
     this.messageService.questionDelete({})
       .then((result) => {
         if (result.isConfirmed) {

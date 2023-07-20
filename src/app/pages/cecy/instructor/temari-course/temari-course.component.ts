@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicModel } from '@models/cecy';
-import { FileModel, PaginatorModel } from '@models/core';
 import { TopicHttpService } from '@services/cecy';
 import { MessageService } from '@services/core';
 
@@ -18,8 +17,8 @@ export class TemariCourseComponent implements OnInit {
 
   //files
 
-  public files: FileModel[] = [];
-  public paginatorFiles: PaginatorModel = {
+  public files: any[] = [];
+  public paginatorFiles: any = {
     current_page: 1,
     per_page: 15,
     total: 0,

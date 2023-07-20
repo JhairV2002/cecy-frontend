@@ -11,7 +11,6 @@ import { WorkedPipe } from './pipes/professional/experience/worked.pipe';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
-import { ViewFilesComponent } from '@shared/components/file/view-files/view-files.component';
 import { UploadFilesComponent } from '@shared/components/file/upload-files/upload-files.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -69,7 +68,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     LabelDirective,
     SkeletonComponent,
     ProgressBarComponent,
-    ViewFilesComponent,
     UploadFilesComponent,
     CertificatedPipe,
     WorkedPipe,
@@ -99,7 +97,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     WorkedPipe,
     ExtensionsPipe,
     UploadFilesComponent,
-    ViewFilesComponent,
     TermsCondititonsPipe,
     BreadcrumbComponent,
     FooterComponent,

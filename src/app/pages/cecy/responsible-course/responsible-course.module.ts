@@ -5,16 +5,12 @@ import { ResponsibleCourseRoutingModule } from './responsible-course-routing.mod
 import { ResponsibleCourseComponent } from './responsible-course.component';
 import { CourseListComponent } from './general-information/course-list/course-list.component';
 import { CourseFormComponent } from './general-information/course-form/course-form.component';
-import { PlanificationFormComponent } from "./planification/planification-form/planification-form.component";
-import { PlanificationListComponent } from "./planification/planification-list/planification-list.component";
-import { PlanificationComponent } from "./planification/planification.component";
-import { DetailPlanificationFormComponent } from "./detail-planification/detail-planification-form/detail-planification-form.component";
-import { DetailPlanificationListComponent } from "./detail-planification/detail-planification-list/detail-planification-list.component";
-import { DetailPlanificationComponent } from "./detail-planification/detail-planification.component";
-import { RegistrationManagementComponent } from './registration-management/registration-management.component';
-import { RegistrationManagementFormComponent } from './registration-management/registration-management-form/registration-management-form.component';
-import { RegistrationManagementListComponent } from './registration-management/registration-management-list/registration-management-list.component';
-import { KpiRegistrationManagementComponent } from './registration-management/kpi-registration-management/kpi-registration-management.component';
+import { PlanificationFormComponent } from './planification/planification-form/planification-form.component';
+import { PlanificationListComponent } from './planification/planification-list/planification-list.component';
+import { PlanificationComponent } from './planification/planification.component';
+import { DetailPlanificationFormComponent } from './detail-planification/detail-planification-form/detail-planification-form.component';
+import { DetailPlanificationListComponent } from './detail-planification/detail-planification-list/detail-planification-list.component';
+import { DetailPlanificationComponent } from './detail-planification/detail-planification.component';
 import { AssignmentInstructorsFormComponent } from './detail-planification/assignment-instructors-form/assignment-instructors-form.component';
 
 import { ToolbarModule } from 'primeng/toolbar';
@@ -43,18 +39,17 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
-import { ChipModule } from "primeng/chip";
+import { ChipModule } from 'primeng/chip';
 import { PanelModule } from 'primeng/panel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PickListModule } from 'primeng/picklist';
 import { OrderListModule } from 'primeng/orderlist';
 import { TooltipModule } from 'primeng/tooltip';
 import { FieldsetModule } from 'primeng/fieldset';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
-import {FileUploadModule} from 'primeng/fileupload';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
 
 import { CurricularDesignComponent } from './curricular-design/curricular-design.component';
 import { TopicFormComponent } from './curricular-design/topic-form/topic-form.component';
@@ -62,15 +57,11 @@ import { PrerequisitesComponent } from './curricular-design/prerequisites/prereq
 import { TabsComponent } from './tabs/tabs.component';
 import { HomeComponent } from './home/home.component';
 
-
 @NgModule({
   declarations: [
     ResponsibleCourseComponent,
     CourseListComponent,
     CourseFormComponent,
-    RegistrationManagementComponent,
-    RegistrationManagementFormComponent,
-    RegistrationManagementListComponent,
     CurricularDesignComponent,
     TopicFormComponent,
     PrerequisitesComponent,
@@ -81,9 +72,8 @@ import { HomeComponent } from './home/home.component';
     DetailPlanificationListComponent,
     DetailPlanificationComponent,
     TabsComponent,
-    KpiRegistrationManagementComponent,
     AssignmentInstructorsFormComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,
@@ -125,7 +115,7 @@ import { HomeComponent } from './home/home.component';
     TooltipModule,
     FieldsetModule,
     FileUploadModule,
-    ConfirmDialogModule
-  ]
+    ConfirmDialogModule,
+  ],
 })
-export class ResponsibleCourseModule { }
+export class ResponsibleCourseModule {}

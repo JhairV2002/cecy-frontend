@@ -1,11 +1,9 @@
 import { Component, Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { PaginatorModel, ServerResponse } from '@models/core';
+import { PaginatorModel } from '@models/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationErrors } from '@angular/forms';
-import { LoginResponse } from '@models/core/login.response';
 import { Message } from 'primeng/api';
-import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +53,7 @@ export class MessageToastService {
     });
   }
 
-  success(serverResponse: ServerResponse | LoginResponse | undefined) {
+  success(serverResponse: any | any | undefined) {
     return Swal.fire({
       title: serverResponse?.msg?.summary,
       text: serverResponse?.msg?.detail,

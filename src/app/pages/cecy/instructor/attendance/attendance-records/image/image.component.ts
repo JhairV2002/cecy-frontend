@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ImageModel } from '@models/core';
 import { environment } from '@env/environment';
 import { MessageService } from '@services/core';
 import { PhotographicRecordHttpService } from '@services/cecy/photographicRecord-http.service';
@@ -25,7 +24,7 @@ export class ImageComponent implements OnInit, OnDestroy {
   cols: any[];
   selectedRecordP: number = 0;
 
-  public files: ImageModel[] = [];
+  public files: any[] = [];
   public displayModalImages: boolean = false;
   public loadingUploadImages: boolean = false;
   public loadingImages: boolean = false;

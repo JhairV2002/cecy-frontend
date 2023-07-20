@@ -1,8 +1,8 @@
-import { CourseProfileModel, InstructorModel } from "@models/cecy";
+import { CourseProfileModel } from "@models/cecy";
 
 export interface InstructorCourseProfileModel {
   id?: number;
-  instructor?: InstructorModel;
+  instructor?: any;
   courseProfile?: CourseProfileModel;
   createdAt?: Date;
   updatedAt?: Date;

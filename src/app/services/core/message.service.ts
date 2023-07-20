@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 import { PaginatorModel, ServerResponse } from '@models/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationErrors } from '@angular/forms';
-import { LoginResponse } from '@models/core/login.response';
 import { Message } from 'primeng/api';
 import { MessageService as MessagePNService } from 'primeng/api';
 
@@ -56,7 +55,7 @@ export class MessageService {
     });
   }
 
-  success(serverResponse: ServerResponse | LoginResponse | undefined) {
+  success(serverResponse: ServerResponse | any | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
       title: serverResponse?.msg?.summary,
@@ -108,7 +107,15 @@ export class MessageService {
     });
   }
 
-  successEmail(serverResponse: ServerResponse | LoginResponse | undefined) {
+  successSign(serverResponse: ServerResponse) {
+    return Swal.fire({
+      title: serverResponse.message,
+      //text: serverResponse?.msg?.detail,
+      icon: 'success',
+    });
+  }
+
+  successEmail(serverResponse: ServerResponse | any | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
       title: 'Correo enviado',
@@ -135,6 +142,22 @@ export class MessageService {
 
   questionDeleteUser({
     title = '¿Está seguro de eliminar este usuario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
+    });
+  }
+
+  questionDeleteSign({
+    title = '¿Está seguro de eliminar esta firma?',
     text = 'No podrá recuperar esta información!',
   }) {
     return Swal.fire({

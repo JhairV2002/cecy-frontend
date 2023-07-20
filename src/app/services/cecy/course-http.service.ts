@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { ServerResponse } from '@models/core/server.response';
 import { Handler } from '../../exceptions/handler';
-import { FileModel, PaginatorModel } from '@models/core';
+import { PaginatorModel } from '@models/core';
 import { CourseModel, PlanificationModel } from '@models/cecy';
 
 @Injectable({
@@ -791,7 +791,7 @@ export class CourseHttpService {
       );
   }
 
-  downloadFile(file: FileModel) {
+  downloadFile(file: any) {
     this.getFile(file.id!).subscribe((response) => {
       const binaryData = [] as BlobPart[];
       binaryData.push(response as BlobPart);

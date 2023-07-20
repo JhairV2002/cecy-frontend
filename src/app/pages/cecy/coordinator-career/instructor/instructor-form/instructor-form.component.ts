@@ -1,18 +1,29 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-
-import { InstructorModel } from '@models/cecy';
-import { CatalogueModel, FileModel, LocationModel, PaginatorModel, PhoneModel } from '@models/core';
-import { CoreHttpService, MessageService } from '@services/core';
+import { CatalogueModel, PaginatorModel } from '@models/core';
+import { MessageService } from '@services/core';
 import { CatalogueHttpService, InstructorHttpService } from '@services/cecy';
 
 @Component({
   selector: 'app-instructor-form',
   templateUrl: './instructor-form.component.html',
-  styleUrls: ['./instructor-form.component.scss']
+  styleUrls: ['./instructor-form.component.scss'],
 })
-
 export class InstructorFormComponent implements OnInit, OnDestroy {
   @Output() dialogForm = new EventEmitter<boolean>();
   private unsubscribe$ = new Subject<void>();
@@ -24,13 +35,15 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
   public states: CatalogueModel[] = [];
   public types: CatalogueModel[] = [];
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private instructorHttpService: InstructorHttpService,
     private catalogueHttpService: CatalogueHttpService,
-    public messageService: MessageService,
+    public messageService: MessageService
   ) {
-    this.instructor$.pipe(takeUntil(this.unsubscribe$))
-      .subscribe(response => {
+    this.instructor$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
         if (response.id !== undefined) {
           this.formInstructor.reset(response);
 
@@ -69,27 +82,25 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
   }
 
   loadStates() {
-    this.catalogueHttpService.getCatalogues('INSTRUCTOR_STATE')
-      .subscribe({
-        next: response => {
-          this.states = response.data;
-        },
-        error: error => {
-          this.messageService.error(error);
-        }
-      });
+    this.catalogueHttpService.getCatalogues('INSTRUCTOR_STATE').subscribe({
+      next: (response) => {
+        this.states = response.data;
+      },
+      error: (error) => {
+        this.messageService.error(error);
+      },
+    });
   }
 
   loadTypes() {
-    this.catalogueHttpService.getCatalogues('INSTRUCTOR')
-      .subscribe({
-        next: response => {
-          this.types = response.data;
-        },
-        error: error => {
-          this.messageService.error(error);
-        }
-      });
+    this.catalogueHttpService.getCatalogues('INSTRUCTOR').subscribe({
+      next: (response) => {
+        this.types = response.data;
+      },
+      error: (error) => {
+        this.messageService.error(error);
+      },
+    });
   }
 
   onSubmit() {
@@ -98,7 +109,7 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
       if (this.idField.value) {
         this.updateInstructor(this.formInstructor.value);
       } else {
-        console.log("todo bien");
+        console.log('todo bien');
         this.storeInstructor(this.formInstructor.value);
       }
     } else {
@@ -106,16 +117,16 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  storeInstructor(instructor: InstructorModel): void {
+  storeInstructor(instructor: any): void {
     console.log(instructor);
     this.progressBar = true;
     this.instructorHttpService.storeInstructor(instructor).subscribe(
-      response => {
+      (response) => {
         this.messageService.success(response);
         this.progressBar = false;
         this.dialogForm.emit(false);
       },
-      error => {
+      (error) => {
         this.messageService.error(error);
         this.progressBar = false;
         this.dialogForm.emit(false);
@@ -123,22 +134,23 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateInstructor(instructor: InstructorModel): void {
+  updateInstructor(instructor: any): void {
     this.progressBar = true;
-    this.instructorHttpService.updateInstructor(instructor.id!, instructor).subscribe(
-      response => {
-        this.messageService.success(response);
-        this.progressBar = false;
-        this.dialogForm.emit(false);
-      },
-      error => {
-        this.messageService.error(error);
-        this.progressBar = false;
-        this.dialogForm.emit(false);
-      }
-    );
+    this.instructorHttpService
+      .updateInstructor(instructor.id!, instructor)
+      .subscribe(
+        (response) => {
+          this.messageService.success(response);
+          this.progressBar = false;
+          this.dialogForm.emit(false);
+        },
+        (error) => {
+          this.messageService.error(error);
+          this.progressBar = false;
+          this.dialogForm.emit(false);
+        }
+      );
   }
-
 
   isRequired(field: AbstractControl): boolean {
     return field.hasValidator(Validators.required);
@@ -176,5 +188,4 @@ export class InstructorFormComponent implements OnInit, OnDestroy {
   get phoneField() {
     return this.formInstructor.controls['phone'];
   }
-
 }

@@ -8,7 +8,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ImageModel } from '@models/core';
 import { MessageService } from '@services/core/message.service';
 import { CatalogueModel as CecyCatalogueModel } from '@models/cecy/catalogue.model';
 import { PaginatorModel } from '@models/cecy';
@@ -61,7 +60,7 @@ export class CourseFormComponent implements OnInit {
   });
 
   public progressBar: boolean = false; // falta programarlo
-  public files: ImageModel[] = [];
+  public files: any[] = [];
   public paginatorImages: PaginatorModel = {
     current_page: 1,
     per_page: 15,

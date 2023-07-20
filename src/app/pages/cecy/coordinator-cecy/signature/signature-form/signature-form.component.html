@@ -1,0 +1,135 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <h2 class="text-xl">
+      <strong>{{ edit ? "Editar la firma" : "Registrar Firma Nueva" }} </strong>
+    </h2>
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-button
+      label="Regresar"
+      icon="pi pi-arrow-left"
+      class="mr-2"
+      routerLink="/cecy/coordinator-cecy/signature"
+    ></p-button>
+  </div>
+</p-toolbar>
+<div class="mt-4">
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="w-full">
+      <p-card class="w-full">
+        <h1 class="text-xl text-center">Datos del Firmante</h1>
+        <div class="p-fluid">
+          <form
+            class="mt-2"
+            [formGroup]="formSignature"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="p-field">
+              <label
+                for="name"
+                appLabel
+                label="Nombres del Firmante:"
+                [required]="isRequired(namesField)"
+                [valid]="namesField.valid"
+                [touched]="namesField.touched"
+                [dirty]="namesField.dirty"
+              >
+              </label>
+              <input
+                placeholder="Ej. Juanito"
+                pInputText
+                id="name"
+                formControlName="nombres"
+              />
+              <small
+                appErrorMessage
+                [errors]="namesField.errors"
+                [touched]="namesField.touched"
+                [dirty]="namesField.dirty"
+              >
+              </small>
+            </div>
+            <div class="p-field">
+              <label
+                for="name"
+                appLabel
+                label="Apellidos del Firmante:"
+                [required]="isRequired(lastnamesField)"
+                [valid]="lastnamesField.valid"
+                [touched]="lastnamesField.touched"
+                [dirty]="lastnamesField.dirty"
+              >
+              </label>
+              <input
+                placeholder="Ej. Perez"
+                pInputText
+                id="name"
+                formControlName="apellidos"
+              />
+              <small
+                appErrorMessage
+                [errors]="lastnamesField.errors"
+                [touched]="lastnamesField.touched"
+                [dirty]="lastnamesField.dirty"
+              >
+              </small>
+            </div>
+            <div class="p-field">
+              <label
+                for="name"
+                appLabel
+                label="Cedula:"
+                [required]="isRequired(cedulaField)"
+                [valid]="cedulaField.valid"
+                [touched]="cedulaField.touched"
+                [dirty]="cedulaField.dirty"
+              >
+              </label>
+              <input
+                placeholder="Ej. 171111111111"
+                pInputText
+                id="name"
+                formControlName="cedula"
+              />
+              <small
+                appErrorMessage
+                [errors]="cedulaField.errors"
+                [touched]="cedulaField.touched"
+                [dirty]="cedulaField.dirty"
+              >
+              </small>
+            </div>
+
+            <p-divider></p-divider>
+            <div class="field">
+              <button
+                [disabled]="formSignature.invalid"
+                pButton
+                type="submit"
+                pRipple
+                label="{{
+                  edit ? 'Actualizar informacion' : 'Guardar la informacion'
+                }}"
+                icon="pi pi-save"
+              ></button>
+            </div>
+          </form>
+        </div>
+      </p-card>
+    </div>
+    <div class="w-full">
+      <p-toast></p-toast>
+      <p-fileUpload
+        chooseLabel="Seleccione firma"
+        uploadLabel="Subir"
+        cancelLabel="Cancelar"
+        accept="image/*"
+        name="file"
+        url="./upload"
+        (onUpload)="onFileUpload($event)"
+      ></p-fileUpload>
+    </div>
+  </div>
+</div>
+
+<!-- <p-card [style]="{ width: '100%' }"></p-card> -->

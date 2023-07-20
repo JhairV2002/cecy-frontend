@@ -1,9 +1,8 @@
-import { ImageModel } from '@models/core';
 
 export interface PhotographicRecordModel {
   id?: number;
   description?: string;
-  image?: ImageModel[];
+  image?: any;
   numberWeek?: number;
   createdAt?: Date;
   updatedAt?: Date;

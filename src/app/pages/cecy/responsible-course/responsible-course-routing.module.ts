@@ -6,10 +6,7 @@ import { CourseFormComponent } from './general-information/course-form/course-fo
 import { DetailPlanificationComponent } from './detail-planification/detail-planification.component';
 import { CurricularDesignComponent } from './curricular-design/curricular-design.component';
 import { PlanificationComponent } from './planification/planification.component';
-import { ResponsibleCourseComponent } from './responsible-course.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { RegistrationManagementListComponent } from './registration-management/registration-management-list/registration-management-list.component';
-import { RegistrationManagementFormComponent } from './registration-management/registration-management-form/registration-management-form.component';
 import { HomeComponent } from './home/home.component';
 import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
@@ -23,8 +20,6 @@ const routes: Routes = [
   { path: 'curricular-design/:id', component: CurricularDesignComponent },
   { path: 'course/add/:id', component: TabsComponent },
   { path: 'course/edit/:id', component: TabsComponent },
-  { path: 'registrations', component: RegistrationManagementListComponent },
-  { path: 'registration/:id', component: RegistrationManagementFormComponent },
   { path: 'change-password', component: ChangePasswordComponent },
 ];
 

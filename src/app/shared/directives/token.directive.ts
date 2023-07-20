@@ -5,7 +5,6 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { PermissionModel, RoleModel, UserModel } from '@models/core';
 import { AuthService } from '@services/core/auth.service';
 
 @Directive({

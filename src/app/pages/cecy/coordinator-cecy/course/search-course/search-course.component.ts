@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PlanificationCareerService } from '@services/cecy/coordinator-cecy';
 import { MessageService } from '@services/core';
-import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-search-course',

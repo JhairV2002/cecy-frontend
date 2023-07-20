@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 
-import { InstructorModel } from '@models/cecy';
 import { ColModel, PaginatorModel } from '@models/core';
 import { InstructorHttpService } from '@services/cecy';
 import { MessageService } from '@services/core';
@@ -10,7 +9,7 @@ import { MessageService } from '@services/core';
 @Component({
   selector: 'app-instructor-list',
   templateUrl: './instructor-list.component.html',
-  styleUrls: ['./instructor-list.component.scss']
+  styleUrls: ['./instructor-list.component.scss'],
 })
 export class InstructorListComponent implements OnInit {
   instructors$ = this.instructorHttpService.instructors$;
@@ -18,8 +17,8 @@ export class InstructorListComponent implements OnInit {
   loaded$ = this.instructorHttpService.loaded$;
   paginator$ = this.instructorHttpService.paginator$;
 
-  selectedInstructors: InstructorModel[] = [];
-  selectedInstructor: InstructorModel = {};
+  selectedInstructors: any[] = [];
+  selectedInstructor: any = {};
   cols: ColModel[];
   items: MenuItem[] = [];
   dialogForm: boolean = false;
@@ -28,8 +27,10 @@ export class InstructorListComponent implements OnInit {
   search: FormControl = new FormControl('');
   paginator: PaginatorModel = {};
 
-  constructor(private instructorHttpService: InstructorHttpService,
-    public messageService: MessageService) {
+  constructor(
+    private instructorHttpService: InstructorHttpService,
+    public messageService: MessageService
+  ) {
     this.cols = [
       { field: 'id', header: 'Id' },
       { field: 'user', header: 'Identificación' },
@@ -45,11 +46,10 @@ export class InstructorListComponent implements OnInit {
         icon: 'pi pi-key',
         command: () => {
           this.deleteInstructor(this.selectedInstructor);
-        }
+        },
       },
-
     ];
-    this.paginator$.subscribe(response => {
+    this.paginator$.subscribe((response) => {
       this.paginator = response;
     });
   }
@@ -59,10 +59,13 @@ export class InstructorListComponent implements OnInit {
   }
 
   loadInstructors(page: number = 1) {
-    this.instructors$ = this.instructorHttpService.getInstructors(page, this.search.value);
+    this.instructors$ = this.instructorHttpService.getInstructors(
+      page,
+      this.search.value
+    );
   }
 
-  showForm(instructor: InstructorModel = {}) {
+  showForm(instructor: any = {}) {
     this.selectedInstructor = instructor;
     this.instructorHttpService.selectInstructor(instructor);
     this.dialogForm = true;
@@ -72,45 +75,42 @@ export class InstructorListComponent implements OnInit {
     this.dialogLists = true;
   }
 
-  selectInstructor(instructor: InstructorModel) {
+  selectInstructor(instructor: any) {
     this.selectedInstructor = instructor;
   }
 
-  deleteInstructor(instructor: InstructorModel): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.instructorHttpService.deleteInstructor(instructor.id!).subscribe(
-            response => {
-              this.messageService.success(response);
-            },
-            error => {
-              this.messageService.error(error);
-            }
-          );
-        }
-      });
+  deleteInstructor(instructor: any): void {
+    this.messageService.questionDelete({}).then((result) => {
+      if (result.isConfirmed) {
+        this.instructorHttpService.deleteInstructor(instructor.id!).subscribe(
+          (response) => {
+            this.messageService.success(response);
+          },
+          (error) => {
+            this.messageService.error(error);
+          }
+        );
+      }
+    });
   }
 
   deleteInstructors(): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          const ids = this.selectedInstructors.map(element => element.id);
-          this.progressBarDelete = true;
-          this.instructorHttpService.deleteInstructors(ids).subscribe(
-            response => {
-              this.progressBarDelete = false;
-              this.messageService.success(response);
-            },
-            error => {
-              this.progressBarDelete = false;
-              this.messageService.error(error);
-            }
-          );
-        }
-      });
-
+    this.messageService.questionDelete({}).then((result) => {
+      if (result.isConfirmed) {
+        const ids = this.selectedInstructors.map((element) => element.id);
+        this.progressBarDelete = true;
+        this.instructorHttpService.deleteInstructors(ids).subscribe(
+          (response) => {
+            this.progressBarDelete = false;
+            this.messageService.success(response);
+          },
+          (error) => {
+            this.progressBarDelete = false;
+            this.messageService.error(error);
+          }
+        );
+      }
+    });
   }
 
   filter(event: any) {

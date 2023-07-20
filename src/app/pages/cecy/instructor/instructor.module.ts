@@ -4,7 +4,7 @@ import { InstructorRoutingModule } from './instructor-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from "primeng/ripple";
+import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { DialogModule } from 'primeng/dialog';
@@ -24,24 +24,20 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { PickListModule } from 'primeng/picklist';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { AttendanceComponent } from "./attendance/attendance.component";
-import { ParticipantComponent } from "./participant/participant.component";
+import { AttendanceComponent } from './attendance/attendance.component';
+import { ParticipantComponent } from './participant/participant.component';
 import { ParticipantFormComponent } from './participant/participant-form/participant-form.component';
 import { ParticipantListComponent } from './participant/participant-list/participant-list.component';
-import { ParticipantCourseComponent } from "./participant-course/participant-course.component";
-import { ParticipantCourseFormComponent } from './participant-course/participant-course-form/participant-course-form.component';
-import { ParticipantCourseListComponent } from './participant-course/participant-course-list/participant-course-list.component';
 import { InstructorCourseComponent } from './instructor-course/instructor-course.component';
 import { AttendanceCourseFormComponent } from './attendance/attendance-course-form/attendance-course-form.component';
-import { AttendanceFormComponent } from './attendance/attendance-form/attendance-form.component';
 import { AttendanceListComponent } from './attendance/attendance-list/attendance-list.component';
 import { TemariCourseComponent } from './temari-course/temari-course.component';
 import { InstructorCourseCardComponent } from './instructor-course/instructor-course-card/instructor-course-card.component';
 
-import {FileUploadModule} from 'primeng/fileupload';
-import {ListboxModule} from 'primeng/listbox';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ListboxModule } from 'primeng/listbox';
 import { AttendanceRecordsComponent } from './attendance/attendance-records/attendance-records.component';
-import {ImageComponent} from "./attendance/attendance-records/image/image.component";
+import { ImageComponent } from './attendance/attendance-records/image/image.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -50,22 +46,16 @@ import { HomeComponent } from './home/home.component';
     ParticipantComponent,
     ParticipantFormComponent,
     ParticipantListComponent,
-    ParticipantCourseComponent,
-    ParticipantCourseFormComponent,
-    ParticipantCourseListComponent,
     InstructorCourseComponent,
     InstructorCourseCardComponent,
     AttendanceCourseFormComponent,
-    AttendanceFormComponent,
     AttendanceListComponent,
     TemariCourseComponent,
     AttendanceRecordsComponent,
     ImageComponent,
-    HomeComponent
+    HomeComponent,
   ],
-  exports: [
-    InstructorCourseCardComponent
-  ],
+  exports: [InstructorCourseCardComponent],
   imports: [
     CommonModule,
     InstructorRoutingModule,
@@ -97,8 +87,7 @@ import { HomeComponent } from './home/home.component';
     CheckboxModule,
     InputTextareaModule,
     ListboxModule,
-    FileUploadModule
-  ]
+    FileUploadModule,
+  ],
 })
-export class InstructorModule {
-}
+export class InstructorModule {}

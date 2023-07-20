@@ -7,7 +7,6 @@ import { Handler } from '../../exceptions/handler';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ServerResponse } from '@models/cecy/server.response';
-import { FileModel } from '@models/core';
 import { MessageService } from '@services/core';
 
 @Injectable({

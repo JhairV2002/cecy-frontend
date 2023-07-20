@@ -3,9 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
-import { ServerResponse } from '@models/core/server.response';
 import { Handler } from '../../exceptions/handler';
-import { PaginatorModel, UserModel } from '@models/core';
+import { PaginatorModel } from '@models/core';
 import { CatalogueModel, CourseModel, CourseProfileModel, PlanificationModel } from '@models/cecy';
 
 @Injectable({
@@ -17,8 +16,8 @@ export class courseProfileHttpService {
   private API_URL_PUBLIC: string = `${environment.API_URL_PUBLIC}`;
 
 
-  private courseProfileList: ServerResponse = {};
-  private courseProfiles = new BehaviorSubject<ServerResponse>({});
+  private courseProfileList: any = {};
+  private courseProfiles = new BehaviorSubject<any>({});
   public courseProfiles$ = this.courseProfiles.asObservable();
 
   private courseProfileModel: CourseProfileModel = {};
@@ -36,14 +35,14 @@ export class courseProfileHttpService {
   }
 
   //Básicos
-  getCourseProfile(id: number): Observable<ServerResponse> {
+  getCourseProfile(id: number): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/course-profiles/${id}`;
     this.loaded.next(true);
-    return this.httpClient.get<ServerResponse>(url)
+    return this.httpClient.get<any>(url)
       .pipe(
         map(response => response),
         tap(response => {
-          this.courseProfileList = response as ServerResponse;
+          this.courseProfileList = response as any;
           this.courseProfiles.next(this.courseProfileList);
           this.loaded.next(false);
           this.paginator.next(response.meta!);
@@ -53,14 +52,14 @@ export class courseProfileHttpService {
         catchError(Handler.render)
       );
   }
-  updateCourseProfile(id: number,profile:CourseProfileModel): Observable<ServerResponse> {
+  updateCourseProfile(id: number,profile:CourseProfileModel): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/course-profiles/${id}`;
     this.loaded.next(true);
-    return this.httpClient.put<ServerResponse>(url,profile)
+    return this.httpClient.put<any>(url,profile)
       .pipe(
         map(response => response),
         tap(response => {
-          this.courseProfileList = response as ServerResponse;
+          this.courseProfileList = response as any;
           this.courseProfiles.next(this.courseProfileList);
           this.loaded.next(false);
           this.paginator.next(response.meta!);
@@ -70,14 +69,14 @@ export class courseProfileHttpService {
         catchError(Handler.render)
       );
   }
-  deleteCourseProfile(id: number): Observable<ServerResponse> {
+  deleteCourseProfile(id: number): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/course-profiles/${id}`;
     this.loaded.next(true);
-    return this.httpClient.delete<ServerResponse>(url)
+    return this.httpClient.delete<any>(url)
       .pipe(
         map(response => response),
         tap(response => {
-          this.courseProfileList = response as ServerResponse;
+          this.courseProfileList = response as any;
           this.courseProfiles.next(this.courseProfileList);
           this.loaded.next(false);
           this.paginator.next(response.meta!);
@@ -88,18 +87,18 @@ export class courseProfileHttpService {
       );
   }
 
-  storeCourseProfile(type: any): Observable<ServerResponse> {
+  storeCourseProfile(type: any): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/course-profiles`;
 
     const params = new HttpParams()
       .append('type', type)
 
     this.loaded.next(true);
-    return this.httpClient.post<ServerResponse>(url,type )
+    return this.httpClient.post<any>(url,type )
       .pipe(
         map(response => response),
         tap(response => {
-          //this.courseProfileModel = response as ServerResponse;
+          //this.courseProfileModel = response as any;
           //this.courseProfile.next(this.courseProfileModel);
           this.loaded.next(false);
           this.paginator.next(response.meta!);

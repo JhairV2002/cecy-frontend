@@ -1,4 +1,8 @@
-import { AuthorityModel, CatalogueModel, CourseModel, DetailSchoolPeriodModel, InstructorModel } from "@models/cecy";
+import {
+  CatalogueModel,
+  CourseModel,
+  DetailSchoolPeriodModel,
+} from '@models/cecy';
 import { DetailPlanificationModel } from './detail-planification.model';
 
 export interface PlanificationModel {
@@ -6,11 +10,11 @@ export interface PlanificationModel {
   course?: CourseModel;
   detailPlanifications?: DetailPlanificationModel[];
   detailSchoolPeriod?: DetailSchoolPeriodModel;
-  responsibleCourse?: InstructorModel;
-  responsibleCecy?: AuthorityModel;
-  responsibleOcs?: AuthorityModel;
+  responsibleCourse?: any;
+  responsibleCecy?: any;
+  responsibleOcs?: any;
   state?: CatalogueModel;
-  vicerector?: AuthorityModel;
+  vicerector?: any;
   approvedAt?: Date;
   code?: string;
   endedAt?: Date;

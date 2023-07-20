@@ -1,9 +1,9 @@
-import {DetailPlanificationModel, TopicModel,InstructorModel} from "@models/cecy";
+import {DetailPlanificationModel, TopicModel} from "@models/cecy";
 
 export interface DetailPlanificationInstructorModel {
   id?: number;
   detailPlanification?: DetailPlanificationModel;
-  instructor?: InstructorModel;
+  instructor?: any;
   topic?: TopicModel;
   createdAt?: Date;
   updatedAt?: Date;

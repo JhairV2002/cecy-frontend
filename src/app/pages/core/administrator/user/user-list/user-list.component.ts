@@ -109,6 +109,11 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users = data;
+        this.users.sort((a: any, b: any) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
       },
       error: (error) => {
         this.messageService.error(error);

@@ -8,10 +8,10 @@ import {
 } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
-import { CourseModel, InstructorModel } from '@models/cecy';
+import { CourseModel } from '@models/cecy';
 import { CourseHttpService, InstructorHttpService } from '@services/cecy';
 import { CoreHttpService, MessageService } from '@services/core';
-import { CareerModel, FileModel, PaginatorModel } from '@models/core';
+import { PaginatorModel } from '@models/core';
 
 @Component({
   selector: 'app-course-form',
@@ -27,19 +27,14 @@ export class CourseFormComponent implements OnInit {
   private selectedCourse$ = this.courseHttpService.seletedCourse$;
   public formCourse: FormGroup = this.newFormCourse;
   progressBar: boolean = false;
-  public files: FileModel[] = [];
-  public paginatorFiles: PaginatorModel = {
-    current_page: 1,
-    per_page: 15,
-    total: 0,
-  };
+  public files: any[] = [];
   public filterFiles: FormControl = new FormControl();
   public displayModalFiles: boolean = false;
   public loadingUploadFiles: boolean = false;
   public loadingFiles: boolean = false;
 
   // Foreign Key
-  public cecyResponsibles: InstructorModel[] = [];
+  public cecyResponsibles: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -128,7 +123,7 @@ export class CourseFormComponent implements OnInit {
 
   loadFiles() {
     this.courseHttpService
-      .getFiles(this.idField.value, this.paginatorFiles, this.filterFiles.value)
+      .getFiles(this.idField.value, this.filterFiles.value)
       .subscribe((response) => {
         this.files = response.data;
       });

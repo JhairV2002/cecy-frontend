@@ -22,11 +22,6 @@
   [modal]="true"
   (onHide)="loadDetailPlanifications()"
 >
-  <app-assignment-instructors-form
-    *ngIf="dialogList"
-    (dialogList)="dialogList = $event"
-  >
-  </app-assignment-instructors-form>
 </p-dialog>
 
 <p-toolbar>

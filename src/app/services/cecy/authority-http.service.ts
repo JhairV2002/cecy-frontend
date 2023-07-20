@@ -3,44 +3,41 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '@env/environment';
-import { ServerResponse } from '@models/core/server.response';
 import { Handler } from '../../exceptions/handler';
-import { PaginatorModel, UserModel } from '@models/core';
-import { AuthorityModel } from '@models/cecy';
-
+import { PaginatorModel } from '@models/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthorityHttpService {
   private API_URL_PRIVATE: string = `${environment.API_URL_PRIVATE}/authorities`;
   private API_URL_PUBLIC: string = `${environment.API_URL_PUBLIC}/authorities`;
 
-  private authorityList: ServerResponse = {};
-  private authoritys = new BehaviorSubject<ServerResponse>({});
+  private authorityList: any = {};
+  private authoritys = new BehaviorSubject<any>({});
   public authoritys$ = this.authoritys.asObservable();
 
-
-  private authorityModel: AuthorityModel = {};
-  private authority = new BehaviorSubject<AuthorityModel>({});
+  private authorityModel: any = {};
+  private authority = new BehaviorSubject<any>({});
 
   private loaded = new BehaviorSubject<boolean>(true);
   public loaded$ = this.loaded.asObservable();
 
-  private paginator = new BehaviorSubject<PaginatorModel>({ current_page: 1, per_page: 15, total: 0 });
+  private paginator = new BehaviorSubject<PaginatorModel>({
+    current_page: 1,
+    per_page: 15,
+    total: 0,
+  });
   public paginator$ = this.paginator.asObservable();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {}
 
-  }
-
-  catalogue(): Observable<ServerResponse> {
+  catalogue(): Observable<any> {
     const url = this.API_URL_PRIVATE + '/catalogue';
-    return this.httpClient.patch<ServerResponse>(url, {});
+    return this.httpClient.patch<any>(url, {});
   }
 
-  getAuthoritys(page: number = 1, search: string = ''): Observable<ServerResponse> {
+  getAuthoritys(page: number = 1, search: string = ''): Observable<any> {
     const url = `${this.API_URL_PRIVATE}`;
 
     const params = new HttpParams()
@@ -50,115 +47,133 @@ export class AuthorityHttpService {
       .append('search', search);
 
     this.loaded.next(true);
-    return this.httpClient.get<ServerResponse>(url, { params })
-      .pipe(
-        map(response => response),
-        tap(response => {
-          this.authorityList = response as ServerResponse;
+    return this.httpClient.get<any>(url, { params }).pipe(
+      map((response) => response),
+      tap(
+        (response) => {
+          this.authorityList = response as any;
           this.authoritys.next(this.authorityList);
           this.loaded.next(false);
           this.paginator.next(response.meta!);
-        }, error => {
+        },
+        (error) => {
           this.loaded.next(false);
-        }),
-        catchError(Handler.render)
-      );
+        }
+      ),
+      catchError(Handler.render)
+    );
   }
 
-  getauthority(id: number): Observable<ServerResponse> {
+  getauthority(id: number): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/${id}`;
 
     this.loaded.next(true);
-    return this.httpClient.get<ServerResponse>(url)
-      .pipe(
-        map(response => response),
-        tap(response => {
+    return this.httpClient.get<any>(url).pipe(
+      map((response) => response),
+      tap(
+        (response) => {
           this.loaded.next(false);
           this.authorityModel = response.data;
           this.authority.next(this.authorityModel);
-        }, error => {
+        },
+        (error) => {
           this.loaded.next(false);
-        }),
-        catchError(Handler.render)
-      );
+        }
+      ),
+      catchError(Handler.render)
+    );
   }
 
-  storeAuthority(authority: AuthorityModel): Observable<ServerResponse> {
+  storeAuthority(authority: any): Observable<any> {
     const url = `${this.API_URL_PRIVATE}`;
 
     this.loaded.next(true);
-    return this.httpClient.post<ServerResponse>(url, authority)
-      .pipe(
-        map(response => response),
-        tap(response => {
+    return this.httpClient.post<any>(url, authority).pipe(
+      map((response) => response),
+      tap(
+        (response) => {
           this.loaded.next(false);
           this.authorityList.data.push(response.data);
           this.authoritys.next(this.authorityList);
-        }, error => {
+        },
+        (error) => {
           this.loaded.next(false);
-        }),
-        catchError(Handler.render)
-      );
+        }
+      ),
+      catchError(Handler.render)
+    );
   }
 
-  updateAuthority(id: number, authority: AuthorityModel): Observable<ServerResponse> {
+  updateAuthority(id: number, authority: any): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/${id}`;
 
     this.loaded.next(true);
-    return this.httpClient.put<ServerResponse>(url, authority)
-      .pipe(
-        map(response => response),
-        tap(response => {
+    return this.httpClient.put<any>(url, authority).pipe(
+      map((response) => response),
+      tap(
+        (response) => {
           this.loaded.next(false);
-          const index = this.authorityList.data.findIndex((authority: AuthorityModel) => authority.id === response.data.id);
+          const index = this.authorityList.data.findIndex(
+            (authority: any) => authority.id === response.data.id
+          );
           this.authorityList.data[index] = response.data;
           this.authoritys.next(this.authorityList);
-        }, error => {
+        },
+        (error) => {
           this.loaded.next(false);
-        }),
-        catchError(Handler.render)
-      );
+        }
+      ),
+      catchError(Handler.render)
+    );
   }
 
-  deleteAuthority(id: number): Observable<ServerResponse> {
+  deleteAuthority(id: number): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/${id}`;
 
     this.loaded.next(true);
-    return this.httpClient.delete<ServerResponse>(url)
-      .pipe(
-        map(response => response),
-        tap(response => {
+    return this.httpClient.delete<any>(url).pipe(
+      map((response) => response),
+      tap(
+        (response) => {
           this.loaded.next(false);
-          this.authorityList.data = this.authorityList.data.filter((authority: AuthorityModel) => authority.id !== response.data.id);
+          this.authorityList.data = this.authorityList.data.filter(
+            (authority: any) => authority.id !== response.data.id
+          );
           this.authoritys.next(this.authorityList);
-        }, error => {
+        },
+        (error) => {
           this.loaded.next(false);
-        }),
-        catchError(Handler.render)
-      );
+        }
+      ),
+      catchError(Handler.render)
+    );
   }
 
-  deleteAuthoritys(ids: (number | undefined)[]): Observable<ServerResponse> {
+  deleteAuthoritys(ids: (number | undefined)[]): Observable<any> {
     const url = `${environment.API_URL_PRIVATE}/authority/destroys`;
 
     this.loaded.next(true);
-    return this.httpClient.patch<ServerResponse>(url, { ids })
-      .pipe(
-        map(response => response),
-        tap(response => {
+    return this.httpClient.patch<any>(url, { ids }).pipe(
+      map((response) => response),
+      tap(
+        (response) => {
           this.loaded.next(false);
-          ids.forEach(authorityId => {
-            this.authorityList.data = this.authorityList.data.filter((authority: AuthorityModel) => authority.id !== authorityId);
-          })
+          ids.forEach((authorityId) => {
+            this.authorityList.data = this.authorityList.data.filter(
+              (authority: any) => authority.id !== authorityId
+            );
+          });
           this.authoritys.next(this.authorityList);
-        }, error => {
+        },
+        (error) => {
           this.loaded.next(false);
-        }),
-        catchError(Handler.render)
-      );
+        }
+      ),
+      catchError(Handler.render)
+    );
   }
 
-  selectAuthority(authority: AuthorityModel) {
+  selectAuthority(authority: any) {
     this.authority.next(authority);
   }
 }

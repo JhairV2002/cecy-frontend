@@ -5,17 +5,6 @@
   [(visible)]="displayModalFiles"
   [modal]="true"
 >
-  <app-view-files
-    [acceptAttributes]="'.pdf'"
-    [loadingUpload]="loadingUploadFiles"
-    [filesIn]="files"
-    [loadingFiles]="loadingFiles"
-    [paginatorIn]="paginatorFiles"
-    (files)="uploadFiles($event)"
-    (paginatorOut)="loadFiles()"
-    (searchOut)="filterFiles.setValue($event); loadFiles()"
-  >
-  </app-view-files>
 </p-dialog>
 
 <div class="p-fluid">

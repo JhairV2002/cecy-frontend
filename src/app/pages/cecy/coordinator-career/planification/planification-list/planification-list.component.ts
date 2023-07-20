@@ -91,6 +91,11 @@ export class PlanificationListComponent implements OnInit {
         next: (data) => {
           console.log('refrescando', data);
           this.planificationCourses = data.planificationCourse;
+          this.planificationCourses.sort((a: any, b: any) => {
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+          });
         },
         error: (error) => {
           this.messageService.error(error);
@@ -171,6 +176,9 @@ export class PlanificationListComponent implements OnInit {
 
   searchPlanificationCourses(planification: any) {
     this.planificationCourses = planification;
+    this.planificationCourses.sort((a: any, b: any) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
     console.log('ESTO BUSCO', planification);
   }
 

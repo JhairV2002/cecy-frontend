@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopicHttpService } from '@services/cecy';
 import { TopicModel } from '@models/cecy';
-import { FileModel, PaginatorModel } from '@models/core';
+import {  PaginatorModel } from '@models/core';
 import { FormControl } from '@angular/forms';
 import { CoreHttpService } from '@services/core';
 
@@ -18,8 +18,8 @@ export class TopicCourseComponent implements OnInit {
 
   //files
 
-  public files: FileModel[] = [];
-  public pdf: FileModel = {};
+  public files: any[] = [];
+  public pdf: any = {};
   public paginatorFiles: PaginatorModel = {
     current_page: 1,
     per_page: 15,
@@ -67,7 +67,7 @@ export class TopicCourseComponent implements OnInit {
         console.log(this.files);
       });
   }
-  downloadFile(file: FileModel) {
+  downloadFile(file: any) {
     this.coreHttpService.downloadFile(file);
   }
   redirectCourse() {

@@ -30,9 +30,25 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DataViewModule } from 'primeng/dataview';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TagModule } from 'primeng/tag';
+import { SplitButtonModule } from 'primeng/splitbutton';
+
+// Components
+import { CoursesComponent } from './courses/courses.component';
+import { CoursesListComponent } from './courses/courses-list/courses-list.component';
+import { CoursesFormComponent } from './courses/courses-form/courses-form.component';
+import { SearchComponent } from './courses/search/search.component';
 
 @NgModule({
-  declarations: [HomeComponent, ReporteListaComponent, ReporteComponent],
+  declarations: [
+    HomeComponent,
+    ReporteListaComponent,
+    ReporteComponent,
+    CoursesComponent,
+    CoursesListComponent,
+    CoursesFormComponent,
+    SearchComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -60,6 +76,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     SkeletonModule,
     DataViewModule,
     BreadcrumbModule,
+    TagModule,
+    SplitButtonModule,
   ],
 })
 export class AssistantModule {}

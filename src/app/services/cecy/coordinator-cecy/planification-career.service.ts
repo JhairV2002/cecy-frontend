@@ -56,6 +56,25 @@ export class PlanificationCareerService {
       );
   }
 
+  searchForState(query: string) {
+    this.loading.next(true);
+    const token = this.tokenService.getToken();
+
+    const params = new HttpParams().set('name', query);
+    return this.http
+      .get<any>(`${this.apiUrl}/search-for-state`, {
+        params,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
+  }
+
   filterByStateAprooved() {
     this.loading.next(true);
     return this.http.get(`${this.apiUrl}/state/${this.statusAprooved}`).pipe(

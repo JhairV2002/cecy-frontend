@@ -1,5 +1,4 @@
-import { CatalogueModel, DetailPlanificationModel, ParticipantModel } from '@models/cecy';
-import { UserModel } from '@models/core';
+import { CatalogueModel, DetailPlanificationModel } from '@models/cecy';
 import { AdditionalInformationModel } from './additional-information.model';
 
 export interface RegistrationModel {
@@ -7,7 +6,7 @@ export interface RegistrationModel {
   detailPlanification?: DetailPlanificationModel;
   aditionalInformation?: AdditionalInformationModel;
   requirements?: any[];
-  participant?: ParticipantModel;
+  participant?: any;
   state?: CatalogueModel;
   type?: CatalogueModel;
   typeParticipant?: CatalogueModel;
@@ -18,7 +17,6 @@ export interface RegistrationModel {
   number?: number;
   registeredAt?: Date;
   observations?: Date;
-  user?: UserModel;
   createdAt?: Date;
   updatedAt?: Date;
 

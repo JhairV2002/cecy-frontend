@@ -10,11 +10,8 @@ export { ServerResponse } from './server.response';
 export { PaginatorModel } from './paginator.model';
 export { CatalogueModel } from './catalogue.model';
 export { ClassroomModel } from './classroom.model';
-export { AuthorityModel } from './authority.model';
 export { AttendanceModel } from './attendance.model';
 export { DetailModel } from './attendance.model';
-export { InstructorModel } from './instructor.model';
-export { ParticipantModel } from './participant.model';
 export { InstitutionModel } from './institution.model';
 export { RequirementModel } from './requirement.model';
 export { PivotRequirementModel } from './pivotRequirement.model';
@@ -32,7 +29,6 @@ export { CourseProfileModel } from './course-profile.model';
 export { DetailPlanificationInstructorModel } from './detail-planification-instructor.model';
 export { PlanificationModel } from './planification.model';
 export { DetailPlanificationModel } from './detail-planification.model';
-export { ParticipantUserModel } from './participant-user.model';
 export { PhotographicRecordModel } from './photographic-record.model';
 export { RecordModel } from './photographic-record.model';
 export {
@@ -46,13 +42,12 @@ export {
   Career,
   PlanificationCursos,
 } from './cursos-model';
-export { Inscription } from "./inscription"
-export { Catalogue } from "./catalogue"
-export { PersonCecy } from "./person-cecy"
-export { Institution } from "./institution"
-export { Documents } from "./documents"
-export { Courses } from "./courses"
-
+export { Inscription } from './inscription';
+export { Catalogue } from './catalogue';
+export { PersonCecy } from './person-cecy';
+export { Institution } from './institution';
+export { Documents } from './documents';
+export { Courses } from './courses';
 
 export {
   CarrerasApi,
@@ -62,4 +57,3 @@ export {
 } from './estudiantes/carreras';
 
 export { Estudiantes } from './estudiantes';
-

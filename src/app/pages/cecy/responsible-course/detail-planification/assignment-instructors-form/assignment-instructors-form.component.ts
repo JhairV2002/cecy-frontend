@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DetailPlanificationModel, InstructorModel } from '@models/cecy';
+import { DetailPlanificationModel,  } from '@models/cecy';
 import { MessageService } from '@services/core';
 import {
   DetailPlanificationHttpService,
@@ -20,8 +20,8 @@ import {
   styleUrls: ['./assignment-instructors-form.component.scss'],
 })
 export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
-  sourceList: InstructorModel[] = [];
-  targetList: InstructorModel[] = [];
+  sourceList: any[] = [];
+  targetList: any[] = [];
   selectedInstructorsIds: number[] = [];
   detailPlanification: any;
 

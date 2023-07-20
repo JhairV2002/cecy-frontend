@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as themes from '../../../assets/themes/themes.json';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { ServerResponse, FileModel, PaginatorModel } from '@models/core';
+import { ServerResponse, PaginatorModel } from '@models/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Handler } from '../../exceptions/handler';
@@ -103,7 +103,7 @@ export class CoreHttpService {
       );
   }
 
-  downloadFile(file: FileModel) {
+  downloadFile(file: any) {
     this.getFile(file.id!).subscribe(response => {
       const binaryData = [] as BlobPart[];
       binaryData.push(response as BlobPart);
@@ -159,7 +159,7 @@ export class CoreHttpService {
     return this.httpClient.get(url, { params, responseType: 'blob' as 'json' });
   }
 
-  updateFile(file: FileModel, params = new HttpParams()): Observable<ServerResponse> {
+  updateFile(file: any, params = new HttpParams()): Observable<ServerResponse> {
     const url = this.API_URL_PRIVATE + '/files/' + file.id;
     return this.httpClient.put<ServerResponse>(url, file, { params })
       .pipe(

@@ -132,6 +132,11 @@ export class SidebarComponent implements OnInit {
           routerLink: ['/cecy/coordinator-cecy/course'],
         },
         {
+          label: 'Firmas',
+          icon: 'fa-solid fa-signature',
+          routerLink: ['/cecy/coordinator-cecy/signature'],
+        },
+        {
           label: 'Asistentes',
           icon: 'fa-solid fa-users',
           routerLink: ['/cecy/coordinator-cecy/assistant'],
@@ -156,21 +161,21 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/assistant-cecy/course'],
+          routerLink: ['/cecy/assistant-cecy/courses'],
         },
         {
           label: 'Matriculacion Estudiantes',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/assistant-cecy/'],
+          icon: 'fa-solid fa-square-check',
+          routerLink: ['/cecy/assistant-cecy/enrollment-record'],
         },
         {
           label: 'Generar Reportes',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          icon: 'fa-solid fa-chart-simple',
           routerLink: ['/cecy/assistant-cecy/reporte'],
         },
         {
-          label: 'Generar Certificado',
-          icon: 'fa-sharp fa-solid fa-check-to-slot',
+          label: 'Generar Certificados',
+          icon: 'fa-solid fa-file-arrow-down',
           routerLink: ['/cecy/assistant-cecy/certificado'],
         },
       ],
@@ -262,7 +267,7 @@ export class SidebarComponent implements OnInit {
     } else if (role === 'coordinator_cecy') {
       this.router.navigate(['/cecy/coordinator-cecy/change-password']);
     } else if (role === 'assistant_cecy') {
-      this.router.navigate(['/cecy/assistan-cecy/change-password']);
+      this.router.navigate(['/cecy/assistant-cecy/change-password']);
     } else if (role === 'instructor_execute') {
       this.router.navigate(['/cecy/responsible-execute/change-password']);
     } else if (role === 'responsible_course') {

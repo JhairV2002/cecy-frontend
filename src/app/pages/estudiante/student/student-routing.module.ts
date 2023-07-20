@@ -2,12 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AttendanceRegistrationComponent } from './attendance-registration/attendance-registration.component';
 import { CertificatesStudentComponent } from './certificates-student/certificates-student.component';
-import { RegistrationCourseComponent } from './registration-course/registration-course.component';
 import { ViewAttendanceDetailsComponent } from './view-attendance-details/view-attendance-details.component';
 import { CoursesComponent } from './courses/courses.component';
-import { ViewCoursesParticipantComponent } from './view-courses-participant/view-courses-participant.component';
-import { ViewGradesParticipantComponent } from './view-grades-participant/view-grades-participant.component';
-import { ViewAttendancesParticipantComponent } from './view-attendances-participant/view-attendances-participant.component';
 import { RolesEnum } from '@shared/enums/roles.enum';
 import { TokenGuard } from '@shared/guards/token.guard';
 import { RoleGuard } from '@shared/guards/role.guard';
@@ -29,10 +25,6 @@ const routes: Routes = [
   {
     path: 'certificates-student',
     component: CertificatesStudentComponent,
-  },
-  {
-    path: 'registration-course/:id',
-    component: RegistrationCourseComponent,
   },
   {
     path: 'view-attendance-details',
@@ -64,24 +56,8 @@ const routes: Routes = [
     // canActivate: [TokenGuard, RoleGuard],
   },
   {
-    path: 'my-courses',
-    component: ViewCoursesParticipantComponent,
-    // data: {
-    //   roles: [RolesEnum.STUDENT],
-    // },
-    // canActivate: [TokenGuard, RoleGuard],
-  },
-  {
-    path: 'view-grades-participant/:id',
-    component: ViewGradesParticipantComponent,
-  },
-  {
     path: 'topic-course/:id',
     component: TopicCourseComponent,
-  },
-  {
-    path: 'view-attendances-participant/:id',
-    component: ViewAttendancesParticipantComponent,
   },
   {
     path: 'not-found',

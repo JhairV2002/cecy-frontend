@@ -1,15 +1,28 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CoreHttpService, MessageService } from '@services/core';
-import { CatalogueModel, FileModel, LocationModel, PaginatorModel, PhoneModel, UserModel } from '@models/core';
+import { CatalogueModel } from '@models/core';
 import { CatalogueHttpService, ParticipantHttpService } from '@services/cecy';
-import { ParticipantModel } from '@models/cecy';
 
 @Component({
   selector: 'app-participant-form',
   templateUrl: './participant-form.component.html',
-  styleUrls: ['./participant-form.component.scss']
+  styleUrls: ['./participant-form.component.scss'],
 })
 export class ParticipantFormComponent implements OnInit, OnDestroy {
   @Output() dialogForm = new EventEmitter<boolean>();
@@ -21,15 +34,16 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   // Foreign Key
   public types: CatalogueModel[] = [];
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private participantHttpService: ParticipantHttpService,
     private catalogueHttpService: CatalogueHttpService,
     private coreHttpService: CoreHttpService,
-    public messageService: MessageService,
+    public messageService: MessageService
   ) {
     this.participant$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(response => {
+      .subscribe((response) => {
         if (response.id !== undefined) {
           this.formParticipant.reset(response);
 
@@ -45,15 +59,14 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
   }
 
   loadTypes() {
-    this.catalogueHttpService.getCatalogues('PARTICIPANT')
-      .subscribe({
-        next: response => {
-          this.types = response.data;
-        },
-        error: error => {
-          this.messageService.error(error);
-        }
-      });
+    this.catalogueHttpService.getCatalogues('PARTICIPANT').subscribe({
+      next: (response) => {
+        this.types = response.data;
+      },
+      error: (error) => {
+        this.messageService.error(error);
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -89,33 +102,33 @@ export class ParticipantFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  storeParticipant(user: UserModel): void {
+  storeParticipant(user: any): void {
     this.progressBar = true;
-    this.participantHttpService.storeParticipant(user)
-      .subscribe(
-        response => {
-          this.messageService.success(response);
-          this.progressBar = false;
-          this.dialogForm.emit(false);
-        },
-        error => {
-          this.messageService.error(error);
-          this.progressBar = false;
-          this.dialogForm.emit(false);
-        }
-      );
+    this.participantHttpService.storeParticipant(user).subscribe(
+      (response) => {
+        this.messageService.success(response);
+        this.progressBar = false;
+        this.dialogForm.emit(false);
+      },
+      (error) => {
+        this.messageService.error(error);
+        this.progressBar = false;
+        this.dialogForm.emit(false);
+      }
+    );
   }
 
-  updateParticipant(participant: ParticipantModel): void {
+  updateParticipant(participant: any): void {
     this.progressBar = true;
-    this.participantHttpService.updateParticipantUser(participant.id!, participant)
+    this.participantHttpService
+      .updateParticipantUser(participant.id!, participant)
       .subscribe(
-        response => {
+        (response) => {
           this.messageService.success(response);
           this.progressBar = false;
           this.dialogForm.emit(false);
         },
-        error => {
+        (error) => {
           this.messageService.error(error);
           this.progressBar = false;
           this.dialogForm.emit(false);

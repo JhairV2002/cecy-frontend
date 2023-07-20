@@ -7,6 +7,6 @@ import { StudentModule } from './student/student.module';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, EstudianteRoutingModule, CursosModule, StudentModule],
+  imports: [CommonModule, EstudianteRoutingModule, CursosModule],
 })
 export class EstudianteModule {}
