@@ -21,8 +21,6 @@ export interface Asistencia {
     id?: number | null;
     descripcion: string;
     completado: boolean;
-    createdAt?: string | null;
-    updatedAt?: string | null;
   }[];
 }
 
