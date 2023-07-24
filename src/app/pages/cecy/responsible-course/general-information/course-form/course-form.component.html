@@ -1,6 +1,6 @@
 <p-toast position="top-center"></p-toast>
 
-<p-dialog header="Nuevo Sponsor" [(visible)]="visibleFormSponsor" [modal]="true" [style]="{ width: '30vw' }"
+<p-dialog header="Nuevo convenio" [(visible)]="visibleFormSponsor" [modal]="true" [style]="{ width: '30vw' }"
   [draggable]="false" [resizable]="false">
   <p-card>
     <form [formGroup]="formSponsor" (ngSubmit)="onSubmitSponsor()">
@@ -63,7 +63,7 @@
         <div class="form-space">
           <div class="container md:flex">
             <div class="p-3 w-full">
-              <label for="sponsor" appLabel label="Patrocinador:" [required]="isRequired(sponsorField)"
+              <label for="sponsor" appLabel label="En convenio con:" [required]="isRequired(sponsorField)"
                 [valid]="sponsorField.valid" [touched]="sponsorField.touched" [dirty]="sponsorField.dirty">
               </label>
               <div class="flex">
@@ -195,7 +195,7 @@
                 [touched]="participantsRegistrationField.touched" [dirty]="participantsRegistrationField.dirty">
               </label>
               <p-inputNumber formControlName="participantsRegistration" placeholder="Ingrese numero de participantes"
-                [showButtons]="true" [min]="0" [step]="1" [useGrouping]="false" inputId="participantsRegistration">
+                [showButtons]="true" [min]="0" [max]="1000" [step]="1" [useGrouping]="false" inputId="participantsRegistration">
               </p-inputNumber>
               <small appErrorMessage [errors]="participantsRegistrationField.errors"
                 [touched]="participantsRegistrationField.touched" [dirty]="participantsRegistrationField.dirty">
@@ -218,7 +218,7 @@
           </div>
           <!-- proyecto de curso -->
           <div class="block">
-            <label for="project" appLabel label="Proyecto del Curso" [required]="isRequired(projectFiled)"
+            <label for="project" appLabel label="Entregable" [required]="isRequired(projectFiled)"
               [valid]="projectFiled.valid" [touched]="projectFiled.touched" [dirty]="projectFiled.dirty"></label>
             <textarea pInputTextarea pInputText id="project" formControlName="project" class="uppercase"></textarea>
             <small appErrorMessage [errors]="projectFiled.errors" [touched]="projectFiled.touched"
@@ -230,7 +230,7 @@
         <!-- addNeed() -->
         <div class="formgrid grid">
           <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-            <button pButton pRipple type="button" label="Añadir Necesidades" class="p-button-secondary p-button-rounded"
+            <button pButton pRipple type="button" label="Añadir Justificación" class="p-button-secondary p-button-rounded"
               icon="pi pi-plus" (click)="addNeed()"></button>
           </div>
         </div>
@@ -265,7 +265,7 @@
             <div class="form-need">
               <div class="container md:flex">
                 <div class="p-2 w-full md:w-1/6">
-                  <label [for]="'need' + i" appLabel [label]="'Necesidad ' + (i + 1) + ':'"
+                  <label [for]="'need' + i" appLabel [label]="'Justificación ' + (i + 1) + ':'"
                     [required]="isRequired(needsField.controls[i])" [valid]="needsField.controls[i].valid"
                     [touched]="needsField.controls[i].touched" [dirty]="needsField.controls[i].dirty"></label>
                 </div>

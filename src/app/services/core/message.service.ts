@@ -82,7 +82,6 @@ export class MessageService {
   }
 
   successCourse(serverResponse: any) {
-    console.log(serverResponse);
     return Swal.fire({
       title: serverResponse.message,
       //text: serverResponse?.msg?.detail,
@@ -90,8 +89,15 @@ export class MessageService {
     });
   }
 
+  warningAlert(warning: string) {
+    return Swal.fire({
+      title: warning,
+      //text: serverResponse?.msg?.detail,
+      icon: 'warning',
+    });
+  }
+
   successCareer(serverResponse: any) {
-    console.log(serverResponse);
     return Swal.fire({
       title: serverResponse.message,
       text: serverResponse.detail,
@@ -435,4 +441,6 @@ export class MessageService {
   get messageSuccessDelete(): string {
     return `Se eliminó correctamente`;
   }
+
+
 }
