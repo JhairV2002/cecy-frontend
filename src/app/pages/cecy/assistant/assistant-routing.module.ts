@@ -44,11 +44,10 @@ const routes: Routes = [
         (m) => m.SecretaryCecyCertificateModule
       ),
   },
-  { path: 'reporte-lista/:id', component: ReporteListaComponent },
   { path: 'reporte', component: ReporteComponent },
+  { path: 'reporte-lista/:id', component: ReporteListaComponent },
   { path: 'reporte-lista/:id', component: ReporteListaComponent },
   { path: 'change-password', component: ChangePasswordComponent },
-  { path: 'reporte', component: ReporteComponent },
 ];
 
 @NgModule({

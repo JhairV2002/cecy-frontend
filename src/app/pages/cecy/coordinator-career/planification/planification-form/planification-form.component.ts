@@ -70,6 +70,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   UserByRoleEspecific: [] = [];
   isEdit: boolean = false;
   planifications: any[] = [];
+  inputAddCourse: boolean = false;
 
   constructor(
     public messageService: MessageService,
@@ -82,6 +83,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
+    this.loadPlanificationsAll();
     this.loadUserByRole();
     this.loadPlanningReviewBy();
     this.loadScholYears();
@@ -117,6 +119,15 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
       this.titleButton = 'Crear';
       this.isEdit = false;
     }
+  }
+
+  loadPlanificationsAll() {
+    this.planificationsCoursesService
+      .getPlanificationCourses()
+      .subscribe((data) => {
+        console.log('ALL PLANIFICATIONS', data);
+        this.planifications = data;
+      });
   }
 
   loadUserByRole() {
@@ -222,23 +233,6 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     this.clickClose.emit(false);
   }
 
-  // updateCourse(course: CourseModel): void {
-  //   this.progressBar = true;
-
-  //   this.courseHttpService
-  //     .updateCourseNameAndDuration(course.id!, course)
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.messageService.success(response);
-  //         this.progressBar = false;
-  //       },
-  //       error: (error) => {
-  //         this.messageService.error(error);
-  //         this.progressBar = false;
-  //       },
-  //     });
-  // }
-
   search(event: AutoComplete) {
     this.planificationsCoursesService
       .searchPlanifications(event.query)
@@ -247,6 +241,14 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
           this.planifications = data;
         },
       });
+  }
+
+  addCourseForInput() {
+    this.inputAddCourse = true;
+  }
+
+  addForDropDown() {
+    this.inputAddCourse = false;
   }
 
   isRequired(field: AbstractControl): boolean {

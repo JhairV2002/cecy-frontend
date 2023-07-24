@@ -3,5 +3,4 @@ export { AuthHttpService } from './auth-http.service';
 export { AuthService } from './auth.service';
 export { MessageService } from './message.service';
 export { MessageToastService } from './message-toast.service';
-export { CoreHttpService } from './core-http.service';
 export { NotificationService } from './notification.service';

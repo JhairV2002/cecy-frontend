@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { MessageModule } from 'primeng/message';
 
-//PRIMENG
+//PrimeNg
 import { CardModule } from 'primeng/card';
 
 @NgModule({

@@ -7,13 +7,9 @@ import {
   ColModel,
   DetailPlanificationModel,
   PaginatorModel,
-  PlanificationModel,
 } from '@models/cecy';
 import { MessageService } from '@services/core';
-import {
-  PlanificationHttpService,
-  DetailPlanificationHttpService,
-} from '@services/cecy';
+import { DetailPlanificationHttpService } from '@services/cecy';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
 import { CourseService } from '@services/cecy-v1/course.service';
 // import { runInThisContext } from 'vm';
@@ -25,7 +21,7 @@ import { CourseService } from '@services/cecy-v1/course.service';
 })
 export class DetailPlanificationListComponent {
   @Output() dialog = new EventEmitter<boolean>();
-  loading$ = this.courseService.loading$
+  loading$ = this.courseService.loading$;
 
   selectedDetailPlan: any;
 
@@ -52,7 +48,6 @@ export class DetailPlanificationListComponent {
     private activatedRoute: ActivatedRoute,
     private detailPlanificationHttpService: DetailPlanificationHttpService,
     public messageService: MessageService,
-    private planificationHttpService: PlanificationHttpService,
     private courseService: CourseService
   ) {
     this.cols = [

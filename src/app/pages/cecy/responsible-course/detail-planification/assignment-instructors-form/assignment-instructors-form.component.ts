@@ -7,17 +7,12 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DetailPlanificationModel,  } from '@models/cecy';
 import { MessageService } from '@services/core';
-import {
-  DetailPlanificationHttpService,
-  InstructorHttpService,
-} from '@services/cecy';
+import { DetailPlanificationHttpService } from '@services/cecy';
 
 @Component({
   selector: 'app-assignment-instructors-form',
   templateUrl: './assignment-instructors-form.component.html',
-  styleUrls: ['./assignment-instructors-form.component.scss'],
 })
 export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
   sourceList: any[] = [];
@@ -33,7 +28,6 @@ export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
   @Output() dialogList = new EventEmitter<boolean>();
 
   constructor(
-    private instructorHttpService: InstructorHttpService,
     private messageService: MessageService,
     private detailPlanificationHttpService: DetailPlanificationHttpService
   ) {}
@@ -51,29 +45,7 @@ export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
       this.detailPlanification$.subscribe((response) => {
         this.detailPlanification = response;
         console.log(this.detailPlanification);
-        this.loadInstructors();
       })
-    );
-  }
-
-  loadInstructors() {
-    this.subscriptions.push(
-      this.instructorHttpService
-        .getAuthorizedInstructorsOfCourse(
-          this.detailPlanification.planification.course.id
-        )
-        .subscribe((response) => {
-          this.sourceList = response.data;
-          console.log(response);
-        })
-    );
-
-    this.subscriptions.push(
-      this.instructorHttpService
-        .getAssignedInstructors(this.detailPlanification.id)
-        .subscribe((response) => {
-          this.targetList = response.data;
-        })
     );
   }
 
@@ -83,24 +55,5 @@ export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
     //   this.progressBar = false;
     //   return;
     // }
-
-    this.subscriptions.push(
-      this.detailPlanificationHttpService
-        .assignInstructors(
-          this.detailPlanification.id,
-          this.instructorHttpService.mapInstructors(this.targetList)
-        )
-        .subscribe({
-          next: (response) => {
-            this.messageService.success(response);
-            this.progressBar = false;
-            this.dialogList.emit(false);
-          },
-          error: (error) => {
-            this.messageService.error(error);
-            this.progressBar = false;
-          },
-        })
-    );
   }
 }

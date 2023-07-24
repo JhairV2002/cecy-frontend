@@ -4,7 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 import { ActivatedRoute } from '@angular/router';
-import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
+import { VisualizationCoursesService } from '@services/cecy/assistant';
 import { Course } from '@models/cecy/secretary-cecy';
 import { Reporte, Reportes, Matricula } from '../reporte';
 import { ReporteService } from '../reporte.service';

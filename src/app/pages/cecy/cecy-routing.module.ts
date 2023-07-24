@@ -51,20 +51,6 @@ const routes: Routes = [
         canActivate: [TokenGuard, RoleGuard], */
       },
       {
-        path: 'instructor',
-        data: {
-          allowedRoles: ['instructor', 'admin'],
-        },
-        loadChildren: () =>
-          import('./instructor/instructor.module').then(
-            (m) => m.InstructorModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.INSTRUCTOR],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
         path: 'responsible-cecy',
         data: {
           allowedRoles: ['responsible_cecy', 'admin'],

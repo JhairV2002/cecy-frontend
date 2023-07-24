@@ -42,7 +42,6 @@ import { ToastModule } from 'primeng/toast';
 import { TimelineModule } from 'primeng/timeline';
 import { PasswordModule } from 'primeng/password';
 
-import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { SidebarComponent } from './components/layouts/sidebar/sidebar.component';
 import { TopbarComponent } from './components/layouts/topbar/topbar.component';
@@ -74,7 +73,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ExtensionsPipe,
     SearchComponent,
     TermsCondititonsPipe,
-    BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
@@ -98,7 +96,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ExtensionsPipe,
     UploadFilesComponent,
     TermsCondititonsPipe,
-    BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
