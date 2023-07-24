@@ -51,20 +51,6 @@ const routes: Routes = [
         canActivate: [TokenGuard, RoleGuard], */
       },
       {
-        path: 'responsible-cecy',
-        data: {
-          allowedRoles: ['responsible_cecy', 'admin'],
-        },
-        loadChildren: () =>
-          import('./responsible-cecy/responsible-cecy.module').then(
-            (m) => m.ResponsibleCecyModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.RESPONSIBLE_CECY],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
         path: 'responsible-course',
         canLoad: [],
         data: {
@@ -76,21 +62,6 @@ const routes: Routes = [
           ),
         /*  data: {
           roles: [RolesEnum.ADMIN, RolesEnum.RESPONSIBLE_COURSE],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'responsible-cecy',
-        canLoad: [],
-        data: {
-          allowedRoles: ['responsible_cecy', 'admin'],
-        },
-        loadChildren: () =>
-          import('./responsible-cecy/responsible-cecy.module').then(
-            (m) => m.ResponsibleCecyModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN],
         },
         canActivate: [TokenGuard, RoleGuard], */
       },

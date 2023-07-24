@@ -91,23 +91,11 @@ export class LoginComponent implements OnInit {
       case 'instructor_execute':
         this.router.navigate(['/cecy/responsible-execute']);
         break;
-      case 'secretary_cecy':
-        this.router.navigate(['/cecy/secretary-cecy']);
-        break;
-      case 'public_company':
-        this.router.navigate(['/example']);
-        break;
       case 'responsible_course':
         this.router.navigate(['/cecy/responsible-course']);
         break;
-      case 'responsible_cecy':
-        this.router.navigate(['/cecy/responsible-cecy/registrations']);
-        break;
       case 'student':
         this.router.navigate(['/cecy/student/courses']);
-        break;
-      case 'instructor':
-        this.router.navigate(['/cecy/instructor/courses']);
         break;
       default:
         this.router.navigate(['/common/not-found']);

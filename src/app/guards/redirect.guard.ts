@@ -23,12 +23,8 @@ export class RedirectGuard implements CanActivate {
         this.router.navigate(['/cecy/coordinator-cecy']);
       } else if (role === 'instructor_execute') {
         this.router.navigate(['/cecy/responsible-execute']);
-      } else if (role === 'secretary_cecy') {
-        this.router.navigate(['/cecy/secretary-cecy']);
       } else if (role === 'responsible_course') {
         this.router.navigate(['/cecy/responsible-course']);
-      } else if (role === 'instructor') {
-        this.router.navigate(['/cecy/instructor/courses']);
       } else if (role === 'assistant_cecy') {
         this.router.navigate(['/cecy/coordinator-cecy']);
       } else {

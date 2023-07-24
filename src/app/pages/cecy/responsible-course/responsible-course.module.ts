@@ -5,7 +5,6 @@ import { ResponsibleCourseRoutingModule } from './responsible-course-routing.mod
 import { ResponsibleCourseComponent } from './responsible-course.component';
 import { CourseListComponent } from './general-information/course-list/course-list.component';
 import { CourseFormComponent } from './general-information/course-form/course-form.component';
-import { PlanificationComponent } from './planification/planification.component';
 import { DetailPlanificationFormComponent } from './detail-planification/detail-planification-form/detail-planification-form.component';
 import { DetailPlanificationListComponent } from './detail-planification/detail-planification-list/detail-planification-list.component';
 import { DetailPlanificationComponent } from './detail-planification/detail-planification.component';
@@ -63,7 +62,6 @@ import { HomeComponent } from './home/home.component';
     CurricularDesignComponent,
     TopicFormComponent,
     PrerequisitesComponent,
-    PlanificationComponent,
     DetailPlanificationFormComponent,
     DetailPlanificationListComponent,
     DetailPlanificationComponent,
