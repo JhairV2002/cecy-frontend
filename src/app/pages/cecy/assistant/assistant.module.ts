@@ -5,6 +5,16 @@ import { AssistantRoutingModule } from './assistant-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '@shared/shared.module';
 
+import { EstudiantesCursoComponent } from './estudiantes-curso/estudiantes-curso.component';
+import { EstudiantesTableComponent } from './estudiantes-curso/estudiantes-table/estudiantes-table.component';
+import { CursoBannerComponent } from './estudiantes-curso/curso-banner/curso-banner.component';
+import { EstudianteDetallesComponent } from './estudiantes-curso/estudiante-detalles/estudiante-detalles.component';
+import { EstudiantesListaComponent } from './estudiantes-lista/estudiantes-lista.component';
+import { CursosCarreraComponent } from './cursos-carrera/cursos-carrera.component';
+import { CarrerasComponent } from '../assistant/carreras/carreras.component';
+import { SearchEstudiantesPipe } from './pipes/search-estudiantes.pipe';
+
+
 //PrimeNg
 import { FormsModule } from '@angular/forms';
 import { ReporteComponent } from './reporte/reporte.component';
@@ -48,6 +58,18 @@ import { SearchComponent } from './courses/search/search.component';
     CoursesListComponent,
     CoursesFormComponent,
     SearchComponent,
+    EstudiantesCursoComponent,
+    EstudiantesTableComponent,
+    CursoBannerComponent,
+    EstudiantesCursoComponent,
+    EstudiantesTableComponent,
+    CursoBannerComponent,
+    EstudianteDetallesComponent,
+    EstudiantesListaComponent,
+    SearchEstudiantesPipe,
+    CursosCarreraComponent,
+    CarrerasComponent,
+
   ],
   imports: [
     CommonModule,

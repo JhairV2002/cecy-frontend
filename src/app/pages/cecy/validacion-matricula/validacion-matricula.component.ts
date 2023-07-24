@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CarrerasService } from './services/carreras.service';
-import { CursosService } from './services/cursos.service';
+import { CarrerasService } from '../assistant/services/carreras.service';
+import { CursosService } from '../assistant/services/cursos.service';
 
 @Component({
   selector: 'app-validacion-matricula',

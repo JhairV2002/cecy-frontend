@@ -131,13 +131,6 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'validacion-matricula',
-        loadChildren: () =>
-          import('./validacion-matricula/validacion-matricula.module').then(
-            (m) => m.ValidacionMatriculaModule
-          ),
-      },
-      {
         path: 'assistant-cecy',
         loadChildren: () =>
           import('./assistant/assistant.module').then((m) => m.AssistantModule),
