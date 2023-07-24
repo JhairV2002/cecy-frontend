@@ -11,6 +11,14 @@
   ></app-course-form> -->
 </p-dialog>
 
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-sharp fa-solid fa-check-to-slot fa-xl"></i>
+      <strong class="ml-1">Planificaciones y cursos</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button
@@ -18,10 +26,14 @@
       pRipple
       type="button"
       label="Refrescar"
-      class="p-button-rounded ml-2"
+      class="mr-2"
       (click)="loadCourses()"
       [loading]="(loading$ | async)!"
     ></button>
+    <i
+      class="p-toolbar-separator pi pi-bars mr-2"
+      style="vertical-align: middle"
+    ></i>
     <!-- <button
         *ngIf="selectedCourses?.length"
         pButton

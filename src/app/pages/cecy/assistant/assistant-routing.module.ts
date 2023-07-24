@@ -18,10 +18,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'courses/visualization/:id', component: TabsComponent },
-  { path: 'enrollment-record', component: CarrerasComponent },
   //Validacion matricula
-
-  { path: 'carreras', component: CarrerasComponent },
+  { path: 'enrollment-record', component: CarrerasComponent },
   // {
   //   path: 'delegado',
   //   component: ValidacionMatriculaComponent,
@@ -32,12 +30,12 @@ const routes: Routes = [
     component: EstudiantesCursoComponent,
   },
   {
-    path: 'delegado/:nombreCarrera/:nombreCurso/lista-estudiantes',
-    component: EstudiantesListaComponent,
-  },
-  {
     path: 'delegado/:nombreCarrera/:nombreCurso/:idEstudiante',
     component: EstudianteDetallesComponent,
+  },
+  {
+    path: 'delegado/:nombreCarrera/:nombreCurso/lista-estudiantes',
+    component: EstudiantesListaComponent,
   },
   {
     path: 'certificado',

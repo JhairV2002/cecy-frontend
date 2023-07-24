@@ -1,4 +1,7 @@
-<div class="flex flex-wrap justify-center content-center h-full gap-4">
+<p-toolbar>
+  <h1 class="text-xl">Matriculas</h1>
+</p-toolbar>
+<div class="flex flex-wrap justify-center content-center h-full gap-4 mt-4">
   <div
     *ngFor="let carrera of carreras$ | async"
     class="card w-96 bg-base-100 shadow-xl h-80"
@@ -14,7 +17,7 @@
       <h2 class="card-title">{{ carrera.name }}</h2>
       <div class="card-actions">
         <button class="btn btn-primary">
-          <a [routerLink]="['/cecy/validacion-matricula/delegado', carrera.id]"
+          <a [routerLink]="['/cecy/assistant-cecy/delegado', carrera.id]"
             >Ver Cursos</a
           >
         </button>

@@ -3,21 +3,29 @@
 </div>
 
 <div class="flex flex-wrap gap-3 w-full">
-  <div *ngFor="let curso of (cursos$ | async)![0].planificationCourse"
-    class="card card-compact w-80 bg-base-100 shadow-xl">
+  <div
+    *ngFor="let curso of (cursos$ | async)![0].planificationCourse"
+    class="card card-compact w-80 bg-base-100 shadow-xl"
+  >
     <figure>
-      <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
+      <img
+        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+        alt="Shoes"
+      />
     </figure>
     <div class="card-body">
       <h2 class="card-title">{{ curso.name }}</h2>
       <p>Empieza: {{ curso.startDate | date }}</p>
       <p>Termina: {{ curso.finishDate | date }}</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary" [routerLink]="[
-            '/cecy/validacion-matricula/delegado/',
+        <button
+          class="btn btn-primary"
+          [routerLink]="[
+            '/cecy/assistant-cecy/delegado/',
             (cursos$ | async)![0].name,
             curso.id
-          ]">
+          ]"
+        >
           Ver Estudiantes
         </button>
       </div>

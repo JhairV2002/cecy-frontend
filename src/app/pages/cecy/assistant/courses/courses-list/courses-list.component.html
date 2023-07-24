@@ -1,14 +1,26 @@
-<p-toolbar>
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-sharp fa-solid fa-check-to-slot fa-xl"></i>
+      <strong class="ml-1">Cursos asignados para revisión</strong>
+    </h2>
+  </p-card>
+</div>
+<p-toolbar class="mt-2">
   <div class="p-toolbar-group-left">
     <button
       pButton
       pRipple
       type="button"
       label="Refrescar"
-      class="p-button-rounded ml-2"
+      class="mr-2"
       (click)="loadCoursesAssitantCecy()"
       [loading]="(loading$ | async)!"
     ></button>
+    <i
+      class="p-toolbar-separator pi pi-bars mr-2"
+      style="vertical-align: middle"
+    ></i>
     <!-- <button
         *ngIf="selectedCourses?.length"
         pButton
@@ -22,7 +34,7 @@
     <p-tag class="ml-4" [rounded]="true" severity="info">
       <div class="flex align-items-center gap-2">
         <span>Cursos en total</span>
-        {{ courses ? courses.length : 0 }}
+        <!-- {{ courses ? courses.length : 0 }} -->
       </div>
     </p-tag>
     <p-tag class="ml-4" severity="success" [rounded]="true">
@@ -221,7 +233,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="8" style="width: 100%">No hay cursos.</td>
+        <td colspan="8" style="width: 100%">No hay cursos asignados.</td>
       </tr>
     </ng-template>
   </p-table>
