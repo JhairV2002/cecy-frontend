@@ -45,12 +45,7 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    this.loading.next(true);
-    return this.http.get<any[]>(`${this.apiUrl2}/my`).pipe(
-      finalize(() => {
-        this.loading.next(false);
-      })
-    );
+    return this.http.get<any[]>(`${this.apiUrl2}/my`);
   }
 
   getProfile() {

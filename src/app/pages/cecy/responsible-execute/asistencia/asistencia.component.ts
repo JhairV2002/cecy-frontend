@@ -41,7 +41,7 @@ export class AsistenciaComponent implements OnInit {
     cursoId: 0,
     evidenciaFotografica: '',
     duracionClase: '',
-    fecha: '',
+    fecha: new Date().toISOString(),
     detalleAsistencia: [
       {
         estado: {
@@ -130,6 +130,6 @@ export class AsistenciaComponent implements OnInit {
     this.observacionesForm = {
       descripcion: '',
       completado: false,
-    };
-  }
+    };
+  }
 }
