@@ -5,6 +5,10 @@ import { Observable, filter, map, switchMap } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
 import { Matriculas } from './estudiante.model';
 import { NombreFilterPipe } from './filter.pipe';
+import * as fs from 'fs';
+import * as XLSX from 'xlsx';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.component.html',
@@ -17,21 +21,25 @@ export class EstudiantesComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private estudianteService: EstudianteService
-  ) {}
+    private estudianteService: EstudianteService,
+  ) { }
 
   ngOnInit(): void {
-    this.estudianteService.obtenerEstudiantes().subscribe((res) => {
-      console.log('ESTUDIANTES', res);
-      this.estudiantes = res;
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.estudianteService
+        .obtenerMatriculasPorCursoId(parseInt(param.get('cursoId')!))
+        .subscribe((res) => {
+          console.log('ESTUDIANTES', res);
+          this.estudiantes = res;
+        });
     });
   }
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
         .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
-        .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
-    )
+        .pipe(map((res) => res.filter((res) => res.estudiantes != null))),
+    ),
   );
 
   redireccionar() {
@@ -54,7 +62,7 @@ export class EstudiantesComponent implements OnInit {
         estudiante.estudiantes &&
         estudiante.estudiantes.nombres
           .toLowerCase()
-          .includes(this.nombreFiltrado.toLowerCase())
+          .includes(this.nombreFiltrado.toLowerCase()),
     );
   }
 
@@ -67,9 +75,19 @@ export class EstudiantesComponent implements OnInit {
       },
       (error) => {
         console.log('Error al guardar notas', error);
-      }
+      },
     );
   }
+
+  // guardarPorcentaje(matricula: Matriculas): void {
+  //   console.log(matricula);
+  //
+  //   this.estudianteService
+  //     .porcentaje(matricula, matricula.id)
+  //     .subscribe((res) => {
+  //       console.log('Asistencia guardada', res);
+  //     });
+  // }
 
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
@@ -93,8 +111,32 @@ export class EstudiantesComponent implements OnInit {
     ) {
       event.preventDefault();
       alert(
-        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.',
       );
     }
+  }
+
+  generarExcel(): void {
+    const datosExportar = this.estudiantes.map((nota) => {
+      return {
+        Cedula: nota.estudiantes.cedula,
+        Nombres: nota.estudiantes.nombres,
+        Apellidos: nota.estudiantes.apellidos,
+        Asistencia: nota.porcentajeAsistencia,
+        Nota1: nota.nota1,
+        Nota2: nota.nota2,
+        Promedio: nota.promedio,
+        Estado: nota.estadoCurso.descripcion,
+      };
+    });
+
+    const libro = XLSX.utils.book_new();
+    const hoja = XLSX.utils.json_to_sheet(datosExportar);
+    XLSX.utils.book_append_sheet(libro, hoja, 'Notas');
+
+    const reporte = 'Reporte Promedio.xlsx';
+    XLSX.writeFile(libro, reporte);
+
+    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
   }
 }

@@ -8,6 +8,9 @@ import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudi
 import { FormularioRegistroComponent } from './formulario-registro/formulario-registro.component';
 import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/formulario-inicio-sesion.component';
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
+import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
+import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
+import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
 import { NotFoundComponent } from '../../core/common/not-found/not-found.component';
 
 const routes: Routes = [
@@ -50,6 +53,18 @@ const routes: Routes = [
   {
     path: 'formInscription/:id',
     component: InscriptionFormComponent,
+  },
+  {
+    path: 'mis-cursos',
+    component: MisCursosComponent,
+  },
+  {
+    path: 'mis-cursos/details',
+    component: MisCursosDetailsComponent,
+  },
+  {
+    path: 'perfil',
+    component: PerfilEstudianteComponent,
   },
   {
     path: 'not-found',

@@ -20,6 +20,9 @@ import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/form
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
 import { CmbCoursesComponent } from './inscription-form/cmb-courses/cmb-courses.component';
 import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publicity.component';
+import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
+import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
+import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,9 @@ import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publ
     InscriptionFormComponent,
     CmbCoursesComponent,
     CmbPublicityComponent,
+    MisCursosComponent,
+    MisCursosDetailsComponent,
+    PerfilEstudianteComponent,
   ],
   imports: [
     CommonModule,

@@ -29,7 +29,7 @@ export class TokenService {
 
   saveEstudianteTokenCedula(estudiante: EstudianteRegisterResponse) {
     setCookie('token-estudiante', estudiante.token, { expires: 1, path: '/' });
-    setCookie('cedula-estudiante', estudiante.cedula, {
+    setCookie('cedula-estudiante', estudiante.student.cedula, {
       expires: 1,
       path: '/',
     });

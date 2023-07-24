@@ -1,92 +1,69 @@
-<h2 class="text-3xl font-bold light:text-black" id="titulo">
-  Listado de Estudiantes
-</h2>
-<!-- {{ estudiantes | json }} -->
-<!-- {{ estudiantes$ | async | json }} -->
-<div class="overflow-x-hidden">
-  <button class="btn btn-accent" icon="edit" (click)="redireccionar()">
-    Asistencia
-  </button>
-  <div></div>
+<div class="p-grid p-dir-col">
+   <div class="p-col p-d-flex p-justify-between p-mb-3">
+    <div class="p-d-flex" id="nav">
+      <button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left" (click)="regresar()">
+        ㅤVolver
+      </button>
+      <button pButton  type="button" id="asistencia" class="p-button p-button-primary p-ml-2" icon="pi pi-user-plus" (click)="redireccionar()">
+        ㅤAsistencia
+      </button>
+    </div>
+    <div class="text-left p-5" id="title">
+      <h1 class="text-3xl font-semi-bold">Listado de Estudiantes</h1>
+    </div>
+    <div class="p-col-auto p-ml-auto">
+      <div  id="search" class="p-inputgroup">
+        <span id="buscar1" class="p-inputgroup-addon">
+          <i class="pi pi-search"></i>
+        </span>
+        <input pInputText id="buscar" type="text" placeholder="Buscar por nombre" [(ngModel)]="nombreFiltrado" (input)="filtrarPorNombre()" />
+      </div>
+    </div>
+  </div>
 
-  <br />
-  <br />
-  <input
-    type="text"
-    placeholder="Buscar por nombre"
-    class="rounded-lg block w-64 p-2.5 mb-4 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-    [(ngModel)]="nombreFiltrado"
-    (input)="filtrarPorNombre()"
-  />
-  <table class="w-full text-sm text-left text-gray-500">
-    <thead class="text-xs bg-gray-50 text-gray-700">
-      <tr>
-        <th scope="col" class="px-6 py-3">NOMBRE</th>
-        <th scope="col" class="px-6 py-3">NOTA 1</th>
-        <th scope="col" class="px-6 py-3">NOTA 2</th>
-        <th scope="col" class="px-6 py-3">PROMEDIO</th>
-        <th scope="col" class="px-6 py-3">ESTADO</th>
-        <th scope="col" class="px-6 py-3">ACCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="
-          let matricula of estudiantes$ | async | nombreFilter : nombreFiltrado
-        "
-        class="bg-white border-b hover:bg-gray-50"
-      >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white"
-        >
-          {{
-            matricula.estudiantes
-              ? matricula.estudiantes.nombres
-              : "Sin Estudiante"
-          }}
-        </th>
-        <td class="px-6 py-4">
-          <p-inputNumber
-            id="nota1"
-            [(ngModel)]="matricula.nota1"
-            placeholder="Ingrese una nota"
-            [min]="1"
-            [max]="100"
-            [showButtons]="true"
-            [buttonLayout]="'horizontal'"
-            (keydown)="validarNumero($event)"
-          ></p-inputNumber>
-        </td>
-        <td class="px-6 py-4">
-          <p-inputNumber
-            id="nota2"
-            [(ngModel)]="matricula.nota2"
-            placeholder="Ingrese una nota"
-            [min]="1"
-            [max]="100"
-            [showButtons]="true"
-            [buttonLayout]="'horizontal'"
-            (keydown)="validarNumero($event)"
-          ></p-inputNumber>
-        </td>
+  <div class="p-col" id="table">
+    <p-table [value]="estudiantes$ | async | nombreFilter: nombreFiltrado" [responsive]="true" class="p-datatable">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>CEDULA</th>
+          <th>NOMBRE</th>
+          <th>% ASISTENCIA</th>
+          <th>NOTA 1</th>
+          <th>NOTA 2</th>
+          <th>PROMEDIO</th>
+          <th>ESTADO</th>
+          <th>ACCIONES</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-matricula>
+        <tr>
+          <td>{{ matricula.estudiantes ? matricula.estudiantes.cedula : "Sin Estudiante" }}</td>
+          <td>{{ matricula.estudiantes ? matricula.estudiantes.nombres : "Sin Estudiante" }}</td>
+          <td>
+            <p-inputNumber id="asistencia" [(ngModel)]="matricula.porcentajeAsistencia" placeholder="Ingrese el % asistencia" [min]="1" [max]="100"
+              [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
+          </td>
+          <td>
+            <p-inputNumber id="nota1" [(ngModel)]="matricula.nota1" placeholder="Ingrese una nota" [min]="1" [max]="100"
+              [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
+          </td>
+          <td>
+            <p-inputNumber id="nota2" [(ngModel)]="matricula.nota2" placeholder="Ingrese una nota" [min]="1" [max]="100"
+              [showButtons]="true" [buttonLayout]="'horizontal'" (keydown)="validarNumero($event)"></p-inputNumber>
+          </td>
+          <td>{{ matricula.promedio }}</td>
+          <td>{{ matricula.estadoCurso.descripcion }}</td>
+          <td>
+            <button pButton type="button" class="p-button p-button-rounded p-button-success" (click)="guardarNotas(matricula)">
+              Guardar
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 
-        <td class="px-6 py-4">
-          {{ matricula.promedio }}
-        </td>
-        <td class="px-6 py-4">
-          {{ matricula.estadoCurso.descripcion }}
-        </td>
-        <td class="px-6 py-4 text-right">
-          <button
-            type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
-            (click)="guardarNotas(matricula)"
-          >
-            Guardar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="p-col p-text-center">
+    <button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel" (click)="generarExcel()">ㅤGenerar Excel</button>
+  </div>
 </div>

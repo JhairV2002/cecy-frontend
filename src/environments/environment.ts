@@ -2,6 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.ts`.
 // The list of file replacements can be found in `angular.json`.
 const HOST = 'http://localhost:8080';
+const HOST3 = 'http://localhost:8080';
+const HOST4 = 'http://localhost:8000';
 const HOST2 = 'http://localhost:3000';
 //const HOST2 = 'https://cecy-backend.onrender.com';
 
@@ -15,6 +17,9 @@ export const environment = {
   API_URL_PUBLIC: HOST + '/api/v1/public',
   api: HOST + '/api',
   api2: HOST2 + '/api/v1',
+  api3: HOST3,
+  api4: HOST4+ '/api',
+
 };
 
 /*

@@ -20,6 +20,13 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ToolbarModule } from 'primeng/toolbar';
+import { FieldsetModule } from 'primeng/fieldset';
+import {FileUploadModule} from 'primeng/fileupload';
+import { DividerModule } from 'primeng/divider';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +48,13 @@ import { ToolbarModule } from 'primeng/toolbar';
     TableModule,
     ButtonModule,
     CalendarModule,
-    ToolbarModule
+    ToolbarModule,
+    FieldsetModule,
+    FileUploadModule,
+    DividerModule,
+    CardModule,
+    PaginatorModule,
+    ProgressSpinnerModule,
   ],
 })
 export class ResponsibleExecuteModule { }
