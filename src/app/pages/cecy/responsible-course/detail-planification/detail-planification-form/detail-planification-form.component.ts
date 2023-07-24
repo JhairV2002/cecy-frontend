@@ -1,11 +1,5 @@
 import { CourseService } from '@services/cecy-v1/course.service';
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -16,10 +10,7 @@ import {
 
 import { MessageService } from '@services/core';
 import { CatalogueModel } from '@models/cecy';
-import {
-  PlanificationHttpService,
-  DetailPlanificationHttpService,
-} from '@services/cecy';
+import { DetailPlanificationHttpService } from '@services/cecy';
 import { ActivatedRoute } from '@angular/router';
 import { ClassroomModel } from '@models/cecy-v1/classroom.model';
 import { DetailPlanModel } from '@models/cecy-v1/detailPlan.model';
@@ -43,7 +34,6 @@ export class DetailPlanificationFormComponent implements OnInit {
   public workdays: CatalogueModel[] = [];
   public classrooms: ClassroomModel[] = [];
   public parallels: CatalogueModel[] = [];
-  public planification$ = this.planificationHttpService.planification$;
   planificationId: number = 0;
   instructors: any;
 
@@ -54,7 +44,6 @@ export class DetailPlanificationFormComponent implements OnInit {
     private detailPlanificationHttpService: DetailPlanificationHttpService,
     private formBuilder: FormBuilder,
     public messageService: MessageService,
-    private planificationHttpService: PlanificationHttpService,
     private courseService: CourseService
   ) { }
 

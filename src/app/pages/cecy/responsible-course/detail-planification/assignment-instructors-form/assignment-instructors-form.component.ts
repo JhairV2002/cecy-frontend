@@ -13,7 +13,6 @@ import { MessageService } from '../../../../../services/core/message.service';
 @Component({
   selector: 'app-assignment-instructors-form',
   templateUrl: './assignment-instructors-form.component.html',
-  styleUrls: ['./assignment-instructors-form.component.scss'],
 })
 export class AssignmentInstructorsFormComponent implements OnInit {
 

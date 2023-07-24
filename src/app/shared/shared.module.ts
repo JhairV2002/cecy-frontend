@@ -6,8 +6,6 @@ import { TokenDirective } from '@shared/directives/token.directive';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { LabelDirective } from './directives/label.directive';
-import { CertificatedPipe } from './pipes/professional/academic-formation/certificated.pipe';
-import { WorkedPipe } from './pipes/professional/experience/worked.pipe';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
@@ -27,7 +25,6 @@ import { CardModule } from 'primeng/card';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
-import { TermsCondititonsPipe } from '@shared/pipes/chat/terms-condititons.pipe';
 import { ChipModule } from 'primeng/chip';
 import { BadgeModule } from 'primeng/badge';
 import { RouterModule, Routes } from '@angular/router';
@@ -42,7 +39,6 @@ import { ToastModule } from 'primeng/toast';
 import { TimelineModule } from 'primeng/timeline';
 import { PasswordModule } from 'primeng/password';
 
-import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { SidebarComponent } from './components/layouts/sidebar/sidebar.component';
 import { TopbarComponent } from './components/layouts/topbar/topbar.component';
@@ -69,12 +65,8 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     SkeletonComponent,
     ProgressBarComponent,
     UploadFilesComponent,
-    CertificatedPipe,
-    WorkedPipe,
     ExtensionsPipe,
     SearchComponent,
-    TermsCondititonsPipe,
-    BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
@@ -93,12 +85,8 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     LabelDirective,
     SkeletonComponent,
     ProgressBarComponent,
-    CertificatedPipe,
-    WorkedPipe,
     ExtensionsPipe,
     UploadFilesComponent,
-    TermsCondititonsPipe,
-    BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,

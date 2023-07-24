@@ -80,28 +80,59 @@
         </label>
         <input
           *ngIf="isEdit"
-          placeholder="Ej. Desarrollo de software"
+          placeholder="Ej. Desarrollo de aplicaciones web con python"
           pInputText
           id="name"
           formControlName="name"
-          class="uppercase"
         />
-
-        <p-autoComplete
-          *ngIf="!isEdit"
-          placeholder="Ej. Desarrollo de software"
-          formControlName="name"
-          [suggestions]="planifications"
-          (completeMethod)="search($event)"
-          field="name"
-        ></p-autoComplete>
-        <small
-          appErrorMessage
-          [errors]="nameField.errors"
-          [touched]="nameField.touched"
-          [dirty]="nameField.dirty"
-        >
-        </small>
+        <div *ngIf="!isEdit">
+          <div class="flex flex-row" *ngIf="!inputAddCourse">
+            <p-dropdown
+              formControlName="name"
+              [options]="planifications"
+              placeholder="Seleccione un curso o agregue uno nuevo"
+              optionLabel="name"
+              optionValue="name"
+              [style]="{ width: '100%' }"
+              class="flex-1"
+              [filter]="true"
+            >
+            </p-dropdown>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-sync"
+              (click)="addCourseForInput()"
+              style="flex: 0 0 auto"
+            ></button>
+          </div>
+          <div class="p-inputgroup" *ngIf="inputAddCourse">
+            <p-autoComplete
+              *ngIf="inputAddCourse"
+              placeholder="Ej. Desarrollo de aplicaciones web con python"
+              formControlName="name"
+              [suggestions]="planifications"
+              (completeMethod)="search($event)"
+              field="name"
+              [style]="{ width: '100%' }"
+            ></p-autoComplete>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-sync"
+              (click)="addForDropDown()"
+            ></button>
+          </div>
+          <small
+            appErrorMessage
+            [errors]="nameField.errors"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </small>
+        </div>
       </div>
 
       <div class="flex flex-wrap">

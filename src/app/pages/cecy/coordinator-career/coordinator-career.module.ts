@@ -8,7 +8,6 @@ import { PlanificationFormComponent } from './planification/planification-form/p
 
 import { CoordinatorCareerRoutingModule } from './coordinator-career-routing.module';
 import { CoordinatorCareerComponent } from './coordinator-career.component';
-import { InitialCourseKpiComponent } from './planification/initial-course-kpi/initial-course-kpi.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { KpiComponent } from './planification/kpi/kpi.component';
 
@@ -49,7 +48,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 @NgModule({
   declarations: [
     CoordinatorCareerComponent,
-    InitialCourseKpiComponent,
     DashboardComponent,
     HomeComponent,
     PlanificationComponent,

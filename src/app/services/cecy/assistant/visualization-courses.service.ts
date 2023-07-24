@@ -10,7 +10,7 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = `${environment.api}/cursos/statusCourse/Terminado`;
+  private apiUrl = `${environment.api2}/courses/state-course/cerrado`;
   private loading = new BehaviorSubject<boolean>(true);
   public loading$: Observable<boolean> = this.loading.asObservable();
 
@@ -26,7 +26,7 @@ export class VisualizationCoursesService {
   // GET SENCILLO
   getviewCourses(): Observable<Course[]> {
     this.loading.next(true);
-    return this.http.get<Course[]>(`${this.apiUrl}/`).pipe(
+    return this.http.get<Course[]>(`${this.apiUrl}`).pipe(
       finalize(() => {
         this.loading.next(false);
       })
@@ -34,7 +34,12 @@ export class VisualizationCoursesService {
   }
 
   public findById(id: number): Observable<Course> {
-    return this.http.get<Course>(this.apiUrl + '/' + id, this.httpOptions);
+    this.loading.next(true);
+    return this.http.get<Course>(this.apiUrl + id, this.httpOptions).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   // public deleteById(id: number): Observable<Sugerencia>{

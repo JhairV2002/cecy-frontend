@@ -8,11 +8,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { PrerequisiteHttpService } from '@services/cecy/prerequisite-http.service';
 import { MessageService } from '@services/core/message.service';
-import { Subject, takeUntil } from 'rxjs';
 import { CourseService } from '@services/cecy-v1/course.service';
-import { CourseModel } from '@models/cecy-v1/course.model';
 
 @Component({
   selector: 'app-prerequisites',
@@ -28,7 +25,6 @@ export class PrerequisitesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private prerequisiteHttpService: PrerequisiteHttpService,
     public messageService: MessageService,
     private courseService: CourseService
   ) {}

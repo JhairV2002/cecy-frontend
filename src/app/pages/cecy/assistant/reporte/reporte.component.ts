@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VisualizationCoursesService } from '@services/cecy/secretary-cecy';
+import { VisualizationCoursesService } from '@services/cecy/assistant';
 import { Course } from '@models/cecy/secretary-cecy';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 import { ReporteService } from './reporte.service';
@@ -25,6 +25,7 @@ export class ReporteComponent implements OnInit {
     this.visualizationCoursesService
       .getviewCourses()
       .subscribe((response: any) => {
+        console.log('CURSOS TERMINADOS', response);
         this.courses = response;
         this.nameCourse();
         this.findAllEstudents();
@@ -33,6 +34,7 @@ export class ReporteComponent implements OnInit {
 
   public findAllEstudents(): void {
     this.matricula.findAllReport().subscribe((response) => {
+      console.log(response);
       this.solicitudEstudents = response;
       this.findAllMatriculados();
     });
@@ -43,6 +45,7 @@ export class ReporteComponent implements OnInit {
       this.planificationCourse
         .planificationById(solicitud.planificationId)
         .subscribe((course) => {
+          console.log('by ID', course);
           solicitud.name = course.name;
         });
     });

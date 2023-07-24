@@ -5,7 +5,6 @@ import { CourseListComponent } from './general-information/course-list/course-li
 import { CourseFormComponent } from './general-information/course-form/course-form.component';
 import { DetailPlanificationComponent } from './detail-planification/detail-planification.component';
 import { CurricularDesignComponent } from './curricular-design/curricular-design.component';
-import { PlanificationComponent } from './planification/planification.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { HomeComponent } from './home/home.component';
 import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
@@ -15,7 +14,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'my-courses', component: CourseListComponent },
   { path: 'course-form', component: CourseFormComponent },
-  { path: 'planification', component: PlanificationComponent },
   { path: 'horarios/:id', component: DetailPlanificationComponent },
   { path: 'curricular-design/:id', component: CurricularDesignComponent },
   { path: 'course/add/:id', component: TabsComponent },
