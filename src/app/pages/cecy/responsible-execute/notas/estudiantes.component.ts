@@ -21,8 +21,8 @@ export class EstudiantesComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private estudianteService: EstudianteService,
-  ) { }
+    private estudianteService: EstudianteService
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
@@ -38,8 +38,8 @@ export class EstudiantesComponent implements OnInit {
     switchMap((param) =>
       this.estudianteService
         .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
-        .pipe(map((res) => res.filter((res) => res.estudiantes != null))),
-    ),
+        .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
+    )
   );
 
   redireccionar() {
@@ -62,7 +62,7 @@ export class EstudiantesComponent implements OnInit {
         estudiante.estudiantes &&
         estudiante.estudiantes.nombres
           .toLowerCase()
-          .includes(this.nombreFiltrado.toLowerCase()),
+          .includes(this.nombreFiltrado.toLowerCase())
     );
   }
 
@@ -75,7 +75,7 @@ export class EstudiantesComponent implements OnInit {
       },
       (error) => {
         console.log('Error al guardar notas', error);
-      },
+      }
     );
   }
 
@@ -111,7 +111,7 @@ export class EstudiantesComponent implements OnInit {
     ) {
       event.preventDefault();
       alert(
-        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.',
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
       );
     }
   }

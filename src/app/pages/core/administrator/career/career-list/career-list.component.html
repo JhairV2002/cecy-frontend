@@ -4,6 +4,14 @@
   (clickClose)="closeModal($event)"
   (addCareer)="addCareer($event)"
 ></app-career-form>
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-solid fa-graduation-cap fa-xl"></i>
+      <strong class="ml-1">Lista de carreras actuales del Instituto</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button
@@ -51,6 +59,7 @@
         id="search"
         [formControl]="search"
         (keypress)="filter($event)"
+        placeholder="Buscar por nombre de carrera"
       />
       <button
         pButton
@@ -70,7 +79,7 @@
     [value]="careers"
     [paginator]="true"
     [rows]="5"
-     [loading]="(loading$ | async)!"
+    [loading]="(loading$ | async)!"
   >
     <ng-template pTemplate="header" let-columns>
       <tr>

@@ -1,4 +1,11 @@
-<h1 class="mb-5">Tus Cursos Asignados</h1>
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-sharp fa-solid fa-check-to-slot fa-xl"></i>
+      <strong class="ml-1">Mis Cursos Asignados</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button
@@ -22,6 +29,7 @@
         pInputText
         #inputSearch
         [(ngModel)]="namePlan"
+        placeholder="Buscar curso asignado"
         (keyup)="filterPlanification(namePlan)"
       />
 
@@ -31,13 +39,20 @@
   </div>
 </p-toolbar>
 
-<p-card *ngIf="allCourses.length == 0" class="m-auto w-full text-center">
+<!-- <p-card *ngIf="allCourses.length == 0" class="m-auto w-full text-center">
   <h2>No tienes cursos asignados</h2>
-</p-card>
+</p-card> -->
 
-<div class="p-1 flex flex-wrap">
-  <div class="p-2" *ngFor="let item of filterPlan">
-    <p-card [header]="item.planification.name" [style]="{ width: '250px' }">
+<div *ngIf="loading" class="text-center flex items-center justify-center">
+  <p-progressSpinner styleClass="custom-spinner"></p-progressSpinner>
+</div>
+<div class="flex flex-wrap gap-4 mt-2 mb-2">
+  <div *ngFor="let item of filterPlan">
+    <p-card
+      *ngIf="!loading"
+      [header]="item.planification.name"
+      [style]="{ width: '250px' }"
+    >
       <ng-template pTemplate="header">
         <!-- <div class=" "> -->
         <img
@@ -52,7 +67,7 @@
       <ng-template pTemplate="subtittle">
         Codigo: {{ item.planification.codeCourse }} <br />
         Estado: {{ item.planification.state }} <br />
-        Creado: {{ item.planification.createdAt | date}}
+        Creado: {{ item.planification.createdAt | date }}
       </ng-template>
       <ng-template pTemplate="footer">
         <div class="text-center">

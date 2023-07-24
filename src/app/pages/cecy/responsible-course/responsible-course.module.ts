@@ -47,6 +47,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { CurricularDesignComponent } from './curricular-design/curricular-design.component';
 import { TopicFormComponent } from './curricular-design/topic-form/topic-form.component';
@@ -110,6 +111,7 @@ import { HomeComponent } from './home/home.component';
     FieldsetModule,
     FileUploadModule,
     ConfirmDialogModule,
+    ProgressSpinnerModule,
   ],
 })
 export class ResponsibleCourseModule {}

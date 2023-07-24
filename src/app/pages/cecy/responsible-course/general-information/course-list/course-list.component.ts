@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class CourseListComponent implements OnInit {
-  loading$ = this.authService.loading$;
+  loading: boolean = false;
   items: MenuItem[] = []; // optional
   selectedPlanification: number = 0;
 
@@ -63,10 +63,12 @@ export class CourseListComponent implements OnInit {
   allCourses: any[] = [];
 
   planificationsAsign() {
+    this.loading = true;
     this.authService.getPlanificationsbyUser().subscribe((data: any) => {
       console.log('Planificaciones asignadas', data);
       this.allCourses = data;
       this.filterPlan = this.allCourses;
+      this.loading = false;
     });
   }
 
