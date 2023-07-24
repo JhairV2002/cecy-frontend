@@ -23,17 +23,17 @@ export class InscriptionFormComponent implements OnInit {
     private router: Router,
     private estudiantesService: EstudiantesService,
     private cursosService: CursosService,
-    private matriculaService: MatriculaService
+    private matriculaService: MatriculaService,
   ) { }
 
-  estudiantes$ = this.estudiantesService.obtenerEstudiantes();
+  // estudiantes$ = this.estudiantesService.obtenerEstudiantes();
 
   estudianteSeleccionado!: Estudiantes;
 
   curso$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
-      this.cursosService.getCursoById(Number(param.get('id')))
-    )
+      this.cursosService.getCursoById(Number(param.get('id'))),
+    ),
   );
 
   user: any;
@@ -69,27 +69,23 @@ export class InscriptionFormComponent implements OnInit {
       descripcion: 'Cursando',
     },
     estudiantes: {
-      id: 0
+      id: 0,
     },
-    formInscription: {
-
-    },
+    formInscription: {},
   };
 
   save(): void {
     this.activatedRoute.paramMap.subscribe(
-      (res) => (this.matricula.cursoId = Number(res.get('id')))
+      (res) => (this.matricula.cursoId = Number(res.get('id'))),
     );
-    this.matricula.estudiantes.id = this.estudianteSeleccionado.id;
+    // this.matricula.estudiantes.id = this.estudianteSeleccionado.id;
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
 
-    this.matriculaService
-      .guardarMatricula(this.matricula)
-      .subscribe((res) => {
-        console.log(res)
-        this.router.navigate(['/estudiante/home']);
-      });
+    this.matriculaService.guardarMatricula(this.matricula).subscribe((res) => {
+      console.log(res);
+      this.router.navigate(['/estudiante/home']);
+    });
 
     // this.inscriptionService.save(this.initialForm).subscribe(() => {
     //   this.initialForm = {
