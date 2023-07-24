@@ -1,106 +1,50 @@
-<p-dialog
-  [header]="dialogHeader"
-  [(visible)]="dialogForm"
-  [maximizable]="true"
-  [modal]="true"
-  [style]="{ width: '80vw' }"
-  (onHide)="loadDetailPlanifications()"
->
-  <app-detail-planification-form
-    *ngIf="dialogForm"
-    [data]="selectedDetailPlan"
-    [planId]="planId"
-    (dialogForm)="dialogForm = $event"
-  >
+<p-dialog [header]="dialogHeader" [(visible)]="dialogForm" [maximizable]="true" [modal]="true"
+  [style]="{ width: '80vw' }" (onHide)="loadDetailPlanifications()">
+  <app-detail-planification-form *ngIf="dialogForm" [data]="selectedDetailPlan" [planId]="planId"
+    (dialogForm)="dialogForm = $event">
   </app-detail-planification-form>
 </p-dialog>
 
-<p-dialog
-  header="Instructores"
-  [(visible)]="dialogList"
-  [maximizable]="true"
-  [modal]="true"
-  (onHide)="loadDetailPlanifications()"
->
-  <app-assignment-instructors-form
-    *ngIf="dialogList"
-    (dialogList)="dialogList = $event"
-  >
+<p-dialog header="Instructores" [(visible)]="dialogFormInstructor" [maximizable]="true" [modal]="true"
+  [style]="{ width: '50vw', minheight:'40vw'}" (onHide)="loadDetailPlanifications()">
+  <app-assignment-instructors-form *ngIf="dialogFormInstructor" [data]="selectedDetailPlan"
+    (dialogForm)="dialogFormInstructor = $event">
   </app-assignment-instructors-form>
 </p-dialog>
 
 <p-toolbar>
   <div class="p-toolbar-group-left">
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="Nuevo Horario"
-      class="p-button-success p-button-rounded"
-      icon="pi pi-plus"
-      (click)="showForm()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="Refrescar"
-      class="p-button-rounded ml-2"
-      icon="pi pi-sync"
-      (click)="loadDetailPlanifications(paginator.current_page)"
-    ></button>
-    <button
-      *ngIf="selectedDetailPlanifications?.length != 0"
-      pButton
-      pRipple
-      type="button"
-      label="Eliminar seleccionados"
-      class="p-button-danger p-button-rounded ml-2"
-      icon="pi pi-trash"
-      (click)="deleteDetailPlanifications()"
-    ></button>
+    <button pButton pRipple type="button" label="Nuevo Horario" class="p-button-success p-button-rounded"
+      icon="pi pi-plus" (click)="showForm()"></button>
+    <button pButton pRipple type="button" label="Refrescar" class="p-button-rounded ml-2" icon="pi pi-sync"
+      (click)="loadDetailPlanifications(paginator.current_page)"></button>
+    <!-- <button *ngIf="selectedDetailPlanifications?.length != 0" pButton pRipple type="button"
+      label="Eliminar seleccionados" class="p-button-danger p-button-rounded ml-2" icon="pi pi-trash"
+      (click)="deleteDetailPlanifications()"></button> -->
   </div>
 </p-toolbar>
 <p-card>
-  <p-table
-    dataKey="id"
-    styleClass="p-datatable-striped"
-    [value]="detailPlanifications"
-    [columns]="cols"
-    [(selection)]="selectedDetailPlanifications"
-    [responsive]="true"
-    [loading]="(loading$ | async)!"
-  >
+  <p-table dataKey="id" styleClass="p-datatable-striped" [value]="detailPlanifications" [columns]="cols"
+     [responsive]="true" [loading]="(loading$ | async)!">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th style="width: 3rem">
+        <!-- <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
+        </th> -->
         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
           {{ col.header }}
           <p-sortIcon [field]="col.field"></p-sortIcon>
         </th>
         <th class="text-center">
-          <button
-            pButton
-            pRipple
-            type="button"
-            class="p-button-rounded p-button-secondary"
-            icon="pi pi-cog"
-          ></button>
+          <button pButton pRipple type="button" class="p-button-rounded p-button-secondary" icon="pi pi-cog"></button>
         </th>
       </tr>
     </ng-template>
-    <ng-template
-      pTemplate="body"
-      let-rowData
-      let-columns="columns"
-      let-rowIndex="rowIndex"
-    >
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
       <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
-        <td>
+        <!-- <td>
           <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-        </td>
+        </td> -->
         <td>{{ rowData["startedTime"] }}-{{ rowData["endedTime"] }}</td>
         <td>
           {{ rowData["day"].name }}
@@ -108,12 +52,12 @@
         <!-- <td>
             {{rowData['workday'].name}}
           </td> -->
-        <td>
-          {{ rowData["classroom"].name }}
+        <!-- <td>
+          {{ rowData["classroom"].name ?? "No asignado" }}
         </td>
         <td>
-          {{ rowData["parallel"].name }}
-        </td>
+          {{ rowData["parallel"].name ?? "No asignado" }}
+        </td> -->
         <!-- <td>
             <ul>
               <li *ngFor="let instructor of rowData['instructors']">
@@ -145,21 +89,15 @@
         <!-- <td>{{rowData['state'].name}}</td> -->
 
         <td>
-          <p-splitButton
-            label="Editar"
-            styleClass="p-button-secondary"
-            icon="pi pi-pencil"
-            (onClick)="showForm(rowData)"
-            (onDropdownClick)="selectDetailPlanification(rowData)"
-            [model]="items"
-          >
+          <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-pencil"
+            (onClick)="showForm(rowData)" (onDropdownClick)="selectDetailPlanification(rowData)" [model]="items">
           </p-splitButton>
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="summary">
+    <!-- <ng-template pTemplate="summary">
       {{ messageService.paginatorTotalRegisters(paginator) }}
-    </ng-template>
+    </ng-template> -->
     <ng-template pTemplate="emptymessage" let-columns>
       <tr>
         <td [attr.colspan]="columns.length">
@@ -169,7 +107,3 @@
     </ng-template>
   </p-table>
 </p-card>
-
-<button (click)="calculo()">CALCULO</button>
-<button (click)="calcularHora()">CALCULO Horas</button>
-

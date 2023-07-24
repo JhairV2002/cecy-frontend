@@ -47,6 +47,7 @@ export class DetailPlanificationListComponent {
   planId: any;
   codeCourse: string = '';
   selectedDetailPlanificationId: any;
+  dialogFormInstructor: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -58,13 +59,20 @@ export class DetailPlanificationListComponent {
     this.cols = [
       { field: 'schedule', header: 'Horario' },
       { field: 'day', header: 'Días' },
-      { field: 'classroom', header: 'Aula' },
-      { field: 'parallel', header: 'Paralelo' },
+      // { field: 'classroom', header: 'Aula' },
+      // { field: 'parallel', header: 'Paralelo' },
       { field: 'observation', header: 'Observación' },
       // { field: 'state', header: 'Estado' },
     ];
 
     this.items = [
+      {
+        label: 'Asignar Instructores',
+        icon: 'pi pi-plus',
+        command: () => {
+          this.showFormInstructors(this.selectedDetailPlanification);
+        },
+      },
       {
         label: 'Eliminar horario',
         icon: 'pi pi-trash',
@@ -94,32 +102,24 @@ export class DetailPlanificationListComponent {
 
   showForm(detailPlanification: DetailPlanificationModel = {}) {
     this.dialogForm = true;
-    console.log('entro por show');
-    console.log('entro por show yd data', detailPlanification);
-
     detailPlanification.id
       ? (this.dialogHeader = 'Editar Horario')
       : (this.dialogHeader = 'Crear Horario');
-
     this.selectedDetailPlan = detailPlanification;
 
     this.selectedDetailPlanificationId = this.planificationId;
-    this.detailPlanificationHttpService.selectDetailPlanification(
-      detailPlanification
-    );
   }
+
+  showFormInstructors(detailPlanification: any){
+    this.dialogFormInstructor = true;
+    this.selectedDetailPlan = detailPlanification;
+  }
+
 
   selectDetailPlanification(detailPlanification: DetailPlanificationModel) {
     this.selectedDetailPlanification = detailPlanification;
   }
 
-  assignInstructors(detailPlanification: DetailPlanificationModel) {
-    this.selectedDetailPlanification = detailPlanification;
-    this.detailPlanificationHttpService.selectDetailPlanification(
-      detailPlanification
-    );
-    this.dialogList = true;
-  }
 
   deleteDetailPlanification(
     detailPlanification: DetailPlanificationModel
@@ -138,29 +138,30 @@ export class DetailPlanificationListComponent {
       }
     });
   }
-  deleteDetailPlanifications(): void {
-    this.messageService.questionDelete({}).then((result) => {
-      if (result.isConfirmed) {
-        const ids = this.selectedDetailPlanifications.map(
-          (element) => element.id
-        );
-        this.progressBarDelete = true;
-        this.detailPlanificationHttpService
-          .destroysDetailPlanifications(ids)
-          .subscribe(
-            (response) => {
-              this.progressBarDelete = false;
-              this.messageService.success(response);
-              this.loadDetailPlanifications();
-            },
-            (error) => {
-              this.progressBarDelete = false;
-              this.messageService.error(error);
-            }
-          );
-      }
-    });
-  }
+
+  // deleteDetailPlanifications(): void {
+  //   this.messageService.questionDelete({}).then((result) => {
+  //     if (result.isConfirmed) {
+  //       const ids = this.selectedDetailPlanifications.map(
+  //         (element) => element.id
+  //       );
+  //       this.progressBarDelete = true;
+  //       this.detailPlanificationHttpService
+  //         .destroysDetailPlanifications(ids)
+  //         .subscribe(
+  //           (response) => {
+  //             this.progressBarDelete = false;
+  //             this.messageService.success(response);
+  //             this.loadDetailPlanifications();
+  //           },
+  //           (error) => {
+  //             this.progressBarDelete = false;
+  //             this.messageService.error(error);
+  //           }
+  //         );
+  //     }
+  //   });
+  // }
 
   filter(event: any) {
     if (event.key === 'Enter' || event.type === 'click') {
@@ -176,75 +177,5 @@ export class DetailPlanificationListComponent {
 
 
 
-  calculo() {
-    const planificacionCurso = {
-      id: 1,
-      startDate: "2023-06-01T05:00:00.000Z",
-      finishDate: "2023-06-30T05:00:00.000Z",
-      workDay: "weekends",
-    };
 
-    const startDate = new Date(planificacionCurso.startDate);
-    const finishDate = new Date(planificacionCurso.finishDate);
-    const workDay = planificacionCurso.workDay;
-
-    const diasLaborables = this.calcularDiasLaborables(startDate, finishDate, workDay);
-    console.log("Días laborables:", diasLaborables);
-  }
-
-  calcularDiasLaborables(startDate: Date, finishDate: Date, workDay: string): number {
-    let diasLaborables = 0;
-    const diaInicio = new Date(startDate);
-    const diaFin = new Date(finishDate);
-
-    while (diaInicio <= diaFin) {
-      const diaSemana = diaInicio.getDay();
-      if (this.esDiaLaborable(diaSemana, workDay)) {
-        diasLaborables++;
-      }
-      diaInicio.setDate(diaInicio.getDate() + 1);
-    }
-
-    return diasLaborables;
-  }
-
-  esDiaLaborable(diaSemana: number, workDay: string): boolean {
-    if (workDay === "monday-to-friday") {
-      return diaSemana >= 1 && diaSemana <= 5; // De lunes a viernes
-    } else if (workDay === "saturday") {
-      return diaSemana === 6; // Solo sábado
-    } else if (workDay === "sunday") {
-      return diaSemana === 0; // Solo domingo
-    } else if (workDay === "weekends") {
-      return diaSemana === 0 || diaSemana === 6; // Fines de semana (sábado y domingo)
-    }
-
-    // Si workDay no coincide con ninguna configuración conocida, se considera que todos los días son laborables
-    return true;
-  }
-
-
-
-
-  calcularHora(){
-    const planificationCourse = {
-      id: 1,
-      startedTime: "12:12:00",
-      endTime: "17:10:00",
-    };
-
-    const startTimeParts = planificationCourse.startedTime.split(":");
-    const startHours = parseInt(startTimeParts[0]);
-    const startMinutes = parseInt(startTimeParts[1]);
-
-    const endTimeParts = planificationCourse.endTime.split(":");
-    const endHours = parseInt(endTimeParts[0]);
-    const endMinutes = parseInt(endTimeParts[1]);
-
-    const durationHours = endHours - startHours;
-    const durationMinutes = endMinutes - startMinutes;
-
-    console.log("Duration: ", durationHours, " hours ", durationMinutes, " minutes");
-
-  }
 }

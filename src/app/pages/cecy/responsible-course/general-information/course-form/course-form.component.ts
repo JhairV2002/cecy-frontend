@@ -124,11 +124,6 @@ export class CourseFormComponent implements OnInit {
     this.loadSponsor();
   }
 
-  getCourse(id: number) {
-    this.courseService.getGeneralInformation(id).subscribe((response) => {
-      console.log(response);
-    });
-  }
 
   getPlanificationById() {
     const id = this.activatedRoute.snapshot.params['id'];
