@@ -36,6 +36,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DragDropModule } from 'primeng/dragdrop';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
 
 /**Components */
 import { CoordinatorCecyRoutingModule } from './coordinator-cecy-routing.module';
@@ -123,6 +124,7 @@ import { SearchSignatureComponent } from './signature/search-signature/search-si
     DragDropModule,
     MessagesModule,
     FileUploadModule,
+    ImageModule
   ],
 })
 export class CoordinatorCecyModule {}

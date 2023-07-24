@@ -3,5 +3,5 @@ export interface Signature {
   nombres?: string;
   apellidos?: string;
   cedula?: string;
-  firma?: string;
+  firma: string;
 }

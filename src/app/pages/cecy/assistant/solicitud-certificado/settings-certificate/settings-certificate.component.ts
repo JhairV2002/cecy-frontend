@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { CertificateRequestService } from '../certificate-request.service';
 import { Firmas } from '../firma';
-import { formatDate } from '@angular/common';
 import { TipoCertificado, tipo } from '../certificate';
 
 interface UploadEvent {
@@ -24,15 +23,7 @@ export class SettingsCertificateComponent implements OnInit {
   valCheck: string[] = [];
   cities: SelectItem[] = [];
   selectedDrop: SelectItem = { value: '' };
-  filename: string = '';
 
-  firma: Firmas = {
-    nombres: '',
-    apellidos: '',
-    cedula: '',
-    firma: '',
-  };
-  formData = new FormData();
   firm: Firmas = { id: 0 };
   rector: number = 0;
   patrocinador: number = 0;
@@ -87,37 +78,5 @@ export class SettingsCertificateComponent implements OnInit {
         console.log('prueba para tipo certifivado' + JSON.stringify(tip.id));
       });
     console.log(JSON.stringify(this.roles));
-  }
-
-  onUpload(event: any) {
-    let formatoFecha = formatDate(new Date(), 'yyyy-MM-dd-hh-mm-ss', 'en_US');
-    this.filename = this.firma.cedula + '-' + formatoFecha + '.png'.trim();
-    console.log(this.filename);
-    const file = event.target.files[0];
-    if (file) {
-      this.formData.append('file', file, this.filename);
-    }
-    //this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
-  }
-
-  subirFirma() {
-    this.firma = {
-      nombres: this.firma.nombres,
-      apellidos: this.firma.apellidos,
-      cedula: this.firma.cedula,
-      firma: this.filename,
-    };
-    this.certificateService.uploadFile(this.formData).subscribe((data) => {
-      console.log('subiendo', data)
-      this.formData = new FormData();
-    });
-    this.certificateService.subirfirma(this.firma).subscribe(() => {
-      this.firma = {
-        nombres: '',
-        apellidos: '',
-        cedula: '',
-        firma: '',
-      };
-    });
   }
 }

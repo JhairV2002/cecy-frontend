@@ -9,6 +9,7 @@ import { BehaviorSubject, Observable, finalize } from 'rxjs';
 })
 export class SignatureService {
   private apiUrl = `${environment.api2}/signatures`;
+  private apiUrl2 = `${environment.api}/media`;
   private loading = new BehaviorSubject<boolean>(true);
   public loading$: Observable<boolean> = this.loading.asObservable();
 
@@ -66,6 +67,39 @@ export class SignatureService {
   deleteByIdSignature(id: number) {
     this.loading.next(true);
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
+  //Crud File
+
+  getByIdFile(imageName: string) {
+    this.loading.next(true);
+    return this.http.get(`${this.apiUrl2}/get-by-name/${imageName}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
+  updateByNameFile(imageName: any, file: FormData) {
+    this.loading.next(true);
+    // const formData: FormData = new FormData();
+    // formData.append('file', file, file.name);
+    return this.http
+      .put(`${this.apiUrl2}/update-by-name/${imageName}`, file)
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
+  }
+
+  deleteByNameFile(imageName: string) {
+    this.loading.next(true);
+    return this.http.delete(`${this.apiUrl2}/delete-by-name/${imageName}`).pipe(
       finalize(() => {
         this.loading.next(false);
       })

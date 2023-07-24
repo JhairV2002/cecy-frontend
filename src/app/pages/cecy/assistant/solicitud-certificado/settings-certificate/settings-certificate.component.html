@@ -76,33 +76,3 @@
   <button class="btn" (click)="sendSetings()"></button>
 </div>
 
-<div class="card">
-  <input
-    [(ngModel)]="firma.nombres"
-    type="text"
-    class="p-inputtext-sm"
-    placeholder="Nombres."
-    pInputText
-  />
-  <br /><br />
-  <input
-    [(ngModel)]="firma.apellidos"
-    type="text"
-    class="p-inputtext-sm"
-    placeholder="Apellidos"
-    pInputText
-  />
-  <br /><br />
-  <input
-    [(ngModel)]="firma.cedula"
-    type="text"
-    class="p-inputtext-sm"
-    placeholder="Cedula"
-    pInputText
-  />
-
-  <div>
-    <input type="file" accept="image/*" (change)="onUpload($event)" />
-  </div>
-  <button class="btn btn-accent h-2 m-1" (click)="subirFirma()">Subir</button>
-</div>

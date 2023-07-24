@@ -57,7 +57,7 @@ export class CertificateRequestService {
     return this.http.post(this.apiUrl3+'/media/subir', formData);
   }
 
-  public subirfirma(firmas: Firmas): Observable<any>{
+  public subirfirma(firmas: any): Observable<any>{
     return this.http.post(this.apiUrl3+'/firma/',firmas);
   }
 

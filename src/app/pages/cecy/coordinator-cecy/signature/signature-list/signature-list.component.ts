@@ -4,6 +4,7 @@ import { Signature } from '@models/cecy/coordinator-cecy';
 
 import { SignatureService } from '@services/cecy/coordinator-cecy';
 import { MessageService } from '@services/core';
+import { catchError, concatMap, of } from 'rxjs';
 
 @Component({
   selector: 'app-signature-list',
@@ -42,22 +43,36 @@ export class SignatureListComponent implements OnInit {
     this.router.navigate([
       `/cecy/coordinator-cecy/signature/edit/${signature.id}`,
     ]);
-    console.log('edit', signature);
   }
 
   deleteSignature(signature: Signature) {
     console.log('delete', signature);
     this.messageService.questionDeleteSign({}).then((result) => {
       if (result.isConfirmed) {
-        this.signatureService.deleteByIdSignature(signature.id).subscribe({
-          next: (data) => {
-            this.messageService.successSign(data);
-            this.loadAllSignatures();
-          },
-          error: (error) => {
-            this.messageService.error(error);
-          },
-        });
+        this.signatureService
+          .deleteByIdSignature(signature.id)
+          .pipe(
+            concatMap((data) => {
+              console.log('DELETE ?', data);
+              this.messageService.successSign(data);
+              return this.signatureService.deleteByNameFile(signature.firma);
+            }),
+            catchError((error) => {
+              this.loadAllSignatures();
+              this.messageService.error(error);
+              return of(null);
+            })
+          )
+          .subscribe({
+            next: (data) => {
+              if (data) {
+                this.loadAllSignatures();
+              }
+            },
+            error: (error) => {
+              this.messageService.error(error);
+            },
+          });
       }
     });
   }
@@ -70,7 +85,6 @@ export class SignatureListComponent implements OnInit {
   }
 
   searchSignatures(courses: any) {
-    console.log('PADRE ESTO ME BUSCO', courses);
     this.signature = courses;
   }
 }
