@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AsistenciaService } from '../asistencia.service';
@@ -7,12 +7,16 @@ import { AsistenciaService } from '../asistencia.service';
   selector: 'app-fecha',
   templateUrl: './fecha.component.html',
 })
-export class FechaComponent {
+export class FechaComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private asistenciaService: AsistenciaService
   ) {}
+
+  fechas?: [] = [];
+
+  ngOnInit(): void {}
 
   filtroFecha: string = '';
 
@@ -38,20 +42,20 @@ export class FechaComponent {
   redireccionCrear() {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
-        `cecy/responsible-execute/asistencia/${param.get('cursoId')}/new`,
+        `cecy/responsible-execute/course/${param.get(
+          'courseId'
+        )}/attendance/create`,
       ]);
     });
   }
 
   regresar() {
     this.activatedRoute.paramMap.subscribe((param) => {
-      this.router.navigate([`cecy/responsible-execute/notas/estudiante/:cursoId`]);
+      this.router.navigate([
+        `cecy/responsible-execute/course/${param.get(
+          'courseId'
+        )}/notes/students/`,
+      ]);
     });
   }
-
-  fechas$ = this.activatedRoute.paramMap.pipe(
-    switchMap((param) =>
-      this.asistenciaService.obtenerFechas(parseInt(param.get('cursoId')!))
-    )
-  );
 }

@@ -3,6 +3,7 @@ import { Curso } from './curso';
 import { CursoService } from './curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
+import { Course } from '@models/cecy';
 
 interface StatusOption {
   label: string;
@@ -52,7 +53,6 @@ export class CursoComponent implements OnInit {
     this.loadCursosPaginados();
   }
 
-
   filtrarCursosPorNombre() {
     if (!this.filtroNombre) {
       this.cursosFiltrados = [...this.cursos];
@@ -85,12 +85,14 @@ export class CursoComponent implements OnInit {
         const startDate = curso.planificationCourse.startDate.toLowerCase();
         const filtro = this.filtroNombre.toLowerCase();
         return (
-          nombreCurso.includes(filtro) || codigoCurso.includes(filtro) || startDate.includes(filtro)
+          nombreCurso.includes(filtro) ||
+          codigoCurso.includes(filtro) ||
+          startDate.includes(filtro)
         );
       });
     } else {
       this.cursosFiltrados = this.cursos;
-    };
+    }
     this.loadCursosPaginados();
   }
 
@@ -98,14 +100,18 @@ export class CursoComponent implements OnInit {
     this.cursosFiltrados.sort((a, b) => {
       const dateA = new Date(a.planificationCourse.startDate);
       const dateB = new Date(b.planificationCourse.startDate);
-      return this.ascendingOrder ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+      return this.ascendingOrder
+        ? dateA.getTime() - dateB.getTime()
+        : dateB.getTime() - dateA.getTime();
     });
     this.ascendingOrder = !this.ascendingOrder;
   }
 
-  redirect(cursoId: number) {
-    console.log('ID COURSE', cursoId);
-    this.router.navigate(['cecy/responsible-execute/notas/estudiante', cursoId]);
+  redirect(curso: Course) {
+    console.log('ID COURSE', curso);
+    this.router.navigate([
+      `cecy/responsible-execute/course/${curso.id}/notes/students`,
+    ]);
   }
 
   onPageChange(event: any) {
@@ -114,7 +120,10 @@ export class CursoComponent implements OnInit {
   }
 
   loadCursosPaginados() {
-    this.cursosPaginados = this.cursosFiltrados.slice(this.first, this.first + 3);
+    this.cursosPaginados = this.cursosFiltrados.slice(
+      this.first,
+      this.first + 3
+    );
   }
 
   actualizarStatus(cursoId: number, nuevoStatus: string) {
@@ -127,6 +136,4 @@ export class CursoComponent implements OnInit {
       }
     );
   }
-
-
 }

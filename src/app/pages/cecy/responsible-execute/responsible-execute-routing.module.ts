@@ -11,11 +11,14 @@ import { ChangePasswordComponent } from '@shared/components/user/change-password
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'mis-cursos', component: CursoComponent },
-  { path: 'notas/estudiante/:cursoId', component: EstudiantesComponent },
-  { path: 'asistencia/:asistenciaId', component: AsistenciaComponent },
-  { path: 'asistencia/:cursoId/new', component: AsistenciaComponent },
-  { path: 'fecha/:cursoId', component: FechaComponent },
+  { path: 'my-courses', component: CursoComponent },
+  { path: 'course/:courseId/notes/students', component: EstudiantesComponent },
+  {
+    path: 'course/:courseId/attendance/:asistenciaId',
+    component: AsistenciaComponent,
+  },
+  { path: 'course/:courseId/date-list', component: FechaComponent },
+  { path: 'course/:courseId/create', component: AsistenciaComponent },
   { path: 'registro-fotografico', component: RegistroFotograficoComponent },
   { path: 'change-password', component: ChangePasswordComponent },
 ];

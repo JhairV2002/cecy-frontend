@@ -28,6 +28,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     CommonModule,
     ResponsibleExecuteRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     InputNumberModule,
     SkeletonModule,
@@ -58,6 +61,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ProgressSpinnerModule,
     InputTextModule,
     InputTextareaModule,
+    MessagesModule,
+    ToastModule,
   ],
 })
 export class ResponsibleExecuteModule {}

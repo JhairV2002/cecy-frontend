@@ -1,50 +1,64 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Asistencia } from './asistencia.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 import { Matriculas } from '../notas/estudiante.model';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AsistenciaService {
-  private baseUrl = 'http://localhost:8080/api/asistencia/';
+  private apiUrl = `${environment.api2}/attendances`;
   private matriculasUrl = 'http://localhost:8080/api/matriculas/';
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
+
   constructor(private http: HttpClient) {}
 
-  obtenerEstudiantes(): Observable<Asistencia[]> {
-    return this.http.get<Asistencia[]>(this.baseUrl);
+  getAttendanceAll() {
+    this.loading.next(true);
+    return this.http.get<Asistencia[]>(`${this.apiUrl}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
-  obtenerMatriculasPorId(id: number): Observable<Matricula[]> {
-    return this.http.get<Matricula[]>(`${this.matriculasUrl}cursoId/${id}/`);
+  getAttendanceByIdCourse(courseId: number) {
+    this.loading.next(true);
+    return this.http.get<Asistencia[]>(`${this.apiUrl}/${courseId}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
-  guardarEstudiante(estudiante: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${estudiante.id}`, estudiante);
+  createAttendance(attendance: any) {
+    this.loading.next(true);
+    return this.http.post<Asistencia>(`${this.apiUrl}`, attendance).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
-  obtenerEstudiantePorId(id: number): Observable<Asistencia> {
-    return this.http.get<Asistencia>(`${this.baseUrl}${id}/`);
+  updateAttendance(newAttendance: any, id: number) {
+    this.loading.next(true);
+    return this.http.put(`${this.apiUrl}/${id}`, newAttendance).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
-  guardarAsistencia(asistencia: Asistencia): Observable<Asistencia> {
-    return this.http.post<Asistencia>(this.baseUrl, asistencia);
-  }
-
-  obtenerFechas(id: number): Observable<Asistencia[]> {
-    return this.http.get<Asistencia[]>(`${this.baseUrl}cursoId/${id}/`);
-  }
-
-  obtenerAsistenciaPorId(id: number): Observable<Asistencia> {
-    return this.http.get<Asistencia>(`${this.baseUrl}${id}/`);
-  }
-
-  actualizarAsistencia(
-    id: number,
-    asistencia: Asistencia
-  ): Observable<Asistencia> {
-    return this.http.put<Asistencia>(`${this.baseUrl}${id}/`, asistencia);
+  deleteAttendanceById(id: number) {
+    this.loading.next(true);
+    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 }

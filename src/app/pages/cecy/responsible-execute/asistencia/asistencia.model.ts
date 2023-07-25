@@ -1,28 +1,23 @@
 import { Catalogue, Observaciones } from '@models/cecy';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
-import { EstadoCurso, EstadoMatricula, Estudiantes } from '../notas/estudiante.model';
+import {
+  EstadoCurso,
+  EstadoMatricula,
+  Estudiantes,
+} from '../notas/estudiante.model';
 
 export interface Asistencia {
-  id: number;
-  periodo: string;
-  cursoId: number;
+  id?: number;
   evidenciaFotografica: string;
-  duracionClase: string;
-  fecha: String;
-  detalleAsistencia: DetalleAsistencia[];
-  observaciones: {
-    id?: number | null;
-    descripcion: string;
-    completado: boolean;
-    createdAt?: string | null;
-    updatedAt?: string | null;
-  }[];
+  fecha: String | undefined;
+  observaciones: string;
+  cursoId?: number;
 }
 
 export interface DetalleAsistencia {
   id?: number;
   estado: Catalogue;
-  matriculas: Matricula[];
+  matriculas: Matricula[];
 }
 
 export interface Matriculas {
@@ -36,5 +31,5 @@ export interface Matriculas {
   estadoMatricula: EstadoMatricula;
   estadoCurso: EstadoCurso;
   asistencias: any[];
-  estudiantes: Estudiantes;
+  estudiantes: Estudiantes;
 }

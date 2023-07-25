@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <button
@@ -7,7 +8,7 @@
       class="p-button p-button-outlined"
       icon="pi pi-arrow-left"
       (click)="redireccionar()"
-      label="Volver"
+      label="Regresar"
     ></button>
   </div>
 </p-toolbar>
@@ -16,88 +17,82 @@
     <h1 class="text-2xl">Agregar nueva fecha</h1>
   </div>
   <div class="p-fluid">
-    <form>
+    <form [formGroup]="formAttendance" (ngSubmit)="onSubmit()">
       <div class="flex flex-wrap">
         <div class="w-full sm:w-1/2">
-          <label for="name" appLabel label="Fecha actual:">
-            <!-- [required]="isRequired(lectiveYear)"
-            [valid]="lectiveYear.valid"
-            [touched]="lectiveYear.touched"
-            [dirty]="lectiveYear.dirty" -->
+          <label
+            for="name"
+            appLabel
+            label="Fecha actual:"
+            [required]="isRequired(dateField)"
+            [valid]="dateField.valid"
+            [touched]="dateField.touched"
+            [dirty]="dateField.dirty"
+          >
           </label>
           <p-calendar
-            [(ngModel)]="asistenciaForm.fecha"
             [showIcon]="true"
             [showButtonBar]="true"
             placeholder="Seleccione la fecha"
+            formControlName="fecha"
           ></p-calendar>
-          <small appErrorMessage>
-            <!-- [errors]="lectiveYear.errors"
-            [touched]="lectiveYear.touched"
-            [dirty]="lectiveYear.dirty" -->
+          <small
+            appErrorMessage
+            [errors]="dateField.errors"
+            [touched]="dateField.touched"
+            [dirty]="dateField.dirty"
+          >
           </small>
         </div>
       </div>
       <div>
-        <label for="name" appLabel label="Observaciones:">
-          <!-- [required]="isRequired(lectiveYear)"
-          [valid]="lectiveYear.valid"
-          [touched]="lectiveYear.touched"
-          [dirty]="lectiveYear.dirty" -->
+        <label
+          for="name"
+          appLabel
+          label="Observaciones:"
+          [required]="isRequired(observationField)"
+          [valid]="observationField.valid"
+          [touched]="observationField.touched"
+          [dirty]="observationField.dirty"
+        >
         </label>
         <textarea
           rows="5"
           cols="30"
           pInputTextarea
-          [(ngModel)]="observacionesForm.descripcion"
+          formControlName="observaciones"
         ></textarea>
+        <small
+          appErrorMessage
+          [errors]="observationField.errors"
+          [touched]="observationField.touched"
+          [dirty]="observationField.dirty"
+        >
+        </small>
       </div>
 
       <div>
-        <label for="name" appLabel label="Evidencia fotografica:">
-          <!-- [required]="isRequired(lectiveYear)"
-          [valid]="lectiveYear.valid"
-          [touched]="lectiveYear.touched"
-          [dirty]="lectiveYear.dirty" -->
-        </label>
+        <label for="name" appLabel label="Evidencia fotografica:"> </label>
         <p-fileUpload
-          chooseLabel="Seleccione firma"
+          chooseLabel="Seleccione la imagen"
           uploadLabel="Subir"
           cancelLabel="Cancelar"
           accept="image/*"
+          (onSelect)="onFileUpload($event)"
         ></p-fileUpload>
       </div>
-    </form>
-
-    <!-- (onSelect)="onFileUpload($event)" -->
-
-    <!-- <p-fileUpload
-      mode="basic"
-      chooseLabel="Evidencia fotografica"
-      name="demo[]"
-      url="https://www.primefaces.org/cdn/api/upload.php"
-      accept="image/*"
-    ></p-fileUpload> -->
-    <!-- <form
-      action="../../form-result.php"
-      method="post"
-      enctype="multipart/form-data"
-      target="_blank"
-    >
-      <h5>Formatos admitidos:JPG y PNG</h5>
-    </form> -->
-    <p-divider></p-divider>
-    <div class="flex flex-col items-center">
-      <div>
-        <button
-          pButton
-          type="submit"
-          pRipple
-          label="Guardar"
-          (click)="guardar()"
-          icon="pi pi-save"
-        ></button>
+      <p-divider></p-divider>
+      <div class="flex flex-col items-center">
+        <div>
+          <button
+            pButton
+            type="submit"
+            pRipple
+            label="Guardar"
+            icon="pi pi-save"
+          ></button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </p-card>

@@ -210,7 +210,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Mis cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/responsible-execute/mis-cursos'],
+          routerLink: ['/cecy/responsible-execute/my-courses'],
         },
       ],
     },

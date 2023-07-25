@@ -45,14 +45,14 @@ export class EstudiantesComponent implements OnInit {
   redireccionar() {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
-        `cecy/responsible-execute/fecha/${param.get('cursoId')}`,
+        `cecy/responsible-execute/course/${param.get('courseId')}/date-list`,
       ]);
     });
   }
 
   regresar() {
     this.activatedRoute.paramMap.subscribe((param) => {
-      this.router.navigate([`cecy/responsible-execute/mis-cursos`]);
+      this.router.navigate([`cecy/responsible-execute/my-courses`]);
     });
   }
 
