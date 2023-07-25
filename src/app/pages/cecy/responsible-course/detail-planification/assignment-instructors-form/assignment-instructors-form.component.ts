@@ -1,59 +1,109 @@
 import {
   Component,
-  EventEmitter,
-  OnDestroy,
   OnInit,
+  Input,
   Output,
+  EventEmitter
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { CourseService } from '@services/cecy-v1/course.service';
+import { MessageService } from '../../../../../services/core/message.service';
 
-import { MessageService } from '@services/core';
-import { DetailPlanificationHttpService } from '@services/cecy';
 
 @Component({
   selector: 'app-assignment-instructors-form',
   templateUrl: './assignment-instructors-form.component.html',
 })
-export class AssignmentInstructorsFormComponent implements OnInit, OnDestroy {
-  sourceList: any[] = [];
-  targetList: any[] = [];
-  selectedInstructorsIds: number[] = [];
-  detailPlanification: any;
+export class AssignmentInstructorsFormComponent implements OnInit {
 
-  private detailPlanification$ =
-    this.detailPlanificationHttpService.detailPlanification$;
-  private subscriptions: Subscription[] = [];
-
-  public progressBar: boolean = false;
-  @Output() dialogList = new EventEmitter<boolean>();
+  @Input() data: any;
+  @Output() dialogForm = new EventEmitter<boolean>();
+  public formDetailPlanificationInstructor: FormGroup = this.newFormDetailPlanification;
+  instructors: any;
+  listInstructors: any;
+  repeatInstructor: any;
 
   constructor(
-    private messageService: MessageService,
-    private detailPlanificationHttpService: DetailPlanificationHttpService
-  ) {}
+    private formBuilder: FormBuilder,
+    private courseService: CourseService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit() {
-    this.loadDetailPlanification();
+    this.loadInstructors()
+    this.getInstructorsByDetailPlanification()
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  loadDetailPlanification() {
-    this.subscriptions.push(
-      this.detailPlanification$.subscribe((response) => {
-        this.detailPlanification = response;
-        console.log(this.detailPlanification);
-      })
-    );
+  get newFormDetailPlanification(): FormGroup {
+    return this.formBuilder.group({
+      id: [null],
+      instructorId: [null, [Validators.required]],
+      detailPlanificationId: null
+    });
   }
 
   onSubmit() {
-    this.progressBar = true;
-    // if (this.targetList.length <= 0) {
-    //   this.progressBar = false;
-    //   return;
-    // }
+    if (this.restrictionInstructor()) {
+      this.messageService.warningAlert('El instructor ya ha sido seleccionado');
+      return;
+    }
+    if (this.formDetailPlanificationInstructor.valid) {
+      this.saveDetail()
+    }
   }
+
+
+  saveDetail() {
+    this.formDetailPlanificationInstructor.patchValue({
+      detailPlanificationId: this.data.id
+    });
+    this.courseService.saveInstructorDetail(this.formDetailPlanificationInstructor.value).subscribe(
+      res => {
+        this.messageService.successCourse(res)
+        this.getInstructorsByDetailPlanification()
+      }
+    )
+  }
+
+  getInstructorsByDetailPlanification() {
+    this.courseService.getInstructorsByDetail(this.data.id).subscribe(
+      res => {
+        this.listInstructors = res
+      }
+    )
+  }
+
+
+  isRequired(field: AbstractControl): boolean {
+    return field.hasValidator(Validators.required);
+  }
+
+  get instructorField() {
+    return this.formDetailPlanificationInstructor.controls['instructorId'];
+  }
+
+  loadInstructors() {
+    this.courseService.getInstructors().subscribe((response) => {
+      this.instructors = response;
+    });
+  }
+
+  deleteInstructor(id: number) {
+    this.courseService.deleteInstructorFromDetail(id).subscribe(
+      res => {
+        this.getInstructorsByDetailPlanification()
+      }
+    )
+  }
+
+  restrictionInstructor() {
+
+    this.repeatInstructor = this.listInstructors.filter((item: any) =>
+      item.instructorId===this.formDetailPlanificationInstructor.value.instructorId
+    );
+
+    return this.repeatInstructor.length !== 0;
+  }
+
+
 }

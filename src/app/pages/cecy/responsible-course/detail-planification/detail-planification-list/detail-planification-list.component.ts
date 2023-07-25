@@ -43,6 +43,7 @@ export class DetailPlanificationListComponent {
   planId: any;
   codeCourse: string = '';
   selectedDetailPlanificationId: any;
+  dialogFormInstructor: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,13 +54,20 @@ export class DetailPlanificationListComponent {
     this.cols = [
       { field: 'schedule', header: 'Horario' },
       { field: 'day', header: 'Días' },
-      { field: 'classroom', header: 'Aula' },
-      { field: 'parallel', header: 'Paralelo' },
+      // { field: 'classroom', header: 'Aula' },
+      // { field: 'parallel', header: 'Paralelo' },
       { field: 'observation', header: 'Observación' },
       // { field: 'state', header: 'Estado' },
     ];
 
     this.items = [
+      {
+        label: 'Asignar Instructores',
+        icon: 'pi pi-plus',
+        command: () => {
+          this.showFormInstructors(this.selectedDetailPlanification);
+        },
+      },
       {
         label: 'Eliminar horario',
         icon: 'pi pi-trash',
@@ -89,32 +97,24 @@ export class DetailPlanificationListComponent {
 
   showForm(detailPlanification: DetailPlanificationModel = {}) {
     this.dialogForm = true;
-    console.log('entro por show');
-    console.log('entro por show yd data', detailPlanification);
-
     detailPlanification.id
       ? (this.dialogHeader = 'Editar Horario')
       : (this.dialogHeader = 'Crear Horario');
-
     this.selectedDetailPlan = detailPlanification;
 
     this.selectedDetailPlanificationId = this.planificationId;
-    this.detailPlanificationHttpService.selectDetailPlanification(
-      detailPlanification
-    );
   }
+
+  showFormInstructors(detailPlanification: any){
+    this.dialogFormInstructor = true;
+    this.selectedDetailPlan = detailPlanification;
+  }
+
 
   selectDetailPlanification(detailPlanification: DetailPlanificationModel) {
     this.selectedDetailPlanification = detailPlanification;
   }
 
-  assignInstructors(detailPlanification: DetailPlanificationModel) {
-    this.selectedDetailPlanification = detailPlanification;
-    this.detailPlanificationHttpService.selectDetailPlanification(
-      detailPlanification
-    );
-    this.dialogList = true;
-  }
 
   deleteDetailPlanification(
     detailPlanification: DetailPlanificationModel
@@ -133,29 +133,30 @@ export class DetailPlanificationListComponent {
       }
     });
   }
-  deleteDetailPlanifications(): void {
-    this.messageService.questionDelete({}).then((result) => {
-      if (result.isConfirmed) {
-        const ids = this.selectedDetailPlanifications.map(
-          (element) => element.id
-        );
-        this.progressBarDelete = true;
-        this.detailPlanificationHttpService
-          .destroysDetailPlanifications(ids)
-          .subscribe(
-            (response) => {
-              this.progressBarDelete = false;
-              this.messageService.success(response);
-              this.loadDetailPlanifications();
-            },
-            (error) => {
-              this.progressBarDelete = false;
-              this.messageService.error(error);
-            }
-          );
-      }
-    });
-  }
+
+  // deleteDetailPlanifications(): void {
+  //   this.messageService.questionDelete({}).then((result) => {
+  //     if (result.isConfirmed) {
+  //       const ids = this.selectedDetailPlanifications.map(
+  //         (element) => element.id
+  //       );
+  //       this.progressBarDelete = true;
+  //       this.detailPlanificationHttpService
+  //         .destroysDetailPlanifications(ids)
+  //         .subscribe(
+  //           (response) => {
+  //             this.progressBarDelete = false;
+  //             this.messageService.success(response);
+  //             this.loadDetailPlanifications();
+  //           },
+  //           (error) => {
+  //             this.progressBarDelete = false;
+  //             this.messageService.error(error);
+  //           }
+  //         );
+  //     }
+  //   });
+  // }
 
   filter(event: any) {
     if (event.key === 'Enter' || event.type === 'click') {
@@ -167,4 +168,9 @@ export class DetailPlanificationListComponent {
     this.paginator.current_page = event.page + 1;
     this.loadDetailPlanifications(this.paginator.current_page);
   }
+
+
+
+
+
 }
