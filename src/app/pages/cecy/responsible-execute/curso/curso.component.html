@@ -56,36 +56,40 @@
   <div *ngFor="let curso of cursos; let i = index">
     <div *ngIf="cumpleFiltro(curso)">
       <p-card
-        header="{{ curso.planificationCourse.name }}"
-        subheader="Código del curso: {{ curso.planificationCourse.codeCourse }}"
+        header="{{ curso.detailPlanification?.planificationCourse?.name }}"
+        subheader="Código del curso: {{ curso.detailPlanification.planificationCourse.codeCourse }}"
         [style]="{
           width: '300px',
           border:
-            curso.statusCourse === 'Terminado'
+            curso.detailPlanification?.planificationCourse?.course.state === 'Terminado'
               ? '2px solid green'
-              : curso.statusCourse === 'Cerrado'
+              : curso.detailPlanification?.planificationCourse?.course.state === 'Cerrado'
               ? '2px solid red'
               : ''
         }"
       >
         <ng-template pTemplate="header">
-          <img
+          <!-- <img
             alt="Card"
             src="https://primefaces.org/cdn/primeng/images/usercard.png"
-          />
+          /> -->
+          <img class="object-contain h-32" onerror='this.src = "https://primefaces.org/cdn/primeng/images/usercard.png" '
+          [src]="curso.detailPlanification?.planificationCourse?.course.image" alt="" style="height: 2 rem" />
         </ng-template>
 
         <p>
-          Modalidad: {{ curso.workday.name }}<br />
+          Modalidad: {{ curso.detailPlanification?.planificationCourse?.modality.name }}<br />
           Fecha de inicio:
-          {{ curso.planificationCourse.startDate | date : "yyyy-MM-dd" }}<br />
+          {{ curso.detailPlanification?.planificationCourse.startDate | date : "yyyy-MM-dd" }}<br />
+          Horario: {{ curso.detailPlanification?.workday.name }}<br />
+          {{ curso.detailPlanification?.startedTime }} - {{ curso.detailPlanification?.endedTime }}<br />
           Estado del curso:
           <p-dropdown
             [options]="statusOptions"
             optionLabel="label"
             optionValue="value"
             (ngModelChange)="actualizarStatus(curso.id, $event.value)"
-            [ngModel]="curso.statusCourse"
+            [ngModel]="curso.detailPlanification?.planificationCourse?.course.state"
           ></p-dropdown>
         </p>
 
@@ -93,7 +97,7 @@
           <p-button
             label="Detalles"
             icon="pi pi-check"
-            (click)="redirect(curso)"
+            (click)="redirect(curso.detailPlanification?.planificationCourse?.id)"
           ></p-button>
         </ng-template>
       </p-card>

@@ -22,9 +22,9 @@ export class PdfCourseService {
     const imageSecretaryEducation = await this.getBase64ImageFromURL("../../../assets/course-objects/logo-secretaria-educacion.png");
     const imageYavirac = await this.getBase64ImageFromURL("../../../assets/course-objects/Logo Yavirac.png");
 
-    const 
-    
-    
+    const
+
+
     docDefinition = {
       content: [
         //header images
@@ -42,7 +42,7 @@ export class PdfCourseService {
               alignment: 'center',
             },
             {
-              text: `Codigo del curso: ${course.code ?? 'No definido'} `,
+              text: `Codigo del curso: ${course.planification.codeCourse ?? 'No definido'} `,
             }
           ],
 

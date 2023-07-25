@@ -26,6 +26,7 @@ export class CursoComponent implements OnInit {
     { label: 'En proceso', value: 'En proceso' },
     { label: 'Terminado', value: 'Terminado' },
     { label: 'Cerrado', value: 'Cerrado' },
+    // { label: 'Aprobado', value: 'aprobado' },
   ];
 
   constructor(
@@ -136,4 +137,6 @@ export class CursoComponent implements OnInit {
       }
     );
   }
+
+
 }
