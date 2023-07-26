@@ -77,6 +77,9 @@ export class PlanificationListComponent implements OnInit {
     this.testing();
   }
 
+
+
+
   checkSearchParams(): void {
     const queryParams = this.router.parseUrl(this.router.url).queryParams;
     if (queryParams['search']) {

@@ -7,7 +7,7 @@
       class="p-button p-button-outlined"
       icon="pi pi-arrow-left"
       label="Regresar lista Carreras"
-      routerLink="/cecy/assistant-cecy/enrollment-record"
+      routerLink="/cecy/assistant-cecy/matricula"
     ></button>
   </div>
 </p-toolbar>
@@ -16,11 +16,7 @@
     <h1 class="text-2xl font-semi-bold">
       Listado de cursos de la carrera
       <span class="underline">
-        {{
-          (cursos$ | async)![0].name
-            ? (cursos$ | async)![0].name
-            : "Nombre carrera"
-        }}
+        {{ curso ? curso.name : "Nombre carrera" }}
       </span>
     </h1>
   </div>
@@ -35,11 +31,10 @@
     </div>
   </div>
 </div>
-<div class="prose"></div>
 <div class="flex flex-wrap gap-3 w-full">
-  <div
-    *ngFor="let planification of (cursos$ | async)![0].planificationCourse"
-    class="card card-compact w-80 bg-base-100 shadow-xl"
+  <p-card
+    class="w-80"
+    *ngFor="let planification of (cursos$ | async)?.planificationCourse"
   >
     <figure>
       <img
@@ -48,14 +43,26 @@
       />
     </figure>
     <div class="card-body">
-      <h2 class="card-title">{{ planification.name }}</h2>
-      <p>Empieza: {{ planification.startDate | date }}</p>
-      <p>Termina: {{ planification.finishDate | date }}</p>
+      <h2 class="card-title">{{ planification?.name }}</h2>
+      <p>Empieza: {{ planification?.startDate | date }}</p>
+      <p>Termina: {{ planification?.finishDate | date }}</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary" (click)="viewStudents(planification)">
-          Ver Estudiantes
-        </button>
+        <p-button
+          icon="pi pi-eye"
+          label="Ver Estudiantes"
+          styleClass="p-button-outlined"
+          (click)="viewStudents(planification)"
+        ></p-button>
       </div>
     </div>
+  </p-card>
+</div>
+
+<div
+  *ngIf="curso.planificationCourse?.length === 0"
+  class="flex justify-center w-full"
+>
+  <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+    <h1 class="text-base text-gray-800">No hay cursos para esta carrera</h1>
   </div>
 </div>

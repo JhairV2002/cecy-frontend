@@ -166,7 +166,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Matriculacion Estudiantes',
           icon: 'fa-solid fa-square-check',
-          routerLink: ['/cecy/assistant-cecy/enrollment-record'],
+          routerLink: ['/cecy/assistant-cecy/matricula'],
         },
         {
           label: 'Generar Reportes',

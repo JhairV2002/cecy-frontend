@@ -19,26 +19,26 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'courses/visualization/:id', component: TabsComponent },
   //Validacion matricula
-  { path: 'enrollment-record', component: CarrerasComponent },
+  { path: 'matricula', component: CarrerasComponent },
   // {
   //   path: 'delegado',
   //   component: ValidacionMatriculaComponent,
   // },
   {
-    path: 'enrollment-record/career/:careerId',
+    path: 'matricula/career/:careerId',
     component: CursosCarreraComponent,
   },
   {
-    path: 'enrollment-record/career/:careerId/:nombre-carrera/course/:idCurso',
+    path: 'matricula/career/:careerId/:nombre-carrera/course/:idCurso',
     component: EstudiantesCursoComponent,
-  },
-  {
-    path: 'career/:nombreCarrera/:nombreCurso/:idEstudiante',
-    component: EstudianteDetallesComponent,
   },
   {
     path: 'career/:nombreCarrera/:nombreCurso/lista-estudiantes',
     component: EstudiantesListaComponent,
+  },
+  {
+    path: 'matricula/career/:careerId/:nombre-carrera/course/:idCurso/student/:idEstudiante',
+    component: EstudianteDetallesComponent,
   },
   {
     path: 'certificado',

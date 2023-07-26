@@ -78,5 +78,16 @@ export class EstudianteDetallesComponent implements OnInit {
     )
   );
 
+  goToBackListStudents() {
+    this.router.paramMap.subscribe((param) => {
+      console.log(param);
+      this.route.navigate([
+        `cecy/assistant-cecy/matricula/career/${param.get(
+          'careerId'
+        )}/${param.get('nombre-carrera')}/course/${param.get('idCurso')}`,
+      ]);
+    });
+  }
+
   observaciones$: any = this.matricula$.pipe(map((res) => res.observaciones));
 }

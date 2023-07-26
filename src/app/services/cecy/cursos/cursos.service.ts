@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, BehaviorSubject, finalize } from 'rxjs';
 import { Carrera, Curso } from '@models/cecy/index';
 import {
   CarrerasApi,
@@ -15,7 +15,8 @@ export class CursosService {
   constructor(private http: HttpClient) {}
 
   private url = `${environment.api}`;
-
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
   all: string = 'all';
 
   // urlCarrera: string = 'http://localhost:8083/api/carreras';
@@ -63,6 +64,13 @@ export class CursosService {
   }
 
   getMatriculasByCursoId(id: number) {
-    return this.http.get<Matricula[]>(`${this.urlMatriculas}cursoId/${id}/`);
+    this.loading.next(true);
+    return this.http
+      .get<Matricula[]>(`${this.urlMatriculas}cursoId/${id}/`)
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 }

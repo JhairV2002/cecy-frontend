@@ -19,6 +19,7 @@ export class EstudiantesCursoComponent {
   search: string = '';
   estudiantes = [];
   tipoEstudiante!: 'Interno' | 'Externo';
+  loading$ = this.cursoService.loading$;
 
   estudiantes$ = this.router.paramMap.pipe(
     switchMap((param) =>
@@ -45,7 +46,7 @@ export class EstudiantesCursoComponent {
   gotToBack() {
     this.router.paramMap.subscribe((param) => {
       this.routerActive.navigate([
-        `cecy/assistant-cecy/enrollment-record/career/${param.get('careerId')}`,
+        `cecy/assistant-cecy/matricula/career/${param.get('careerId')}`,
       ]);
     });
   }

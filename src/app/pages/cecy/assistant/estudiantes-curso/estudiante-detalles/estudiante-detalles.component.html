@@ -1,74 +1,129 @@
-<div class="prose my-4">
-  <h2>Informacion Personal</h2>
-</div>
-<div
-  class="w-full flex flex-wrap justify-between bg-base-100 shadow-xl p-[28px] rounded-2xl"
->
-  <div>
-    <figure>
-      <img
-        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-        class="w-80 rounded-2xl"
-      />
-    </figure>
+<p-toolbar>
+  <div class="prose my-3">
+    <h2>Informacion Personal</h2>
   </div>
-  <div class="flex flex-wrap flex-col gap-10">
-    <p><b>Dni</b>{{ (matricula$ | async)!.estudiantes!.cedula }}</p>
-    <p><b>Nombre</b>{{ (matricula$ | async)!.estudiantes!.nombres }}</p>
-    <p><b>Apellido</b>{{ (matricula$ | async)!.estudiantes!.nombres }}</p>
+</p-toolbar>
+<p-card>
+  <div
+    class="w-full flex flex-wrap justify-between bg-base-100 p-[28px] rounded-2xl"
+  >
+    <div>
+      <figure>
+        <img
+          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          class="w-80 rounded-2xl"
+        />
+      </figure>
+    </div>
+    <div class="flex flex-wrap flex-col gap-10">
+      <p>
+        <b>Dni</b>
+        {{
+          (matricula$ | async)?.estudiantes?.cedula
+            ? ((matricula$ | async)?.estudiantes)!.cedula
+            : "Falta su DNI"
+        }}
+      </p>
+      <p><b>Nombre</b>{{ ((matricula$ | async)?.estudiantes)!.nombres }}</p>
+      <p><b>Apellido</b>{{ ((matricula$ | async)?.estudiantes)!.apellidos }}</p>
+    </div>
+    <div class="flex flex-wrap flex-col gap-10">
+      <p>
+        <b>Tipo</b
+        >{{ ((matricula$ | async)?.estudiantes)!.tipoEstudiante.descripcion }}
+      </p>
+    </div>
   </div>
-  <div class="flex flex-wrap flex-col gap-10">
-    <p>
-      <b>Tipo</b
-      >{{ (matricula$ | async)!.estudiantes!.tipoEstudiante.descripcion }}
-    </p>
+</p-card>
+
+<p-toolbar>
+  <div class="prose my-3">
+    <h2>Documentos</h2>
   </div>
-</div>
+</p-toolbar>
 
-<div class="prose my-4">
-  <h2>Documentos</h2>
-</div>
+<p-card>
+  <div
+    class="flex flex-wrap justify-between prose text-lg rounded-2xl text-center h-max"
+  >
+    <div class="p-8">
+      <figure>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
+          alt="pdf-signal"
+          class="w-36"
+        />
+        <figcaption>
+          <p>Copia de Cédula</p>
+        </figcaption>
+        <p-button
+          label="Ver"
+          styleClass="p-button-raised p-button-text"
+        ></p-button>
+      </figure>
+    </div>
 
-<div
-  class="flex flex-wrap justify-between prose text-lg shadow-xl rounded-2xl text-center h-max"
->
-  <div class="p-8">
-    <figure>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
-        alt="pdf-signal"
-        class="w-36"
-      />
-      <figcaption>
-        <p>Copia de Cédula</p>
-      </figcaption>
-      <button class="btn btn-accent">Ver</button>
-    </figure>
+    <div class="p-8">
+      <figure>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
+          alt="pdf-signal"
+          class="w-36"
+        />
+        <figcaption>
+          <p>Copia de Certificado</p>
+        </figcaption>
+        <p-button
+          label="Ver"
+          styleClass="p-button-raised p-button-text"
+        ></p-button>
+      </figure>
+    </div>
   </div>
+</p-card>
 
-  <div class="p-8">
-    <figure>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
-        alt="pdf-signal"
-        class="w-36"
-      />
-      <figcaption>
-        <p>Copia de Certificado</p>
-      </figcaption>
-      <button class="btn btn-accent">Ver</button>
-    </figure>
+<p-toolbar>
+  <div class="prose my-3">
+    <h2>Observaciones</h2>
   </div>
-</div>
+</p-toolbar>
 
-<div class="prose my-4">
-  <h2>Observaciones</h2>
-</div>
+<p-card>
+  <p-table [value]="matricula?.observaciones!">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Descripcion</th>
+        <th>Completado</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-observacion>
+      <tr>
+        <td>{{ observacion.descripcion }}</td>
+        <td>
+          <div class="form-control">
+            <label class="cursor-pointer label">
+              <input
+                type="checkbox"
+                [checked]="observacion.completado"
+                [(ngModel)]="observacion.completado"
+                class="checkbox checkbox-success"
+              />
+            </label>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" style="width: 100%">Sin observaciones</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
 
-<div class="my-4">
+<!-- <div class="my-3">
   <div class="overflow-x-auto">
     <table class="table w-full">
-      <!-- head -->
       <thead>
         <tr>
           <th></th>
@@ -96,24 +151,39 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
 
 <div>
   <textarea
+    rows="5"
+    cols="30"
+    pInputTextarea
     [(ngModel)]="observationForm.descripcion"
-    class="textarea textarea-primary w-full"
-    placeholder="Bio"
+    class="w-full"
+    placeholder="Agregue alguna observacion"
   ></textarea>
   <div>
-    <button class="btn btn-accent" (click)="handleAgregarObservacion()">
-      Agregar
-    </button>
+    <p-button
+      icon="pi pi-plus"
+      label="Agregar"
+      styleClass="p-button-raised p-button-info"
+      (click)="handleAgregarObservacion()"
+    ></p-button>
   </div>
 </div>
 
 <div class="flex flex-wrap my-4 justify-around">
-  <button class="btn btn-warning" routerLink="../lista-estudiantes">
-    Cancelar
-  </button>
-  <button class="btn btn-info" (click)="updateMatricula()">Guardar</button>
+  <p-button
+    icon="pi pi-ban"
+    label="Cancelar"
+    styleClass="p-button-raised p-button-danger"
+    (click)="goToBackListStudents()"
+  ></p-button>
+
+  <p-button
+    icon="pi pi-save"
+    label="Guardar"
+    styleClass="p-button-raised p-button-success"
+    (click)="updateMatricula()"
+  ></p-button>
 </div>

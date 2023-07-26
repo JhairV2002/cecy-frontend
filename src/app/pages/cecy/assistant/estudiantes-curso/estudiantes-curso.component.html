@@ -63,5 +63,6 @@
   </div>
   <app-estudiantes-table
     [estudiantes]="(matriculas$ | async)! | searchEstudiantes : search"
+    [loading]="(loading$ | async)!"
   ></app-estudiantes-table>
 </div>
