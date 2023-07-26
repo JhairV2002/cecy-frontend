@@ -17,16 +17,22 @@
   </div>
   <p-button
     label="Agregar"
-    (click)="redireccionCrear()"
+    (click)="createAttendance()"
     styleClass="p-button-raised"
     icon="pi pi-plus"
   ></p-button>
 </div>
 
-<p-table [value]="fechas!" [responsive]="true" class="p-datatable">
+<p-table
+  [value]="fechas"
+  [responsive]="true"
+  class="p-datatable"
+  [loading]="(loading$ | async)!"
+>
   <ng-template pTemplate="header">
     <tr>
       <th scope="col" class="px-6 py-3">Fechas</th>
+      <th scope="col" class="px-6 py-3">Observaciones</th>
       <th scope="col" class="px-6 py-3">
         <button
           ripple=""
@@ -43,26 +49,38 @@
   <ng-template pTemplate="body" let-fecha>
     <tr>
       <td>
-        {{ fecha.fecha }}
+        {{ fecha.fecha | date }}
       </td>
       <td>
-        <button
-          (click)="redireccionar(fecha.id)"
-          icon="pi pi-pencil"
-          class="p-element p-ripple p-button-rounded p-button-warning p-button p-component p-button-icon-only"
-          ng-reflect-icon="pi pi-pencil"
-        >
-          <span class="p-button-icon pi pi-pencil" aria-hidden="true"></span>
-        </button>
+        {{ fecha.observaciones }}
+      </td>
+      <td>
+        <div class="flex gap-1">
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            type="submit"
+            (click)="deleteAttendance(fecha)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-warning"
+            (click)="editAttendanceById(fecha.id)"
+          ></button>
+        </div>
       </td>
     </tr>
   </ng-template>
-  <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
-    <tr>
-      <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
-        {{ yourColumnVaraible.header }}
-      </td>
-    </tr>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Actualmente hay
+      {{ fechas ? fechas.length : 0 }}
+      fechas registradas
+    </div>
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>

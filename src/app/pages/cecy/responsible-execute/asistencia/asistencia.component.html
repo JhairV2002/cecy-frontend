@@ -71,7 +71,7 @@
         </small>
       </div>
 
-      <div>
+      <div *ngIf="isCreating">
         <label for="name" appLabel label="Evidencia fotografica:"> </label>
         <p-fileUpload
           chooseLabel="Seleccione la imagen"
@@ -81,6 +81,24 @@
           (onSelect)="onFileUpload($event)"
         ></p-fileUpload>
       </div>
+      <div *ngIf="!isCreating">
+        <label for="name" appLabel label="Evidencia fotográfica:">
+          <span
+            class="ml-2 text-gray-500 cursor-pointer"
+            >
+            <!-- (click)="editarImagen()" -->
+            <i class="fas fa-pencil-alt"></i>
+          </span>
+        </label>
+        <div class="flex justify-center items-center max-w-md mx-auto">
+          <img
+            [src]="img"
+            alt="Evidencia Fotográfica"
+            class="max-w-full h-auto rounded border border-gray-300"
+          />
+        </div>
+      </div>
+
       <p-divider></p-divider>
       <div class="flex flex-col items-center">
         <div>

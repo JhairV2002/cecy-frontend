@@ -21,7 +21,7 @@ export class AsistenciaComponent implements OnInit {
   });
   imagenBase64: string = '';
   isCreating: boolean = true;
-  id: number = 0;
+  img: string = '';
 
   constructor(
     private AsistenciaService: AsistenciaService,
@@ -32,12 +32,14 @@ export class AsistenciaComponent implements OnInit {
     private messageLocal: MessageLocal
   ) {}
   ngOnInit(): void {
-    this.id = +this.activatedRoute.snapshot.params['courseId'];
-    console.log(this.id);
-    const id = this.activatedRoute.snapshot.params['courseId'];
+    const id = this.activatedRoute.snapshot.params['asistenciaId'];
+    console.log(id);
     if (id) {
-      this.AsistenciaService.getAttendanceByIdCourse(id).subscribe({
-        next: (data) => {
+      this.AsistenciaService.getAttendanceById(id).subscribe({
+        next: (data: any) => {
+          this.isCreating = false;
+          this.img = data.evidenciaFotografica;
+          this.formAttendance.patchValue(data);
           console.log('NG NGONINIT', data);
         },
         error: (error: any) => {
