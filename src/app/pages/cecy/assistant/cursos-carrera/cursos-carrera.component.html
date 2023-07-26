@@ -1,10 +1,44 @@
-<div class="prose py-8">
-  <h1>{{ (cursos$ | async)![0].name }}</h1>
+<p-toolbar>
+  <div class="p-toolbar-group-start gap-2">
+    <button
+      pButton
+      type="button"
+      id="volver"
+      class="p-button p-button-outlined"
+      icon="pi pi-arrow-left"
+      label="Regresar lista Carreras"
+      routerLink="/cecy/assistant-cecy/enrollment-record"
+    ></button>
+  </div>
+</p-toolbar>
+<div class="flex m-4">
+  <div class="flex-1">
+    <h1 class="text-2xl font-semi-bold">
+      Listado de cursos de la carrera
+      <span class="underline">
+        {{
+          (cursos$ | async)![0].name
+            ? (cursos$ | async)![0].name
+            : "Nombre carrera"
+        }}
+      </span>
+    </h1>
+  </div>
+  <div class="">
+    <div class="p-inputgroup">
+      <input pInputText id="search" placeholder="Buscar por nombre" />
+      <!-- [(ngModel)]="nombreFiltrado"
+        (input)="filtrarPorNombre()"
+        (keypress)="filtrarPorNombre()" -->
+      <button pButton pRipple type="button" icon="pi pi-search"></button>
+      <!-- (click)="filtrarPorNombre()" -->
+    </div>
+  </div>
 </div>
-
+<div class="prose"></div>
 <div class="flex flex-wrap gap-3 w-full">
   <div
-    *ngFor="let curso of (cursos$ | async)![0].planificationCourse"
+    *ngFor="let planification of (cursos$ | async)![0].planificationCourse"
     class="card card-compact w-80 bg-base-100 shadow-xl"
   >
     <figure>
@@ -14,18 +48,11 @@
       />
     </figure>
     <div class="card-body">
-      <h2 class="card-title">{{ curso.name }}</h2>
-      <p>Empieza: {{ curso.startDate | date }}</p>
-      <p>Termina: {{ curso.finishDate | date }}</p>
+      <h2 class="card-title">{{ planification.name }}</h2>
+      <p>Empieza: {{ planification.startDate | date }}</p>
+      <p>Termina: {{ planification.finishDate | date }}</p>
       <div class="card-actions justify-end">
-        <button
-          class="btn btn-primary"
-          [routerLink]="[
-            '/cecy/assistant-cecy/delegado/',
-            (cursos$ | async)![0].name,
-            curso.id
-          ]"
-        >
+        <button class="btn btn-primary" (click)="viewStudents(planification)">
           Ver Estudiantes
         </button>
       </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CarrerasService } from '../services/carreras.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 
 @Component({
@@ -11,6 +11,7 @@ import { map, switchMap } from 'rxjs';
 export class CursosCarreraComponent {
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private cursosCarreraService: CarrerasService
   ) {}
 
@@ -25,4 +26,11 @@ export class CursosCarreraComponent {
   nombreCarrera$ = this.route.paramMap.pipe(
     map((param) => param.get('nombreCarrera')!)
   );
+
+  viewStudents(planification: any) {
+    console.log(planification);
+    this.router.navigate([
+      `/cecy/assistant-cecy/enrollment-record/career/${planification.careerId}/${planification.name}/course/${planification.id}`,
+    ]);
+  }
 }

@@ -39,9 +39,7 @@ export class FechaComponent implements OnInit {
   createAttendance() {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
-        `cecy/responsible-execute/course/${param.get(
-          'courseId'
-        )}/attendance/create`,
+        `cecy/responsible-execute/course/${param.get('courseId')}/create`,
       ]);
     });
   }

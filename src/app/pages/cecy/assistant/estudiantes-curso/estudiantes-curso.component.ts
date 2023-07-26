@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { CursosService } from '@services/cecy/cursos';
 import { map, switchMap } from 'rxjs';
@@ -12,13 +12,13 @@ import { map, switchMap } from 'rxjs';
 export class EstudiantesCursoComponent {
   constructor(
     private router: ActivatedRoute,
-    private cursoService: CursosService
-  ) { }
+    private cursoService: CursosService,
+    private routerActive: Router
+  ) {}
 
   search: string = '';
   estudiantes = [];
   tipoEstudiante!: 'Interno' | 'Externo';
-
 
   estudiantes$ = this.router.paramMap.pipe(
     switchMap((param) =>
@@ -41,4 +41,12 @@ export class EstudiantesCursoComponent {
       this.cursoService.getMatriculasByCursoId(parseInt(param.get('idCurso')!))
     )
   );
+
+  gotToBack() {
+    this.router.paramMap.subscribe((param) => {
+      this.routerActive.navigate([
+        `cecy/assistant-cecy/enrollment-record/career/${param.get('careerId')}`,
+      ]);
+    });
+  }
 }

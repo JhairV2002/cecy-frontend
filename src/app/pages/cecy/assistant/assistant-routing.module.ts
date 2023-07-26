@@ -24,17 +24,20 @@ const routes: Routes = [
   //   path: 'delegado',
   //   component: ValidacionMatriculaComponent,
   // },
-  { path: 'delegado/:id', component: CursosCarreraComponent },
   {
-    path: 'delegado/:nombreCarrera/:idCurso',
+    path: 'enrollment-record/career/:careerId',
+    component: CursosCarreraComponent,
+  },
+  {
+    path: 'enrollment-record/career/:careerId/:nombre-carrera/course/:idCurso',
     component: EstudiantesCursoComponent,
   },
   {
-    path: 'delegado/:nombreCarrera/:nombreCurso/:idEstudiante',
+    path: 'career/:nombreCarrera/:nombreCurso/:idEstudiante',
     component: EstudianteDetallesComponent,
   },
   {
-    path: 'delegado/:nombreCarrera/:nombreCurso/lista-estudiantes',
+    path: 'career/:nombreCarrera/:nombreCurso/lista-estudiantes',
     component: EstudiantesListaComponent,
   },
   {

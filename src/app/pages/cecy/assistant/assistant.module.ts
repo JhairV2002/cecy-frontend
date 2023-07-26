@@ -14,7 +14,6 @@ import { CursosCarreraComponent } from './cursos-carrera/cursos-carrera.componen
 import { CarrerasComponent } from '../assistant/carreras/carreras.component';
 import { SearchEstudiantesPipe } from './pipes/search-estudiantes.pipe';
 
-
 //PrimeNg
 import { FormsModule } from '@angular/forms';
 import { ReporteComponent } from './reporte/reporte.component';
@@ -42,6 +41,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TagModule } from 'primeng/tag';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 // Components
 import { CoursesComponent } from './courses/courses.component';
@@ -69,7 +70,6 @@ import { SearchComponent } from './courses/search/search.component';
     SearchEstudiantesPipe,
     CursosCarreraComponent,
     CarrerasComponent,
-
   ],
   imports: [
     CommonModule,
@@ -100,6 +100,8 @@ import { SearchComponent } from './courses/search/search.component';
     BreadcrumbModule,
     TagModule,
     SplitButtonModule,
+    CheckboxModule,
+    ProgressSpinnerModule,
   ],
 })
 export class AssistantModule {}
