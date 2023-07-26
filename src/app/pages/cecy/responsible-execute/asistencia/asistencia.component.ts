@@ -22,6 +22,8 @@ export class AsistenciaComponent implements OnInit {
   imagenBase64: string = '';
   isCreating: boolean = true;
   img: string = '';
+  editImageForNew: boolean = false;
+  fileErrorMessage: string = '';
 
   constructor(
     private AsistenciaService: AsistenciaService,
@@ -66,18 +68,31 @@ export class AsistenciaComponent implements OnInit {
     const file = event.currentFiles[0];
     console.log(file);
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        console.log('QUE HAY AQUI', e);
-        this.imagenBase64 = e.target.result;
-        console.log('BASE 64', this.imagenBase64);
-      };
-      reader.readAsDataURL(file);
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Cargado...',
-        detail: 'Se ha cargado la imagen con Éxito',
-      });
+      const maxSizeInBytes = 15 * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        this.fileErrorMessage =
+          'El archivo seleccionado excede el tamaño máximo permitido (15MB).';
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al cargar la imagen',
+          detail:
+            'El archivo seleccionado excede el tamaño máximo permitido (15 MB).',
+        });
+      } else {
+        this.fileErrorMessage = '';
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          console.log('QUE HAY AQUI', e);
+          this.imagenBase64 = e.target.result;
+          console.log('BASE 64', this.imagenBase64);
+        };
+        reader.readAsDataURL(file);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Cargado...',
+          detail: 'Se ha cargado la imagen con éxito',
+        });
+      }
     }
   }
 
@@ -111,8 +126,65 @@ export class AsistenciaComponent implements OnInit {
     });
   }
 
+  editImage() {
+    this.editImageForNew = true;
+  }
+
   updateAttendance() {
     console.log('updating ok');
+    const asistenciaId = this.activatedRoute.snapshot.params['asistenciaId'];
+
+    console.log(asistenciaId);
+
+    const { fecha, observaciones, evidenciaFotografica } =
+      this.formAttendance.value;
+    const valuesForm = {
+      fecha,
+      observaciones,
+      evidenciaFotografica: this.imagenBase64,
+    };
+    console.log(valuesForm);
+
+    if (this.imagenBase64) {
+      if (this.formAttendance.invalid || !this.imagenBase64) {
+        console.log('No se encontro la imagen');
+        this.messageService.add({
+          severity: 'warn',
+          summary: `No encontrado`,
+          detail: `No se encontro la imagen`,
+        });
+        return;
+      }
+    }
+    this.AsistenciaService.updateAttendance(valuesForm, asistenciaId).subscribe(
+      {
+        next: (data: any) => {
+          console.log('DATA', data);
+          this.messageService.add({
+            severity: 'info',
+            summary: `Actualizado`,
+            detail: `${data.message}`,
+          });
+          setTimeout(() => {
+            this.activatedRoute.paramMap.subscribe((param) => {
+              this.router.navigate([
+                `/cecy/responsible-execute/course/${param.get(
+                  'courseId'
+                )}/date-list`,
+              ]);
+            });
+          }, 500);
+        },
+        error: (error) => {
+          console.log(error);
+          this.messageService.add({
+            severity: 'danger',
+            summary: `Error al actualizar`,
+            detail: `${error.error}`,
+          });
+        },
+      }
+    );
   }
 
   redireccionar() {
