@@ -53,9 +53,9 @@ export class AsistenciaService {
     );
   }
 
-  updateAttendance(newAttendance: any, id: number) {
+  updateAttendance(newAttendance: any, asistenciaId: number) {
     this.loading.next(true);
-    return this.http.put(`${this.apiUrl}/${id}`, newAttendance).pipe(
+    return this.http.put(`${this.apiUrl}/${asistenciaId}`, newAttendance).pipe(
       finalize(() => {
         this.loading.next(false);
       })

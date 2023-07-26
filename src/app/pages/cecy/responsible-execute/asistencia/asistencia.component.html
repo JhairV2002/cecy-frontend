@@ -14,7 +14,9 @@
 </p-toolbar>
 <p-card>
   <div class="flex items-center justify-center">
-    <h1 class="text-2xl">Agregar nueva fecha</h1>
+    <h1 class="text-2xl">
+      {{ isCreating ? "Agregar nueva fecha" : "Editar la fecha actual" }}
+    </h1>
   </div>
   <div class="p-fluid">
     <form [formGroup]="formAttendance" (ngSubmit)="onSubmit()">
@@ -82,20 +84,33 @@
         ></p-fileUpload>
       </div>
       <div *ngIf="!isCreating">
-        <label for="name" appLabel label="Evidencia fotográfica:">
-          <span
-            class="ml-2 text-gray-500 cursor-pointer"
-            >
-            <!-- (click)="editarImagen()" -->
-            <i class="fas fa-pencil-alt"></i>
-          </span>
-        </label>
-        <div class="flex justify-center items-center max-w-md mx-auto">
-          <img
-            [src]="img"
-            alt="Evidencia Fotográfica"
-            class="max-w-full h-auto rounded border border-gray-300"
-          />
+        <label for="name" appLabel label="Evidencia fotográfica:"> </label>
+
+        <div *ngIf="!editImageForNew">
+          <div class="flex justify-center items-center max-w-md mx-auto">
+            <img
+              [src]="img"
+              alt="Evidencia Fotográfica"
+              class="max-w-full h-auto rounded border border-gray-300"
+            />
+            <i
+              class="pi pi-pencil cursor-pointer ml-1"
+              (click)="editImage()"
+            ></i>
+          </div>
+        </div>
+
+        <div *ngIf="editImageForNew">
+          <p-fileUpload
+            chooseLabel="Seleccione la imagen"
+            uploadLabel="Subir"
+            cancelLabel="Cancelar"
+            accept="image/*"
+            (onSelect)="onFileUpload($event)"
+          ></p-fileUpload>
+          <div *ngIf="fileErrorMessage" class="text-red-500 mt-2">
+            {{ fileErrorMessage }}
+          </div>
         </div>
       </div>
 
@@ -106,7 +121,9 @@
             pButton
             type="submit"
             pRipple
-            label="Guardar"
+            label="{{
+              isCreating ? 'Guardar la informacion' : 'Actualizar informacion'
+            }}"
             icon="pi pi-save"
           ></button>
         </div>
