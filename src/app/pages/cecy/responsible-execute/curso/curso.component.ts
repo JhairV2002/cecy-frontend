@@ -4,6 +4,7 @@ import { CursoService } from './curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
 import { Course } from '@models/cecy';
+import { MessageService } from 'primeng/api';
 
 interface StatusOption {
   label: string;
@@ -23,17 +24,18 @@ export class CursoComponent implements OnInit {
   loading: boolean = true;
   first = 0;
   statusOptions: StatusOption[] = [
-    { label: 'En proceso', value: 'En proceso' },
-    { label: 'Terminado', value: 'Terminado' },
-    { label: 'Cerrado', value: 'Cerrado' },
-    // { label: 'Aprobado', value: 'aprobado' },
+    { label: 'En proceso', value: 'proceso' },
+    { label: 'Terminado', value: 'terminado' },
+    { label: 'Cerrado', value: 'cerrado' },
+    { label: 'Aprobado', value: 'aprobado' },
   ];
 
   constructor(
     private cursoService: CursoService,
     private activateRouter: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    public messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,6 @@ export class CursoComponent implements OnInit {
     });
     this.loadCursosPaginados();
   }
-
 
   filtrarCursosPorNombre() {
     if (!this.filtroNombre) {
@@ -128,16 +129,31 @@ export class CursoComponent implements OnInit {
     );
   }
 
-  actualizarStatus(cursoId: number, nuevoStatus: string) {
-    this.cursoService.actualizarStatusCurso(cursoId, nuevoStatus).subscribe(
-      () => {
-        console.log('El estado del curso se actualizó correctamente.');
+  actualizarStatus(event: any, curso: any) {
+    const cursoId = curso.detailPlanification?.planificationCourse?.course?.id;
+    console.log({
+      event,
+      cursoId,
+    });
+    this.cursoService.actualizarStatusCurso(cursoId, event.value).subscribe({
+
+      next: (data:any) => {
+        console.log(data)
+        this.messageService.add({
+          severity: 'success',
+          summary: `${data.message}`,
+          detail:
+          `${data.state}`,
+        });
       },
-      (error) => {
-        console.error('Error al actualizar el estado del curso:', error);
-      }
-    );
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al actualizar',
+          detail:
+          `${error.message}`,
+        });
+      },
+    });
   }
-
-
 }
