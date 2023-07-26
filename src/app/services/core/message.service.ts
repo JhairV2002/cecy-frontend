@@ -1,106 +1,75 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { PaginatorModel, ServerResponse } from '@models/core';
+import { ServerResponse } from '@models/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationErrors } from '@angular/forms';
-import { LoginResponse } from '@models/core/login.response';
 import { Message } from 'primeng/api';
 import { MessageService as MessagePNService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(
-    private messageService: MessagePNService,
-    private router: Router
-  ) {}
-
-  errorValid(error:HttpErrorResponse){
-    console.log(error, 'message');
-    return Swal.fire({
-      title: 'Ups algo salio mal!',
-      text: error.error.message,
-      icon: 'error',
-    });
-  }
+  constructor(private messageService: MessagePNService) {}
 
   error(error: HttpErrorResponse) {
-    if (error.status === 401) {
-      return Swal.fire({
-        title: 'Usuario no autorizado',
-        text: error.error.message,
-        icon: 'error',
-      });
-    }
-    if (error.status === 400) {
-      if (error.error.msg.code === '23505') {
-        return Swal.fire({
-          title: 'El registro ya existe',
-          text: error.error.data,
-          icon: 'error',
-        });
-      }
-    }
-    if (error.status === 404) {
-      return Swal.fire({
-        title: error.error.msg.summary,
-        text: error.error.msg.detail,
-        icon: 'warning',
-      });
-    }
-    if (error.status === 422) {
-      let i;
-      const fields = Object.values(error.error.msg.detail)
-        .toString()
-        .split('.,');
-      let html = '<ul>';
-      for (i = 0; i < fields.length - 1; i++) {
-        html += `<li>${fields[i]}.</li>`;
-      }
-      html += `<li>${fields[i]}</li>`;
-      html += '</ul>';
-      return Swal.fire({
-        title: error.error.msg.summary,
-        html,
-        icon: 'error',
-      });
+    let errorMessage = 'Ha ocurrido un error';
+
+    if (error.error && error.error.message) {
+      errorMessage = error.error.message;
+    } else if (error.message) {
+      errorMessage = error.message;
     }
 
-    return Swal.fire({
-      title: error.error?.msg?.summary,
-      text: error.error?.msg?.detail,
+    Swal.fire({
+      title: 'Ups algo salio mal!',
+      text: errorMessage,
       icon: 'error',
     });
   }
-
-
 
   successRecovery(serverResponse: ServerResponse) {
     console.log(serverResponse, 'message');
     return Swal.fire({
-      title:'Actualización exitosa' ,
-      text:  serverResponse.message,
+      title: 'Actualización exitosa',
+      text: serverResponse.message,
       icon: 'success',
     });
   }
 
-  succesAproveedCourse(serverResponse: ServerResponse){
+  succesAproveedCourse(serverResponse: ServerResponse) {
     console.log(serverResponse, 'message');
     return Swal.fire({
-      title: 'Fue aprobado el curso con éxito' ,
-      text:  serverResponse.message,
+      title: 'Fue aprobado el curso con éxito',
+      text: serverResponse.message,
       icon: 'success',
     });
   }
 
-  success(serverResponse: ServerResponse | LoginResponse | undefined) {
+  suspendPlanification(serverResponse: ServerResponse) {
+    console.log(serverResponse, 'message');
+    return Swal.fire({
+      title: 'Fue suspendido la planificacion',
+      text: serverResponse.message,
+      icon: 'warning',
+    });
+  }
+
+  success(serverResponse: ServerResponse | any | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
       title: serverResponse?.msg?.summary,
       text: serverResponse?.msg?.detail,
       icon: 'info',
+    });
+  }
+
+  successRol(serverResponse: ServerResponse) {
+    console.log(serverResponse, 'message');
+    return Swal.fire({
+      title: serverResponse.message,
+      text: serverResponse.detail,
+      icon: 'success',
     });
   }
 
@@ -113,10 +82,25 @@ export class MessageService {
   }
 
   successCourse(serverResponse: any) {
-    console.log(serverResponse);
     return Swal.fire({
       title: serverResponse.message,
       //text: serverResponse?.msg?.detail,
+      icon: 'success',
+    });
+  }
+
+  warningAlert(warning: string) {
+    return Swal.fire({
+      title: warning,
+      //text: serverResponse?.msg?.detail,
+      icon: 'warning',
+    });
+  }
+
+  successCareer(serverResponse: any) {
+    return Swal.fire({
+      title: serverResponse.message,
+      text: serverResponse.detail,
       icon: 'success',
     });
   }
@@ -129,19 +113,19 @@ export class MessageService {
     });
   }
 
-  successEmail(serverResponse: ServerResponse | LoginResponse | undefined) {
+  successSign(serverResponse: ServerResponse) {
+    return Swal.fire({
+      title: serverResponse.message,
+      //text: serverResponse?.msg?.detail,
+      icon: 'success',
+    });
+  }
+
+  successEmail(serverResponse: ServerResponse | any | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
       title: 'Correo enviado',
       text: 'Correo de recuperación fue enviado correctamente',
-      icon: 'info',
-    });
-  }
-
-  finishTest() {
-    return Swal.fire({
-      title: 'Gracias por participar!',
-      text: 'Se enviará un correo electrónico con los resultados',
       icon: 'info',
     });
   }
@@ -164,6 +148,22 @@ export class MessageService {
 
   questionDeleteUser({
     title = '¿Está seguro de eliminar este usuario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
+    });
+  }
+
+  questionDeleteSign({
+    title = '¿Está seguro de eliminar esta firma?',
     text = 'No podrá recuperar esta información!',
   }) {
     return Swal.fire({
@@ -255,6 +255,22 @@ export class MessageService {
     });
   }
 
+  questionDeleteComments({
+    title = '¿Está seguro de eliminar el comentario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
+    });
+  }
+
   questionDeclineParticipant({
     title = '¿Está seguro de rechazar participante?',
     text = '',
@@ -337,7 +353,9 @@ export class MessageService {
   }
 
   fieldMax(errors: ValidationErrors): string {
-    return `Numero maximo permitido es ${errors['max']['requiredMax']}.`;
+    const max = errors['max'].max;
+    const actual = errors['max'].actual;
+    return `Numero maximo permitido es ${max}. valor actual ${actual}`;
   }
 
   get fieldPattern() {
@@ -364,7 +382,7 @@ export class MessageService {
     return 'Este teléfono no está disponible.';
   }
 
-  paginatorTotalRegisters(paginator: PaginatorModel): string {
+  paginatorTotalRegisters(paginator: any): string {
     return (
       'En total hay ' + (paginator?.total ? paginator.total : 0) + ' registros.'
     );
@@ -423,4 +441,6 @@ export class MessageService {
   get messageSuccessDelete(): string {
     return `Se eliminó correctamente`;
   }
+
+
 }

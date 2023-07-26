@@ -1,19 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
-import { ListadoFechaComponent } from './asistencia/listado-fecha/listado-fecha.component';
+import { FechaComponent } from './asistencia/fecha/fecha.component';
 import { CursoComponent } from './curso/curso.component';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
+import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'mis-cursos', component: CursoComponent },
-  { path: 'notas/estudiante', component: EstudiantesComponent },
-  { path: 'asistencia', component: AsistenciaComponent },
-  { path: 'listadofecha', component: ListadoFechaComponent },
-  //{ path: 'course-form', component: CourseFormComponent },
+  { path: 'my-courses', component: CursoComponent },
+  { path: 'course/:courseId/notes/students', component: EstudiantesComponent },
+  {
+    path: 'course/:courseId/attendance/:asistenciaId',
+    component: AsistenciaComponent,
+  },
+  { path: 'course/:courseId/date-list', component: FechaComponent },
+  { path: 'course/:courseId/create', component: AsistenciaComponent },
+  { path: 'registro-fotografico', component: RegistroFotograficoComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({

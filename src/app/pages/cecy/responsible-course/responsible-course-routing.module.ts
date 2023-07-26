@@ -5,27 +5,20 @@ import { CourseListComponent } from './general-information/course-list/course-li
 import { CourseFormComponent } from './general-information/course-form/course-form.component';
 import { DetailPlanificationComponent } from './detail-planification/detail-planification.component';
 import { CurricularDesignComponent } from './curricular-design/curricular-design.component';
-import { PlanificationComponent } from './planification/planification.component';
-import { ResponsibleCourseComponent } from './responsible-course.component';
 import { TabsComponent } from './tabs/tabs.component';
-import { RegistrationManagementListComponent } from './registration-management/registration-management-list/registration-management-list.component';
-import { RegistrationManagementFormComponent } from './registration-management/registration-management-form/registration-management-form.component';
-import { TabEditComponent } from './tabs/tab-edit/tab-edit.component';
 import { HomeComponent } from './home/home.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  // { path: '', component: ResponsibleCourseComponent },
-  { path: 'courses-list', component: CourseListComponent },
+  { path: 'my-courses', component: CourseListComponent },
   { path: 'course-form', component: CourseFormComponent },
-  { path: 'planification', component: PlanificationComponent },
   { path: 'horarios/:id', component: DetailPlanificationComponent },
   { path: 'curricular-design/:id', component: CurricularDesignComponent },
   { path: 'course/add/:id', component: TabsComponent },
-  { path: 'course/edit/:id', component: TabEditComponent },
-  { path: 'registrations', component: RegistrationManagementListComponent },
-  { path: 'registration/:id', component: RegistrationManagementFormComponent },
+  { path: 'course/edit/:id', component: TabsComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({

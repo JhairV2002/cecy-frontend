@@ -1,15 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as themes from '@assets/themes/themes.json';
-import {PermissionModel, RoleModel, UserModel} from '@models/core';
+import { PermissionModel, RoleModel } from '@models/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-
-  constructor() {
-  }
+  constructor() {}
 
   changeTheme(theme: string) {
     // const themePath = themes.find(element => element.name == theme)?.path;
@@ -28,11 +25,11 @@ export class AuthService {
     localStorage.setItem('token', JSON.stringify(value));
   }
 
-  get user(): UserModel {
+  get user() {
     return JSON.parse(String(localStorage.getItem('auth')));
   }
 
-  set user(user: UserModel | undefined | null) {
+  set user(user: any | undefined | null) {
     localStorage.setItem('auth', JSON.stringify(user));
   }
 

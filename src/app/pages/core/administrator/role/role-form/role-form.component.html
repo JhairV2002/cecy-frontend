@@ -1,0 +1,80 @@
+<p-dialog
+  header="{{ titleModal }} rol"
+  [(visible)]="showModal"
+  [maximizable]="true"
+  [style]="{ width: '498px' }"
+  [modal]="true"
+  (onHide)="closeModal()"
+>
+  <div class="p-fluid">
+    <form [formGroup]="formRol" (ngSubmit)="onSubmit()">
+      <div class="justify-center">
+        <div class="field col-12">
+          <label
+            for="name"
+            appLabel
+            label="Nombre:"
+            [required]="isRequired(nameField)"
+            [valid]="nameField.valid"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </label>
+          <input class="w-full" pInputText id="name" formControlName="name" />
+          <small
+            appErrorMessage
+            [errors]="nameField.errors"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </small>
+        </div>
+        <div class="field col-12">
+          <label
+            for="description"
+            appLabel
+            label="Descripción:"
+            [required]="isRequired(descriptionField)"
+            [valid]="descriptionField.valid"
+            [touched]="descriptionField.touched"
+            [dirty]="descriptionField.dirty"
+          >
+          </label>
+          <input
+            class="w-full"
+            pInputText
+            id="name"
+            formControlName="description"
+          />
+          <small
+            appErrorMessage
+            [errors]="descriptionField.errors"
+            [touched]="descriptionField.touched"
+            [dirty]="descriptionField.dirty"
+          >
+          </small>
+        </div>
+      </div>
+
+      <p-divider></p-divider>
+
+      <!--onSubmit()-->
+      <div class="field">
+        <button
+          [disabled]="formRol.invalid"
+          pButton
+          type="submit"
+          pRipple
+          label="{{ titleButton }}"
+          class="p-button-rounded"
+          icon="pi pi-save"
+        ></button>
+      </div>
+
+      <!--progressBar-->
+      <div class="mt-4" *ngIf="progressBar">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div>
+    </form>
+  </div>
+</p-dialog>

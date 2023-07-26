@@ -1,0 +1,18 @@
+<div class="p-inputgroup">
+  <input
+    pInputText
+    id="search"
+    placeholder="Buscar por el nombre del firmante"
+    [(ngModel)]="searchTerm"
+    (input)="onSearchInput()"
+    (keypress)="onSearchInput()"
+    class="w-1/2"
+  />
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-search"
+    (click)="onSearchInput()"
+  ></button>
+</div>

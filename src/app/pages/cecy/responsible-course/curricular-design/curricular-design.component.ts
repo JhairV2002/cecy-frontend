@@ -1,5 +1,4 @@
 import { CourseModel } from '@models/cecy-v1/course.model';
-import { IdentificationValidator } from './../../../../shared/validators/identification-validator';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -8,12 +7,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-// import { CourseModel } from '@models/cecy';
-import { CatalogueHttpService, CourseHttpService } from '@services/cecy';
 import { MessageService } from '@services/core/message.service';
 import { CatalogueModel as CecyCatalogueModel } from '@models/cecy/catalogue.model';
 import { Subject, takeUntil } from 'rxjs';
 import { CourseService } from '@services/cecy-v1/course.service';
+import { ActivatedRoute } from '@angular/router';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 
 @Component({
   selector: 'app-curricular-design',
@@ -21,22 +20,22 @@ import { CourseService } from '@services/cecy-v1/course.service';
   styleUrls: ['./curricular-design.component.scss'],
 })
 export class CurricularDesignComponent implements OnInit {
-  course$ = this.courseHttpService.courses$;
+  loading$ = this.courseService.loading$;
   public progressBar: boolean = false;
-  private unsubscribe$ = new Subject<void>();
   public formCurricularDesign: FormGroup = this.newFormCourse;
   public formRequisites: FormGroup = this.newRequisite;
   public formStrategies: FormGroup = this.newStrategie;
   public formMechanisms: FormGroup = this.newFormTypeMechanism;
   public formEnviroment: FormGroup = this.newFormEnviroment;
   public areaType: CecyCatalogueModel[] = [];
-  public specialityType: CecyCatalogueModel[] = [];
+  // public specialityType: CecyCatalogueModel[] = [];
+  public specialityType: any;
   public prerequisites: CourseModel[] = [];
 
   typeRequisites: any[] = [];
   typeEnviroment: any[] = [];
 
-  selectedCourse: Object = {};
+  selectedCourse: any;
 
   dialogForm: boolean = false;
   dialogFormStrategie: boolean = false;
@@ -47,14 +46,17 @@ export class CurricularDesignComponent implements OnInit {
   titleMechanisms: string = '';
   duration: number = 0;
   titleModal: string = '';
-  @Input() courseId: number = 2;
+  courseId: number = 0;
+  filterAreaType: CecyCatalogueModel[] = [];
+  // filterSpecialityType: CecyCatalogueModel[] = [];
+  filterSpecialityType: any;
 
   constructor(
     private formBuilder: FormBuilder,
     public messageService: MessageService,
-    private courseHttpService: CourseHttpService,
-    private cataloguesHttpService: CatalogueHttpService,
-    private courseService: CourseService
+    private planificationCourseService: PlanificationsCoursesService,
+    private courseService: CourseService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.typeRequisites = [
       { id: 'technical', name: 'Técnico' },
@@ -68,18 +70,18 @@ export class CurricularDesignComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCourses();
-    this.loadCourse();
+    // this.loadCourse()
+    this.getPlanificationById();
     this.loadAreaType();
     this.loadSpecialityType();
   }
 
   get newFormCourse(): FormGroup {
     return this.formBuilder.group({
-      courseId: [null],
-      objective: [null, [Validators.required]],
-      area: [null, [Validators.required]],
-      speciality: [null, [Validators.required]],
-      alignment: [null, [Validators.required]],
+      id: [null],
+      objective: [null, [Validators.required, Validators.maxLength(255)]],
+      areaId: [null, [Validators.required]],
+      specialityId: [null, [Validators.required]],
       bibliographies: [null],
       evaluationMechanisms: [null],
       learningEnvironments: [null],
@@ -96,14 +98,6 @@ export class CurricularDesignComponent implements OnInit {
       diagnostic: [this.formBuilder.array([])],
       formative: [this.formBuilder.array([])],
       final: [this.formBuilder.array([])],
-    });
-  }
-
-  get newFormEnviroment(): FormGroup {
-    return this.formBuilder.group({
-      installation: [null, [Validators.required]],
-      theoreticalPhase: [false],
-      practicalPhase: [false],
     });
   }
 
@@ -144,7 +138,6 @@ export class CurricularDesignComponent implements OnInit {
     this.courseService.findAll().subscribe(
       (response) => {
         this.prerequisites = response;
-        console.log('prerequistesssssssss', this.prerequisites);
       },
       (error) => {
         this.messageService.error(error);
@@ -152,35 +145,18 @@ export class CurricularDesignComponent implements OnInit {
     );
   }
 
-  loadCourse() {
-    this.courseService
-      .getGeneralInformation(this.courseId)
-      .subscribe((response: any) => {
-        // this.formCurricularDesign.reset(response.data);
-        this.duration = response.duration;
-        console.log('çurriculum detail', response);
-      });
-    this.courseService
-      .getCurricularDesign(this.courseId)
-      .subscribe((response: any) => {
-        this.formCurricularDesign.reset(response);
-
-        if (response.prerequisites.length > 0) {
-          this.prerequisitesField.patchValue(response.prerequisites!);
-        } else {
-          return;
-        }
-        // this.courseService.getCatalogue(response.area).subscribe(
-        //   (res) => {
-        //     this.formCurricularDesign.patchValue({ area: res })
-        //   }
-        // )
-        // this.courseService.getCatalogue(response.speciality).subscribe(
-        //   (res) => {
-        //     this.formCurricularDesign.patchValue({ speciality: res })
-        //   }
-        // )
-      });
+  getPlanificationById() {
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
+      this.planificationCourseService
+        .planificationById(id)
+        .subscribe((data) => {
+          this.duration = data.durationTime;
+          this.courseId = data.courseId;
+          this.selectedCourse = data;
+          this.formCurricularDesign.patchValue(data.course);
+        });
+    }
   }
 
   validateHours(event: any, type: string) {
@@ -211,15 +187,12 @@ export class CurricularDesignComponent implements OnInit {
       .getCatalogues('SPECIALITY_AREA')
       .subscribe((response) => {
         this.specialityType = response;
+        this.filterSpecialityType = this.specialityType;
       });
   }
 
   updateSpecialityType(event: any) {
-    if (event.value?.children) {
-      this.specialityType = event.value.children;
-    } else {
-      return;
-    }
+    this.filterSpeciality(event.value);
   }
 
   onSubmit() {
@@ -228,6 +201,21 @@ export class CurricularDesignComponent implements OnInit {
     } else {
       this.formCurricularDesign.markAllAsTouched();
     }
+  }
+
+  updateCurricularDesign(curricularDesign: any): void {
+    this.courseService.update(curricularDesign, curricularDesign.id).subscribe({
+      next: (data) => {
+        console.log('esta es la response cc', data);
+        this.messageService.successCourse(data);
+        // this.loadCourse()
+        this.getPlanificationById();
+      },
+      error: (error) => {
+        console.log(error);
+        this.messageService.error(error);
+      },
+    });
   }
 
   updateRequisites() {
@@ -275,9 +263,33 @@ export class CurricularDesignComponent implements OnInit {
     this.onSubmit();
   }
 
+  get newFormEnviroment(): FormGroup {
+    return this.formBuilder.group({
+      installation: [null, [Validators.required]],
+      theoreticalPhase: [null],
+      practicalPhase: [null],
+    });
+  }
+
   deleteEnviroment(indice: number) {
     this.learningEnvironmentsField.value.splice(indice, 1);
     this.onSubmit();
+  }
+
+  updateEnviroment() {
+    if (this.formEnviroment.valid) {
+      if (this.learningEnvironmentsField.value === null) {
+        this.formCurricularDesign.value.learningEnvironments = [];
+      }
+      this.formCurricularDesign.value.learningEnvironments.push(
+        this.formEnviroment.value
+      );
+      this.onSubmit();
+      this.formEnviroment.reset();
+      this.dialogFormEnviroment = false;
+    } else {
+      this.formEnviroment.markAllAsTouched();
+    }
   }
 
   storeStrategie() {
@@ -288,6 +300,13 @@ export class CurricularDesignComponent implements OnInit {
             this.formCurricularDesign.value.bibliographies = [];
           }
           this.formCurricularDesign.value.bibliographies.push(
+            this.strategieField.value
+          );
+        } else if (this.typeModal === 'prerequisite') {
+          if (this.prerequisitesField.value === null) {
+            this.formCurricularDesign.value.prerequisites = [];
+          }
+          this.formCurricularDesign.value.prerequisites.push(
             this.strategieField.value
           );
         } else {
@@ -305,22 +324,6 @@ export class CurricularDesignComponent implements OnInit {
       this.formStrategies.markAllAsTouched();
     }
     this.dialogFormStrategie = false;
-  }
-
-  updateEnviroment() {
-    if (this.formEnviroment.valid) {
-      if (this.learningEnvironmentsField.value === null) {
-        this.formCurricularDesign.value.learningEnvironments = [];
-      }
-      this.formCurricularDesign.value.learningEnvironments.push(
-        this.formEnviroment.value
-      );
-      this.onSubmit();
-      this.formEnviroment.reset();
-      this.dialogFormEnviroment = false;
-    } else {
-      this.formEnviroment.markAllAsTouched();
-    }
   }
 
   updateMechanisms() {
@@ -358,6 +361,8 @@ export class CurricularDesignComponent implements OnInit {
   deleteStrategy(indice: number, type?: string) {
     if (type === 'bibliograph') {
       this.bibliographiesField.value.splice(indice, 1);
+    } else if (type === 'prerequisite') {
+      this.prerequisitesField.value.splice(indice, 1);
     } else {
       this.teachingStrategysField.value.splice(indice, 1);
     }
@@ -372,6 +377,8 @@ export class CurricularDesignComponent implements OnInit {
     this.typeModal = type;
     if (type === 'bibliograph') {
       this.titleModal = 'Bibliografías';
+    } else if (type === 'prerequisite') {
+      this.titleModal = 'Prerequisitos';
     } else {
       this.titleModal = 'Estrategia de enseñanzas';
     }
@@ -398,29 +405,6 @@ export class CurricularDesignComponent implements OnInit {
     this.dialogFormMechanisns = true;
   }
 
-  updateCurricularDesign(curricularDesign: any): void {
-    curricularDesign.areaId = curricularDesign.area.id;
-    curricularDesign.specialityId = curricularDesign.speciality.id;
-    curricularDesign.courseId = this.courseId;
-
-    // this.progressBar = true;
-    this.courseService
-      .setCurricularDesign(curricularDesign.courseId, curricularDesign)
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-          this.messageService.successCourse(data);
-          this.loadCourse();
-          this.progressBar = false;
-        },
-        error: (error) => {
-          console.log(error);
-          this.messageService.error(error);
-          this.progressBar = false;
-        },
-      });
-  }
-
   isRequired(field: AbstractControl): boolean {
     return field.hasValidator(Validators.required);
   }
@@ -435,15 +419,11 @@ export class CurricularDesignComponent implements OnInit {
   }
 
   get areaField() {
-    return this.formCurricularDesign.controls['area'];
+    return this.formCurricularDesign.controls['areaId'];
   }
 
   get specialityField() {
-    return this.formCurricularDesign.controls['speciality'];
-  }
-
-  get alignmentField() {
-    return this.formCurricularDesign.controls['alignment'];
+    return this.formCurricularDesign.controls['specialityId'];
   }
 
   get evaluationMechanismsField() {
@@ -512,5 +492,14 @@ export class CurricularDesignComponent implements OnInit {
 
   get prerequisitesField(): FormArray {
     return this.formCurricularDesign.controls['prerequisites'] as FormArray;
+  }
+
+  //filter
+
+  filterSpeciality(value: string): void {
+    const filterValue = value.toString();
+    this.filterSpecialityType = this.specialityType.filter(
+      (speciality: { parentId: string }) => speciality.parentId == filterValue
+    );
   }
 }

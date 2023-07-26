@@ -1,143 +1,75 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {  PaginatorModel, PrerequisiteModel} from '@models/cecy';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PrerequisiteHttpService } from '@services/cecy/prerequisite-http.service';
+import { PaginatorModel, PrerequisiteModel } from '@models/cecy';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MessageService } from '@services/core/message.service';
-import { CourseHttpService } from '@services/cecy';
-import { Subject, takeUntil } from 'rxjs';
 import { CourseService } from '@services/cecy-v1/course.service';
-import { CourseModel } from '@models/cecy-v1/course.model';
 
 @Component({
   selector: 'app-prerequisites',
   templateUrl: './prerequisites.component.html',
-  styleUrls: ['./prerequisites.component.scss']
+  styleUrls: ['./prerequisites.component.scss'],
 })
 export class PrerequisitesComponent implements OnInit {
-
-  prerequisites$ = this.prerequisiteHttpService.prerequisites$;
-
-  public formPrerequisites: FormGroup = this.newFormPrerequisites;
-  public progressBar: boolean = false;
-  private unsubscribe$ = new Subject<void>();
-  search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
-  cursos: CourseModel[] = [];
-  prerequisitesC: any[] = [];
-  @Input() courseId: number = 0;
-
-
+  // @Input() courseId: number = 0;
+  // typeModal: string;
+  // titleModal: string;
+  // dialogFormStrategie: boolean;
+  // public formCurricularDesign: FormGroup = this.newFormCourse;
 
   constructor(
     private formBuilder: FormBuilder,
-    private prerequisiteHttpService: PrerequisiteHttpService,
-    private coursesHttpService: CourseHttpService,
     public messageService: MessageService,
     private courseService: CourseService
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
-    this.loadFormPrerequisite()
-    this.loadCourses()
-    this.loadPrerequisites()
-  }
+  ngOnInit(): void {}
 
-  get newFormPrerequisites(): FormGroup {
-    return this.formBuilder.group({
-      prerequisites: [null,[Validators.required]],
-    });
-  }
-  loadFormPrerequisite() {
-    this.prerequisiteHttpService.getPrerequisites(1, this.search.value, this.courseId).subscribe(response => {
-      const prerequisitesCourse = response?.data.map((x: any) =>  x.prerequisite)
-      this.prerequisitesField.patchValue(prerequisitesCourse)
-    });
-  }
+  // get newFormCourse(): FormGroup {
+  //   return this.formBuilder.group({
+  //     id: [null],
+  //     objective: [null, [Validators.required]],
+  //     areaId: [null, [Validators.required]],
+  //     specialityId: [null, [Validators.required]],
+  //     alignment: [null, [Validators.required]],
+  //     bibliographies: [null],
+  //     evaluationMechanisms: [null],
+  //     learningEnvironments: [null],
+  //     teachingStrategies: [null],
+  //     techniquesRequisites: [null],
+  //     practiceHours: [null, [Validators.required]],
+  //     theoryHours: [null, [Validators.required]],
+  //     prerequisites: [null],
 
-  loadPrerequisites(page: number = 1) {
-    this.prerequisiteHttpService.getPrerequisites(page, this.search.value, this.courseId).subscribe(
-      response => {
-        const prerequisites = [] as any
-        response.data?.forEach((prerequisite: PrerequisiteModel) => {
-          prerequisites.push(prerequisite?.prerequisite)
-        });
-        this.formPrerequisites.reset({
-          prerequisites: prerequisites
-        })
-      }, error => {
-        this.messageService.error(error);
-      }
-    );
+  //   });
+  // }
 
-  }
-  loadCourses(page: number = 1) {
-    // this.coursesHttpService.getCourses(page, this.search.value).subscribe(
-    //   response => {
-    //     this.cursos  = response.data;
-    //   }, error => {
-    //     this.messageService.error(error);
-    //   }
-    // );
-    this.courseService.findAll().subscribe(
-      response=>{
-        this.cursos  = response;
-      }
-    )
-  }
+  // showFormStrategie(type?: string) {
+  //   this.typeModal = type;
+  //   if (type === 'bibliograph') {
+  //     this.titleModal = 'Bibliografías'
+  //   } else {
+  //     this.titleModal = 'Estrategia de enseñanzas'
+  //   }
+  //   this.dialogFormStrategie = true;
+  // }
 
+  // deleteStrategy(indice: number, type?: string) {
+  //   if (type === 'bibliograph') {
+  //     this.bibliographiesField.value.splice(indice, 1)
+  //   } else {
+  //     this.teachingStrategysField.value.splice(indice, 1)
+  //   }
+  //   this.onSubmit();
+  // }
 
-  onSubmit() {
-    console.log(this.formPrerequisites.value)
-    if (this.formPrerequisites.valid) {
-      const idsCourse = [] as any
-      if (this.prerequisitesField.value.length > 0) {
-        this.prerequisitesField.value.forEach((prerequisite: any) => {
-          idsCourse.push(prerequisite.id)
-        });
-      }
-        this.storePrerequisites(idsCourse);
-    } else {
-      this.formPrerequisites.markAllAsTouched();
-    }
-  }
-
-  storePrerequisites(prerequisites: PrerequisiteModel[]): void {
-    this.progressBar = true;
-    this.prerequisiteHttpService.storePrerequisite(prerequisites, this.courseId).subscribe(
-      response => {
-        this.messageService.success(response);
-        this.progressBar = false;
-      },
-      error => {
-        this.messageService.error(error);
-        this.progressBar = false;
-      }
-    );
-  }
-
-  deletePrerequisite(prerequisite: PrerequisiteModel): void {
-    this.messageService.questionDelete({})
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.prerequisiteHttpService.destroyPrerequisite(prerequisite.id!, this.courseId).subscribe(
-            response => {
-              this.messageService.success(response);
-            },
-            error => {
-              this.messageService.error(error);
-            }
-          );
-        }
-      });
-  }
-
-  isRequired(field: AbstractControl): boolean {
-    return field.hasValidator(Validators.required);
-  }
-
-   // Getters
-  get prerequisitesField(): FormArray {
-    return this.formPrerequisites.controls['prerequisites'] as FormArray;
-  }
+  // get bibliographiesField(): FormArray {
+  //   return this.formCurricularDesign.controls['bibliographies'] as FormArray;
+  // }
 }

@@ -1,0 +1,97 @@
+<div [ngClass]="{ relative: true }">
+  <p-avatar
+    class="w-full h-auto hover"
+    [image]="user?.image || 'assets/images/administrator/user-default.png'"
+    size="large"
+    shape="circle"
+    (click)="toggleDropdown($event)"
+  >
+  </p-avatar>
+
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu">
+    <div
+      *ngIf="isOpen"
+      class="absolute right-0 z-20 w-56 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+    >
+      <a
+        routerLink=""
+        class="flex items-center p-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white truncate"
+      >
+        <img
+          class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+          [src]="
+            user?.image
+              ? user?.image
+              : 'assets/images/administrator/user-default.png'
+          "
+          alt="avatar"
+        />
+        <div class="mx-1">
+          <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+            {{ user?.names ? user?.names : "Nombres" }}
+          </h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{
+              (user?.email | slice : 0 : 22)
+                ? user?.email
+                : "nombre@yavirac.edu.ec"
+            }}
+          </p>
+        </div>
+      </a>
+      <!-- <p-button
+        styleClass="p-button-text p-button-secondary w-full flex items-center p-3 text-sm"
+      >
+        <img
+          class="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
+          [src]="
+            user?.image
+              ? user?.image
+              : 'assets/images/administrator/user-default.png'
+          "
+          alt="jane avatar"
+        />
+        <div class="mx-1">
+          <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+            {{ user?.names }}
+          </h1>
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ user?.email }}
+          </p>
+        </div>
+      </p-button> -->
+      <hr class="border-gray-200 dark:border-gray-700" />
+      <p-button
+        (click)="showForm()"
+        class="w-full"
+        styleClass="p-button-text p-button-secondary w-full"
+      >
+        <i class="pi pi-user text-gray-600"></i>
+        <span class="ml-1 text-gray-600">Ver perfil</span>
+      </p-button>
+
+      <app-profile
+        [showModal]="isVisible"
+        (clickClose)="closeModal($event)"
+      ></app-profile>
+      <p-button
+        (click)="redirectConfigurate(user?.role?.name)"
+        class="w-full"
+        styleClass="p-button-text p-button-secondary w-full"
+      >
+        <i class="pi pi-cog text-gray-600"></i>
+        <span class="ml-1 text-gray-600">Configuración</span>
+      </p-button>
+      <hr class="border-gray-200 dark:border-gray-700" />
+      <p-button
+        class="w-full"
+        styleClass="p-button-text p-button-secondary w-full"
+        (click)="onlogout()"
+      >
+        <i class="pi pi-fw pi-sign-out text-gray-600"></i>
+        <span class="ml-1 text-gray-600">Salir</span>
+      </p-button>
+    </div>
+  </div>
+</div>

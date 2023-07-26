@@ -1,0 +1,52 @@
+<p-dialog
+  header="{{ titleModal }} carrera"
+  [(visible)]="showModal"
+  [maximizable]="true"
+  [style]="{ width: '498px' }"
+  [modal]="true"
+  (onHide)="closeModal()"
+>
+  <div class="p-fluid">
+    <form [formGroup]="formCareer" (ngSubmit)="onSubmit()">
+      <div class="field col-12">
+        <label
+          for="name"
+          appLabel
+          label="Nombre:"
+          [required]="isRequired(nameField)"
+          [valid]="nameField.valid"
+          [touched]="nameField.touched"
+          [dirty]="nameField.dirty"
+        >
+        </label>
+        <input class="w-full" pInputText id="name" formControlName="name" />
+        <small
+          appErrorMessage
+          [errors]="nameField.errors"
+          [touched]="nameField.touched"
+          [dirty]="nameField.dirty"
+        >
+        </small>
+      </div>
+
+      <p-divider></p-divider>
+      <!--onSubmit()-->
+      <div class="field">
+        <button
+          [disabled]="formCareer.invalid"
+          pButton
+          type="submit"
+          pRipple
+          label="{{ titleButton }}"
+          class="p-button-rounded"
+          icon="pi pi-save"
+        ></button>
+      </div>
+
+      <!--progressBar-->
+      <div class="mt-4" *ngIf="progressBar">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div>
+    </form>
+  </div>
+</p-dialog>

@@ -1,6 +1,12 @@
-<div class="layout-topbar">
-  <a class="layout-topbar-logo" routerLink="">
+<div
+  class="fixed top-0 left-0 w-full h-20 z-50 bg-gray-100 shadow-md flex items-center px-8"
+>
+  <a
+    routerLink=""
+    class="flex items-center justify-center text-gray-900 text-lg font-medium w-64 rounded-lg"
+  >
     <img
+      class="h-10 mr-2 rounded-full"
       src="assets/layout/images/{{
         layoutService.config.colorScheme === 'light'
           ? 'logo-dark'
@@ -13,96 +19,24 @@
 
   <button
     #menubutton
-    class="p-link layout-menu-button layout-topbar-button"
+    class="inline-flex justify-center items-center relative text-gray-500 bg-transparent rounded-full w-12 h-12 cursor-pointer transition-colors duration-200 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
     (click)="layoutService.onMenuToggle()"
   >
-    <i class="pi pi-bars"></i>
+    <i style="font-size: 1.2rem" class="pi pi-bars"></i>
   </button>
-
-  <button
-    #topbarmenubutton
-    class="p-link layout-topbar-menu-button layout-topbar-button"
-    (click)="layoutService.showProfileSidebar()"
-  >
-    <i class="pi pi-ellipsis-v"></i>
-  </button>
-
-  <div
-    #topbarmenu
-    class="layout-topbar-menu"
-    [ngClass]="{
-      'layout-topbar-menu-mobile-active':
-        layoutService.state.profileSidebarVisible
-    }"
-  >
-    <!-- <button class="p-link layout-topbar-button mr-6" (click)="visibleSidebar = true">
-      <i class="pi pi-bell"></i>
-      <span>Notificaciones</span>
-    </button> -->
-    <p-sidebar
-      [(visible)]="visibleSidebar"
-      position="right"
-      [baseZIndex]="10000"
-    >
-      <h3 style="font-weight: normal">Top Sidebar</h3>
-    </p-sidebar>
-    <a class="p-link layout-topbar-button1 mr-5" [routerLink]="'/user/profile'">
-      <i class="pi pi-user"></i>
-      <p class="ml-2">
-        {{ user?.names }}
-      </p>
-    </a>
-    <!-- <div class="drop-down-menu" *ngFor="let item of customer">
-      <a class="p-link profile drop-down-button mr-5">
-        <i class="pi pi-user"></i>
-        <p class="ml-1 ">
-          {{ item.customer.name }}
-        </p>
-      </a>
-      <div class="drop-down-menu-content">
-        <a>
-          <div class="flex flex-row">
-            <img
-              width="25"
-              height="25"
-              src="assets/images/components/default.png"
-              alt="Imagen de perfil"
-              class="mr-4"
-            />
-            <p class="m-0">
-              {{ item.customer.name + " " + item.customer.lastname }}
-            </p>
-          </div>
-        </a>
-        <a>
-          <p>{{ item.role }}</p>
-        </a>
-        <a href="#">
-          <i class="pi pi-user"></i>
-          Perfil
-        </a>
-        <a href="#">
-          <i class="pi pi-cog"></i>
-          Configuración
-        </a>
-      </div>
-    </div> -->
-    <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
-      <i class="pi pi-cog"></i>
-      <span>Configuraciones</span>
-    </button> -->
-    <!-- <div class="ml-3 image-profile">
-      <img
-        width="40"
-        height="40"
-        class="mr-2"
-        src="assets/images/components/default.png"
-        alt="Imagen de perfil"
-      />
-    </div> -->
-    <button class="p-link layout-topbar-button" (click)="onlogout()">
-      <i class="pi pi-fw pi-sign-out"></i>
-      <span>Salir</span>
-    </button>
+  <div class="flex ml-auto">
+    <app-notification
+      *ngIf="user?.role?.name === 'coordinator_cecy'"
+      class="flex items-center justify-center"
+    ></app-notification>
+    <app-notification
+      *ngIf="user?.role?.name === 'coordinator_career'"
+      class="flex items-center justify-center"
+    ></app-notification>
+    <app-dropdown></app-dropdown>
   </div>
 </div>
+
+<!-- <button (click)="layoutService.showProfileSidebar()">
+      <i style="font-size: 1.2rem" class="pi pi-ellipsis-v"></i>
+    </button> -->

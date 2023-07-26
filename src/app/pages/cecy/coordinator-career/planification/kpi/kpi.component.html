@@ -1,0 +1,56 @@
+<p-tag [rounded]="true">
+  <div class="flex align-items-center gap-2">
+    <span>Planificaciones Total</span>
+    {{ planificationCourses.length }}
+  </div>
+</p-tag>
+<!-- <p-chip styleClass="mr-2">
+  <i class="bi bi-file-earmark-person mr-2"></i>
+  <small>
+    Planificaciones Total
+    {{ planificationCourses.length }}
+  </small></p-chip
+> -->
+
+<p-chip styleClass="mr-2">
+  <i class="bi bi-file-earmark-person mr-2"></i>
+  <small
+    >Por aprobar
+    {{ planificationCourses.length }}
+  </small></p-chip
+>
+<p-chip styleClass="mr-2">
+  <i class="bi bi-file-earmark-break mr-2"></i>
+  <small
+    >Completado
+    {{ planificationCourses.length }}
+  </small></p-chip
+>
+<p-tag severity="danger" [rounded]="true">
+  <div class="flex align-items-center gap-2">
+    <span>En proceso</span>
+    {{ countPlanifications("creado") }}
+  </div>
+</p-tag>
+
+<p-chip styleClass="mr-2">
+  <i class="bi bi-file-earmark-excel mr-2"></i>
+  <small
+    >No aprobado
+    {{ planificationCourses.length }}
+  </small></p-chip
+>
+<p-tag severity="success" [rounded]="true">
+  <div class="flex align-items-center gap-2">
+    <span>Aprobado</span>
+    {{ countPlanifications("aprobado") }}
+  </div>
+</p-tag>
+
+<p-chip styleClass="mr-2">
+  <i class="bi bi-file-earmark-richtext mr-2"></i>
+  <small
+    >Culminado
+    {{ planificationCourses.length }}
+  </small></p-chip
+>

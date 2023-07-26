@@ -1,0 +1,50 @@
+<p-dialog
+  header="Comentar Planificación"
+  [(visible)]="openModal"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ width: '498px' }"
+  [maximizable]="true"
+  (onHide)="closeModal()"
+>
+  <form [formGroup]="formComment" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label
+        for="comment"
+        appLabel
+        label="Agregue el comentario:"
+        [required]="isRequired(commentField)"
+        [valid]="commentField.valid"
+        [touched]="commentField.touched"
+        [dirty]="commentField.dirty"
+      ></label>
+      <textarea
+        class="w-full"
+        rows="5"
+        cols="30"
+        pInputTextarea
+        formControlName="comments"
+        placeholder="Ej. Agregue el comentario del porque suspende la planificacio..."
+      ></textarea>
+      <small
+        appErrorMessage
+        [errors]="commentField.errors"
+        [touched]="commentField.touched"
+        [dirty]="commentField.dirty"
+      >
+      </small>
+    </div>
+    <p-divider></p-divider>
+    <div class="p-field">
+      <button
+        type="button"
+        (click)="saveCommentAndSuspendePlanification()"
+        pButton
+        [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-ban'"
+        label="Suspender Planificacion"
+        class="w-full"
+        icon="pi pi-save"
+      ></button>
+    </div>
+  </form>
+</p-dialog>

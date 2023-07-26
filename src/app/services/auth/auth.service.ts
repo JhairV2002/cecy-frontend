@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Auth, User, ProfileCustomerDTO } from '@models/authentication';
+import { Auth, User } from '@models/authentication';
 import { TokenService } from './token.service';
-import { checkTime } from './../../interceptors/time.interceptor';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 import { Planification } from '@models/cecy/coordinator-career/careers.model';
 
 @Injectable({
@@ -16,9 +15,10 @@ export class AuthService {
   private apiUrl = `${environment.api2}/auth`;
   private apiUrl2 = `${environment.api2}/planifications`;
 
-  user = new BehaviorSubject<User[] | null>(null);
-  user$ = this.user.asObservable();
+  user$ = new BehaviorSubject<User[] | null>(null);
   userProfile$ = new BehaviorSubject<User | null>(null);
+  loading = new BehaviorSubject<boolean>(true);
+  loading$: Observable<boolean> = this.loading.asObservable();
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -37,7 +37,7 @@ export class AuthService {
   profile() {
     return this.http
       .get<User[]>(`${this.apiUrl}/profile`, {})
-      .pipe(tap((user) => this.user.next(user)));
+      .pipe(tap((user: any) => this.user$.next(user)));
   }
 
   loginAndGet(user: any) {
@@ -45,10 +45,11 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    return this.http.get<Planification[]>(`${this.apiUrl2}/my`);
+    return this.http.get<any[]>(`${this.apiUrl2}/my`);
   }
 
   getProfile() {
+    this.loading.next(true);
     const token = this.tokenService.getToken();
     return this.http
       .get<User>(`${this.apiUrl}/profile`, {
@@ -57,8 +58,12 @@ export class AuthService {
         },
       })
       .pipe(
-        tap((user) => {
+        tap((user: any) => {
+          this.user$.next(user);
           this.userProfile$.next(user);
+        }),
+        finalize(() => {
+          this.loading.next(false);
         })
       );
   }

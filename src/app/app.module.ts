@@ -21,11 +21,11 @@ import { TableModule } from 'primeng/table';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MenuModule } from 'primeng/menu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 // Components
 import { AppComponent } from './app.component';
 import { LayoutModule } from '@layout/layout.module';
-
 import { SharedModule } from '@shared/shared.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MessageService } from 'primeng/api';
@@ -34,8 +34,20 @@ import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
 
+//Socket.io
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from '@env/environment';
+const config: SocketIoConfig = {
+  url: environment.HOST2,
+  options: { transports: ['websocket'] },
+};
+
+//Ngx Progress Bar
+import { NgProgressModule } from 'ngx-progressbar';
+
 @NgModule({
-  declarations: [AppComponent,
+  declarations: [
+    AppComponent,
     //ShowForRolesDirective
   ],
   imports: [
@@ -63,6 +75,9 @@ import { CommonModule } from '@angular/common';
     ProgressSpinnerModule,
     MenuModule,
     LayoutModule,
+    NgProgressModule,
+    SocketIoModule.forRoot(config),
+    ConfirmDialogModule,
   ],
   providers: [MessageService, ConfirmationService, HttpInterceptorProviders],
   bootstrap: [AppComponent],

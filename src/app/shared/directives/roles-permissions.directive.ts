@@ -6,14 +6,14 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { PermissionModel, RoleModel, UserModel } from '@models/core';
+import { PermissionModel, RoleModel } from '@models/core';
 import { AuthService } from '@services/core/auth.service';
 
 @Directive({
   selector: '[appRolesPermissions]',
 })
 export class RolesPermissionsDirective implements OnInit {
-  private auth: UserModel | null;
+  private auth:  null;
   private readonly permissions: PermissionModel[] | null = [];
   private readonly roles: RoleModel[] = [];
   private currentPermissions: string[] = [];

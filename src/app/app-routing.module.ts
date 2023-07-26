@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-/* import { MainComponent, BlankComponent } from '@layout/index';
- */
 import { RoleGuard } from '@shared/guards/role.guard';
-import { RolesEnum } from '@shared/enums/roles.enum';
-import { BlankComponent } from '@shared/components/layouts/blank/blank.component';
 import { AdminGuard } from './guards/admin.guard';
 import { HasRoleGuard } from './guards/has-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
+import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
 
 const routes: Routes = [
   {
@@ -23,33 +20,38 @@ const routes: Routes = [
     path: 'administrator',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import(
-        './pages/core/user-administration/user-administration.module'
-      ).then((m) => m.UserAdministrationModule),
+      import('./pages/core/administrator/administrator.module').then(
+        (m) => m.AdministratorModule
+      ),
   },
   {
     path: 'cecy',
     loadChildren: () =>
       import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
   },
-  // {
-  //   path: 'cecy/guest',
-  //   loadChildren: () =>
-  //     import('./pages/cecy/guest/guest.module').then((m) => m.GuestModule),
-  // },
+
+  {
+    path: 'estudiante',
+    component: EstudiantesComponent,
+    loadChildren: () =>
+      import('./pages/estudiante/estudiante.module').then(
+        (m) => m.EstudianteModule
+      ),
+  },
   {
     path: 'common',
     loadChildren: () =>
       import('./pages/core/common/common.module').then((m) => m.CommonModule),
   },
-  {
-    path: '**',
-    redirectTo: 'common/not-found',
-  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: false,
+      paramsInheritanceStrategy: 'always',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

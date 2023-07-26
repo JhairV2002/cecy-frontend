@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { PlanificationCareerService } from '@services/cecy/coordinator-cecy';
-import { debounceTime } from 'rxjs';
+import { MessageService } from '@services/core';
 
 @Component({
   selector: 'app-search-course',
@@ -9,30 +9,49 @@ import { debounceTime } from 'rxjs';
   styleUrls: ['./search-course.component.scss'],
 })
 export class SearchCourseComponent implements OnInit {
-  search = new FormControl('');
+  @Output() coursesSearch = new EventEmitter<any>();
+  searchValue: string = '';
   result: [] = [];
 
-  constructor(private planificationCareerService: PlanificationCareerService) {}
+  constructor(
+    private planificationCareerService: PlanificationCareerService,
+    private router: Router,
+    public messageService: MessageService
+  ) {}
 
-  ngOnInit(): void {
-    this.filter();
-  }
-  filter() {
-    this.search.valueChanges
-      .pipe(debounceTime(500))
-      .subscribe((search: any) => {
-        console.log('Buscando', search);
-        this.filterSearchName(search);
-      });
-  }
+  ngOnInit(): void {}
 
-  filterSearchName(value: string) {
-    this.planificationCareerService
-      .filterByName(value)
-      .pipe()
-      .subscribe((data) => {
-        console.log('Buscando', data);
-        this.result = data;
+  onSearchInput(): void {
+    console.log('SEARCH', this.searchValue);
+    if (this.searchValue === '') {
+      this.router.navigate(['/cecy/coordinator-cecy/course']).then(() => {
+        this.planificationCareerService.getCareerAndCourses().subscribe({
+          next: (data) => {
+            this.coursesSearch.emit(data);
+          },
+          error: (error) => {
+            this.messageService.error(error);
+          },
+        });
       });
+    } else {
+      this.router
+        .navigate(['/cecy/coordinator-cecy/course'], {
+          queryParams: {
+            search: this.searchValue,
+          },
+        })
+        .then(() => {
+          this.planificationCareerService.search(this.searchValue).subscribe({
+            next: (data) => {
+              console.log('SEARCH COURSES', data);
+              this.coursesSearch.emit(data);
+            },
+            error: (error) => {
+              console.error(error);
+            },
+          });
+        });
+    }
   }
 }

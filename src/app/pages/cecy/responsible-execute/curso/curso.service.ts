@@ -1,47 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Curso } from './curso';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Curso } from './curso';
+import { TokenService } from '@services/auth';
 import { environment } from '@env/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CursoService {
-  constructor(private http: HttpClient) {}
+  private apiUrl = `${environment.api2}/courses`;
 
-  private apiUrl = `${environment.api3}`;
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-
-  private url: string = 'http://localhost:8081/api/planificacion/cursos';
-
-
-  //OJO ES LO MISMO CON EL APIURL
-  getAll() {
-    return this.http.get<Curso>(`${this.apiUrl}/api/planificacion/cursos`);
+  getCursosByInstructor(instructorId: any): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.apiUrl}/find/instructor/${instructorId}`);
   }
 
-  public findById(id: number): Observable<Curso> {
-    return this.http.get<Curso>(this.url + '/' + id, this.httpOptions);
+  getCursoById(cursoId: number): Observable<Curso> {
+    const url = `http://localhost:8080/api/cursos/${cursoId}`;
+    return this.http.get<Curso>(url);
   }
 
-  public findAll(): Observable<Curso[]> {
-    return this.http.get<Curso[]>(this.url + '/', this.httpOptions);
-  }
-
-  public findByName(term: string): Observable<Curso[]> {
-    return this.http.get<Curso[]>(
-      this.url + '/findByName/' + term,
-      this.httpOptions
-    );
-  }
-
-  public findBySchoolPeriod(term: string): Observable<Curso[]> {
-    return this.http.get<Curso[]>(
-      this.url + '/findBySchoolPeriod/' + term,
-      this.httpOptions
-    );
+  actualizarStatusCurso(cursoId: number, nuevoStatus: string): Observable<Curso> {
+    const url = `http://localhost:8080/api/cursos/${cursoId}`;
+    const body = { statusCourse: nuevoStatus };
+    return this.http.put<Curso>(url, body);
   }
 }

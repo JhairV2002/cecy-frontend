@@ -1,71 +1,145 @@
-<br><br>
-<body>
-
-<h2 class="text-3xl font-bold light:text-black"  id="titulo">Listado de Estudiantes</h2>
-
-<!-- <table>
-  <tr>
-    <th>Nombre</th>
-    <th>Nota</th>
-    <th>Editar Nota</th>
-  </tr>
-  <tr *ngFor="let estudiante of estudiantes">
-    <td>{{ estudiante.nombre }}</td>
-    <td>{{ estudiante.nota }}</td>
-    <td>
-      <input type="number" [(ngModel)]="estudiante.nota" />
-      <button (click)="editarNota(estudiante, estudiante.nota)">Guardar</button>
-    </td>
-  </tr>
-</table> -->
-
-<div class="relative overflow-x-auto shadow-md">
-  <table class="w-full text-sm text-left text-gray-500 light:text-gray-400">
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 light:bg-gray-10 light:text-gray-400"
-    >
-      <tr>
-        <th scope="col" class="px-6 py-3">
-          NOMBRE</th>
-        <th scope="col" class="px-6 py-3" >
-          NOTA</th>
-        <th scope="col" class="px-6 py-3">
-          EDITAR NOTA</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let estudiante of estudiantes"
-        class="bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-      >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap light:text-white" 
-        >
-          {{ estudiante.nombre }}
-        </th>
-        <td class="px-6 py-4" >
-          {{ estudiante.nota }}
-        </td>
-        <td class="px-6 py-4" >
-          <input type="number" id="nota"
-          class="rounded-lg block w-full p-2.5 bg-white border-b light:bg-gray-800 light:border-gray-700 hover:bg-gray-50 light:hover:bg-gray-600"
-          [(ngModel)]="estudiante.nota"/>
-
-        </td>
-
-        <td class="px-6 py-4 text-right">
-          <button 
-          align="center"
-            type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800"
-            (click)="editarNota(estudiante, estudiante.nota)"
-          >
-            Guardar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<p-toolbar>
+  <div class="p-toolbar-group-start gap-2">
+    <button
+      pButton
+      type="button"
+      id="volver"
+      class="p-button p-button-outlined"
+      icon="pi pi-arrow-left"
+      (click)="regresar()"
+      label="Volver"
+    ></button>
+    <button
+      pButton
+      type="button"
+      id="asistencia"
+      class="p-button p-button-primary"
+      icon="pi pi-user-plus"
+      (click)="redireccionar()"
+      label="asistencia"
+    ></button>
+  </div>
+</p-toolbar>
+<div class="flex m-4">
+  <div class="flex-1">
+    <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
+  </div>
+  <div class="">
+    <div class="p-inputgroup">
+      <input
+        pInputText
+        id="search"
+        placeholder="Buscar por nombre"
+        [(ngModel)]="nombreFiltrado"
+        (input)="filtrarPorNombre()"
+        (keypress)="filtrarPorNombre()"
+      />
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-search"
+        (click)="filtrarPorNombre()"
+      ></button>
+    </div>
+  </div>
 </div>
-</body>
+<p-table
+  [value]="estudiantes$ | async | nombreFilter : nombreFiltrado"
+  [responsive]="true"
+  class="p-datatable"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>CEDULA</th>
+      <th>NOMBRE</th>
+      <th>% ASISTENCIA</th>
+      <th>NOTA 1</th>
+      <th>NOTA 2</th>
+      <th>PROMEDIO</th>
+      <th>ESTADO</th>
+      <th>ACCIONES</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-matricula>
+    <tr>
+      <td>
+        {{
+          matricula.estudiantes
+            ? matricula.estudiantes.cedula
+            : "Sin Estudiante"
+        }}
+      </td>
+      <td>
+        {{
+          matricula.estudiantes
+            ? matricula.estudiantes.nombres
+            : "Sin Estudiante"
+        }}
+      </td>
+      <td>
+        <p-inputNumber
+          id="asistencia"
+          [(ngModel)]="matricula.porcentajeAsistencia"
+          placeholder="Ingrese el % asistencia"
+          [min]="1"
+          [max]="100"
+          [showButtons]="true"
+          [buttonLayout]="'horizontal'"
+          (keydown)="validarNumero($event)"
+        ></p-inputNumber>
+      </td>
+      <td>
+        <p-inputNumber
+          id="nota1"
+          [(ngModel)]="matricula.nota1"
+          placeholder="Ingrese una nota"
+          [min]="1"
+          [max]="100"
+          [showButtons]="true"
+          [buttonLayout]="'horizontal'"
+          (keydown)="validarNumero($event)"
+        ></p-inputNumber>
+      </td>
+      <td>
+        <p-inputNumber
+          id="nota2"
+          [(ngModel)]="matricula.nota2"
+          placeholder="Ingrese una nota"
+          [min]="1"
+          [max]="100"
+          [showButtons]="true"
+          [buttonLayout]="'horizontal'"
+          (keydown)="validarNumero($event)"
+        ></p-inputNumber>
+      </td>
+      <td>{{ matricula.promedio }}</td>
+      <td>{{ matricula.estadoCurso.descripcion }}</td>
+      <td>
+        <button
+          pButton
+          type="button"
+          class="p-button p-button-rounded p-button-success"
+          (click)="guardarNotas(matricula)"
+        >
+          Guardar
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" style="width: 100%">No hay estudiantes</td>
+    </tr>
+  </ng-template>
+</p-table>
+<button
+  pButton
+  type="button"
+  class="p-button p-button-success"
+  icon="pi pi-download"
+  id="excel"
+  (click)="generarExcel()"
+>
+  ㅤGenerar Excel
+</button>

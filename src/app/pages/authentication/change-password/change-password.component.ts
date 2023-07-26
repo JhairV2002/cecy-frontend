@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CustomValidators } from '@shared/validators/custom-validators';
 import { RecoveryPasswordService } from '@services/auth';
-import { RecoveryTokenParams } from '@models/authentication';
 import { MessageService } from '@services/core';
 
 @Component({
@@ -13,7 +12,7 @@ import { MessageService } from '@services/core';
   styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent implements OnInit {
-  formChangePassword = this.formBuilder.group({
+  formChangePassword = this.fb.group({
     token: ['', [Validators.required]],
     newPassword: ['', [Validators.required]],
     confirm_password: ['', [Validators.required]],
@@ -21,11 +20,9 @@ export class ChangePasswordComponent implements OnInit {
   progressBar: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
-    private recoveryPasswordService: RecoveryPasswordService,
-    public messageService: MessageService,
-    private router: Router
+    public messageService: MessageService
   ) {
     this.formChangePassword.setValidators(
       CustomValidators.passwordMatch('newPassword', 'confirm_password')
@@ -36,12 +33,13 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   getToken() {
-    this.route.queryParams.subscribe(
+    this.route.queryParams
+      .subscribe
       //(params: RecoveryTokenParams)
-       //=> {
+      //=> {
       //this.token = params.token;
-    //}
-    );
+      //}
+      ();
   }
 
   resetPassword() {

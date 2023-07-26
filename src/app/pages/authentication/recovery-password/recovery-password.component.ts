@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthHttpService, AuthService, MessageService } from '@services/core';
+import { AuthService, MessageService } from '@services/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from '@shared/validators/custom-validators';
 import { RecoveryPasswordService } from '@services/auth';
@@ -20,11 +20,11 @@ export class RecoveryPasswordComponent implements OnInit {
   });
   form: FormGroup;
   progressBar: boolean = false;
-  sendEmail: boolean = false
+  sendEmail: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authHttpService: AuthHttpService,
     public messageService: MessageService,
     private authService: AuthService,
     private router: Router,
@@ -42,16 +42,16 @@ export class RecoveryPasswordComponent implements OnInit {
   }
 
   recoverPassword() {
-    this.progressBar = true;
+    this.loading = true;
     const userEmailValue = this.formReset.value;
     this.recoveryPasswordService.recoveryPassword(userEmailValue).subscribe({
-      complete: () => {
+      next: () => {
         this.formReset.reset();
-        this.progressBar = false;
-        this.sendEmail = true
+        this.sendEmail = true;
+        this.loading = false;
       },
       error: (error) => {
-        this.progressBar = false;
+        this.loading = false;
         this.messageService.error(error);
       },
     });
@@ -80,21 +80,6 @@ export class RecoveryPasswordComponent implements OnInit {
   isRequired(field: AbstractControl): boolean {
     return field.hasValidator(Validators.required);
   }
-
-  /* resetPassword() {
-    this.progressBar = true;
-    this.authHttpService.resetPassword(this.form.value).subscribe(
-      (response) => {
-        this.messageService.success(response);
-        this.progressBar = false;
-        this.redirect();
-      },
-      (error) => {
-        this.messageService.error(error);
-        this.progressBar = false;
-      }
-    );
-  } */
 
   redirect() {
     this.router.navigate(['/authentication/login']);

@@ -8,6 +8,9 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { MessageModule } from 'primeng/message';
 
+//PrimeNg
+import { CardModule } from 'primeng/card';
+
 @NgModule({
   declarations: [
     NotFoundComponent,
@@ -20,6 +23,7 @@ import { MessageModule } from 'primeng/message';
     ButtonModule,
     RippleModule,
     MessageModule,
+    CardModule,
   ],
 })
 export class CommonModule {}

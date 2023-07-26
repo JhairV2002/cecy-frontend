@@ -1,8 +1,19 @@
-export interface Curso{
-  id: number,
-  codeCourse: string,
-  name: string,
-  modality: string,
-  schoolPeriod: string
+export interface PlanificationCourse {
+  id: number;
+  codeCourse: string;
+  name: string;
+  state: string;
+  startDate: string;
 }
 
+export interface Workday {
+  id: number;
+  name: string;
+}
+
+export interface Curso {
+  id: number;
+  workday: Workday;
+  planificationCourse: PlanificationCourse;
+  statusCourse: string;
+}

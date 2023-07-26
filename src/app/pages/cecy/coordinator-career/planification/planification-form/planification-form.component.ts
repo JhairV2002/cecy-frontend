@@ -1,141 +1,254 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnChanges,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Socket } from 'ngx-socket-io';
 
-import { InstructorModel, PlanificationModel } from '@models/cecy';
-import { InstructorHttpService, PlanificationHttpService, SchoolPeriodHttpService } from '@services/cecy';
+import { CatalogueModel } from '@models/cecy';
 import { MessageService } from '@services/core';
-
+import {
+  PlanificationsCoursesService,
+  TeachersService,
+} from '@services/cecy/coordinator-career';
+import { SchoolYearService } from '@services/cecy/coordinator-cecy';
+import { SchoolYear, AutoComplete } from '@models/cecy/coordinator-career';
+import { CourseService } from '@services/cecy-v1/course.service';
+import { formatDate } from '@angular/common';
+import jwt_decode from 'jwt-decode';
+import { TokenService } from '@services/auth';
 @Component({
   selector: 'app-planification-form',
   templateUrl: './planification-form.component.html',
-  styleUrls: ['./planification-form.component.scss']
+  styleUrls: ['./planification-form.component.css'],
 })
-export class PlanificationFormComponent implements OnInit {
-  @Output() dialogForm = new EventEmitter<boolean>();
-  @Input() courseId: number | undefined;
+export class PlanificationFormComponent implements OnInit, OnChanges {
+  @Input() showModal: boolean = true;
+  @Input() selectedCareer: any;
+  @Output() clickClose = new EventEmitter<boolean>();
+  @Output() addPlanification = new EventEmitter<any>();
+  @Input() selectPlanification: any = null;
+  progressBar: boolean = false;
+  users: any = [];
+  review: [] = [];
+  schoolYears: SchoolYear[] = [];
+  modalities: CatalogueModel[] = [];
+  public formPlanification = new FormGroup({
+    schoolYearId: new FormControl(null, [Validators.required]),
+    codeCourse: new FormControl('xxxxx', [
+      Validators.required,
+      Validators.maxLength(5),
+    ]),
+    name: new FormControl('', [Validators.required]),
+    durationTime: new FormControl(null, [
+      Validators.required,
+      Validators.min(0),
+      Validators.max(75),
+      Validators.pattern('^[0-9]*$'),
+    ]),
+    startDate: new FormControl(new Date(), [Validators.required]),
+    finishDate: new FormControl(new Date(), [Validators.required]),
+    state: new FormControl('creado'),
+    free: new FormControl(false, [Validators.required]),
+    modalityId: new FormControl(null, Validators.required),
+    userId: new FormControl(null, [Validators.required]),
+    careerId: new FormControl(),
+    planningReviewId: new FormControl(null, [Validators.required]),
+  });
 
-  private unsubscribe$ = new Subject<void>();
-  private planification$ = this.planificationHttpService.planification$;
-  public formPlanification: FormGroup = this.newFormPlanification;
-  public progressBar: boolean = false;
-  public minDate: Date | undefined;
-  public maxDate: Date | undefined;
-
-  // Foreign Key
-  public courseResponsibles: InstructorModel[] = [];
+  titleModal: string = '';
+  titleButton: string = '';
+  UserByRoleEspecific: [] = [];
+  isEdit: boolean = false;
+  planifications: any[] = [];
+  inputAddCourse: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private planificationHttpService: PlanificationHttpService,
-    private instructorHttpService: InstructorHttpService,
-    private schoolPeriodHttpService: SchoolPeriodHttpService,
     public messageService: MessageService,
-  ) {
-
-    this.planification$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(response => {
-
-        if (response.id !== undefined) {
-          this.formPlanification.reset(response);
-        }
-      });
-  }
+    private planificationsCoursesService: PlanificationsCoursesService,
+    private teacherService: TeachersService,
+    private schoolYearService: SchoolYearService,
+    private courseService: CourseService,
+    private socket: Socket,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
-    this.loadCourseResponsibles();
-    this.loadCurrentSchoolPeriod();
+    this.loadPlanificationsAll();
+    this.loadUserByRole();
+    this.loadPlanningReviewBy();
+    this.loadScholYears();
+    this.loadAllModalities();
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+  ngOnChanges() {
+    if (this.selectPlanification) {
+      const patchedValue = {
+        ...this.selectPlanification,
+        startDate: new Date(this.selectPlanification.startDate),
+        finishDate: new Date(this.selectPlanification.finishDate),
+      };
+
+      patchedValue.startDate = formatDate(
+        patchedValue.startDate,
+        'yyyy-MM-dd',
+        'en-US'
+      );
+      patchedValue.finishDate = formatDate(
+        patchedValue.finishDate,
+        'yyyy-MM-dd',
+        'en-US'
+      );
+
+      this.formPlanification.patchValue(patchedValue);
+      this.titleModal = 'Editar una';
+      this.titleButton = 'Editar';
+      this.isEdit = true;
+    } else {
+      this.formPlanification.reset();
+      this.titleModal = 'Crear un';
+      this.titleButton = 'Crear';
+      this.isEdit = false;
+    }
   }
 
-  loadCurrentSchoolPeriod() {
-    this.schoolPeriodHttpService
-      .getCurrentSchoolPeriod()
-      .subscribe(
-        response => {
-          // DDRC-C: usado para la validacion del fechas dentro del periodo lectivo actual
-          const [sY, sM, sD] = response.data.startedAt.split('-')
-          this.minDate = new Date(+sY, +sM - 1, +sD);
-          const [eY, eM, eD] = response.data.endedAt.split('-')
-          this.maxDate = new Date(+eY, +eM - 1, +eD);
-        });
-  }
-
-  loadCourseResponsibles() {
-    this.instructorHttpService
-      .getInstructors()
-      .subscribe({
-        next: response => this.courseResponsibles = response.data,
-        error: error => this.messageService.error(error)
+  loadPlanificationsAll() {
+    this.planificationsCoursesService
+      .getPlanificationCourses()
+      .subscribe((data) => {
+        console.log('ALL PLANIFICATIONS', data);
+        this.planifications = data;
       });
   }
 
-  get newFormPlanification(): FormGroup {
-    return this.formBuilder.group({
-      id: [null],
-      responsibleCourse: [null, [Validators.required]],
-      startedAt: [null, [Validators.required]],
-      endedAt: [null, [Validators.required]],
+  loadUserByRole() {
+    this.teacherService.getUserByRole().subscribe((data) => {
+      this.users = data;
+      console.log('Estos son los usuarios con rol de Docente', data);
     });
+  }
+
+  loadPlanningReviewBy() {
+    this.teacherService.getUserByRoleEspecific().subscribe((data) => {
+      console.log('EN REVISION', data);
+      this.review = data;
+    });
+  }
+
+  loadScholYears() {
+    this.schoolYearService.getSchoolYear().subscribe((data) => {
+      this.schoolYears = data;
+    });
+  }
+
+  loadAllModalities() {
+    this.courseService.getCatalogues('MODALITY').subscribe({
+      next: (data) => {
+        console.log('MODALIDADES', data);
+        this.modalities = data;
+      },
+      error: (error) => {
+        this.messageService.error(error);
+      },
+    });
+  }
+
+  addEditPlanification() {
+    this.progressBar = true;
+    this.state = 'creado';
+    this.careerId = this.selectedCareer;
+    const valuesFormPlanification = this.formPlanification.value;
+    console.log('SELECCIONADO PLANIFICACION', this.selectPlanification);
+
+    const tokenUser = this.tokenService.getToken();
+    if (tokenUser) {
+      const decode = jwt_decode(tokenUser) as { [key: string]: any };
+      console.log(valuesFormPlanification);
+      console.log(decode);
+      const data = {
+        ...valuesFormPlanification,
+        idEmitUser: decode,
+      };
+      if (!this.selectPlanification) {
+        this.socket.emit('app:newPlanification', data, (response: any) => {
+          if (response.error) {
+            this.messageService.error(response.error);
+            this.progressBar = false;
+          } else {
+            console.log('ALL', response);
+            this.progressBar = false;
+            this.messageService.successPlanification(response);
+            this.clickClose.emit(false);
+            this.addPlanification.emit(response.data);
+            this.formPlanification.reset();
+          }
+        });
+      } else {
+        console.log('EDITANDO');
+      }
+    }
+
+    // this.planificationsCoursesService
+    //   .createEdit(valuesFormPlanification, this.selectPlanification)
+    //   .subscribe({
+    //     next: (data: any) => {
+    //       this.progressBar = false;
+    //       this.messageService.successPlanification(data);
+    //       this.clickClose.emit(false);
+    //       this.addPlanification.emit(data);
+    //       this.formPlanification.reset();
+    //     },
+    //     error: (error) => {
+    //       console.log(error);
+    //     },
+    //   });
   }
 
   onSubmit() {
     if (this.formPlanification.valid) {
-      if (this.idField.value) {
-        this.updatePlanification(this.formPlanification.value);
-      } else {
-        this.storePlanification(this.formPlanification.value);
-      }
+      this.addEditPlanification();
     } else {
       this.formPlanification.markAllAsTouched();
     }
   }
 
-  storePlanification(planification: PlanificationModel): void {
-    this.progressBar = true;
-
-    this.planificationHttpService
-      .storePlanificationByCourse(this.courseId, planification)
-      .subscribe(
-        {
-          next: response => {
-            this.messageService.success(response);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          },
-          error: error => {
-            this.messageService.error(error);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          }
-        }
-      );
+  deletePlanification(id: number) {
+    this.planificationsCoursesService
+      .removePlanificationCourse(id)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
-  updatePlanification(planification: PlanificationModel): void {
-    this.progressBar = true;
+  closeModal() {
+    this.clickClose.emit(false);
+  }
 
-    this.planificationHttpService
-      .updatePlanificationByCourse(planification.id!, planification)
-      .subscribe(
-        {
-          next: response => {
-            this.messageService.success(response);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          },
-          error: error => {
-            this.messageService.error(error);
-            this.progressBar = false;
-            this.dialogForm.emit(false);
-          }
-        }
-      );
+  search(event: AutoComplete) {
+    this.planificationsCoursesService
+      .searchPlanifications(event.query)
+      .subscribe({
+        next: (data) => {
+          this.planifications = data;
+        },
+      });
+  }
+
+  addCourseForInput() {
+    this.inputAddCourse = true;
+  }
+
+  addForDropDown() {
+    this.inputAddCourse = false;
   }
 
   isRequired(field: AbstractControl): boolean {
@@ -143,19 +256,52 @@ export class PlanificationFormComponent implements OnInit {
   }
 
   // Getters
-  get idField() {
-    return this.formPlanification.controls['id'];
+
+  get lectiveYear() {
+    return this.formPlanification.controls['schoolYearId'];
   }
 
-  get responsibleCourseField() {
-    return this.formPlanification.controls['responsibleCourse'];
+  get codeCourse() {
+    return this.formPlanification.controls['codeCourse'];
   }
 
-  get startedAtField() {
-    return this.formPlanification.controls['startedAt'];
+  get nameField() {
+    return this.formPlanification.controls['name'];
   }
 
-  get endedAtField() {
-    return this.formPlanification.controls['endedAt'];
+  get durationField() {
+    return this.formPlanification.controls['durationTime'];
+  }
+
+  get responsibleField() {
+    return this.formPlanification.controls['userId'];
+  }
+
+  get startDate() {
+    return this.formPlanification.controls['startDate'];
+  }
+
+  get finishDate() {
+    return this.formPlanification.controls['finishDate'];
+  }
+
+  get modalityField() {
+    return this.formPlanification.controls['modalityId'];
+  }
+
+  get freeField() {
+    return this.formPlanification.controls['free'];
+  }
+
+  set state(value: any) {
+    this.formPlanification.patchValue({
+      state: value,
+    });
+  }
+
+  set careerId(value: any) {
+    this.formPlanification.patchValue({
+      careerId: value,
+    });
   }
 }

@@ -1,32 +1,40 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   OnInit,
+  Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuHttpService } from '@services/core/menu-http.service';
 import { AuthHttpService, MessageService } from '@services/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '@services/layout.service';
 import { AuthService } from '@services/auth';
-import { ProfileCustomerDTO, Roles, User } from '@models/authentication';
-import { map, Observable } from 'rxjs';
+import { User } from '@models/authentication';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TopbarComponent implements OnInit {
+  @Output() notification = new EventEmitter<boolean>();
   display = false;
-  /* items: MenuItem[] = []; */
   visibleSidebar: boolean = false;
   showNav: boolean = true;
   items!: MenuItem[];
   user: User | null = null;
+
+  notifications: [] = [];
+
+  private _numberNotifications: number = 0;
+
+  tieredItems: MenuItem[] = [];
+  name: string | undefined = '';
 
   @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -35,48 +43,56 @@ export class TopbarComponent implements OnInit {
   @ViewChild('topbarmenu') menu!: ElementRef;
 
   constructor(
-    private menuHttpService: MenuHttpService,
     private authHttpService: AuthHttpService,
     private messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private socket: Socket,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((data: any) => {
-      console.log('cliente global', data[0]);
-      this.user = data[0];
-    });
-    this.items = [
-      {
-        label: 'coNFIRMA',
-        icon: 'pi pi-fw pi-user',
-        items: [
-          { label: 'Anderson asasas' },
-          { label: 'Soy el rol de tu corazón' },
-          {
-            label: 'Mi Perfil',
-            icon: 'pi pi-fw pi-users',
-            // routerLink:['/footer']
-          },
-          {
-            label: 'Cerrar Sesión',
-            icon: 'pi pi-fw pi-sign-out',
-            routerLink: ['javascript:void(0)'],
-            command: () => {
-              this.logout();
-            },
-          },
-        ],
+    this.authService.user$.subscribe({
+      next: (data: any) => {
+        if (data !== null) {
+          this.user = data[0];
+          this.name = this.user?.names;
+          this.socket.emit('app:sendUser', data[0]);
+        }
       },
-    ];
+      error: (error) => {
+        console.error(error);
+      },
+    });
+
+    if (this.socket.connect()) {
+      this.socket.on('api:allNotificationByUser', (notification: any) => {
+        this.notifications = notification;
+        this.notifications.sort((a: any, b: any) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
+      });
+    }
+  }
+
+  get numeroNotificaciones(): string {
+    return this._numberNotifications.toString();
+  }
+
+  updateNumberNotification(newNumber: number): void {
+    console.log('NUMERO DE NOTIFICACIONES', newNumber);
+    this._numberNotifications = newNumber;
+    this.cdRef.detectChanges();
   }
 
   logout() {
     this.messageService.showLoading();
     this.authHttpService.logout().subscribe({
       next: (response) => {
+        localStorage.removeItem('careerSelected');
         this.messageService.success(response);
         this.messageService.hideLoading();
         this.router.navigate(['/login']);
@@ -90,7 +106,12 @@ export class TopbarComponent implements OnInit {
   }
 
   onlogout(): void {
+    localStorage.removeItem('careerSelected');
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  openNotification() {
+    this.notification.emit(true);
   }
 }

@@ -1,5 +1,30 @@
 <div class="layout-footer">
-  <img src="../../../assets/images/layout/footer/LogoYavirac.png"  height="25" width="25" class="mr-2">
-  by
-  <span class="font-medium ml-2">JAL</span>
+  <div class="ml-64 flex flex-col sm:flex-row">
+    <img
+      src="../../../assets/images/layout/footer/LogoYavirac.png"
+      height="25"
+      width="25"
+      class="mr-2"
+    />
+    <div>
+      Producto de <strong>Yavirac</strong> ©{{ getCurrentYear() }} hecho con ❤️
+      por <strong>Grupo 1</strong>
+    </div>
+  </div>
+  <div class="flex flex-col sm:flex-row">
+    <select [(ngModel)]="selectedEnvironment" class="w-32 border-none">
+      <option
+        *ngFor="let environment of environments"
+        [value]="environment.value"
+      >
+        {{ environment.name }}
+      </option>
+    </select>
+    <div>
+      Ambiente en:
+      <strong class="text-green-500 underline">
+        {{ selectedEnvironment }}
+      </strong>
+    </div>
+  </div>
 </div>

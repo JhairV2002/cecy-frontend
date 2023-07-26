@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RolesEnum } from '@shared/enums/roles.enum';
-//import { TokenGuard } from '@shared/guards/token.guard';
-import { DashboardComponent } from './coordinator-career/dashboard/dashboard.component';
-import { AuthGuard } from './../../guards/auth.guard';
-import { RoleGuard } from './../../guards/role.guard';
-
 import { MainComponent } from '@layout/main/main.component';
 import { HasRoleGuard } from 'src/app/guards/has-role.guard';
-import { HasTokenGuard } from 'src/app/guards/has-token.guard';
+import { NotFoundComponent } from '../core/common/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -57,34 +51,6 @@ const routes: Routes = [
         canActivate: [TokenGuard, RoleGuard], */
       },
       {
-        path: 'instructor',
-        data: {
-          allowedRoles: ['instructor', 'admin'],
-        },
-        loadChildren: () =>
-          import('./instructor/instructor.module').then(
-            (m) => m.InstructorModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.INSTRUCTOR],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'responsible-cecy',
-        data: {
-          allowedRoles: ['responsible_cecy', 'admin'],
-        },
-        loadChildren: () =>
-          import('./responsible-cecy/responsible-cecy.module').then(
-            (m) => m.ResponsibleCecyModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.RESPONSIBLE_CECY],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
         path: 'responsible-course',
         canLoad: [],
         data: {
@@ -96,30 +62,6 @@ const routes: Routes = [
           ),
         /*  data: {
           roles: [RolesEnum.ADMIN, RolesEnum.RESPONSIBLE_COURSE],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'student',
-        loadChildren: () =>
-          import('./student/student.module').then((m) => m.StudentModule),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.STUDENT],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'responsible-cecy',
-        canLoad: [],
-        data: {
-          allowedRoles: ['responsible_cecy', 'admin'],
-        },
-        loadChildren: () =>
-          import('./responsible-cecy/responsible-cecy.module').then(
-            (m) => m.ResponsibleCecyModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN],
         },
         canActivate: [TokenGuard, RoleGuard], */
       },
@@ -146,11 +88,17 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'secretary-cecy',
+        path: 'assistant-cecy',
         loadChildren: () =>
-          import('./secretary-cecy/secretary-cecy.module').then(
-            (m) => m.SecretaryCecyModule
-          ),
+          import('./assistant/assistant.module').then((m) => m.AssistantModule),
+      },
+      {
+        path: 'not-found',
+        component: NotFoundComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'not-found',
       },
     ],
   },

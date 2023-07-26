@@ -1,0 +1,25 @@
+<div class="prose-base h-full">
+  <h1>{{ estudiante.nombres + " " + estudiante.apellidos }}</h1>
+
+  <div class="w-screen">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th></th>
+          <th>Curso</th>
+          <th>Estado Curso</th>
+          <th>Estado Matricula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let matricula of estudiante.matriculas">
+          <td></td>
+          <td>{{ matricula.cursoId }}</td>
+          <td>{{ matricula.estadoCurso.descripcion }}</td>
+          <td>{{ matricula.estadoMatricula.descripcion }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

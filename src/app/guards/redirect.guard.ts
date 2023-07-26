@@ -9,6 +9,7 @@ export class RedirectGuard implements CanActivate {
   constructor(private tokenService: TokenService, private router: Router) {}
   canActivate(): boolean {
     const token = this.tokenService.getToken();
+
     if (token) {
       const decodeToken = jwt_decode(token) as { [key: string]: any };
       console.log('TOKEN REDIRECT', decodeToken);
@@ -16,10 +17,19 @@ export class RedirectGuard implements CanActivate {
       const role = decodeToken['role'].name;
       if (role === 'admin') {
         this.router.navigate(['/administrator']);
-      } else if (role === 'operator') {
-        this.router.navigate(['/operator']);
+      } else if (role === 'coordinator_career') {
+        this.router.navigate(['/cecy/coordinator-career']);
+      } else if (role === 'coordinator_cecy') {
+        this.router.navigate(['/cecy/coordinator-cecy']);
+      } else if (role === 'instructor_execute') {
+        this.router.navigate(['/cecy/responsible-execute']);
+      } else if (role === 'responsible_course') {
+        this.router.navigate(['/cecy/responsible-course']);
+      } else if (role === 'assistant_cecy') {
+        this.router.navigate(['/cecy/coordinator-cecy']);
       } else {
         console.log('error de redireccion de pagina');
+        this.router.navigate(['/common/access-denied']);
       }
       return false;
     }
