@@ -1,54 +1,45 @@
 <p-toast position="top-center"></p-toast>
-<p-dialog
-  header="Imagen del Curso"
-  [(visible)]="displayModalImages"
-  [modal]="true"
->
-  <app-view-files
-    [acceptAttributes]="'.jpg, .jpeg, .png'"
-    [loadingUpload]="loadingUploadImages"
-    [loadingFiles]="loadingImages"
-    [filesIn]="files"
-    (files)="uploadImages($event)"
-  >
-  </app-view-files>
-</p-dialog>
 
-<p-dialog
-  header="Nuevo Sponsor"
-  [(visible)]="visibleFormSponsor"
-  [modal]="true"
-  [style]="{ width: '30vw' }"
-  [draggable]="false"
-  [resizable]="false"
->
-  <!-- <app-sponsor-form></app-sponsor-form> -->
+<p-dialog header="Nuevo convenio" [(visible)]="visibleFormSponsor" [modal]="true" [style]="{ width: '30vw' }"
+  [draggable]="false" [resizable]="false">
   <p-card>
     <form [formGroup]="formSponsor" (ngSubmit)="onSubmitSponsor()">
       <div class="formgrid grid">
         <div class="field">
-          <!-- <label class="w-full" for="name" appLabel label="Categoria de Curso:" [required]="isRequired(nameField)"
-            [valid]="nameField.valid" [touched]="nameField.touched" [dirty]="nameField.dirty">
-          </label> -->
-
           <input class="w-full" pInputText id="name" formControlName="name" />
-          <small
-            appErrorMessage
-            [errors]="nameField.errors"
-            [touched]="nameField.touched"
-            [dirty]="nameField.dirty"
-          >
+          <small appErrorMessage [errors]="nameField.errors" [touched]="nameField.touched" [dirty]="nameField.dirty">
           </small>
         </div>
         <div class="field mt-2">
-          <button
-            pButton
-            pRipple
-            label="Guardar"
-            type="submit"
-            class="p-button-rounded w-full"
-            icon="pi pi-save"
-          ></button>
+          <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full"
+            icon="pi pi-save"></button>
+        </div>
+      </div>
+    </form>
+  </p-card>
+</p-dialog>
+
+
+<p-dialog header="Nueva Categoria" [(visible)]="visibleFormCategory" [modal]="true" [style]="{ width: '30vw' }"
+  [draggable]="false" [resizable]="false">
+  <p-card>
+    <form [formGroup]="formCategory" (ngSubmit)="onSubmitCategory()">
+      <div class="formgrid grid">
+        <div class="field mb-2">
+          <input placeholder="Categoria" class="w-full" pInputText id="name" formControlName="name" />
+          <small appErrorMessage [errors]="nameCategoryField.errors" [touched]="nameCategoryField.touched"
+            [dirty]="nameCategoryField.dirty">
+          </small>
+        </div>
+        <div class="field">
+          <input placeholder="Descripción" class="w-full" pInputText id="description" formControlName="description" />
+          <small appErrorMessage [errors]="nameDescriptionField.errors" [touched]="nameDescriptionField.touched"
+            [dirty]="nameDescriptionField.dirty">
+          </small>
+        </div>
+        <div class="field mt-2">
+          <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full"
+            icon="pi pi-save"></button>
         </div>
       </div>
     </form>
@@ -69,113 +60,56 @@
           </div>
         </div> -->
         <!-- sponsor y modalidad -->
-        <!-- <div class="form-space">
+        <div class="form-space">
           <div class="container md:flex">
             <div class="p-3 w-full">
-              <label
-                for="sponsor"
-                appLabel
-                label="Patrocinador:"
-                [required]="isRequired(sponsorField)"
-                [valid]="sponsorField.valid"
-                [touched]="sponsorField.touched"
-                [dirty]="sponsorField.dirty"
-              >
+              <label for="sponsor" appLabel label="En convenio con:" [required]="isRequired(sponsorField)"
+                [valid]="sponsorField.valid" [touched]="sponsorField.touched" [dirty]="sponsorField.dirty">
               </label>
               <div class="flex">
-                <p-dropdown
-                  class="w-full"
-                  id="sponsor"
-                  formControlName="sponsorId"
-                  [options]="sponsors"
-                  [filter]="true"
-                  filterBy="name"
-                  placeholder="Seleccione"
-                  optionLabel="name"
-                  optionValue="id"
-                >
+                <p-dropdown class="w-full" id="sponsor" formControlName="sponsorId" [options]="sponsors" [filter]="true"
+                  filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
                 </p-dropdown>
-                <button
-                  (click)="showFormSponsor()"
-                  type="button"
-                  pButton
-                  icon="pi pi-plus-circle"
-                  styleClass="p-button-warn"
-                ></button>
+                <button (click)="showFormSponsor()" type="button" pButton icon="pi pi-plus-circle"
+                  styleClass="p-button-warn"></button>
               </div>
-              <small
-                appErrorMessage
-                [errors]="sponsorField.errors"
-                [touched]="sponsorField.touched"
-                [dirty]="sponsorField.dirty"
-              >
+              <small appErrorMessage [errors]="sponsorField.errors" [touched]="sponsorField.touched"
+                [dirty]="sponsorField.dirty">
               </small>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <!-- categoria y entidad que valida -->
 
         <div class="form-space">
           <div class="container md:flex">
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="category"
-                appLabel
-                label="Categoria de Curso:"
-                [required]="isRequired(categoryField)"
-                [valid]="categoryField.valid"
-                [touched]="categoryField.touched"
-                [dirty]="categoryField.dirty"
-              >
+              <label for="category" appLabel label="Categoria de Curso:" [required]="isRequired(categoryField)"
+                [valid]="categoryField.valid" [touched]="categoryField.touched" [dirty]="categoryField.dirty">
               </label>
-              <p-dropdown
-                id="category"
-                formControlName="categoryId"
-                [options]="categories"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Seleccione"
-                optionLabel="name"
-                optionValue="id"
-              >
-              </p-dropdown>
-              <small
-                appErrorMessage
-                [errors]="categoryField.errors"
-                [touched]="categoryField.touched"
-                [dirty]="categoryField.dirty"
-              >
+              <div class="flex">
+                <p-dropdown class="w-full" id="category" formControlName="categoryId" [options]="categories" [filter]="true"
+                  filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
+                </p-dropdown>
+                <button (click)="showFormCategory()" type="button" pButton icon="pi pi-plus-circle"
+                  styleClass="p-button-warn"></button>
+              </div>
+              <small appErrorMessage [errors]="categoryField.errors" [touched]="categoryField.touched"
+                [dirty]="categoryField.dirty">
               </small>
             </div>
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="entityCertification"
-                appLabel
-                label="Entidad que valida:"
-                [required]="isRequired(entityCertificationField)"
-                [valid]="entityCertificationField.valid"
-                [touched]="entityCertificationField.touched"
-                [dirty]="entityCertificationField.dirty"
-              >
+              <label for="entityCertification" appLabel label="Entidad que valida:"
+                [required]="isRequired(entityCertificationField)" [valid]="entityCertificationField.valid"
+                [touched]="entityCertificationField.touched" [dirty]="entityCertificationField.dirty">
               </label>
-              <p-dropdown
-                id="entityCertification"
-                formControlName="entityCertificationId"
-                [options]="entityCertifications"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Seleccione"
-                optionLabel="name"
-                optionValue="id"
-              >
+              <p-dropdown id="entityCertification" formControlName="entityCertificationId"
+                [options]="entityCertifications" [filter]="true" filterBy="name" placeholder="Seleccione"
+                optionLabel="name" optionValue="id">
               </p-dropdown>
-              <small
-                appErrorMessage
-                [errors]="entityCertificationField.errors"
-                [touched]="entityCertificationField.touched"
-                [dirty]="entityCertificationField.dirty"
-              >
+              <small appErrorMessage [errors]="entityCertificationField.errors"
+                [touched]="entityCertificationField.touched" [dirty]="entityCertificationField.dirty">
               </small>
             </div>
           </div>
@@ -186,63 +120,26 @@
         <div class="form-space">
           <div class="container md:flex">
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="courseType"
-                appLabel
-                label="Tipo de Curso:"
-                [required]="isRequired(courseTypeField)"
-                [valid]="courseTypeField.valid"
-                [touched]="courseTypeField.touched"
-                [dirty]="courseTypeField.dirty"
-              >
+              <label for="courseType" appLabel label="Tipo de Curso:" [required]="isRequired(courseTypeField)"
+                [valid]="courseTypeField.valid" [touched]="courseTypeField.touched" [dirty]="courseTypeField.dirty">
               </label>
-              <p-dropdown
-                id="courseType"
-                formControlName="courseTypeId"
-                [options]="courseTypes"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Seleccione"
-                optionLabel="name"
-                optionValue="id"
-              >
+              <p-dropdown id="courseType" formControlName="courseTypeId" [options]="courseTypes" [filter]="true"
+                filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
               </p-dropdown>
-              <small
-                appErrorMessage
-                [errors]="courseTypeField.errors"
-                [touched]="courseTypeField.touched"
-                [dirty]="courseTypeField.dirty"
-              >
+              <small appErrorMessage [errors]="courseTypeField.errors" [touched]="courseTypeField.touched"
+                [dirty]="courseTypeField.dirty">
               </small>
             </div>
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="certifiedType"
-                appLabel
-                label="Tipo de Certificado:"
-                [required]="isRequired(certificationTypeField)"
-                [valid]="certificationTypeField.valid"
-                [touched]="certificationTypeField.touched"
-                [dirty]="certificationTypeField.dirty"
-              >
+              <label for="certifiedType" appLabel label="Tipo de Certificado:"
+                [required]="isRequired(certificationTypeField)" [valid]="certificationTypeField.valid"
+                [touched]="certificationTypeField.touched" [dirty]="certificationTypeField.dirty">
               </label>
-              <p-dropdown
-                id="certifiedType"
-                formControlName="certifiedTypeId"
-                [options]="certifiedTypes"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Seleccione"
-                optionLabel="name"
-                optionValue="id"
-              >
+              <p-dropdown id="certifiedType" formControlName="certifiedTypeId" [options]="certifiedTypes"
+                [filter]="true" filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
               </p-dropdown>
-              <small
-                appErrorMessage
-                [errors]="certificationTypeField.errors"
-                [touched]="certificationTypeField.touched"
-                [dirty]="certificationTypeField.dirty"
-              >
+              <small appErrorMessage [errors]="certificationTypeField.errors" [touched]="certificationTypeField.touched"
+                [dirty]="certificationTypeField.dirty">
               </small>
             </div>
           </div>
@@ -253,57 +150,24 @@
         <div class="form-space">
           <div class="container md:flex">
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="formationType"
-                appLabel
-                label="Seleccione Tipo de Formacion"
-                [required]="isRequired(formationTypeField)"
-                [valid]="formationTypeField.valid"
-                [touched]="formationTypeField.touched"
-                [dirty]="formationTypeField.touched"
-              ></label>
-              <p-dropdown
-                id="formationType"
-                dataKey="id"
-                formControlName="formationTypeId"
-                [options]="formationTypes"
-                [filter]="true"
-                filterBy="name"
-                placeholder="Seleccione"
-                optionLabel="name"
-                optionValue="id"
-              >
+              <label for="formationType" appLabel label="Seleccione Tipo de Formacion"
+                [required]="isRequired(formationTypeField)" [valid]="formationTypeField.valid"
+                [touched]="formationTypeField.touched" [dirty]="formationTypeField.touched"></label>
+              <p-dropdown id="formationType" dataKey="id" formControlName="formationTypeId" [options]="formationTypes"
+                [filter]="true" filterBy="name" placeholder="Seleccione" optionLabel="name" optionValue="id">
               </p-dropdown>
-              <small
-                appErrorMessage
-                [errors]="formationTypeField.errors"
-                [touched]="formationTypeField.touched"
-                [dirty]="formationTypeField.dirty"
-              >
+              <small appErrorMessage [errors]="formationTypeField.errors" [touched]="formationTypeField.touched"
+                [dirty]="formationTypeField.dirty">
               </small>
             </div>
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="abbreviation"
-                appLabel
-                label="Abreviatura:"
-                [required]="isRequired(abbreviationField)"
-                [valid]="abbreviationField.valid"
-                [touched]="abbreviationField.touched"
-                [dirty]="abbreviationField.dirty"
-              >
+              <label for="abbreviation" appLabel label="Abreviatura:" [required]="isRequired(abbreviationField)"
+                [valid]="abbreviationField.valid" [touched]="abbreviationField.touched"
+                [dirty]="abbreviationField.dirty">
               </label>
-              <input
-                pInputText
-                id="abbreviation"
-                formControlName="abbreviation"
-              />
-              <small
-                appErrorMessage
-                [errors]="abbreviationField.errors"
-                [touched]="abbreviationField.touched"
-                [dirty]="abbreviationField.dirty"
-              >
+              <input pInputText id="abbreviation" formControlName="abbreviation" />
+              <small appErrorMessage [errors]="abbreviationField.errors" [touched]="abbreviationField.touched"
+                [dirty]="abbreviationField.dirty">
               </small>
             </div>
           </div>
@@ -314,58 +178,27 @@
         <div class="form-space">
           <div class="container md:flex">
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="targetGroups"
-                appLabel
-                label="Grupo al que va dirigido"
-                [required]="isRequired(targetGroupsField)"
-                [valid]="targetGroupsField.valid"
-                [touched]="targetGroupsField.touched"
-                [dirty]="targetGroupsField.touched"
-              ></label>
+              <label for="targetGroups" appLabel label="Grupo al que va dirigido"
+                [required]="isRequired(targetGroupsField)" [valid]="targetGroupsField.valid"
+                [touched]="targetGroupsField.touched" [dirty]="targetGroupsField.touched"></label>
 
-              <p-multiSelect
-                [options]="participantTypes"
-                optionLabel="name"
-                formControlName="targetGroups"
-                [readonly]="this.courseStatus === 'APROBADO' ? true : false"
-              ></p-multiSelect>
+              <p-multiSelect [options]="participantTypes" optionLabel="name" formControlName="targetGroups"
+                [readonly]="this.courseStatus === 'APROBADO' ? true : false"></p-multiSelect>
 
-              <small
-                appErrorMessage
-                [errors]="targetGroupsField.errors"
-                [touched]="targetGroupsField.touched"
-                [dirty]="targetGroupsField.dirty"
-              >
+              <small appErrorMessage [errors]="targetGroupsField.errors" [touched]="targetGroupsField.touched"
+                [dirty]="targetGroupsField.dirty">
               </small>
             </div>
             <div class="p-3 w-full md:w-1/2">
-              <label
-                for="participantsRegistration"
-                appLabel
-                label="N° de participantes"
-                [required]="isRequired(participantsRegistrationField)"
-                [valid]="participantsRegistrationField.valid"
-                [touched]="participantsRegistrationField.touched"
-                [dirty]="participantsRegistrationField.dirty"
-              >
+              <label for="participantsRegistration" appLabel label="N° de cupos"
+                [required]="isRequired(participantsRegistrationField)" [valid]="participantsRegistrationField.valid"
+                [touched]="participantsRegistrationField.touched" [dirty]="participantsRegistrationField.dirty">
               </label>
-              <p-inputNumber
-                formControlName="participantsRegistration"
-                placeholder="Ingrese numero de participantes"
-                [showButtons]="true"
-                [min]="0"
-                [step]="1"
-                [useGrouping]="false"
-                inputId="participantsRegistration"
-              >
+              <p-inputNumber formControlName="participantsRegistration" placeholder="Ingrese numero de participantes"
+                [showButtons]="true" [min]="0" [max]="1000" [step]="1" [useGrouping]="false" inputId="participantsRegistration">
               </p-inputNumber>
-              <small
-                appErrorMessage
-                [errors]="participantsRegistrationField.errors"
-                [touched]="participantsRegistrationField.touched"
-                [dirty]="participantsRegistrationField.dirty"
-              >
+              <small appErrorMessage [errors]="participantsRegistrationField.errors"
+                [touched]="participantsRegistrationField.touched" [dirty]="participantsRegistrationField.dirty">
               </small>
             </div>
           </div>
@@ -376,54 +209,20 @@
         <div class="form-space">
           <!-- Resumen -->
           <div class="block">
-            <label
-              for="summary"
-              appLabel
-              label="Resumen del Curso"
-              [required]="isRequired(summaryField)"
-              [valid]="summaryField.valid"
-              [touched]="summaryField.touched"
-              [dirty]="summaryField.dirty"
-            ></label>
-            <textarea
-              pInputTextarea
-              pInputText
-              id="summary"
-              formControlName="summary"
-              class="uppercase"
-            ></textarea>
-            <small
-              appErrorMessage
-              [errors]="summaryField.errors"
-              [touched]="summaryField.touched"
-              [dirty]="summaryField.dirty"
-            >
+            <label for="summary" appLabel label="Resumen del Curso" [required]="isRequired(summaryField)"
+              [valid]="summaryField.valid" [touched]="summaryField.touched" [dirty]="summaryField.dirty"></label>
+            <textarea pInputTextarea pInputText id="summary" formControlName="summary" class="uppercase"></textarea>
+            <small appErrorMessage [errors]="summaryField.errors" [touched]="summaryField.touched"
+              [dirty]="summaryField.dirty">
             </small>
           </div>
           <!-- proyecto de curso -->
           <div class="block">
-            <label
-              for="project"
-              appLabel
-              label="Proyecto del Curso"
-              [required]="isRequired(projectFiled)"
-              [valid]="projectFiled.valid"
-              [touched]="projectFiled.touched"
-              [dirty]="projectFiled.dirty"
-            ></label>
-            <textarea
-              pInputTextarea
-              pInputText
-              id="project"
-              formControlName="project"
-              class="uppercase"
-            ></textarea>
-            <small
-              appErrorMessage
-              [errors]="projectFiled.errors"
-              [touched]="projectFiled.touched"
-              [dirty]="projectFiled.dirty"
-            >
+            <label for="project" appLabel label="Entregable" [required]="isRequired(projectFiled)"
+              [valid]="projectFiled.valid" [touched]="projectFiled.touched" [dirty]="projectFiled.dirty"></label>
+            <textarea pInputTextarea pInputText id="project" formControlName="project" class="uppercase"></textarea>
+            <small appErrorMessage [errors]="projectFiled.errors" [touched]="projectFiled.touched"
+              [dirty]="projectFiled.dirty">
             </small>
           </div>
         </div>
@@ -431,15 +230,8 @@
         <!-- addNeed() -->
         <div class="formgrid grid">
           <div class="field xl:col-12 lg:col-12 md:col-12 sm:col-12">
-            <button
-              pButton
-              pRipple
-              type="button"
-              label="Añadir Necesidades"
-              class="p-button-secondary p-button-rounded"
-              icon="pi pi-plus"
-              (click)="addNeed()"
-            ></button>
+            <button pButton pRipple type="button" label="Añadir Justificación" class="p-button-secondary p-button-rounded"
+              icon="pi pi-plus" (click)="addNeed()"></button>
           </div>
         </div>
 
@@ -473,41 +265,19 @@
             <div class="form-need">
               <div class="container md:flex">
                 <div class="p-2 w-full md:w-1/6">
-                  <label
-                    [for]="'need' + i"
-                    appLabel
-                    [label]="'Necesidad ' + (i + 1) + ':'"
-                    [required]="isRequired(needsField.controls[i])"
-                    [valid]="needsField.controls[i].valid"
-                    [touched]="needsField.controls[i].touched"
-                    [dirty]="needsField.controls[i].dirty"
-                  ></label>
+                  <label [for]="'need' + i" appLabel [label]="'Justificación ' + (i + 1) + ':'"
+                    [required]="isRequired(needsField.controls[i])" [valid]="needsField.controls[i].valid"
+                    [touched]="needsField.controls[i].touched" [dirty]="needsField.controls[i].dirty"></label>
                 </div>
                 <div class="p-2 w-full md:w-4/6">
-                  <input
-                    pInputText
-                    [id]="'need' + i"
-                    [formControlName]="i"
-                    class="text-uppercase"
-                  />
-                  <small
-                    appErrorMessage
-                    [errors]="needsField.controls[i].errors"
-                    [touched]="needsField.controls[i].touched"
-                    [dirty]="needsField.controls[i].dirty"
-                  >
+                  <input pInputText [id]="'need' + i" [formControlName]="i" class="text-uppercase" />
+                  <small appErrorMessage [errors]="needsField.controls[i].errors"
+                    [touched]="needsField.controls[i].touched" [dirty]="needsField.controls[i].dirty">
                   </small>
                 </div>
                 <div class="p-2 w-full md:w-1/6">
-                  <button
-                    pButton
-                    pRipple
-                    type="button"
-                    (click)="removeNeeds(i)"
-                    iconPos="right"
-                    icon="pi pi-trash"
-                    class="p-button-danger p-button-rounded"
-                  ></button>
+                  <button pButton pRipple type="button" (click)="removeNeeds(i)" iconPos="right" icon="pi pi-trash"
+                    class="p-button-danger p-button-rounded"></button>
                 </div>
               </div>
             </div>
@@ -515,14 +285,8 @@
           <p-divider></p-divider>
         </div>
         <div class="field">
-          <button
-            pButton
-            pRipple
-            label="Guardar"
-            type="submit"
-            class="p-button-rounded"
-            [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-          ></button>
+          <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded"
+            [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-save'"></button>
         </div>
       </div>
     </form>

@@ -1,38 +1,46 @@
-<div class="p-fluid">
-    <p-pickList [source]="sourceList" [target]="targetList" [responsive]="true" [dragdrop]="true"
-        sourceHeader="Instructores" targetHeader="Instructores Seleccionados" [sourceStyle]="{'height':'300px'}"
-        [targetStyle]="{'height':'300px'}" filterBy="user.name,user.lastname">
-        <ng-template let-instructor pTemplate="item">
-            <div class="instructor-item">
-                <div class="image-container">
-                    <!-- <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="instructor-image" /> -->
-                </div>
-                <div class="instructor-list-detail">
-                    <h5 class="mb-2">{{instructor.user.name}}</h5>
-                    <div *ngIf="instructor.courseProfiles.length!==0">
-                        <i class="pi pi-check-circle instructor-check-icon me-2"></i>
-                    </div>
-                </div>
-                <div class="instructor-list-action">
-                    <!-- <h6 class="mb-2">${{instructor.price}}</h6> -->
-                    <!-- <span [class]="'instructor-badge status-' + instructor.state.name">{{instructor.state.name}}</span> -->
-                </div>
-            </div>
-        </ng-template>
-    </p-pickList>
+<form [formGroup]="formDetailPlanificationInstructor" (ngSubmit)="onSubmit()">
 
-    <p-divider></p-divider>
-
-    <div class="formgrid grid">
-        <!--onSubmit()-->
-        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
-            <button pButton pRipple label="Guardar" class="p-button-rounded" icon="pi pi-save" (click)="onSubmit()">
-            </button>
+  <div class=" p-fluid">
+    <p-dropdown class="w-full" id="instructor" formControlName="instructorId" [options]="instructors" [filter]="true"
+      filterBy="lastnames" placeholder="Seleccione" optionLabel="names" optionValue="id">
+      <ng-template let-item pTemplate="item">
+        <div>
+          <div>{{ item.names }} {{ item.lastnames }}</div>
         </div>
+      </ng-template>
+    </p-dropdown>
+  </div>
 
-        <!--progressBar-->
-        <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12" *ngIf="progressBar">
-            <p-progressBar mode="indeterminate"></p-progressBar>
-        </div>
+  <small appErrorMessage [errors]="instructorField.errors" [touched]="instructorField.touched"
+    [dirty]="instructorField.dirty">
+  </small>
+  <small appErrorMessage class="text-red-500 text-sm" *ngIf="formDetailPlanificationInstructor.get('instructorId')?.hasError('invalidInstructor')">
+    No se permite seleccionar un instructor repetido.
+  </small>
+  <p-divider></p-divider>
+
+  <div class="formgrid grid">
+    <!--onSubmit()-->
+    <div class="field xl:col-6 lg:col-6 md:col-12 sm:col-12">
+      <button pButton pRipple label="Asignar" class="p-button-rounded" icon="pi pi-save"></button>
     </div>
+  </div>
+</form>
+<p-divider />
+<div class="flex justify-center mt-1 ">
+  <div class="container">
+    <div class="w-full px-2 py-2 border-b border-zinc-400" *ngFor="let item of listInstructors">
+
+      <div class="flex justify-between ...">
+        <div class="w-7"><i class="pi pi-user" style="color: #4187ce"></i></div>
+        <div class="w-full">
+          <p class="text-semiBold">
+            {{item?.instructor?.names}} {{item?.instructor?.names}}
+          </p>
+        </div>
+        <div class="w-7">`<button (click)="deleteInstructor(item.id)"><i class="pi pi-trash"
+              style="color: #ce4141"></i></button></div>
+      </div>
+    </div>
+  </div>
 </div>

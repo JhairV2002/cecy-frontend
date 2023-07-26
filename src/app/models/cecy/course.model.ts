@@ -1,5 +1,5 @@
-import { CareerModel, ImageModel } from "@models/core";
-import { InstructorModel, CatalogueModel, TechniqueRequisite,CourseProfileModel } from "@models/cecy";
+import { CareerModel } from "@models/core";
+import {  CatalogueModel, TechniqueRequisite,CourseProfileModel } from "@models/cecy";
 export interface CourseModel {
   id?: number;
   academicPeriod?: CatalogueModel;
@@ -15,10 +15,10 @@ export interface CourseModel {
   frequency?: CatalogueModel;
   meanVerification?: CatalogueModel;
   modality?: CatalogueModel;
-  responsible?: InstructorModel;
+  responsible?: any;
   speciality?: CatalogueModel;
   state?: CatalogueModel;
-  images?: ImageModel[];
+  images?: any[];
   abbreviation?: string;
   alignment?: string;
   approvedAt?: Date;

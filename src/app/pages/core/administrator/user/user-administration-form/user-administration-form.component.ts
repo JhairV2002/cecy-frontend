@@ -20,14 +20,7 @@ import {
   MessageService,
   UserAdministrationHttpService,
 } from '@services/core';
-import {
-  CatalogueModel,
-  FileModel,
-  LocationModel,
-  PaginatorModel,
-  PhoneModel,
-  UserModel,
-} from '@models/core';
+import { CatalogueModel, PaginatorModel } from '@models/core';
 
 @Component({
   selector: 'app-user-administration-form',
@@ -40,7 +33,7 @@ export class UserAdministrationFormComponent implements OnInit, OnDestroy {
   public formUser: FormGroup = this.newFormUser;
   public automaticPassword: FormControl = new FormControl(false);
   public progressBar: boolean = false; // falta programarlo
-  public files: FileModel[] = [];
+  public files: any[] = [];
   public paginatorFiles: PaginatorModel = {
     current_page: 1,
     per_page: 15,
@@ -55,7 +48,7 @@ export class UserAdministrationFormComponent implements OnInit, OnDestroy {
   public identificationTypes: CatalogueModel[] = [];
   public phoneOperators: CatalogueModel[] = [];
   public phoneTypes: CatalogueModel[] = [];
-  public phoneLocations: LocationModel[] = [];
+  public phoneLocations: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -78,7 +71,7 @@ export class UserAdministrationFormComponent implements OnInit, OnDestroy {
       if (response.phones?.length) {
         this.phonesField.clear();
       }
-      response.phones?.forEach((phone) => {
+      response.phones?.forEach((phone: any) => {
         // this.addPhone(phone);
       });
     });
@@ -192,7 +185,7 @@ export class UserAdministrationFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  storeUser(user: UserModel): void {
+  storeUser(user: any): void {
     this.progressBar = true;
     this.userAdministrationHttpService.storeUser(user).subscribe(
       (response) => {
@@ -207,7 +200,7 @@ export class UserAdministrationFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateUser(user: UserModel): void {
+  updateUser(user: any): void {
     this.progressBar = true;
     this.userAdministrationHttpService.updateUser(user.id!, user).subscribe(
       (response) => {
@@ -231,7 +224,7 @@ export class UserAdministrationFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  addPhone(data: PhoneModel = {}) {
+  addPhone(data: any = {}) {
     const formPhone = this.newFormPhone;
     if (data.id !== undefined) {
       formPhone.patchValue(data);

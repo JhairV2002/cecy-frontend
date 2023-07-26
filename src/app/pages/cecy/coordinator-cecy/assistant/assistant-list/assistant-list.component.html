@@ -1,0 +1,153 @@
+<app-assistant-form
+  [showModal]="isVisible"
+  [selectedUser]="selectedUser"
+  (clickClose)="closeModal($event)"
+  (addUser)="addUser($event)"
+></app-assistant-form>
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-solid fa-users fa-xl"></i>
+      <strong class="ml-1">Lista de asistentes</strong>
+    </h2>
+  </p-card>
+</div>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Crear asistente"
+      class="p-button-success p-button-rounded"
+      icon="pi pi-plus"
+      (click)="showForm()"
+    ></button>
+    <p-button
+      type="button"
+      styleClass="p-button-primary p-button-rounded ml-2"
+      class="ml-2"
+      icon="pi pi-sync"
+      (click)="getAllAssitents()"
+      [loading]="(loading$ | async)!"
+    ></p-button>
+    <p-chip class="ml-4">
+      <i class="pi pi-user mr-2"></i>
+      <small
+        >Total de asistentes:
+        {{ assistants ? assistants.length : 0 }}
+      </small>
+    </p-chip>
+    <!-- <button
+        *ngIf="selectedUsers?.length"
+        pButton
+        pRipple
+        type="button"
+        label="Eliminar seleccionados"
+        class="p-button-danger p-button-rounded ml-2"
+        icon="pi pi-trash"
+        ></button> -->
+    <!-- (click)="deleteUsers()" -->
+    <app-progress-bar
+      *ngIf="progressBarDelete"
+      [message]="messageService.progressBarDelete"
+      class="ml-2"
+    ></app-progress-bar>
+  </div>
+  <div class="p-toolbar-group-right">
+    <app-search (users)="searchAssistant($event)"></app-search>
+  </div>
+</p-toolbar>
+<p-card>
+  <p-table
+    dataKey="id"
+    [columns]="cols"
+    [responsive]="true"
+    [value]="assistants"
+    [paginator]="true"
+    [rows]="5"
+    [loading]="(loading$ | async)!"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{ col.header }}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th class="text-center">
+          <button
+            pButton
+            pRipple
+            type="button"
+            class="p-button-rounded p-button-secondary"
+            icon="pi pi-cog"
+          ></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-user
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr [pSelectableRow]="user" [pSelectableRowIndex]="rowIndex">
+        <td>
+          <p-tableCheckbox [value]="user"></p-tableCheckbox>
+        </td>
+        <td>{{ user.email }}</td>
+        <td>
+          <div class="flex items-center">
+            <img
+              [src]="
+                user?.image
+                  ? user?.image
+                  : 'assets/images/administrator/user-default.png'
+              "
+              width="24"
+              class="vertical-align-middle"
+            />
+            <span class="ml-1">{{ user.names }}</span>
+          </div>
+        </td>
+        <td>{{ user.lastnames }}</td>
+        <td>{{ user.role.name }}</td>
+        <td>{{ user.createdAt | date }}</td>
+        <td>
+          <div class="flex gap-1">
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger"
+              type="submit"
+              (click)="deleteUser(user)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-warning"
+              (click)="editUser(user)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        Actualmente hay
+        {{ assistants ? assistants.length : 0 }}
+        asistentes
+      </div>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" style="width: 100%">No hay asistentes</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

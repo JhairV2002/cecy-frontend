@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { PaginatorModel, ServerResponse } from '@models/core';
+import { ServerResponse } from '@models/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationErrors } from '@angular/forms';
-import { LoginResponse } from '@models/core/login.response';
 import { Message } from 'primeng/api';
 import { MessageService as MessagePNService } from 'primeng/api';
 
@@ -11,10 +10,7 @@ import { MessageService as MessagePNService } from 'primeng/api';
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(
-    private messageService: MessagePNService,
-
-  ) {}
+  constructor(private messageService: MessagePNService) {}
 
   error(error: HttpErrorResponse) {
     let errorMessage = 'Ha ocurrido un error';
@@ -50,7 +46,16 @@ export class MessageService {
     });
   }
 
-  success(serverResponse: ServerResponse | LoginResponse | undefined) {
+  suspendPlanification(serverResponse: ServerResponse) {
+    console.log(serverResponse, 'message');
+    return Swal.fire({
+      title: 'Fue suspendido la planificacion',
+      text: serverResponse.message,
+      icon: 'warning',
+    });
+  }
+
+  success(serverResponse: ServerResponse | any | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
       title: serverResponse?.msg?.summary,
@@ -77,7 +82,6 @@ export class MessageService {
   }
 
   successCourse(serverResponse: any) {
-    console.log(serverResponse);
     return Swal.fire({
       title: serverResponse.message,
       //text: serverResponse?.msg?.detail,
@@ -85,8 +89,15 @@ export class MessageService {
     });
   }
 
+  warningAlert(warning: string) {
+    return Swal.fire({
+      title: warning,
+      //text: serverResponse?.msg?.detail,
+      icon: 'warning',
+    });
+  }
+
   successCareer(serverResponse: any) {
-    console.log(serverResponse);
     return Swal.fire({
       title: serverResponse.message,
       text: serverResponse.detail,
@@ -102,7 +113,15 @@ export class MessageService {
     });
   }
 
-  successEmail(serverResponse: ServerResponse | LoginResponse | undefined) {
+  successSign(serverResponse: ServerResponse) {
+    return Swal.fire({
+      title: serverResponse.message,
+      //text: serverResponse?.msg?.detail,
+      icon: 'success',
+    });
+  }
+
+  successEmail(serverResponse: ServerResponse | any | undefined) {
     console.log(serverResponse, 'message');
     return Swal.fire({
       title: 'Correo enviado',
@@ -129,6 +148,22 @@ export class MessageService {
 
   questionDeleteUser({
     title = '¿Está seguro de eliminar este usuario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
+    });
+  }
+
+  questionDeleteSign({
+    title = '¿Está seguro de eliminar esta firma?',
     text = 'No podrá recuperar esta información!',
   }) {
     return Swal.fire({
@@ -220,6 +255,22 @@ export class MessageService {
     });
   }
 
+  questionDeleteComments({
+    title = '¿Está seguro de eliminar el comentario?',
+    text = 'No podrá recuperar esta información!',
+  }) {
+    return Swal.fire({
+      title,
+      text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '<i class="pi pi-trash"> Si, eliminar</i>',
+    });
+  }
+
   questionDeclineParticipant({
     title = '¿Está seguro de rechazar participante?',
     text = '',
@@ -302,7 +353,9 @@ export class MessageService {
   }
 
   fieldMax(errors: ValidationErrors): string {
-    return `Numero maximo permitido es ${errors['max']['requiredMax']}.`;
+    const max = errors['max'].max;
+    const actual = errors['max'].actual;
+    return `Numero maximo permitido es ${max}. valor actual ${actual}`;
   }
 
   get fieldPattern() {
@@ -329,7 +382,7 @@ export class MessageService {
     return 'Este teléfono no está disponible.';
   }
 
-  paginatorTotalRegisters(paginator: PaginatorModel): string {
+  paginatorTotalRegisters(paginator: any): string {
     return (
       'En total hay ' + (paginator?.total ? paginator.total : 0) + ' registros.'
     );
@@ -388,4 +441,6 @@ export class MessageService {
   get messageSuccessDelete(): string {
     return `Se eliminó correctamente`;
   }
+
+
 }

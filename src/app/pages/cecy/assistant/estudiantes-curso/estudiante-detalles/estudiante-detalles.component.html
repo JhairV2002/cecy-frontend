@@ -1,0 +1,121 @@
+<div class="prose my-4">
+  <h2>Informacion Personal</h2>
+</div>
+
+<!-- {{ matricula$ | async | json }} -->
+<div
+  class="w-full flex flex-wrap justify-between bg-base-100 shadow-xl p-[28px] rounded-2xl"
+>
+  <div>
+    <figure>
+      <img
+        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+        class="w-80 rounded-2xl"
+      />
+    </figure>
+  </div>
+  <div class="flex flex-wrap flex-col gap-10">
+    <p><b>Dni</b>{{ (matricula$ | async)!.estudiantes!.cedula }}</p>
+    <p><b>Nombre</b>{{ (matricula$ | async)!.estudiantes!.nombres }}</p>
+    <p><b>Apellido</b>{{ (matricula$ | async)!.estudiantes!.nombres }}</p>
+  </div>
+  <div class="flex flex-wrap flex-col gap-10">
+    <p>
+      <b>Tipo</b
+      >{{ (matricula$ | async)!.estudiantes!.tipoEstudiante.descripcion }}
+    </p>
+  </div>
+</div>
+
+<div class="prose my-4">
+  <h2>Documentos</h2>
+</div>
+
+<div
+  class="flex flex-wrap justify-between prose text-lg shadow-xl rounded-2xl text-center h-max"
+>
+  <div class="p-8">
+    <figure>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
+        alt="pdf-signal"
+        class="w-36"
+      />
+      <figcaption>
+        <p>Copia de Cédula</p>
+      </figcaption>
+      <button class="btn btn-accent">Ver</button>
+    </figure>
+  </div>
+
+  <div class="p-8">
+    <figure>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"
+        alt="pdf-signal"
+        class="w-36"
+      />
+      <figcaption>
+        <p>Copia de Certificado</p>
+      </figcaption>
+      <button class="btn btn-accent">Ver</button>
+    </figure>
+  </div>
+</div>
+
+<div class="prose my-4">
+  <h2>Observaciones</h2>
+</div>
+
+<div class="my-4">
+  <div class="overflow-x-auto">
+    <table class="table w-full">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th></th>
+          <th>Descripcion</th>
+          <th>Completado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let observacion of matricula.observaciones">
+          <td></td>
+          <td>{{ observacion.descripcion }}</td>
+          <td>
+            <div class="form-control">
+              <label class="cursor-pointer label">
+                <input
+                  type="checkbox"
+                  [checked]="observacion.completado"
+                  [(ngModel)]="observacion.completado"
+                  class="checkbox checkbox-success"
+                />
+              </label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+  <textarea
+    [(ngModel)]="observationForm.descripcion"
+    class="textarea textarea-primary w-full"
+    placeholder="Bio"
+  ></textarea>
+  <div>
+    <button class="btn btn-accent" (click)="handleAgregarObservacion()">
+      Agregar
+    </button>
+  </div>
+</div>
+
+<div class="flex flex-wrap my-4 justify-around">
+  <button class="btn btn-warning" routerLink="../lista-estudiantes">
+    Cancelar
+  </button>
+  <button class="btn btn-info" (click)="updateMatricula()">Guardar</button>
+</div>

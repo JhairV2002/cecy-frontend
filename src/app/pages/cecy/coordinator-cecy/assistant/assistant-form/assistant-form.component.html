@@ -1,0 +1,233 @@
+<p-dialog
+  header="{{ titleModal }} asistente"
+  [(visible)]="showModal"
+  [maximizable]="true"
+  [style]="{ width: '498px' }"
+  [modal]="true"
+  (onHide)="closeModal()"
+>
+  <div class="p-fluid">
+    <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+      <div class="formgrid grid justify-center">
+        <div class="field col-12">
+          <label
+            for="name"
+            appLabel
+            label="Nombres:"
+            [required]="isRequired(nameField)"
+            [valid]="nameField.valid"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="name"
+            formControlName="names"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="nameField.errors"
+            [touched]="nameField.touched"
+            [dirty]="nameField.dirty"
+          >
+          </small>
+        </div>
+        <!--lastname-->
+        <div class="field col-12">
+          <label
+            for="lastname"
+            appLabel
+            label="Apellidos:"
+            [required]="isRequired(lastnameField)"
+            [valid]="lastnameField.valid"
+            [touched]="lastnameField.touched"
+            [dirty]="lastnameField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="lastnames"
+            formControlName="lastnames"
+            class="uppercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="lastnameField.errors"
+            [touched]="lastnameField.touched"
+            [dirty]="lastnameField.dirty"
+          >
+          </small>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <!-- Phone -->
+          <div class="">
+            <label
+              for="phone"
+              appLabel
+              label="Teléfono:"
+              [required]="isRequired(phoneField)"
+            >
+            </label>
+            <span class="p-input-icon-left">
+              <i class="fa-solid fa-phone"></i>
+              <input
+                pInputText
+                formControlName="phone"
+                pKeyFilter="pint"
+                placeholder="Ej. 0987654321"
+              />
+            </span>
+
+            <small
+              appErrorMessage
+              [errors]="phoneField.errors"
+              [touched]="phoneField.touched"
+              [dirty]="phoneField.dirty"
+            ></small>
+          </div>
+          <div class="">
+            <!--Genero  -->
+            <label
+              for="gender"
+              appLabel
+              label="Género"
+              [required]="isRequired(genderField)"
+            >
+            </label>
+            <p-dropdown
+              placeholder="Seleccione el genero"
+              [options]="catalogue"
+              optionLabel="genders"
+              optionValue="id"
+              [showClear]="true"
+              [style]="{ width: '100%' }"
+              formControlName="genderId"
+            ></p-dropdown>
+            <small
+              appErrorMessage
+              [errors]="genderField.errors"
+              [touched]="genderField.touched"
+              [dirty]="genderField.dirty"
+            ></small>
+          </div>
+        </div>
+        <div class="field col-12">
+          <label
+            for="identityCard"
+            appLabel
+            label="Cédula"
+            [required]="isRequired(identityCardField)"
+          ></label>
+          <input
+            pInputText
+            formControlName="identityCard"
+            pKeyFilter="pint"
+            placeholder="Ej. 1728545355"
+          />
+          <small
+            appErrorMessage
+            [errors]="identityCardField.errors"
+            [touched]="identityCardField.touched"
+            [dirty]="identityCardField.dirty"
+          ></small>
+        </div>
+        <div class="field col-12">
+          <label
+            for="role"
+            appLabel
+            label="Rol:"
+            [required]="isRequired(roleField)"
+          ></label>
+          <p-dropdown
+            placeholder="Seleccione un rol"
+            [options]="roles"
+            optionLabel="name"
+            optionValue="id"
+            [showClear]="true"
+            [style]="{ width: '100%' }"
+            formControlName="roleId"
+          ></p-dropdown>
+          <small
+            appErrorMessage
+            [errors]="roleField.errors"
+            [touched]="roleField.touched"
+            [dirty]="roleField.dirty"
+          ></small>
+        </div>
+        <div class="field col-12">
+          <label
+            for="email"
+            appLabel
+            label="Correo electrónico institucional:"
+            [required]="isRequired(emailField)"
+            [valid]="emailField.valid"
+            [touched]="emailField.touched"
+            [dirty]="emailField.dirty"
+          >
+          </label>
+          <input
+            pInputText
+            id="email"
+            formControlName="email"
+            class="lowercase"
+          />
+          <small
+            appErrorMessage
+            [errors]="emailField.errors"
+            [touched]="emailField.touched"
+            [dirty]="emailField.dirty"
+          >
+          </small>
+        </div>
+        <div class="field col-12" *ngIf="!isEdit">
+          <label
+            for="password"
+            appLabel
+            label="Contraseña:"
+            [required]="isRequired(passwordField)"
+          ></label>
+
+          <p-password
+            id="password"
+            formControlName="password"
+            mediumLabel="Nivel medio"
+            promptLabel="Escriba su contraseña"
+            strongLabel="Fuerte"
+            [toggleMask]="true"
+            weakLabel="Débil"
+          >
+          </p-password>
+          <small
+            appErrorMessage
+            [errors]="passwordField.errors"
+            [dirty]="passwordField.dirty"
+            [touched]="passwordField.touched"
+          >
+          </small>
+        </div>
+      </div>
+
+      <p-divider></p-divider>
+
+      <!--onSubmit()-->
+      <div class="field">
+        <button
+          [disabled]="formUser.invalid"
+          pButton
+          type="submit"
+          pRipple
+          label="{{ titleButton }}"
+          class="p-button-rounded"
+          icon="pi pi-save"
+        ></button>
+      </div>
+
+      <!--progressBar-->
+      <div class="mt-4" *ngIf="progressBar">
+        <p-progressBar mode="indeterminate"></p-progressBar>
+      </div>
+    </form>
+  </div>
+</p-dialog>

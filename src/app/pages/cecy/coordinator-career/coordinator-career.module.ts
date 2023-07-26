@@ -8,18 +8,8 @@ import { PlanificationFormComponent } from './planification/planification-form/p
 
 import { CoordinatorCareerRoutingModule } from './coordinator-career-routing.module';
 import { CoordinatorCareerComponent } from './coordinator-career.component';
-import { InstructorComponent } from './instructor/instructor.component';
-import { InstructorListComponent } from './instructor/instructor-list/instructor-list.component';
-import { InstructorFormComponent } from './instructor/instructor-form/instructor-form.component';
-import { AssignmentInstructorsFormComponent } from './assignment-instructor/assignment-instructors-form.component';
-
-import { RequirementComponent } from './requirement/requirement.component';
-import { RequirementFormComponent } from './requirement/requirement-form/requirement-form.component';
-import { RequirementListComponent } from './requirement/requirement-list/requirement-list.component';
-import { InitialCourseKpiComponent } from './planification/initial-course-kpi/initial-course-kpi.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { KpiComponent } from './planification/kpi/kpi.component';
-
 
 /* Prime NG */
 import { ChartModule } from 'primeng/chart';
@@ -57,24 +47,14 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
-    AssignmentInstructorsFormComponent,
     CoordinatorCareerComponent,
-    InstructorComponent,
-    InstructorListComponent,
-    InstructorFormComponent,
-    RequirementComponent,
-    RequirementFormComponent,
-    RequirementListComponent,
-    AssignmentInstructorsFormComponent,
-    InitialCourseKpiComponent,
-    RequirementListComponent,
     DashboardComponent,
     HomeComponent,
     PlanificationComponent,
     PlanificationListComponent,
-    PlanificationFormComponent,
     KpiComponent,
     SearchComponent,
+    PlanificationFormComponent,
   ],
   imports: [
     CommonModule,
@@ -109,7 +89,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     RadioButtonModule,
     AutoCompleteModule,
     TagModule,
-    SkeletonModule
+    SkeletonModule,
   ],
 })
 export class CoordinatorCareerModule {}

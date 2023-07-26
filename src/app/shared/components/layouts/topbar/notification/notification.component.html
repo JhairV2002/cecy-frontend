@@ -1,0 +1,78 @@
+<button (click)="openNotification()" class="hover mr-4">
+  <i
+    class="pi pi-bell mr-4 p-text-secondary"
+    pBadge
+    style="font-size: 1.5rem"
+    [value]="
+      notificationsUnread.length > 0
+        ? notificationsUnread.length.toString()
+        : '0'
+    "
+  ></i>
+</button>
+
+<p-sidebar
+  styleClass="w-30rem"
+  position="right"
+  [(visible)]="sidebarVisible"
+  class="transition-all duration-150 ease-in-out"
+  [showCloseIcon]="true"
+  [modal]="false"
+>
+  <ng-template pTemplate="header">
+    <h2 class="text-xl">Notificaciones</h2>
+  </ng-template>
+  <div>
+    <ng-container *ngIf="loading; else content">
+      <div class="flex items-center justify-center h-full">
+        <p-progressSpinner
+          class="my-auto mx-auto"
+          strokeWidth="3"
+          styleClass="text-primary"
+          animationDuration=".5s"
+        ></p-progressSpinner>
+        <p class="ml-2">Cargando notificaciones...</p>
+      </div>
+    </ng-container>
+    <ng-template #content>
+      <ng-container *ngIf="notifications.length > 0; else noNotifications">
+        <ng-container *ngFor="let notification of notifications">
+          <div class="mt-2">
+            <p-card class="notification-card">
+              <div class="card-content">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <img
+                      src="assets/images/administrator/user-default.png"
+                      alt="Notification Icon"
+                      class="w-8 h-8 rounded-full"
+                    />
+                    <div class="ml-1">
+                      <p class="ml-1">{{ notification.message }}</p>
+                      <p class="text-sm text-gray-500">
+                        {{ notification.createdAt | relativeTime }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="relative">
+                    <i
+                      class="pi pi-ellipsis-v hover"
+                      (click)="showOptionsMenu($event)"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </p-card>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-template #noNotifications>
+        <div class="flex items-center justify-center h-full">
+          <p class="text-gray-500">
+            ¡Excelente! No tienes ninguna notificación pendiente.
+          </p>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</p-sidebar>

@@ -35,14 +35,16 @@ export class EstudianteService {
   actualizarNotas(matricula: Matriculas, id: number): Observable<Matriculas> {
     let promedio = (matricula.porcentajeAsistencia + matricula.nota1 + matricula.nota2) / 3;
     matricula.promedio = promedio;
-  
+
     if (promedio >= 70) {
       matricula.estadoCurso = { descripcion: 'aprobado' };
 
     } else {
       matricula.estadoCurso = { descripcion: 'reprobado' };
+
+      return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
     }
-  
+
     return this.http.put<any>(`${this.baseUrl}${id}/`, matricula);
   }
 

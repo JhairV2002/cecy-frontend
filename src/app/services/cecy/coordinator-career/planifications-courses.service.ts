@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { PlanificationCourses } from '@models/cecy/coordinator-career';
 import { PlanificationCourseInitial } from '@models/cecy-v1/course.model';
-import { BehaviorSubject, Observable, finalize } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,8 @@ export class PlanificationsCoursesService {
   private apiUrl = `${environment.api2}/planifications-courses`;
   private loading = new BehaviorSubject<boolean>(true);
   public loading$: Observable<boolean> = this.loading.asObservable();
+  planification = new BehaviorSubject<PlanificationCourses[] | null>(null);
+  planification$: Observable<any> = this.planification.asObservable();
 
   constructor(private http: HttpClient) {}
   getPlanificationCourses() {
@@ -29,6 +31,9 @@ export class PlanificationsCoursesService {
     return this.http
       .get<PlanificationCourseInitial>(`${this.apiUrl}/${id}`)
       .pipe(
+        tap((planification: any) => {
+          this.planification.next(planification);
+        }),
         finalize(() => {
           this.loading.next(false);
         })

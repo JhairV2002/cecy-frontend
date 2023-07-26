@@ -5,16 +5,25 @@ import { PoaFormComponent } from './poa/poa-form/poa-form.component';
 import { HomeComponent } from './home/home.component';
 import { TabsComponent } from '../responsible-course/tabs/tabs.component';
 import { SchoolYearComponent } from './school-year/school-year.component';
-import { AssignmentInstructorsFormComponent } from '../coordinator-career/assignment-instructor/assignment-instructors-form.component';
+import { AssistantComponent } from './assistant/assistant.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
+import { PlanificationComponent } from './planification/planification.component';
+import { SignatureComponent } from './signature/signature.component';
+import { SignatureFormComponent } from './signature/signature-form/signature-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'course', component: CourseComponent },
-  { path: 'school-year', component: SchoolYearComponent },
   { path: 'course/visualization/:id', component: TabsComponent },
-  { path: 'profile-instructor', component: AssignmentInstructorsFormComponent },
+  { path: 'signature', component: SignatureComponent },
+  { path: 'signature/create', component: SignatureFormComponent },
+  { path: 'signature/edit/:id', component: SignatureFormComponent },
+  { path: 'assistant', component: AssistantComponent },
+  { path: 'school-year', component: SchoolYearComponent },
   { path: 'poa-form', component: PoaFormComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'planification/:id', component: PlanificationComponent },
 ];
 
 @NgModule({

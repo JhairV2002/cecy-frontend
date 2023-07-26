@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
 import { SchoolYearService } from '@services/cecy/coordinator-cecy';
@@ -19,7 +19,7 @@ export class SchoolYearListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
+  paginator: any = {};
   schoolPeriods: SchoolYear[] = [];
   modelName: any;
   totalUsers: number = 0;

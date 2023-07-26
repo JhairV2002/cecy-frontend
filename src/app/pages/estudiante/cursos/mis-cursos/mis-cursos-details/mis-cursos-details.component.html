@@ -1,0 +1,60 @@
+<div class="prose-base w-full text-center md:text-left">
+  <h1>{{ (curso | async)!.name }}</h1>
+  <div class="grid grid-flow-row place-content-around md:grid-cols-2 gap-4">
+    <div class="sm:order-last">
+      <h2>Observaciones</h2>
+      <div class="alert shadow-lg">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="stroke-info shrink-0 w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <div>
+          <h3 class="font-bold">Aviso</h3>
+          <div>
+            Si una de tus observaciones pide que vuelvas a subir alguno de tus
+            archivos hazlo aquí.
+          </div>
+        </div>
+      </div>
+      <tbody
+        *ngIf="matricula.observaciones?.length != 0; else sinObservaciones"
+      >
+        <tr *ngFor="let observacion of matricula.observaciones">
+          <td></td>
+          <td>{{ observacion.descripcion }}</td>
+          <td>
+            <div class="form-control">
+              <label class="cursor-pointer label">
+                <input
+                  type="checkbox"
+                  disabled
+                  [checked]="observacion.completado"
+                  class="checkbox checkbox-success"
+                />
+              </label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+      <input type="file" />
+    </div>
+    <div class="order-first md:order-last mx-auto">
+      <app-curso-card [curso]="curso | async"></app-curso-card>
+    </div>
+  </div>
+  <tbody></tbody>
+</div>
+<ng-template #sinObservaciones>
+  <h3>Felicidades!</h3>
+  <p>No tienes observaciones</p>
+</ng-template>

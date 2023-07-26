@@ -1,17 +1,18 @@
-import { CatalogueModel, ClassroomModel, RegistrationModel } from "@models/cecy";
-import { PlanificationModel } from "@models/cecy/planification.model";
-import { InstructorModel } from './instructor.model';
-
+import {
+  CatalogueModel,
+  ClassroomModel,
+  RegistrationModel,
+} from '@models/cecy';
 export interface DetailPlanificationModel {
   id?: number;
   classroom?: ClassroomModel;
   day?: CatalogueModel;
   parallel?: CatalogueModel;
-  planification?: PlanificationModel;
+  planification?: any;
   workday?: CatalogueModel;
   state?: CatalogueModel;
   endedTime?: Date;
-  instructors?: InstructorModel[];
+  instructors?: [];
   observation?: string;
   planEndedAt?: Date;
   registrationLeft?: number;

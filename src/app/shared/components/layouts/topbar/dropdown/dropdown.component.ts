@@ -21,9 +21,10 @@ export class DropdownComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((data: any) => {
-      console.log('cliente global', data[0]);
-      this.user = data[0];
+    this.authService.user$.subscribe((data: any) => {
+      if (data !== null) {
+        this.user = data[0];
+      }
     });
   }
 
@@ -51,6 +52,25 @@ export class DropdownComponent implements OnInit {
   closeModal(state: boolean) {
     console.log('STATE PROFILE FORM', state);
     this.isVisible = state;
+  }
+
+  redirectConfigurate(role: any) {
+    console.log(role);
+    if (role === 'admin') {
+      this.router.navigate(['/administrator/change-password']);
+    } else if (role === 'coordinator_career') {
+      this.router.navigate(['/cecy/coordinator-career/change-password']);
+    } else if (role === 'coordinator_cecy') {
+      this.router.navigate(['/cecy/coordinator-cecy/change-password']);
+    } else if (role === 'assistant_cecy') {
+      this.router.navigate(['/cecy/assistant-cecy/change-password']);
+    } else if (role === 'instructor_execute') {
+      this.router.navigate(['/cecy/responsible-execute/change-password']);
+    } else if (role === 'responsible_course') {
+      this.router.navigate(['/cecy/responsible-course/change-password']);
+    } else if (role === 'instructor') {
+      this.router.navigate(['/cecy/instructor/courses/change-password']);
+    }
   }
 
   onlogout(): void {

@@ -24,6 +24,15 @@ export class RolesService {
     );
   }
 
+  getRoleAssistant() {
+    this.loading.next(true);
+    return this.http.get<Roles[]>(`${this.apiUrl}/assistant`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
   addEditRole(data: any, selectedRol: any) {
     if (!selectedRol) {
       this.loading.next(true);

@@ -31,11 +31,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { PickListModule } from 'primeng/picklist';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TagModule } from 'primeng/tag';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { DragDropModule } from 'primeng/dragdrop';
+import { MessagesModule } from 'primeng/messages';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
 
 /**Components */
 import { CoordinatorCecyRoutingModule } from './coordinator-cecy-routing.module';
 import { CourseComponent } from './course/course.component';
-import { CourseFormComponent } from './course/course-form/course-form.component';
 import { CourseListComponent } from './course/course-list/course-list.component';
 import { PoaComponent } from './poa/poa.component';
 import { PoaListComponent } from './poa/poa-list/poa-list.component';
@@ -46,11 +51,19 @@ import { SchoolYearComponent } from './school-year/school-year.component';
 import { SchoolYearListComponent } from './school-year/school-year-list/school-year-list.component';
 import { SchoolYearFormComponent } from './school-year/school-year-form/school-year-form.component';
 import { CommentsComponent } from './course/comments/comments.component';
+import { AssistantComponent } from './assistant/assistant.component';
+import { AssistantFormComponent } from './assistant/assistant-form/assistant-form.component';
+import { AssistantListComponent } from './assistant/assistant-list/assistant-list.component';
+import { SearchComponent } from './assistant/search/search.component';
+import { PlanificationComponent } from './planification/planification.component';
+import { SignatureComponent } from './signature/signature.component';
+import { SignatureListComponent } from './signature/signature-list/signature-list.component';
+import { SignatureFormComponent } from './signature/signature-form/signature-form.component';
+import { SearchSignatureComponent } from './signature/search-signature/search-signature.component';
 
 @NgModule({
   declarations: [
     CourseComponent,
-    CourseFormComponent,
     CourseListComponent,
     PoaComponent,
     PoaListComponent,
@@ -61,6 +74,15 @@ import { CommentsComponent } from './course/comments/comments.component';
     SchoolYearListComponent,
     SchoolYearFormComponent,
     CommentsComponent,
+    AssistantComponent,
+    AssistantFormComponent,
+    AssistantListComponent,
+    SearchComponent,
+    PlanificationComponent,
+    SignatureComponent,
+    SignatureListComponent,
+    SignatureFormComponent,
+    SearchSignatureComponent,
   ],
   imports: [
     CommonModule,
@@ -97,6 +119,12 @@ import { CommentsComponent } from './course/comments/comments.component';
     TooltipModule,
     InputTextareaModule,
     TagModule,
+    RadioButtonModule,
+    BreadcrumbModule,
+    DragDropModule,
+    MessagesModule,
+    FileUploadModule,
+    ImageModule
   ],
 })
 export class CoordinatorCecyModule {}
