@@ -75,7 +75,7 @@ export class EstudiantesComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: `Actualizado`,
-          detail: `Notas estudiante ${data.estudiantes.nombres}`,
+          detail: `Notas del estudiante ${data.estudiantes.nombres}`,
         });
       },
       error: (error) => {
