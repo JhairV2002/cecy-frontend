@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, finalize } from 'rxjs';
 import { Matriculas } from './estudiante.model';
 import { environment } from '@env/environment';
 import * as fs from 'fs';
@@ -11,7 +11,9 @@ import * as XLSX from 'xlsx';
 })
 export class EstudianteService {
   private baseUrl = `${environment.api}/matriculas/`;
-  constructor(private http: HttpClient) { }
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
+  constructor(private http: HttpClient) {}
 
   obtenerEstudiantes(): Observable<Matriculas[]> {
     return this.http.get<Matriculas[]>(this.baseUrl);
@@ -20,7 +22,7 @@ export class EstudianteService {
   guardarEstudiante(estudiante: any): Observable<any> {
     return this.http.put<Matriculas>(
       `${this.baseUrl}/${estudiante.id}`,
-      estudiante,
+      estudiante
     );
   }
 
@@ -29,16 +31,21 @@ export class EstudianteService {
   }
 
   obtenerMatriculasPorCursoId(id: number): Observable<Matriculas[]> {
-    return this.http.get<Matriculas[]>(`${this.baseUrl}cursoId/${id}/`);
+    this.loading.next(true);
+    return this.http.get<Matriculas[]>(`${this.baseUrl}cursoId/${id}/`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 
   actualizarNotas(matricula: Matriculas, id: number): Observable<Matriculas> {
-    let promedio = (matricula.porcentajeAsistencia + matricula.nota1 + matricula.nota2) / 3;
+    let promedio =
+      (matricula.porcentajeAsistencia + matricula.nota1 + matricula.nota2) / 3;
     matricula.promedio = promedio;
 
     if (promedio >= 70) {
       matricula.estadoCurso = { descripcion: 'aprobado' };
-
     } else {
       matricula.estadoCurso = { descripcion: 'reprobado' };
 

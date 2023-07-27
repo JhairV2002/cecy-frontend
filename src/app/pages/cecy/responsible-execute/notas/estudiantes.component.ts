@@ -14,6 +14,7 @@ import { MessageService } from 'primeng/api';
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
   estudiantes: Matriculas[] = [];
+  loading$ = this.estudianteService.loading$;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -73,8 +74,8 @@ export class EstudiantesComponent implements OnInit {
         console.log(data);
         this.messageService.add({
           severity: 'success',
-          summary: `${data.message}`,
-          detail: `${data.state}`,
+          summary: `Actualizado`,
+          detail: `Notas estudiante ${data.estudiantes.nombres}`,
         });
       },
       error: (error) => {

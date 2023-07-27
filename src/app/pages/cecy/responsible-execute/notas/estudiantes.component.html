@@ -49,6 +49,9 @@
   [value]="estudiantes$ | async | nombreFilter : nombreFiltrado"
   [responsive]="true"
   class="p-datatable"
+  [loading]="(loading$ | async)!"
+  [rows]="5"
+  [paginator]="true"
 >
   <ng-template pTemplate="header">
     <tr>
