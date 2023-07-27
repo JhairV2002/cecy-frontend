@@ -23,8 +23,8 @@ export class CursoService {
   }
 
   actualizarStatusCurso(cursoId: number, nuevoStatus: string): Observable<Curso> {
-    const url = `http://localhost:8080/api/cursos/${cursoId}`;
+    const url = `http://localhost:3000/api/v1/courses/change-course/${cursoId}/state-change/${nuevoStatus}`;
     const body = { statusCourse: nuevoStatus };
-    return this.http.put<Curso>(url, body);
+    return this.http.patch<Curso>(url, body);
   }
 }

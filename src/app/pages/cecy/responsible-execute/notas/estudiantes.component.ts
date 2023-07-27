@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
 import { Matriculas } from './estudiante.model';
-import { NombreFilterPipe } from './filter.pipe';
-import * as fs from 'fs';
 import * as XLSX from 'xlsx';
-import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-estudiantes',
@@ -21,7 +18,8 @@ export class EstudiantesComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private estudianteService: EstudianteService
+    private estudianteService: EstudianteService,
+    public messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -66,16 +64,28 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
-  guardarNotas(matricula: Matriculas): void {
+  guardarNotas(event: any, matricula: Matriculas): void {
     console.log(matricula);
 
-    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe(
-      (res) => {
-        console.log('Notas guardadas', res);
+    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe({
+      next: (data:any) => {
+        console.log(data)
+        this.messageService.add({
+          severity: 'success',
+          summary: `${data.message}`,
+          detail:
+          `${data.state}`,
+        });
       },
-      (error) => {
-        console.log('Error al guardar notas', error);
-      }
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al guardar',
+          detail:
+          `${error.message}`,
+        });
+      },
+    }
     );
   }
 
