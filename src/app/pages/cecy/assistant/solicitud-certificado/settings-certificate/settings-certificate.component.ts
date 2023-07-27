@@ -44,7 +44,7 @@ export class SettingsCertificateComponent implements OnInit {
     rol: '',
     firma: this.firm,
   };
-  alert: string="";
+  alert: string = '';
 
   ngOnInit(): void {
     this.type = [
@@ -55,35 +55,55 @@ export class SettingsCertificateComponent implements OnInit {
 
   public sendSetings() {
     this.nameCertificate = this.selectedDrop;
-    this.submittedSettings=true;
-    if(this.nameCertificate.name == null && this.submittedSettings){
-      console.log('entre')
-      this.alert = "Seleccione un tipo de certificado";
+    this.submittedSettings = true;
+    if (this.nameCertificate.name == null && this.submittedSettings) {
+      console.log('entre');
+      this.alert = 'Seleccione un tipo de certificado';
+      this.messageService.add({
+        severity: 'warn',
+        summary: `No encontrado`,
+        detail: `Seleccione un tipo de certificado`,
+      });
       return;
     }
-    if(
-      this.nameCertificate.name== "Senecyt" &&
+    if (
+      this.nameCertificate.name == 'Senecyt' &&
       this.valCheckCoordinadorCecy &&
       this.valCheckCoordinadorVinculacion &&
       this.valCheckPatrocinador &&
-      this.valCheckRector){
-        this.alert="El numero maximo de firmantes es 3";
-        return
-      }
-    console.log("response:" ,this.nameCertificate.name)
+      this.valCheckRector
+    ) {
+      this.alert = 'El numero maximo de firmantes es 3';
+      this.messageService.add({
+        severity: 'error',
+        summary: `Firmantes permitidos`,
+        detail: `El numero maximo de firmantes es 3`,
+      });
+      return;
+    }
+    console.log('response:', this.nameCertificate.name);
     //cecy solo 2
-    if( this.nameCertificate.name== "Cecy" &&
-        this.valCheckCoordinadorCecy &&
-        this.valCheckCoordinadorVinculacion &&
-        this.valCheckPatrocinador &&
-        this.valCheckRector){
-          this.alert="El numero maximo de firmantes es 2";
-          return
-        }
+    if (
+      this.nameCertificate.name == 'Cecy' &&
+      this.valCheckCoordinadorCecy &&
+      this.valCheckCoordinadorVinculacion &&
+      this.valCheckPatrocinador &&
+      this.valCheckRector
+    ) {
+      this.alert = 'El numero maximo de firmantes es 2';
+      this.messageService.add({
+        severity: 'error',
+        summary: `Firmantes permitidos`,
+        detail: `El numero maximo de firmantes es 2`,
+      });
+      return;
+    }
 
     if (this.rector != 0 && this.valCheckRector) {
       this.firm = { id: this.rector };
-      this.roles.push((this.rol = { rol: 'Rector IST YAVIRAC', firma: this.firm }));
+      this.roles.push(
+        (this.rol = { rol: 'Rector IST YAVIRAC', firma: this.firm })
+      );
     }
     if (this.patrocinador != 0 && this.valCheckPatrocinador) {
       this.firm = { id: this.patrocinador };
@@ -95,18 +115,23 @@ export class SettingsCertificateComponent implements OnInit {
         (this.rol = { rol: 'Coordinador Cecy', firma: this.firm })
       );
     }
-    if (this.coordinadorVinculacion != 0 && this.valCheckCoordinadorVinculacion) {
+    if (
+      this.coordinadorVinculacion != 0 &&
+      this.valCheckCoordinadorVinculacion
+    ) {
       this.firm = { id: this.coordinadorVinculacion };
-      this.roles.push((this.rol = { rol: 'Coordinador de Vinculacion', firma: this.firm }));
+      this.roles.push(
+        (this.rol = { rol: 'Coordinador de Vinculacion', firma: this.firm })
+      );
     }
-    console.log("sadaddsad");
+    console.log('sadaddsad');
     this.typeCertificate = {
       tipo: this.nameCertificate.name,
       firmas: this.roles,
     };
 
     this.certificateService
-     .postTypeCertificate(this.typeCertificate)
+      .postTypeCertificate(this.typeCertificate)
       .subscribe((tip) => {
         this.certificateService.tipoCertificado = {
           id: tip.id,
@@ -116,7 +141,7 @@ export class SettingsCertificateComponent implements OnInit {
     console.log(JSON.stringify(this.roles));
   }
 
-  participantOne(event: any){
+  participantOne(event: any) {
     console.log(event);
   }
 }

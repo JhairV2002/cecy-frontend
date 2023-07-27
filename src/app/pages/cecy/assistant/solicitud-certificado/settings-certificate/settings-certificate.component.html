@@ -1,6 +1,7 @@
+<p-toast></p-toast>
 <div class="grid p-fluid">
   <div class="col-12 md:col-6">
-    <div class="card">
+    <p-card>
       <h5>Tipo de certificado</h5>
       <p-dropdown
         [options]="type"
@@ -8,17 +9,16 @@
         placeholder="Selecione el tipo de certificado"
         [showClear]="true"
       ></p-dropdown>
-    </div>
+    </p-card>
   </div>
 
-  <div class="col-12 md:col-6">
-    <div class="card">
+  <div class="col-12 md:col-6 mt-2">
+    <p-card>
       <h5>Firmantes</h5>
       <div class="grid formgrid">
         <div class="col-12 md:col-4">
           <div class="field-checkbox">
             <p-checkbox
-
               name="group1"
               value="New York"
               [(ngModel)]="valCheckCoordinadorCecy"
@@ -32,7 +32,6 @@
         <div class="col-12 md:col-4">
           <div class="field-checkbox">
             <p-checkbox
-
               name="group1"
               value="New York"
               [(ngModel)]="valCheckCoordinadorVinculacion"
@@ -67,60 +66,62 @@
           </div>
         </div>
       </div>
-    </div>
+    </p-card>
 
-    <ng-template [ngIf]="valCheckRector"><div>
+    <ng-template [ngIf]="valCheckRector"
+      ><div>
+        <div class="card mt-2">
+          <p>Rector</p>
+          <app-dropdown-settings
+            (firmasIdEmitter)="rector = $event"
+            [id]="rector"
+          ></app-dropdown-settings>
+        </div></div
+    ></ng-template>
 
-      <div class="card">
-        <p>Rector</p>
-        <app-dropdown-settings
-          (firmasIdEmitter)="rector = $event"
-          [id]="rector"
-        ></app-dropdown-settings>
-      </div>
-    </div></ng-template>
+    <ng-template [ngIf]="valCheckPatrocinador"
+      ><div>
+        <div class="card mt-2">
+          <p>Con el auspicio de:</p>
+          <app-dropdown-settings
+            (firmasIdEmitter)="patrocinador = $event"
+            [id]="patrocinador"
+          ></app-dropdown-settings>
+        </div></div
+    ></ng-template>
 
-    <ng-template [ngIf]="valCheckPatrocinador"><div>
-      <div class="card">
-        <p>Con el auspicio de:</p>
-        <app-dropdown-settings
-          (firmasIdEmitter)="patrocinador = $event"
-          [id]="patrocinador"
-        ></app-dropdown-settings>
-      </div>
-    </div></ng-template>
+    <ng-template [ngIf]="valCheckCoordinadorCecy"
+      ><div>
+        <div class="card mt-2">
+          <p>Cordinador Cecy</p>
+          <app-dropdown-settings
+            (firmasIdEmitter)="coordinador = $event"
+            [id]="coordinador"
+          ></app-dropdown-settings>
+        </div></div
+    ></ng-template>
 
-
-
-
-
-
-    <ng-template [ngIf]="valCheckCoordinadorCecy"><div>
-      <div class="card">
-        <p>Cordinador Cecy</p>
-        <app-dropdown-settings
-          (firmasIdEmitter)="coordinador = $event"
-          [id]="coordinador"
-        ></app-dropdown-settings>
-      </div>
-    </div></ng-template>
-
-    <ng-template [ngIf]="valCheckCoordinadorVinculacion"><div>
-      <div class="card">
-        <p>Cordinador de vinculacion</p>
-        <app-dropdown-settings
-          (firmasIdEmitter)="coordinadorVinculacion = $event"
-          [id]="coordinadorVinculacion"
-        ></app-dropdown-settings>
-      </div>
-    </div></ng-template>
-
-
-
-
-
+    <ng-template [ngIf]="valCheckCoordinadorVinculacion"
+      ><div>
+        <div class="card mt-2">
+          <p>Cordinador de vinculacion</p>
+          <app-dropdown-settings
+            (firmasIdEmitter)="coordinadorVinculacion = $event"
+            [id]="coordinadorVinculacion"
+          ></app-dropdown-settings>
+        </div></div
+    ></ng-template>
   </div>
-  <small class="ng-dirty ng-invalid" *ngIf="submittedSettings">{{alert}} sd</small>
-  <button class="btn" (click)="sendSetings()"></button>
+  <small class="ng-dirty ng-invalid text-red-600" *ngIf="submittedSettings"
+    >{{ alert }}
+  </small>
+  <p-divider class="mt-4"></p-divider>
+  <div class="flex items-center justify-center mt-2">
+    <p-button
+      icon="pi pi-save"
+      label="Guardar configuracion"
+      styleClass="p-button-raised p-button-text"
+      (click)="sendSetings()"
+    ></p-button>
+  </div>
 </div>
-

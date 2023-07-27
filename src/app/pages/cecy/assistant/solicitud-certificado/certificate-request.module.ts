@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CertificateRequestRoutingModule } from './certificate-request-routing.module';
 import { SolicitudCertificadoMainComponent } from './solicitud-certificado-main/solicitud-certificado-main.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SolicitudCertificadoListaComponent } from './solicitud-certificado-lista/solicitud-certificado-lista.component';
 
@@ -27,17 +27,16 @@ import { SettingsCertificateComponent } from './settings-certificate/settings-ce
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownSettingsComponent } from './settings-certificate/dropdown-settings/dropdown-settings.component';
-
-
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 @NgModule({
   declarations: [
-
     SolicitudCertificadoMainComponent,
     SolicitudCertificadoListaComponent,
     TabMenuCertificateComponent,
     CodigoCertificateComponent,
     SettingsCertificateComponent,
-    DropdownSettingsComponent
+    DropdownSettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +59,8 @@ import { DropdownSettingsComponent } from './settings-certificate/dropdown-setti
     TabViewModule,
     AutoCompleteModule,
     CheckboxModule,
-  ]
+    CardModule,
+    DividerModule,
+  ],
 })
-export class CertificateRequestModule { }
+export class CertificateRequestModule {}
