@@ -3,6 +3,8 @@ import { EstudiantesServiceService } from '../../services/estudiantes-service.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
+import { MessageService } from 'primeng/api';
+import { MessageService as MessageLocal } from '@services/core';
 
 @Component({
   selector: 'app-estudiante-detalles',
@@ -13,7 +15,9 @@ export class EstudianteDetallesComponent implements OnInit {
   constructor(
     private estudianteService: EstudiantesServiceService,
     private router: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private messageService: MessageService,
+    private messageLocal: MessageLocal
   ) {}
 
   matricula!: Matricula;
@@ -55,11 +59,23 @@ export class EstudianteDetallesComponent implements OnInit {
     this.router.paramMap.subscribe((res) => {
       this.estudianteService
         .updateMatricula(parseInt(res.get('idEstudiante')!), this.matricula)
-        .subscribe((res) => {
-          console.log(res);
+        .subscribe({
+          next: (res) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Actualizado',
+              detail: 'Se ha Matriculado el estudiante correctamente',
+            });
+            console.log(res);
+            setTimeout(() => {
+              this.goToBackListStudents();
+            }, 1000);
+          },
+          error: (error) => {
+            this.messageLocal.error(error);
+          },
         });
     });
-    this.route.navigate(['../']);
   }
 
   estudiante$ = this.router.paramMap.pipe(
