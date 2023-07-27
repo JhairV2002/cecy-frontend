@@ -104,14 +104,12 @@
             [options]="statusOptions"
             optionLabel="label"
             optionValue="value"
-            (onChange)="actualizarStatus($event,curso)"
-
+            (onChange)="actualizarStatus($event, curso)"
             [ngModel]="
               curso.detailPlanification?.planificationCourse?.course.state
             "
           ></p-dropdown>
         </p>
-<!-- (ngModelChange)="actualizarStatus(curso.id, $event.value)" -->
         <ng-template pTemplate="footer">
           <p-button
             label="Detalles"

@@ -24,8 +24,9 @@ export class EstudiantesComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
+      console.log(param);
       this.estudianteService
-        .obtenerMatriculasPorCursoId(parseInt(param.get('cursoId')!))
+        .obtenerMatriculasPorCursoId(parseInt(param.get('courseId')!))
         .subscribe((res) => {
           console.log('ESTUDIANTES', res);
           this.estudiantes = res;
@@ -35,7 +36,7 @@ export class EstudiantesComponent implements OnInit {
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
-        .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
+        .obtenerMatriculasPorCursoId(Number(param.get('courseId')!))
         .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
     )
   );
@@ -68,25 +69,22 @@ export class EstudiantesComponent implements OnInit {
     console.log(matricula);
 
     this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe({
-      next: (data:any) => {
-        console.log(data)
+      next: (data: any) => {
+        console.log(data);
         this.messageService.add({
           severity: 'success',
           summary: `${data.message}`,
-          detail:
-          `${data.state}`,
+          detail: `${data.state}`,
         });
       },
       error: (error) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error al guardar',
-          detail:
-          `${error.message}`,
+          detail: `${error.message}`,
         });
       },
-    }
-    );
+    });
   }
 
   // guardarPorcentaje(matricula: Matriculas): void {
