@@ -78,7 +78,10 @@ export class InscriptionFormComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(
       (res) => (this.matricula.cursoId = Number(res.get('id'))),
     );
-    // this.matricula.estudiantes.id = this.estudianteSeleccionado.id;
+
+    this.estudiantesService.estudianteActual.subscribe(
+      res => this.matricula.estudiantes.id = res!.id
+    )
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
 
