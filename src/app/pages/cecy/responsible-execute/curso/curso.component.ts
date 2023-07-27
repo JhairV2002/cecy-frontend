@@ -3,7 +3,6 @@ import { Curso } from './curso';
 import { CursoService } from './curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
-import { Course } from '@models/cecy';
 import { MessageService } from 'primeng/api';
 
 interface StatusOption {
