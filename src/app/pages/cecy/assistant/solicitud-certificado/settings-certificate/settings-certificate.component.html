@@ -13,14 +13,17 @@
 
   <div class="col-12 md:col-6">
     <div class="card">
-      <h5>Participantes</h5>
+      <h5>Firmantes</h5>
       <div class="grid formgrid">
         <div class="col-12 md:col-4">
           <div class="field-checkbox">
             <p-checkbox
+
               name="group1"
               value="New York"
-              [(ngModel)]="valCheck"
+              [(ngModel)]="valCheckCoordinadorCecy"
+              (onChange)="participantOne($event)"
+              [binary]="true"
               id="ny"
             ></p-checkbox>
             <label for="ny">Cordinador Cecy</label>
@@ -29,9 +32,23 @@
         <div class="col-12 md:col-4">
           <div class="field-checkbox">
             <p-checkbox
+
+              name="group1"
+              value="New York"
+              [(ngModel)]="valCheckCoordinadorVinculacion"
+              [binary]="true"
+              id="ny"
+            ></p-checkbox>
+            <label for="ny">Cordinador Vinculacion</label>
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <div class="field-checkbox">
+            <p-checkbox
               name="group1"
               value="San Francisco"
-              [(ngModel)]="valCheck"
+              [(ngModel)]="valCheckRector"
+              [binary]="true"
               id="sf"
             ></p-checkbox>
             <label for="sf">Rector</label>
@@ -42,7 +59,8 @@
             <p-checkbox
               name="group1"
               value="Los Angeles"
-              [(ngModel)]="valCheck"
+              [(ngModel)]="valCheckPatrocinador"
+              [binary]="true"
               id="la"
             ></p-checkbox>
             <label for="la">Patrocinador</label>
@@ -51,28 +69,58 @@
       </div>
     </div>
 
-    <div class="card">
-      <app-dropdown-settings
-        (firmasIdEmitter)="rector = $event"
-        [id]="rector"
-      ></app-dropdown-settings>
-    </div>
+    <ng-template [ngIf]="valCheckRector"><div>
 
-    <div class="card">
-      <app-dropdown-settings
-        (firmasIdEmitter)="patrocinador = $event"
-        [id]="patrocinador"
-      ></app-dropdown-settings>
-    </div>
+      <div class="card">
+        <p>Rector</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="rector = $event"
+          [id]="rector"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
 
-    <div class="card">
-      <app-dropdown-settings
-        (firmasIdEmitter)="coordinador = $event"
-        [id]="coordinador"
-      ></app-dropdown-settings>
-    </div>
+    <ng-template [ngIf]="valCheckPatrocinador"><div>
+      <div class="card">
+        <p>Con el auspicio de:</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="patrocinador = $event"
+          [id]="patrocinador"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
+
+
+
+
+
+
+    <ng-template [ngIf]="valCheckCoordinadorCecy"><div>
+      <div class="card">
+        <p>Cordinador Cecy</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="coordinador = $event"
+          [id]="coordinador"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
+
+    <ng-template [ngIf]="valCheckCoordinadorVinculacion"><div>
+      <div class="card">
+        <p>Cordinador de vinculacion</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="coordinadorVinculacion = $event"
+          [id]="coordinadorVinculacion"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
+
+
+
+
+
   </div>
-
+  <small class="ng-dirty ng-invalid" *ngIf="submittedSettings">{{alert}} sd</small>
   <button class="btn" (click)="sendSetings()"></button>
 </div>
 

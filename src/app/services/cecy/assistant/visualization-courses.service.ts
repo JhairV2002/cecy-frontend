@@ -10,7 +10,8 @@ import { environment } from '@env/environment';
 export class VisualizationCoursesService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = `${environment.api2}/courses/state-course/cerrado`;
+  private apiUrl = `${environment.api2}/courses/state-course/terminado`;
+  private apiUrl1 = `${environment.api2}/courses`;
   private loading = new BehaviorSubject<boolean>(true);
   public loading$: Observable<boolean> = this.loading.asObservable();
 
@@ -35,7 +36,7 @@ export class VisualizationCoursesService {
 
   public findById(id: number): Observable<Course> {
     this.loading.next(true);
-    return this.http.get<Course>(this.apiUrl + id, this.httpOptions).pipe(
+    return this.http.get<Course>(this.apiUrl1 +"/"+ id, this.httpOptions).pipe(
       finalize(() => {
         this.loading.next(false);
       })

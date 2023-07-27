@@ -11,7 +11,7 @@ import { ListReports, Planification } from './certificateReport';
 export class CecyCertificateService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = `${environment.api}/courses`;
+  private apiUrl = `${environment.api2}/courses`;
   private apiUrl2 = `${environment.api}/cursos`;
   private apiUrlReporte = `${environment.api}/reporte`;
   private apiUrlPlanification = `${environment.api2}/planifications-courses`;
@@ -32,7 +32,7 @@ export class CecyCertificateService {
   }
 
   public findById(id: number): Observable<Course> {
-    return this.http.get<Course>(this.apiUrl2 + '/' + id, this.httpOptions);
+    return this.http.get<Course>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
   public getPlanificationById(id: number) {
