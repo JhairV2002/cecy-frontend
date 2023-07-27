@@ -17,6 +17,7 @@ export class ReporteComponent implements OnInit {
   ) {}
   solicitudEstudents: Matricula[] = [];
   courses: Course[] = [];
+  id: number=0;
   loading$ = this.visualizationCoursesService.loading$;
   ngOnInit(): void {
     this.findAll();
@@ -33,11 +34,17 @@ export class ReporteComponent implements OnInit {
   }
 
   public findAllEstudents(): void {
-    this.matricula.findAllReport().subscribe((response) => {
-      console.log(response);
-      this.solicitudEstudents = response;
-      this.findAllMatriculados();
+    this.courses.forEach((res)=>{
+      this.matricula.findAllMatricula(res.id).subscribe((response) => {
+    
+        this.solicitudEstudents = response;
+        this.findAllMatriculados();
+        console.log("Matriculas:",this.solicitudEstudents)
+      });
+
+
     });
+    
   }
 
   public nameCourse(): void {
@@ -57,9 +64,13 @@ export class ReporteComponent implements OnInit {
       this.solicitudEstudents.forEach((reporte) => {
         if (reporte.cursoId == solicitud.id) {
           contador = contador + 1;
+          
           solicitud.list = contador;
+          
+
         }
       });
+      console.log("response",solicitud.list)
     });
   }
 }

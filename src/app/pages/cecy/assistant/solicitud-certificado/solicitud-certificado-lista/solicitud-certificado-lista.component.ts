@@ -270,6 +270,7 @@ onGlobalFilter(table: Table, event: Event) {
 
          this.matriculaEntity={
              id:res.matriculas.id,
+             cursoId: res.matriculas.cursoId,
              estudiantes:this.estudentEntity
 
          };
@@ -289,9 +290,9 @@ onGlobalFilter(table: Table, event: Event) {
          }
          this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe((e)=>{
           //this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Certificado Generado', life: 3000 })
-          this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
-            stateCertificate: true
-          },this.reportEntity.id)
+          //this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
+          //  stateCertificate: true
+          //},this.reportEntity.id)
         });
          console.log(JSON.stringify(this.codeEntity))
        }

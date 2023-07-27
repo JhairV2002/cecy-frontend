@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '@models/cecy/secretary-cecy';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 
 //Prime NG
 import { SelectItem } from 'primeng/api';
-import { ListReports } from '../certificateReport';
+import { 
+  ListReports,
+  Course
+ } from '../certificateReport';
 import { CecyCertificateService } from '../cecy-certificate.service';
 
 import { DataView, DataViewLayoutOptions } from 'primeng/dataview';
