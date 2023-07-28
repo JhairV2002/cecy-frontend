@@ -54,7 +54,7 @@
           <td>{{ matricula.promedio }}</td>
           <td>{{ matricula.estadoCurso.descripcion }}</td>
           <td>
-            <button pButton type="button" class="p-button p-button-rounded p-button-success" (click)="guardarNotas(matricula)">
+            <button pButton type="button" class="p-button p-button-rounded p-button-success" (click)="guardarNotas(matricula);">
               Guardar
             </button>
           </td>
@@ -64,6 +64,8 @@
   </div>
 
   <div class="p-col p-text-center">
-    <button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel" (click)="generarExcel()">ㅤGenerar Excel</button>
+    <button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel" (click)="generarExcel()">
+      ㅤGenerar Excel
+    </button>    
   </div>
 </div>

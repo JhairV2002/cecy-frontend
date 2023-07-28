@@ -79,6 +79,10 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
+  actualizarPagina() {
+    window.location.reload();
+  }
+
   // guardarPorcentaje(matricula: Matriculas): void {
   //   console.log(matricula);
   //
@@ -116,6 +120,12 @@ export class EstudiantesComponent implements OnInit {
     }
   }
 
+  // generarExcelConRetraso() {
+  //   setTimeout(() => {
+  //     this.generarExcel();
+  //   }, 0);
+  // }
+
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
       return {
@@ -139,4 +149,6 @@ export class EstudiantesComponent implements OnInit {
 
     console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
   }
+
+
 }
