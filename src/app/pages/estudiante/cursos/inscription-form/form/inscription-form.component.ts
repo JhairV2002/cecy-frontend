@@ -66,7 +66,7 @@ export class InscriptionFormComponent implements OnInit {
       descripcion: 'En espera',
     },
     estadoCurso: {
-      descripcion: 'Cursando',
+      descripcion: 'cursando',
     },
     estudiantes: {
       id: 0,
@@ -89,28 +89,6 @@ export class InscriptionFormComponent implements OnInit {
       console.log(res);
       this.router.navigate(['/estudiante/home']);
     });
-
-    // this.inscriptionService.save(this.initialForm).subscribe(() => {
-    //   this.initialForm = {
-    //     id: 0,
-    //     userId: id,
-    //     courseId: 1,
-    //     publicity: {
-    //       id: 0,
-    //       nombre: '',
-    //       descripcion: '',
-    //     },
-    //     otherCourses: '',
-    //     sponsoredCourse: false,
-    //     institutionContact: '',
-    //     state: {
-    //       id: 1,
-    //       nombre: '',
-    //       descripcion: '',
-    //     },
-    //   };
-    //   this.router.navigate(['/cecy/student/courses-list']);
-    // });
   }
 
   findById(id: number): void {
