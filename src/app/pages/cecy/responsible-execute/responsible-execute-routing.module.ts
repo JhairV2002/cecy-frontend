@@ -5,18 +5,20 @@ import { FechaComponent } from './asistencia/fecha/fecha.component';
 import { CursoComponent } from './curso/curso.component';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
-import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
+import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'mis-cursos', component: CursoComponent },
-  { path: 'notas/estudiante/:cursoId', component: EstudiantesComponent },
-  { path: 'asistencia/:asistenciaId', component: AsistenciaComponent },
-  { path: 'asistencia/:cursoId/new', component: AsistenciaComponent },
-  { path: 'fecha/:cursoId', component: FechaComponent },
-  { path: 'registro-fotografico', component: RegistroFotograficoComponent },
-  //{ path: 'course-form', component: CourseFormComponent },
+  { path: 'my-courses', component: CursoComponent },
+  { path: 'course/:courseId/notes/students', component: EstudiantesComponent },
+  {
+    path: 'course/:courseId/attendance/:asistenciaId',
+    component: AsistenciaComponent,
+  },
+  { path: 'course/:courseId/date-list', component: FechaComponent },
+  { path: 'course/:courseId/create', component: AsistenciaComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({

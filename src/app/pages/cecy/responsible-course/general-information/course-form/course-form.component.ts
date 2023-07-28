@@ -1,9 +1,5 @@
-import {
-  CourseModel,
-  PlanificationCourseInitial,
-} from './../../../../../models/cecy-v1/course.model';
-import { Component, OnInit, Input } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -12,17 +8,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ImageModel } from '@models/core';
-import { MessageService } from '../../../../../services/core/message.service';
-import { CatalogueModel as CecyCatalogueModel } from '../../../../../models/cecy/catalogue.model';
-import { CourseHttpService } from '../../../../../services/cecy/course-http.service';
-import { CatalogueHttpService } from '../../../../../services/cecy/catalogue-http.service';
-//import { ImageModel } from './../../../../../models/core/image.model';
+import { MessageService } from '@services/core/message.service';
+import { CatalogueModel as CecyCatalogueModel } from '@models/cecy/catalogue.model';
 import { PaginatorModel } from '@models/cecy';
-import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '@services/cecy-v1/course.service';
-import { PlanificationsCoursesService } from '../../../../../services/cecy/coordinator-career';
+import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 import { Sponsor } from '@models/cecy-v1/sponsor.model';
 
 @Component({
@@ -50,7 +41,7 @@ export class CourseFormComponent implements OnInit {
     summary: [null, [Validators.required, Validators.maxLength(255)]],
     project: [null, [Validators.required, Validators.maxLength(255)]],
     needs: this.formBuilder.array([''], Validators.required),
-    // sponsorId: [null, Validators.required],
+    sponsorId: [null],
     targetGroups: [null, [Validators.required]],
     participantsRegistration: [null, [Validators.required]],
   });
@@ -61,8 +52,15 @@ export class CourseFormComponent implements OnInit {
     description: [null],
   });
 
+  formCategory = this.fb.group({
+    id: [null],
+    name: [null, Validators.required],
+    description: [null, Validators.required],
+    type: 'CATEGORY',
+  });
+
   public progressBar: boolean = false; // falta programarlo
-  public files: ImageModel[] = [];
+  public files: any[] = [];
   public paginatorImages: PaginatorModel = {
     current_page: 1,
     per_page: 15,
@@ -86,12 +84,12 @@ export class CourseFormComponent implements OnInit {
   selectedItems: any;
   public sponsors: Sponsor[] = [];
   visibleFormSponsor: boolean = false;
+  visibleFormCategory: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     public messageService: MessageService,
     private courseService: CourseService,
-    private cataloguesHttpService: CatalogueHttpService,
     private activatedRoute: ActivatedRoute,
     private planificationCourseService: PlanificationsCoursesService,
     public fb: FormBuilder
@@ -103,7 +101,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn(this.selectedCourse);
+    console.warn('se cargo nuevamente el comp form',this.selectedCourse);
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();
@@ -116,11 +114,6 @@ export class CourseFormComponent implements OnInit {
     this.loadSponsor();
   }
 
-  getCourse(id: number) {
-    this.courseService.getGeneralInformation(id).subscribe((response) => {
-      console.log(response);
-    });
-  }
 
   getPlanificationById() {
     const id = this.activatedRoute.snapshot.params['id'];
@@ -201,6 +194,9 @@ export class CourseFormComponent implements OnInit {
   showFormSponsor() {
     this.visibleFormSponsor = true;
   }
+  showFormCategory() {
+    this.visibleFormCategory = true;
+  }
 
   //Setter
   set planificationId(value: any) {
@@ -277,9 +273,9 @@ export class CourseFormComponent implements OnInit {
   //   return this.formCourse.controls['image'];
   // }
 
-  // get sponsorField() {
-  //   return this.formCourse.controls['sponsorId'];
-  // }
+  get sponsorField() {
+    return this.formCourse.controls['sponsorId'];
+  }
 
   //carga categorias del curso
   loadCategoryCourses() {
@@ -352,7 +348,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   loadTargetGroups() {
-    this.courseService.getCatalogues('PARTICIPANT').subscribe(
+    this.courseService.getCatalogues('TARGET_GROUPS').subscribe(
       (response) => {
         this.participantTypes = response;
       },
@@ -399,5 +395,32 @@ export class CourseFormComponent implements OnInit {
 
   get nameField() {
     return this.formSponsor.controls['name'];
+  }
+
+  onSubmitCategory() {
+    if (this.formCategory.valid) {
+      this.saveCategory();
+    } else {
+      this.formCategory.markAllAsTouched();
+    }
+  }
+
+  saveCategory() {
+    this.courseService
+      .saveCatalogue(this.formCategory.value)
+      .subscribe((response) => {
+        this.visibleFormCategory = false;
+        this.formCategory.reset();
+        this.messageService.successCourse(response);
+        this.loadCategoryCourses();
+      });
+  }
+
+  get nameCategoryField() {
+    return this.formCategory.controls['name'];
+  }
+
+  get nameDescriptionField() {
+    return this.formCategory.controls['description'];
   }
 }

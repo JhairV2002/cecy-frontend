@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 
 @Component({
   selector: 'app-search',
@@ -12,7 +12,7 @@ import { ColModel, PaginatorModel } from '@models/core';
 export class SearchComponent implements OnInit {
   @Input() cols: ColModel[] = [];
   @Input() records: any[] = [];
-  @Input() paginatorIn: PaginatorModel = {
+  @Input() paginatorIn: any = {
     current_page: 1,
     per_page: 5,
     total: 0,
@@ -20,8 +20,8 @@ export class SearchComponent implements OnInit {
   @Input() loading: boolean = false;
   @Output() selectedRecordOut: EventEmitter<any> = new EventEmitter<any>();
   @Output() displayModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() paginatorOut: EventEmitter<PaginatorModel> =
-    new EventEmitter<PaginatorModel>();
+  @Output() paginatorOut: EventEmitter<any> =
+    new EventEmitter<any>();
   items: MenuItem[] = [];
   filter: FormControl;
   progressBarDelete: boolean = false;

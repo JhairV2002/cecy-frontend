@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 
 import { UserService } from '@services/core/administrator/user.service';
 import { KpiUser } from '@models/core/admin-user';
@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
   users: User[] = [];
   modelName: any;
   totalUsers: number = 0;
@@ -109,6 +108,11 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users = data;
+        this.users.sort((a: any, b: any) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
       },
       error: (error) => {
         this.messageService.error(error);
@@ -146,7 +150,7 @@ export class UserListComponent implements OnInit {
     this.getAllUSers();
   }
 
-  searchPlanificationCourses(users: any) {
+  searchUsers(users: any) {
     this.users = users;
     console.log('ESTO BUSCO', users);
   }
@@ -166,11 +170,5 @@ export class UserListComponent implements OnInit {
   showForm(): void {
     this.isVisible = true;
     this.selectedUser = null;
-  }
-
-  filter(event: any) {
-    if (event.key === 'Enter' || event.type === 'click') {
-      this.getAllUSers();
-    }
   }
 }

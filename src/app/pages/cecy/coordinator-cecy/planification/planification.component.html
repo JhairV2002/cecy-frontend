@@ -1,0 +1,450 @@
+<p-toast position="top-center"></p-toast>
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-breadcrumb
+      class="max-w-full"
+      [model]="breadCrumb"
+      [home]="home"
+    ></p-breadcrumb>
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-button
+      styleClass="p-button-rounded p-button-success"
+      (onClick)="approveCourse()"
+    >
+      <i class="pi pi-check-circle"></i>
+      <div class="ml-2">Aprobar Planificacion</div>
+    </p-button>
+    <p-button
+      class="ml-2"
+      styleClass="p-button-rounded p-button-warning"
+      (onClick)="openModal()"
+    >
+      <i class="pi pi-ban"></i>
+      <div class="ml-2">Suspender Planificacion</div>
+    </p-button>
+    <app-comments
+      [planification]="planificationSend"
+      [openModal]="openModalComment"
+      (clickClose)="closeModal($event)"
+    ></app-comments>
+  </div>
+</p-toolbar>
+<p-messages
+  [(value)]="alert"
+  [enableService]="false"
+  [closable]="true"
+></p-messages>
+<div class="flex mt-4">
+  <div class="w-full">
+    <p-card [style]="{ width: '100%' }">
+      <h1 class="text-2xl text-center m-4">Planificación</h1>
+      <div class="p-fluid mt-2">
+        <form [formGroup]="formPlanification" (ngSubmit)="onSubmit()">
+          <div class="grid grid-cols-2 gap-2">
+            <!-- lectiveYear -->
+            <div class="field">
+              <label
+                for="name"
+                appLabel
+                label="Año lectivo:"
+                [required]="isRequired(lectiveYear)"
+                [valid]="lectiveYear.valid"
+                [touched]="lectiveYear.touched"
+                [dirty]="lectiveYear.dirty"
+              >
+              </label>
+              <p-dropdown
+                id="lectiveYear"
+                formControlName="schoolYearId"
+                dataKey="id"
+                [options]="schoolYears"
+                placeholder="Seleccione año lectivo"
+                optionLabel="year"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="lectiveYear.errors"
+                [touched]="lectiveYear.touched"
+                [dirty]="lectiveYear.dirty"
+              >
+              </small>
+            </div>
+            <!-- CodeCourse -->
+            <div class="field">
+              <label
+                for="name"
+                appLabel
+                label="Código del curso:"
+                [required]="isRequired(codeCourse)"
+                [valid]="codeCourse.valid"
+                [touched]="codeCourse.touched"
+                [dirty]="codeCourse.dirty"
+              >
+              </label>
+              <input
+                placeholder="Ej. D2DS-M"
+                pInputText
+                id="name"
+                formControlName="codeCourse"
+                class="uppercase"
+              />
+              <small
+                appErrorMessage
+                [errors]="codeCourse.errors"
+                [touched]="codeCourse.touched"
+                [dirty]="codeCourse.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <!--name-->
+          <div class="field">
+            <label
+              for="name"
+              appLabel
+              label="Nombre del curso:"
+              [required]="isRequired(nameField)"
+              [valid]="nameField.valid"
+              [touched]="nameField.touched"
+              [dirty]="nameField.dirty"
+            >
+            </label>
+            <input
+              placeholder="Ej. Desarrollo de software"
+              pInputText
+              id="name"
+              formControlName="name"
+              class="uppercase"
+            />
+            <small
+              appErrorMessage
+              [errors]="nameField.errors"
+              [touched]="nameField.touched"
+              [dirty]="nameField.dirty"
+            >
+            </small>
+          </div>
+
+          <div class="flex flex-wrap">
+            <div class="w-full sm:w-1/2">
+              <!--duration-->
+              <label
+                for="duration"
+                appLabel
+                label="Duración (horas):"
+                [required]="isRequired(durationField)"
+                [valid]="durationField.valid"
+                [touched]="durationField.touched"
+                [dirty]="durationField.dirty"
+              >
+              </label>
+              <p-inputNumber
+                id="duration"
+                formControlName="durationTime"
+                [min]="0"
+                [max]="75"
+                [showButtons]="true"
+                placeholder="0"
+              ></p-inputNumber>
+              <small
+                appErrorMessage
+                [errors]="durationField.errors"
+                [touched]="durationField.touched"
+                [dirty]="durationField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full sm:w-1/2">
+              <div class="ml-4 p-field">
+                <label
+                  appLabel
+                  label="Tipo de curso:"
+                  [required]="isRequired(freeField)"
+                  [valid]="freeField.valid"
+                  [touched]="freeField.touched"
+                  [dirty]="freeField.dirty"
+                ></label>
+                <div class="p-formgroup-inline">
+                  <div class="p-field-radiobutton">
+                    <p-radioButton
+                      formControlName="free"
+                      [value]="false"
+                      inputId="freeCourse"
+                    ></p-radioButton>
+                    <label class="ml-2" for="freeCourse">Gratuito</label>
+                  </div>
+                  <div class="p-field-radiobutton mt-1">
+                    <p-radioButton
+                      formControlName="free"
+                      [value]="true"
+                      inputId="paidCourse"
+                    ></p-radioButton>
+                    <label class="ml-2" for="paidCourse">De pago</label>
+                  </div>
+                </div>
+                <small
+                  appErrorMessage
+                  [errors]="freeField.errors"
+                  [touched]="freeField.touched"
+                  [dirty]="freeField.dirty"
+                >
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <!--responsible-->
+            <div class="">
+              <label
+                appLabel
+                label="Responsable de curso:"
+                [required]="isRequired(responsibleField)"
+                [valid]="responsibleField.valid"
+                [touched]="responsibleField.touched"
+                [dirty]="responsibleField.dirty"
+              >
+              </label>
+              <p-dropdown
+                formControlName="userId"
+                [options]="users"
+                placeholder="Seleccione el responsable"
+                optionLabel="names"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="responsibleField.errors"
+                [touched]="responsibleField.touched"
+                [dirty]="responsibleField.dirty"
+              >
+              </small>
+            </div>
+            <!-- modality -->
+            <div class="">
+              <label
+                appLabel
+                label="Modalidad:"
+                [required]="isRequired(modalityField)"
+                [valid]="modalityField.valid"
+                [touched]="modalityField.touched"
+                [dirty]="modalityField.dirty"
+              >
+              </label>
+              <p-dropdown
+                formControlName="modalityId"
+                [options]="modalities"
+                placeholder="Seleccione la modalidad"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="modalityField.errors"
+                [touched]="modalityField.touched"
+                [dirty]="modalityField.dirty"
+              >
+              </small>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div class="field">
+              <label
+                for="name"
+                appLabel
+                label="Fecha de inicio:"
+                [required]="isRequired(startDate)"
+                [valid]="startDate.valid"
+                [touched]="startDate.touched"
+                [dirty]="startDate.dirty"
+              >
+              </label>
+              <p-calendar
+                inputId="calendar"
+                [showIcon]="true"
+                placeholder="Calendario"
+                dateFormat="yy-mm-dd"
+                [showButtonBar]="true"
+                formControlName="startDate"
+              >
+                ></p-calendar
+              >
+              <small
+                appErrorMessage
+                [errors]="startDate.errors"
+                [touched]="startDate.touched"
+                [dirty]="startDate.dirty"
+              >
+              </small>
+            </div>
+            <div class="field">
+              <label
+                for="name"
+                appLabel
+                label="Fecha de finalización:"
+                [required]="isRequired(finishDate)"
+                [valid]="finishDate.valid"
+                [touched]="finishDate.touched"
+                [dirty]="finishDate.dirty"
+              >
+              </label>
+              <p-calendar
+                inputId="calendar"
+                [showIcon]="true"
+                placeholder="Calendario"
+                dateFormat="yy-mm-dd"
+                [showButtonBar]="true"
+                formControlName="finishDate"
+              ></p-calendar>
+              <small
+                appErrorMessage
+                [errors]="finishDate.errors"
+                [touched]="finishDate.touched"
+                [dirty]="finishDate.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="field">
+              <label
+                for="state"
+                appLabel
+                label="Estado Planificación"
+                [required]="isRequired(stateField)"
+                [valid]="stateField.valid"
+                [touched]="stateField.touched"
+                [dirty]="stateField.dirty"
+              ></label>
+              <input
+                id="disabled-input"
+                formControlName="state"
+                pInputText
+                [disabled]="false"
+                [readOnly]="editState"
+                [ngClass]="{ 'cursor-not-allowed': editState }"
+              />
+            </div>
+            <div class="field">
+              <label
+                for="review"
+                appLabel
+                label="En revisión por:"
+                [required]="isRequired(finishDate)"
+                [valid]="finishDate.valid"
+                [touched]="finishDate.touched"
+                [dirty]="finishDate.dirty"
+              >
+              </label>
+              <p-dropdown
+                formControlName="planningReviewId"
+                dataKey="id"
+                [options]="review"
+                placeholder="Seleccione"
+                optionLabel="names"
+                optionValue="id"
+              >
+                <ng-template let-option pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                    <div>
+                      {{ option.names + " " }}
+                      <strong>{{ option.role.name }}</strong>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+
+              <small
+                appErrorMessage
+                [errors]="finishDate.errors"
+                [touched]="finishDate.touched"
+                [dirty]="finishDate.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <p-divider></p-divider>
+          <button
+            pButton
+            type="submit"
+            pRipple
+            label="Guardar"
+            class="p-button-rounded w-1/2 flex items-center justify-center"
+            [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+            [disabled]="formPlanification.invalid"
+          ></button>
+        </form>
+      </div>
+    </p-card>
+  </div>
+  <!-- <div class="w-full ml-4">
+    <p-card [style]="{ width: '100%' }">
+      <h1 class="text-xl">Escoger revisor</h1>
+      <div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
+        <ul class="list-none flex flex-column gap-2 p-0 m-0">
+          <li
+            *ngFor="let assistant of assistants"
+            class="p-2 border-round shadow-1"
+            pDraggable
+            (onDragStart)="dragStart(assistant)"
+            (onDragEnd)="dragEnd()"
+          >
+            {{ assistant.names }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 md:col-6 drag-column">
+        <div *ngFor="let assistant of assistants">
+          <div
+            class="product-item"
+            pDraggable="products"
+            (onDragStart)="dragStart(assistant)"
+            (onDragEnd)="dragEnd()"
+          >
+            <div class="image-container">
+              <img
+                src="https://primefaces.org/cdn/primeng/images/demo/product/{{
+                  assistant.image
+                }}"
+                [alt]="assistant.names"
+                class="product-image"
+              />
+            </div>
+            <div class="product-list-detail">
+              <h5 class="mb-2">{{ assistant.names }}</h5>
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ assistant.lastnames }}</span>
+            </div>
+            <div class="product-list-action">
+              <h6 class="mb-2">{{ assistant.email }}</h6>
+              <p-tag value="email"></p-tag>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2 w-15rem h-10rem drop-column" pDroppable (onDrop)="drop()">
+        <p class="text-center surface-border border-bottom-1">Drop Zone</p>
+        <!-- <ul
+          class="list-none flex flex-column gap-2 p-0 m-0"
+          *ngIf="selectedProducts"
+        >
+          <li
+            *ngFor="let product of selectedProducts"
+            class="p-2 border-round shadow-1"
+          >
+            {{ product.name }}
+          </li>
+        </ul>
+      </div>
+    </p-card>
+  </div>
+</div> -->
+</div>

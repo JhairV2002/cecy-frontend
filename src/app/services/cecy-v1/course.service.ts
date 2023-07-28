@@ -65,36 +65,16 @@ export class CourseService {
     return this.http.get<CatalogueModel[]>(this.apiUrl + '/catalogue/' + name);
   }
 
+  public saveCatalogue(catalogue: any) {
+    return this.http.post<any>(`${this.apiUrl}/catalogue/`, catalogue);
+  }
+
   public getClassrooms(): Observable<ClassroomModel[]> {
     return this.http.get<ClassroomModel[]>(this.apiUrl + '/classrooms/class');
   }
 
   public getInstructors(): Observable<any> {
     return this.http.get<any>(this.apiUrlUser + '/instructors/all/');
-  }
-
-  // career get
-
-  public getCareer(): Observable<CareerModel[]> {
-    return this.http.get<CareerModel[]>(this.apiUrl + '/careers/list');
-  }
-
-  //planification
-
-  public getGeneralInformation(id: number): Observable<GeneralInformation> {
-    return this.http.get<GeneralInformation>(this.apiUrl + '/' + id);
-  }
-
-  public setGeneralInformation(id: number, generalInformation: any) {
-    return this.http.put(this.apiUrl + '/' + id, generalInformation);
-  }
-
-  public getCurricularDesign(id: number): Observable<CurricularDesign> {
-    return this.http.get<CurricularDesign>(this.apiUrl + '/' + id);
-  }
-
-  public setCurricularDesign(id: number, CurricularDesign: any) {
-    return this.http.put(this.apiUrl + '/' + id, CurricularDesign);
   }
 
   // detail plan
@@ -185,12 +165,36 @@ export class CourseService {
 
   ////////updateByAfterCourse
   public updateByAfterCourse(courseAfter: any, id: any): Observable<any> {
-    console.log('este es el curso anterior:\n', courseAfter);
-    console.log('este es el id del curso nuevo:\n', id);
-
     return this.http.put<any>(
       this.apiUrl + '/updateByAfterCourse/' + id,
       courseAfter
+    );
+  }
+
+  ////////detailPlanInstructor
+  getInstructorsByDetail(id: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/detailPlanInstructor/all/' + id);
+  }
+
+  saveInstructorDetail(instructorDetail: any): Observable<any> {
+    return this.http.post<any>(
+      this.apiUrl + '/detailPlanInstructor/',
+      instructorDetail
+    );
+  }
+
+  deleteInstructorFromDetail(id: any) {
+    return this.http.delete(this.apiUrl + '/detailPlanInstructor/' + id);
+  }
+
+  //change state course
+  updateCourseByState(courseId: number, newStatus: string) {
+    this.loading.next(true);
+    const endpoint = `${this.apiUrl}/change-course/${courseId}/state-change/${newStatus}`;
+    return this.http.patch(endpoint, null).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
     );
   }
 }

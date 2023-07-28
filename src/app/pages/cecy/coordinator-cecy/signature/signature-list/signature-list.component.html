@@ -1,0 +1,95 @@
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-solid fa-signature fa-2xl"></i>
+      <strong class="ml-1">Lista de Firmas</strong>
+    </h2>
+  </p-card>
+</div>
+<p-toolbar class="mt-2">
+  <div class="p-toolbar-group-start">
+    <p-button
+      label="Nueva firma"
+      icon="pi pi-plus"
+      class="mr-2"
+      routerLink="/cecy/coordinator-cecy/signature/create"
+    ></p-button>
+    <i
+      class="p-toolbar-separator pi pi-bars mr-2"
+      style="vertical-align: middle"
+    ></i>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Refrescar"
+      class="ml-2 p-button-success"
+      (click)="loadAllSignatures()"
+      [loading]="(loading$ | async)!"
+    ></button>
+  </div>
+
+  <div class="p-toolbar-group-end">
+    <app-search-signature
+      (signatureSearch)="searchSignatures($event)"
+    ></app-search-signature>
+  </div>
+</p-toolbar>
+<p-table
+  dataKey="id"
+  styleClass="p-datatable-striped"
+  [value]="signature"
+  [responsive]="true"
+  [paginator]="true"
+  [rows]="5"
+  [loading]="(loading$ | async)!"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Firma</th>
+      <th>Nombres del Firmante</th>
+      <th>Apellidos del Firmante</th>
+      <th>Fecha creacion</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-signature>
+    <tr>
+      <td>{{ signature.firma }}</td>
+      <td>{{ signature.nombres }}</td>
+      <td>{{ signature.apellidos }}</td>
+      <td>{{ signature.createdAt | date }}</td>
+      <td>
+        <div class="flex gap-1">
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            type="submit"
+            (click)="deleteSignature(signature)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-warning"
+            (click)="editSignature(signature)"
+          ></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Actualmente hay
+      {{ signature ? signature.length : 0 }}
+      firmas
+    </div>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" style="width: 100%">No hay firmas</td>
+    </tr>
+  </ng-template>
+</p-table>

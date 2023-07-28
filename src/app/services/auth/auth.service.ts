@@ -15,11 +15,10 @@ export class AuthService {
   private apiUrl = `${environment.api2}/auth`;
   private apiUrl2 = `${environment.api2}/planifications`;
 
-  user = new BehaviorSubject<User[] | null>(null);
-  user$ = this.user.asObservable();
+  user$ = new BehaviorSubject<User[] | null>(null);
   userProfile$ = new BehaviorSubject<User | null>(null);
-  private loading = new BehaviorSubject<boolean>(true);
-  public loading$: Observable<boolean> = this.loading.asObservable();
+  loading = new BehaviorSubject<boolean>(true);
+  loading$: Observable<boolean> = this.loading.asObservable();
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -38,7 +37,7 @@ export class AuthService {
   profile() {
     return this.http
       .get<User[]>(`${this.apiUrl}/profile`, {})
-      .pipe(tap((user) => this.user.next(user)));
+      .pipe(tap((user: any) => this.user$.next(user)));
   }
 
   loginAndGet(user: any) {
@@ -46,15 +45,11 @@ export class AuthService {
   }
 
   getPlanificationsbyUser() {
-    this.loading.next(true);
-    return this.http.get<any[]>(`${this.apiUrl2}/my`).pipe(
-      finalize(() => {
-        this.loading.next(false);
-      })
-    );
+    return this.http.get<any[]>(`${this.apiUrl2}/my`);
   }
 
   getProfile() {
+    this.loading.next(true);
     const token = this.tokenService.getToken();
     return this.http
       .get<User>(`${this.apiUrl}/profile`, {
@@ -63,8 +58,12 @@ export class AuthService {
         },
       })
       .pipe(
-        tap((user) => {
+        tap((user: any) => {
+          this.user$.next(user);
           this.userProfile$.next(user);
+        }),
+        finalize(() => {
+          this.loading.next(false);
         })
       );
   }

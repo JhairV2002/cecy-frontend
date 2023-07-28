@@ -1,0 +1,68 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start gap-2">
+    <button
+      pButton
+      type="button"
+      id="volver"
+      class="p-button p-button-outlined"
+      icon="pi pi-arrow-left"
+      label="Regresar"
+      (click)="gotToBack()"
+    ></button>
+  </div>
+</p-toolbar>
+
+<div class="flex m-4">
+  <div class="flex-1">
+    <h1 class="text-2xl font-bold light:text-black">
+      {{ cursoNombre$ | async }}
+    </h1>
+  </div>
+  <!-- <p-button
+    label="Agregar"
+    styleClass="p-button-raised"
+    icon="pi pi-plus"
+  ></p-button> -->
+  <!-- (click)="createAttendance()" -->
+</div>
+<h1 class="text-2xl font-bold"></h1>
+
+<div class="grid auto-rows-max gap 5">
+  <!-- <app-curso-banner [curso]="curso$ | async"></app-curso-banner> -->
+  <!-- {{ matriculas$ | async | json }} -->
+  <div class="flex flex-wrap">
+    <div>
+      <div class="p-inputgroup">
+        <input
+          pInputText
+          id="search"
+          placeholder="Buscar por nombre"
+          [(ngModel)]="search"
+          (input)="(search)"
+          (keypress)="(search)"
+        />
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-search"
+          (click)="(search)"
+        ></button>
+      </div>
+    </div>
+    <div class="ml-2 flex justify-center items-center gap-4">
+      <div class="">
+        <label class="mr-2" for="ny">Interno</label>
+        <p-checkbox value="New York" inputId="ny"></p-checkbox>
+      </div>
+      <div class="">
+        <label class="mr-2" for="ny">Externo</label>
+        <p-checkbox value="New York" inputId="ny"></p-checkbox>
+      </div>
+    </div>
+  </div>
+  <app-estudiantes-table
+    [estudiantes]="(matriculas$ | async)! | searchEstudiantes : search"
+    [loading]="(loading$ | async)!"
+  ></app-estudiantes-table>
+</div>

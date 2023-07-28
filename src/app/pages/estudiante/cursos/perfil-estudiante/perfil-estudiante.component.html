@@ -1,0 +1,170 @@
+<section class="prose-base text-center md:text-left">
+  <h1>Perfil</h1>
+
+  <div *ngIf="estudianteForm; else sinDatos">
+    <section>
+      <div class="text-center mx-auto md:mx-0 md:w-max md:text-left">
+        <form
+          [formGroup]="estudianteForm"
+          class="grid gap-3 mx-auto sm:grid-cols-2 md:grid-cols-3"
+        >
+          <h2 class="col-span-3">Informacion de Inicio de Sesión</h2>
+          <div>
+            <label class="p-2">Usuario</label>
+            <input
+              formControlName="cedula"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+
+          <button class="btn btn-accent w-min">Cambiar contraseña</button>
+
+          <h2 class="col-span-3">Informacion Personal</h2>
+
+          <div>
+            <label class="p-2">Cedula</label>
+            <input
+              formControlName="cedula"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+          <div>
+            <label class="p-2">Nombres</label>
+            <input
+              formControlName="nombres"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+          <div>
+            <label class="p-2">Apellidos</label>
+            <input
+              formControlName="apellidos"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+          <div class="flex">
+            <label class="p-2">Etnia</label>
+            <select
+              class="input input-bordered input-secondary flex-grow"
+              formControlName="etnia"
+            >
+              <option *ngFor="let etnia of etnias$ | async" [ngValue]="etnia">
+                {{ etnia.descripcion }}
+              </option>
+            </select>
+          </div>
+          <div class="flex">
+            <label class="p-2">Género</label>
+            <select
+              class="input input-bordered input-secondary flex-grow"
+              formControlName="genero"
+            >
+              <option
+                *ngFor="let genero of generos$ | async"
+                [ngValue]="genero"
+              >
+                {{ genero.descripcion }}
+              </option>
+            </select>
+          </div>
+          <div class="flex">
+            <label class="p-2">Situación Económica</label>
+            <select
+              class="input input-bordered input-secondary flex-grow"
+              formControlName="situacionEconomica"
+            >
+              <option
+                *ngFor="let situacion of situacionEconomica$ | async"
+                [ngValue]="situacion"
+              >
+                {{ situacion.descripcion }}
+              </option>
+            </select>
+          </div>
+
+          <div class="flex">
+            <label class="p-2">Nivel Instrucción</label>
+            <select
+              class="input input-bordered input-secondary flex-grow"
+              formControlName="nivelInstruccion"
+            >
+              <option
+                *ngFor="let nivel of nivelInstruccion$ | async"
+                [ngValue]="nivel"
+              >
+                {{ nivel.descripcion }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="p-2">Fecha de nacimiento</label>
+            <input
+              formControlName="fechaNacimiento"
+              type="date"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+
+          <h2 class="col-span-3">Información de contácto</h2>
+          <div>
+            <label class="p-2">Email</label>
+            <input
+              formControlName="email"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+          <div>
+            <label class="p-2">Célular</label>
+            <input
+              formControlName="numeroCelular"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+          <div>
+            <label class="p-2">Convencional</label>
+            <input
+              formControlName="numeroConvencional"
+              type="text"
+              class="input input-bordered input-secondary"
+            />
+          </div>
+
+          <h2 class="col-span-3">Informacion Adicional</h2>
+          <div>
+            <label class="p-2">Discapacidad</label>
+            <input
+              (change)="disableDetalles()"
+              formControlName="discapacidad"
+              type="checkbox"
+              class="checkbox checkbox-warning"
+            />
+          </div>
+
+          <div>
+            <label class="p-2"> Descripción </label>
+            <input
+              formControlName="detallesDiscapacidad"
+              type="text"
+              placeholder="Sindromes, falta de miembros, etc"
+              class="input input-bordered w-full max-w-xs"
+            />
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+  <button class="btn btn-accent" (click)="updateEstudiante()">
+    Actualizar
+  </button>
+</section>
+
+<ng-template #sinDatos>
+  <h2>Lo sentimos</h2>
+  <p>No hay datos que mostrar</p>
+</ng-template>

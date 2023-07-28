@@ -1,0 +1,17 @@
+<div class="p-inputgroup">
+  <input
+    pInputText
+    id="search"
+    placeholder="Buscar por el nombre"
+    [(ngModel)]="searchValue"
+    (input)="onSearchInput()"
+    (keypress)="onSearchInput()"
+  />
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-search"
+    (click)="onSearchInput()"
+  ></button>
+</div>

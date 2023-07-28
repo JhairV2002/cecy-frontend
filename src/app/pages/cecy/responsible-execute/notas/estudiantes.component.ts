@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
 import { Matriculas } from './estudiante.model';
-import { NombreFilterPipe } from './filter.pipe';
-import * as fs from 'fs';
 import * as XLSX from 'xlsx';
-import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-estudiantes',
@@ -17,17 +14,20 @@ import { HttpClient } from '@angular/common/http';
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
   estudiantes: Matriculas[] = [];
+  loading$ = this.estudianteService.loading$;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private estudianteService: EstudianteService,
-  ) { }
+    public messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
+      console.log(param);
       this.estudianteService
-        .obtenerMatriculasPorCursoId(parseInt(param.get('cursoId')!))
+        .obtenerMatriculasPorCursoId(parseInt(param.get('courseId')!))
         .subscribe((res) => {
           console.log('ESTUDIANTES', res);
           this.estudiantes = res;
@@ -37,22 +37,22 @@ export class EstudiantesComponent implements OnInit {
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
-        .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
-        .pipe(map((res) => res.filter((res) => res.estudiantes != null))),
-    ),
+        .obtenerMatriculasPorCursoId(Number(param.get('courseId')!))
+        .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
+    )
   );
 
   redireccionar() {
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
-        `cecy/responsible-execute/fecha/${param.get('cursoId')}`,
+        `cecy/responsible-execute/course/${param.get('courseId')}/date-list`,
       ]);
     });
   }
 
   regresar() {
     this.activatedRoute.paramMap.subscribe((param) => {
-      this.router.navigate([`cecy/responsible-execute/mis-cursos`]);
+      this.router.navigate([`cecy/responsible-execute/my-courses`]);
     });
   }
 
@@ -62,21 +62,30 @@ export class EstudiantesComponent implements OnInit {
         estudiante.estudiantes &&
         estudiante.estudiantes.nombres
           .toLowerCase()
-          .includes(this.nombreFiltrado.toLowerCase()),
+          .includes(this.nombreFiltrado.toLowerCase())
     );
   }
 
-  guardarNotas(matricula: Matriculas): void {
+  guardarNotas(event: any, matricula: Matriculas): void {
     console.log(matricula);
 
-    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe(
-      (res) => {
-        console.log('Notas guardadas', res);
+    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.messageService.add({
+          severity: 'success',
+          summary: `Actualizado`,
+          detail: `Notas del estudiante ${data.estudiantes.nombres}`,
+        });
       },
-      (error) => {
-        console.log('Error al guardar notas', error);
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al guardar',
+          detail: `${error.message}`,
+        });
       },
-    );
+    });
   }
 
   actualizarPagina() {
@@ -115,7 +124,7 @@ export class EstudiantesComponent implements OnInit {
     ) {
       event.preventDefault();
       alert(
-        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.',
+        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
       );
     }
   }

@@ -8,13 +8,24 @@
         <label class="label">
           <span class="label-text">Correo Electrónico</span>
         </label>
-        <input formControlName="email" type="text" placeholder="abc@gmail.com"
-          class="input input-bordered w-full max-w-xs h-[42px]" #email />
+        <input
+          formControlName="email"
+          type="text"
+          placeholder="abc@gmail.com"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+          #email
+        />
         <label class="label" *ngIf="formularioRegistro.get('email')!.errors">
-          <span *ngIf="formularioRegistro.get('email')!.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
-          <span *ngIf="formularioRegistro.get('email')!.errors!['email']" class="label-text-alt text-error">Ingrese un
-            email valido</span>
+          <span
+            *ngIf="formularioRegistro.get('email')!.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
+          <span
+            *ngIf="formularioRegistro.get('email')!.errors!['email']"
+            class="label-text-alt text-error"
+            >Ingrese un email valido</span
+          >
         </label>
       </div>
 
@@ -22,52 +33,84 @@
         <label class="label">
           <span class="label-text">Contraseña</span>
         </label>
-        <input formControlName="clave" type="password" placeholder="Escriba su contraseña"
-          class="input input-bordered w-full max-w-xs h-[42px]" />
+        <input
+          formControlName="clave"
+          type="password"
+          placeholder="Escriba su contraseña"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+        />
       </div>
 
       <div class="form-control w-full max-w-xs">
         <label class="label">
           <span class="label-text">Repita su contraseña</span>
         </label>
-        <input type="password" placeholder="Repita su contraseña"
-          class="input input-bordered w-full max-w-xs h-[42px]" />
+        <input
+          type="password"
+          placeholder="Repita su contraseña"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+        />
       </div>
     </section>
 
     <h2>Datos personales</h2>
     <div class="alert alert-warning">
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="stroke-current shrink-0 h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+        />
       </svg>
-      <span>Atención: Estos datos serán usados para validar tu identidad al momento
+      <span
+        >Atención: Estos datos serán usados para validar tu identidad al momento
         de emitir algún certificado por la finalización de algún curso.
-        Asegurate que sean correctos antes de registrarte.</span>
+        Asegurate que sean correctos antes de registrarte.</span
+      >
     </div>
     <section class="flex flex-wrap gap-8">
       <div class="form-control w-full max-w-xs">
         <label class="label">
           <span class="label-text">Cedula o pasaporte</span>
         </label>
-        <input formControlName="cedula" type="text" placeholder="1789012345"
-          class="input input-bordered w-full max-w-xs h-[42px]" />
+        <input
+          formControlName="cedula"
+          type="text"
+          placeholder="1789012345"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+        />
 
         <label class="label" *ngIf="formularioRegistro.get('cedula')!.errors">
-          <span *ngIf="formularioRegistro.get('cedula')!.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
+          <span
+            *ngIf="formularioRegistro.get('cedula')!.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
       <div class="form-control w-full max-w-xs">
         <label class="label">
           <span class="label-text">Nombres Completos</span>
         </label>
-        <input formControlName="nombres" type="text" placeholder="Ramiro Fernando"
-          class="input input-bordered w-full max-w-xs h-[42px]" />
+        <input
+          formControlName="nombres"
+          type="text"
+          placeholder="Ramiro Fernando"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+        />
 
         <label class="label" *ngIf="formularioRegistro.get('nombres')!.errors">
-          <span *ngIf="formularioRegistro.get('nombres')!.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
+          <span
+            *ngIf="formularioRegistro.get('nombres')!.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -75,12 +118,22 @@
         <label class="label">
           <span class="label-text">Apellidos Completos</span>
         </label>
-        <input formControlName="apellidos" type="text" placeholder="Velasco Rios"
-          class="input input-bordered w-full max-w-xs h-[42px]" />
+        <input
+          formControlName="apellidos"
+          type="text"
+          placeholder="Velasco Rios"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+        />
 
-        <label class="label" *ngIf="formularioRegistro.get('apellidos')!.errors">
-          <span *ngIf="formularioRegistro.get('apellidos')!.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
+        <label
+          class="label"
+          *ngIf="formularioRegistro.get('apellidos')!.errors"
+        >
+          <span
+            *ngIf="formularioRegistro.get('apellidos')!.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -88,12 +141,22 @@
         <label class="label">
           <span class="label-text">Fecha Nacimiento</span>
         </label>
-        <input formControlName="fechaNacimiento" type="date" placeholder="dd/mm/yy"
-          class="input input-bordered w-full max-w-xs h-[42px]" />
+        <input
+          formControlName="fechaNacimiento"
+          type="date"
+          placeholder="dd/mm/yy"
+          class="input input-bordered w-full max-w-xs h-[42px]"
+        />
 
-        <label class="label" *ngIf="formularioRegistro.controls.apellidos.errors">
-          <span *ngIf="formularioRegistro.controls.apellidos.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
+        <label
+          class="label"
+          *ngIf="formularioRegistro.controls.apellidos.errors"
+        >
+          <span
+            *ngIf="formularioRegistro.controls.apellidos.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -108,8 +171,11 @@
         </select>
 
         <label class="label" *ngIf="formularioRegistro.get('genero')!.errors">
-          <span *ngIf="formularioRegistro.get('genero')!.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
+          <span
+            *ngIf="formularioRegistro.get('genero')!.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -124,8 +190,11 @@
         </select>
 
         <label class="label" *ngIf="formularioRegistro.get('etnia')!.errors">
-          <span *ngIf="formularioRegistro.get('etnia')!.errors!['required']" class="label-text-alt text-error">Este
-            campo es requerido</span>
+          <span
+            *ngIf="formularioRegistro.get('etnia')!.errors!['required']"
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -134,14 +203,24 @@
           <span class="label-text">Nivel Académico</span>
         </label>
         <select name="select" class="h-full" formControlName="nivelInstruccion">
-          <option *ngFor="let nivel of nivelInstruccion$ | async" [ngValue]="nivel">
+          <option
+            *ngFor="let nivel of nivelInstruccion$ | async"
+            [ngValue]="nivel"
+          >
             {{ nivel.descripcion }}
           </option>
         </select>
-        <label class="label" *ngIf="formularioRegistro.get('nivelInstruccion')!.errors">
-          <span *ngIf="
+        <label
+          class="label"
+          *ngIf="formularioRegistro.get('nivelInstruccion')!.errors"
+        >
+          <span
+            *ngIf="
               formularioRegistro.get('nivelInstruccion')!.errors!['required']
-            " class="label-text-alt text-error">Este campo es requerido</span>
+            "
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -149,16 +228,30 @@
         <label class="label">
           <span class="label-text">Situación Económica</span>
         </label>
-        <select name="select" class="h-[42px]" formControlName="situacionEconomica">
-          <option *ngFor="let situacion of situacionEconomica$ | async" [ngValue]="situacion">
+        <select
+          name="select"
+          class="h-[42px]"
+          formControlName="situacionEconomica"
+        >
+          <option
+            *ngFor="let situacion of situacionEconomica$ | async"
+            [ngValue]="situacion"
+          >
             {{ situacion.descripcion }}
           </option>
         </select>
 
-        <label class="label" *ngIf="formularioRegistro.get('situacionEconomica')!.errors">
-          <span *ngIf="
+        <label
+          class="label"
+          *ngIf="formularioRegistro.get('situacionEconomica')!.errors"
+        >
+          <span
+            *ngIf="
               formularioRegistro.get('situacionEconomica')!.errors!['required']
-            " class="label-text-alt text-error">Este campo es requerido</span>
+            "
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
     </section>
@@ -166,8 +259,12 @@
     <div class="form-control">
       <label class="cursor-pointer label">
         <span class="label-text">Discapacidad</span>
-        <input (change)="disableDetalles()" formControlName="discapacidad" type="checkbox"
-          class="checkbox checkbox-warning" />
+        <input
+          (change)="disableDetalles()"
+          formControlName="discapacidad"
+          type="checkbox"
+          class="checkbox checkbox-warning"
+        />
       </label>
     </div>
 
@@ -175,8 +272,12 @@
       <label class="label">
         <span class="label-text">Descripción</span>
       </label>
-      <input formControlName="detalleDiscapacidad" type="text" placeholder="Sindromes, falta de miembros, etc"
-        class="input input-bordered w-full max-w-xs" />
+      <input
+        formControlName="detalleDiscapacidad"
+        type="text"
+        placeholder="Sindromes, falta de miembros, etc"
+        class="input input-bordered w-full max-w-xs"
+      />
 
       <!-- <label class="label" *ngIf="formularioRegistro.controls.numeroCelular.errors"> -->
       <!--   <span *ngIf="formularioRegistro.controls.numeroCelular.errors!['required']" -->
@@ -191,13 +292,24 @@
         <label class="label">
           <span class="label-text">Celular</span>
         </label>
-        <input formControlName="numeroCelular" type="text" placeholder="0982938292"
-          class="input input-bordered w-full max-w-xs" />
+        <input
+          formControlName="numeroCelular"
+          type="text"
+          placeholder="0982938292"
+          class="input input-bordered w-full max-w-xs"
+        />
 
-        <label class="label" *ngIf="formularioRegistro.controls.numeroCelular.errors">
-          <span *ngIf="
+        <label
+          class="label"
+          *ngIf="formularioRegistro.controls.numeroCelular.errors"
+        >
+          <span
+            *ngIf="
               formularioRegistro.controls.numeroCelular.errors!['required']
-            " class="label-text-alt text-error">Este campo es requerido</span>
+            "
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
 
@@ -205,13 +317,24 @@
         <label class="label">
           <span class="label-text">Número convencional</span>
         </label>
-        <input formControlName="numeroConvencional" type="text" placeholder="02292019"
-          class="input input-bordered w-full max-w-xs" />
+        <input
+          formControlName="numeroConvencional"
+          type="text"
+          placeholder="02292019"
+          class="input input-bordered w-full max-w-xs"
+        />
 
-        <label class="label" *ngIf="formularioRegistro.controls.numeroConvencional.errors">
-          <span *ngIf="
+        <label
+          class="label"
+          *ngIf="formularioRegistro.controls.numeroConvencional.errors"
+        >
+          <span
+            *ngIf="
               formularioRegistro.controls.numeroConvencional.errors!['required']
-            " class="label-text-alt text-error">Este campo es requerido</span>
+            "
+            class="label-text-alt text-error"
+            >Este campo es requerido</span
+          >
         </label>
       </div>
     </section>
@@ -220,11 +343,17 @@
       <label class="label">
         <span class="label-text">Direccion</span>
       </label>
-      <textarea formControlName="direccion" class="textarea textarea-warning"
-        placeholder="Sector Ecuatoriana; calle 1, calle 2, numeración"></textarea>
+      <textarea
+        formControlName="direccion"
+        class="textarea textarea-warning"
+        placeholder="Sector Ecuatoriana; calle 1, calle 2, numeración"
+      ></textarea>
       <label class="label" *ngIf="formularioRegistro.controls.direccion.errors">
-        <span *ngIf="formularioRegistro.controls.direccion.errors!['required']" class="label-text-alt text-error">Este
-          campo es requerido</span>
+        <span
+          *ngIf="formularioRegistro.controls.direccion.errors!['required']"
+          class="label-text-alt text-error"
+          >Este campo es requerido</span
+        >
       </label>
     </div>
     <h3>
@@ -232,7 +361,11 @@
       {{ formularioRegistro }}
     </h3>
     <div class="flex justify-center my-5">
-      <button [disabled]="!formularioRegistro.valid" type="submit" class="btn btn-primary">
+      <button
+        [disabled]="!formularioRegistro.valid"
+        type="submit"
+        class="btn btn-primary"
+      >
         Registrarse
       </button>
 

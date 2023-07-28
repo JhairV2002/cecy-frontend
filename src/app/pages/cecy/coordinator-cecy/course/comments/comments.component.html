@@ -1,5 +1,5 @@
 <p-dialog
-  header="Comentar"
+  header="Comentar Planificación"
   [(visible)]="openModal"
   [modal]="true"
   [responsive]="true"
@@ -23,8 +23,8 @@
         rows="5"
         cols="30"
         pInputTextarea
-        formControlName="comment"
-        placeholder="Ej. Nombre usuario, le notifco que cierta informacion le falto modificar el horario ...."
+        formControlName="comments"
+        placeholder="Ej. Agregue el comentario del porque suspende la planificacio..."
       ></textarea>
       <small
         appErrorMessage
@@ -38,16 +38,13 @@
     <div class="p-field">
       <button
         type="button"
-        (click)="saveComment()"
+        (click)="saveCommentAndSuspendePlanification()"
         pButton
-        icon="icon"
-        label="Notificar"
+        [icon]="(loading$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-ban'"
+        label="Suspender Planificacion"
         class="w-full"
         icon="pi pi-save"
       ></button>
-      <div class="field mt-2" *ngIf="progressBar">
-        <p-progressBar mode="indeterminate"></p-progressBar>
-      </div>
     </div>
   </form>
 </p-dialog>

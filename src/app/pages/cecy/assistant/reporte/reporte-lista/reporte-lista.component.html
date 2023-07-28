@@ -1,0 +1,82 @@
+<p-dialog
+  [(visible)]="dialogReport"
+  header="Confirmar"
+  [modal]="true"
+  [style]="{ width: '450px' }"
+>
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+    <span>¿Desea Generar el Reporte?</span>
+  </div>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      icon="pi pi-times"
+      class="p-button-text"
+      label="Cancelar"
+      (click)="dialogReport = false"
+    ></button>
+    <button
+      pButton
+      pRipple
+      icon="pi pi-check"
+      class="p-button-text"
+      label="Aceptar"
+      (click)="generateReports()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-card class="mt-4">
+  <div class="flex justify-start">
+    <div class="m-1 flex justify-end">
+      <button class="btn mx-2 btn-primary" (click)="generateReport()">
+        Generar Reporte
+      </button>
+    </div>
+    <div class="m-1 flex justify-end">
+      <button
+        class="btn mx-2 btn-success"
+        (click)="downloadXls(validateReportEntity.id)"
+      >
+        Descargar Reporte
+      </button>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 mt-10 place-items-center">
+    <p-card class="w-96 m-4 place-items-center shadow-sm">
+      <div class="card-body items-center text-center">
+        <div class="card-actions mx-2">
+          <table class="table table-compact w-full">
+            <th>Aprobados</th>
+            <tr class="text-center">
+              {{
+                cursoEstudianteLista.aprobado
+                  ? cursoEstudianteLista.aprobado
+                  : 0
+              }}
+            </tr>
+          </table>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card class="w-96 m-4 place-items-center">
+      <div class="card-body items-center text-center">
+        <div class="card-actions mx-2">
+          <table class="table table-compact w-full">
+            <th>Reprobados</th>
+            <tr class="text-center">
+              {{
+                cursoEstudianteLista.reprobado
+                  ? cursoEstudianteLista.reprobado
+                  : 0
+              }}
+            </tr>
+          </table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</p-card>

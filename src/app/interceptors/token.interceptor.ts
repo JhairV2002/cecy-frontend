@@ -29,7 +29,6 @@ export class TokenInterceptor implements HttpInterceptor {
     if (tokenUser) {
       const decode = jwt_decode(tokenUser) as { [key: string]: any };
       if (decode['role']) {
-        console.log('se ejecuto 1 token user');
         token = this.tokenService.getToken();
       }
     } else if (tokenStudent) {

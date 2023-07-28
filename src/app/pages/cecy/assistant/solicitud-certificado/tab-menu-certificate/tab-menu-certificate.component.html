@@ -1,0 +1,19 @@
+<div class="card">
+  <p-tabView styleClass="tabview-custom">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <i class="pi pi-fw pi-file px-1"></i>
+        <span>Lista</span>
+      </ng-template>
+      <app-solicitud-certificado-lista></app-solicitud-certificado-lista>
+    </p-tabPanel>
+
+    <p-tabPanel header="Header III">
+      <ng-template pTemplate="header">
+        <i class="pi pi-cog px-1"></i>
+        <span>Configuracion del certificado</span>
+      </ng-template>
+      <app-settings-certificate></app-settings-certificate>
+    </p-tabPanel>
+  </p-tabView>
+</div>

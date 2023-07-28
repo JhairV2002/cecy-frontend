@@ -1,0 +1,28 @@
+<div class="cabezera flex justify-end">
+  <div class="m-1 flex justify-end">
+    <input type="file" (change)="ReadExcel($event)">
+  </div>
+</div>
+<div class=" tabla overflow-x-auto">
+    <table class="table table-compact w-full">
+      <thead>
+        <tr>
+          <th>Cedula</th>
+          <th>Nombre</th>
+          <th>Codigo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let valor of filterExcel">
+        <td>{{ valor.__EMPTY_8}}</td>
+        <td>{{ valor.__EMPTY_2}}</td>
+        <td>{{ valor.__EMPTY_23}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-accent h-2 m-1" (click)="updateCodes()">Agregar</button>
+
+
+
+

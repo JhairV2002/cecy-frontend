@@ -51,34 +51,6 @@ const routes: Routes = [
         canActivate: [TokenGuard, RoleGuard], */
       },
       {
-        path: 'instructor',
-        data: {
-          allowedRoles: ['instructor', 'admin'],
-        },
-        loadChildren: () =>
-          import('./instructor/instructor.module').then(
-            (m) => m.InstructorModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.INSTRUCTOR],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'responsible-cecy',
-        data: {
-          allowedRoles: ['responsible_cecy', 'admin'],
-        },
-        loadChildren: () =>
-          import('./responsible-cecy/responsible-cecy.module').then(
-            (m) => m.ResponsibleCecyModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN, RolesEnum.RESPONSIBLE_CECY],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
         path: 'responsible-course',
         canLoad: [],
         data: {
@@ -90,21 +62,6 @@ const routes: Routes = [
           ),
         /*  data: {
           roles: [RolesEnum.ADMIN, RolesEnum.RESPONSIBLE_COURSE],
-        },
-        canActivate: [TokenGuard, RoleGuard], */
-      },
-      {
-        path: 'responsible-cecy',
-        canLoad: [],
-        data: {
-          allowedRoles: ['responsible_cecy', 'admin'],
-        },
-        loadChildren: () =>
-          import('./responsible-cecy/responsible-cecy.module').then(
-            (m) => m.ResponsibleCecyModule
-          ),
-        /* data: {
-          roles: [RolesEnum.ADMIN],
         },
         canActivate: [TokenGuard, RoleGuard], */
       },
@@ -131,18 +88,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'validacion-matricula',
+        path: 'assistant-cecy',
         loadChildren: () =>
-          import('./validacion-matricula/validacion-matricula.module').then(
-            (m) => m.ValidacionMatriculaModule
-          ),
-      },
-      {
-        path: 'secretary-cecy',
-        loadChildren: () =>
-          import('./secretary-cecy/secretary-cecy.module').then(
-            (m) => m.SecretaryCecyModule
-          ),
+          import('./assistant/assistant.module').then((m) => m.AssistantModule),
       },
       {
         path: 'not-found',

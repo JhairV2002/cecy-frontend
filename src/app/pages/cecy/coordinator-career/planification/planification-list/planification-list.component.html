@@ -119,24 +119,26 @@
         <td>
           <p-tag
             [icon]="
-              planification.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'
+              planification.state === 'create' ? 'pi pi-check' : 'pi pi-clock'
             "
             [rounded]="true"
-            value="{{ planification.state }}"
+            value="{{
+              planification.state ? planification?.state : 'sin estado'
+            }}"
             [severity]="getSeverity(planification.state)"
           >
           </p-tag>
         </td>
 
         <td>
-          <div class="flex gap-1 justify-content-center">
-            <button
+          <div class="flex gap-1 justify-center">
+            <!-- <button
               pButton
               icon="pi pi-trash"
               class="p-button-rounded p-button-danger"
               type="submit"
               (click)="deletePlanification(planification)"
-            ></button>
+            ></button> -->
             <button
               pButton
               pRipple

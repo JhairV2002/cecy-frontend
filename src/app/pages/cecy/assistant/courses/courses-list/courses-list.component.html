@@ -1,0 +1,240 @@
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-sharp fa-solid fa-check-to-slot fa-xl"></i>
+      <strong class="ml-1">Cursos asignados para revisión</strong>
+    </h2>
+  </p-card>
+</div>
+<p-toolbar class="mt-2">
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Refrescar"
+      class="mr-2"
+      (click)="loadCoursesAssitantCecy()"
+      [loading]="(loading$ | async)!"
+    ></button>
+    <i
+      class="p-toolbar-separator pi pi-bars mr-2"
+      style="vertical-align: middle"
+    ></i>
+    <!-- <button
+        *ngIf="selectedCourses?.length"
+        pButton
+        pRipple
+        type="button"
+        label="Eliminar seleccionados"
+        class="p-button-danger p-button-rounded ml-2"
+        icon="pi pi-trash"
+        ></button> -->
+    <!-- (click)="deleteCourses()" -->
+    <p-tag class="ml-4" [rounded]="true" severity="info">
+      <div class="flex align-items-center gap-2">
+        <span>Cursos en total</span>
+        <!-- {{ courses ? courses.length : 0 }} -->
+      </div>
+    </p-tag>
+    <p-tag class="ml-4" severity="success" [rounded]="true">
+      <div class="flex align-items-center gap-2">
+        <span>Cursos aprobados</span>
+        {{
+          stateAprooved.statePlanification
+            ? stateAprooved.statePlanification.length
+            : 0
+        }}
+      </div>
+    </p-tag>
+
+    <p-tag class="ml-4" severity="danger" [rounded]="true">
+      <div class="flex align-items-center gap-2">
+        <span>Cursos en proceso</span>
+        {{
+          stateProcess.statePlanification
+            ? stateProcess.statePlanification.length
+            : 0
+        }}
+      </div>
+    </p-tag>
+    <app-progress-bar
+      *ngIf="progressBarDelete"
+      [message]="messageService.progressBarDelete"
+      class="ml-2"
+    >
+    </app-progress-bar>
+  </div>
+  <div class="p-toolbar-group-right">
+    <app-search (coursesSearch)="searchCourses($event)"></app-search>
+  </div>
+</p-toolbar>
+<p-card>
+  <p-table
+    dataKey="id"
+    styleClass="p-datatable-striped"
+    [columns]="cols"
+    [responsive]="true"
+    [value]="courses"
+    [paginator]="true"
+    [rows]="5"
+    [loading]="(loading$ | async)!"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 5rem"></th>
+        <th pSortableColumn="name">
+          Código curso <p-sortIcon field="code"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">
+          Nombre <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="state">
+          Estado Planificación
+          <p-sortIcon field="state"></p-sortIcon>
+        </th>
+        <th pSortableColumn="career">
+          Carrera <p-sortIcon field="career"></p-sortIcon>
+        </th>
+        <th pSortableColumn="responsible">
+          Responsable de curso <p-sortIcon field="responsible"></p-sortIcon>
+        </th>
+        <th class="text-center"></th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-course
+      let-expanded="expanded"
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr [pSelectableRow]="course" [pSelectableRowIndex]="rowIndex">
+        <td>
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="course"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
+        </td>
+        <td>{{ course.codeCourse }}</td>
+        <td>{{ course.name }}</td>
+        <td>
+          <p-tag
+            [icon]="course.state === 'aprobado' ? 'pi pi-check' : 'pi pi-clock'"
+            [rounded]="true"
+            value="{{ course.state ? course.state : 'sin estado' }}"
+            [severity]="getSeverity(course.state)"
+          >
+          </p-tag>
+        </td>
+        <td>{{ course.career.name }}</td>
+        <td>{{ course.user.names + " " + course.user.lastnames }}</td>
+        <td>
+          <div class="flex gap-1 justify-content-center">
+            <p-splitButton
+              *ngIf="user?.role?.name === 'coordinator_cecy'"
+              styleClass="p-button-rounded p-button-outlined p-button-secondary p-button-sm mr-2 mb-2"
+              label="Planificación"
+              [model]="planification"
+              (onDropdownClick)="selectPlanificationById(course)"
+            ></p-splitButton>
+            <p-splitButton
+              styleClass="p-button-rounded p-button-outlined p-button-sm mr-2 mb-2"
+              label="Curso"
+              [model]="courseMenu"
+              (onDropdownClick)="selectPlanificationById(course)"
+            >
+            </p-splitButton>
+            <!-- <button
+              pButton
+              icon="pi pi-check-square"
+              class="p-button-rounded p-button-success"
+              type="submit"
+              pTooltip="Aprobar un curso"
+              tooltipPosition="top"
+              (click)="approveCourse(courses.id)"
+            ></button> -->
+            <!-- <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-eye"
+              pTooltip="Ver un curso"
+              tooltipPosition="top"
+              class="p-button-rounded p-button-primary"
+              (click)="selectCourse(course.id)"
+            ></button> -->
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-course>
+      <tr>
+        <td colspan="7">
+          <p-card [style]="{ width: '100%' }">
+            <span class="m-2 text-lg"><strong>Comentarios</strong></span>
+            <div class="p-3">
+              <table style="width: 100%" class="table">
+                <thead>
+                  <tr>
+                    <th>Nº</th>
+                    <th>Comentarios</th>
+                    <th>Fecha creacion</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let comment of course.comments; let i = index"
+                    key="comment.id"
+                  >
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ comment.comments }}</td>
+                    <td>
+                      {{ comment.createdAt | date : "dd/MM/yyyy HH:mm:ss" }}
+                    </td>
+                    <td>
+                      <div class="flex gap-1 justify-center">
+                        <!-- <button
+                          pButton
+                          pRipple
+                          type="button"
+                          icon="pi pi-pencil"
+                          class="p-button-rounded p-button-warning"
+                          (click)="goToPlanifications(comment.id)"
+                        ></button> -->
+                        <button
+                          pButton
+                          icon="pi pi-trash"
+                          class="p-button-rounded p-button-danger"
+                          type="submit"
+                          (click)="deleteComment(comment)"
+                        ></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </p-card>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        Actualmente hay
+        {{ courses ? courses.length : 0 }}
+        cursos
+      </div>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" style="width: 100%">No hay cursos asignados.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

@@ -4,6 +4,14 @@
   (clickClose)="closeModal($event)"
   (addUser)="addUser($event)"
 ></app-user-form>
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-solid fa-users-line fa-xl"></i>
+      <strong class="ml-1">Lista de Usuarios</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button
@@ -47,7 +55,7 @@
     ></app-progress-bar>
   </div>
   <div class="p-toolbar-group-right">
-    <app-search (users)="searchPlanificationCourses($event)"></app-search>
+    <app-search (users)="searchUsers($event)"></app-search>
   </div>
 </p-toolbar>
 <p-card>
@@ -91,10 +99,23 @@
           <p-tableCheckbox [value]="user"></p-tableCheckbox>
         </td>
         <td>{{ user.email }}</td>
-        <td>{{ user.names }}</td>
+        <td>
+          <div class="flex items-center">
+            <img
+              [src]="
+                user?.image
+                  ? user?.image
+                  : 'assets/images/administrator/user-default.png'
+              "
+              width="24"
+              class="vertical-align-middle"
+            />
+            <span class="ml-1">{{ user.names }}</span>
+          </div>
+        </td>
         <td>{{ user.lastnames }}</td>
         <td>{{ user.role.name }}</td>
-        <td>{{ user.createdAt | date }}</td>
+        <td>{{ user.createdAt | date : "dd/MM/yyyy HH:mm:ss" }}</td>
         <td>
           <div class="flex gap-1">
             <button

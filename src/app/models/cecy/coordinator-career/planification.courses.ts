@@ -1,16 +1,19 @@
+import { Comment } from '@models/cecy/coordinator-cecy';
+
 export interface PlanificationCourses {
   id?: number;
-  schoolYearId: number;
+  schoolYearId?: number;
   codeCourse?: string;
   name?: string;
   durationTime?: number;
   startDate?: Date;
   finishDate?: Date;
   state?: string;
-  free: Boolean;
+  free?: Boolean;
   modalityId?: number;
   careerId?: number;
-  roleId: number;
-  userId: number;
-  createdAt: Date;
+  roleId?: number;
+  userId?: number;
+  comments?: Comment;
+  createdAt?: Date;
 }

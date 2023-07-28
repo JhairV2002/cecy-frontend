@@ -16,17 +16,15 @@ export interface PlanificationCourseInitial {
   codeCourse: string;
   state: string;
   durationTime: number;
-  career: Career
-  course: Course
+  career: Career;
+  course: Course;
 }
-
 
 export interface Career {
   id: number;
   name: string;
 }
 
-export interface Course
-  {
-    id: number
-  }
+export interface Course {
+  id: number;
+}

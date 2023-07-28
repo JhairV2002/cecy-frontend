@@ -15,7 +15,7 @@ export class FormularioRegistroComponent implements OnInit {
     private catalogoService: CatalogueService,
     // private estudiantesService: EstudiantesServiceService
     private estudiantesService: EstudiantesService
-  ) { }
+  ) {}
 
   formularioRegistro = this.fb.group({
     nombres: ['', Validators.required],
@@ -61,7 +61,5 @@ export class FormularioRegistroComponent implements OnInit {
     this.estudiantesService
       .registrarEstudiante(this.formularioRegistro.value)
       .subscribe((res) => console.log(res));
-    // console.log(this.formularioRegistro.get('email'));
-    // console.log(this.formularioRegistro.invalid);
   }
 }

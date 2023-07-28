@@ -21,6 +21,7 @@ import { TableModule } from 'primeng/table';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MenuModule } from 'primeng/menu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 // Components
 import { AppComponent } from './app.component';
@@ -76,6 +77,7 @@ import { NgProgressModule } from 'ngx-progressbar';
     LayoutModule,
     NgProgressModule,
     SocketIoModule.forRoot(config),
+    ConfirmDialogModule,
   ],
   providers: [MessageService, ConfirmationService, HttpInterceptorProviders],
   bootstrap: [AppComponent],

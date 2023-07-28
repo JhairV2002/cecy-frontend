@@ -1,0 +1,59 @@
+<p-table
+  styleClass="p-datatable-striped"
+  [value]="estudiantes!"
+  [loading]="loading"
+  [responsive]="true"
+  [rows]="5"
+  [paginator]="true"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 5rem"></th>
+      <th pSortableColumn="name">Dni</th>
+      <th pSortableColumn="name">Nombre</th>
+      <th pSortableColumn="name">Apellido</th>
+      <th pSortableColumn="name">Tipo</th>
+      <th pSortableColumn="name">Estado Matricula</th>
+      <th pSortableColumn="name"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-estudiante>
+    <tr>
+      <th></th>
+      <th>{{ estudiante.estudiantes!.cedula }}</th>
+      <th>{{ estudiante.estudiantes!.nombres }}</th>
+      <th>{{ estudiante.estudiantes!.apellidos }}</th>
+      <th>{{ estudiante.estudiantes!.tipoEstudiante.descripcion }}</th>
+      <th>
+        {{
+          estudiante.estadoMatricula.descripcion
+            ? estudiante.estadoMatricula.descripcion
+            : "Sin datos"
+        }}
+      </th>
+      <th>
+        <button
+          pButton
+          type="button"
+          id="asistencia"
+          class="p-button p-button-primary"
+          icon="pi pi-eye"
+          label="Detalles Matricula"
+          (click)="viewDetailEstudent(estudiante)"
+        ></button>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Actualmente hay
+      {{ estudiantes ? estudiantes.length : 0 }}
+      Estudiantes
+    </div>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" style="width: 100%">No hay estudiantes actualmente</td>
+    </tr>
+  </ng-template>
+</p-table>

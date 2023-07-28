@@ -6,12 +6,9 @@ import { TokenDirective } from '@shared/directives/token.directive';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { LabelDirective } from './directives/label.directive';
-import { CertificatedPipe } from './pipes/professional/academic-formation/certificated.pipe';
-import { WorkedPipe } from './pipes/professional/experience/worked.pipe';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
-import { ViewFilesComponent } from '@shared/components/file/view-files/view-files.component';
 import { UploadFilesComponent } from '@shared/components/file/upload-files/upload-files.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -28,7 +25,6 @@ import { CardModule } from 'primeng/card';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
-import { TermsCondititonsPipe } from '@shared/pipes/chat/terms-condititons.pipe';
 import { ChipModule } from 'primeng/chip';
 import { BadgeModule } from 'primeng/badge';
 import { RouterModule, Routes } from '@angular/router';
@@ -40,9 +36,9 @@ import { DialogModule } from 'primeng/dialog';
 import { InplaceModule } from 'primeng/inplace';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
+import { TimelineModule } from 'primeng/timeline';
+import { PasswordModule } from 'primeng/password';
 
-import { BlankComponent } from './components/layouts/blank/blank.component';
-import { BreadcrumbComponent } from './components/layouts/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { SidebarComponent } from './components/layouts/sidebar/sidebar.component';
 import { TopbarComponent } from './components/layouts/topbar/topbar.component';
@@ -50,10 +46,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { UserComponent } from './components/user/user.component';
 import { ImageModule } from 'primeng/image';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { NotificationComponent } from './components/layouts/notification/notification.component';
 import { RelativeTimePipe } from './pipes/date/relative-time.pipe';
 import { DropdownComponent } from './components/layouts/topbar/dropdown/dropdown.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { NotificationComponent } from './components/layouts/topbar/notification/notification.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 
 const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
@@ -65,24 +64,19 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     LabelDirective,
     SkeletonComponent,
     ProgressBarComponent,
-    ViewFilesComponent,
     UploadFilesComponent,
-    CertificatedPipe,
-    WorkedPipe,
     ExtensionsPipe,
     SearchComponent,
-    TermsCondititonsPipe,
-    BlankComponent,
-    BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
     UserComponent,
     WelcomeComponent,
-    NotificationComponent,
     RelativeTimePipe,
     DropdownComponent,
     ProfileComponent,
+    NotificationComponent,
+    ChangePasswordComponent,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -91,23 +85,17 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     LabelDirective,
     SkeletonComponent,
     ProgressBarComponent,
-    CertificatedPipe,
-    WorkedPipe,
     ExtensionsPipe,
     UploadFilesComponent,
-    ViewFilesComponent,
-    TermsCondititonsPipe,
-    BlankComponent,
-    BreadcrumbComponent,
     FooterComponent,
     SidebarComponent,
     TopbarComponent,
     UserComponent,
     WelcomeComponent,
-    NotificationComponent,
     RelativeTimePipe,
     DropdownComponent,
     ProfileComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -141,6 +129,10 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     InplaceModule,
     ConfirmPopupModule,
     ToastModule,
+    ProgressSpinnerModule,
+    PanelMenuModule,
+    TimelineModule,
+    PasswordModule,
   ],
 })
 export class SharedModule {}

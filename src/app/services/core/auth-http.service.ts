@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '@env/environment';
-import { LoginModel, ServerResponse } from '@models/core';
-import { LoginResponse } from '@models/core/login.response';
 import { AuthService } from './auth.service';
 import { Handler } from '../../exceptions/handler';
 import { PasswordResetModel } from '@models/authentication';
@@ -28,9 +26,9 @@ export class AuthHttpService {
     );
   }
 
-  login(credentials: LoginModel): Observable<LoginResponse> {
+  login(credentials: any): Observable<any> {
     const url = `${this.API_URL_PUBLIC}/login`;
-    return this.httpClient.post<LoginResponse>(url, credentials).pipe(
+    return this.httpClient.post<any>(url, credentials).pipe(
       map((response) => response),
       tap((response) => {
         this.authService.token = response.token;
@@ -45,9 +43,9 @@ export class AuthHttpService {
     );
   }
 
-  resetPassword(credentials: PasswordResetModel): Observable<LoginResponse> {
+  resetPassword(credentials: PasswordResetModel): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/reset-password`;
-    return this.httpClient.post<LoginResponse>(url, credentials).pipe(
+    return this.httpClient.post<any>(url, credentials).pipe(
       map((response) => response),
       catchError((error) => {
         this.authService.removeLogin();
@@ -56,9 +54,9 @@ export class AuthHttpService {
     );
   }
 
-  verifyUser(username: string): Observable<ServerResponse> {
+  verifyUser(username: string): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/verify-user/${username}`;
-    return this.httpClient.get<ServerResponse>(url).pipe(
+    return this.httpClient.get<any>(url).pipe(
       map((response) => response),
       catchError((error) => {
         return throwError(error);
@@ -66,9 +64,9 @@ export class AuthHttpService {
     );
   }
 
-  verifyEmail(email: string): Observable<ServerResponse> {
+  verifyEmail(email: string): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/verify-email/${email}`;
-    return this.httpClient.get<ServerResponse>(url).pipe(
+    return this.httpClient.get<any>(url).pipe(
       map((response) => response),
       catchError((error) => {
         return throwError(error);
@@ -76,9 +74,9 @@ export class AuthHttpService {
     );
   }
 
-  verifyPhone(phone: string): Observable<ServerResponse> {
+  verifyPhone(phone: string): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/verify-phone/${phone}`;
-    return this.httpClient.get<ServerResponse>(url).pipe(
+    return this.httpClient.get<any>(url).pipe(
       map((response) => response),
       catchError((error) => {
         return throwError(error);
@@ -86,9 +84,9 @@ export class AuthHttpService {
     );
   }
 
-  logout(): Observable<LoginResponse> {
+  logout(): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/logout`;
-    return this.httpClient.get<LoginResponse>(url).pipe(
+    return this.httpClient.get<any>(url).pipe(
       map((response) => response),
       tap((response) => {
         this.authService.removeLogin();
@@ -100,9 +98,9 @@ export class AuthHttpService {
     );
   }
 
-  requestPasswordReset(username: string): Observable<ServerResponse> {
+  requestPasswordReset(username: string): Observable<any> {
     const url = `${this.API_URL_PRIVATE}/request-password-reset`;
-    return this.httpClient.post<ServerResponse>(url, { username }).pipe(
+    return this.httpClient.post<any>(url, { username }).pipe(
       map((response) => response),
       catchError(Handler.render)
     );

@@ -1,10 +1,10 @@
-@use '../../../../layout/main/main.component.scss' as *;
-@use '../../../../../assets/layout/styles/layout/mixins' as *;
+@use "../../../../layout/main/main.component.scss" as *;
+@use "../../../../../assets/layout/styles/layout/mixins" as *;
 
-$primary-color: $colorPrimario ;
-$scale:14px;                    /* main font size */
-$borderRadius:12px;             /* border radius of layout element e.g. card, sidebar */
-$transitionDuration:.2s;
+$primary-color: $colorPrimario;
+$scale: 14px; /* main font size */
+$borderRadius: 12px; /* border radius of layout element e.g. card, sidebar */
+$transitionDuration: 0.2s;
 
 .sidebar {
   position: fixed;
@@ -96,12 +96,10 @@ $transitionDuration:.2s;
 
 .sidebar .nav-links li:hover {
   background-color: $primary-color;
-
 }
 
 .sidebar .nav-links .li-primary:hover {
   background-color: get-text-color($primary-color);
-
 }
 
 .sidebar .nav-links li:hover a .link_name {
@@ -119,7 +117,7 @@ $transitionDuration:.2s;
 }
 
 .sidebar.close .nav-links li .iocn-link {
-  display: block
+  display: block;
 }
 
 .sidebar .nav-links li i {
@@ -228,7 +226,7 @@ $transitionDuration:.2s;
   transition: all 0.5s ease;
 }
 
-.sidebar.close~.home {
+.sidebar.close ~ .home {
   left: 70px;
   height: 60vh;
   width: calc(100% - 78px);
@@ -240,8 +238,6 @@ $transitionDuration:.2s;
   }
 }
 
-
-
 /* New css menu */
 .layout-menu {
   display: flex;
@@ -251,122 +247,122 @@ $transitionDuration:.2s;
   padding: 0;
   list-style-type: none;
 
-  .menu{
+  .menu {
     background-color: yellow;
   }
 
   .layout-root-menuitem {
-      >.layout-menuitem-root-text {
-          font-size: .857rem;
-          text-transform: uppercase;
-          font-weight: 700;
-          color: var(--surface-900);
-          margin: .75rem 0;
-      }
+    > .layout-menuitem-root-text {
+      font-size: 0.857rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--surface-900);
+      margin: 0.75rem 0;
+    }
 
-      >a {
-          display: none;
-      }
+    > a {
+      display: none;
+    }
   }
 
   a {
-      user-select: none;
+    user-select: none;
 
-      &.active-menuitem {
-          >.layout-submenu-toggler {
-              transform: rotate(-180deg);
-          }
+    &.active-menuitem {
+      > .layout-submenu-toggler {
+        transform: rotate(-180deg);
       }
+    }
   }
 
   li.active-menuitem {
-      >a {
-          .layout-submenu-toggler {
-              transform: rotate(-180deg);
-          }
+    > a {
+      .layout-submenu-toggler {
+        transform: rotate(-180deg);
       }
+    }
   }
 
   ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 
-      a {
-          display: flex;
-          align-items: center;
-          position: relative;
-          outline: 0 none;
-          color: var(--text-color);
-          cursor: pointer;
-          padding: .75rem 1rem;
-          border-radius: $borderRadius;
-          transition: background-color $transitionDuration, box-shadow $transitionDuration;
+    a {
+      display: flex;
+      align-items: center;
+      position: relative;
+      outline: 0 none;
+      color: var(--text-color);
+      cursor: pointer;
+      padding: 0.75rem 1rem;
+      border-radius: $borderRadius;
+      transition: background-color $transitionDuration,
+        box-shadow $transitionDuration;
 
-          .layout-menuitem-icon {
-              margin-right: .5rem;
-          }
-
-          .layout-submenu-toggler {
-              font-size: 75%;
-              margin-left: auto;
-              transition: transform $transitionDuration;
-          }
-
-          &.active-route {
-              font-weight: 700;
-              color: var(--primary-color);
-          }
-
-          &:hover {
-              background-color: var(--surface-hover);
-          }
-
-          &:focus {
-              @include focused-inset();
-          }
+      .layout-menuitem-icon {
+        margin-right: 0.5rem;
       }
 
-      ul {
-          overflow: hidden;
-          border-radius: $borderRadius;
+      .layout-submenu-toggler {
+        font-size: 75%;
+        margin-left: auto;
+        transition: transform $transitionDuration;
+      }
+
+      &.active-route {
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      &:hover {
+        background-color: var(--surface-hover);
+      }
+
+      &:focus {
+        @include focused-inset();
+      }
+    }
+
+    ul {
+      overflow: hidden;
+      border-radius: $borderRadius;
+
+      li {
+        a {
+          margin-left: 1rem;
+        }
+
+        li {
+          a {
+            margin-left: 2rem;
+          }
 
           li {
+            a {
+              margin-left: 2.5rem;
+            }
+
+            li {
               a {
-                  margin-left: 1rem;
+                margin-left: 3rem;
               }
 
               li {
+                a {
+                  margin-left: 3.5rem;
+                }
+
+                li {
                   a {
-                      margin-left: 2rem;
+                    margin-left: 4rem;
                   }
-
-                  li {
-                      a {
-                          margin-left: 2.5rem;
-                      }
-
-                      li {
-                          a {
-                              margin-left: 3rem;
-                          }
-
-                          li {
-                              a {
-                                  margin-left: 3.5rem;
-                              }
-
-                              li {
-                                  a {
-                                      margin-left: 4rem;
-                                  }
-                              }
-                          }
-                      }
-                  }
+                }
               }
+            }
           }
+        }
       }
+    }
   }
 }
-

@@ -6,14 +6,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { AuthService } from '@services/auth';
 import { LayoutService } from '@services/layout.service';
 import { SidebarComponent } from '@shared/components/layouts/sidebar/sidebar.component';
 import { TopbarComponent } from '@shared/components/layouts/topbar/topbar.component';
 import { filter, Subscription } from 'rxjs';
-import { Socket } from 'ngx-socket-io';
+import { NotificationService } from '@services/core';
+import { AuthService } from '@services/auth';
 
-import { Notification } from '@models/core/notification';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -21,12 +20,9 @@ import { Notification } from '@models/core/notification';
 })
 export class MainComponent implements OnDestroy, OnInit {
   imgs = [...Array(18).keys()];
-  overlayMenuOpenSubscription: Subscription;
+  // overlayMenuOpenSubscription: Subscription;
   menuOutsideClickListener: any;
   profileMenuOutsideClickListener: any;
-  sidebarVisible: boolean = false;
-  planifications: Notification[] = [];
-  planifications1: Notification[] = [];
 
   @ViewChild(SidebarComponent) appSidebar!: SidebarComponent;
 
@@ -37,68 +33,65 @@ export class MainComponent implements OnDestroy, OnInit {
     public renderer: Renderer2,
     public router: Router,
     private authService: AuthService,
-    private socket: Socket
+    private notificationService: NotificationService
   ) {
-    this.overlayMenuOpenSubscription =
-      this.layoutService.overlayOpen$.subscribe(() => {
-        if (!this.menuOutsideClickListener) {
-          this.menuOutsideClickListener = this.renderer.listen(
-            'document',
-            'click',
-            (event) => {
-              const isOutsideClicked = !(
-                this.appSidebar.el.nativeElement.isSameNode(event.target) ||
-                this.appSidebar.el.nativeElement.contains(event.target) ||
-                this.appTopbar.menuButton.nativeElement.isSameNode(
-                  event.target
-                ) ||
-                this.appTopbar.menuButton.nativeElement.contains(event.target)
-              );
-
-              if (isOutsideClicked) {
-                this.hideMenu();
-              }
-            }
-          );
-        }
-
-        if (!this.profileMenuOutsideClickListener) {
-          this.profileMenuOutsideClickListener = this.renderer.listen(
-            'document',
-            'click',
-            (event) => {
-              const isOutsideClicked = !(
-                this.appTopbar.menu.nativeElement.isSameNode(event.target) ||
-                this.appTopbar.menu.nativeElement.contains(event.target) ||
-                this.appTopbar.topbarMenuButton.nativeElement.isSameNode(
-                  event.target
-                ) ||
-                this.appTopbar.topbarMenuButton.nativeElement.contains(
-                  event.target
-                )
-              );
-
-              if (isOutsideClicked) {
-                this.hideProfileMenu();
-              }
-            }
-          );
-        }
-
-        if (this.layoutService.state.staticMenuMobileActive) {
-          this.blockBodyScroll();
-        }
-      });
-
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.hideMenu();
-        this.hideProfileMenu();
-      });
+    // this.overlayMenuOpenSubscription =
+    //   this.layoutService.overlayOpen$.subscribe(() => {
+    //     if (!this.menuOutsideClickListener) {
+    //       this.menuOutsideClickListener = this.renderer.listen(
+    //         'document',
+    //         'click',
+    //         (event) => {
+    //           const isOutsideClicked = !(
+    //             this.appSidebar.el.nativeElement.isSameNode(event.target) ||
+    //             this.appSidebar.el.nativeElement.contains(event.target) ||
+    //             this.appTopbar.menuButton.nativeElement.isSameNode(
+    //               event.target
+    //             ) ||
+    //             this.appTopbar.menuButton.nativeElement.contains(event.target)
+    //           );
+    //           if (isOutsideClicked) {
+    //             this.hideMenu();
+    //           }
+    //         }
+    //       );
+    //     }
+    //     if (!this.profileMenuOutsideClickListener) {
+    //       this.profileMenuOutsideClickListener = this.renderer.listen(
+    //         'document',
+    //         'click',
+    //         (event) => {
+    //           const isOutsideClicked = !(
+    //             this.appTopbar.menu.nativeElement.isSameNode(event.target) ||
+    //             this.appTopbar.menu.nativeElement.contains(event.target) ||
+    //             this.appTopbar.topbarMenuButton.nativeElement.isSameNode(
+    //               event.target
+    //             ) ||
+    //             this.appTopbar.topbarMenuButton.nativeElement.contains(
+    //               event.target
+    //             )
+    //           );
+    //           if (isOutsideClicked) {
+    //             this.hideProfileMenu();
+    //           }
+    //         }
+    //       );
+    //     }
+    //     if (this.layoutService.state.staticMenuMobileActive) {
+    //       this.blockBodyScroll();
+    //     }
+    //   });
+    // this.router.events
+    //   .pipe(filter((event) => event instanceof NavigationEnd))
+    //   .subscribe(() => {
+    //     this.hideMenu();
+    //     this.hideProfileMenu();
+    //   });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.getProfile().subscribe();
+  }
 
   hideMenu() {
     this.layoutService.state.overlayMenuActive = false;
@@ -158,17 +151,12 @@ export class MainComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    if (this.overlayMenuOpenSubscription) {
-      this.overlayMenuOpenSubscription.unsubscribe();
-    }
+    // if (this.overlayMenuOpenSubscription) {
+    //   this.overlayMenuOpenSubscription.unsubscribe();
+    // }
 
     if (this.menuOutsideClickListener) {
       this.menuOutsideClickListener();
     }
-  }
-
-  openNotification(state: boolean) {
-    console.log('valor recibido', state);
-    this.sidebarVisible = state;
   }
 }

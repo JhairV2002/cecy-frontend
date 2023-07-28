@@ -11,7 +11,7 @@ export class CursoPageComponent {
   constructor(
     private cursosService: CursosService,
     private router: ActivatedRoute
-  ) { }
+  ) {}
 
   inputSearch = '';
   checkedGratis = false;
@@ -47,8 +47,8 @@ export class CursoPageComponent {
       this.cursosService
         .getCarrerasById(parseInt(params.get('id')!))
         .pipe(
-          map((res) =>
-            res.planificationCourse.filter((res) => res.state === 'aprobado')
+          map((res: any) =>
+            res.planificationCourse.filter((res: any) => res.state === 'aprobado')
           )
         )
     )

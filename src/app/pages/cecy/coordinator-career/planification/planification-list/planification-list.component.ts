@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
-import { ColModel, PaginatorModel } from '@models/core';
+import { ColModel } from '@models/core';
 import { CourseModel } from '@models/cecy';
 import { Router } from '@angular/router';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
@@ -24,7 +24,7 @@ export class PlanificationListComponent implements OnInit {
   isVisible: boolean = false;
   progressBarDelete: boolean = false;
   search: FormControl = new FormControl('');
-  paginator: PaginatorModel = {};
+  paginator: any = {};
   selectedCareer: number = 0;
   careers: Careers[] = [];
   career: FormControl = new FormControl('');
@@ -77,6 +77,9 @@ export class PlanificationListComponent implements OnInit {
     this.testing();
   }
 
+
+
+
   checkSearchParams(): void {
     const queryParams = this.router.parseUrl(this.router.url).queryParams;
     if (queryParams['search']) {
@@ -91,6 +94,11 @@ export class PlanificationListComponent implements OnInit {
         next: (data) => {
           console.log('refrescando', data);
           this.planificationCourses = data.planificationCourse;
+          this.planificationCourses.sort((a: any, b: any) => {
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+          });
         },
         error: (error) => {
           this.messageService.error(error);
@@ -171,6 +179,9 @@ export class PlanificationListComponent implements OnInit {
 
   searchPlanificationCourses(planification: any) {
     this.planificationCourses = planification;
+    this.planificationCourses.sort((a: any, b: any) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
     console.log('ESTO BUSCO', planification);
   }
 
@@ -220,7 +231,7 @@ export class PlanificationListComponent implements OnInit {
     switch (status) {
       case 'aprobado':
         return 'success';
-      case 'proceso':
+      case 'creado':
         return 'danger';
       default:
         return '';

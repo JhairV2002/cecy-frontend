@@ -1,0 +1,176 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <h2 class="text-xl">
+      <strong
+        >{{ isCreating ? "Registrar Firma Nueva" : "Editar la firma" }}
+      </strong>
+    </h2>
+  </div>
+  <div class="p-toolbar-group-end">
+    <p-button
+      label="Regresar"
+      icon="pi pi-arrow-left"
+      class="mr-2"
+      routerLink="/cecy/coordinator-cecy/signature"
+    ></p-button>
+  </div>
+</p-toolbar>
+<div class="mt-4">
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="w-full">
+      <p-card class="w-full">
+        <h1 class="text-xl text-center">Datos del Firmante</h1>
+        <div class="p-fluid">
+          <form
+            class="mt-2"
+            [formGroup]="formSignature"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="flex gap-4 flex-col sm:flex-row">
+              <div class="flex-1">
+                <div class="p-field">
+                  <label
+                    for="name"
+                    appLabel
+                    label="Nombres del Firmante:"
+                    [required]="isRequired(namesField)"
+                    [valid]="namesField.valid"
+                    [touched]="namesField.touched"
+                    [dirty]="namesField.dirty"
+                  >
+                  </label>
+                  <input
+                    placeholder="Ej. Juanito"
+                    pInputText
+                    id="name"
+                    formControlName="nombres"
+                  />
+                  <small
+                    appErrorMessage
+                    [errors]="namesField.errors"
+                    [touched]="namesField.touched"
+                    [dirty]="namesField.dirty"
+                  >
+                  </small>
+                </div>
+                <div class="p-field">
+                  <label
+                    for="name"
+                    appLabel
+                    label="Apellidos del Firmante:"
+                    [required]="isRequired(lastnamesField)"
+                    [valid]="lastnamesField.valid"
+                    [touched]="lastnamesField.touched"
+                    [dirty]="lastnamesField.dirty"
+                  >
+                  </label>
+                  <input
+                    placeholder="Ej. Perez"
+                    pInputText
+                    id="name"
+                    formControlName="apellidos"
+                  />
+                  <small
+                    appErrorMessage
+                    [errors]="lastnamesField.errors"
+                    [touched]="lastnamesField.touched"
+                    [dirty]="lastnamesField.dirty"
+                  >
+                  </small>
+                </div>
+                <div class="p-field">
+                  <label
+                    for="name"
+                    appLabel
+                    label="Cedula:"
+                    [required]="isRequired(cedulaField)"
+                    [valid]="cedulaField.valid"
+                    [touched]="cedulaField.touched"
+                    [dirty]="cedulaField.dirty"
+                  >
+                  </label>
+                  <input
+                    placeholder="Ej. 171111111111"
+                    pInputText
+                    id="name"
+                    formControlName="cedula"
+                  />
+                  <small
+                    appErrorMessage
+                    [errors]="cedulaField.errors"
+                    [touched]="cedulaField.touched"
+                    [dirty]="cedulaField.dirty"
+                  >
+                  </small>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="w-full">
+                  <p-toast></p-toast>
+                  <div *ngIf="isCreating">
+                    <p-fileUpload
+                      chooseLabel="Seleccione firma"
+                      uploadLabel="Subir"
+                      cancelLabel="Cancelar"
+                      accept="image/*"
+                      (onSelect)="onFileUpload($event)"
+                    ></p-fileUpload>
+                  </div>
+
+                  <div *ngIf="!isCreating">
+                    <div *ngIf="!editImage">
+                      <div class="flex items-center justify-center">
+                        <p-image
+                          [src]="
+                            url
+                              ? url
+                              : 'assets/images/cecy/coordinator-cecy/firma.png'
+                          "
+                          alt="Image"
+                          width="250"
+                          [preview]="true"
+                        ></p-image>
+                        <i
+                          class="fa fa-pencil ml-2 cursor-pointer"
+                          aria-hidden="true"
+                          (click)="cancelEditImage()"
+                        ></i>
+                      </div>
+                    </div>
+
+                    <p-fileUpload
+                      *ngIf="editImage"
+                      chooseLabel="Seleccione firma"
+                      uploadLabel="Subir"
+                      cancelLabel="Cancelar"
+                      accept="image/*"
+                      (onSelect)="onFileUpload($event)"
+                    ></p-fileUpload>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p-divider></p-divider>
+            <div class="flex flex-col items-center">
+              <div>
+                <button
+                  pButton
+                  type="submit"
+                  pRipple
+                  label="{{
+                    isCreating
+                      ? 'Guardar la informacion'
+                      : 'Actualizar informacion'
+                  }}"
+                  icon="pi pi-save"
+                  style="width: 100%"
+                ></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

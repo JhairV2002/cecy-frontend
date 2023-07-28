@@ -8,7 +8,6 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { MainComponent } from './main/main.component';
 import { SharedModule } from '@shared/shared.module';
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
-
 @NgModule({
   declarations: [MainComponent, EstudiantesComponent],
   imports: [
@@ -18,7 +17,7 @@ import { EstudiantesComponent } from './estudiantes/estudiantes.component';
     LayoutRoutingModule,
     SidebarModule,
     CardModule,
-    ToastModule
+    ToastModule,
   ],
   exports: [MainComponent],
 })
