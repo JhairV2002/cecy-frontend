@@ -43,7 +43,6 @@ export class PerfilEstudianteComponent implements OnInit {
         discapacidad: [estudiante!.discapacidad],
         detallesDiscapacidad: [estudiante!.detallesDiscapacidad],
         tipoEstudiante: [estudiante!.tipoEstudiante],
-        matriculas: this.fb.array(estudiante?.matriculas!),
       });
       console.log(this.estudianteForm.value);
       if (this.estudianteForm.controls['discapacidad']!.value == false) {
@@ -64,10 +63,10 @@ export class PerfilEstudianteComponent implements OnInit {
 
   updateEstudiante() {
     console.log(this.estudianteForm.value);
-    // this.estudianteService
-    //   .updateEstudiante(this.estudianteForm.value)
-    //   .subscribe((res) => {
-    //     console.log(res);
-    //   });
+    this.estudianteService
+      .updateEstudiante(this.estudianteForm.value)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

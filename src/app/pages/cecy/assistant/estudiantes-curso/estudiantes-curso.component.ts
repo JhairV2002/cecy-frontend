@@ -13,8 +13,8 @@ export class EstudiantesCursoComponent {
   constructor(
     private router: ActivatedRoute,
     private cursoService: CursosService,
-    private routerActive: Router
-  ) {}
+    private routerActive: Router,
+  ) { }
 
   search: string = '';
   estudiantes = [];
@@ -25,29 +25,27 @@ export class EstudiantesCursoComponent {
     switchMap((param) =>
       this.cursoService
         .getCursoByName(param.get('nombreCurso')!)
-        .pipe(map((res) => res[0].estudiantes))
-    )
+        .pipe(map((res) => res[0].estudiantes)),
+    ),
   );
 
   curso$ = this.router.paramMap.pipe(
     switchMap((param) =>
-      this.cursoService.getCursoById(parseInt(param.get('idCurso')!))
-    )
+      this.cursoService.getCursoById(parseInt(param.get('idCurso')!)),
+    ),
   );
 
   cursoNombre$ = this.curso$.pipe(map((res) => res.planification.name));
 
   matriculas$ = this.router.paramMap.pipe(
     switchMap((param) =>
-      this.cursoService.getMatriculasByCursoId(parseInt(param.get('idCurso')!))
-    )
+      this.cursoService.getMatriculasByCursoId(parseInt(param.get('idCurso')!)),
+    ),
   );
 
   gotToBack() {
     this.router.paramMap.subscribe((param) => {
-      this.routerActive.navigate([
-        `cecy/assistant-cecy/matricula/career/${param.get('careerId')}`,
-      ]);
+      this.routerActive.navigate(['/cecy/assistant-cecy/matricula']);
     });
   }
 }
