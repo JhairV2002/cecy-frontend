@@ -37,6 +37,7 @@
     <p-button class="ml-4" styleClass="p-button-success" (click)="sortCards()">
       <i class="pi pi-sort-amount-down-alt"></i>
     </p-button>
+
   </div>
 </p-toolbar>
 
@@ -99,6 +100,15 @@
           Horario: {{ curso.detailPlanification?.workday.name }}<br />
           {{ curso.detailPlanification?.startedTime }} -
           {{ curso.detailPlanification?.endedTime }}<br />
+          <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="showHelp()"></i>
+          <p-dialog header="Ayuda" [(visible)]="helpDialogVisible" [style]="{ width: '40%' }">
+            <p>
+            En el apartado de ESTADO DE CURSO se guía bajo las siguientes especificaciones:<br/>
+            - <strong>En proceso</strong>: una vez que se ha dado inicio al curso (Predeterminado)<br/>
+            - <strong>Terminado</strong>: una vez que se terminó de impartir el curso.<br/>
+            - <strong>Cerrado</strong>: una vez que los certificados ya fueron emitidos.
+            </p>
+          </p-dialog>
           Estado del curso:
           <p-dropdown
             [options]="statusOptions"

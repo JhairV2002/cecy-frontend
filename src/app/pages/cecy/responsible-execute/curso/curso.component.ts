@@ -26,8 +26,9 @@ export class CursoComponent implements OnInit {
     { label: 'En proceso', value: 'proceso' },
     { label: 'Terminado', value: 'terminado' },
     { label: 'Cerrado', value: 'cerrado' },
-    { label: 'Aprobado', value: 'aprobado' },
+    // { label: 'Aprobado', value: 'aprobado' },
   ];
+  helpDialogVisible: boolean = false;
 
   constructor(
     private cursoService: CursoService,
@@ -154,5 +155,9 @@ export class CursoComponent implements OnInit {
         });
       },
     });
+  }
+
+  showHelp() {
+    this.helpDialogVisible = true;
   }
 }
