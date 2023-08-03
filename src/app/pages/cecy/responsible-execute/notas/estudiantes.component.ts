@@ -32,7 +32,8 @@ export class EstudiantesComponent implements OnInit {
           console.log('ESTUDIANTES', res);
           this.estudiantes = res;
         });
-    });
+    }
+    );
   }
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
@@ -88,16 +89,7 @@ export class EstudiantesComponent implements OnInit {
     });
   }
 
-  // guardarPorcentaje(matricula: Matriculas): void {
-  //   console.log(matricula);
-  //
-  //   this.estudianteService
-  //     .porcentaje(matricula, matricula.id)
-  //     .subscribe((res) => {
-  //       console.log('Asistencia guardada', res);
-  //     });
-  // }
-
+ 
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
@@ -146,6 +138,24 @@ export class EstudiantesComponent implements OnInit {
     const reporte = 'Reporte Promedio.xlsx';
     XLSX.writeFile(libro, reporte);
 
-    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
+    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`, this.estudiantes$);
+  }
+  
+
+  setInitialAsistenciaValue(): void {
+    this.estudiantes$.forEach((matricula: any) => {
+      if (matricula.porcentajeAsistencia === 0) {
+        matricula.porcentajeAsistencia = 100;
+      }
+    });
+  }
+
+  actualizarAsistencia(event: any, matricula: any): void {
+    const newValue = event.value; 
+    if (newValue === 0) {
+      matricula.porcentajeAsistencia = 100;
+    } else {
+      matricula.porcentajeAsistencia = newValue;
+    }
   }
 }

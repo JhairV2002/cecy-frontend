@@ -91,6 +91,7 @@
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
           (keydown)="validarNumero($event)"
+          (onChange)="actualizarAsistencia($event, matricula)"
         ></p-inputNumber>
       </td>
       <td>
