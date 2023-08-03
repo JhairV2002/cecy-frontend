@@ -7,7 +7,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MessageService } from '@services/core';
 import { SchoolYearService } from '@services/cecy/coordinator-cecy';
 @Component({
@@ -22,12 +27,17 @@ export class SchoolYearFormComponent implements OnInit, OnChanges {
   @Output() clickClose = new EventEmitter<boolean>();
 
   formSchoolPeriod = this.fb.group({
-    year: ['', [Validators.required]],
+    year: ['', [Validators.required, this.fourDigitYearValidator()]],
+    cycle: ['', [Validators.required]],
   });
   titleModal: string = '';
   progressBar: boolean = false;
   titleButton: string = '';
   isEdit: boolean = false;
+  cicles = [
+    { id: 'I', name: 'I' },
+    { id: 'II', name: 'II' },
+  ];
   constructor(
     private fb: FormBuilder,
     private schoolYearService: SchoolYearService,
@@ -59,6 +69,7 @@ export class SchoolYearFormComponent implements OnInit, OnChanges {
   addEditSchoolYear() {
     this.progressBar = true;
     const valuesForm = this.formSchoolPeriod.value;
+    console.log(valuesForm);
     this.schoolYearService
       .addEditSchoolYear(valuesForm, this.selectedYearSchool)
       .subscribe({
@@ -85,8 +96,22 @@ export class SchoolYearFormComponent implements OnInit, OnChanges {
     return field.hasValidator(Validators.required);
   }
 
+  fourDigitYearValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const year = control.value;
+      if (year && year.toString().length !== 4) {
+        return { invalidYear: true };
+      }
+      return null;
+    };
+  }
+
   // Getters of form
   get nameField() {
     return this.formSchoolPeriod.controls['year'];
+  }
+
+  get cycleField() {
+    return this.formSchoolPeriod.controls['cycle'];
   }
 }

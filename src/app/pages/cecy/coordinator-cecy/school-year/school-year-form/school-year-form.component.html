@@ -8,29 +8,69 @@
 >
   <div class="p-fluid">
     <form [formGroup]="formSchoolPeriod" (ngSubmit)="onSubmit()">
-      <div class="justify-center">
-        <div class="field col-12">
-          <label
-            for="name"
-            appLabel
-            label="Periodo lectivo:"
-            [required]="isRequired(nameField)"
-            [valid]="nameField.valid"
-            [touched]="nameField.touched"
-            [dirty]="nameField.dirty"
-          >
-          </label>
-          <input class="w-full" pInputText id="name" formControlName="year" />
-          <small
-            appErrorMessage
-            [errors]="nameField.errors"
-            [touched]="nameField.touched"
-            [dirty]="nameField.dirty"
-          >
-          </small>
-        </div>
+      <div class="field col-12">
+        <label
+          for="name"
+          appLabel
+          label="Periodo lectivo:"
+          [required]="isRequired(nameField)"
+          [valid]="nameField.valid"
+          [touched]="nameField.touched"
+          [dirty]="nameField.dirty"
+        >
+        </label>
+        <p-inputNumber
+          inputId="integeronly"
+          formControlName="year"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          [min]="1900"
+          [max]="2100"
+          [showButtons]="true"
+          placeholder="Ingrese el año lectivo"
+        ></p-inputNumber>
+        <small
+          appErrorMessage
+          [errors]="nameField.errors"
+          [touched]="nameField.touched"
+          [dirty]="nameField.dirty"
+        >
+        </small>
       </div>
-
+      <div class="field col-12">
+        <label
+          for="cycle"
+          appLabel
+          label="Ciclo:"
+          [required]="isRequired(cycleField)"
+          [valid]="cycleField.valid"
+          [touched]="cycleField.touched"
+          [dirty]="cycleField.dirty"
+        >
+        </label>
+        <p-dropdown
+          formControlName="cycle"
+          placeholder="Seleccione el ciclo"
+          [options]="cicles"
+          optionLabel="name"
+          optionValue="name"
+        >
+          <ng-template let-option pTemplate="item">
+            <div class="flex align-items-center">
+              <div>
+                {{ "Ciclo" + " " + option.name + " " }}
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <small
+          appErrorMessage
+          [errors]="cycleField.errors"
+          [touched]="cycleField.touched"
+          [dirty]="cycleField.dirty"
+        >
+        </small>
+      </div>
       <p-divider></p-divider>
 
       <!--onSubmit()-->

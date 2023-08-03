@@ -146,6 +146,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
 
   loadScholYears() {
     this.schoolYearService.getSchoolYear().subscribe((data) => {
+      console.log('YEARS SCHOOL', data);
       this.schoolYears = data;
     });
   }

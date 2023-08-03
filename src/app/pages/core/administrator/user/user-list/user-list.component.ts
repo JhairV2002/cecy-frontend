@@ -145,6 +145,14 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  changePassword(user: User) {
+    console.log(user);
+    const encodedHash = encodeURIComponent(user.password!);
+    this.router.navigate([
+      `/administrator/users/change-password/user/${user.id}/encrypted/${encodedHash}`,
+    ]);
+  }
+
   addUser(newUser: User) {
     console.log('Nuevo usuario', newUser);
     this.getAllUSers();

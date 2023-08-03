@@ -31,7 +31,8 @@ export class SchoolYearListComponent implements OnInit {
     private schoolYearService: SchoolYearService
   ) {
     this.cols = [
-      { field: 'year', header: 'Año' },
+      { field: 'year', header: 'Año Lectivo' },
+      { field: 'cycle', header: 'Ciclo' },
       { field: 'createdAt', header: 'Fecha creación' },
       { field: 'updatedAt', header: 'Última actualización' },
     ];
@@ -55,6 +56,7 @@ export class SchoolYearListComponent implements OnInit {
   }
 
   editRole(schoolYear: SchoolYear) {
+    console.log(schoolYear);
     this.isVisible = true;
     this.selectedSchoolYear = schoolYear;
   }
