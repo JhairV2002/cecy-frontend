@@ -38,7 +38,8 @@ export interface Certificate{
 export interface Report{
     id: number;
     fechaReporte: Date,
-    reportes: Codes[]
+    reportes: Codes[],
+    stateCertificate: boolean
 
 
 

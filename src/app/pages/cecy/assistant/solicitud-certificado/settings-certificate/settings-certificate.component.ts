@@ -45,6 +45,7 @@ export class SettingsCertificateComponent implements OnInit {
     firma: this.firm,
   };
   alert: string="";
+  totalOptions: any[]=[]
 
   ngOnInit(): void {
     this.type = [
@@ -54,33 +55,92 @@ export class SettingsCertificateComponent implements OnInit {
   }
 
   public sendSetings() {
+    this.alert=""
     this.nameCertificate = this.selectedDrop;
     this.submittedSettings=true;
+    var numberCheck = 0;
+    //valida que el nombre del certificado exista
     if(this.nameCertificate.name == null && this.submittedSettings){
       console.log('entre')
       this.alert = "Seleccione un tipo de certificado";
       return;
     }
-    if(
-      this.nameCertificate.name== "Senecyt" &&
-      this.valCheckCoordinadorCecy &&
-      this.valCheckCoordinadorVinculacion &&
-      this.valCheckPatrocinador &&
-      this.valCheckRector){
-        this.alert="El numero maximo de firmantes es 3";
-        return
+    this.totalOptions.push(this.valCheckCoordinadorCecy);
+    this.totalOptions.push(this.valCheckCoordinadorVinculacion);
+    this.totalOptions.push(this.valCheckPatrocinador);
+    this.totalOptions.push(this.valCheckRector);
+
+
+    if( this.nameCertificate.name == "Senecyt"){
+
+      this.totalOptions.forEach((r)=>{
+
+            console.log("response val:",r)
+            if(r){
+              numberCheck++;
+
+            };
+
+          });
+          this.totalOptions=[];
+          console.log("response number:",numberCheck);
+          switch (numberCheck) {
+            case 0:
+              this.alert="No se seleccioni ningun firmantes";
+
+                return;
+            case 1:
+              this.alert="Selecciono 1 firmante pero el numero minimo es 2 y el maximo 3";
+              return;
+            case 4:
+              this.alert="Selecciono 4 firmantes pero el numero minimo es 2 y el maximo 3";
+              return;
+            default:
+              console.log("entre en el default")
+              break;
+        }
+
+
       }
     console.log("response:" ,this.nameCertificate.name)
     //cecy solo 2
-    if( this.nameCertificate.name== "Cecy" &&
-        this.valCheckCoordinadorCecy &&
-        this.valCheckCoordinadorVinculacion &&
-        this.valCheckPatrocinador &&
-        this.valCheckRector){
-          this.alert="El numero maximo de firmantes es 2";
-          return
+
+
+    if( this.nameCertificate.name== "Cecy"){
+          this.totalOptions.forEach((r)=>{
+
+            console.log("response val:",r)
+            if(r){
+              numberCheck++;
+
+            };
+
+          });
+          this.totalOptions=[];
+          console.log("response number:",numberCheck);
+          switch (numberCheck) {
+            case 0:
+              this.alert="No existen firmantes";
+
+                return;
+            case 1:
+              this.alert="Selecciono 1 firmante pero el numero minimo es 2";
+              return;
+            case 3:
+              this.alert="Selecciono 3 firmantes pero el numero minimo es 2";
+              return;
+            case 4:
+              this.alert="Selecciono 4 firmantes pero el numero minimo es 2";
+              return;
+            default:
+              console.log("entre en el default")
+              break;
         }
 
+      };
+
+
+      console.log("pass:")
     if (this.rector != 0 && this.valCheckRector) {
       this.firm = { id: this.rector };
       this.roles.push((this.rol = { rol: 'Rector IST YAVIRAC', firma: this.firm }));

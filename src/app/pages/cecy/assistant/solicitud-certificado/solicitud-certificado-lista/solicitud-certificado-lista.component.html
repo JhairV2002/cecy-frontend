@@ -52,6 +52,7 @@
                       <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
                       <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th> -->
                       <th></th>
+
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-codigo>
@@ -81,11 +82,19 @@
                       <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
                           <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
                       </td> -->
-                      <td>
-                          <div class="flex">
-                              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(codigo)"></button>
-                          </div>
-                      </td>
+
+                      <div *ngIf="generate; else buttonEdit">
+                        <td>
+                          <button class="btn btn-outline btn-accent" (click)="downloadCertificate(codigo.id)" >Vizualizar</button>
+                        </td>
+                      </div>
+                      <ng-template #buttonEdit><div class="flex">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(codigo)"></button>
+                    </div></ng-template>
+
+
+
+
                   </tr>
               </ng-template>
           </p-table>

@@ -35,7 +35,9 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   reportEntity: Report={
     id:0,
     fechaReporte:new Date,
-    reportes:[]
+    reportes:[],
+    stateCertificate: false
+
 
   }
   //iniciamos el certificado
@@ -101,6 +103,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
 
     //supuestamente trae a los productos
     // this.solicitudCertificadoService.findById(id).then(data => this.products = data);
+    //si el estado del certificado es true entonces se debe cambiar el generate a true
     this.activatedRoute.paramMap.subscribe((params) => {
         if (params.get('id')) {
           this.findById(parseInt(params.get('id')!));
@@ -219,8 +222,27 @@ onGlobalFilter(table: Table, event: Event) {
       this.reportEntity = response;
       this.codigos = response.reportes
 
+      if(this.reportEntity.stateCertificate){
+        this.generate= true;
+        console.log("response"+this.reportEntity.stateCertificate);
+
+      };
+
     });
   };
+
+  downloadCertificate(id: number){
+    this.solicitudCertificadoService.downloadCertificate(id)
+    .subscribe((data) =>{
+      let dowloadURL = window.URL.createObjectURL(data)
+      let link = document.createElement('a')
+      link.href = dowloadURL
+      link.download = "certificado.pdf"
+      link.click()
+    })
+
+
+  }
 
   // //Actualizar el codigo--------
   // updateEntity(id:number):void {
@@ -290,9 +312,11 @@ onGlobalFilter(table: Table, event: Event) {
          }
          this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe((e)=>{
           //this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Certificado Generado', life: 3000 })
-          //this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
-          //  stateCertificate: true
-          //},this.reportEntity.id)
+          this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
+            stateCertificate: true
+          },this.reportEntity.id);
+          this.generate=true;
+
         });
          console.log(JSON.stringify(this.codeEntity))
        }
