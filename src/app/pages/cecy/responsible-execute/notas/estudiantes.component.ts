@@ -78,6 +78,9 @@ export class EstudiantesComponent implements OnInit {
           summary: `Actualizado`,
           detail: `Notas del estudiante ${data.estudiantes.nombres}`,
         });
+        
+        // After saving, reload the component data to update the page with the latest values
+        this.reloadComponentData();
       },
       error: (error) => {
         this.messageService.add({
@@ -86,6 +89,28 @@ export class EstudiantesComponent implements OnInit {
           detail: `${error.message}`,
         });
       },
+    });
+  }
+  
+  reloadComponentData(): void {
+    // Fetch the latest data from the backend
+    this.activatedRoute.paramMap.subscribe((param) => {
+      console.log(param);
+      this.estudianteService
+        .obtenerMatriculasPorCursoId(parseInt(param.get('courseId')!))
+        .subscribe((res) => {
+          console.log('ESTUDIANTES', res);
+          this.estudiantes = res;
+
+          // After fetching the latest data, update the estudiantes$ observable
+          this.estudiantes$ = this.activatedRoute.paramMap.pipe(
+            switchMap((param) =>
+              this.estudianteService
+                .obtenerMatriculasPorCursoId(Number(param.get('courseId')!))
+                .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
+            )
+          );
+        });
     });
   }
 
