@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Curso } from './curso';
 import { CursoService } from './curso.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
 import { MessageService } from 'primeng/api';
-
-interface StatusOption {
-  label: string;
-  value: string;
-}
+import { StatusOption } from './curso';
 
 @Component({
   selector: 'app-curso',
@@ -16,12 +11,7 @@ interface StatusOption {
 })
 export class CursoComponent implements OnInit {
   cursos: any[] = [];
-  cursosFiltrados: Curso[] = [];
-  cursosPaginados: Curso[] = [];
-  filtroNombre: string = '';
-  ascendingOrder: boolean = true;
   loading: boolean = true;
-  first = 0;
   statusOptions: StatusOption[] = [
     { label: 'En proceso', value: 'proceso' },
     { label: 'Terminado', value: 'terminado' },
@@ -29,10 +19,11 @@ export class CursoComponent implements OnInit {
     // { label: 'Aprobado', value: 'aprobado' },
   ];
   helpDialogVisible: boolean = false;
+  searchTerm: string = '';
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(
     private cursoService: CursoService,
-    private activateRouter: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     public messageService: MessageService
@@ -45,7 +36,6 @@ export class CursoComponent implements OnInit {
         (cursos) => {
           console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
           this.cursos = cursos;
-          this.filtrarCursos();
           this.loading = false;
         },
         () => {
@@ -53,61 +43,6 @@ export class CursoComponent implements OnInit {
         }
       );
     });
-    this.loadCursosPaginados();
-  }
-
-  filtrarCursosPorNombre() {
-    if (!this.filtroNombre) {
-      this.cursosFiltrados = [...this.cursos];
-    } else {
-      this.cursosFiltrados = this.cursos.filter((curso) =>
-        curso.planificationCourse.name
-          .toLowerCase()
-          .includes(this.filtroNombre.toLowerCase())
-      );
-    }
-  }
-
-  cumpleFiltro(curso: Curso): boolean {
-    if (!this.filtroNombre) {
-      return true;
-    }
-    const nombreCurso = curso.planificationCourse.name.toLowerCase();
-    const filtro = this.filtroNombre.toLowerCase();
-    return (
-      nombreCurso.includes(filtro) ||
-      curso.planificationCourse.codeCourse.toLowerCase().includes(filtro)
-    );
-  }
-
-  filtrarCursos(): void {
-    if (this.filtroNombre.trim() !== '') {
-      this.cursosFiltrados = this.cursos.filter((curso) => {
-        const nombreCurso = curso.planificationCourse.name.toLowerCase();
-        const codigoCurso = curso.planificationCourse.codeCourse.toLowerCase();
-        const startDate = curso.planificationCourse.startDate.toLowerCase();
-        const filtro = this.filtroNombre.toLowerCase();
-        return (
-          nombreCurso.includes(filtro) ||
-          codigoCurso.includes(filtro) ||
-          startDate.includes(filtro)
-        );
-      });
-    } else {
-      this.cursosFiltrados = this.cursos;
-    }
-    this.loadCursosPaginados();
-  }
-
-  sortCards() {
-    this.cursosFiltrados.sort((a, b) => {
-      const dateA = new Date(a.planificationCourse.startDate);
-      const dateB = new Date(b.planificationCourse.startDate);
-      return this.ascendingOrder
-        ? dateA.getTime() - dateB.getTime()
-        : dateB.getTime() - dateA.getTime();
-    });
-    this.ascendingOrder = !this.ascendingOrder;
   }
 
   redirect(id: number) {
@@ -117,18 +52,6 @@ export class CursoComponent implements OnInit {
     ]);
   }
 
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.loadCursosPaginados();
-  }
-
-  loadCursosPaginados() {
-    this.cursosPaginados = this.cursosFiltrados.slice(
-      this.first,
-      this.first + 3
-    );
-  }
-
   actualizarStatus(event: any, curso: any) {
     const cursoId = curso.detailPlanification?.planificationCourse?.course?.id;
     console.log({
@@ -136,7 +59,6 @@ export class CursoComponent implements OnInit {
       cursoId,
     });
     this.cursoService.actualizarStatusCurso(cursoId, event.value).subscribe({
-
       next: (data:any) => {
         console.log(data)
         this.messageService.add({
@@ -160,4 +82,31 @@ export class CursoComponent implements OnInit {
   showHelp() {
     this.helpDialogVisible = true;
   }
+
+  filterCoursesByName(cursos: any[], searchTerm: string): any[] {
+    if (!searchTerm) {
+      return cursos;
+    }
+    const filteredCursos = cursos.filter(
+      (curso) =>
+        curso.detailPlanification?.planificationCourse?.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+    );
+    const sortedCursos = filteredCursos.sort((a, b) => {
+      const dateA = new Date(a.detailPlanification?.planificationCourse.startDate);
+      const dateB = new Date(b.detailPlanification?.planificationCourse.startDate);
+      if (this.sortOrder === 'asc') {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
+    });
+    return sortedCursos;
+  }
+
+  toggleSortOrder() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+  }
+
 }
