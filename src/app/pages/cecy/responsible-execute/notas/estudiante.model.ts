@@ -77,3 +77,28 @@ export interface SituacionEconomica {
   nombre: string;
   descripcion: string;
 }
+
+// Obtener todos los elementos con la clase "tooltip-trigger"
+const tooltipTriggers = document.querySelectorAll<HTMLElement>('.tooltip-trigger');
+
+// Recorrer cada elemento y agregar eventos de ratón
+tooltipTriggers.forEach((trigger) => {
+  trigger.addEventListener('mouseenter', showTooltip);
+  trigger.addEventListener('mouseleave', hideTooltip);
+});
+
+// Función para mostrar el tooltip
+function showTooltip(event: MouseEvent) {
+  const tooltip = (event.target as HTMLElement).querySelector('.tooltip') as HTMLElement;
+  if (tooltip) {
+    tooltip.style.display = 'block';
+  }
+}
+
+// Función para ocultar el tooltip
+function hideTooltip(event: MouseEvent) {
+  const tooltip = (event.target as HTMLElement).querySelector('.tooltip') as HTMLElement;
+  if (tooltip) {
+    tooltip.style.display = 'none';
+  }
+}
