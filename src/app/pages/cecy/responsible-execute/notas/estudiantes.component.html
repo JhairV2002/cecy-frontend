@@ -30,7 +30,7 @@
       <input
         pInputText
         id="search"
-        placeholder="Buscar por nombre"
+        placeholder="Buscar por nombre o cédula"
         [(ngModel)]="nombreFiltrado"
         (input)="filtrarPorNombre()"
         (keypress)="filtrarPorNombre()"
@@ -86,12 +86,11 @@
           id="asistencia"
           [(ngModel)]="matricula.porcentajeAsistencia"
           placeholder="Ingrese el % asistencia"
-          [min]="1"
           [max]="100"
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
           (keydown)="validarNumero($event)"
-          (onChange)="actualizarAsistencia($event, matricula)"
+          [ngModel]="matricula.porcentajeAsistencia !== null ? matricula.porcentajeAsistencia : 100"
         ></p-inputNumber>
       </td>
       <td>

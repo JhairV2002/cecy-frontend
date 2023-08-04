@@ -167,13 +167,7 @@ export class EstudiantesComponent implements OnInit {
   }
   
 
-  setInitialAsistenciaValue(): void {
-    this.estudiantes$.forEach((matricula: any) => {
-      if (matricula.porcentajeAsistencia === 0) {
-        matricula.porcentajeAsistencia = 100;
-      }
-    });
-  }
+  
 
   actualizarAsistencia(event: any, matricula: any): void {
     const newValue = event.value; 
