@@ -4,6 +4,14 @@
   (clickClose)="closeModal($event)"
   (addSchoolYear)="addSchoolYear($event)"
 ></app-school-year-form>
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-solid fa-school fa-xl"></i>
+      <strong class="ml-1">Lista de periodos lectivos</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button
@@ -105,7 +113,17 @@
         <td>
           <p-tableCheckbox [value]="schoolPeriods"></p-tableCheckbox>
         </td>
-        <td>{{ schoolPeriods.year }}</td>
+        <td>
+          <div class="underline">
+            {{ schoolPeriods.year }}
+          </div>
+        </td>
+        <td>
+          Ciclo
+          <strong>
+            {{ schoolPeriods.cycle }}
+          </strong>
+        </td>
         <td>{{ schoolPeriods.createdAt | date }}</td>
         <td>{{ schoolPeriods.updateAt | date }}</td>
 

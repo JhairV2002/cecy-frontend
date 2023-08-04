@@ -67,6 +67,12 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
+  filtrarPorCedula(): void {
+    this.estudiantes = this.estudiantes.filter(
+      (estudiante) => estudiante.estudiantes && estudiante.estudiantes.cedula
+    );
+  }
+
   guardarNotas(event: any, matricula: Matriculas): void {
     console.log(matricula);
 
@@ -182,5 +188,14 @@ export class EstudiantesComponent implements OnInit {
     } else {
       matricula.porcentajeAsistencia = newValue;
     }
+  }
+
+  mostrarMensaje(): void {
+    const toast = document.querySelector('.toast') as HTMLElement;
+    toast.style.display = 'block';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 5000);
+
   }
 }

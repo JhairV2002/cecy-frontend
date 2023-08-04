@@ -1,4 +1,8 @@
-<p-toast></p-toast>
+<div class="toast" id="help">
+  <div class="alert alert-info">
+    <span>Recuerde que tiene que ingresar el porcentaje de asistencia dado por el eva </span>
+  </div>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <button
@@ -10,6 +14,7 @@
       (click)="regresar()"
       label="Volver"
     ></button>
+    
     <button
       pButton
       type="button"
@@ -17,7 +22,7 @@
       class="p-button p-button-primary"
       icon="pi pi-user-plus"
       (click)="redireccionar()"
-      label="asistencia"
+      label="Asistencia"
     ></button>
   </div>
 </p-toolbar>
@@ -25,6 +30,7 @@
   <div class="flex-1">
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
   </div>
+  
   <div class="">
     <div class="p-inputgroup">
       <input
@@ -40,7 +46,7 @@
         pRipple
         type="button"
         icon="pi pi-search"
-        (click)="filtrarPorNombre()"
+        (click)="filtrarPorNombre(); filtrarPorCedula"
       ></button>
     </div>
   </div>
@@ -57,7 +63,7 @@
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
-      <th>% ASISTENCIA</th>
+      <th class="cursor-help"(click)="mostrarMensaje()">% ASISTENCIA</th>      
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
@@ -129,6 +135,7 @@
         >
           Guardar
         </button>
+        
       </td>
     </tr>
   </ng-template>
@@ -138,6 +145,7 @@
     </tr>
   </ng-template>
 </p-table>
+
 <button
   pButton
   type="button"
@@ -148,3 +156,4 @@
 >
   ㅤGenerar Excel
 </button>
+

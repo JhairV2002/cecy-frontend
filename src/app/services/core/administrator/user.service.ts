@@ -28,6 +28,15 @@ export class UserService {
     );
   }
 
+  getUserById(id: number) {
+    this.loading.next(true);
+    return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
   getAssistants() {
     this.loading.next(true);
     return this.http.get<User[]>(`${this.apiUrl}/assistants-all`).pipe(
@@ -148,5 +157,20 @@ export class UserService {
           this.loading.next(false);
         })
       );
+  }
+
+  changePasswordByUserId(
+    userId: number,
+    currentPasswordHash: any,
+    newPassword: string | undefined | null
+  ) {
+    this.loading.next(true);
+    const url = `${this.apiUrl}/change-password/${userId}`;
+    const requestBody = { currentPasswordHash, newPassword };
+    return this.http.put(url, requestBody).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
   }
 }

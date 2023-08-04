@@ -84,10 +84,16 @@
         <p-messages
           [(value)]="alert"
           [enableService]="false"
-          [closable]="true"
+          [closable]="false"
         ></p-messages>
       </div>
-      <div class="ml-2">
+      <div
+        class="ml-2"
+        *ngIf="
+          user?.role?.name === 'coordinator_cecy' ||
+          user?.role?.name === 'assistant_cecy'
+        "
+      >
         <p-button
           styleClass="p-button-rounded p-button-success"
           (onClick)="approveCourse()"
