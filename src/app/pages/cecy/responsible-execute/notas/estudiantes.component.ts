@@ -15,6 +15,7 @@ export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
   estudiantes: Matriculas[] = [];
   loading$ = this.estudianteService.loading$;
+  helpDialogVisible: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -167,7 +168,13 @@ export class EstudiantesComponent implements OnInit {
   }
   
 
-  
+  setInitialAsistenciaValue(): void {
+    this.estudiantes$.forEach((matricula: any) => {
+      if (matricula.porcentajeAsistencia === 0) {
+        matricula.porcentajeAsistencia = 100;
+      }
+    });
+  }
 
   actualizarAsistencia(event: any, matricula: any): void {
     const newValue = event.value; 
@@ -177,4 +184,11 @@ export class EstudiantesComponent implements OnInit {
       matricula.porcentajeAsistencia = newValue;
     }
   }
+
+  help() {
+  this.helpDialogVisible = true;
 }
+}
+
+
+

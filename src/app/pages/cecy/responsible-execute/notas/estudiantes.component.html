@@ -1,4 +1,4 @@
-<p-toast></p-toast>
+
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <button
@@ -25,6 +25,15 @@
   <div class="flex-1">
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
   </div>
+  <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()">Ayuda</i>
+      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }"> 
+        1) Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
+        2) La Asistencia se registra solo usando los botones <br/>
+            2.1 Disminuir la asistencia ˅ <br/>
+            2.2 Aumentar la asistencia  ˄ <br/> 
+
+            Nota: El máximo de asistencia es 100 % y el minimo es 1 <br/>
+      </p-dialog>
   <div class="">
     <div class="p-inputgroup">
       <input
@@ -54,17 +63,20 @@
   [paginator]="true"
 >
   <ng-template pTemplate="header">
+    
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
-      <th>% ASISTENCIA</th>
+      <th>% ASISTENCIA</th> 
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
+      
     </tr>
   </ng-template>
+  
   <ng-template pTemplate="body" let-matricula>
     <tr>
       <td>
