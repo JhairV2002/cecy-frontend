@@ -45,6 +45,10 @@ export class InscriptionFormComponent implements OnInit {
         this.matricula.cursoId = Number(params.get('id')!);
       }
     });
+
+    this.curso$.subscribe(
+      (res) => (this.matricula.cursoNombre = res.planification.name),
+    );
   }
 
   publicityId = 0;
@@ -62,6 +66,7 @@ export class InscriptionFormComponent implements OnInit {
   matricula = {
     id: 0,
     cursoId: 0,
+    cursoNombre: '',
     estadoMatricula: {
       descripcion: 'En espera',
     },
@@ -80,8 +85,8 @@ export class InscriptionFormComponent implements OnInit {
     );
 
     this.estudiantesService.estudianteActual.subscribe(
-      res => this.matricula.estudiantes.id = res!.id
-    )
+      (res) => (this.matricula.estudiantes.id = res!.id),
+    );
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
 

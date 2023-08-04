@@ -18,7 +18,13 @@
       <tbody>
         <tr *ngFor="let matricula of matriculas | async">
           <td></td>
-          <td>nombre del curso</td>
+          <td>
+            {{
+              matricula.cursoNombre != null
+                ? matricula.cursoNombre
+                : "Sin nombre"
+            }}
+          </td>
           <td>{{ matricula.nota1 != null ? matricula.nota1 : "Sin Notas" }}</td>
           <td>{{ matricula.nota2 != null ? matricula.nota2 : "Sin Notas" }}</td>
           <td>

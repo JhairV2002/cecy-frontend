@@ -23,7 +23,7 @@ export class InscriptionFormComponent implements OnInit {
     private router: Router,
     private estudiantesService: EstudiantesService,
     private cursosService: CursosService,
-    private matriculaService: MatriculaService
+    private matriculaService: MatriculaService,
   ) { }
 
   estudiantes$ = this.estudiantesService.obtenerEstudiantes();
@@ -32,8 +32,8 @@ export class InscriptionFormComponent implements OnInit {
 
   curso$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
-      this.cursosService.getCursoById(Number(param.get('id')))
-    )
+      this.cursosService.getCursoById(Number(param.get('id'))),
+    ),
   );
 
   user: any;
@@ -61,6 +61,7 @@ export class InscriptionFormComponent implements OnInit {
 
   matricula: Matricula = {
     id: 0,
+    cursoNombre: '',
     cursoId: 0,
     estadoMatricula: {
       descripcion: 'En espera',
@@ -74,37 +75,21 @@ export class InscriptionFormComponent implements OnInit {
 
   save(): void {
     this.activatedRoute.paramMap.subscribe(
-      (res) => (this.matricula.cursoId = Number(res.get('id')))
+      (res) => (this.matricula.cursoId = Number(res.get('id'))),
     );
     this.matricula.estudiantes = JSON.parse(this.estudianteSeleccionado);
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
 
+    this.curso$.subscribe(
+      (res) => (this.matricula.cursoNombre = res!.planification.name),
+    );
+
+    console.log(this.matricula);
+
     this.matriculaService
       .guardarMatricula(this.matricula)
       .subscribe((res) => console.log(res));
-
-    // this.inscriptionService.save(this.initialForm).subscribe(() => {
-    //   this.initialForm = {
-    //     id: 0,
-    //     userId: id,
-    //     courseId: 1,
-    //     publicity: {
-    //       id: 0,
-    //       nombre: '',
-    //       descripcion: '',
-    //     },
-    //     otherCourses: '',
-    //     sponsoredCourse: false,
-    //     institutionContact: '',
-    //     state: {
-    //       id: 1,
-    //       nombre: '',
-    //       descripcion: '',
-    //     },
-    //   };
-    //   this.router.navigate(['/cecy/student/courses-list']);
-    // });
   }
 
   findById(id: number): void {

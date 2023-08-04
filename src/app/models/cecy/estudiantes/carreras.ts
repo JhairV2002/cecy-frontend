@@ -86,6 +86,7 @@ export interface Planification {
 export interface Matricula {
   id?: number;
   cursoId: number;
+  cursoNombre: string;
   nota1?: any;
   nota2?: any;
   promedio?: any;
