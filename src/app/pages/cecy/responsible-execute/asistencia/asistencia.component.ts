@@ -20,6 +20,7 @@ export class AsistenciaComponent implements OnInit {
     evidenciaFotografica: [''],
     courseId: [null],
   });
+  helpDialogVisible: boolean = false;
   imagenBase64: string = '';
   isCreating: boolean = true;
   img: string = '';
@@ -232,6 +233,10 @@ export class AsistenciaComponent implements OnInit {
         },
       }
     );
+  }
+
+  help() {
+    this.helpDialogVisible = true;
   }
 
   redireccionar() {
