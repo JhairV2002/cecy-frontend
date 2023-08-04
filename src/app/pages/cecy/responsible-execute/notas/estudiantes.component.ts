@@ -15,6 +15,7 @@ export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
   estudiantes: Matriculas[] = [];
   loading$ = this.estudianteService.loading$;
+  helpDialogVisible: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -144,6 +145,10 @@ export class EstudiantesComponent implements OnInit {
   //     this.generarExcel();
   //   }, 0);
   // }
+
+  help() {
+    this.helpDialogVisible = true;
+  }
 
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {

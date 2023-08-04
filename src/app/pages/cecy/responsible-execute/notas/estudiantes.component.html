@@ -58,6 +58,7 @@
   [paginator]="true"
 >
   <ng-template pTemplate="header">
+    
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
@@ -67,8 +68,13 @@
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
+      <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()"></i>
+      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }"> 
+         Tiene que ingresar el porcentaje de asistencia dado por el eva
+      </p-dialog>
     </tr>
   </ng-template>
+  
   <ng-template pTemplate="body" let-matricula>
     <tr>
       <td>
