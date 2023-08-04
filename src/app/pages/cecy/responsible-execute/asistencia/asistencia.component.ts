@@ -8,6 +8,7 @@ import { AsistenciaService } from './asistencia.service';
 import { MessageService } from 'primeng/api';
 import { MessageService as MessageLocal } from '@services/core';
 import { formatDate } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-asistencia',
@@ -33,7 +34,8 @@ export class AsistenciaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private messageLocal: MessageLocal
+    private messageLocal: MessageLocal,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
     const asistenciaId = this.activatedRoute.snapshot.params['asistenciaId'];
