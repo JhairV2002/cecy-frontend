@@ -4,7 +4,7 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-image-modal',
   template: `
-    <img [src]="imageUrl" alt="Enlarged Image" style="width: 100%;">
+    <img [src]="imageUrl" alt="Evidencia Fotográfica" style="width: 100%;">
   `
 })
 export class ImageModalComponent {

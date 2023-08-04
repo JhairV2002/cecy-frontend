@@ -68,15 +68,6 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
-<<<<<<< HEAD
-=======
-  filtrarPorCedula(): void {
-    this.estudiantes = this.estudiantes.filter(
-      (estudiante) => estudiante.estudiantes && estudiante.estudiantes.cedula
-    );
-  }
-
->>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
   guardarNotas(event: any, matricula: Matriculas): void {
     console.log(matricula);
 
@@ -194,19 +185,8 @@ export class EstudiantesComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   help() {
   this.helpDialogVisible = true;
-=======
-  mostrarMensaje(): void {
-    const toast = document.querySelector('.toast') as HTMLElement;
-    toast.style.display = 'block';
-    setTimeout(() => {
-      toast.style.display = 'none';
-    }, 5000);
-
-  }
->>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
 }
 }
 

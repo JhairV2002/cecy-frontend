@@ -89,7 +89,7 @@ export class FechaComponent implements OnInit {
   showModal(imageUrl: string): void {
     this.dialogService.open(ImageModalComponent, {
       data: { imageUrl },
-      header: 'Enlarged Image',
+      header: 'Evidencia Fotográfica',
       width: '70%'
     });
   }
