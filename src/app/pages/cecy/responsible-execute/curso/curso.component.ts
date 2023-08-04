@@ -23,10 +23,9 @@ export class CursoComponent implements OnInit {
   loading: boolean = true;
   first = 0;
   statusOptions: StatusOption[] = [
-    { label: 'En proceso', value: 'proceso' },
+    { label: 'Aprobado', value: 'aprobado' },
     { label: 'Terminado', value: 'terminado' },
     { label: 'Cerrado', value: 'cerrado' },
-    { label: 'Aprobado', value: 'aprobado' },
   ];
 
   constructor(
@@ -38,19 +37,21 @@ export class CursoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((user: any) => {
-      console.log('USUARIO INSTRUCTOR', user[0].id);
-      this.cursoService.getCursosByInstructor(user[0].id).subscribe(
-        (cursos) => {
-          console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
-          this.cursos = cursos;
-          this.filtrarCursos();
-          this.loading = false;
-        },
-        () => {
-          this.loading = false;
-        }
-      );
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        console.log('USUARIO INSTRUCTOR', user[0].id);
+        this.cursoService.getCursosByInstructor(user[0].id).subscribe(
+          (cursos) => {
+            console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
+            this.cursos = cursos;
+            this.filtrarCursos();
+            this.loading = false;
+          },
+          () => {
+            this.loading = false;
+          }
+        );
+      }
     });
     this.loadCursosPaginados();
   }
@@ -135,22 +136,33 @@ export class CursoComponent implements OnInit {
       cursoId,
     });
     this.cursoService.actualizarStatusCurso(cursoId, event.value).subscribe({
-
-      next: (data:any) => {
-        console.log(data)
-        this.messageService.add({
-          severity: 'success',
-          summary: `${data.message}`,
-          detail:
-          `${data.state}`,
-        });
+      next: (data: any) => {
+        console.log(data);
+        if (data.state === 'aprobado') {
+          this.messageService.add({
+            severity: 'success',
+            summary: `${data.message}`,
+            detail: `${data.state}`,
+          });
+        } else if (data.state === 'terminado') {
+          this.messageService.add({
+            severity: 'warn',
+            summary: `${data.message}`,
+            detail: `${data.state}`,
+          });
+        } else if (data.state === 'cerrado') {
+          this.messageService.add({
+            severity: 'error',
+            summary: `${data.message}`,
+            detail: `${data.state}`,
+          });
+        }
       },
       error: (error) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error al actualizar',
-          detail:
-          `${error.message}`,
+          detail: `${error.message}`,
         });
       },
     });
