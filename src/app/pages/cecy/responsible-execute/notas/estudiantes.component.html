@@ -10,6 +10,7 @@
       (click)="regresar()"
       label="Volver"
     ></button>
+
     <button
       pButton
       type="button"
@@ -17,7 +18,7 @@
       class="p-button p-button-primary"
       icon="pi pi-user-plus"
       (click)="redireccionar()"
-      label="asistencia"
+      label="Asistencia"
     ></button>
   </div>
 </p-toolbar>
@@ -25,6 +26,7 @@
   <div class="flex-1">
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
   </div>
+<<<<<<< HEAD
   <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()">Ayuda</i>
       <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }"> 
         1) Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
@@ -34,6 +36,9 @@
 
             Nota: El máximo de asistencia es 100 % y el minimo es 1 <br/>
       </p-dialog>
+=======
+
+>>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
   <div class="">
     <div class="p-inputgroup">
       <input
@@ -63,20 +68,31 @@
   [paginator]="true"
 >
   <ng-template pTemplate="header">
-    
+
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
+<<<<<<< HEAD
       <th>% ASISTENCIA</th> 
+=======
+      <th class="cursor-help"(click)="mostrarMensaje()">% ASISTENCIA</th>
+>>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
+<<<<<<< HEAD
       
+=======
+      <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()"></i>
+      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+         Tiene que ingresar el porcentaje de asistencia dado por el eva
+      </p-dialog>
+>>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
     </tr>
   </ng-template>
-  
+
   <ng-template pTemplate="body" let-matricula>
     <tr>
       <td>
@@ -140,6 +156,7 @@
         >
           Guardar
         </button>
+
       </td>
     </tr>
   </ng-template>
@@ -149,6 +166,7 @@
     </tr>
   </ng-template>
 </p-table>
+
 <button
   pButton
   type="button"
@@ -159,3 +177,4 @@
 >
   ㅤGenerar Excel
 </button>
+

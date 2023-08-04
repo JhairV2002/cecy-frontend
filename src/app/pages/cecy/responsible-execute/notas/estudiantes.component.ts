@@ -68,6 +68,15 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
+<<<<<<< HEAD
+=======
+  filtrarPorCedula(): void {
+    this.estudiantes = this.estudiantes.filter(
+      (estudiante) => estudiante.estudiantes && estudiante.estudiantes.cedula
+    );
+  }
+
+>>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
   guardarNotas(event: any, matricula: Matriculas): void {
     console.log(matricula);
 
@@ -79,7 +88,7 @@ export class EstudiantesComponent implements OnInit {
           summary: `Actualizado`,
           detail: `Notas del estudiante ${data.estudiantes.nombres}`,
         });
-        
+
         // After saving, reload the component data to update the page with the latest values
         this.reloadComponentData();
       },
@@ -166,7 +175,7 @@ export class EstudiantesComponent implements OnInit {
 
     console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`, this.estudiantes$);
   }
-  
+
 
   setInitialAsistenciaValue(): void {
     this.estudiantes$.forEach((matricula: any) => {
@@ -177,7 +186,7 @@ export class EstudiantesComponent implements OnInit {
   }
 
   actualizarAsistencia(event: any, matricula: any): void {
-    const newValue = event.value; 
+    const newValue = event.value;
     if (newValue === 0) {
       matricula.porcentajeAsistencia = 100;
     } else {
@@ -185,8 +194,19 @@ export class EstudiantesComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   help() {
   this.helpDialogVisible = true;
+=======
+  mostrarMensaje(): void {
+    const toast = document.querySelector('.toast') as HTMLElement;
+    toast.style.display = 'block';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 5000);
+
+  }
+>>>>>>> 555fac133a202911c386befbeac7c0e9521c3836
 }
 }
 
