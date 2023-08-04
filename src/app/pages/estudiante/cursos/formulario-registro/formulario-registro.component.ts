@@ -13,7 +13,6 @@ export class FormularioRegistroComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private catalogoService: CatalogueService,
-    // private estudiantesService: EstudiantesServiceService
     private estudiantesService: EstudiantesService
   ) {}
 
@@ -27,7 +26,7 @@ export class FormularioRegistroComponent implements OnInit {
     discapacidad: [false],
     numeroCelular: ['', Validators.required],
     numeroConvencional: ['', Validators.required],
-    detalleDiscapacidad: [''],
+    detallesDiscapacidad: [''],
     direccion: ['', Validators.required],
     genero: ['', Validators.required],
     tipoEstudiante: [{ descripcion: 'Externo' }, Validators.required],
@@ -45,15 +44,15 @@ export class FormularioRegistroComponent implements OnInit {
 
   disableDetalles() {
     if (!this.formularioRegistro.get('discapacidad')!.value) {
-      this.formularioRegistro.controls.detalleDiscapacidad.disable();
-      this.formularioRegistro.controls.detalleDiscapacidad.setValue('');
+      this.formularioRegistro.controls.detallesDiscapacidad.disable();
+      this.formularioRegistro.controls.detallesDiscapacidad.setValue('');
     } else {
-      this.formularioRegistro.controls.detalleDiscapacidad.enable();
+      this.formularioRegistro.controls.detallesDiscapacidad.enable();
     }
   }
 
   ngOnInit(): void {
-    this.formularioRegistro.controls.detalleDiscapacidad.disable();
+    this.formularioRegistro.controls.detallesDiscapacidad.disable();
   }
 
   onSubmit() {

@@ -9,7 +9,7 @@
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <h1 class="text-xl font-semi-bold underline">
-      Listado de carreras actuales
+      Listado de cursos aprobados
     </h1>
   </div>
   <div class="p-toolbar-group-end gap-2">
@@ -25,7 +25,7 @@
 </p-toolbar>
 <div class="flex m-4">
   <div class="flex flex-wrap justify-center content-center h-full gap-4 mt-4">
-    <p-card class="w-96" *ngFor="let carrera of carreras$ | async">
+    <p-card class="w-96" *ngFor="let curso of cursos$ | async">
       <figure class="px-10 pt-10">
         <img
           src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
@@ -34,13 +34,16 @@
         />
       </figure>
       <div class="card-body items-center text-center">
-        <h2 class="card-title">{{ carrera.name }}</h2>
+        <h2 class="card-title">{{ curso.planification.name }}</h2>
+        <p>Estado: {{ curso.planification.state }}</p>
+        <p>Empieza: {{ curso.planification.startDate | date }}</p>
+        <p>Termina: {{ curso.planification.finishDate | date }}</p>
         <div class="card-actions">
           <p-button
             icon="pi pi-eye"
-            label="Ver Cursos"
+            label="Ver Estudiantes"
             styleClass="p-button-outlined"
-            [routerLink]="['/cecy/assistant-cecy/matricula/career', carrera.id]"
+            (click)="viewStudents(curso.planification)"
           ></p-button>
         </div>
       </div>
