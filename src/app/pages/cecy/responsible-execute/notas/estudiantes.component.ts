@@ -32,7 +32,8 @@ export class EstudiantesComponent implements OnInit {
           console.log('ESTUDIANTES', res);
           this.estudiantes = res;
         });
-    });
+    }
+    );
   }
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
@@ -84,6 +85,9 @@ export class EstudiantesComponent implements OnInit {
           summary: `Actualizado`,
           detail: `Notas del estudiante ${data.estudiantes.nombres}`,
         });
+        
+        // After saving, reload the component data to update the page with the latest values
+        this.reloadComponentData();
       },
       error: (error) => {
         this.messageService.add({
@@ -94,9 +98,8 @@ export class EstudiantesComponent implements OnInit {
       },
     });
   }
-
-  actualizarPagina() {
-    window.location.reload();
+  reloadComponentData() {
+    throw new Error('Method not implemented.');
   }
 
   // guardarPorcentaje(matricula: Matriculas): void {
@@ -163,7 +166,25 @@ export class EstudiantesComponent implements OnInit {
     const reporte = 'Reporte Promedio.xlsx';
     XLSX.writeFile(libro, reporte);
 
-    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
+    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`, this.estudiantes$);
+  }
+  
+
+  setInitialAsistenciaValue(): void {
+    this.estudiantes$.forEach((matricula: any) => {
+      if (matricula.porcentajeAsistencia === 0) {
+        matricula.porcentajeAsistencia = 100;
+      }
+    });
+  }
+
+  actualizarAsistencia(event: any, matricula: any): void {
+    const newValue = event.value; 
+    if (newValue === 0) {
+      matricula.porcentajeAsistencia = 100;
+    } else {
+      matricula.porcentajeAsistencia = newValue;
+    }
   }
 
   mostrarMensaje(): void {

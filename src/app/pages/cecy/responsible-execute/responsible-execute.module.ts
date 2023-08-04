@@ -29,6 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     MessagesModule,
     ToastModule,
+    DialogModule,
   ],
 })
 export class ResponsibleExecuteModule {}

@@ -76,13 +76,20 @@
 
       <div *ngIf="isCreating">
         <label for="name" appLabel label="Evidencia fotografica:"> </label>
-        <p-fileUpload
+        <p-fileUpload mode="basic"
           chooseLabel="Seleccione la imagen"
-          uploadLabel="Subir"
-          cancelLabel="Cancelar"
           accept="image/*"
           (onSelect)="onFileUpload($event)"
         ></p-fileUpload>
+        <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()"></i>
+        <p-dialog header="Subir la imagen" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+          <p>
+          Para subir la imagen<br/>
+          - <strong>Primero</strong>: Asegurese de que la imagen seleccionada tenga la extension JPG o PNG.<br/>
+          - <strong>Segundo</strong>:Haga clic en Abrir o Elegir.<br/>
+          - <strong>Para finalizar</strong>:Una vez agregada la observacion y la imagen haga clic en guardar informacion.
+          </p>
+        </p-dialog>
       </div>
       <div *ngIf="!isCreating">
         <label for="name" appLabel label="Evidencia fotográfica:"> </label>
@@ -102,10 +109,8 @@
         </div>
 
         <div *ngIf="editImageForNew">
-          <p-fileUpload
+          <p-fileUpload mode="basic"
             chooseLabel="Seleccione la imagen"
-            uploadLabel="Subir"
-            cancelLabel="Cancelar"
             accept="image/*"
             (onSelect)="onFileUpload($event)"
           ></p-fileUpload>

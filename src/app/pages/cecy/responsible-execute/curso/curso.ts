@@ -17,3 +17,8 @@ export interface Curso {
   planificationCourse: PlanificationCourse;
   statusCourse: string;
 }
+
+export interface StatusOption {
+  label: string;
+  value: string;
+}
