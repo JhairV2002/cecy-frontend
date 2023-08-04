@@ -14,7 +14,7 @@
       (click)="regresar()"
       label="Volver"
     ></button>
-    
+
     <button
       pButton
       type="button"
@@ -30,7 +30,7 @@
   <div class="flex-1">
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
   </div>
-  
+
   <div class="">
     <div class="p-inputgroup">
       <input
@@ -60,17 +60,23 @@
   [paginator]="true"
 >
   <ng-template pTemplate="header">
+
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
-      <th class="cursor-help"(click)="mostrarMensaje()">% ASISTENCIA</th>      
+      <th class="cursor-help"(click)="mostrarMensaje()">% ASISTENCIA</th>
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
+      <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()"></i>
+      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+         Tiene que ingresar el porcentaje de asistencia dado por el eva
+      </p-dialog>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-matricula>
     <tr>
       <td>
@@ -97,7 +103,6 @@
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
           (keydown)="validarNumero($event)"
-          (onChange)="actualizarAsistencia($event, matricula)"
         ></p-inputNumber>
       </td>
       <td>
@@ -135,7 +140,7 @@
         >
           Guardar
         </button>
-        
+
       </td>
     </tr>
   </ng-template>
