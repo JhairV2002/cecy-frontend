@@ -311,13 +311,15 @@ onGlobalFilter(table: Table, event: Event) {
            return
          }
          this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe((e)=>{
-          //this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Certificado Generado', life: 3000 })
-          this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
-            stateCertificate: true
-          },this.reportEntity.id);
-          this.generate=true;
 
+          //this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Certificado Generado', life: 3000 })
+          console.log(e.status);
         });
+        this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
+          stateCertificate: true
+        },this.reportEntity.id).subscribe();
+        this.generate=true;
+        console.log(this.reportEntity.id)
          console.log(JSON.stringify(this.codeEntity))
        }
 

@@ -59,6 +59,7 @@ export class CodigoCertificateComponent implements OnInit {
         this.Listcodes.forEach((cod) => {
           if (cod.matriculas.estudiantes.cedula == res.__EMPTY_8) {
             this.codeService.updateCode(this.updatecode = { codigo: res.__EMPTY_23 }, cod.id).subscribe();
+            setInterval('location.reload()', 4000);
             console.log("Se esta Actualizando el codigo", cod.id, res.__EMPTY_23)
           }
         }

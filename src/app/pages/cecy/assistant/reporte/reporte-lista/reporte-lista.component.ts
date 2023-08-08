@@ -171,6 +171,7 @@ export class ReporteListaComponent implements OnInit {
               detail: 'Reporte Generado',
               life: 3000,
             });
+            console.log(e.status)
           });
           this.validateReport = true;
 

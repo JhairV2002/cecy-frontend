@@ -46,6 +46,11 @@ export class SettingsCertificateComponent implements OnInit {
   };
   alert: string="";
   totalOptions: any[]=[]
+  typeCertificateid: any = {
+    id: 0,
+    tipo: '',
+    firmas: this.roles,
+  };
 
   ngOnInit(): void {
     this.type = [
@@ -167,12 +172,19 @@ export class SettingsCertificateComponent implements OnInit {
 
     this.certificateService
      .postTypeCertificate(this.typeCertificate)
-      .subscribe((tip) => {
+      .subscribe( response => {
+        // Obtienes el estado HTTP
+        console.log(response.status)
+
+        // Obtienes el body de la respuesta
+        this.typeCertificateid = response.body;
+        console.log(this.typeCertificateid.id)
+
         this.certificateService.tipoCertificado = {
-          id: tip.id,
-        };
-        console.log('prueba para tipo certifivado' + JSON.stringify(tip.id));
-      });
+          id: this.typeCertificateid.id,
+        }
+        console.log('prueba para tipo certifivado' + JSON.stringify(this.typeCertificateid.id));
+    });
     console.log(JSON.stringify(this.roles));
   }
 

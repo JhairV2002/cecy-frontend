@@ -35,8 +35,8 @@ export class ReporteService {
     );
   }
 
-  public save(generarReporte: Reporte): Observable<Reporte> {
-    return this.http.post<Reporte>(this.apiUrl + '/', generarReporte);
+  public save(generarReporte: Reporte){
+    return this.http.post<Reporte>(this.apiUrl + '/', generarReporte,{observe: 'response'});
   }
 
   public descarga(id: number) {
