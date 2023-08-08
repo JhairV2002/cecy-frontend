@@ -44,6 +44,7 @@ const config: SocketIoConfig = {
 
 //Ngx Progress Bar
 import { NgProgressModule } from 'ngx-progressbar';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { NgProgressModule } from 'ngx-progressbar';
     NgProgressModule,
     SocketIoModule.forRoot(config),
     ConfirmDialogModule,
+    InputNumberModule
   ],
   providers: [MessageService, ConfirmationService, HttpInterceptorProviders],
   bootstrap: [AppComponent],

@@ -1,25 +1,10 @@
-
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
-    <button
-      pButton
-      type="button"
-      id="volver"
-      class="p-button p-button-outlined"
-      icon="pi pi-arrow-left"
-      (click)="regresar()"
-      label="Volver"
-    ></button>
+    <button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left"
+      (click)="regresar()" label="Volver"></button>
 
-    <button
-      pButton
-      type="button"
-      id="asistencia"
-      class="p-button p-button-primary"
-      icon="pi pi-user-plus"
-      (click)="redireccionar()"
-      label="Asistencia"
-    ></button>
+    <button pButton type="button" id="asistencia" class="p-button p-button-primary" icon="pi pi-user-plus"
+      (click)="redireccionar()" label="Asistencia"></button>
   </div>
 </p-toolbar>
 <div class="flex m-4">
@@ -27,54 +12,38 @@
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
   </div>
   <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()">Ayuda</i>
-      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }"> 
-        1) Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
-        2) La Asistencia se registra solo usando los botones <br/>
-            2.1 Disminuir la asistencia ˅ <br/>
-            2.2 Aumentar la asistencia  ˄ <br/> 
+  <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+    • Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
+    • La Asistencia se registra solo usando los botones. <br/>
+        - Disminuir la asistencia ˅ <br/>
+        - Aumentar la asistencia  ˄ <br/> 
 
-            Nota: El máximo de asistencia es 100 % y el minimo es 1 <br/>
-      </p-dialog>
+    • El máximo de asistencia es 100 % y el minimo es 1.
+    • Para aprobar debe tener un promedio mayor a 70 
+    <br/>
+  </p-dialog>
   <div class="">
     <div class="p-inputgroup">
-      <input
-        pInputText
-        id="search"
-        placeholder="Buscar por nombre o cédula"
-        [(ngModel)]="nombreFiltrado"
-        (input)="filtrarPorNombre()"
-        (keypress)="filtrarPorNombre()"
-      />
-      <button
-        pButton
-        pRipple
-        type="button"
-        icon="pi pi-search"
-        (click)="filtrarPorNombre()"
-      ></button>
+      <input pInputText id="search" placeholder="Buscar por nombre o cédula" [(ngModel)]="nombreFiltrado"
+        (input)="filtrarPorNombre()" (keypress)="filtrarPorNombre()" />
+      <button pButton pRipple type="button" icon="pi pi-search" (click)="filtrarPorNombre()"></button>
     </div>
   </div>
 </div>
-<p-table
-  [value]="estudiantes$ | async | nombreFilter : nombreFiltrado"
-  [responsive]="true"
-  class="p-datatable"
-  [loading]="(loading$ | async)!"
-  [rows]="5"
-  [paginator]="true"
->
+<p-table [value]="estudiantes$ | async | nombreFilter : nombreFiltrado" [responsive]="true" class="p-datatable"
+  [loading]="(loading$ | async)!" [rows]="5" [paginator]="true">
   <ng-template pTemplate="header">
 
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
-      <th>% ASISTENCIA</th> 
+      <th>% ASISTENCIA</th>
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
-      
+
     </tr>
   </ng-template>
 
@@ -82,63 +51,69 @@
     <tr>
       <td>
         {{
-          matricula.estudiantes
-            ? matricula.estudiantes.cedula
-            : "Sin Estudiante"
+        matricula.estudiantes
+        ? matricula.estudiantes.cedula
+        : "Sin Estudiante"
         }}
       </td>
       <td>
         {{
-          matricula.estudiantes
-            ? matricula.estudiantes.nombres
-            : "Sin Estudiante"
+        matricula.estudiantes
+        ? matricula.estudiantes.nombres
+        : "Sin Estudiante"
         }}
       </td>
       <td>
-        <p-inputNumber
-          id="asistencia"
-          [(ngModel)]="matricula.porcentajeAsistencia"
-          placeholder="Ingrese el % asistencia"
-          [max]="100"
-          [showButtons]="true"
-          [buttonLayout]="'horizontal'"
-          (keydown)="validarNumero($event)"
-          [ngModel]="matricula.porcentajeAsistencia !== null ? matricula.porcentajeAsistencia : 100"
-        ></p-inputNumber>
+      <p-inputNumber
+  id="asistencia"
+  [(ngModel)]="matricula.porcentajeAsistencia"
+  placeholder="Ingrese el % asistencia"
+  [max]="100"
+  [showButtons]="true"
+  [buttonLayout]="'horizontal'"
+  (keydown)="validarNumero($event, 'porcentajeAsistencia', matricula)"
+  [ngModel]="matricula.porcentajeAsistencia !== null ? matricula.porcentajeAsistencia : 100"
+  ></p-inputNumber>
+        <div class="p-error" *ngIf="matricula.porcentajeAsistencia < 1 || matricula.porcentajeAsistencia > 100">
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
       </td>
       <td>
         <p-inputNumber
-          id="nota1"
-          [(ngModel)]="matricula.nota1"
-          placeholder="Ingrese una nota"
-          [min]="1"
-          [max]="100"
-          [showButtons]="true"
-          [buttonLayout]="'horizontal'"
-          (keydown)="validarNumero($event)"
-        ></p-inputNumber>
+  id="nota1"
+  [(ngModel)]="matricula.nota1"
+  placeholder="Ingrese una nota"
+  [min]="1"
+  [max]="100"
+  [showButtons]="true"
+  [buttonLayout]="'horizontal'"
+  (keydown)="validarNumero($event, 'nota1', matricula)"
+></p-inputNumber>
+  <div class="p-error" *ngIf="matricula.nota1 < 1 || matricula.nota1 > 100">
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
       </td>
       <td>
         <p-inputNumber
-          id="nota2"
-          [(ngModel)]="matricula.nota2"
-          placeholder="Ingrese una nota"
-          [min]="1"
-          [max]="100"
-          [showButtons]="true"
-          [buttonLayout]="'horizontal'"
-          (keydown)="validarNumero($event)"
-        ></p-inputNumber>
+  id="nota2"
+  [(ngModel)]="matricula.nota2"
+  placeholder="Ingrese una nota"
+  [min]="1"
+  [max]="100"
+  [showButtons]="true"
+  [buttonLayout]="'horizontal'"
+  (keydown)="validarNumero($event, 'nota2', matricula)"
+></p-inputNumber>
+        <div class="p-error" *ngIf="matricula.nota2 < 1 || matricula.nota2 > 100">
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
+
       </td>
       <td>{{ matricula.promedio }}</td>
       <td>{{ matricula.estadoCurso.descripcion }}</td>
       <td>
-        <button
-          pButton
-          type="button"
-          class="p-button p-button-rounded p-button-success"
-          (click)="guardarNotas($event, matricula)"
-        >
+        <button pButton type="button" class="p-button p-button-rounded p-button-success"
+          (click)="guardarNotas($event, matricula)">
           Guardar
         </button>
 
@@ -152,14 +127,7 @@
   </ng-template>
 </p-table>
 
-<button
-  pButton
-  type="button"
-  class="p-button p-button-success"
-  icon="pi pi-download"
-  id="excel"
-  (click)="generarExcel()"
->
+<button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel"
+  (click)="generarExcel()">
   ㅤGenerar Excel
 </button>
-

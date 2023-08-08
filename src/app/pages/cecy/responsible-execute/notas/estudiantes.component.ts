@@ -122,26 +122,51 @@ export class EstudiantesComponent implements OnInit {
 
   matricula$ = this.estudianteService.obtenerEstudiantePorId(4);
 
-  validarNumero(event: KeyboardEvent): void {
+  validarNumero(event: KeyboardEvent, propertyName: string, matricula: Matriculas): void {
     const input = event.key;
     const currentValue = (event.target as HTMLInputElement).value.trim();
     const minValue = 1;
     const maxValue = 100;
-
+  
+    const propertyKey = this.propertyMap[propertyName]; // Get the actual property key
+  
     if (
       (isNaN(Number(input)) &&
         input !== 'ArrowUp' &&
         input !== 'ArrowDown' &&
-        input !== 'Backspace') ||
+        input !== 'Backspace' &&
+        input !== '.') ||
       (currentValue !== '' &&
         (Number(currentValue) < minValue || Number(currentValue) > maxValue))
     ) {
       event.preventDefault();
-      alert(
-        'Solo se permiten números del 1 al 100. No se permiten letras, números negativos o campos vacíos.'
-      );
+      // Clear the value of the property only if it's not a decimal point
+      if (input !== '.') {
+        matricula[propertyKey] = '';
+      }
+    } else if (input === '.' && currentValue.includes('.')) {
+      // Prevent adding more than one decimal point
+      event.preventDefault();
     }
   }
+
+  propertyMap: { [key: string]: keyof Matriculas } = {
+    porcentajeAsistencia: 'porcentajeAsistencia',
+    nota1: 'nota1',
+    nota2: 'nota2',
+  };
+  
+  validateNumberInput(value: string, property: keyof Matriculas, matricula: Matriculas): void {
+    const numericValue = parseFloat(value);
+  
+    if (isNaN(numericValue) || numericValue < 1 || numericValue > 100) {
+      alert('Solo se permiten números decimales en el rango de 1 a 100.');
+      matricula[property] = '';
+    } else {
+      matricula[property] = numericValue;
+    }
+  }
+  
 
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
