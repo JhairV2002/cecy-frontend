@@ -25,7 +25,7 @@
           <label
             for="name"
             appLabel
-            label="Fecha actual:"
+            label="Fecha del registro:"
             [required]="isRequired(dateField)"
             [valid]="dateField.valid"
             [touched]="dateField.touched"
@@ -82,12 +82,12 @@
           (onSelect)="onFileUpload($event)"
         ></p-fileUpload>
         <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()"></i>
-        <p-dialog header="Subir la imagen" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+        <p-dialog header="Recuerda" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
           <p>
           Para subir la imagen<br/>
           - <strong>Primero</strong>: Asegurese de que la imagen seleccionada tenga la extension JPG o PNG.<br/>
           - <strong>Segundo</strong>:Haga clic en Abrir o Elegir.<br/>
-          - <strong>Para finalizar</strong>:Una vez agregada la observacion y la imagen haga clic en guardar informacion.
+          - <strong>Para finalizar</strong>:Una vez agregada la observacion y la imagen haga clic en Guardar.
           </p>
         </p-dialog>
       </div>
@@ -102,7 +102,7 @@
               class="max-w-full h-auto rounded border border-gray-300"
             />
             <i
-              class="pi pi-pencil cursor-pointer ml-1"
+              class="pi pi-pencil cursor-pointer ml-5"
               (click)="editImage()"
             ></i>
           </div>
@@ -128,7 +128,7 @@
             type="submit"
             pRipple
             label="{{
-              isCreating ? 'Guardar la informacion' : 'Actualizar informacion'
+              isCreating ? 'Guardar' : 'Actualizar'
             }}"
             icon="pi pi-save"
           ></button>
