@@ -1,0 +1,66 @@
+<div class="navbar fixed top-0 shadow-lg border-blue-400">
+  <div class="navbar-start">
+    <a class="btn btn-ghost normal-case text-xl ml-14">Cecy</a>
+
+    <label for="menu-toggle" class="cursor-pointer md:hidden block">
+      <i class="pi pi-bars">
+        <title>menu</title>
+      </i>
+    </label>
+    <input class="hidden" type="checkbox" id="menu-toggle" />
+
+    <div
+      class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1"
+      id="menu"
+    >
+      <nav>
+        <ul
+          class="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0"
+        >
+          <li>
+            <a
+              class="inline-block underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              href=""
+              >Inicio</a
+            >
+          </li>
+          <li>
+            <a
+              class="inline-block underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              routerLink="/courses"
+              >Cursos</a
+            >
+          </li>
+          <li>
+            <a
+              class="inline-block underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              href="#"
+              >Acerca de</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="navbar-end">
+    <div class="flex items-center gap-2">
+      <button
+        routerLink="/register"
+        class="btn btn-active btn-neutral text-white"
+      >
+        Crear cuenta
+      </button>
+      <a routerLink="/login">
+        <strong>Iniciar Sesión</strong>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="drawer drawer-mobile">
+  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content mt-16 w-full">
+    <router-outlet></router-outlet>
+  </div>
+</div>

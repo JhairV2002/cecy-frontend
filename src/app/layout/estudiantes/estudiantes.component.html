@@ -1,10 +1,25 @@
-<div class="navbar bg-primary">
-  <div class="flex-1">
-    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden"
-      >Nav</label
-    >
-    <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+<div class="navbar bg-warning fixed top-0">
+  <div class="navbar-start">
+    <a class="btn btn-ghost normal-case text-xl ml-14">Cecy</a>
+    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
+      <i class="pi pi-bars"></i>
+    </label>
   </div>
+
+  <div class="navbar-end">
+    <div class="flex items-center gap-2">
+      <button
+        routerLink="/estudiante/cursos/registro"
+        class="btn btn-active btn-neutral text-white"
+      >
+        Crear cuenta
+      </button>
+      <a routerLink="/estudiante/cursos/login" class="text-white">
+        <strong>Iniciar Sesión</strong>
+      </a>
+    </div>
+  </div>
+
   <div class="flex-none">
     <div class="dropdown dropdown-end">
       <div
@@ -20,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="dropdown dropdown-end" *ngIf="estudiante | async; else noUser">
+    <div class="dropdown dropdown-end" *ngIf="estudiante | async">
       <label tabindex="0" class="btn btn-ghost">
         <div>
           {{
@@ -43,18 +58,19 @@
     </div>
   </div>
 </div>
+
 <div class="drawer drawer-mobile">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content p-6 w-full">
+  <div class="drawer-content mt-16 p-6 w-full bg-red-600">
     <router-outlet></router-outlet>
   </div>
-  <div class="drawer-side">
-    <label for="my-drawer-2" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 bg-base-300 text-base-content">
+  <!-- <div class="drawer-side mt-16">
+    <label for="my-drawer" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-80 bg-base-200 text-base-content">
       <li>
         <h2>Carreras</h2>
       </li>
-      <!-- Sidebar content here -->
+
       <li class="pl-4 my-3">
         <a [routerLink]="['/estudiante/cursos/carrera', 'todos']">Todos</a>
       </li>
@@ -62,22 +78,15 @@
         class="pl-4 my-3"
         *ngFor="let carrera of carreras$ | async as carreras"
       >
-        <a [routerLink]="['/estudiante/cursos/carrera', carrera.id]">{{
-          carrera.name
-        }}</a>
+        <div class="flex">
+          <i class="pi pi-check-square"></i>
+          <a [routerLink]="['/estudiante/cursos/carrera', carrera.id]">{{
+            carrera.name
+          }}</a>
+        </div>
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>
-
-<ng-template #noUser>
-  <div class="flex-none">
-    <a [routerLink]="['/estudiante/cursos/registro']" class="btn-ghost">
-      Registro
-    </a>
-
-    <a [routerLink]="['/estudiante/cursos/login']" class="btn-ghost">
-      Iniciar Sesion
-    </a>
-  </div>
-</ng-template>
+<!--
+<ng-template #noUser> </ng-template> -->

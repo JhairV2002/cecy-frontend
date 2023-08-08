@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CatalogueService } from '@services/cecy';
-// import { EstudiantesServiceService } from '../../validacion-matricula/services/estudiantes-service.service';
 import { EstudiantesService } from '@services/estudiantes.service';
 
 @Component({
-  selector: 'app-formulario-registro',
-  templateUrl: './formulario-registro.component.html',
-  styleUrls: ['./formulario-registro.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class FormularioRegistroComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private catalogoService: CatalogueService,

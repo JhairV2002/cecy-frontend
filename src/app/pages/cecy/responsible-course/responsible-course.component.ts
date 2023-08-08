@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseModel } from '@models/cecy';
 
 @Component({
   selector: 'app-responsible-course',
@@ -7,5 +6,5 @@ import { CourseModel } from '@models/cecy';
   styleUrls: ['./responsible-course.component.scss'],
 })
 export class ResponsibleCourseComponent {
-  constructor() {}
+  constructor() { }
 }

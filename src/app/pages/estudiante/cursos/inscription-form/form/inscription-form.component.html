@@ -8,7 +8,7 @@
         </div>
         <div class="my-4">
           <h4>
-            {{ (curso$ | async)!.planification.name }}
+            {{ (curso$ | async)?.planification?.name }}
           </h4>
           <!-- <select [(ngModel)]="estudianteSeleccionado" class="select select-primary w-full max-w-xs"> -->
           <!--   <option *ngFor="let estudiante of estudiantes$ | async" [ngValue]="estudiante"> -->

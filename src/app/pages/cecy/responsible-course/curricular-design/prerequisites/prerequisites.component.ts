@@ -1,12 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PaginatorModel, PrerequisiteModel } from '@models/cecy';
+import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
-  FormArray,
   FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
 } from '@angular/forms';
 import { MessageService } from '@services/core/message.service';
 import { CourseService } from '@services/cecy-v1/course.service';
@@ -27,9 +21,9 @@ export class PrerequisitesComponent implements OnInit {
     private formBuilder: FormBuilder,
     public messageService: MessageService,
     private courseService: CourseService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // get newFormCourse(): FormGroup {
   //   return this.formBuilder.group({

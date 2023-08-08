@@ -13,6 +13,7 @@ export class CursoPageComponent {
     private router: ActivatedRoute
   ) {}
 
+  loading$ = this.cursosService.loading$;
   inputSearch = '';
   checkedGratis = false;
   checkedPago = false;
@@ -43,14 +44,21 @@ export class CursoPageComponent {
   );
 
   cursosApi$ = this.router.paramMap.pipe(
-    switchMap((params) =>
-      this.cursosService
-        .getCarrerasById(parseInt(params.get('id')!))
-        .pipe(
-          map((res: any) =>
-            res.planificationCourse.filter((res: any) => res.state === 'aprobado')
-          )
-        )
-    )
+    switchMap((params) => {
+      const idParam = params.get('id');
+      if (!idParam || idParam.toLowerCase() === 'todos') {
+        return this.cursosService.getAllCoursesByStateApprove();
+      } else {
+        return this.cursosService
+          .getCarrerasById(parseInt(params.get('id')!))
+          .pipe(
+            map((res: any) =>
+              res.planificationCourse.filter(
+                (res: any) => res.state === 'aprobado'
+              )
+            )
+          );
+      }
+    })
   );
 }

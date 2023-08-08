@@ -8,7 +8,7 @@ import { tap } from 'rxjs';
   styleUrls: ['./cursos.component.css'],
 })
 export class CursosComponent {
-  constructor(private cursosService: CursosService) { }
+  constructor(private cursosService: CursosService) {}
 
   cursos$ = this.cursosService
     .getCursosByCarrera('all')

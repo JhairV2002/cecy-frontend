@@ -9,7 +9,7 @@
   <option
     *ngFor="let course of listCourses"
     [value]="course.abbreviation"
-    [selected]="course.id === id"
+    [selected]="course.id === +id"
   >
     {{ course.abbreviation }}
   </option>

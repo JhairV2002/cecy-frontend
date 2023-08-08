@@ -4,16 +4,16 @@ import { Router } from '@angular/router';
 import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
 
 @Component({
-  selector: 'app-formulario-inicio-sesion',
-  templateUrl: './formulario-inicio-sesion.component.html',
-  styleUrls: ['./formulario-inicio-sesion.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
-export class FormularioInicioSesionComponent {
+export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private estudianteService: EstudiantesService,
     private route: Router
-  ) { }
+  ) {}
 
   loginForm = this.fb.nonNullable.group({
     cedula: [''],

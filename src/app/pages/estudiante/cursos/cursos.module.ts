@@ -15,8 +15,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { EstudianteCursosInscritoComponent } from './estudiante-cursos-inscrito/estudiante-cursos-inscrito.component';
 import { JsonToObjectPipe } from './estudiante-cursos-inscrito/json-to-object.pipe';
 import { EstudianteCursosListaComponent } from './estudiante-cursos-lista/estudiante-cursos-lista.component';
-import { FormularioRegistroComponent } from './formulario-registro/formulario-registro.component';
-import { FormularioInicioSesionComponent } from './formulario-inicio-sesion/formulario-inicio-sesion.component';
 import { InscriptionFormComponent } from './inscription-form/form/inscription-form.component';
 import { CmbCoursesComponent } from './inscription-form/cmb-courses/cmb-courses.component';
 import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publicity.component';
@@ -24,6 +22,11 @@ import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
 import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
 import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
 
+//Prime Ng
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CarouselModule } from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
 @NgModule({
   declarations: [
     CursosComponent,
@@ -36,8 +39,6 @@ import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante
     EstudianteCursosInscritoComponent,
     JsonToObjectPipe,
     EstudianteCursosListaComponent,
-    FormularioRegistroComponent,
-    FormularioInicioSesionComponent,
     InscriptionFormComponent,
     CmbCoursesComponent,
     CmbPublicityComponent,
@@ -52,6 +53,10 @@ import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante
     FormsModule,
     MatTabsModule,
     ReactiveFormsModule,
+    ProgressSpinnerModule,
+    CarouselModule,
+    TagModule,
+    ButtonModule,
   ],
 })
-export class CursosModule { }
+export class CursosModule {}
