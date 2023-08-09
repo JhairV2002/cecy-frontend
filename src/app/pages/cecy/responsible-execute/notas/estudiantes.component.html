@@ -16,19 +16,27 @@
 </p-toolbar>
 <div class="flex m-4">
   <div class="flex-1">
-    <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
-  </div>
-  <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()">Ayuda</i>
-  <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
-    • Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
-    • La Asistencia se registra solo usando los botones. <br/>
-        - Disminuir la asistencia ˅ <br/>
-        - Aumentar la asistencia  ˄ <br/> 
+    <h1 class="text-2xl font-semi-bold">Listado de Estudiantes
+      <i class="pi pi-question-circle px-1" style="cursor: pointer;" id="help-icono" (click)="help()"></i>
+  <p-dialog header="Listado de estudiantes" [(visible)]="helpDialogVisible" [style]="{ width: '40%' }">
 
-    • El máximo de asistencia es 100 % y el minimo es 1.
-    • Para aprobar debe tener un promedio mayor a 70 
-    <br/>
+    • Tiene que ingresar el porcentaje de asistencia dado por la plataforma 
+    <strong>
+      <a id="help" href="https://eva.yavirac.edu.ec/" target="_blank">EVA</a>
+    </strong> <br/>
+
+    • La Asistencia se registra solo usando los botones. <br/>
+    ㅤㅤ- Disminuir la asistencia <strong> ˅ </strong> <br/>
+    ㅤㅤ- Aumentar la asistencia <strong> ˄ </strong> <br/> 
+
+    • El porcentaje máximo de asistencia es <strong>100</strong> y el minimo es <strong>1</strong> <br/>
+    • Para aprobar debe tener un promedio mayor a <strong>70</strong> <br/>
+
   </p-dialog>
+    </h1>
+    
+  </div>
+  
   <div class="">
     <div class="p-inputgroup">
       <input pInputText id="search" placeholder="Buscar por nombre o cédula" [(ngModel)]="nombreFiltrado"
