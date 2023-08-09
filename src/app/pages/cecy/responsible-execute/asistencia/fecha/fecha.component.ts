@@ -42,6 +42,10 @@ export class FechaComponent implements OnInit {
   }
 
   createAttendance() {
+    console.warn('largo the fotografias: ',this.fechas.length)
+    if (this.fechas.length>=5) {
+      return
+    }
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
         `cecy/responsible-execute/course/${param.get('courseId')}/create`,
@@ -85,7 +89,7 @@ export class FechaComponent implements OnInit {
       }
     });
   }
-  
+
   showModal(imageUrl: string): void {
     this.dialogService.open(ImageModalComponent, {
       data: { imageUrl },
@@ -95,5 +99,5 @@ export class FechaComponent implements OnInit {
   }
 
 
-  
+
 }

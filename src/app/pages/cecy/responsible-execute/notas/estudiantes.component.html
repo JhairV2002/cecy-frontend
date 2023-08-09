@@ -23,10 +23,10 @@
     • Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
     • La Asistencia se registra solo usando los botones. <br/>
         - Disminuir la asistencia ˅ <br/>
-        - Aumentar la asistencia  ˄ <br/> 
+        - Aumentar la asistencia  ˄ <br/>
 
     • El máximo de asistencia es 100 % y el minimo es 1.
-    • Para aprobar debe tener un promedio mayor a 70 
+    • Para aprobar debe tener un promedio mayor a 70
     <br/>
   </p-dialog>
   <div class="">
@@ -76,6 +76,7 @@
   [(ngModel)]="matricula.porcentajeAsistencia"
   placeholder="Ingrese el % asistencia"
   [max]="100"
+  mode="decimal"
   [showButtons]="true"
   [buttonLayout]="'horizontal'"
   (keydown)="validarNumero($event, 'porcentajeAsistencia', matricula)"
@@ -92,6 +93,7 @@
   placeholder="Ingrese una nota"
   [min]="1"
   [max]="100"
+  mode="decimal"
   [showButtons]="true"
   [buttonLayout]="'horizontal'"
   (keydown)="validarNumero($event, 'nota1', matricula)"
@@ -107,6 +109,7 @@
   placeholder="Ingrese una nota"
   [min]="1"
   [max]="100"
+  mode="decimal"
   [showButtons]="true"
   [buttonLayout]="'horizontal'"
   (keydown)="validarNumero($event, 'nota2', matricula)"
@@ -116,8 +119,8 @@
         </div>
 
       </td>
-      <td>{{ matricula.promedio }}</td>
-      <td>{{ matricula.estadoCurso.descripcion }}</td>
+      <td>{{ matricula?.promedio }}</td>
+      <td>{{ matricula?.estadoCurso?.descripcion }}</td>
       <td>
         <button pButton type="button" class="p-button p-button-rounded p-button-success"
           (click)="guardarNotas($event, matricula)">
