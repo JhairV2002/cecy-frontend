@@ -42,6 +42,7 @@
 
 #search{
     margin-left: 2%;
+    width: 200px;
 }
 
 #table{
@@ -99,11 +100,20 @@
         border-color: #ffffff;
     }
 
-#asistencia {
-    background-color: #787779;
-    color:  #ffffff;
-    border:none;
+#asistencia1 {
+    background-color: #ffffff;
+    color:  #787779;
+    white-space: nowrap;
+    border-color:#787779 ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+    #asistencia1:hover {
+        background-color: #787779;
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
 
 #title {
     margin-top: 1%;
