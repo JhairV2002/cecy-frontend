@@ -18,21 +18,29 @@
   <div class="flex-1">
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes
       <i class="pi pi-question-circle px-1" style="cursor: pointer;" id="help-icono" (click)="help()"></i>
-  <p-dialog header="Listado de estudiantes" [(visible)]="helpDialogVisible" [style]="{ width: '40%' }">
+      <p-dialog header="Listado de estudiantes" [(visible)]="helpDialogVisible" [style]="{ width: '40%' }">
+        <div class="dialog-content">
 
-    • Tiene que ingresar el porcentaje de asistencia dado por la plataforma 
-    <strong>
-      <a id="help" href="https://eva.yavirac.edu.ec/" target="_blank">EVA</a>
-    </strong> <br/>
-
-    • La Asistencia se registra solo usando los botones. <br/>
-    ㅤㅤ- Disminuir la asistencia <strong id="˅"> ㅤ˅ㅤ </strong> <br/>
-    ㅤㅤ- Aumentar la asistencia <strong id="˅"> ㅤ˄ㅤ </strong> <br/> 
-
-    • El porcentaje máximo de asistencia es <strong>100</strong> y el minimo es <strong>1</strong> <br/>
-    • Para aprobar debe tener un promedio mayor a <strong>70</strong> <br/>
-
-  </p-dialog>
+            <p>
+                • Tiene que ingresar el porcentaje de asistencia dado por la plataforma 
+                <strong><a class="eva-link" href="https://eva.yavirac.edu.ec/" target="_blank">EVA</a></strong>
+            </p>
+            <p>
+                • La Asistencia se registra solo usando los botones.
+            </p>
+            <ul class="assistance-list">
+                <li> ⠀⠀Disminuir la asistencia <strong class="assistance-symbol">  ⠀˅⠀  </strong></li>
+                <li> ⠀⠀Aumentar la asistencia <strong class="assistance-symbol">  ⠀˄⠀  </strong></li>
+            </ul>
+            <p>
+                • El porcentaje máximo de asistencia es <strong>100</strong> y el mínimo es <strong>1</strong>
+            </p>
+            <p>
+                • Para aprobar debe tener un promedio mayor a <strong>70</strong>
+            </p>
+        </div>
+    </p-dialog>
+    
     </h1>
     
   </div>

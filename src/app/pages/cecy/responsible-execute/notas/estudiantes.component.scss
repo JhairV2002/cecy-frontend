@@ -114,21 +114,33 @@
         border-color: #ffffff;
     }
 
-
-#title {
-    margin-top: 1%;
-    margin-bottom: 2%;
+.dialog-content {
+    padding: 15px;
+    font-size: 14px;
+    width: 100%;
 }
 
-#help {
-    color: #ff9100;
+
+.eva-link {
+    color: #ff9900;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-#help-icono {
-    color: #0099ff;
+
+.assistance-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
 }
 
-#˅{
+.assistance-list li {
+    margin-bottom: 5px;
+}
+
+.assistance-symbol {
     color: white;
-    background-color: #008cff;
+    background-color: #048eff;;
+    padding: 2px 8px;
+    border-radius: 5px;
 }
