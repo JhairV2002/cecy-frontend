@@ -42,24 +42,15 @@
 
               <ng-template pTemplate="header">
                   <tr>
-                      <!-- <th style="width: 3rem">
-                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                      </th> -->
                       <th pSortableColumn="matriculas.estudiantes.cedula">Cedula <p-sortIcon field="cedula"></p-sortIcon></th>
                       <th pSortableColumn="matriculas.estudiantes.nombres">Nombres <p-sortIcon field=""></p-sortIcon></th>
                       <th pSortableColumn="matriculas.estudiantes.apellidos">Apellidos <p-sortIcon field=""></p-sortIcon></th>
                       <th pSortableColumn="codigo">Codigo<p-sortIcon field=""></p-sortIcon></th>
-                      <!-- <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                      <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th> -->
                       <th></th>
-
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-codigo>
                   <tr>
-                      <!-- <td>
-                          <p-tableCheckbox [value]="codigo"></p-tableCheckbox>
-                      </td> -->
                       <td style="width:19%; min-width:10rem;"><span class="p-column-title">DNI</span>
                           {{codigo.matriculas.estudiantes.cedula}}
                       </td>
@@ -76,13 +67,6 @@
                           <span class="p-column-title">Category</span>
                           {{codigo.codigo}}
                       </td>
-                      <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
-                          <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                      </td> -->
-                      <!-- <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                          <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
-                      </td> -->
-
                       <div *ngIf="generate; else buttonEdit">
                         <td>
                           <button class="btn btn-outline btn-accent" (click)="downloadCertificate(codigo.id)" >Vizualizar</button>
@@ -105,7 +89,6 @@
 
       <p-dialog [(visible)]="updateCodeDialog" [style]="{width: '450px'}" header="Estudiante" [modal]="true" class="p-fluid">
           <ng-template pTemplate="content">
-              <!-- <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image"> -->
               <div class="field">
                   <label for="name">Nombres</label>
                   <input type="text" pInputText id="name" [(ngModel)]="codigo.matriculas.estudiantes.nombres" [disabled]="true"/>

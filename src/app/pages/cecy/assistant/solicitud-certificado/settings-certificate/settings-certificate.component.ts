@@ -3,6 +3,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { CertificateRequestService } from '../certificate-request.service';
 import { Firmas } from '../firma';
 import { TipoCertificado, tipo } from '../certificate';
+import Swal from 'sweetalert2';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -175,7 +176,7 @@ export class SettingsCertificateComponent implements OnInit {
       .subscribe( response => {
         // Obtienes el estado HTTP
         console.log(response.status)
-
+        this.succesSettings(response.status)
         // Obtienes el body de la respuesta
         this.typeCertificateid = response.body;
         console.log(this.typeCertificateid.id)
@@ -186,9 +187,26 @@ export class SettingsCertificateComponent implements OnInit {
         console.log('prueba para tipo certifivado' + JSON.stringify(this.typeCertificateid.id));
     });
     console.log(JSON.stringify(this.roles));
+
   }
 
   participantOne(event: any){
     console.log(event);
+  }
+
+  succesSettings(code: number) {
+    if(code=200){
+      Swal.fire(
+        'Hecho',
+        'Se genero el tipo certificado',
+        'success'
+      )
+    }else{
+      Swal.fire(
+        'Error',
+        'No se pudo generar el tipo certificado',
+        'error'
+      )
+    }
   }
 }
