@@ -3,15 +3,19 @@ import { Injectable } from '@angular/core';
 import { Estudiantes } from '@models/cecy';
 import { EstudianteRegisterResponse } from '@models/cecy/estudianteRegister';
 import { TokenService } from '@services/auth';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstudiantesService {
+  loading = new BehaviorSubject<boolean>(true);
+  loading$: Observable<boolean> = this.loading.asObservable();
+
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
+
   ) { }
 
   url: string = 'http://localhost:8080/api/estudiantes/';
@@ -40,22 +44,9 @@ export class EstudiantesService {
       });
   }
 
-  authenticateEstudiante(body: any) {
-    return this.http
-      .post<EstudianteRegisterResponse>(this.authenticateUrl, body)
-      .subscribe((res) => {
-        this.tokenService.saveEstudianteTokenCedula(res);
-        this.obtenerEstudiantePorCedula(res.student.cedula);
-        console.log(res);
-      });
-  }
-
   updateEstudiante(body: Estudiantes): Observable<Estudiantes> {
     return this.http.put<Estudiantes>(`${this.url}${body.id}/`, body);
   }
 
-  cerrarSesion() {
-    this.tokenService.removeEstudianteAuth();
-    this.estudianteActualSubject.next(null);
-  }
+
 }

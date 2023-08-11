@@ -45,7 +45,7 @@ export class CursosService {
   getAllCoursesByStateApprove() {
     this.loading.next(true);
     return this.http
-      .get<Curso[]>(`${this.url}/courses/state-course/aprobado/`)
+      .get<Curso[]>(`${this.urlNodeJs}/state-course/aprobado`)
       .pipe(
         finalize(() => {
           this.loading.next(false);

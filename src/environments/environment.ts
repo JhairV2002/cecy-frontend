@@ -6,6 +6,7 @@ const HOST3 = 'http://localhost:8080';
 const HOST4 = 'http://localhost:8000';
 const HOST2 = 'http://localhost:3000';
 //const HOST2 = 'https://cecy-backend.onrender.com';
+const GOOGLE_CLIEND_ID = '714641393478-op88a1dqfqn86q823t9lpflliuj8nfi6.apps.googleusercontent.com'
 
 export const environment = {
   production: false,
@@ -18,8 +19,8 @@ export const environment = {
   api: HOST + '/api',
   api2: HOST2 + '/api/v1',
   api3: HOST3,
-  api4: HOST4+ '/api',
-
+  api4: HOST4 + '/api',
+  GOOGLE_CLIEND_ID
 };
 
 /*
