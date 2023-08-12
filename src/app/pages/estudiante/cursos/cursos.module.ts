@@ -21,12 +21,15 @@ import { CmbPublicityComponent } from './inscription-form/cmb-publicity/cmb-publ
 import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
 import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
 import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
+import { WebsiteModule } from '../../website/website.module';
 
 //Prime Ng
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { LearningComponent } from './learning/learning.component';
 @NgModule({
   declarations: [
     CursosComponent,
@@ -45,6 +48,7 @@ import { ButtonModule } from 'primeng/button';
     MisCursosComponent,
     MisCursosDetailsComponent,
     PerfilEstudianteComponent,
+    LearningComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +61,8 @@ import { ButtonModule } from 'primeng/button';
     CarouselModule,
     TagModule,
     ButtonModule,
+    WebsiteModule,
+    CardModule
   ],
 })
 export class CursosModule {}

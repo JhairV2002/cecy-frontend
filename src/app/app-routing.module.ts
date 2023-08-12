@@ -8,19 +8,19 @@ import { RedirectGuard } from './guards/redirect.guard';
 import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    canActivate: [RedirectGuard],
-    loadChildren: () =>
-      import('./pages/authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
-      ),
-  },
   // {
   //   path: '',
+  //   canActivate: [RedirectGuard],
   //   loadChildren: () =>
-  //     import('./pages/website/website.module').then((m) => m.WebsiteModule),
+  //     import('./pages/authentication/authentication.module').then(
+  //       (m) => m.AuthenticationModule
+  //     ),
   // },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./pages/website/website.module').then((m) => m.WebsiteModule),
+  },
   {
     path: 'administrator',
     canActivate: [AuthGuard],

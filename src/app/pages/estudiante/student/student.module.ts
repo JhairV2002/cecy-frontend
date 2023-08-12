@@ -87,7 +87,7 @@ import { CoursesListaComponent } from './courses-list/courses-list.component';
     TableModule,
     SharedModule,
     FieldsetModule,
-    CalendarModule,
+    CalendarModule
   ],
 })
 export class StudentModule {}

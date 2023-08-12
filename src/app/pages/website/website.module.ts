@@ -28,6 +28,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { FooterWebsiteComponent } from './footer-website/footer-website.component';
 
 
 
@@ -41,6 +42,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     LoginComponent,
     RegisterComponent,
     CoursesCareerComponent,
+    FooterWebsiteComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +62,11 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     CardModule,
     SharedModule,
     GoogleSigninButtonModule
+  ],
+  exports: [
+    RecentCoursesComponent,
+    FooterWebsiteComponent,
+    AboutComponent
   ],
 })
 export class WebsiteModule { }

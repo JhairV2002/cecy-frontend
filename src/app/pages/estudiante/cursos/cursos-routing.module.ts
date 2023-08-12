@@ -10,6 +10,8 @@ import { MisCursosComponent } from './mis-cursos/mis-cursos.component';
 import { MisCursosDetailsComponent } from './mis-cursos/mis-cursos-details/mis-cursos-details.component';
 import { PerfilEstudianteComponent } from './perfil-estudiante/perfil-estudiante.component';
 import { NotFoundComponent } from '../../core/common/not-found/not-found.component';
+import { CoursesComponent } from '../../website/courses/courses.component';
+import { CoursesCareerComponent } from '../../website/courses-career/courses-career.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,9 @@ const routes: Routes = [
     path: 'home',
     component: CursosComponent,
   },
+  { path: 'courses', component: CoursesComponent },
+  { path: 'courses/career/:idCareer', component: CoursesCareerComponent },
+  { path: 'careers', component: CoursesComponent },
   {
     path: 'carrera/:id',
     component: CursoPageComponent,
