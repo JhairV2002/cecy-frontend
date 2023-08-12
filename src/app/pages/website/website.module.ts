@@ -29,6 +29,7 @@ import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { FooterWebsiteComponent } from './footer-website/footer-website.component';
+import { FinalRegisterComponent } from './final-register/final-register.component';
 
 
 
@@ -43,6 +44,7 @@ import { FooterWebsiteComponent } from './footer-website/footer-website.componen
     RegisterComponent,
     CoursesCareerComponent,
     FooterWebsiteComponent,
+    FinalRegisterComponent,
   ],
   imports: [
     CommonModule,

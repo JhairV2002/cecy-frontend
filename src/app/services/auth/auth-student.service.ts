@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { environment } from '@env/environment';
@@ -17,9 +17,7 @@ export class AuthStudentService {
   private apiUrl = `${environment.api2}/auth`;
   loading = new BehaviorSubject<boolean>(true);
   loading$: Observable<boolean> = this.loading.asObservable();
-  private estudianteActualSubject = new BehaviorSubject<Estudiantes | null>(
-    null,
-  );
+  student$ = new BehaviorSubject<Estudiantes | null>(null);
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
@@ -36,6 +34,10 @@ export class AuthStudentService {
           this.tokenService.saveEstudianteTokenCedula(response)
         },
         )
+      ).pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
       )
   }
 
@@ -46,13 +48,11 @@ export class AuthStudentService {
   }
 
   loginWithGoogle(userData: any) {
-    return this.http.post<any>(`${this.apiUrl}/student/login-gmail`, userData).pipe(
-      tap((response) => {
-        console.log('service', response);
-        this.tokenService.saveEstudianteTokenCedula(response)
-      },
-      )
-    )
+    return this.http.post<any>(`${this.apiUrl}/student/login/google`, userData);
+  }
+
+  registerWithGoogle(userData: any) {
+    return this.http.post<any>(`${this.apiUrl}/google/register`, userData);
   }
 
   // registerAndLogin(name: string, email: string, password: string) {
@@ -83,10 +83,28 @@ export class AuthStudentService {
 
   // }
 
-  cerrarSesion() {
+  logout() {
     this.tokenService.removeEstudianteAuth();
-    this.estudianteActualSubject.next(null);
-    this.router.navigate(['/login'])
+    this.student$.next(null);
+  }
+
+  getProfileStudent() {
+    this.loading.next(true);
+    const token = this.tokenService.getEstudianteToken();
+    return this.http
+      .get<Estudiantes>(`${this.apiUrl}/profile-student`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .pipe(
+        tap((user: any) => {
+          this.student$.next(user);
+        }),
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 }
 

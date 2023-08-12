@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 import { AuthStudentService } from '@services/auth';
 import { MessageService } from '@services/core';
@@ -9,6 +9,8 @@ import {
   GoogleLoginProvider,
   SocialUser,
 } from '@abacritt/angularx-social-login';
+import { TokenService } from '@services/auth';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,25 +24,35 @@ export class LoginComponent implements OnInit {
     cedula: ['', [Validators.required, Validators.maxLength(10)]],
     clave: ['', [Validators.required]],
   });
-
   user: SocialUser | undefined;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private authStudentService: AuthStudentService,
     private route: Router,
     private messageService: MessageService,
-    private authService: SocialAuthService
+    private authService: SocialAuthService,
+    private tokenService: TokenService,
   ) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       if (user) {
-
-        console.log('User authenticated:', user);
         this.authStudentService.loginWithGoogle(user).subscribe({
           next: (data) => {
+            const navigationExtras: NavigationExtras = {
+              queryParams: {
+                user: JSON.stringify(user),
+              }
+            }
             console.log('RES INIT', data);
+            if (data.isNewStudent) {
+              this.route.navigate(['/final-register'], navigationExtras);
+            } else {
+              this.tokenService.saveEstudianteTokenGoogle(data)
+              this.route.navigate(['/estudiante/cursos']);
+            }
           },
           error: (error) => {
             console.log(error);
@@ -60,6 +72,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     const valuesForm = this.loginForm.value;
     console.log(valuesForm);
     this.authStudentService.login(this.loginForm.value).subscribe(
@@ -67,8 +80,11 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           console.log('EJECUTANDO', data);
           this.route.navigate(['/estudiante/cursos']);
+          this.loading = false;
+
         },
         error: (error) => {
+          this.loading = false;
           console.log(error);
           this.messageService.error(error)
         }
@@ -79,19 +95,6 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     console.log('execute with login google');
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-    // .subscribe(
-    //   {
-    //     next: (data: any) => {
-    //       console.log('WITH GOOGLE', data)
-    //       window.location.href = data.url;
-    //     },
-    //     error: (error) => {
-    //       console.log(error);
-    //       this.messageService.error(error)
-    //     }
-    //   }
-    // )
   }
 
   isRequired(field: AbstractControl): boolean {

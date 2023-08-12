@@ -102,7 +102,7 @@ export class EstudiantesComponent implements OnInit {
 
 
   cerrarSesion() {
-    this.authStudentService.cerrarSesion();
+    this.authStudentService.logout();
   }
 
   startImageTimer(): void {

@@ -6,9 +6,10 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class RedirectGuard implements CanActivate {
-  constructor(private tokenService: TokenService, private router: Router) {}
+  constructor(private tokenService: TokenService, private router: Router) { }
   canActivate(): boolean {
     const token = this.tokenService.getToken();
+    const tokenStudent = this.tokenService.getEstudianteToken()
 
     if (token) {
       const decodeToken = jwt_decode(token) as { [key: string]: any };
@@ -30,6 +31,20 @@ export class RedirectGuard implements CanActivate {
       } else {
         console.log('error de redireccion de pagina');
         this.router.navigate(['/common/access-denied']);
+      }
+      return false;
+    }
+
+    if (tokenStudent) {
+      const decodeToken = jwt_decode(tokenStudent) as { [key: string]: any };
+      console.log('TOKEN STUDENT', decodeToken)
+      const role = decodeToken['role'];
+      console.log('DECODE ROLE', role);
+      if (role === 'estudiante') {
+        this.router.navigate(['/estudiante/cursos'])
+      } else {
+        console.log('Error de direccion de pagina');
+        this.router.navigate(['/login'])
       }
       return false;
     }
