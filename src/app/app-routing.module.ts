@@ -18,6 +18,7 @@ const routes: Routes = [
   // },
   {
     path: '',
+    canActivate: [RedirectGuard, AuthGuard],
     loadChildren: () =>
       import('./pages/website/website.module').then((m) => m.WebsiteModule),
   },
@@ -59,4 +60,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -8,7 +8,7 @@ import { EstudianteRegisterResponse } from '@models/cecy/estudianteRegister';
   providedIn: 'root',
 })
 export class TokenService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   saveToken(token: string) {
     setCookie('token-cecy', token, { expires: 365, path: '/' });
@@ -35,15 +35,22 @@ export class TokenService {
     });
   }
 
+  saveEstudianteTokenGoogle(estudiante: any) {
+    console.log('TOKEN DE GOOGLE', estudiante)
+    setCookie('token-estudiante', estudiante.token.token, { expires: 1, path: '/' });
+    setCookie('cedula-estudiante', estudiante.token.student.cedula, {
+      expires: 1,
+      path: '/',
+    });
+  }
+
   getEstudianteToken() {
     const token = getCookie('token-estudiante');
-
     return token;
   }
 
   getEstudianteCedula() {
     const cedula = getCookie('cedula-estudiante');
-
     return cedula;
   }
 

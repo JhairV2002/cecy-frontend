@@ -6,6 +6,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CoursesCareerComponent } from './courses-career/courses-career.component';
+import { FinalRegisterComponent } from './final-register/final-register.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'careers', component: CoursesComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'final-register', component: FinalRegisterComponent }
     ],
   },
 ];

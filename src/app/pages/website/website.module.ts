@@ -28,6 +28,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { FinalRegisterComponent } from './final-register/final-register.component';
 
 
 
@@ -41,6 +42,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     LoginComponent,
     RegisterComponent,
     CoursesCareerComponent,
+    FinalRegisterComponent,
   ],
   imports: [
     CommonModule,

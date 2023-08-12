@@ -1,48 +1,4 @@
-<div class="navbar bg-warning">
-  <div class="flex-1">
-    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden"
-      >Nav</label
-    >
-    <a class="btn btn-ghost normal-case text-xl">Cecy</a>
-  </div>
-  <div class="flex-none">
-    <div class="dropdown dropdown-end">
-      <div
-        tabindex="0"
-        class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
-      >
-        <div class="card-body">
-          <span class="font-bold text-lg">8 Items</span>
-          <span class="text-info">Subtotal: $999</span>
-          <div class="card-actions">
-            <button class="btn btn-primary btn-block">View cart</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="dropdown dropdown-end" *ngIf="estudiante | async">
-      <label tabindex="0" class="btn btn-ghost">
-        <div>
-          {{
-            (estudiante | async)!.nombres +
-              " " +
-              (estudiante | async)!.apellidos
-          }}
-        </div>
-      </label>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-      >
-        <li class="justify-between cursor-pointer">
-          <a [routerLink]="['perfil']">Perfil</a>
-          <a [routerLink]="['mis-cursos']">Mis Cursos</a>
-          <button (click)="cerrarSesion()">Cerrar Sesión</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+<app-topbar-student></app-topbar-student>
 <div class="drawer drawer-mobile">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content p-6 w-full">
@@ -58,14 +14,14 @@
       <li class="pl-4 my-3">
         <a [routerLink]="['/estudiante/cursos/carrera', 'todos']">Todos</a>
       </li>
-      <li
+      <!-- <li
         class="pl-4 my-3"
         *ngFor="let carrera of carreras$ | async as carreras"
       >
         <a [routerLink]="['/estudiante/cursos/carrera', carrera.id]">{{
           carrera.name
         }}</a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </div>
