@@ -10,7 +10,7 @@ import { NotFoundComponent } from '../../core/common/not-found/not-found.compone
 const routes: Routes = [
   // {
   //   path: '',
-  //   component: ,
+  //   component: HomeComponent,
   // },
   // {
   //   path: 'attendance-registration',

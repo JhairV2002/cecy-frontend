@@ -38,6 +38,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { FooterWebsiteComponent } from './footer-website/footer-website.component';
 
 
 @NgModule({
@@ -50,11 +51,9 @@ import { ToastModule } from 'primeng/toast';
     LoginComponent,
     RegisterComponent,
     CoursesCareerComponent,
+    FooterWebsiteComponent,
     FinalRegisterComponent,
     CreateAccountComponent,
-  ],
-  exports: [
-    CreateAccountComponent
   ],
   imports: [
     CommonModule,
@@ -81,6 +80,12 @@ import { ToastModule } from 'primeng/toast';
     MessagesModule,
     ConfirmDialogModule,
     ToastModule
+  ],
+  exports: [
+    RecentCoursesComponent,
+    FooterWebsiteComponent,
+    AboutComponent,
+    CreateAccountComponent
   ],
 })
 export class WebsiteModule { }

@@ -13,11 +13,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 import { WebsiteComponent } from './website/website.component';
-import { WebsiteModule } from "../pages/website/website.module";
+import { MenuModule } from 'primeng/menu';
+
+import { WebsiteModule } from '../pages/website/website.module';
+
 @NgModule({
-  declarations: [MainComponent, EstudiantesComponent, WebsiteComponent],
-  exports: [MainComponent, WebsiteComponent, EstudiantesComponent],
+  declarations: [MainComponent, EstudiantesComponent, WebsiteComponent,],
   imports: [
     CommonModule,
     RouterModule,
@@ -28,7 +32,11 @@ import { WebsiteModule } from "../pages/website/website.module";
     ToastModule,
     InputTextModule,
     ButtonModule,
-    WebsiteModule
-  ]
+    WebsiteModule,
+    AvatarModule,
+AvatarGroupModule,
+MenuModule
+  ],
+  exports: [MainComponent, WebsiteComponent, EstudiantesComponent],
 })
 export class LayoutModule { }
