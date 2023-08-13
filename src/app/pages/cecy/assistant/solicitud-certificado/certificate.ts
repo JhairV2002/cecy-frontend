@@ -62,7 +62,7 @@ export interface Report{
 
   export interface Matricula {
     id: number;
-    cursoId?: number;
+    cursoId: number;
     nota1?: any;
     nota2?: any;
     promedio?: any;
@@ -147,3 +147,13 @@ export interface Report{
     firma: string;
   }
 
+  export interface Sponsor{
+    id: number;
+    name: string;
+    description: string;
+  }
+
+  export interface Course{
+    id: number;
+    sponsorId: number;
+  }

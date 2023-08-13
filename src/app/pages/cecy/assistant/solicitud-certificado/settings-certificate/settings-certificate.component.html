@@ -82,7 +82,7 @@
 
     <ng-template [ngIf]="valCheckPatrocinador"><div>
       <div class="card">
-        <p>Con el auspicio de:</p>
+        <p>Con el auspicio de: {{sponsorName}}</p>
         <app-dropdown-settings
           (firmasIdEmitter)="patrocinador = $event"
           [id]="patrocinador"

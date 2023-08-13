@@ -58,6 +58,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   }
   matriculaEntity:Matricula={
     id:0,
+    cursoId: 0,
     estudiantes: this.estudentEntity
   }
   codeEntity: Codes={
@@ -146,9 +147,6 @@ saveProduct() {
     this.submitted = true;
     if (this.codigo.codigo?.trim()) {
       if (this.codigo.id){
-        // console.log(this.codigo.id,JSON.stringify(this.codigo={
-        //   codigo: this.codigo.codigo
-        // }))
         this.solicitudCertificadoService.updateCode(
           this.updateCode={
             codigo: this.codigo.codigo
@@ -157,7 +155,6 @@ saveProduct() {
           ).subscribe()
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Codigo Actualizado', life: 3000 });
       }
-      // this.codigos = [...this.codigo];
       this.updateCodeDialog = false;
       this.codigo = {};
     }
@@ -267,7 +264,6 @@ onGlobalFilter(table: Table, event: Event) {
             countStateSucces ++;
           }else{
             countStateError ++;
-            //this.erroGenerate
           }
           console.log(e.status);
         });
@@ -279,13 +275,6 @@ onGlobalFilter(table: Table, event: Event) {
          console.log(JSON.stringify(this.codeEntity))
        }
      )
-
-     /*setTimeout(()=>{
-      this.succesCertificate(
-        countStateSucces,
-        countStateError
-       )
-     }, 10000)*/
 
      console.log(countStateSucces+"Aaaaaaaaaaaaaaa")
      console.log(countStateError+"Errorrrrrrrrr")

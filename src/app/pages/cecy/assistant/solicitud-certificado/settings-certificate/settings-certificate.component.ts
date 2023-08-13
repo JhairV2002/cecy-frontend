@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { CertificateRequestService } from '../certificate-request.service';
 import { Firmas } from '../firma';
-import { TipoCertificado, tipo } from '../certificate';
+import { TipoCertificado, tipo, Sponsor, Course,Report, Codes } from '../certificate';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -16,8 +18,8 @@ interface UploadEvent {
 })
 export class SettingsCertificateComponent implements OnInit {
   constructor(
-    private messageService: MessageService,
-    private certificateService: CertificateRequestService
+    private certificateService: CertificateRequestService,
+    private activatedRoute: ActivatedRoute,
   ) {}
   selectedCountryAdvanced: any[] = [];
   filteredCountries: any[] = [];
@@ -53,13 +55,62 @@ export class SettingsCertificateComponent implements OnInit {
     firmas: this.roles,
   };
 
+  sponsor: Sponsor[]=[]
+
+  courseSponsor:Course={
+    id: 0,
+    sponsorId: 0,
+  }
+
+  reportEntity: Report={
+    id:0,
+    fechaReporte:new Date,
+    reportes:[],
+    stateCertificate: false
+  }
+
+  codigos: Codes[] = [];
+
+  sponsorName: string = "";
+
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      if (params.get('id')) {
+        this.findAllSponsor(parseInt(params.get('id')!));
+      }
+    });
     this.type = [
       { label: 'Cecy', value: { name: 'Cecy' } },
       { label: 'Senecyt', value: { name: 'Senecyt' } },
     ];
   }
 
+  public findAllSponsor(id: number){
+    var spon = 0;
+    var sponsorId=0;
+    this.certificateService.findById(id).pipe(finalize(()=>{
+      this.certificateService.findByIdCourse(spon).pipe(finalize(()=>{
+        this.certificateService.getSponsors().subscribe((a)=>{
+          this.sponsor = a;
+          this.sponsor.forEach((f)=>{
+            if(sponsorId==f.id){
+              this.sponsorName = f.name;
+              console.log("nombre sponsor"+f.name);
+            }
+          })
+        })
+      })).subscribe((spo)=>{
+        this.courseSponsor=spo;
+        sponsorId = this.courseSponsor.sponsorId
+        console.log("sponsor ssssssss"+this.courseSponsor.sponsorId);
+      })
+     })).subscribe((d)=>{
+      this.reportEntity=d;
+      this.codigos=this.reportEntity.reportes
+      spon=this.codigos[0].matriculas.cursoId
+
+    })
+  }
   public sendSetings() {
     this.alert=""
     this.nameCertificate = this.selectedDrop;
@@ -153,7 +204,7 @@ export class SettingsCertificateComponent implements OnInit {
     }
     if (this.patrocinador != 0 && this.valCheckPatrocinador) {
       this.firm = { id: this.patrocinador };
-      this.roles.push((this.rol = { rol: 'Patrocinador', firma: this.firm }));
+      this.roles.push((this.rol = { rol: this.sponsorName, firma: this.firm }));
     }
     if (this.coordinador != 0 && this.valCheckCoordinadorCecy) {
       this.firm = { id: this.coordinador };

@@ -131,7 +131,6 @@ export class ReporteListaComponent implements OnInit {
       });
   }
 
-  //sin validar reportes duplicados
   public generateReports(): void {
     this.consulReport();
     this.matricula
@@ -159,8 +158,7 @@ export class ReporteListaComponent implements OnInit {
           fechaReporte: new Date(),
           reportes: this.reportesList,
         };
-        //guarda el reporte falta validar
-        //validar x el consultReport
+
 
         if (this.validateReport) {
           console.log('el reporte existe');
