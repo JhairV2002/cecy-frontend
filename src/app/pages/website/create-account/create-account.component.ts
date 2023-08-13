@@ -20,6 +20,7 @@ export class CreateAccountComponent {
 
   closeModal() {
     this.clickClose.emit(false);
+    this.router.navigate(['/login'])
   }
 
 }

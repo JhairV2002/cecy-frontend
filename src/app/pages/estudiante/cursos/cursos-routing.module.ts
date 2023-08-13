@@ -55,7 +55,7 @@ const routes: Routes = [
     component: MisCursosDetailsComponent,
   },
   {
-    path: 'perfil',
+    path: 'profile',
     component: PerfilEstudianteComponent,
   },
   {

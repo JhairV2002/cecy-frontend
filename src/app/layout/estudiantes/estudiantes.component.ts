@@ -4,6 +4,7 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 import { AuthStudentService } from '@services/auth';
 import { Estudiantes } from '@models/cecy';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-estudiantes',
@@ -34,12 +35,13 @@ export class EstudiantesComponent implements OnInit {
       subtitle: 'Mejora tus Ingresos'
     },
   ]
-  items = [
+  items: MenuItem[] = [
     {
       items: [
         {
           label: 'Perfil',
           icon: 'pi pi-user',
+          routerLink: '/estudiante/cursos/profile',
           command: () => {
             // this.profile();
           }
