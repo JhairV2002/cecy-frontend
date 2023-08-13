@@ -3,13 +3,12 @@ import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
 import { CursosService } from '@services/cecy/cursos';
 import { Estudiantes } from '@models/cecy';
 import { AuthStudentService } from '@services/auth';
-
 @Component({
-  selector: 'app-cursos',
-  templateUrl: './cursos.component.html',
-  styleUrls: ['./cursos.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class CursosComponent implements OnInit {
+export class HomeComponent implements OnInit {
   recent: any[] = [];
   loading$ = this.courseService.loading$;
   constructor(
@@ -17,7 +16,6 @@ export class CursosComponent implements OnInit {
     private estudiantesService: EstudiantesService,
     private authStudentService: AuthStudentService,
   ) { }
-
 
 
   currentIndex: number = 0;

@@ -44,7 +44,7 @@ export class EstudiantesService {
       });
   }
 
-  updateEstudiante(body: Estudiantes): Observable<Estudiantes> {
+  updateEstudiante(body: any): Observable<Estudiantes> {
     return this.http.put<Estudiantes>(`${this.url}${body.id}/`, body);
   }
 

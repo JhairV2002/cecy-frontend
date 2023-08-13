@@ -39,6 +39,7 @@ export class RegisterComponent implements OnInit {
     etnia: ['', Validators.required],
     nivelInstruccion: ['', Validators.required],
     situacionEconomica: ['', Validators.required],
+    rol: ['']
   });
 
   etnias$ = this.catalogoService.findByNombre('etnia');
@@ -71,6 +72,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerStudent() {
+    this.formularioRegistro.get('rol')?.setValue('estudiante')
     console.log(this.formularioRegistro.value);
     this.estudiantesService
       .registrarEstudiante(this.formularioRegistro.value)
@@ -82,7 +84,7 @@ export class RegisterComponent implements OnInit {
             summary: 'Registro Exitoso',
             detail: `Se ha registrado correctamente el estudiante ${data}`
           });
-          this.router.navigate(['/estudiante/cursos'])
+          this.router.navigate(['/estudiante'])
         },
         error: (error) => {
           this.messageServiceToast.add(

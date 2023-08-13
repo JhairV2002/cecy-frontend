@@ -41,7 +41,7 @@ export class EstudiantesComponent implements OnInit {
         {
           label: 'Perfil',
           icon: 'pi pi-user',
-          routerLink: '/estudiante/cursos/profile',
+          routerLink: '/estudiante/profile',
           command: () => {
             // this.profile();
           }

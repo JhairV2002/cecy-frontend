@@ -19,28 +19,19 @@
       id="menu"
     >
       <nav>
-        <ul
-          class="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0"
-        >
+        <ul class="md:flex items-center justify-between text-base pt-4 md:pt-0">
           <li>
             <a
-              class="inline-block underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-              href=""
+              class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              routerLink=""
               >Inicio</a
             >
           </li>
           <li>
             <a
-              class="inline-block underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
               routerLink="/courses"
               >Cursos</a
-            >
-          </li>
-          <li>
-            <a
-              class="inline-block underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-              href="#"
-              >Acerca de</a
             >
           </li>
         </ul>
@@ -57,7 +48,10 @@
         Crear cuenta
       </button>
       <a routerLink="/login">
-        <strong>Iniciar Sesión</strong>
+        <span
+          class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+          >Iniciar Sesión</span
+        >
       </a>
     </div>
   </div>

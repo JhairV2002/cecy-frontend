@@ -65,7 +65,7 @@ export class FinalRegisterComponent implements OnInit {
     this.authStudentService.registerWithGoogle(user).subscribe({
       next: (data) => {
         console.log('RES INIT', data);
-        this.route.navigate(['/estudiante/cursos']);
+        this.route.navigate(['/estudiante']);
       },
       error: (error) => {
         console.log(error);

@@ -10,14 +10,9 @@ export class AuthGuard implements CanActivate {
   constructor(private tokenService: TokenService, private router: Router) { }
   canActivate(): boolean {
     const token = this.tokenService.getToken();
-    const tokenStudent = this.tokenService.getEstudianteToken();
     if (!token) {
-      this.router.navigate(['/login']);
-      return false;
-    }
-
-    if (!tokenStudent) {
-      this.router.navigate(['/login']);
+      console.log('Se activo el token guard usuario global');
+      this.router.navigate(['/cecy/login']);
       return false;
     }
     return true;

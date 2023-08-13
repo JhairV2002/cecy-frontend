@@ -15,7 +15,9 @@ export class CreateAccountComponent {
 
   registerStudentExterior() {
     this.closeModal();
-    this.router.navigate(['/register'])
+    setTimeout(() => {
+      this.router.navigate(['/register'])
+    }, 1000);
   }
 
   closeModal() {

@@ -1,4 +1,6 @@
-<nav class="flex items-center mb-5 p-4 bg-white shadow-md">
+<nav
+  class="fixed top-0 left-0 right-0 z-10 flex items-center mb-5 p-4 bg-white shadow-md"
+>
   <div class="flex items-center">
     <img
       src="assets/layout/images/logo-dark.svg"
@@ -7,11 +9,23 @@
     />
     <span class="font-semibold"><a routerLink="">CECY</a></span>
   </div>
-  <div class="ml-4"><a [routerLink]="['']">Inicio</a></div>
+  <div
+    class="ml-8 inline-block hover:text-black font-medium text-lg py-2 px-4"
+  >
+    <a [routerLink]="['']">Inicio</a>
+  </div>
   <div class="ml-auto">
     <ul class="flex space-x-4 items-center">
-      <li class=""><a [routerLink]="['courses']">Cursos</a></li>
-      <li class=""><a [routerLink]="['mis-cursos']"> Mi Aprendizaje</a></li>
+      <li
+        class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+      >
+        <a [routerLink]="['courses']">Cursos</a>
+      </li>
+      <li
+        class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+      >
+        <a [routerLink]="['mis-cursos']"> Mi Aprendizaje</a>
+      </li>
       <li>
         <p-menu #menu [model]="items" [popup]="true"> </p-menu>
         <p-button
@@ -25,4 +39,6 @@
     </ul>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="my-20 h-screen">
+  <router-outlet></router-outlet>
+</div>
