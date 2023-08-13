@@ -18,7 +18,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-    canActivate: [RedirectGuard, AuthGuard],
+    canActivate: [RedirectGuard],
     loadChildren: () =>
       import('./pages/website/website.module').then((m) => m.WebsiteModule),
   },

@@ -1,3 +1,8 @@
+<app-create-account
+  [showModal]="openModal"
+  (clickClose)="closeModal($event)"
+></app-create-account>
+
 <div class="navbar fixed top-0 shadow-lg border-blue-400">
   <div class="navbar-start">
     <a class="btn btn-ghost normal-case text-xl ml-14">Cecy</a>
@@ -46,7 +51,7 @@
   <div class="navbar-end">
     <div class="flex items-center gap-2">
       <button
-        routerLink="/register"
+        (click)="createAccount()"
         class="btn btn-active btn-neutral text-white"
       >
         Crear cuenta

@@ -14,8 +14,10 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { WebsiteComponent } from './website/website.component';
+import { WebsiteModule } from "../pages/website/website.module";
 @NgModule({
   declarations: [MainComponent, EstudiantesComponent, WebsiteComponent],
+  exports: [MainComponent, WebsiteComponent, EstudiantesComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -26,7 +28,7 @@ import { WebsiteComponent } from './website/website.component';
     ToastModule,
     InputTextModule,
     ButtonModule,
-  ],
-  exports: [MainComponent, WebsiteComponent, EstudiantesComponent],
+    WebsiteModule
+  ]
 })
-export class LayoutModule {}
+export class LayoutModule { }

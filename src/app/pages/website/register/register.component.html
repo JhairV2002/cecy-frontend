@@ -1,375 +1,442 @@
-<div class="prose-base">
-  <h1>Registrarse</h1>
-  <h2>Datos de Inicio de Sesión</h2>
+<p-toast></p-toast>
+<div class="m-4">
+  <div class="flex justify-center">
+    <p-card [style]="{ width: '100%' }" class="flex justify-center bg-white">
+      <h1 class="text-2xl text-center">Regístrate y comienza a aprender!</h1>
+      <div class="p-fluid max-w-[835px]">
+        <form [formGroup]="formularioRegistro" (ngSubmit)="onSubmit()">
+          <p-messages
+            [(value)]="messages!"
+            [enableService]="false"
+            [closable]="false"
+          ></p-messages>
+          <h2 class="text-xl my-2 italic underline">Datos personales</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div class="w-full">
+              <label
+                appLabel
+                label="Nombres Completos:"
+                [required]="isRequired(nombresField)"
+                [valid]="nombresField.valid"
+                [touched]="nombresField.touched"
+                [dirty]="nombresField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="nombres"
+                placeholder="Ej. Ramiro Fernando"
+                class="w-full"
+              />
+              <small
+                appErrorMessage
+                [errors]="nombresField.errors"
+                [touched]="nombresField.touched"
+                [dirty]="nombresField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Apellidos Completos:"
+                [required]="isRequired(apellidosField)"
+                [valid]="apellidosField.valid"
+                [touched]="apellidosField.touched"
+                [dirty]="apellidosField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="apellidos"
+                placeholder="Ej. Velasco Rios"
+                class="w-full"
+              />
+              <small
+                appErrorMessage
+                [errors]="apellidosField.errors"
+                [touched]="apellidosField.touched"
+                [dirty]="apellidosField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                for="cedula"
+                appLabel
+                label="Cedula o pasaporte:"
+                [required]="isRequired(cedulaField)"
+                [valid]="cedulaField.valid"
+                [touched]="cedulaField.touched"
+                [dirty]="cedulaField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="cedula"
+                placeholder="Ingrese su numero de cedula"
+                pattern="[0-9]*"
+                placeholder="xxxxxxxxxx"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              />
+              <small
+                appErrorMessage
+                [errors]="cedulaField.errors"
+                [touched]="cedulaField.touched"
+                [dirty]="cedulaField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Fecha Nacimiento:"
+                [required]="isRequired(fechaNacimientoField)"
+                [valid]="fechaNacimientoField.valid"
+                [touched]="fechaNacimientoField.touched"
+                [dirty]="fechaNacimientoField.dirty"
+              ></label>
+              <p-calendar
+                formControlName="fechaNacimiento"
+                [showIcon]="true"
+                placeholder="dd/mm/yy"
+                class="w-full"
+              ></p-calendar>
+              <small
+                appErrorMessage
+                [errors]="fechaNacimientoField.errors"
+                [touched]="fechaNacimientoField.touched"
+                [dirty]="fechaNacimientoField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Género:"
+                [required]="isRequired(generoField)"
+                [valid]="generoField.valid"
+                [touched]="generoField.touched"
+                [dirty]="generoField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(generos$ | async)!"
+                formControlName="genero"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el genero"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="generoField.errors"
+                [touched]="generoField.touched"
+                [dirty]="generoField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Étnia:"
+                [required]="isRequired(etniaField)"
+                [valid]="etniaField.valid"
+                [touched]="etniaField.touched"
+                [dirty]="etniaField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(etnias$ | async)!"
+                formControlName="etnia"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el genero"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="etniaField.errors"
+                [touched]="etniaField.touched"
+                [dirty]="etniaField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Nivel Académico:"
+                [required]="isRequired(nivelInstruccionField)"
+                [valid]="nivelInstruccionField.valid"
+                [touched]="nivelInstruccionField.touched"
+                [dirty]="nivelInstruccionField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(nivelInstruccion$ | async)!"
+                formControlName="nivelInstruccion"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el nivel academico"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="nivelInstruccionField.errors"
+                [touched]="nivelInstruccionField.touched"
+                [dirty]="nivelInstruccionField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Situación Económica:"
+                [required]="isRequired(situacionEconomicaField)"
+                [valid]="situacionEconomicaField.valid"
+                [touched]="situacionEconomicaField.touched"
+                [dirty]="situacionEconomicaField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(situacionEconomica$ | async)!"
+                formControlName="situacionEconomica"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el nivel academico"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="situacionEconomicaField.errors"
+                [touched]="situacionEconomicaField.touched"
+                [dirty]="situacionEconomicaField.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-2">
+            <div class="w-full">
+              <div class="flex items-center gap-2 my-2">
+                <label
+                  appLabel
+                  label="Discapacidad:"
+                  [required]="isRequired(discapacidadField)"
+                  [valid]="discapacidadField.valid"
+                  [touched]="discapacidadField.touched"
+                  [dirty]="discapacidadField.dirty"
+                >
+                </label>
+                <input
+                  (change)="disableDetalles()"
+                  formControlName="discapacidad"
+                  type="checkbox"
+                  class="checkbox"
+                />
+              </div>
+              <div class="flex flex-col">
+                <textarea
+                  rows="3"
+                  cols="10"
+                  pInputTextarea
+                  formControlName="detallesDiscapacidad"
+                  class="w-full"
+                  placeholder="Ej. Sindromes, falta de miembros, etc"
+                >
+                </textarea>
+                <small
+                  appErrorMessage
+                  [errors]="detallesDiscapacidadField.errors"
+                  [touched]="detallesDiscapacidadField.touched"
+                  [dirty]="detallesDiscapacidadField.dirty"
+                >
+                </small>
+              </div>
+            </div>
+          </div>
+          <h2 class="text-xl my-2 italic underline">Datos de Contacto</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div class="w-full">
+              <label
+                appLabel
+                label="Celular:"
+                [required]="isRequired(celularField)"
+                [valid]="celularField.valid"
+                [touched]="celularField.touched"
+                [dirty]="celularField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="numeroCelular"
+                pattern="[0-9]*"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                placeholder="0982938292"
+                class="w-full"
+              />
+              <small
+                appErrorMessage
+                [errors]="celularField.errors"
+                [touched]="celularField.touched"
+                [dirty]="celularField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Número convencional:"
+                [required]="isRequired(numeroConvencionalField)"
+                [valid]="numeroConvencionalField.valid"
+                [touched]="numeroConvencionalField.touched"
+                [dirty]="numeroConvencionalField.dirty"
+              >
+              </label>
+              <input
+                pInputText
+                formControlName="numeroConvencional"
+                placeholder="Ej. 02292019"
+                class="w-full"
+                pattern="[0-9]*"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              />
+              <small
+                appErrorMessage
+                [errors]="numeroConvencionalField.errors"
+                [touched]="numeroConvencionalField.touched"
+                [dirty]="numeroConvencionalField.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <div class="w-full">
+            <label
+              appLabel
+              label="Direccion:"
+              [required]="isRequired(direccionField)"
+              [valid]="direccionField.valid"
+              [touched]="direccionField.touched"
+              [dirty]="direccionField.dirty"
+            >
+            </label>
+            <textarea
+              rows="3"
+              cols="10"
+              pInputTextarea
+              formControlName="direccion"
+              class="w-full"
+              placeholder="Sector Ecuatoriana; calle 1, calle 2, numeración"
+            >
+            </textarea>
+            <small
+              appErrorMessage
+              [errors]="direccionField.errors"
+              [touched]="direccionField.touched"
+              [dirty]="direccionField.dirty"
+            >
+            </small>
+          </div>
 
-  <form [formGroup]="formularioRegistro" (ngSubmit)="onSubmit()">
-    <section class="flex flex-wrap gap-8">
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Correo Electrónico</span>
-        </label>
-        <input
-          formControlName="email"
-          type="text"
-          placeholder="abc@gmail.com"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-          #email
-        />
-        <label class="label" *ngIf="formularioRegistro.get('email')!.errors">
-          <span
-            *ngIf="formularioRegistro.get('email')!.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-          <span
-            *ngIf="formularioRegistro.get('email')!.errors!['email']"
-            class="label-text-alt text-error"
-            >Ingrese un email valido</span
-          >
-        </label>
+          <h2 class="text-xl my-2 italic underline">
+            Datos de inicio de sesion
+          </h2>
+
+          <div class="w-full">
+            <label
+              appLabel
+              label="Correo Electrónico:"
+              [required]="isRequired(emailField)"
+              [valid]="emailField.valid"
+              [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            ></label>
+            <input
+              pInputText
+              formControlName="email"
+              placeholder="abc@gmail.com"
+            />
+            <small
+              appErrorMessage
+              [errors]="emailField.errors"
+              [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            >
+            </small>
+          </div>
+          <div class="w-full">
+            <label
+              appLabel
+              label="Contraseña:"
+              [required]="isRequired(claveField)"
+              [valid]="claveField.valid"
+              [touched]="claveField.touched"
+              [dirty]="claveField.dirty"
+            ></label>
+            <p-password
+              formControlName="clave"
+              [toggleMask]="true"
+              placeholder="Ingresa tu contraseña"
+              [feedback]="false"
+            >
+            </p-password>
+            <small
+              appErrorMessage
+              [errors]="claveField.errors"
+              [touched]="claveField.touched"
+              [dirty]="claveField.dirty"
+            >
+            </small>
+          </div>
+          <div class="w-full">
+            <label
+              appLabel
+              label="Repita su contraseña:"
+              [required]="isRequired(confirmClaveField)"
+              [valid]="confirmClaveField.valid"
+              [touched]="confirmClaveField.touched"
+              [dirty]="confirmClaveField.dirty"
+            ></label>
+            <p-password
+              formControlName="confirmClave"
+              [toggleMask]="true"
+              placeholder="Confirme su contraseña"
+              [feedback]="false"
+            >
+            </p-password>
+            <small
+              appErrorMessage
+              [errors]="confirmClaveField.errors"
+              [touched]="confirmClaveField.touched"
+              [dirty]="confirmClaveField.dirty"
+            >
+            </small>
+          </div>
+          <div class="flex justify-center my-5">
+            <div>
+              <button
+                type="submit"
+                pButton
+                pRipple
+                icon="pi pi-save"
+                [disabled]="!formularioRegistro.valid"
+                label="Registrarse"
+                class="p-button-raised p-button-info"
+              ></button>
+            </div>
+            <!-- <button
+              [disabled]="!formularioRegistro.valid"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Registrarse
+            </button> -->
+          </div>
+        </form>
       </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Contraseña</span>
-        </label>
-        <input
-          formControlName="clave"
-          type="password"
-          placeholder="Escriba su contraseña"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-        />
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Repita su contraseña</span>
-        </label>
-        <input
-          type="password"
-          placeholder="Repita su contraseña"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-        />
-      </div>
-    </section>
-
-    <h2>Datos personales</h2>
-    <div class="alert alert-warning">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="stroke-current shrink-0 h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-        />
-      </svg>
-      <span
-        >Atención: Estos datos serán usados para validar tu identidad al momento
-        de emitir algún certificado por la finalización de algún curso.
-        Asegurate que sean correctos antes de registrarte.</span
-      >
-    </div>
-    <section class="flex flex-wrap gap-8">
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Cedula o pasaporte</span>
-        </label>
-        <input
-          formControlName="cedula"
-          type="text"
-          placeholder="1789012345"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-        />
-
-        <label class="label" *ngIf="formularioRegistro.get('cedula')!.errors">
-          <span
-            *ngIf="formularioRegistro.get('cedula')!.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Nombres Completos</span>
-        </label>
-        <input
-          formControlName="nombres"
-          type="text"
-          placeholder="Ramiro Fernando"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-        />
-
-        <label class="label" *ngIf="formularioRegistro.get('nombres')!.errors">
-          <span
-            *ngIf="formularioRegistro.get('nombres')!.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Apellidos Completos</span>
-        </label>
-        <input
-          formControlName="apellidos"
-          type="text"
-          placeholder="Velasco Rios"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-        />
-
-        <label
-          class="label"
-          *ngIf="formularioRegistro.get('apellidos')!.errors"
-        >
-          <span
-            *ngIf="formularioRegistro.get('apellidos')!.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Fecha Nacimiento</span>
-        </label>
-        <input
-          formControlName="fechaNacimiento"
-          type="date"
-          placeholder="dd/mm/yy"
-          class="input input-bordered w-full max-w-xs h-[42px]"
-        />
-
-        <label
-          class="label"
-          *ngIf="formularioRegistro.controls.apellidos.errors"
-        >
-          <span
-            *ngIf="formularioRegistro.controls.apellidos.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Género</span>
-        </label>
-        <select name="select" class="h-full h-[42px]" formControlName="genero">
-          <option *ngFor="let genero of generos$ | async" [ngValue]="genero">
-            {{ genero.descripcion }}
-          </option>
-        </select>
-
-        <label class="label" *ngIf="formularioRegistro.get('genero')!.errors">
-          <span
-            *ngIf="formularioRegistro.get('genero')!.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Étnia</span>
-        </label>
-        <select name="select" class="h-full" formControlName="etnia">
-          <option *ngFor="let etnia of etnias$ | async" [ngValue]="etnia">
-            {{ etnia.descripcion }}
-          </option>
-        </select>
-
-        <label class="label" *ngIf="formularioRegistro.get('etnia')!.errors">
-          <span
-            *ngIf="formularioRegistro.get('etnia')!.errors!['required']"
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Nivel Académico</span>
-        </label>
-        <select name="select" class="h-full" formControlName="nivelInstruccion">
-          <option
-            *ngFor="let nivel of nivelInstruccion$ | async"
-            [ngValue]="nivel"
-          >
-            {{ nivel.descripcion }}
-          </option>
-        </select>
-        <label
-          class="label"
-          *ngIf="formularioRegistro.get('nivelInstruccion')!.errors"
-        >
-          <span
-            *ngIf="
-              formularioRegistro.get('nivelInstruccion')!.errors!['required']
-            "
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Situación Económica</span>
-        </label>
-        <select
-          name="select"
-          class="h-[42px]"
-          formControlName="situacionEconomica"
-        >
-          <option
-            *ngFor="let situacion of situacionEconomica$ | async"
-            [ngValue]="situacion"
-          >
-            {{ situacion.descripcion }}
-          </option>
-        </select>
-
-        <label
-          class="label"
-          *ngIf="formularioRegistro.get('situacionEconomica')!.errors"
-        >
-          <span
-            *ngIf="
-              formularioRegistro.get('situacionEconomica')!.errors!['required']
-            "
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-    </section>
-
-    <div class="form-control">
-      <label class="cursor-pointer label">
-        <span class="label-text">Discapacidad</span>
-        <input
-          (change)="disableDetalles()"
-          formControlName="discapacidad"
-          type="checkbox"
-          class="checkbox checkbox-warning"
-        />
-      </label>
-    </div>
-
-    <div class="form-control max-w-xs">
-      <label class="label">
-        <span class="label-text">Descripción</span>
-      </label>
-      <input
-        formControlName="detallesDiscapacidad"
-        type="text"
-        placeholder="Sindromes, falta de miembros, etc"
-        class="input input-bordered w-full max-w-xs"
-      />
-
-      <!-- <label class="label" *ngIf="formularioRegistro.controls.numeroCelular.errors"> -->
-      <!--   <span *ngIf="formularioRegistro.controls.numeroCelular.errors!['required']" -->
-      <!--     class="label-text-alt text-error">Este campo es requerido</span> -->
-      <!-- </label> -->
-    </div>
-
-    <h2>Datos de Contacto</h2>
-
-    <section class="flex flex-wrap gap-8">
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Celular</span>
-        </label>
-        <input
-          formControlName="numeroCelular"
-          type="text"
-          placeholder="0982938292"
-          class="input input-bordered w-full max-w-xs"
-        />
-
-        <label
-          class="label"
-          *ngIf="formularioRegistro.controls.numeroCelular.errors"
-        >
-          <span
-            *ngIf="
-              formularioRegistro.controls.numeroCelular.errors!['required']
-            "
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Número convencional</span>
-        </label>
-        <input
-          formControlName="numeroConvencional"
-          type="text"
-          placeholder="02292019"
-          class="input input-bordered w-full max-w-xs"
-        />
-
-        <label
-          class="label"
-          *ngIf="formularioRegistro.controls.numeroConvencional.errors"
-        >
-          <span
-            *ngIf="
-              formularioRegistro.controls.numeroConvencional.errors!['required']
-            "
-            class="label-text-alt text-error"
-            >Este campo es requerido</span
-          >
-        </label>
-      </div>
-    </section>
-
-    <div class="form-control w-full">
-      <label class="label">
-        <span class="label-text">Direccion</span>
-      </label>
-      <textarea
-        formControlName="direccion"
-        class="textarea textarea-warning"
-        placeholder="Sector Ecuatoriana; calle 1, calle 2, numeración"
-      ></textarea>
-      <label class="label" *ngIf="formularioRegistro.controls.direccion.errors">
-        <span
-          *ngIf="formularioRegistro.controls.direccion.errors!['required']"
-          class="label-text-alt text-error"
-          >Este campo es requerido</span
-        >
-      </label>
-    </div>
-    <h3>
-      {{ formularioRegistro.valid }}
-      {{ formularioRegistro }}
-    </h3>
-    <div class="flex justify-center my-5">
-      <button
-        [disabled]="!formularioRegistro.valid"
-        type="submit"
-        class="btn btn-primary"
-      >
-        Registrarse
-      </button>
-
-      <button type="submit" class="btn btn-primary">Registrarse</button>
-    </div>
-  </form>
+    </p-card>
+  </div>
 </div>
