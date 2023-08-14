@@ -1,6 +1,24 @@
-<div class="w-screen prose">
-  <h1>{{ nombreCurso$ | async }}</h1>
-  <div class="flex flex-wrap w-screen gap-3">
+<div class="w-full h-screen my-2">
+  <p-toolbar>
+    <div class="p-toolbar-group-start gap-2"></div>
+    <div class="p-toolbar-group-center gap-2">
+      <h1 class="text-center my-4 text-2xl">
+        {{ (nombreCurso$ | async) || "Nombre curso" }}
+      </h1>
+    </div>
+    <div class="p-toolbar-group-end gap-2">
+      <button
+        pButton
+        type="button"
+        id="volver"
+        class="p-button p-button-outlined"
+        icon="pi pi-arrow-left"
+        label="Regresar al inicio"
+        routerLink=""
+      ></button>
+    </div>
+  </p-toolbar>
+  <div class="flex gap-3 m-8">
     <mat-tab-group class="w-2/4">
       <mat-tab label="Resumen">
         {{ (curso$ | async)?.summary }}

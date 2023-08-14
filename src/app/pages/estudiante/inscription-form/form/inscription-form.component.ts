@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inscription } from '@models/cecy';
 import { InscriptionService } from '@services/cecy';
-import { AuthService, TokenService } from '@services/auth';
+import { AuthService, AuthStudentService, TokenService } from '@services/auth';
 import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
 import { switchMap } from 'rxjs';
 import { CursosService } from '@services/cecy/cursos';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { Estudiantes } from '@models/cecy/estudiantes/carreras';
 import { MatriculaService } from '@services/cecy/matricula.service';
-
+import { Estudiantes as student } from '@models/cecy';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-inscription-form',
   templateUrl: './inscription-form.component.html',
@@ -24,9 +25,11 @@ export class InscriptionFormComponent implements OnInit {
     private estudiantesService: EstudiantesService,
     private cursosService: CursosService,
     private matriculaService: MatriculaService,
+    private authStudentService: AuthStudentService,
+    private messageService: MessageService
+
   ) { }
 
-  // estudiantes$ = this.estudiantesService.obtenerEstudiantes();
 
   estudianteSeleccionado!: Estudiantes;
 
@@ -37,6 +40,8 @@ export class InscriptionFormComponent implements OnInit {
   );
 
   user: any;
+  student: student | null = null;
+
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -45,6 +50,18 @@ export class InscriptionFormComponent implements OnInit {
         this.matricula.cursoId = Number(params.get('id')!);
       }
     });
+
+    this.authStudentService.student$.subscribe({
+      next: (student: any) => {
+        console.log('STUDIANTE', student);
+        if (student !== null) {
+          this.student = student[0];
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   publicityId = 0;
@@ -78,16 +95,29 @@ export class InscriptionFormComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(
       (res) => (this.matricula.cursoId = Number(res.get('id'))),
     );
-
-    this.estudiantesService.estudianteActual.subscribe(
-      res => this.matricula.estudiantes.id = res!.id
-    )
+    this.matricula.estudiantes.id = this.student && this.student.id ? this.student.id : 0;
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
-
-    this.matriculaService.guardarMatricula(this.matricula).subscribe((res) => {
-      console.log(res);
-      this.router.navigate(['/estudiante/home']);
+    this.matriculaService.guardarMatricula(this.matricula).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Información',
+          detail: 'La matrícula ha sido guardada correctamente',
+        })
+        setTimeout(() => {
+          this.router.navigate(['/estudiante/home']);
+        }, 2000);
+      },
+      error: (error) => {
+        console.error(error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se ha podido guardar la matrícula',
+        })
+      },
     });
   }
 

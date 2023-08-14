@@ -73,8 +73,9 @@
                 {{ course.planification.free ? "Gratis" : "De pago" }}
               </p-tag>
               <p-button
+                (click)="viewCourse(course.id)"
                 class="mt-4 md:mt-0"
-                label="Inscribirse"
+                label="Ver curso"
                 styleClass="p-button-raised p-button-text"
               >
               </p-button>

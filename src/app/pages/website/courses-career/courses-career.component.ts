@@ -130,4 +130,8 @@ export class CoursesCareerComponent implements OnInit {
     this.first = event.first;
     this.rows = event.rows;
   }
+
+  viewCourse(id: number) {
+    this.router.navigate([`course/view/${id}`])
+  }
 }

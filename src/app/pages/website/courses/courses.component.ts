@@ -37,7 +37,7 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const currentRoute = this.router.url.includes('estudiante')? true: false;
+    const currentRoute = this.router.url.includes('estudiante') ? true : false;
     this.activatedRoute.queryParams.subscribe(params => {
       console.log(params);
       this.searchQuery = params['search']
@@ -160,6 +160,10 @@ export class CoursesComponent implements OnInit {
       })
     }
 
+  }
+
+  viewCourse(id: number) {
+    this.router.navigate([`course/view/${id}`])
   }
 
 

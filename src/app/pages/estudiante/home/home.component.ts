@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
 import { CursosService } from '@services/cecy/cursos';
 import { Estudiantes } from '@models/cecy';
 import { AuthStudentService } from '@services/auth';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
   loading$ = this.courseService.loading$;
   constructor(
     private courseService: CursosService,
-    private estudiantesService: EstudiantesService,
     private authStudentService: AuthStudentService,
+    private router: Router
   ) { }
 
 
@@ -83,6 +83,11 @@ export class HomeComponent implements OnInit {
       },
       error: (error) => { },
     });
+  }
+
+  viewCourse(id: number) {
+    console.log('click', id);
+    this.router.navigate([`estudiante/course/${id}/details`])
   }
 
 }

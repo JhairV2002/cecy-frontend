@@ -65,6 +65,18 @@ export class CursosService {
     )
   }
 
+  getCoursesByIds(courseIds: number[]): Observable<Course[]> {
+    this.loading.next(true);
+    const url = `${this.urlNodeJs}/list-courses-by-id`;
+    const params = { ids: courseIds.join(',') };
+    return this.http.get<Course[]>(url, { params }).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
+
   getCursosByNombreCarrera(carreraNombre: string) {
     return this.http
       .get<Carrera[]>(`${this.url}/carreras/findByName/${carreraNombre}/`)

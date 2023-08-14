@@ -13,7 +13,6 @@ import { CoursesComponent } from '../website/courses/courses.component';
 import { CoursesCareerComponent } from '../website/courses-career/courses-career.component';
 import { HomeComponent } from './home/home.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -28,12 +27,12 @@ const routes: Routes = [
   { path: 'courses/career/:idCareer', component: CoursesCareerComponent },
   { path: 'careers', component: CoursesComponent },
   {
-    path: 'carrera/:id',
-    component: CursoPageComponent,
+    path: 'course/:id/details',
+    component: CursoDetailsComponent,
   },
   {
-    path: 'details/:id',
-    component: CursoDetailsComponent,
+    path: 'carrera/:id',
+    component: CursoPageComponent,
   },
   {
     path: 'estudiante/:estudianteId',

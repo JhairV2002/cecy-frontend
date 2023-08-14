@@ -23,6 +23,7 @@ import { SharedModule } from '@shared/shared.module';
 
 import { CursoPageComponent } from './curso-page/curso-page.component';
 import { EstudianteRoutingModule } from './estudiante-routing.module';
+import { ToolbarModule } from 'primeng/toolbar';
 
 
 
@@ -62,6 +63,9 @@ import { HomeComponent } from './home/home.component';
     CursoDetailsComponent,
     HomeComponent,
   ],
+  exports: [
+    CursoDetailsComponent
+  ],
   imports: [
     CommonModule,
     EstudianteRoutingModule,
@@ -84,6 +88,7 @@ import { HomeComponent } from './home/home.component';
     TagModule,
     ButtonModule,
     WebsiteModule,
+    ToolbarModule
   ],
 })
 export class EstudianteModule { }

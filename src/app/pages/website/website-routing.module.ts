@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CoursesCareerComponent } from './courses-career/courses-career.component';
 import { FinalRegisterComponent } from './final-register/final-register.component';
+import { CursoDetailsComponent } from '../estudiante/curso-details/curso-details.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
       { path: 'careers', component: CoursesComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'final-register', component: FinalRegisterComponent }
+      { path: 'final-register', component: FinalRegisterComponent },
+      { path: 'course/view/:id', component: CursoDetailsComponent }
     ],
   },
 ];
