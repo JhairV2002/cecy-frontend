@@ -14,8 +14,8 @@ export class CursosCarreraComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private careersService: CareersService
-  ) {}
+    private careersService: CareersService,
+  ) { }
 
   ngOnInit(): void {
     this.cursos$.subscribe({
@@ -28,13 +28,13 @@ export class CursosCarreraComponent implements OnInit {
   cursos$ = this.route.paramMap.pipe(
     switchMap((params) =>
       this.careersService.getPlanificationsCareers(
-        parseInt(params.get('careerId')!)
-      )
-    )
+        parseInt(params.get('careerId')!),
+      ),
+    ),
   );
 
   nombreCarrera$ = this.route.paramMap.pipe(
-    map((param) => param.get('nombreCarrera')!)
+    map((param) => param.get('nombreCarrera')!),
   );
 
   viewStudents(planification: any) {

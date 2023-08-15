@@ -1,0 +1,102 @@
+<div class="prose-base">
+  <h1>
+    {{ estudiante$.nombres + " " + estudiante$.apellidos }}
+  </h1>
+
+  <a class="btn btn-accent" [routerLink]="[
+      '/cecy/estudiante/estudiante-lista/',
+      estudiante$.id
+    ]">
+    Mis Cursos
+  </a>
+
+  <h3>Informacion Personal</h3>
+  <section class="grid grid-cols-6 gap-5">
+    <div>
+      <span>Cedula:</span>
+    </div>
+    <div>
+      <input [(ngModel)]="estudiante$.cedula" type="text" placeholder="Type here"
+        class="input input-bordered input-primary w-full max-w-xs" />
+    </div>
+    <div>
+      <span>Nombres:</span>
+    </div>
+
+    <div>
+      <input [(ngModel)]="estudiante$.nombres" type="text" placeholder="Type here"
+        class="input input-bordered input-primary w-full max-w-xs" />
+    </div>
+
+    <div>
+      <span>Apellidos:</span>
+    </div>
+
+    <div>
+      <input [(ngModel)]="estudiante$.apellidos" type="text" placeholder="Type here"
+        class="input input-bordered input-primary w-full max-w-xs" />
+    </div>
+
+    <div>
+      <span>Género:</span>
+    </div>
+
+    <div>
+      <select [(ngModel)]="estudiante$.genero" class="select select-primary w-full max-w-xs">
+        <option *ngFor="let genero of generos" [ngValue]="genero">
+          {{ genero.descripcion }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <span>Étnia:</span>
+    </div>
+
+    <div>
+      <select [(ngModel)]="estudiante$.etnia" class="select select-primary w-full max-w-xs">
+        <option *ngFor="let etnia of etnias" [ngValue]="etnia">
+          {{ etnia.descripcion }}
+        </option>
+      </select>
+    </div>
+
+    <h3 class="col-span-6">Informacion de contacto</h3>
+    <div>
+      <span>Email:</span>
+    </div>
+    <div>
+      <input [(ngModel)]="estudiante$.email" type="text" placeholder="Type here"
+        class="input input-bordered input-primary w-full max-w-xs" />
+    </div>
+
+    <div>
+      <span>Número celular:</span>
+    </div>
+    <div>
+      <input [(ngModel)]="estudiante$.numeroCelular" type="text" placeholder="Type here"
+        class="input input-bordered input-primary w-full max-w-xs" />
+    </div>
+
+    <div>
+      <span>Número convencional:</span>
+    </div>
+    <div>
+      <input [(ngModel)]="estudiante$.numeroConvencional" type="text" placeholder="Type here"
+        class="input input-bordered input-primary w-full max-w-xs" />
+    </div>
+
+    <h3 class="col-span-6">Informacion Académica</h3>
+    <div>
+      <span>Nivel de Instrucción:</span>
+    </div>
+    <select [(ngModel)]="estudiante$.nivelInstruccion" class="select select-primary w-full max-w-xs">
+      <option *ngFor="let nivel of nivelInstruccion" [ngValue]="nivel" [selected]="
+          nivel.descripcion === estudiante$.nivelInstruccion.descripcion
+        ">
+        {{ nivel.descripcion }}
+      </option>
+    </select>
+  </section>
+</div>
+
+<button class="btn btn-accent" (click)="guardar()">Actualizar</button>

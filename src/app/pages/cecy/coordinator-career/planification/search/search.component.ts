@@ -21,7 +21,7 @@ export class SearchComponent {
     private planificationCourseService: PlanificationsCoursesService,
     private careersService: CareersService,
     public messageService: MessageService
-  ) {}
+  ) { }
 
   onSearchInputChange(): void {
     console.log('SEARCH', this.searchValue);

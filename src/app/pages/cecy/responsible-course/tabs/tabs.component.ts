@@ -113,8 +113,10 @@ export class TabsComponent implements OnInit {
     this.planificationCourseService.planificationById(id).subscribe({
       next: (data: any) => {
         const isPlanificationApproved = data.course.state;
+        console.log('status: ',data)
+        console.log('status estado: ',isPlanificationApproved)
 
-        if (isPlanificationApproved) {
+        if (isPlanificationApproved==='aprobado') {
           console.log('La planificación ya está aprobada');
           this.primeMessageService.add({
             severity: 'info',

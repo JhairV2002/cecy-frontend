@@ -135,4 +135,4 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     PasswordModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

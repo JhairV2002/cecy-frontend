@@ -1,0 +1,48 @@
+<div
+  *ngIf="curso; else noData"
+  class="card card-compact w-80 bg-base-100 shadow-xl"
+>
+  <figure>
+    <img
+      src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+      alt="Curso url"
+    />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ curso.name }}</h2>
+    <p>Inicia: {{ curso.startDate | date : "shortDate" }}</p>
+    <p>Finaliza: {{ curso.finishDate | date : "shortDate" }}</p>
+    <div class="card-actions justify-start">
+      <div
+        class="badge badge-md gap-2"
+        [ngClass]="curso.free ? 'badge-success' : 'badge-warning'"
+      >
+        {{ curso.free ? "Gratis" : "Pagado" }}
+      </div>
+      <!-- <div class="badge badge-outline">Products</div> -->
+    </div>
+    <div
+      *ngIf="butonText === 'Ver Más'; else inscribirse"
+      class="card-actions justify-end"
+    >
+      <a
+        class="btn btn-accent"
+        [routerLink]="['/estudiante/details', curso.id]"
+      >
+        {{ butonText }}
+      </a>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div>Cargando...</div>
+</ng-template>
+
+<ng-template #inscribirse>
+  <div class="card-actions justify-end">
+    <a class="btn btn-accent" (click)="redireccionar()">
+      {{ butonText }}
+    </a>
+  </div>
+</ng-template>

@@ -1,6 +1,6 @@
-import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
-import {ValidationErrors} from '@angular/forms';
-import {MessageService} from '@services/core';
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
+import { MessageService } from '@services/core';
 
 @Directive({
   selector: '[appErrorMessage]'
@@ -68,6 +68,9 @@ export class ErrorMessageDirective {
         }
         if (this._errors['EmailNotAvailable']) {
           this.nativeElement.innerText = this.messageService.fieldEmailNotAvailable;
+        }
+        if (this._errors['passwordMismatch']) {
+          this.nativeElement.innerText = this.messageService.fieldNoPasswordMatch;
         }
         if (this._errors['PhoneNotAvailable']) {
           this.nativeElement.innerText = this.messageService.fieldPhoneNotAvailable;

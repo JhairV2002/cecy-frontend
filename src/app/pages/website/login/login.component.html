@@ -1,0 +1,104 @@
+<p-toast></p-toast>
+<div class="bg-slate-100 w-full h-full flex justify-center items-center">
+  <div
+    class="max-w-screen-lg md:w-1/3 mx-auto my-auto bg-white p-8 rounded-xl shadow shadow-gray-500"
+  >
+    <div class="text-center">
+      <h1 class="text-4xl font-medium">Iniciar sesión</h1>
+      <p class="text-slate-500 mt-1">Hola, bienvenido de nuevo 👋 👋</p>
+    </div>
+    <div class="p-fluid">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="my-5">
+        <div class="flex flex-col space-y-5">
+          <div>
+            <label
+              for="cedula"
+              appLabel
+              label="Ingrese su Cédula:"
+              [required]="isRequired(cedulaField)"
+              [valid]="cedulaField.valid"
+              [touched]="cedulaField.touched"
+              [dirty]="cedulaField.dirty"
+            ></label>
+            <input
+              pInputText
+              formControlName="cedula"
+              placeholder="Ingrese su numero de cedula"
+              pattern="[0-9]*"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+            <small
+              appErrorMessage
+              [errors]="cedulaField.errors"
+              [touched]="cedulaField.touched"
+              [dirty]="cedulaField.dirty"
+            >
+            </small>
+          </div>
+          <div>
+            <label
+              appLabel
+              label="Contraseña:"
+              [required]="isRequired(contrasenaField)"
+              [valid]="contrasenaField.valid"
+              [touched]="contrasenaField.touched"
+              [dirty]="contrasenaField.dirty"
+            >
+            </label>
+            <p-password
+              formControlName="clave"
+              [toggleMask]="true"
+              placeholder="Ingresa tu contraseña"
+              [feedback]="false"
+            ></p-password>
+            <small
+              appErrorMessage
+              [errors]="contrasenaField.errors"
+              [touched]="contrasenaField.touched"
+              [dirty]="contrasenaField.dirty"
+            >
+            </small>
+          </div>
+          <!-- <div class="flex flex-row justify-between">
+            <div>
+              <label for="remember" class="">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  class="w-4 h-4 border-slate-200 focus:bg-indigo-600"
+                />
+                Remember me
+              </label>
+            </div>
+            <div>
+              <a href="#" class="font-medium text-indigo-600"
+                >Forgot Password?</a
+              >
+            </div>
+          </div> -->
+          <button
+            [disabled]="!loginForm.valid"
+            pButton
+            label="Iniciar Sesión"
+            [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-sign-in'"
+            class="p-button-help"
+          ></button>
+        </div>
+      </form>
+    </div>
+
+    <p-divider align="center">
+      <b>O</b>
+    </p-divider>
+
+    <div class="my-5 w-full flex justify-center">
+      <asl-google-signin-button
+        [type]="'standard'"
+        [shape]="'rectangular'"
+        [theme]="'outline'"
+        [size]="'large'"
+        text="signin_with"
+      ></asl-google-signin-button>
+    </div>
+  </div>
+</div>

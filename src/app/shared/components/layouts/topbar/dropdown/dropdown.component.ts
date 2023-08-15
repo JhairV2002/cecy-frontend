@@ -18,7 +18,7 @@ export class DropdownComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private elementRef: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((data: any) => {
@@ -76,6 +76,7 @@ export class DropdownComponent implements OnInit {
   onlogout(): void {
     localStorage.removeItem('careerSelected');
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/cecy/login']);
+
   }
 }
