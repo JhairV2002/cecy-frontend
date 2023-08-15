@@ -9,8 +9,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { AuthHttpService, MessageService } from '@services/core';
-import { Router } from '@angular/router';
 import { LayoutService } from '@services/layout.service';
 import { AuthService } from '@services/auth';
 import { User } from '@models/authentication';
@@ -43,14 +41,11 @@ export class TopbarComponent implements OnInit {
   @ViewChild('topbarmenu') menu!: ElementRef;
 
   constructor(
-    private authHttpService: AuthHttpService,
-    private messageService: MessageService,
-    private router: Router,
     private authService: AuthService,
     public layoutService: LayoutService,
     private socket: Socket,
     private cdRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe({
@@ -86,29 +81,6 @@ export class TopbarComponent implements OnInit {
     console.log('NUMERO DE NOTIFICACIONES', newNumber);
     this._numberNotifications = newNumber;
     this.cdRef.detectChanges();
-  }
-
-  logout() {
-    this.messageService.showLoading();
-    this.authHttpService.logout().subscribe({
-      next: (response) => {
-        localStorage.removeItem('careerSelected');
-        this.messageService.success(response);
-        this.messageService.hideLoading();
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        this.messageService.hideLoading();
-        this.messageService.error(error);
-        this.router.navigate(['/login']);
-      },
-    });
-  }
-
-  onlogout(): void {
-    localStorage.removeItem('careerSelected');
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 
   openNotification() {

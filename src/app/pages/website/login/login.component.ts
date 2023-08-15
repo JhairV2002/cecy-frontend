@@ -1,25 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 import { AuthStudentService } from '@services/auth';
-import { MessageService } from '@services/core';
 import {
   SocialAuthService,
   GoogleLoginProvider,
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { TokenService } from '@services/auth';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
-
-  isLoggedin?: boolean;
   loginForm = this.fb.group({
     cedula: ['', [Validators.required, Validators.maxLength(10)]],
     clave: ['', [Validators.required]],
@@ -51,12 +47,16 @@ export class LoginComponent implements OnInit {
               this.route.navigate(['/final-register'], navigationExtras);
             } else {
               this.tokenService.saveEstudianteTokenGoogle(data)
-              this.route.navigate(['/estudiante/cursos']);
+              this.route.navigate(['/estudiante']);
             }
           },
           error: (error) => {
             console.log(error);
-            this.messageService.error(error)
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.message,
+            })
           },
         })
       }
@@ -79,14 +79,18 @@ export class LoginComponent implements OnInit {
       {
         next: (data) => {
           console.log('EJECUTANDO', data);
-          this.route.navigate(['/estudiante/cursos']);
+          this.route.navigate(['/estudiante']);
           this.loading = false;
 
         },
         error: (error) => {
           this.loading = false;
           console.log(error);
-          this.messageService.error(error)
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message,
+          })
         }
       }
     );

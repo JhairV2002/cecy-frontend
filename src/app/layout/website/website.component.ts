@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-website',
@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class WebsiteComponent {
 
+  openModal: boolean = false;
+  createAccount() {
+    this.openModal = true
+    // routerLink="/register"
+  }
+
+  closeModal(state: boolean) {
+    console.log(state);
+    this.openModal = state
+  }
 }

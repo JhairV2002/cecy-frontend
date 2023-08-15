@@ -41,8 +41,9 @@ export class RedirectGuard implements CanActivate {
       const role = decodeToken['role'];
       console.log('DECODE ROLE', role);
       if (role === 'estudiante') {
-        this.router.navigate(['/estudiante/cursos'])
+        this.router.navigate(['/estudiante'])
       } else {
+        this.tokenService.removeEstudianteAuth();
         console.log('Error de direccion de pagina');
         this.router.navigate(['/login'])
       }

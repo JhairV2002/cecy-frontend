@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
-
-import { AuthStudentService } from '@services/auth';
+import { CursosService } from '@services/cecy/cursos';
 import { Estudiantes } from '@models/cecy';
-import { MenuItem } from 'primeng/api';
-
+import { AuthStudentService } from '@services/auth';
+import { Router } from '@angular/router';
 @Component({
-  selector: 'app-estudiantes',
-  templateUrl: './estudiantes.component.html',
-  styleUrls: ['./estudiantes.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class EstudiantesComponent implements OnInit {
+export class HomeComponent implements OnInit {
+  recent: any[] = [];
+  loading$ = this.courseService.loading$;
+  constructor(
+    private courseService: CursosService,
+    private authStudentService: AuthStudentService,
+    private router: Router
+  ) { }
+
+
   currentIndex: number = 0;
   images: string[] = [
     'https://img-c.udemycdn.com/notices/web_carousel_slide/image/0d8c97db-5626-4a4d-9af2-56f4da5ad66e.png',
@@ -35,39 +41,12 @@ export class EstudiantesComponent implements OnInit {
       subtitle: 'Mejora tus Ingresos'
     },
   ]
-  items: MenuItem[] = [
-    {
-      items: [
-        {
-          label: 'Perfil',
-          icon: 'pi pi-user',
-          routerLink: '/estudiante/profile',
-          command: () => {
-            // this.profile();
-          }
-        },
-        {
-          label: 'Cerrar Sesión',
-          icon: 'pi pi-sign-out',
-          command: () => {
-            this.logout()
-          }
-        }
-      ]
-    },
-  ];
-
-  constructor(
-    private authStudentService: AuthStudentService,
-    private authService: SocialAuthService,
-    private router: Router,
-  ) { }
 
   student: Estudiantes | null = null;
 
   ngOnInit(): void {
     this.startImageTimer();
-    this.authStudentService.getProfileStudent().subscribe();
+    this.getRecentCourses();
     this.authStudentService.student$.subscribe({
       next: (student: any) => {
         console.log('STUDIANTE', student);
@@ -81,16 +60,10 @@ export class EstudiantesComponent implements OnInit {
     })
   }
 
-  logout() {
-    this.authService.signOut();
-    this.authStudentService.logout();
-    this.router.navigate(['/login'])
-  }
-
   startImageTimer(): void {
     setInterval(() => {
       this.nextImage();
-    }, 5000);
+    }, 5000); // Cambia de imagen cada 5 segundos (ajusta según tu preferencia)
   }
 
   nextImage(): void {
@@ -102,5 +75,19 @@ export class EstudiantesComponent implements OnInit {
   }
 
 
+  getRecentCourses() {
+    return this.courseService.getAllCoursesByStateApprove().subscribe({
+      next: (courses) => {
+        console.log(courses);
+        this.recent = courses.slice(0, 6);
+      },
+      error: (error) => { },
+    });
+  }
+
+  viewCourse(id: number) {
+    console.log('click', id);
+    this.router.navigate([`estudiante/course/${id}/details`])
+  }
 
 }

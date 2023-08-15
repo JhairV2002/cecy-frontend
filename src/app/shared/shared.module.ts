@@ -53,7 +53,6 @@ import { NotificationComponent } from './components/layouts/topbar/notification/
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
-import { TopbarStudentComponent } from './components/student/layouts/topbar-student/topbar-student.component';
 
 const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
 
@@ -78,7 +77,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     ProfileComponent,
     NotificationComponent,
     ChangePasswordComponent,
-    TopbarStudentComponent,
   ],
   exports: [
     RolesPermissionsDirective,
@@ -98,7 +96,6 @@ const routes: Routes = [{ path: 'user/profile', component: UserComponent }];
     DropdownComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    TopbarStudentComponent
   ],
   imports: [
     CommonModule,

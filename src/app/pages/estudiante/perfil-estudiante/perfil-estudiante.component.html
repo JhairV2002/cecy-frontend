@@ -2,14 +2,12 @@
 <div class="m-4">
   <div class="flex justify-center">
     <p-card [style]="{ width: '100%' }" class="flex justify-center bg-white">
-      <h1 class="text-2xl text-center">Regístrate y comienza a aprender!</h1>
+      <h1 class="text-2xl text-center">
+        Perfil de {{ student?.nombres ? student?.nombres : "Nombres" }}
+        {{ student?.apellidos ? student?.apellidos : "Apellidos" }}
+      </h1>
       <div class="p-fluid max-w-[835px]">
-        <form [formGroup]="formularioRegistro" (ngSubmit)="onSubmit()">
-          <p-messages
-            [(value)]="messages!"
-            [enableService]="false"
-            [closable]="false"
-          ></p-messages>
+        <form [formGroup]="studentProfile" (ngSubmit)="onSubmit()">
           <h2 class="text-xl my-2 italic underline">Datos personales</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div class="w-full">
@@ -97,6 +95,7 @@
                 formControlName="fechaNacimiento"
                 [showIcon]="true"
                 placeholder="dd/mm/yy"
+                dateFormat="yy-mm-dd"
                 class="w-full"
               ></p-calendar>
               <small
@@ -422,8 +421,7 @@
                 pButton
                 pRipple
                 icon="pi pi-save"
-                [disabled]="!formularioRegistro.valid"
-                label="Registrarse"
+                label="Actualizar"
                 class="p-button-raised p-button-info"
               ></button>
             </div>

@@ -1,0 +1,143 @@
+<div class="w-full md:w-10/12 mx-auto">
+  <div class="relative">
+    <div class="flex overflow-hidden">
+      <ng-container *ngFor="let image of images; let i = index">
+        <div class="relative">
+          <img
+            *ngIf="i === currentIndex"
+            class="w-full h-auto mx-2"
+            [src]="image"
+            alt="Gallery Image"
+          />
+          <p-card
+            *ngIf="i === currentIndex"
+            class="absolute inset-0 pt-5 pl-5 w-2/4"
+          >
+            <ng-template pTemplate="content">
+              <div
+                class="p-grid p-nogutter p-align-center p-justify-center h-full bg-opacity-75"
+              >
+                <div class="p-col-12">
+                  <h1 class="text-3xl font-semibold leading-relaxed">
+                    Hola, {{ student?.nombres }} tu puedes mejorar en
+                    <span class="bg-blue-500 text-white px-2 py-1 rounded">
+                      {{ textLabel[i].title }}
+                    </span>
+                  </h1>
+                  <p class="mt-2 text-lg">{{ textLabel[i].subtitle }}</p>
+                </div>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+      </ng-container>
+    </div>
+    <div class="absolute inset-y-0 left-0 flex items-center">
+      <button class="px-2 py-1 text-white bg-gray-800" (click)="prevImage()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute inset-y-0 right-0 flex items-center">
+      <button class="px-2 py-1 text-white bg-gray-800" (click)="nextImage()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto mb-16 mt-16 px-7">
+  <h1 class="text-3xl font-semibold m-5">Aprendiendo ...</h1>
+  <div
+    *ngIf="loading$ | async"
+    class="mx-auto flex items-center justify-center"
+  >
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div
+      *ngFor="let course of recent"
+      class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 grid md:grid-cols-2"
+    >
+      <div
+        class="relative overflow-hidden bg-cover bg-no-repeat md:col-span-1 m-4"
+        data-te-ripple-init
+        data-te-ripple-color="light"
+      >
+        <img
+          class="rounded-t-lg w-full h-48 object-cover"
+          [src]="
+            course?.image
+              ? course?.image
+              : 'assets/images/components/course/online-course.png'
+          "
+          alt=""
+        />
+        <a href="#!">
+          <div
+            class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"
+          ></div>
+        </a>
+      </div>
+
+      <div class="p-6 md:col-span-1">
+        <h5
+          class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50"
+        >
+          {{
+            course.planification.name
+              ? course.planification.name
+              : "Nombre curso"
+          }}
+        </h5>
+        <p class="mb-2 text-base text-neutral-600 dark:text-neutral-200">
+          {{ course.objective ? course.objective : "¿Objetivo?" }}🚀
+        </p>
+        <div class="flex flex-col">
+          <p-tag>
+            {{ course.planification.free ? "Gratis" : "De pago" }}
+          </p-tag>
+          <p-button
+            (click)="viewCourse(course.id)"
+            class="mt-10"
+            label="Ver curso"
+            styleClass="p-button-raised p-button-text"
+          >
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="px-7">
+  <app-recent-courses> </app-recent-courses>
+</div> -->
+
+<app-about></app-about>
+
+<app-footer-website></app-footer-website>

@@ -39,4 +39,4 @@ MenuModule
   ],
   exports: [MainComponent, WebsiteComponent, EstudiantesComponent],
 })
-export class LayoutModule {}
+export class LayoutModule { }
