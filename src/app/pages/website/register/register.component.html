@@ -1,0 +1,435 @@
+<p-toast></p-toast>
+<div class="m-4">
+  <div class="flex justify-center">
+    <p-card [style]="{ width: '100%' }" class="flex justify-center bg-white">
+      <h1 class="text-2xl text-center">Regístrate y comienza a aprender!</h1>
+      <div class="p-fluid max-w-[835px]">
+        <form [formGroup]="formularioRegistro" (ngSubmit)="onSubmit()">
+          <p-messages
+            [(value)]="messages!"
+            [enableService]="false"
+            [closable]="false"
+          ></p-messages>
+          <h2 class="text-xl my-2 italic underline">Datos personales</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div class="w-full">
+              <label
+                appLabel
+                label="Nombres Completos:"
+                [required]="isRequired(nombresField)"
+                [valid]="nombresField.valid"
+                [touched]="nombresField.touched"
+                [dirty]="nombresField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="nombres"
+                placeholder="Ej. Ramiro Fernando"
+                class="w-full"
+              />
+              <small
+                appErrorMessage
+                [errors]="nombresField.errors"
+                [touched]="nombresField.touched"
+                [dirty]="nombresField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Apellidos Completos:"
+                [required]="isRequired(apellidosField)"
+                [valid]="apellidosField.valid"
+                [touched]="apellidosField.touched"
+                [dirty]="apellidosField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="apellidos"
+                placeholder="Ej. Velasco Rios"
+                class="w-full"
+              />
+              <small
+                appErrorMessage
+                [errors]="apellidosField.errors"
+                [touched]="apellidosField.touched"
+                [dirty]="apellidosField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                for="cedula"
+                appLabel
+                label="Cedula o pasaporte:"
+                [required]="isRequired(cedulaField)"
+                [valid]="cedulaField.valid"
+                [touched]="cedulaField.touched"
+                [dirty]="cedulaField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="cedula"
+                placeholder="Ingrese su numero de cedula"
+                pattern="[0-9]*"
+                placeholder="xxxxxxxxxx"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              />
+              <small
+                appErrorMessage
+                [errors]="cedulaField.errors"
+                [touched]="cedulaField.touched"
+                [dirty]="cedulaField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Fecha Nacimiento:"
+                [required]="isRequired(fechaNacimientoField)"
+                [valid]="fechaNacimientoField.valid"
+                [touched]="fechaNacimientoField.touched"
+                [dirty]="fechaNacimientoField.dirty"
+              ></label>
+              <p-calendar
+                formControlName="fechaNacimiento"
+                [showIcon]="true"
+                placeholder="dd/mm/yy"
+                class="w-full"
+              ></p-calendar>
+              <small
+                appErrorMessage
+                [errors]="fechaNacimientoField.errors"
+                [touched]="fechaNacimientoField.touched"
+                [dirty]="fechaNacimientoField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Género:"
+                [required]="isRequired(generoField)"
+                [valid]="generoField.valid"
+                [touched]="generoField.touched"
+                [dirty]="generoField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(generos$ | async)!"
+                formControlName="genero"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el genero"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="generoField.errors"
+                [touched]="generoField.touched"
+                [dirty]="generoField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Étnia:"
+                [required]="isRequired(etniaField)"
+                [valid]="etniaField.valid"
+                [touched]="etniaField.touched"
+                [dirty]="etniaField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(etnias$ | async)!"
+                formControlName="etnia"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el genero"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="etniaField.errors"
+                [touched]="etniaField.touched"
+                [dirty]="etniaField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Nivel Académico:"
+                [required]="isRequired(nivelInstruccionField)"
+                [valid]="nivelInstruccionField.valid"
+                [touched]="nivelInstruccionField.touched"
+                [dirty]="nivelInstruccionField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(nivelInstruccion$ | async)!"
+                formControlName="nivelInstruccion"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el nivel academico"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="nivelInstruccionField.errors"
+                [touched]="nivelInstruccionField.touched"
+                [dirty]="nivelInstruccionField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Situación Económica:"
+                [required]="isRequired(situacionEconomicaField)"
+                [valid]="situacionEconomicaField.valid"
+                [touched]="situacionEconomicaField.touched"
+                [dirty]="situacionEconomicaField.dirty"
+              ></label>
+              <p-dropdown
+                [options]="(situacionEconomica$ | async)!"
+                formControlName="situacionEconomica"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Seleccione el nivel academico"
+                class="w-full"
+                optionLabel="descripcion"
+                optionValue="id"
+              >
+              </p-dropdown>
+              <small
+                appErrorMessage
+                [errors]="situacionEconomicaField.errors"
+                [touched]="situacionEconomicaField.touched"
+                [dirty]="situacionEconomicaField.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-2">
+            <div class="w-full">
+              <div class="flex items-center gap-2 my-2">
+                <label
+                  appLabel
+                  label="Discapacidad:"
+                  [required]="isRequired(discapacidadField)"
+                  [valid]="discapacidadField.valid"
+                  [touched]="discapacidadField.touched"
+                  [dirty]="discapacidadField.dirty"
+                >
+                </label>
+                <input
+                  (change)="disableDetalles()"
+                  formControlName="discapacidad"
+                  type="checkbox"
+                  class="checkbox"
+                />
+              </div>
+              <div class="flex flex-col">
+                <textarea
+                  rows="3"
+                  cols="10"
+                  pInputTextarea
+                  formControlName="detallesDiscapacidad"
+                  class="w-full"
+                  placeholder="Ej. Sindromes, falta de miembros, etc"
+                >
+                </textarea>
+                <small
+                  appErrorMessage
+                  [errors]="detallesDiscapacidadField.errors"
+                  [touched]="detallesDiscapacidadField.touched"
+                  [dirty]="detallesDiscapacidadField.dirty"
+                >
+                </small>
+              </div>
+            </div>
+          </div>
+          <h2 class="text-xl my-2 italic underline">Datos de Contacto</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div class="w-full">
+              <label
+                appLabel
+                label="Celular:"
+                [required]="isRequired(celularField)"
+                [valid]="celularField.valid"
+                [touched]="celularField.touched"
+                [dirty]="celularField.dirty"
+              ></label>
+              <input
+                pInputText
+                formControlName="numeroCelular"
+                pattern="[0-9]*"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                placeholder="0982938292"
+                class="w-full"
+              />
+              <small
+                appErrorMessage
+                [errors]="celularField.errors"
+                [touched]="celularField.touched"
+                [dirty]="celularField.dirty"
+              >
+              </small>
+            </div>
+            <div class="w-full">
+              <label
+                appLabel
+                label="Número convencional:"
+                [required]="isRequired(numeroConvencionalField)"
+                [valid]="numeroConvencionalField.valid"
+                [touched]="numeroConvencionalField.touched"
+                [dirty]="numeroConvencionalField.dirty"
+              >
+              </label>
+              <input
+                pInputText
+                formControlName="numeroConvencional"
+                placeholder="Ej. 02292019"
+                class="w-full"
+                pattern="[0-9]*"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              />
+              <small
+                appErrorMessage
+                [errors]="numeroConvencionalField.errors"
+                [touched]="numeroConvencionalField.touched"
+                [dirty]="numeroConvencionalField.dirty"
+              >
+              </small>
+            </div>
+          </div>
+          <div class="w-full">
+            <label
+              appLabel
+              label="Direccion:"
+              [required]="isRequired(direccionField)"
+              [valid]="direccionField.valid"
+              [touched]="direccionField.touched"
+              [dirty]="direccionField.dirty"
+            >
+            </label>
+            <textarea
+              rows="3"
+              cols="10"
+              pInputTextarea
+              formControlName="direccion"
+              class="w-full"
+              placeholder="Sector Ecuatoriana; calle 1, calle 2, numeración"
+            >
+            </textarea>
+            <small
+              appErrorMessage
+              [errors]="direccionField.errors"
+              [touched]="direccionField.touched"
+              [dirty]="direccionField.dirty"
+            >
+            </small>
+          </div>
+
+          <h2 class="text-xl my-2 italic underline">
+            Datos de inicio de sesion
+          </h2>
+
+          <div class="w-full">
+            <label
+              appLabel
+              label="Correo Electrónico:"
+              [required]="isRequired(emailField)"
+              [valid]="emailField.valid"
+              [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            ></label>
+            <input
+              pInputText
+              formControlName="email"
+              placeholder="abc@gmail.com"
+            />
+            <small
+              appErrorMessage
+              [errors]="emailField.errors"
+              [touched]="emailField.touched"
+              [dirty]="emailField.dirty"
+            >
+            </small>
+          </div>
+          <div class="w-full">
+            <label
+              appLabel
+              label="Contraseña:"
+              [required]="isRequired(claveField)"
+              [valid]="claveField.valid"
+              [touched]="claveField.touched"
+              [dirty]="claveField.dirty"
+            ></label>
+            <p-password
+              formControlName="clave"
+              [toggleMask]="true"
+              placeholder="Ingresa tu contraseña"
+              [feedback]="false"
+            >
+            </p-password>
+            <small
+              appErrorMessage
+              [errors]="claveField.errors"
+              [touched]="claveField.touched"
+              [dirty]="claveField.dirty"
+            >
+            </small>
+          </div>
+          <div class="w-full">
+            <label
+              appLabel
+              label="Repita su contraseña:"
+              [required]="isRequired(confirmClaveField)"
+              [valid]="confirmClaveField.valid"
+              [touched]="confirmClaveField.touched"
+              [dirty]="confirmClaveField.dirty"
+            ></label>
+            <p-password
+              formControlName="confirmClave"
+              [toggleMask]="true"
+              placeholder="Confirme su contraseña"
+              [feedback]="false"
+            >
+            </p-password>
+            <small
+              appErrorMessage
+              [errors]="confirmClaveField.errors"
+              [touched]="confirmClaveField.touched"
+              [dirty]="confirmClaveField.dirty"
+            >
+            </small>
+          </div>
+          <div class="flex justify-center my-5">
+            <div>
+              <button
+                type="submit"
+                pButton
+                pRipple
+                icon="pi pi-save"
+                [disabled]="!formularioRegistro.valid"
+                label="Registrarse"
+                class="p-button-raised p-button-info"
+              ></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </p-card>
+  </div>
+</div>

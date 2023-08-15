@@ -4,6 +4,7 @@ export interface PlanificationCourse {
   name: string;
   state: string;
   startDate: string;
+  finishDate: string;
 }
 
 export interface Workday {
@@ -16,4 +17,9 @@ export interface Curso {
   workday: Workday;
   planificationCourse: PlanificationCourse;
   statusCourse: string;
+}
+
+export interface StatusOption {
+  label: string;
+  value: string;
 }

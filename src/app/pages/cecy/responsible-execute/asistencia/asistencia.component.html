@@ -25,7 +25,7 @@
           <label
             for="name"
             appLabel
-            label="Fecha actual:"
+            label="Fecha del registro:"
             [required]="isRequired(dateField)"
             [valid]="dateField.valid"
             [touched]="dateField.touched"
@@ -75,17 +75,24 @@
       </div>
 
       <div *ngIf="isCreating">
-        <label for="name" appLabel label="Evidencia fotografica:"> </label>
-        <p-fileUpload
+        <label for="name" appLabel label="Evidencia Fotográfica:"> </label>
+        <p-fileUpload mode="basic"
           chooseLabel="Seleccione la imagen"
-          uploadLabel="Subir"
-          cancelLabel="Cancelar"
           accept="image/*"
           (onSelect)="onFileUpload($event)"
         ></p-fileUpload>
+        <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()"></i>
+        <p-dialog header="Recuerda" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+          <p>
+          Para subir la imagen<br/>
+          - <strong>Primero</strong>: Asegurese de que la imagen seleccionada tenga la extension JPG o PNG.<br/>
+          - <strong>Segundo</strong>:Haga clic en Abrir o Elegir.<br/>
+          - <strong>Para finalizar</strong>:Una vez agregada la observacion y la imagen haga clic en Guardar.
+          </p>
+        </p-dialog>
       </div>
       <div *ngIf="!isCreating">
-        <label for="name" appLabel label="Evidencia fotográfica:"> </label>
+        <label for="name" appLabel label="Evidencia Fotográfica:"> </label>
 
         <div *ngIf="!editImageForNew">
           <div class="flex justify-center items-center max-w-md mx-auto">
@@ -95,17 +102,15 @@
               class="max-w-full h-auto rounded border border-gray-300"
             />
             <i
-              class="pi pi-pencil cursor-pointer ml-1"
+              class="pi pi-pencil cursor-pointer ml-5"
               (click)="editImage()"
             ></i>
           </div>
         </div>
 
         <div *ngIf="editImageForNew">
-          <p-fileUpload
+          <p-fileUpload mode="basic"
             chooseLabel="Seleccione la imagen"
-            uploadLabel="Subir"
-            cancelLabel="Cancelar"
             accept="image/*"
             (onSelect)="onFileUpload($event)"
           ></p-fileUpload>
@@ -123,7 +128,7 @@
             type="submit"
             pRipple
             label="{{
-              isCreating ? 'Guardar la informacion' : 'Actualizar informacion'
+              isCreating ? 'Guardar' : 'Actualizar'
             }}"
             icon="pi pi-save"
           ></button>

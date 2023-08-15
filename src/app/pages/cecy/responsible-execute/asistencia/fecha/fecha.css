@@ -1,0 +1,16 @@
+/* Thumbnail styles */
+.thumbnail {
+    position: relative;
+    width: 100px; /* Set the width of the thumbnail */
+    height: 100px; /* Set the height of the thumbnail */
+    overflow: hidden; /* Hide any overflowing content */
+    border-radius: 5px; /* Add rounded corners for a nice look */
+  }
+  
+  .thumbnail-img {
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Make the image fill the container */
+    object-fit: cover; /* Maintain the aspect ratio and cover the container */
+    cursor: pointer; /* Show a pointer cursor when hovering over the image */
+  }
+  

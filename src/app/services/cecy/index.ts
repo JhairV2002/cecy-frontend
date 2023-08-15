@@ -1,6 +1,5 @@
 export { TopicHttpService } from './topic-http.service';
 export { DetailPlanificationHttpService } from './detail-planification-http.service';
-export { RequirementHttpService } from './requirement-http.service';
 export { SchoolPeriodHttpService } from './school-period-http.service';
 export { InscriptionService } from './inscription.service';
 export { CatalogueService } from './catalogue.service';

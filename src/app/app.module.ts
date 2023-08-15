@@ -29,7 +29,6 @@ import { LayoutModule } from '@layout/layout.module';
 import { SharedModule } from '@shared/shared.module';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MessageService } from 'primeng/api';
-// import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 // import { ShowForRolesDirective } from './directives/show-for-roles.directive';
@@ -44,6 +43,10 @@ const config: SocketIoConfig = {
 
 //Ngx Progress Bar
 import { NgProgressModule } from 'ngx-progressbar';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+//Google
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, GoogleSigninButtonModule, GoogleSigninButtonDirective } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -78,11 +81,31 @@ import { NgProgressModule } from 'ngx-progressbar';
     NgProgressModule,
     SocketIoModule.forRoot(config),
     ConfirmDialogModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
   ],
-  providers: [MessageService, ConfirmationService, HttpInterceptorProviders],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '714641393478-op88a1dqfqn86q823t9lpflliuj8nfi6.apps.googleusercontent.com'
+            )
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    },
+    MessageService, ConfirmationService, HttpInterceptorProviders,],
   bootstrap: [AppComponent],
   exports: [
     //ShowForRolesDirective
   ],
 })
-export class AppModule {}
+export class AppModule { }

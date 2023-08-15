@@ -120,6 +120,7 @@ export interface Estudiantes {
   preRequisitos: any[];
   empresas: any[];
   matriculas: number[];
+  rol: string;
 }
 
 export interface Genero {

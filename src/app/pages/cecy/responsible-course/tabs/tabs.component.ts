@@ -11,6 +11,7 @@ import {
 } from 'primeng/api';
 import { AuthService } from '@services/auth';
 import { Message } from 'primeng/api';
+import { User } from '@models/authentication';
 
 @Component({
   selector: 'app-tabs',
@@ -30,6 +31,7 @@ export class TabsComponent implements OnInit {
   filterPlan: any;
   fillCourseSelect: any;
   alert: Message[] = [];
+  user: User | null = null;
 
   constructor(
     private courseService: CourseService,
@@ -44,6 +46,12 @@ export class TabsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        console.log('user tab', user);
+        this.user = user[0];
+      }
+    });
     this.getPlanificationById();
   }
 
@@ -59,7 +67,8 @@ export class TabsComponent implements OnInit {
               {
                 severity: 'info',
                 summary: 'Proceso',
-                detail: 'El curso actualmente esta en proceso.',
+                detail:
+                  'El curso actualmente esta en proceso, se necesita completar la informacion del curso para posteriormente aprobarlo por alguna persona encargada del cecy.',
               },
             ];
           } else if (data.course.state === 'aprobado') {
@@ -104,8 +113,10 @@ export class TabsComponent implements OnInit {
     this.planificationCourseService.planificationById(id).subscribe({
       next: (data: any) => {
         const isPlanificationApproved = data.course.state;
+        console.log('status: ',data)
+        console.log('status estado: ',isPlanificationApproved)
 
-        if (isPlanificationApproved) {
+        if (isPlanificationApproved==='aprobado') {
           console.log('La planificación ya está aprobada');
           this.primeMessageService.add({
             severity: 'info',

@@ -1,16 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Courses } from '@models/cecy';
 import { Observable } from 'rxjs';
+
+import { environment } from '@env/environment';
+import { Courses } from '@models/cecy';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  private apiUrl = `http://localhost:8080/api/courses`;
-  private apiUrl2 = `http://localhost:3000/v1/courses`;
+  private apiUrl = `${environment.api}/courses`; //api java
+  private apiUrl2 = `${environment.api2}/courses`; //api nodejs
 
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,7 +25,7 @@ export class CoursesService {
 
   // GET SENCILLO
   getviewCourses(): Observable<Courses[]> {
-    return this.http.get<Courses[]>(`${this.apiUrl2}/state-course/aprobado`);
+    return this.http.get<Courses[]>(`${this.apiUrl}/state-course/aprobado/`);
   }
 
   public findById(id: number): Observable<Courses> {

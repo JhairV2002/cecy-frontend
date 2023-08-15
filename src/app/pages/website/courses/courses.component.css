@@ -1,0 +1,27 @@
+.menu {
+  width: 100%;
+  flex-direction: column;
+}
+
+.menu-item {
+  padding: 8px 0;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.menu-item.active {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.menu-item.active .submenu {
+  display: block;
+}
+
+.submenu {
+  display: none;
+  list-style: none;
+  padding-left: 1rem;
+}

@@ -1,0 +1,63 @@
+<div class="container mx-auto mb-16 mt-16">
+  <h1 class="text-3xl font-semibold m-5">Cursos recientes</h1>
+  <div
+    *ngIf="loading$ | async"
+    class="mx-auto flex items-center justify-center"
+  >
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div
+      *ngFor="let course of recent"
+      class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 grid md:grid-cols-2"
+    >
+      <div
+        class="relative overflow-hidden bg-cover bg-no-repeat md:col-span-1 m-4"
+        data-te-ripple-init
+        data-te-ripple-color="light"
+      >
+        <img
+          class="rounded-t-lg w-full h-48 object-cover"
+          [src]="
+            course?.image
+              ? course?.image
+              : 'assets/images/components/course/online-course.png'
+          "
+          alt=""
+        />
+        <a href="#!">
+          <div
+            class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"
+          ></div>
+        </a>
+      </div>
+
+      <div class="p-6 md:col-span-1">
+        <h5
+          class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50"
+        >
+          {{
+            course.planification.name
+              ? course.planification.name
+              : "Nombre curso"
+          }}
+        </h5>
+        <p class="mb-2 text-base text-neutral-600 dark:text-neutral-200">
+          {{ course.objective ? course.objective : "¿Objetivo?" }}🚀
+        </p>
+        <div class="flex flex-col">
+          <p-tag>
+            {{ course.planification.free ? "Gratis" : "De pago" }}
+          </p-tag>
+          <p-button
+            (click)="viewCourse(course.id)"
+            class="mt-10"
+            label="Ver curso"
+            styleClass="p-button-raised p-button-text"
+          >
+          </p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

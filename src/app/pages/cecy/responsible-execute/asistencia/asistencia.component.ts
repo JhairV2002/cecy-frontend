@@ -8,6 +8,7 @@ import { AsistenciaService } from './asistencia.service';
 import { MessageService } from 'primeng/api';
 import { MessageService as MessageLocal } from '@services/core';
 import { formatDate } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-asistencia',
@@ -20,6 +21,7 @@ export class AsistenciaComponent implements OnInit {
     evidenciaFotografica: [''],
     courseId: [null],
   });
+  helpDialogVisible: boolean = false;
   imagenBase64: string = '';
   isCreating: boolean = true;
   img: string = '';
@@ -32,7 +34,8 @@ export class AsistenciaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private messageLocal: MessageLocal
+    private messageLocal: MessageLocal,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
     const asistenciaId = this.activatedRoute.snapshot.params['asistenciaId'];
@@ -77,10 +80,43 @@ export class AsistenciaComponent implements OnInit {
     }
   }
 
+  // onFileUpload(event: UploadEvent) {
+  //   console.log('evento con file', event);
+  //   const file = event.currentFiles[0];
+  //   console.log(file.name);
+
+  //   if (file) {
+  //     const maxSizeInBytes = 10 * 1024 * 1024;
+  //     if (file.size > maxSizeInBytes) {
+  //       this.fileErrorMessage =
+  //         'El archivo seleccionado excede el tamaño máximo permitido (10MB).';
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Error al cargar la imagen',
+  //         detail:
+  //           'El archivo seleccionado excede el tamaño máximo permitido (10 MB).',
+  //       });
+  //     } else {
+  //       this.fileErrorMessage = '';
+  //       const reader = new FileReader();
+  //       reader.onload = (e: any) => {
+  //         this.imagenBase64 = e.target.result;
+  //       };
+  //       reader.readAsDataURL(file);
+  //       this.messageService.add({
+  //         severity: 'info',
+  //         summary: 'Cargado...',
+  //         detail: 'Se ha cargado la imagen con éxito',
+  //       });
+  //     }
+  //   }
+  // }
+
   onFileUpload(event: UploadEvent) {
-    console.log(event);
+    console.log('evento con file', event);
     const file = event.currentFiles[0];
-    console.log(file);
+    console.log(file.name);
+
     if (file) {
       const maxSizeInBytes = 10 * 1024 * 1024;
       if (file.size > maxSizeInBytes) {
@@ -93,20 +129,35 @@ export class AsistenciaComponent implements OnInit {
             'El archivo seleccionado excede el tamaño máximo permitido (10 MB).',
         });
       } else {
-        this.fileErrorMessage = '';
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.imagenBase64 = e.target.result;
-        };
-        reader.readAsDataURL(file);
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Cargado...',
-          detail: 'Se ha cargado la imagen con éxito',
-        });
+        // Check file extension
+        const allowedExtensions = ['.png', '.jpg', '.jpeg'];
+        const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+
+        if (allowedExtensions.includes(fileExtension)) {
+          this.fileErrorMessage = '';
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.imagenBase64 = e.target.result;
+          };
+          reader.readAsDataURL(file);
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Cargado...',
+            detail: 'Se ha cargado la imagen con éxito',
+          });
+        } else {
+          this.fileErrorMessage =
+            'El formato de archivo no es compatible. Solo se permiten archivos PNG y JPG.';
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al cargar la imagen',
+            detail: 'El formato de archivo no es compatible. Solo se permiten archivos PNG y JPG.',
+          });
+        }
       }
     }
   }
+
 
   saveAttendance() {
     console.log('creating OK');
@@ -232,6 +283,10 @@ export class AsistenciaComponent implements OnInit {
         },
       }
     );
+  }
+
+  help() {
+    this.helpDialogVisible = true;
   }
 
   redireccionar() {

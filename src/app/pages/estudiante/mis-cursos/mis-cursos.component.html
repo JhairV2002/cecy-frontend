@@ -1,0 +1,59 @@
+<div class="prose prose-base max-w-full">
+  <h1>Mis Cursos</h1>
+  <div class="w-full">
+    <table class="w-full table table-zebra">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nombre Curso</th>
+          <th>Nota 1</th>
+          <th>Nota 2</th>
+          <th>Promedio</th>
+          <th>Estado Curso</th>
+          <th>Estado Matricula</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let matricula of matriculas | async">
+          <td></td>
+          <td>
+            {{
+              matricula.cursoNombre != null
+                ? matricula.cursoNombre
+                : "Sin nombre"
+            }}
+          </td>
+          <td>{{ matricula.nota1 != null ? matricula.nota1 : "Sin Notas" }}</td>
+          <td>{{ matricula.nota2 != null ? matricula.nota2 : "Sin Notas" }}</td>
+          <td>
+            {{ matricula.promedio != null ? matricula.promedio : "Sin Notas" }}
+          </td>
+          <td>
+            {{
+              matricula.estadoCurso != null
+                ? matricula.estadoCurso.descripcion
+                : "Sin Estado"
+            }}
+          </td>
+          <td>
+            {{
+              matricula.estadoMatricula != null
+                ? matricula.estadoMatricula.descripcion
+                : "Sin Estado"
+            }}
+          </td>
+          <td>
+            <button
+              class="btn btn-accent"
+              (click)="navigateMisCursosDetails(matricula)"
+            >
+              Detalles
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

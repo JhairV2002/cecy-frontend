@@ -15,8 +15,7 @@
         #inputSearch
         class="w-64 pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         placeholder="Buscar"
-        [(ngModel)]="filtroNombre"
-        (input)="filtrarCursos()"
+        [(ngModel)]="searchTerm"
       />
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
         <svg
@@ -34,9 +33,10 @@
         </svg>
       </div>
     </div>
-    <p-button class="ml-4" styleClass="p-button-success" (click)="sortCards()">
+    <p-button class="ml-4" styleClass="p-button-success">
       <i class="pi pi-sort-amount-down-alt"></i>
     </p-button>
+
   </div>
 </p-toolbar>
 
@@ -54,8 +54,8 @@
   </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <div *ngFor="let curso of cursos; let i = index">
-    <div *ngIf="cumpleFiltro(curso)">
+  <div *ngFor="let curso of filterCoursesByName(cursos, searchTerm); let i = index">
+    <div>
       <p-card
         header="{{ curso.detailPlanification?.planificationCourse?.name }}"
         subheader="Código del curso: {{
@@ -96,9 +96,22 @@
             curso.detailPlanification?.planificationCourse.startDate
               | date : "yyyy-MM-dd"
           }}<br />
-          Horario: {{ curso.detailPlanification?.workday.name }}<br />
-          {{ curso.detailPlanification?.startedTime }} -
+          Fecha de fin:
+          {{
+            curso.detailPlanification?.planificationCourse.finishDate
+              | date : "yyyy-MM-dd"
+          }}<br />
+          Jornada: {{ curso.detailPlanification?.workday.name }}<br />
+          Horario: {{ curso.detailPlanification?.startedTime }} -
           {{ curso.detailPlanification?.endedTime }}<br />
+          <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="showHelp()"></i>
+          <p-dialog header="Estado del curso" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
+            <p>
+            Se guía bajo las siguientes especificaciones:<br/>
+            - <strong>Aprobado</strong>: Curso aprobado y en desarrollo<br/>
+            - <strong>Terminado</strong>:  Curso finalizado<br/>
+            </p>
+          </p-dialog>
           Estado del curso:
           <p-dropdown
             [options]="statusOptions"
@@ -128,8 +141,6 @@
 
 <p-paginator
   [rows]="3"
-  [totalRecords]="cursosFiltrados.length"
-  (onPageChange)="onPageChange($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first} - {last} of {totalRecords}"
   [showPageLinks]="true"
