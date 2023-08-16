@@ -8,6 +8,7 @@ import { MessageService } from '@services/core/message.service';
 import { AuthService } from '@services/auth';
 import { PdfCourseService } from '@services/cecy-v1/pdf-course.service';
 import { DatePipe } from '@angular/common';
+import { ReportCourseService } from '@services/cecy-v1/report-course.service';
 
 @Component({
   selector: 'app-course-list',
@@ -34,23 +35,42 @@ export class CourseListComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private pdfCourseService: PdfCourseService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private reportService: ReportCourseService
   ) {
     this.items = [
       {
         label: 'Descargar informe de Necesidades',
         icon: 'pi pi-book',
         command: () => {
-          this.downloadGeneralInformation(this.rowData);
+          this.generateReportNeed(this.rowData);
         },
       },
       {
         label: 'Descargar Diseño curricular',
         icon: 'pi pi-book',
         command: () => {
-          this.downloadCurricularDesign(this.rowData);
+          this.generateReportDesign(this.rowData);
+
         },
       },
+      {
+        label: 'Descargar pdf informe de Necesidades',
+        icon: 'pi pi-book',
+        command: () => {
+          this.downloadGeneralInformation(this.rowData);
+        },
+      },
+      {
+
+        label: 'Descargar pdf Diseño curricular',
+        icon: 'pi pi-book',
+        command: () => {
+          this.downloadCurricularDesign(this.rowData);
+
+        },
+      },
+
     ];
 
     this.STORAGE_URL = environment.STORAGE_URL;
@@ -123,4 +143,34 @@ export class CourseListComponent implements OnInit {
     } catch (error) {}
     this.pdfCourseService.generatePDFCurricularDesign(planificationCourse);
   }
+
+
+
+  generateReportNeed(planificationCourse: any) {
+    const courseId = planificationCourse.planification.id;
+    let name = 'Informe de necesidades ' + planificationCourse.planification.name;
+    this.reportService.generateReportNeed(courseId).subscribe((data) => {
+      let dowloadURL = window.URL.createObjectURL(data);
+      let link = document.createElement('a');
+      link.href = dowloadURL;
+      link.download = name + '.xls';
+      link.click();
+    });
+  }
+
+  generateReportDesign(planificationCourse: any) {
+    const courseId = planificationCourse.planification.id;
+    let name = 'Informe de necesidades ' + planificationCourse.planification.name;
+    this.reportService.generateReportDesign(courseId).subscribe((data) => {
+      let dowloadURL = window.URL.createObjectURL(data);
+      let link = document.createElement('a');
+      link.href = dowloadURL;
+      link.download = name + '.xls';
+      link.click();
+    });
+  }
+
 }
+
+
+
