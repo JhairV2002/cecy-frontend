@@ -10,7 +10,7 @@ import { MessageService as MessagePNService } from 'primeng/api';
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(private messageService: MessagePNService) {}
+  constructor(private messageService: MessagePNService) { }
 
   error(error: HttpErrorResponse) {
     let errorMessage = 'Ha ocurrido un error';
@@ -82,10 +82,10 @@ export class MessageService {
   }
 
   successCourse(serverResponse: any) {
-    return Swal.fire({
-      title: serverResponse.message,
-      //text: serverResponse?.msg?.detail,
-      icon: 'success',
+    return this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: serverResponse.message
     });
   }
 

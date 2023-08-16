@@ -13,6 +13,7 @@
     </div>
   </div>
 </p-toolbar>
+<p-toast></p-toast>
 
 <!-- <p-card *ngIf="allCourses.length == 0" class="m-auto w-full text-center">
   <h2>No tienes cursos asignados</h2>
@@ -27,7 +28,7 @@
     subheader="Código del curso: {{ item.planification.codeCourse }}">
       <ng-template pTemplate="header">
         <!-- <div class=" "> -->
-        <img class="object-contain h-32" onerror='this.src = "https://primefaces.org/cdn/primeng/images/usercard.png" '
+        <img class="object-contain h-32 bg-slate-100" onerror='this.src = "https://primefaces.org/cdn/primeng/images/usercard.png" '
           [src]="item?.image" alt="" style="height: 1 rem" />
         <!-- </div> -->
       </ng-template>

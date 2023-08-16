@@ -25,51 +25,33 @@
         <div class="w-full md:w-1/6">
           <div class="flex justify-content-center">
             <p-button (click)="showDialog()">
-              <img
-                onerror="this.src = 'assets/course-objects/empty-img.png' "
-                [src]="selectedCourse?.course?.image"
-                alt=""
-                style="height: 2rem"
-              />
+              <img onerror="this.src = 'assets/course-objects/empty-img.png' " [src]="selectedCourse?.course?.image"
+                alt="" style="height: 2rem" />
             </p-button>
 
-            <p-dialog
-              header="Ingresar Link de imagen"
-              [(visible)]="visible"
-              [modal]="true"
-              [style]="{ width: '50vw' }"
-              [draggable]="false"
-              [resizable]="false"
-            >
+            <p-dialog header="Ingresar Link de imagen" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }"
+              [draggable]="false" [resizable]="false">
               <div class="form-space">
                 <div class="flex-col m-auto">
-                  <form [formGroup]="formImage" (ngSubmit)="onSubmit()">
+                  <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
                     <div class="p-1 w-full">
-                      <input
+                      <!-- <input
                         class="w-full"
                         type="text"
                         pInputText
                         id="imageUrl"
                         formControlName="image"
                         placeholder="Url de la imagen"
-                      />
-                      <small
-                        appErrorMessage
-                        [errors]="imageField.errors"
-                        [touched]="imageField.touched"
-                        [dirty]="imageField.dirty"
-                      >
-                      </small>
+                      /> -->
+                      <div class="upload-container">
+                        <!-- <input type="file" (change)="onFileChange($event)" accept="image/*" /> -->
+                        <p-fileUpload mode="basic" chooseLabel="Seleccione la imagen" accept="image/*"
+                          (onUpload)="onFileChange($event)"></p-fileUpload>
+                      </div>
                     </div>
                     <div class="w-full">
-                      <button
-                        pButton
-                        pRipple
-                        label="Guardar"
-                        type="submit"
-                        class="p-button-rounded w-full"
-                        icon="pi pi-save"
-                      ></button>
+                      <button pButton pRipple label="Guardar" type="submit" class="p-button-rounded w-full"
+                        icon="pi pi-save"></button>
                     </div>
                   </form>
                 </div>
@@ -81,23 +63,13 @@
     </p-card>
     <div class="flex m-3 items-center">
       <div class="flex-1">
-        <p-messages
-          [(value)]="alert"
-          [enableService]="false"
-          [closable]="false"
-        ></p-messages>
+        <p-messages [(value)]="alert" [enableService]="false" [closable]="false"></p-messages>
       </div>
-      <div
-        class="ml-2"
-        *ngIf="
+      <div class="ml-2" *ngIf="
           user?.role?.name === 'coordinator_cecy' ||
           user?.role?.name === 'assistant_cecy'
-        "
-      >
-        <p-button
-          styleClass="p-button-rounded p-button-success"
-          (onClick)="approveCourse()"
-        >
+        ">
+        <p-button styleClass="p-button-rounded p-button-success" (onClick)="approveCourse()">
           <i class="pi pi-check-circle"></i>
           <div class="ml-2">Aprobar Curso</div>
         </p-button>
@@ -120,27 +92,10 @@
     </div>
   </form>
 </div>
-<p-confirmDialog
-  [style]="{ width: '50vw' }"
-  #cd
-  key="positionDialog"
-  [position]="'right'"
-  rejectButtonStyleClass="p-button-outlined"
->
+<p-confirmDialog [style]="{ width: '50vw' }" #cd key="positionDialog" [position]="'right'"
+  rejectButtonStyleClass="p-button-outlined">
   <ng-template pTemplate="footer">
-    <button
-      type="button"
-      pButton
-      icon="pi pi-times"
-      label="No"
-      (click)="cd.reject()"
-    ></button>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-check"
-      label="Si"
-      (click)="cd.accept()"
-    ></button>
+    <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="pi pi-check" label="Si" (click)="cd.accept()"></button>
   </ng-template>
 </p-confirmDialog>

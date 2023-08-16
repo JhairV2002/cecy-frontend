@@ -2,7 +2,7 @@ import { CourseService } from '@services/cecy-v1/course.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService as CoreMessageService } from '@services/core/message.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career/planifications-courses.service';
 import {
   ConfirmationService,
@@ -12,6 +12,7 @@ import {
 import { AuthService } from '@services/auth';
 import { Message } from 'primeng/api';
 import { User } from '@models/authentication';
+import { UploadEvent } from '@models/core';
 
 @Component({
   selector: 'app-tabs',
@@ -24,14 +25,17 @@ export class TabsComponent implements OnInit {
   courseId: any;
   progressBar: boolean = false;
   visible: boolean = false;
+  imageForm: FormGroup;
+  maxFileSize = 5 * 1024 * 1024;
 
-  formImage = this.fb.group({
-    image: [null, Validators.required],
-  });
+  // formImage = this.fb.group({
+  //   image: [null, Validators.required],
+  // });
   filterPlan: any;
   fillCourseSelect: any;
   alert: Message[] = [];
   user: User | null = null;
+  fileErrorMessage: string='';
 
   constructor(
     private courseService: CourseService,
@@ -43,12 +47,15 @@ export class TabsComponent implements OnInit {
     private router: Router,
     private confirmationService: ConfirmationService,
     private primeMessageService: MessageService
-  ) {}
+  ) {
+    this.imageForm = this.fb.group({
+      image: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user: any) => {
       if (user !== null) {
-        console.log('user tab', user);
         this.user = user[0];
       }
     });
@@ -61,7 +68,6 @@ export class TabsComponent implements OnInit {
       this.planificationCourseService
         .planificationById(id)
         .subscribe((data) => {
-          console.log('DATA?', data);
           if (data.course.state === 'proceso') {
             this.alert = [
               {
@@ -98,7 +104,6 @@ export class TabsComponent implements OnInit {
           }
           this.selectedCourse = data;
 
-          console.warn('selected course target', this.selectedCourse);
           if (this.selectedCourse.course.targetGroups == null) {
             this.reviewPlan(this.selectedCourse.name);
           }
@@ -113,11 +118,8 @@ export class TabsComponent implements OnInit {
     this.planificationCourseService.planificationById(id).subscribe({
       next: (data: any) => {
         const isPlanificationApproved = data.course.state;
-        console.log('status: ',data)
-        console.log('status estado: ',isPlanificationApproved)
 
-        if (isPlanificationApproved==='aprobado') {
-          console.log('La planificación ya está aprobada');
+        if (isPlanificationApproved === 'aprobado') {
           this.primeMessageService.add({
             severity: 'info',
             summary: 'Aprobado',
@@ -126,7 +128,6 @@ export class TabsComponent implements OnInit {
         } else {
           this.courseService.updateCourseByState(id, newStatus).subscribe({
             next: (data: any) => {
-              console.log('El estado se actualizo', data);
               this.primeMessageService.add({
                 severity: 'success',
                 summary: `Actualizado`,
@@ -156,18 +157,20 @@ export class TabsComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formImage.valid) {
+    if (this.imageForm.valid) {
       this.saveImage();
-      this.getPlanificationById();
+      setTimeout(() => {
+        this.getPlanificationById();
+      }, 1000);
       this.visible = false;
     } else {
-      this.formImage.markAllAsTouched();
+      // this.formImage.markAllAsTouched();
     }
   }
 
   saveImage() {
     this.courseId = this.selectedCourse.course.id;
-    const valuesFormGeneralInformation = this.formImage.value;
+    const valuesFormGeneralInformation = this.imageForm.value;
     this.courseService
       .update(valuesFormGeneralInformation, this.courseId)
       .subscribe({
@@ -185,9 +188,9 @@ export class TabsComponent implements OnInit {
   }
 
   // Getters
-  get imageField() {
-    return this.formImage.controls['image'];
-  }
+  // get imageField() {
+  //   return this.formImage.controls['image'];
+  // }
 
   confirmationDialog() {
     this.confirmationService.confirm({
@@ -200,8 +203,7 @@ export class TabsComponent implements OnInit {
           .updateByAfterCourse(this.fillCourseSelect, this.selectedCourse.id)
           .subscribe({
             next: (data) => {
-              // this.ngOnInit();
-              console.warn('curso de seleccion now:', this.selectedCourse);
+
               this.router.navigate([
                 '/cecy/responsible-course/course/add',
                 this.selectedCourse.id,
@@ -239,15 +241,12 @@ export class TabsComponent implements OnInit {
   }
 
   reviewPlan(nameCourse: string) {
-    console.log('esta pasando por review plan');
     this.authService.getPlanificationsbyUser().subscribe((data: any) => {
       this.filterPlanification(nameCourse, data);
     });
   }
 
   filterPlanification(valueSearch: any, valueList: any): void {
-    console.log('valores de la lista', valueList);
-    console.log('nombre del curso a buscar', valueSearch);
 
     const filterValue = valueSearch.toLowerCase();
     this.filterPlan = valueList.filter(
@@ -256,17 +255,61 @@ export class TabsComponent implements OnInit {
         item.planification.state == 'aprobado' &&
         item.targetGroups != null
     );
-    console.log('valores ya filtrados', this.filterPlan);
     if (this.filterPlan.length > 0 && this.filterPlan[0].targetGroups != null) {
       this.fillCourseSelect = this.filterPlan[0];
     }
 
-    console.log(
-      'valor ya almacenado del filtro el seleccionado para copiar',
-      this.fillCourseSelect
-    );
     if (this.fillCourseSelect) {
       this.confirmationDialog();
+    }
+  }
+
+  // onFileChange(event: any) {
+  //   if (event.target.files && event.target.files.length) {
+  //     const file = event.target.files[0];
+
+  //     // Validar el tamaño del archivo antes de cargarlo
+  //     if (file.size <= this.maxFileSize) {
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file);
+  //       reader.onload = (event: any) => {
+  //         this.imageForm.get('image')?.setValue(event.target.result);
+  //       };
+  //     } else {
+  //       alert('El tamaño del archivo excede el límite permitido.');
+  //       // Puedes también mostrar una notificación de error usando el servicio de MessageService de PrimeNG.
+  //     }
+  //   }
+  // }
+
+  onFileChange(event: UploadEvent) {
+    console.log(event);
+    const file = event.currentFiles[0];
+    console.log(file);
+    if (file) {
+      const maxSizeInBytes = 10 * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        this.fileErrorMessage =
+          'El archivo seleccionado excede el tamaño máximo permitido (10MB).';
+        this.primeMessageService.add({
+          severity: 'error',
+          summary: 'Error al cargar la imagen',
+          detail:
+            'El archivo seleccionado excede el tamaño máximo permitido (10 MB).',
+        });
+      } else {
+        this.fileErrorMessage = '';
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imageForm.get('image')?.setValue(e.target.result);
+        };
+        reader.readAsDataURL(file);
+        this.primeMessageService.add({
+          severity: 'info',
+          summary: 'Cargado...',
+          detail: 'Se ha cargado la imagen con éxito',
+        });
+      }
     }
   }
 }
