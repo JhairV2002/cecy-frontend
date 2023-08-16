@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) { }
 
+  genero: any;
+
   formularioRegistro = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     clave: ['', [Validators.required]],
@@ -39,7 +41,7 @@ export class RegisterComponent implements OnInit {
     etnia: ['', Validators.required],
     nivelInstruccion: ['', Validators.required],
     situacionEconomica: ['', Validators.required],
-    rol: ['']
+    rol: ['estudiante']
   });
 
   etnias$ = this.catalogoService.findByNombre('etnia');
@@ -73,7 +75,10 @@ export class RegisterComponent implements OnInit {
 
   registerStudent() {
     this.formularioRegistro.get('rol')?.setValue('estudiante')
-    console.log(this.formularioRegistro.value);
+    // this.formularioRegistro.patchValue({
+    //   rol: 'estudiante'
+    // })
+    console.warn('form student',this.formularioRegistro.value);
     this.estudiantesService
       .registrarEstudiante(this.formularioRegistro.value)
       .subscribe({
@@ -84,7 +89,10 @@ export class RegisterComponent implements OnInit {
             summary: 'Registro Exitoso',
             detail: `Se ha registrado correctamente el estudiante ${data}`
           });
-          this.router.navigate(['/estudiante'])
+          setTimeout(()=>{
+            this.router.navigate(['/login'])
+          },1000)
+
         },
         error: (error) => {
           this.messageServiceToast.add(

@@ -9,7 +9,7 @@ import { tokenStudentGuard } from '@guards/token-student.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', 
     canActivate: [RedirectGuard],
     loadChildren: () =>
       import('./pages/website/website.module').then((m) => m.WebsiteModule),
