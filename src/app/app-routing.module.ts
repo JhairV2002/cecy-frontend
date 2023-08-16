@@ -9,19 +9,11 @@ import { tokenStudentGuard } from '@guards/token-student.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', 
     canActivate: [RedirectGuard],
     loadChildren: () =>
-      import('./pages/authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
-      ),
+      import('./pages/website/website.module').then((m) => m.WebsiteModule),
   },
-  // {
-  //   path: '',
-  //   canActivate: [RedirectGuard, AuthGuard],
-  //   loadChildren: () =>
-  //     import('./pages/website/website.module').then((m) => m.WebsiteModule),
-  // },
   {
     path: 'cecy',
     loadChildren: () =>
