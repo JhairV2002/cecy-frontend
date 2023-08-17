@@ -52,7 +52,8 @@ export class InscriptionFormComponent implements OnInit {
       next: (student: any) => {
         console.log('STUDIANTE', student);
         if (student !== null) {
-          this.student = student[0];
+          this.student = student;
+          console.log(this.student);
         }
       },
       error: (error) => {

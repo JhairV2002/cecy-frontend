@@ -8,10 +8,8 @@ import { TokenService } from '@services/auth';
 import { EstudianteRegisterResponse } from '@models/cecy/estudianteRegister';
 import { Estudiantes } from '@models/cecy';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthStudentService {
   private apiUrl = `${environment.api2}/auth`;
@@ -22,29 +20,29 @@ export class AuthStudentService {
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
-    private router: Router,
-
-  ) { }
+    private router: Router
+  ) {}
 
   login(body: any) {
     this.loading.next(true);
     return this.http
-      .post<EstudianteRegisterResponse>(`${this.apiUrl}/student/login`, body).pipe(
+      .post<EstudianteRegisterResponse>(`${this.apiUrl}/student/login`, body)
+      .pipe(
         tap((response) => {
           console.log('service', response);
-          this.tokenService.saveEstudianteTokenCedula(response)
-        },
-        )
-      ).pipe(
+          this.tokenService.saveEstudianteTokenCedula(response);
+        })
+      )
+      .pipe(
         finalize(() => {
           this.loading.next(false);
         })
-      )
+      );
   }
 
   register(register: any) {
     return this.http.post(`${this.apiUrl}/api/v1/auth/register`, {
-      register
+      register,
     });
   }
 
@@ -64,9 +62,11 @@ export class AuthStudentService {
   // }
 
   isAvailable(email: string) {
-    return this.http.post<{ isAvailable: boolean }>(`${this.apiUrl}/api/v1/auth/is-available`, { email });
+    return this.http.post<{ isAvailable: boolean }>(
+      `${this.apiUrl}/api/v1/auth/is-available`,
+      { email }
+    );
   }
-
 
   //         .subscribe((res) => {
   //           console.log('SERVICE RES', res);
@@ -99,13 +99,15 @@ export class AuthStudentService {
         },
       })
       .pipe(
-        switchMap((user:any) => {
-          return this.http.get(`${this.javaUrl}/findByCedula/${user[0].cedula}/`).pipe(
-            tap((detailUser: any) => {
-              console.log('profile servicee', detailUser);
-              this.student$.next(detailUser);
-            })
-          )
+        switchMap((user: any) => {
+          return this.http
+            .get(`${this.javaUrl}/findByCedula/${user[0].cedula}/`)
+            .pipe(
+              tap((detailUser: any) => {
+                console.log('profile servicee', detailUser);
+                this.student$.next(detailUser);
+              })
+            );
         }),
         finalize(() => {
           this.loading.next(false);
@@ -113,5 +115,3 @@ export class AuthStudentService {
       );
   }
 }
-
-
