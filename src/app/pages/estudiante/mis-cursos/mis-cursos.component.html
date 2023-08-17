@@ -20,7 +20,7 @@
           <td></td>
           <td>
             {{
-              matricula.cursoNombre != null
+              matricula.cursoNombre != null || matricula.cursoNombre == ""
                 ? matricula.cursoNombre
                 : "Sin nombre"
             }}

@@ -4,7 +4,7 @@ import { Inscription } from '@models/cecy';
 import { InscriptionService } from '@services/cecy';
 import { AuthService, AuthStudentService, TokenService } from '@services/auth';
 import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { CursosService } from '@services/cecy/cursos';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { Estudiantes } from '@models/cecy/estudiantes/carreras';
@@ -34,7 +34,8 @@ export class InscriptionFormComponent implements OnInit {
   curso$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.cursosService.getCursoById(Number(param.get('id')))
-    )
+    ),
+    tap((res) => (this.matricula.cursoNombre = res.planification.name))
   );
 
   user: any;
@@ -96,11 +97,16 @@ export class InscriptionFormComponent implements OnInit {
     );
     this.matricula.estudiantes.id =
       this.student && this.student.id ? this.student.id : 0;
+    this.curso$.subscribe((res) => {
+      this.matricula.cursoNombre = res.planification.name;
+      console.log('se actualizo el nombre del curso');
+    });
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
     this.matriculaService.guardarMatricula(this.matricula).subscribe({
       next: (res) => {
         console.log(res);
+
         this.messageService.add({
           severity: 'info',
           summary: 'Información',
