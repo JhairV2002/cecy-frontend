@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Inscription } from '@models/cecy';
-import { InscriptionService } from '@services/cecy';
+import { Documents, Inscription } from '@models/cecy';
+import { DocumentsService, InscriptionService } from '@services/cecy';
 import { AuthService, AuthStudentService, TokenService } from '@services/auth';
 import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
 import { switchMap, tap } from 'rxjs';
@@ -26,7 +26,8 @@ export class InscriptionFormComponent implements OnInit {
     private cursosService: CursosService,
     private matriculaService: MatriculaService,
     private authStudentService: AuthStudentService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private documentsService: DocumentsService
   ) {}
 
   estudianteSeleccionado!: Estudiantes;
@@ -90,6 +91,12 @@ export class InscriptionFormComponent implements OnInit {
     },
     formInscription: {},
   };
+  documents: Documents = {
+    id:0,
+    nombre: '',
+    urlArchivo: '',
+    fechaSubida: new Date()
+  }
 
   save(): void {
     this.activatedRoute.paramMap.subscribe(
@@ -101,6 +108,18 @@ export class InscriptionFormComponent implements OnInit {
       this.matricula.cursoNombre = res.planification.name;
       console.log('se actualizo el nombre del curso');
     });
+
+    this.documentsService.save(this.documents).subscribe({
+      next: (res) => {
+        console.log(res);
+        setTimeout(() => {
+          this.router.navigate(['/estudiante/home']);
+        }, 2000);
+      },
+      error: (error) => {
+        console.error(error)
+      },
+    })
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
     this.matriculaService.guardarMatricula(this.matricula).subscribe({
@@ -125,6 +144,7 @@ export class InscriptionFormComponent implements OnInit {
         });
       },
     });
+
   }
 
   findById(id: number): void {
