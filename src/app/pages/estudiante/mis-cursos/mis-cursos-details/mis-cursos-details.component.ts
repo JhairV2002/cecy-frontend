@@ -14,7 +14,7 @@ export class MisCursosDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private cursosService: CursosService
-  ) {}
+  ) { }
 
   matricula!: Matricula;
 

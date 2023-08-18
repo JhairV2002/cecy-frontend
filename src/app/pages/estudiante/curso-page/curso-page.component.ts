@@ -11,7 +11,7 @@ export class CursoPageComponent {
   constructor(
     private cursosService: CursosService,
     private router: ActivatedRoute
-  ) {}
+  ) { }
 
   loading$ = this.cursosService.loading$;
   inputSearch = '';

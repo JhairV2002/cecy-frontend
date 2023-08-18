@@ -7,7 +7,7 @@ import { CatalogueService } from '@services/cecy';
   templateUrl: './cmb-publicity.component.html',
 })
 export class CmbPublicityComponent implements OnInit {
-  constructor(private catalogueService: CatalogueService) {}
+  constructor(private catalogueService: CatalogueService) { }
 
   publicities: Catalogue[] = [];
   @Output() publicity = new EventEmitter<any>();

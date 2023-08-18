@@ -8,7 +8,7 @@ import { PlanificationCourse } from '@models/cecy';
   styleUrls: ['./curso-card.component.css'],
 })
 export class CursoCardComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   @Input() curso!: PlanificationCourse | null;
   @Input() butonText!: 'Ver Más' | 'Inscribirse';
 

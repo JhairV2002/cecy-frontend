@@ -55,7 +55,7 @@ export class InscriptionFormComponent implements OnInit {
       next: (student: any) => {
         console.log('STUDIANTE', student);
         if (student !== null) {
-          this.student = student[0];
+          this.student = student;
         }
       },
       error: (error) => {
@@ -96,6 +96,7 @@ export class InscriptionFormComponent implements OnInit {
       (res) => (this.matricula.cursoId = Number(res.get('id'))),
     );
     this.matricula.estudiantes.id = this.student && this.student.id ? this.student.id : 0;
+    console.log('id student', this.matricula.estudiantes.id = this.student && this.student.id ? this.student.id : 0);
     this.matricula.formInscription = this.initialForm;
     console.log(this.matricula);
     this.matriculaService.guardarMatricula(this.matricula).subscribe({

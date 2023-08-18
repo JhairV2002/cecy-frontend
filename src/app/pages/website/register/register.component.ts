@@ -75,10 +75,7 @@ export class RegisterComponent implements OnInit {
 
   registerStudent() {
     this.formularioRegistro.get('rol')?.setValue('estudiante')
-    // this.formularioRegistro.patchValue({
-    //   rol: 'estudiante'
-    // })
-    console.warn('form student',this.formularioRegistro.value);
+    console.log('form student', this.formularioRegistro.value);
     this.estudiantesService
       .registrarEstudiante(this.formularioRegistro.value)
       .subscribe({
@@ -88,11 +85,11 @@ export class RegisterComponent implements OnInit {
             severity: 'success',
             summary: 'Registro Exitoso',
             detail: `Se ha registrado correctamente el estudiante ${data}`
-          });
-          setTimeout(()=>{
+          },
+          );
+          setTimeout(() => {
             this.router.navigate(['/login'])
-          },1000)
-
+          }, 1000)
         },
         error: (error) => {
           this.messageServiceToast.add(

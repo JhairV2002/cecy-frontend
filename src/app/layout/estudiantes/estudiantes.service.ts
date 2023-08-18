@@ -45,6 +45,7 @@ export class EstudiantesService {
   }
 
   updateEstudiante(body: any): Observable<Estudiantes> {
+    console.log('BODY SERVICE', body);
     return this.http.put<Estudiantes>(`${this.url}${body.id}/`, body);
   }
 

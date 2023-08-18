@@ -22,6 +22,7 @@ export class PerfilEstudianteComponent implements OnInit {
   ) { }
   student: Estudiantes | null = null;
   studentProfile = this.fb.group({
+    id: [null],
     email: ['', [Validators.email]],
     clave: [''],
     confirmClave: [''],

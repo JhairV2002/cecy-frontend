@@ -12,7 +12,7 @@ export class MisCursosComponent {
   constructor(
     private estudiantesService: EstudiantesService,
     private route: Router
-  ) {}
+  ) { }
 
   matriculas = this.estudiantesService.estudianteActual.pipe(
     map((res) => res?.matriculas)
