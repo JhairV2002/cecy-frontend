@@ -80,38 +80,6 @@ export class AsistenciaComponent implements OnInit {
     }
   }
 
-  // onFileUpload(event: UploadEvent) {
-  //   console.log('evento con file', event);
-  //   const file = event.currentFiles[0];
-  //   console.log(file.name);
-
-  //   if (file) {
-  //     const maxSizeInBytes = 10 * 1024 * 1024;
-  //     if (file.size > maxSizeInBytes) {
-  //       this.fileErrorMessage =
-  //         'El archivo seleccionado excede el tamaño máximo permitido (10MB).';
-  //       this.messageService.add({
-  //         severity: 'error',
-  //         summary: 'Error al cargar la imagen',
-  //         detail:
-  //           'El archivo seleccionado excede el tamaño máximo permitido (10 MB).',
-  //       });
-  //     } else {
-  //       this.fileErrorMessage = '';
-  //       const reader = new FileReader();
-  //       reader.onload = (e: any) => {
-  //         this.imagenBase64 = e.target.result;
-  //       };
-  //       reader.readAsDataURL(file);
-  //       this.messageService.add({
-  //         severity: 'info',
-  //         summary: 'Cargado...',
-  //         detail: 'Se ha cargado la imagen con éxito',
-  //       });
-  //     }
-  //   }
-  // }
-
   onFileUpload(event: UploadEvent) {
     console.log('evento con file', event);
     const file = event.currentFiles[0];

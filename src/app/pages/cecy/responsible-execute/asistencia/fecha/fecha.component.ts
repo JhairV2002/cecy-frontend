@@ -3,14 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AsistenciaService } from '../asistencia.service';
 import { Asistencia } from '../asistencia.model';
 import { MessageService } from '@services/core';
+import { MessageService as MessageLocal } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ImageModalComponent } from './image-modal.component';
-
 
 @Component({
   selector: 'app-fecha',
   templateUrl: './fecha.component.html',
-  styleUrls: ['./fecha.css']
+  styleUrls: ['./fecha.css'],
 })
 export class FechaComponent implements OnInit {
   loading$ = this.asistenciaService.loading$;
@@ -19,6 +19,7 @@ export class FechaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private asistenciaService: AsistenciaService,
     public messageService: MessageService,
+    public messageLocal: MessageLocal,
     private dialogService: DialogService
   ) {}
 
@@ -42,9 +43,14 @@ export class FechaComponent implements OnInit {
   }
 
   createAttendance() {
-    console.warn('largo the fotografias: ',this.fechas.length)
-    if (this.fechas.length>=5) {
-      return
+    console.warn('largo the fotografias: ', this.fechas.length);
+    if (this.fechas.length >= 5) {
+      this.messageLocal.add({
+        severity: 'error',
+        summary: 'Capacidad alcanzada',
+        detail: 'El máximo de registros es 5. ',
+      });
+      return;
     }
     this.activatedRoute.paramMap.subscribe((param) => {
       this.router.navigate([
@@ -94,10 +100,7 @@ export class FechaComponent implements OnInit {
     this.dialogService.open(ImageModalComponent, {
       data: { imageUrl },
       header: 'Evidencia Fotográfica',
-      width: '70%'
+      width: '70%',
     });
   }
-
-
-
 }
