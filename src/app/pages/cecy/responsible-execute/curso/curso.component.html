@@ -33,10 +33,12 @@
         </svg>
       </div>
     </div>
-    <p-button class="ml-4" styleClass="p-button-success">
+<!--     <p-button class="ml-4" styleClass="p-button-success">
       <i class="pi pi-sort-amount-down-alt"></i>
+    </p-button> -->
+    <p-button class="ml-4" (click)="toggleSortOrder()">
+      <i [ngClass]="sortOrder === 'asc' ? 'pi pi-sort-amount-down' : 'pi pi-sort-amount-up'"></i>
     </p-button>
-
   </div>
 </p-toolbar>
 
@@ -54,7 +56,7 @@
   </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <div *ngFor="let curso of filterCoursesByName(cursos, searchTerm); let i = index">
+  <div *ngFor="let curso of coursesToDisplay; let i = index">
     <div>
       <p-card
         header="{{ curso.detailPlanification?.planificationCourse?.name }}"
@@ -140,7 +142,9 @@
 </div>
 
 <p-paginator
-  [rows]="3"
+  [rows]="itemsPerPage"
+  [totalRecords]="filterCoursesByName(cursos, searchTerm).length"
+  (onPageChange)="onPageChange($event)"
   [showCurrentPageReport]="true"
   currentPageReportTemplate="{first} - {last} of {totalRecords}"
   [showPageLinks]="true"

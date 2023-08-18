@@ -20,6 +20,8 @@ export class CursoComponent implements OnInit {
   helpDialogVisible: boolean = false;
   searchTerm: string = '';
   sortOrder: 'asc' | 'desc' = 'asc';
+  currentPage: number = 1;
+  itemsPerPage: number = 3;
 
   constructor(
     private cursoService: CursoService,
@@ -120,6 +122,37 @@ export class CursoComponent implements OnInit {
 
   toggleSortOrder() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.sortCourses();
   }
 
+  sortCourses() {
+    this.cursos.sort((a, b) => {
+      const dateA = new Date(a.detailPlanification?.planificationCourse.startDate);
+      const dateB = new Date(b.detailPlanification?.planificationCourse.startDate);
+
+      if (this.sortOrder === 'asc') {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
+    });
+  }
+
+  get startingIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  // Method to get the filtered and sorted courses
+  get filteredAndSortedCursos(): any[] {
+    return this.filterCoursesByName(this.cursos, this.searchTerm);
+  }
+
+  // Method to get the courses to display on the current page
+  get coursesToDisplay(): any[] {
+    return this.filteredAndSortedCursos.slice(this.startingIndex, this.startingIndex + this.itemsPerPage);
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.page + 1;
+  }
 }
