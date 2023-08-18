@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { environment } from '@env/environment';
@@ -15,6 +15,7 @@ import { Estudiantes } from '@models/cecy';
 })
 export class AuthStudentService {
   private apiUrl = `${environment.api2}/auth`;
+  private javaUrl = `${environment.api}/estudiantes`;
   loading = new BehaviorSubject<boolean>(true);
   loading$: Observable<boolean> = this.loading.asObservable();
   student$ = new BehaviorSubject<Estudiantes | null>(null);
@@ -98,8 +99,13 @@ export class AuthStudentService {
         },
       })
       .pipe(
-        tap((user: any) => {
-          this.student$.next(user);
+        switchMap((user:any) => {
+          return this.http.get(`${this.javaUrl}/findByCedula/${user[0].cedula}/`).pipe(
+            tap((detailUser: any) => {
+              console.log('profile servicee', detailUser);
+              this.student$.next(detailUser);
+            })
+          )
         }),
         finalize(() => {
           this.loading.next(false);

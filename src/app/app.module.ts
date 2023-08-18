@@ -43,6 +43,7 @@ const config: SocketIoConfig = {
 
 //Ngx Progress Bar
 import { NgProgressModule } from 'ngx-progressbar';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 //Google
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, GoogleSigninButtonModule, GoogleSigninButtonDirective } from '@abacritt/angularx-social-login';

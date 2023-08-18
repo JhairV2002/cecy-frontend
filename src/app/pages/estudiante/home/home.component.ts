@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
       next: (student: any) => {
         console.log('STUDIANTE', student);
         if (student !== null) {
-          this.student = student[0];
+          this.student = student;
         }
       },
       error: (error) => {

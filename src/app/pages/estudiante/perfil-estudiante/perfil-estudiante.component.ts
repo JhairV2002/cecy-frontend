@@ -54,12 +54,12 @@ export class PerfilEstudianteComponent implements OnInit {
       next: (student: any) => {
         console.log('STUDIANTE', student);
         if (student !== null) {
-          this.student = student[0];
-          const rawFechaNacimiento = student[0].fechaNacimiento;
+          this.student = student;
+          const rawFechaNacimiento = student.fechaNacimiento;
           const fechaNacimiento = new Date(rawFechaNacimiento);
           const formattedFechaNacimiento = fechaNacimiento.toISOString().split('T')[0];
           this.studentProfile.patchValue({
-            ...student[0],
+            ...student,
             fechaNacimiento: formattedFechaNacimiento
           });
         }

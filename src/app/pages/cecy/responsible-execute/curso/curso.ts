@@ -4,6 +4,7 @@ export interface PlanificationCourse {
   name: string;
   state: string;
   startDate: string;
+  finishDate: string;
 }
 
 export interface Workday {

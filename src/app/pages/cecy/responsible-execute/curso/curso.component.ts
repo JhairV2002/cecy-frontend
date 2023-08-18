@@ -15,7 +15,7 @@ export class CursoComponent implements OnInit {
   statusOptions: StatusOption[] = [
     { label: 'Aprobado', value: 'aprobado' },
     { label: 'Terminado', value: 'terminado' },
-    { label: 'Cerrado', value: 'cerrado' },
+    //{ label: 'Cerrado', value: 'cerrado' },
   ];
   helpDialogVisible: boolean = false;
   searchTerm: string = '';
