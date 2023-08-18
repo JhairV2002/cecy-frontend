@@ -1,27 +1,60 @@
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-solid fa-square-check fa-xl"></i>
+      <strong class="ml-1">Matriculas de los Estudiantes</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
-  <h1 class="text-xl">Matriculas</h1>
-</p-toolbar>
-<div class="flex flex-wrap justify-center content-center h-full gap-4 mt-4">
-  <div
-    *ngFor="let carrera of carreras$ | async"
-    class="card w-96 bg-base-100 shadow-xl h-80"
-  >
-    <figure class="px-10 pt-10">
-      <img
-        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-        alt="Shoes"
-        class="rounded-xl"
-      />
-    </figure>
-    <div class="card-body items-center text-center">
-      <h2 class="card-title">{{ carrera.name }}</h2>
-      <div class="card-actions">
-        <button class="btn btn-primary">
-          <a [routerLink]="['/cecy/assistant-cecy/delegado', carrera.id]"
-            >Ver Cursos</a
-          >
-        </button>
-      </div>
+  <div class="p-toolbar-group-start gap-2">
+    <h1 class="text-xl font-semi-bold underline">
+      Listado de cursos aprobados
+    </h1>
+  </div>
+  <div class="p-toolbar-group-end gap-2">
+    <div class="p-inputgroup">
+      <input pInputText id="search" placeholder="Buscar por nombre" />
+      <!-- [(ngModel)]="nombreFiltrado"
+        (input)="filtrarPorNombre()"
+        (keypress)="filtrarPorNombre()" -->
+      <button pButton pRipple type="button" icon="pi pi-search"></button>
+      <!-- (click)="filtrarPorNombre()" -->
     </div>
   </div>
+</p-toolbar>
+<div class="flex m-4">
+  <div class="flex flex-wrap justify-center content-center h-full gap-4 mt-4">
+    <p-card class="w-96" *ngFor="let curso of cursos$ | async">
+      <figure class="px-10 pt-10">
+        <img
+          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          alt="Shoes"
+          class="rounded-xl"
+        />
+      </figure>
+      <div class="card-body items-center text-center">
+        <h2 class="card-title">{{ curso.planification.name }}</h2>
+        <p>Estado: {{ curso.planification.state }}</p>
+        <p>Empieza: {{ curso.planification.startDate | date }}</p>
+        <p>Termina: {{ curso.planification.finishDate | date }}</p>
+        <div class="card-actions">
+          <p-button
+            icon="pi pi-eye"
+            label="Ver Estudiantes"
+            styleClass="p-button-outlined"
+            (click)="viewStudents(curso.planification)"
+          ></p-button>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
+<div class="flex justify-center items-center">
+  <p-progressSpinner
+    *ngIf="loading$ | async"
+    [style]="{ 'width.px': '50', 'height.px': '50' }"
+    strokeWidth="4"
+    animationDuration="1s"
+  ></p-progressSpinner>
 </div>

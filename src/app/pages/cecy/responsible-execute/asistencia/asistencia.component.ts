@@ -7,6 +7,8 @@ import { UploadEvent } from '@models/core';
 import { AsistenciaService } from './asistencia.service';
 import { MessageService } from 'primeng/api';
 import { MessageService as MessageLocal } from '@services/core';
+import { formatDate } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-asistencia',
@@ -19,9 +21,12 @@ export class AsistenciaComponent implements OnInit {
     evidenciaFotografica: [''],
     courseId: [null],
   });
+  helpDialogVisible: boolean = false;
   imagenBase64: string = '';
   isCreating: boolean = true;
-  id: number = 0;
+  img: string = '';
+  editImageForNew: boolean = false;
+  fileErrorMessage: string = '';
 
   constructor(
     private AsistenciaService: AsistenciaService,
@@ -29,15 +34,31 @@ export class AsistenciaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private messageLocal: MessageLocal
+    private messageLocal: MessageLocal,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
-    this.id = +this.activatedRoute.snapshot.params['courseId'];
-    console.log(this.id);
-    const id = this.activatedRoute.snapshot.params['courseId'];
-    if (id) {
-      this.AsistenciaService.getAttendanceByIdCourse(id).subscribe({
-        next: (data) => {
+    const asistenciaId = this.activatedRoute.snapshot.params['asistenciaId'];
+    this.activatedRoute.snapshot.params;
+    console.log(asistenciaId);
+    if (asistenciaId) {
+      this.AsistenciaService.getAttendanceById(asistenciaId).subscribe({
+        next: (data: any) => {
+          this.isCreating = false;
+          this.img = data.evidenciaFotografica;
+
+          const patchedValue = {
+            ...data,
+            fecha: new Date(data.fecha),
+          };
+
+          patchedValue.fecha = formatDate(
+            patchedValue.fecha,
+            'yyyy-MM-dd',
+            'en-US'
+          );
+
+          this.formAttendance.patchValue(patchedValue);
           console.log('NG NGONINIT', data);
         },
         error: (error: any) => {
@@ -64,18 +85,29 @@ export class AsistenciaComponent implements OnInit {
     const file = event.currentFiles[0];
     console.log(file);
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        console.log('QUE HAY AQUI', e);
-        this.imagenBase64 = e.target.result;
-        console.log('BASE 64', this.imagenBase64);
-      };
-      reader.readAsDataURL(file);
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Cargado...',
-        detail: 'Se ha cargado la imagen con Éxito',
-      });
+      const maxSizeInBytes = 10 * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        this.fileErrorMessage =
+          'El archivo seleccionado excede el tamaño máximo permitido (10MB).';
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al cargar la imagen',
+          detail:
+            'El archivo seleccionado excede el tamaño máximo permitido (10 MB).',
+        });
+      } else {
+        this.fileErrorMessage = '';
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imagenBase64 = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Cargado...',
+          detail: 'Se ha cargado la imagen con éxito',
+        });
+      }
     }
   }
 
@@ -85,15 +117,12 @@ export class AsistenciaComponent implements OnInit {
 
     const { fecha, observaciones, evidenciaFotografica, courseId } =
       this.formAttendance.value;
-    console.log();
     const valuesForm = {
       fecha,
       observaciones,
       evidenciaFotografica: this.imagenBase64,
       courseId: id,
     };
-    console.log('ID DEL CURSO', id);
-    console.log(valuesForm);
     this.AsistenciaService.createAttendance(valuesForm).subscribe({
       next: (data: any) => {
         console.log(data);
@@ -102,6 +131,15 @@ export class AsistenciaComponent implements OnInit {
           summary: `Creado`,
           detail: `${data.message}`,
         });
+        setTimeout(() => {
+          this.activatedRoute.paramMap.subscribe((param) => {
+            this.router.navigate([
+              `/cecy/responsible-execute/course/${param.get(
+                'courseId'
+              )}/date-list`,
+            ]);
+          });
+        }, 500);
       },
       error: (error) => {
         this.messageLocal.error(error);
@@ -109,8 +147,98 @@ export class AsistenciaComponent implements OnInit {
     });
   }
 
+  editImage() {
+    this.editImageForNew = true;
+  }
+
   updateAttendance() {
     console.log('updating ok');
+    const asistenciaId = this.activatedRoute.snapshot.params['asistenciaId'];
+    const valuesForm = this.formAttendance.value;
+    if (this.editImageForNew) {
+      console.log('se activo para editar la imagen');
+      if (this.formAttendance.invalid || !this.imagenBase64) {
+        console.log('No se encontro la imagen');
+        this.messageService.add({
+          severity: 'warn',
+          summary: `No encontrado`,
+          detail: `No se encontro la imagen`,
+        });
+        return;
+      }
+
+      const { fecha, observaciones, evidenciaFotografica } =
+        this.formAttendance.value;
+      const valuesForm = {
+        fecha,
+        observaciones,
+        evidenciaFotografica: this.imagenBase64,
+      };
+      this.AsistenciaService.updateAttendance(
+        valuesForm,
+        asistenciaId
+      ).subscribe({
+        next: (data: any) => {
+          console.log('DATA', data);
+          this.messageService.add({
+            severity: 'info',
+            summary: `Actualizado`,
+            detail: `${data.message}`,
+          });
+          setTimeout(() => {
+            this.activatedRoute.paramMap.subscribe((param) => {
+              this.router.navigate([
+                `/cecy/responsible-execute/course/${param.get(
+                  'courseId'
+                )}/date-list`,
+              ]);
+            });
+          }, 500);
+        },
+        error: (error) => {
+          console.log(error);
+          this.messageService.add({
+            severity: 'danger',
+            summary: `Error al actualizar`,
+            detail: `${error.error}`,
+          });
+        },
+      });
+    }
+
+    this.AsistenciaService.updateAttendance(valuesForm, asistenciaId).subscribe(
+      {
+        next: (data: any) => {
+          console.log('DATA', data);
+          this.messageService.add({
+            severity: 'info',
+            summary: `Actualizado`,
+            detail: `${data.message}`,
+          });
+          setTimeout(() => {
+            this.activatedRoute.paramMap.subscribe((param) => {
+              this.router.navigate([
+                `/cecy/responsible-execute/course/${param.get(
+                  'courseId'
+                )}/date-list`,
+              ]);
+            });
+          }, 500);
+        },
+        error: (error) => {
+          console.log(error);
+          this.messageService.add({
+            severity: 'danger',
+            summary: `Error al actualizar`,
+            detail: `${error.error}`,
+          });
+        },
+      }
+    );
+  }
+
+  help() {
+    this.helpDialogVisible = true;
   }
 
   redireccionar() {

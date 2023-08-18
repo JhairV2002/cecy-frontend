@@ -108,7 +108,7 @@ export class SignatureFormComponent implements OnInit {
     console.log('Update');
     const valuesForm = this.formSignature.value;
     const id = this.activatedRoute.snapshot.params['id'];
-
+    console.log('NUEVOS VALORES', valuesForm);
     if (this.editImage) {
       if (this.formSignature.invalid || !this.filename) {
         console.log('No se encontro la imagen');
@@ -120,6 +120,8 @@ export class SignatureFormComponent implements OnInit {
         return;
       }
     }
+
+    console.log('DESPUES NUEVOS VALORES', valuesForm);
 
     this.signatureService
       .updateByIdSignature(valuesForm, id)

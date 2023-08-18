@@ -1,0 +1,39 @@
+<p-dialog
+  [(visible)]="showModal"
+  header="Crea tu cuenta"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ width: '480x' }"
+  (onHide)="closeModal()"
+  position="top"
+>
+  <div class="p-dialog-content">
+    <p>
+      Accede a nuestro contenido, crea rutas de estudio y participa en la
+      comunidad.
+    </p>
+    <p>Crea tu perfil con:</p>
+    <div class="flex mt-6 justify-center flex-col items-center gap-4">
+      <asl-google-signin-button
+        [type]="'standard'"
+        [shape]="'rectangular'"
+        [theme]="'outline'"
+        [size]="'large'"
+        text="signup_with"
+      ></asl-google-signin-button>
+      <button
+        pButton
+        label="Estudiante exterior"
+        icon="pi pi-user"
+        class="w-1/2 p-button-info"
+        (click)="registerStudentExterior()"
+      ></button>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <div class="text-center">
+      ¿Tienes una cuenta en Cecy?
+      <button (click)="closeModal()" class="underline">Inicia Sesion</button>
+    </div>
+  </div>
+</p-dialog>

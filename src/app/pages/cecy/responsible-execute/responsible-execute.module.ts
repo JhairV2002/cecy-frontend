@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ResponsibleExecuteRoutingModule } from './responsible-execute-routing.module';
 import { AsistenciaComponent } from './asistencia/asistencia.component';
 import { FechaComponent } from './asistencia/fecha/fecha.component';
-import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EstudiantesComponent } from './notas/estudiantes.component';
@@ -30,12 +29,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
     AsistenciaComponent,
     FechaComponent,
-    RegistroFotograficoComponent,
     EstudiantesComponent,
     NombreFilterPipe,
     HomeComponent,
@@ -63,6 +62,7 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     MessagesModule,
     ToastModule,
+    DialogModule,
   ],
 })
 export class ResponsibleExecuteModule {}

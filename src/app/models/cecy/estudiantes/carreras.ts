@@ -2,11 +2,11 @@ import { Catalogue } from '../catalogue';
 import { Inscription } from '../inscription';
 
 export interface CarrerasApi {
-  id: number;
-  name: string;
-  createdAt: string;
-  updateAt: string;
-  planificationCourse: PlanificationCourse[];
+  id?: number;
+  name?: string;
+  createdAt?: string;
+  updateAt?: string;
+  planificationCourse?: PlanificationCourse[];
 }
 
 export interface PlanificationCourse {
@@ -119,6 +119,7 @@ export interface Estudiantes {
   preRequisitos: any[];
   empresas: any[];
   matriculas: number[];
+  rol: string;
 }
 
 export interface Genero {

@@ -2,19 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoleGuard } from '@shared/guards/role.guard';
 import { AdminGuard } from './guards/admin.guard';
-import { HasRoleGuard } from './guards/has-role.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
 import { EstudiantesComponent } from '@layout/estudiantes/estudiantes.component';
+import { tokenStudentGuard } from '@guards/token-student.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', 
     canActivate: [RedirectGuard],
     loadChildren: () =>
-      import('./pages/authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
-      ),
+      import('./pages/website/website.module').then((m) => m.WebsiteModule),
+  },
+  {
+    path: 'cecy',
+    loadChildren: () =>
+      import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
   },
   {
     path: 'administrator',
@@ -25,13 +28,8 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'cecy',
-    loadChildren: () =>
-      import('./pages/cecy/cecy.module').then((m) => m.CecyModule),
-  },
-
-  {
     path: 'estudiante',
+    canActivate: [tokenStudentGuard],
     component: EstudiantesComponent,
     loadChildren: () =>
       import('./pages/estudiante/estudiante.module').then(
@@ -54,4 +52,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

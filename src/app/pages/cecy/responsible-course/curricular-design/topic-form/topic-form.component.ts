@@ -1,4 +1,4 @@
-import { CourseService } from './../../../../../services/cecy-v1/course.service';
+import { CourseService } from '@services/cecy-v1/course.service';
 import { Subject, takeUntil } from 'rxjs';
 import { PaginatorModel, TopicModel } from '@models/cecy';
 import { MessageService } from '@services/core/message.service';
@@ -83,7 +83,7 @@ export class TopicFormComponent implements OnInit {
     if (topic.id !== undefined) {
       this.newForm.reset(topic);
       const nameChildrens = topic.children?.map((x) => x.description);
-      nameChildrens?.forEach((e) => {
+      nameChildrens?.forEach((e: any) => {
         this.addSubtopic(e);
       });
       this.idTopicEdit = topic;

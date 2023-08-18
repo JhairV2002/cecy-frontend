@@ -1,3 +1,4 @@
+
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <button
@@ -9,6 +10,7 @@
       (click)="regresar()"
       label="Volver"
     ></button>
+
     <button
       pButton
       type="button"
@@ -16,7 +18,7 @@
       class="p-button p-button-primary"
       icon="pi pi-user-plus"
       (click)="redireccionar()"
-      label="asistencia"
+      label="Asistencia"
     ></button>
   </div>
 </p-toolbar>
@@ -24,12 +26,21 @@
   <div class="flex-1">
     <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
   </div>
+  <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()">Ayuda</i>
+      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }"> 
+        1) Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
+        2) La Asistencia se registra solo usando los botones <br/>
+            2.1 Disminuir la asistencia ˅ <br/>
+            2.2 Aumentar la asistencia  ˄ <br/> 
+
+            Nota: El máximo de asistencia es 100 % y el minimo es 1 <br/>
+      </p-dialog>
   <div class="">
     <div class="p-inputgroup">
       <input
         pInputText
         id="search"
-        placeholder="Buscar por nombre"
+        placeholder="Buscar por nombre o cédula"
         [(ngModel)]="nombreFiltrado"
         (input)="filtrarPorNombre()"
         (keypress)="filtrarPorNombre()"
@@ -48,19 +59,25 @@
   [value]="estudiantes$ | async | nombreFilter : nombreFiltrado"
   [responsive]="true"
   class="p-datatable"
+  [loading]="(loading$ | async)!"
+  [rows]="5"
+  [paginator]="true"
 >
   <ng-template pTemplate="header">
+
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
-      <th>% ASISTENCIA</th>
+      <th>% ASISTENCIA</th> 
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
+      
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-matricula>
     <tr>
       <td>
@@ -82,11 +99,11 @@
           id="asistencia"
           [(ngModel)]="matricula.porcentajeAsistencia"
           placeholder="Ingrese el % asistencia"
-          [min]="1"
           [max]="100"
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
           (keydown)="validarNumero($event)"
+          [ngModel]="matricula.porcentajeAsistencia !== null ? matricula.porcentajeAsistencia : 100"
         ></p-inputNumber>
       </td>
       <td>
@@ -120,10 +137,11 @@
           pButton
           type="button"
           class="p-button p-button-rounded p-button-success"
-          (click)="guardarNotas(matricula)"
+          (click)="guardarNotas($event, matricula)"
         >
           Guardar
         </button>
+
       </td>
     </tr>
   </ng-template>
@@ -133,6 +151,7 @@
     </tr>
   </ng-template>
 </p-table>
+
 <button
   pButton
   type="button"
@@ -143,3 +162,4 @@
 >
   ㅤGenerar Excel
 </button>
+

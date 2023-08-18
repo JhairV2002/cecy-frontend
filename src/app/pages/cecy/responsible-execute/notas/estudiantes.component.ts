@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { EstudianteService } from './estudiante.service';
 import { Matriculas } from './estudiante.model';
-import { NombreFilterPipe } from './filter.pipe';
-import * as fs from 'fs';
 import * as XLSX from 'xlsx';
-import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-estudiantes',
@@ -17,27 +14,32 @@ import { HttpClient } from '@angular/common/http';
 export class EstudiantesComponent implements OnInit {
   nombreFiltrado: string = '';
   estudiantes: Matriculas[] = [];
+  loading$ = this.estudianteService.loading$;
+  helpDialogVisible: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private estudianteService: EstudianteService
+    private estudianteService: EstudianteService,
+    public messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((param) => {
+      console.log(param);
       this.estudianteService
-        .obtenerMatriculasPorCursoId(parseInt(param.get('cursoId')!))
+        .obtenerMatriculasPorCursoId(parseInt(param.get('courseId')!))
         .subscribe((res) => {
           console.log('ESTUDIANTES', res);
           this.estudiantes = res;
         });
-    });
+    }
+    );
   }
   estudiantes$ = this.activatedRoute.paramMap.pipe(
     switchMap((param) =>
       this.estudianteService
-        .obtenerMatriculasPorCursoId(Number(param.get('cursoId')!))
+        .obtenerMatriculasPorCursoId(Number(param.get('courseId')!))
         .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
     )
   );
@@ -66,29 +68,54 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
-  guardarNotas(matricula: Matriculas): void {
+  guardarNotas(event: any, matricula: Matriculas): void {
     console.log(matricula);
 
-    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe(
-      (res) => {
-        console.log('Notas guardadas', res);
+    this.estudianteService.actualizarNotas(matricula, matricula.id).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.messageService.add({
+          severity: 'success',
+          summary: `Actualizado`,
+          detail: `Notas del estudiante ${data.estudiantes.nombres}`,
+        });
+
+        // After saving, reload the component data to update the page with the latest values
+        this.reloadComponentData();
       },
-      (error) => {
-        console.log('Error al guardar notas', error);
-      }
-    );
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al guardar',
+          detail: `${error.message}`,
+        });
+      },
+    });
+  }
+  
+  reloadComponentData(): void {
+    // Fetch the latest data from the backend
+    this.activatedRoute.paramMap.subscribe((param) => {
+      console.log(param);
+      this.estudianteService
+        .obtenerMatriculasPorCursoId(parseInt(param.get('courseId')!))
+        .subscribe((res) => {
+          console.log('ESTUDIANTES', res);
+          this.estudiantes = res;
+
+          // After fetching the latest data, update the estudiantes$ observable
+          this.estudiantes$ = this.activatedRoute.paramMap.pipe(
+            switchMap((param) =>
+              this.estudianteService
+                .obtenerMatriculasPorCursoId(Number(param.get('courseId')!))
+                .pipe(map((res) => res.filter((res) => res.estudiantes != null)))
+            )
+          );
+        });
+    });
   }
 
-  // guardarPorcentaje(matricula: Matriculas): void {
-  //   console.log(matricula);
-  //
-  //   this.estudianteService
-  //     .porcentaje(matricula, matricula.id)
-  //     .subscribe((res) => {
-  //       console.log('Asistencia guardada', res);
-  //     });
-  // }
-
+ 
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
@@ -137,6 +164,31 @@ export class EstudiantesComponent implements OnInit {
     const reporte = 'Reporte Promedio.xlsx';
     XLSX.writeFile(libro, reporte);
 
-    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`);
+    console.log(`El archivo Excel "${reporte}" ha sido generado exitosamente.`, this.estudiantes$);
   }
+
+
+  setInitialAsistenciaValue(): void {
+    this.estudiantes$.forEach((matricula: any) => {
+      if (matricula.porcentajeAsistencia === 0) {
+        matricula.porcentajeAsistencia = 100;
+      }
+    });
+  }
+
+  actualizarAsistencia(event: any, matricula: any): void {
+    const newValue = event.value;
+    if (newValue === 0) {
+      matricula.porcentajeAsistencia = 100;
+    } else {
+      matricula.porcentajeAsistencia = newValue;
+    }
+  }
+
+  help() {
+  this.helpDialogVisible = true;
 }
+}
+
+
+

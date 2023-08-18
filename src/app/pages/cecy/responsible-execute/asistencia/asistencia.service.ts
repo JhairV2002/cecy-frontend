@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Asistencia } from './asistencia.model';
 import { BehaviorSubject, Observable, finalize } from 'rxjs';
-import { Matriculas } from '../notas/estudiante.model';
-import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -26,13 +24,24 @@ export class AsistenciaService {
     );
   }
 
-  getAttendanceByIdCourse(courseId: number) {
+  getAttendanceById(asistenciaId: number) {
     this.loading.next(true);
-    return this.http.get<Asistencia[]>(`${this.apiUrl}/${courseId}`).pipe(
+    return this.http.get<Asistencia[]>(`${this.apiUrl}/${asistenciaId}`).pipe(
       finalize(() => {
         this.loading.next(false);
       })
     );
+  }
+
+  getAttendanceByIdCourse(courseId: number) {
+    this.loading.next(true);
+    return this.http
+      .get<Asistencia[]>(`${this.apiUrl}/courses/${courseId}`)
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
   }
 
   createAttendance(attendance: any) {
@@ -44,9 +53,9 @@ export class AsistenciaService {
     );
   }
 
-  updateAttendance(newAttendance: any, id: number) {
+  updateAttendance(newAttendance: any, asistenciaId: number) {
     this.loading.next(true);
-    return this.http.put(`${this.apiUrl}/${id}`, newAttendance).pipe(
+    return this.http.put(`${this.apiUrl}/${asistenciaId}`, newAttendance).pipe(
       finalize(() => {
         this.loading.next(false);
       })

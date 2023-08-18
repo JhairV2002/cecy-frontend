@@ -166,7 +166,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Matriculacion Estudiantes',
           icon: 'fa-solid fa-square-check',
-          routerLink: ['/cecy/assistant-cecy/enrollment-record'],
+          routerLink: ['/cecy/assistant-cecy/matricula'],
         },
         {
           label: 'Generar Reportes',
@@ -198,7 +198,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Mis cursos',
           icon: 'fa-sharp fa-solid fa-check-to-slot',
-          routerLink: ['/cecy/responsible-execute/mis-cursos'],
+          routerLink: ['/cecy/responsible-execute/my-courses'],
         },
       ],
     },

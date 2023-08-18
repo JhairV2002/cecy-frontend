@@ -34,14 +34,14 @@
       (click)="loadCoursesByCareer()"
       [loading]="(loading$ | async)!"
     ></p-button>
-    <p-button
+    <!-- <p-button
       *ngIf="selectedCourses?.length"
       type="button"
       pTooltip="Eliminar seleccionados"
       tooltipPosition="bottom"
       styleClass="p-button-danger p-button-rounded ml-4"
       icon="pi pi-trash"
-    ></p-button>
+    ></p-button> -->
     <!-- (click)="deleteCourses()" -->
     <app-progress-bar
       *ngIf="progressBarDelete"
@@ -132,13 +132,13 @@
 
         <td>
           <div class="flex gap-1 justify-center">
-            <button
+            <!-- <button
               pButton
               icon="pi pi-trash"
               class="p-button-rounded p-button-danger"
               type="submit"
               (click)="deletePlanification(planification)"
-            ></button>
+            ></button> -->
             <button
               pButton
               pRipple

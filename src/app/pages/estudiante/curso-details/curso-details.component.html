@@ -1,0 +1,60 @@
+<div class="w-full h-screen my-2">
+  <p-toolbar>
+    <div class="p-toolbar-group-start gap-2"></div>
+    <div class="p-toolbar-group-center gap-2">
+      <h1 class="text-center my-4 text-2xl">
+        {{ (nombreCurso$ | async) || "Nombre curso" }}
+      </h1>
+    </div>
+    <div class="p-toolbar-group-end gap-2">
+      <button
+        pButton
+        type="button"
+        id="volver"
+        class="p-button p-button-outlined"
+        icon="pi pi-arrow-left"
+        label="Regresar al inicio"
+        routerLink=""
+      ></button>
+    </div>
+  </p-toolbar>
+  <div class="flex gap-3 m-8">
+    <mat-tab-group class="w-2/4">
+      <mat-tab label="Resumen">
+        {{ (curso$ | async)?.summary }}
+      </mat-tab>
+      <mat-tab label="Contenido">
+        <ul>
+          <li>{{ (curso$ | async)?.teachingStrategies }}</li>
+        </ul>
+      </mat-tab>
+      <mat-tab label="Requisitos">
+        <h3>Requisitos Tecnicos</h3>
+        <ul>
+          <li
+            *ngFor="
+              let requisito of (curso$ | async)?.techniquesRequisites?.technical
+            "
+          >
+            {{ requisito }}
+          </li>
+        </ul>
+
+        <h3>Requisitos Generales</h3>
+        <ul>
+          <li
+            *ngFor="
+              let requisito of (curso$ | async)?.techniquesRequisites?.general
+            "
+          >
+            {{ requisito }}
+          </li>
+        </ul>
+      </mat-tab>
+    </mat-tab-group>
+    <app-curso-card
+      [curso]="(curso$ | async)?.planification!"
+      [butonText]="'Inscribirse'"
+    ></app-curso-card>
+  </div>
+</div>

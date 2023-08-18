@@ -9,6 +9,7 @@ export interface User {
   identityCard?: string;
   recoveryToken?: string;
   image?: string;
+  password?: string;
   roleId?: number;
   createdAt?: Date;
   updateAt?: Date;

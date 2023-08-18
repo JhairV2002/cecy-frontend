@@ -69,7 +69,6 @@ export class CourseService {
     return this.http.post<any>(`${this.apiUrl}/catalogue/`, catalogue);
   }
 
-
   public getClassrooms(): Observable<ClassroomModel[]> {
     return this.http.get<ClassroomModel[]>(this.apiUrl + '/classrooms/class');
   }
@@ -77,8 +76,6 @@ export class CourseService {
   public getInstructors(): Observable<any> {
     return this.http.get<any>(this.apiUrlUser + '/instructors/all/');
   }
-
-
 
   // detail plan
 
@@ -176,15 +173,28 @@ export class CourseService {
 
   ////////detailPlanInstructor
   getInstructorsByDetail(id: number): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/detailPlanInstructor/all/'+id);
+    return this.http.get<any>(this.apiUrl + '/detailPlanInstructor/all/' + id);
   }
 
   saveInstructorDetail(instructorDetail: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/detailPlanInstructor/', instructorDetail);
+    return this.http.post<any>(
+      this.apiUrl + '/detailPlanInstructor/',
+      instructorDetail
+    );
   }
 
   deleteInstructorFromDetail(id: any) {
     return this.http.delete(this.apiUrl + '/detailPlanInstructor/' + id);
   }
 
+  //change state course
+  updateCourseByState(courseId: number, newStatus: string) {
+    this.loading.next(true);
+    const endpoint = `${this.apiUrl}/change-course/${courseId}/state-change/${newStatus}`;
+    return this.http.patch(endpoint, null).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
 }

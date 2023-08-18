@@ -28,7 +28,16 @@
           placeholder="Seleccione año lectivo"
           optionLabel="year"
           optionValue="id"
+          [showClear]="true"
         >
+          <ng-template let-option pTemplate="item">
+            <div class="flex align-items-center justify-between">
+              <div>
+                {{ "Año lectivo:" + " " + option.year }}
+              </div>
+              <div>{{ "Ciclo" + " " + option.cycle + " " }}</div>
+            </div>
+          </ng-template>
         </p-dropdown>
         <small
           appErrorMessage
@@ -96,6 +105,8 @@
               [style]="{ width: '100%' }"
               class="flex-1"
               [filter]="true"
+              [showClear]="true"
+              filterBy="name"
             >
             </p-dropdown>
             <button

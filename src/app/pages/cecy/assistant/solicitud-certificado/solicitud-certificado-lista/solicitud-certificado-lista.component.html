@@ -1,28 +1,68 @@
 <div class="grid">
   <div class="col-12">
-      <div class="px-6 py-6">
-          <p-toast></p-toast>
-          <p-toolbar styleClass="mb-4">
-              <ng-template pTemplate="left">
-                  <div class="my-2">
-                      <button pButton pRipple label="Generar Certificados" icon="pi pi-plus" class="p-button-success mr-2" (click)="generateCertificate()"></button>
-                  </div>
-              </ng-template>
+    <div class="px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button
+              pButton
+              pRipple
+              label="Generar Certificados"
+              icon="pi pi-plus"
+              class="p-button-success mr-2"
+              (click)="generateCertificate()"
+            ></button>
+          </div>
+        </ng-template>
 
-              <ng-template pTemplate="right">
-                <button pButton pRipple label="Subir Codigos" icon="pi pi-upload" class="p-button-help" (click)="show()"></button>
-              </ng-template>
-          </p-toolbar>
-          <!-- tabla -->
-          <p-table #dt
-          [value]="codigos"
-          [columns]="cols"
-          responsiveLayout="scroll"
-          [rows]="10"
-          [globalFilterFields]="['matriculas.estudiantes.cedula','matriculas.estudiantes.nombres','matriculas.estudiantes.apellidos']"
-          [paginator]="true" [rowsPerPageOptions]="[10,20,30]"
-          [showCurrentPageReport]="true"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        <ng-template pTemplate="right">
+          <button
+            pButton
+            pRipple
+            label="Subir Codigos"
+            icon="pi pi-upload"
+            class="p-button-help"
+            (click)="show()"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+      <!-- tabla -->
+      <p-table
+        #dt
+        [value]="codigos"
+        [columns]="cols"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [globalFilterFields]="[
+          'matriculas.estudiantes.cedula',
+          'matriculas.estudiantes.nombres',
+          'matriculas.estudiantes.apellidos'
+        ]"
+        [paginator]="true"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        selectionMode="multiple"
+        [rowHover]="true"
+        dataKey="id"
+      >
+        <ng-template pTemplate="caption">
+          <div
+            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+          >
+            <span class="block mt-2 md:mt-0 p-input-icon-right mx-2">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="onGlobalFilter(dt, $event)"
+                placeholder="Buscar Cedula,Nombre..."
+                class="w-full sm:w-auto"
+              />
+            </span>
+          </div>
+        </ng-template>
 
           selectionMode="multiple"
           [rowHover]="true"
@@ -94,44 +134,126 @@
                   <input type="text" pInputText id="name" [(ngModel)]="codigo.matriculas.estudiantes.nombres" [disabled]="true"/>
 
               </div>
-              <div class="formgrid grid">
-                  <div class="field col">
-                      <label for="lastname">Apellidos</label>
-                      <input type="text" pInputText id="lastname" [(ngModel)]="codigo.matriculas.estudiantes.apellidos" [disabled]="true"/>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
 
-                  </div>
-                  <div class="field col">
-                      <label for="dni">Cedula</label>
-                      <input type="text" pInputText id="dni" [(ngModel)]="codigo.matriculas.estudiantes.cedula" [disabled]="true"/>
+    <p-dialog
+      [(visible)]="updateCodeDialog"
+      [style]="{ width: '450px' }"
+      header="Estudiante"
+      [modal]="true"
+      class="p-fluid"
+    >
+      <ng-template pTemplate="content">
+        <!-- <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image"> -->
+        <div class="field">
+          <label for="name">Nombres</label>
+          <input
+            type="text"
+            pInputText
+            id="name"
+            [(ngModel)]="codigo.matriculas.estudiantes.nombres"
+            [disabled]="true"
+          />
+        </div>
+        <div class="formgrid grid">
+          <div class="field col">
+            <label for="lastname">Apellidos</label>
+            <input
+              type="text"
+              pInputText
+              id="lastname"
+              [(ngModel)]="codigo.matriculas.estudiantes.apellidos"
+              [disabled]="true"
+            />
+          </div>
+          <div class="field col">
+            <label for="dni">Cedula</label>
+            <input
+              type="text"
+              pInputText
+              id="dni"
+              [(ngModel)]="codigo.matriculas.estudiantes.cedula"
+              [disabled]="true"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label for="code">Codigo</label>
+          <textarea
+            id="code"
+            pInputTextarea
+            [(ngModel)]="codigo.codigo"
+            required
+            rows="2"
+            cols="20"
+            required
+            autofocus
+            [ngClass]="{ 'ng-invalid ng-dirty': submitted && !codigo.codigo }"
+          ></textarea>
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !codigo.codigo"
+            >Ingrese un codigo para actualizar</small
+          >
+        </div>
+      </ng-template>
 
-                  </div>
-              </div>
-              <div class="field">
-                <label for="code">Codigo</label>
-                <textarea id="code" pInputTextarea [(ngModel)]="codigo.codigo" required rows="2" cols="20"required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !codigo.codigo}"></textarea>
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !codigo.codigo">Ingrese un codigo para actualizar</small>
-            </div>
-          </ng-template>
-
-
-          <!-- Es el footer de la tabla de actualizar y new -->
-          <ng-template pTemplate="footer">
-              <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-              <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-          </ng-template>
-      </p-dialog>
+      <!-- Es el footer de la tabla de actualizar y new -->
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          label="Cancel"
+          icon="pi pi-times"
+          class="p-button-text"
+          (click)="hideDialog()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="Save"
+          icon="pi pi-check"
+          class="p-button-text"
+          (click)="saveProduct()"
+        ></button>
+      </ng-template>
+    </p-dialog>
   </div>
 </div>
-<p-dialog [(visible)]="dialogCertificate" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+<p-dialog
+  [(visible)]="dialogCertificate"
+  header="Confirmar"
+  [modal]="true"
+  [style]="{ width: '450px' }"
+>
   <div class="flex align-items-center justify-content-center m-2">
-      <span>Si desea generar el certificado es necesario completar la configuracion</span>
+    <span
+      >Si desea generar el certificado es necesario completar la
+      configuracion</span
+    >
   </div>
   <div class="flex align-items-center justify-content-center">
     <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
     <span>¿Desea generar el certificado?</span>
-</div>
+  </div>
   <ng-template pTemplate="footer">
-      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Cancelar" (click)="dialogCertificate = false"></button>
-      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Aceptar" (click)="generateCertificates()"></button>
+    <button
+      pButton
+      pRipple
+      icon="pi pi-times"
+      class="p-button-text"
+      label="Cancelar"
+      (click)="dialogCertificate = false"
+    ></button>
+    <button
+      pButton
+      pRipple
+      icon="pi pi-check"
+      class="p-button-text"
+      label="Aceptar"
+      (click)="generateCertificates()"
+    ></button>
   </ng-template>
 </p-dialog>

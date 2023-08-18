@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Curso } from './curso';
 import { CursoService } from './curso.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
-import { Course } from '@models/cecy';
-
-interface StatusOption {
-  label: string;
-  value: string;
-}
+import { MessageService } from 'primeng/api';
+import { StatusOption } from './curso';
 
 @Component({
   selector: 'app-curso',
@@ -16,124 +11,115 @@ interface StatusOption {
 })
 export class CursoComponent implements OnInit {
   cursos: any[] = [];
-  cursosFiltrados: Curso[] = [];
-  cursosPaginados: Curso[] = [];
-  filtroNombre: string = '';
-  ascendingOrder: boolean = true;
   loading: boolean = true;
-  first = 0;
   statusOptions: StatusOption[] = [
-    { label: 'En proceso', value: 'En proceso' },
-    { label: 'Terminado', value: 'Terminado' },
-    { label: 'Cerrado', value: 'Cerrado' },
+    { label: 'Aprobado', value: 'aprobado' },
+    { label: 'Terminado', value: 'terminado' },
+    { label: 'Cerrado', value: 'cerrado' },
   ];
+  helpDialogVisible: boolean = false;
+  searchTerm: string = '';
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(
     private cursoService: CursoService,
-    private activateRouter: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    public messageService: MessageService
   ) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe((user: any) => {
-      console.log('USUARIO INSTRUCTOR', user[0].id);
-      this.cursoService.getCursosByInstructor(user[0].id).subscribe(
-        (cursos) => {
-          console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
-          this.cursos = cursos;
-          this.filtrarCursos();
-          this.loading = false;
-        },
-        () => {
-          this.loading = false;
-        }
-      );
-    });
-    this.loadCursosPaginados();
-  }
-
-  filtrarCursosPorNombre() {
-    if (!this.filtroNombre) {
-      this.cursosFiltrados = [...this.cursos];
-    } else {
-      this.cursosFiltrados = this.cursos.filter((curso) =>
-        curso.planificationCourse.name
-          .toLowerCase()
-          .includes(this.filtroNombre.toLowerCase())
-      );
-    }
-  }
-
-  cumpleFiltro(curso: Curso): boolean {
-    if (!this.filtroNombre) {
-      return true;
-    }
-    const nombreCurso = curso.planificationCourse.name.toLowerCase();
-    const filtro = this.filtroNombre.toLowerCase();
-    return (
-      nombreCurso.includes(filtro) ||
-      curso.planificationCourse.codeCourse.toLowerCase().includes(filtro)
-    );
-  }
-
-  filtrarCursos(): void {
-    if (this.filtroNombre.trim() !== '') {
-      this.cursosFiltrados = this.cursos.filter((curso) => {
-        const nombreCurso = curso.planificationCourse.name.toLowerCase();
-        const codigoCurso = curso.planificationCourse.codeCourse.toLowerCase();
-        const startDate = curso.planificationCourse.startDate.toLowerCase();
-        const filtro = this.filtroNombre.toLowerCase();
-        return (
-          nombreCurso.includes(filtro) ||
-          codigoCurso.includes(filtro) ||
-          startDate.includes(filtro)
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        console.log('USUARIO INSTRUCTOR', user[0].id);
+        this.cursoService.getCursosByInstructor(user[0].id).subscribe(
+          (cursos) => {
+            console.log('CURSOS ASIGANDOS INSTRUCOTR', cursos);
+            this.cursos = cursos;
+            this.loading = false;
+          },
+          () => {
+            this.loading = false;
+          }
         );
-      });
-    } else {
-      this.cursosFiltrados = this.cursos;
-    }
-    this.loadCursosPaginados();
-  }
-
-  sortCards() {
-    this.cursosFiltrados.sort((a, b) => {
-      const dateA = new Date(a.planificationCourse.startDate);
-      const dateB = new Date(b.planificationCourse.startDate);
-      return this.ascendingOrder
-        ? dateA.getTime() - dateB.getTime()
-        : dateB.getTime() - dateA.getTime();
+      }
     });
-    this.ascendingOrder = !this.ascendingOrder;
   }
 
-  redirect(curso: Course) {
-    console.log('ID COURSE', curso);
+  redirect(id: number) {
+    console.log('ID COURSE', id);
     this.router.navigate([
-      `cecy/responsible-execute/course/${curso.id}/notes/students`,
+      `cecy/responsible-execute/course/${id}/notes/students`,
     ]);
   }
 
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.loadCursosPaginados();
-  }
-
-  loadCursosPaginados() {
-    this.cursosPaginados = this.cursosFiltrados.slice(
-      this.first,
-      this.first + 3
-    );
-  }
-
-  actualizarStatus(cursoId: number, nuevoStatus: string) {
-    this.cursoService.actualizarStatusCurso(cursoId, nuevoStatus).subscribe(
-      () => {
-        console.log('El estado del curso se actualizó correctamente.');
+  actualizarStatus(event: any, curso: any) {
+    const cursoId = curso.detailPlanification?.planificationCourse?.course?.id;
+    console.log({
+      event,
+      cursoId,
+    });
+    this.cursoService.actualizarStatusCurso(cursoId, event.value).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        if (data.state === 'aprobado') {
+          this.messageService.add({
+            severity: 'success',
+            summary: `${data.message}`,
+            detail: `${data.state}`,
+          });
+        } else if (data.state === 'terminado') {
+          this.messageService.add({
+            severity: 'warn',
+            summary: `${data.message}`,
+            detail: `${data.state}`,
+          });
+        } else if (data.state === 'cerrado') {
+          this.messageService.add({
+            severity: 'error',
+            summary: `${data.message}`,
+            detail: `${data.state}`,
+          });
+        }
       },
-      (error) => {
-        console.error('Error al actualizar el estado del curso:', error);
-      }
-    );
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al actualizar',
+          detail: `${error.message}`,
+        });
+      },
+    });
   }
+
+  showHelp() {
+    this.helpDialogVisible = true;
+  }
+
+  filterCoursesByName(cursos: any[], searchTerm: string): any[] {
+    if (!searchTerm) {
+      return cursos;
+    }
+    const filteredCursos = cursos.filter(
+      (curso) =>
+        curso.detailPlanification?.planificationCourse?.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+    );
+    const sortedCursos = filteredCursos.sort((a, b) => {
+      const dateA = new Date(a.detailPlanification?.planificationCourse.startDate);
+      const dateB = new Date(b.detailPlanification?.planificationCourse.startDate);
+      if (this.sortOrder === 'asc') {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
+    });
+    return sortedCursos;
+  }
+
+  toggleSortOrder() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+  }
+
 }

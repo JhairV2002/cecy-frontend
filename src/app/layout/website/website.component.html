@@ -1,0 +1,65 @@
+<app-create-account
+  [showModal]="openModal"
+  (clickClose)="closeModal($event)"
+></app-create-account>
+
+<div class="navbar fixed top-0 shadow-lg border-blue-400">
+  <div class="navbar-start">
+    <a class="btn btn-ghost normal-case text-xl ml-14">Cecy</a>
+
+    <label for="menu-toggle" class="cursor-pointer md:hidden block">
+      <i class="pi pi-bars">
+        <title>menu</title>
+      </i>
+    </label>
+    <input class="hidden" type="checkbox" id="menu-toggle" />
+
+    <div
+      class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1"
+      id="menu"
+    >
+      <nav>
+        <ul class="md:flex items-center justify-between text-base pt-4 md:pt-0">
+          <li>
+            <a
+              class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              routerLink=""
+              >Inicio</a
+            >
+          </li>
+          <li>
+            <a
+              class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+              routerLink="/courses"
+              >Cursos</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="navbar-end">
+    <div class="flex items-center gap-2">
+      <button
+        (click)="createAccount()"
+        class="btn btn-active btn-neutral text-white"
+      >
+        Crear cuenta
+      </button>
+      <a routerLink="/login">
+        <span
+          class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+          >Iniciar Sesión</span
+        >
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="drawer drawer-mobile">
+  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content mt-16 w-full">
+    <router-outlet></router-outlet>
+  </div>
+</div>

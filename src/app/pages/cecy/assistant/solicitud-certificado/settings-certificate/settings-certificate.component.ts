@@ -200,7 +200,9 @@ export class SettingsCertificateComponent implements OnInit {
       console.log("pass:")
     if (this.rector != 0 && this.valCheckRector) {
       this.firm = { id: this.rector };
-      this.roles.push((this.rol = { rol: 'Rector IST YAVIRAC', firma: this.firm }));
+      this.roles.push(
+        (this.rol = { rol: 'Rector IST YAVIRAC', firma: this.firm })
+      );
     }
     if (this.patrocinador != 0 && this.valCheckPatrocinador) {
       this.firm = { id: this.patrocinador };
@@ -212,11 +214,16 @@ export class SettingsCertificateComponent implements OnInit {
         (this.rol = { rol: 'Coordinador Cecy', firma: this.firm })
       );
     }
-    if (this.coordinadorVinculacion != 0 && this.valCheckCoordinadorVinculacion) {
+    if (
+      this.coordinadorVinculacion != 0 &&
+      this.valCheckCoordinadorVinculacion
+    ) {
       this.firm = { id: this.coordinadorVinculacion };
-      this.roles.push((this.rol = { rol: 'Coordinador de Vinculacion', firma: this.firm }));
+      this.roles.push(
+        (this.rol = { rol: 'Coordinador de Vinculacion', firma: this.firm })
+      );
     }
-    console.log("sadaddsad");
+    console.log('sadaddsad');
     this.typeCertificate = {
       tipo: this.nameCertificate.name,
       firmas: this.roles,
@@ -241,7 +248,7 @@ export class SettingsCertificateComponent implements OnInit {
 
   }
 
-  participantOne(event: any){
+  participantOne(event: any) {
     console.log(event);
   }
 

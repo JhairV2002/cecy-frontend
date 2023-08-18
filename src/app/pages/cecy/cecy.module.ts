@@ -11,9 +11,14 @@ import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
 import { EstudianteService } from './responsible-execute/notas/estudiante.service';
+import { ImageModalComponent } from './responsible-execute/asistencia/fecha/image-modal.component';
+import { DialogService } from 'primeng/dynamicdialog';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ImageModalComponent
+  ],
   imports: [
     CommonModule,
     CecyRoutingModule,
@@ -27,7 +32,8 @@ import { EstudianteService } from './responsible-execute/notas/estudiante.servic
     RippleModule,
     PasswordModule,
     DropdownModule,
+    
   ],
-  providers: [{ provide: Window, useValue: window }, EstudianteService],
+  providers: [{ provide: Window, useValue: window }, EstudianteService, DialogService],
 })
 export class CecyModule {}

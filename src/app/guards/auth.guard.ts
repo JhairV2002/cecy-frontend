@@ -7,11 +7,12 @@ import { TokenService } from '@services/auth';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private tokenService: TokenService, private router: Router) {}
+  constructor(private tokenService: TokenService, private router: Router) { }
   canActivate(): boolean {
     const token = this.tokenService.getToken();
     if (!token) {
-      this.router.navigate(['/login']);
+      console.log('Se activo el token guard usuario global');
+      this.router.navigate(['/cecy/login']);
       return false;
     }
     return true;

@@ -7,7 +7,7 @@ import {
 } from '../notas/estudiante.model';
 
 export interface Asistencia {
-  id?: number;
+  id: number;
   evidenciaFotografica: string;
   fecha: String | undefined;
   observaciones: string;

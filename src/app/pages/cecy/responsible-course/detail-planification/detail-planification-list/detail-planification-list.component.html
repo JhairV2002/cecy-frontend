@@ -23,14 +23,14 @@
       (click)="deleteDetailPlanifications()"></button> -->
   </div>
 </p-toolbar>
-<p-card>
-  <p-table dataKey="id" styleClass="p-datatable-striped" [value]="detailPlanifications" [columns]="cols"
-     [responsive]="true" [loading]="(loading$ | async)!">
+
+
+
+<div >
+  <p-table  dataKey="id" styleClass="p-datatable-striped" [value]="detailPlanifications" [columns]="cols"
+    [loading]="(loading$ | async)!">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <!-- <th style="width: 3rem">
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th> -->
         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
           {{ col.header }}
           <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -42,29 +42,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
       <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
-        <!-- <td>
-          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-        </td> -->
         <td>{{ rowData["startedTime"] }}-{{ rowData["endedTime"] }}</td>
         <td>
           {{ rowData["day"].name }}
         </td>
-        <!-- <td>
-            {{rowData['workday'].name}}
-          </td> -->
-        <!-- <td>
-          {{ rowData["classroom"].name ?? "No asignado" }}
-        </td>
-        <td>
-          {{ rowData["parallel"].name ?? "No asignado" }}
-        </td> -->
-        <!-- <td>
-            <ul>
-              <li *ngFor="let instructor of rowData['instructors']">
-                {{instructor?.user?.fullname}}
-              </li>
-            </ul>
-          </td> -->
         <td>
           {{ rowData["observation"] }}
         </td>
@@ -88,22 +69,53 @@
           </div> -->
         <!-- <td>{{rowData['state'].name}}</td> -->
 
-        <td>
+        <!-- <td>
           <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-pencil"
             (onClick)="showForm(rowData)" (onDropdownClick)="selectDetailPlanification(rowData)" [model]="items">
           </p-splitButton>
+        </td> -->
+        <td>
+          <div class="flex gap-1 justify-center">
+            <button
+              pButton
+              icon="pi pi-trash"
+              pTooltip="Eliminar"
+              tooltipPosition="top"
+              class="p-button-rounded p-button-danger"
+              type="submit"
+              (click)="deleteDetailPlanification(rowData)"
+            ></button>
+
+            <button
+              pButton
+              pRipple
+              type="button"
+              pTooltip="Editar"
+              tooltipPosition="top"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-warning"
+              (click)="showForm(rowData)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              pTooltip="Asignar instructores"
+              tooltipPosition="top"
+              icon="pi pi-plus"
+              class="p-button-rounded p-button-info"
+              (click)="showFormInstructors(rowData)"
+            ></button>
+          </div>
         </td>
       </tr>
     </ng-template>
-    <!-- <ng-template pTemplate="summary">
-      {{ messageService.paginatorTotalRegisters(paginator) }}
-    </ng-template> -->
-    <ng-template pTemplate="emptymessage" let-columns>
+    <!-- <ng-template pTemplate="emptymessage" let-columns>
       <tr>
         <td [attr.colspan]="columns.length">
           {{ messageService.paginatorNoRecordsFound }}
         </td>
       </tr>
-    </ng-template>
+    </ng-template> -->
   </p-table>
-</p-card>
+</div>

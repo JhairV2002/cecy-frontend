@@ -197,7 +197,7 @@ export class CoursesListComponent implements OnInit, OnChanges {
 
   redirectCourse(planification: PlanificationCourses) {
     this.router.navigate([
-      '/cecy/responsible-course/course/edit/' + planification.id,
+      '/cecy/assistant-cecy/courses/visualization/' + planification.id,
     ]);
   }
 

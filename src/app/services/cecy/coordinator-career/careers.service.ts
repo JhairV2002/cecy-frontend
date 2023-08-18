@@ -26,6 +26,17 @@ export class CareersService {
     );
   }
 
+  getCareeryByIdAndAproovedCourses(idCareer: number) {
+    this.loading.next(true);
+    return this.http
+      .get<Careers[]>(`${this.apiUrl}/state-course/aprobado/career/${idCareer}`)
+      .pipe(
+        finalize(() => {
+          this.loading.next(false);
+        })
+      );
+  }
+
   getPlanificationsCareers(id: number) {
     this.loading.next(true);
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(

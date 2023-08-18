@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from '@services/core';
 import { ColModel } from '@models/core';
-import { CourseModel } from '@models/cecy';
 import { Router } from '@angular/router';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
 import { PlanificationCourses, Careers } from '@models/cecy/coordinator-career';
@@ -17,7 +16,6 @@ import { CareersService } from '@services/cecy/coordinator-career';
 export class PlanificationListComponent implements OnInit {
   loading$ = this.careersService.loading$;
   loading = [false];
-  selectedCourses: CourseModel[] = [];
   selectedCourse: any;
   cols: ColModel[];
   items: MenuItem[] = [];
@@ -76,6 +74,9 @@ export class PlanificationListComponent implements OnInit {
 
     this.testing();
   }
+
+
+
 
   checkSearchParams(): void {
     const queryParams = this.router.parseUrl(this.router.url).queryParams;
@@ -213,14 +214,14 @@ export class PlanificationListComponent implements OnInit {
     });
   }
 
-  goToPlanifications(course: CourseModel) {
+  goToPlanifications(course: any) {
     this.router.navigate([
       '/cecy/coordinator-career/planification/course/',
       course.id,
     ]);
   }
 
-  selectCourse(course: CourseModel) {
+  selectCourse(course: any) {
     this.selectedCourse = course;
   }
 

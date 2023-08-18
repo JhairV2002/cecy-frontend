@@ -71,6 +71,18 @@ export class CourseListComponent implements OnInit, OnChanges {
           this.redirectPlanification(this.selectPlanification);
         },
       },
+      {
+        label: 'Aprobacion rápida planificación',
+        icon: 'pi pi-check-circle',
+        command: (course: any) => {
+          this.redirectPlanification(this.selectPlanification);
+        },
+      },
+      {
+        label: '...',
+        icon: 'fa-solid fa-sheet-plastic',
+        command: (course: any) => {},
+      },
     ];
     this.courseMenu = [
       {
@@ -79,6 +91,18 @@ export class CourseListComponent implements OnInit, OnChanges {
         command: (course: any) => {
           this.redirectCourse(this.selectPlanification);
         },
+      },
+      {
+        label: 'Aprobacion rápida curso',
+        icon: 'pi pi-check-circle',
+        command: (course: any) => {
+          this.redirectPlanification(this.selectPlanification);
+        },
+      },
+      {
+        label: '...',
+        icon: 'fa-solid fa-sheet-plastic',
+        command: (course: any) => {},
       },
     ];
   }
@@ -211,7 +235,7 @@ export class CourseListComponent implements OnInit, OnChanges {
 
   redirectCourse(planification: PlanificationCourses) {
     this.router.navigate([
-      '/cecy/responsible-course/course/edit/' + planification.id,
+      '/cecy/coordinator-cecy/course/visualization/' + planification.id,
     ]);
   }
 

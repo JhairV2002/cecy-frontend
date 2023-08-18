@@ -5,7 +5,6 @@ import { FechaComponent } from './asistencia/fecha/fecha.component';
 import { CursoComponent } from './curso/curso.component';
 import { EstudiantesComponent } from './notas/estudiantes.component';
 import { HomeComponent } from './home/home.component';
-import { RegistroFotograficoComponent } from './asistencia/registro-fotografico/registro-fotografico.component';
 import { ChangePasswordComponent } from '@shared/components/user/change-password/change-password.component';
 
 const routes: Routes = [
@@ -19,7 +18,6 @@ const routes: Routes = [
   },
   { path: 'course/:courseId/date-list', component: FechaComponent },
   { path: 'course/:courseId/create', component: AsistenciaComponent },
-  { path: 'registro-fotografico', component: RegistroFotograficoComponent },
   { path: 'change-password', component: ChangePasswordComponent },
 ];
 
