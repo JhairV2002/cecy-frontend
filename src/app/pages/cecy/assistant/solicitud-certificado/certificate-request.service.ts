@@ -1,16 +1,18 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,BehaviorSubject, finalize } from 'rxjs';
 
 import { environment } from '@env/environment';
 import {
   Codes,
+  Course,
   Firms,
   Report,
+  Sponsor,
   TipoCertificado,
   UpdateCode,
   tipo, } from './certificate';
-  import { Firmas } from './firma';
+
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +34,9 @@ export class CertificateRequestService {
   private apiUrl1 = `${environment.api}/codigo`;
   private apiUrl2 = `${environment.api}/certificado`;
   private apiUrl3 = `${environment.api}`;
-
+  private apiUrl4 = `${environment.api2}/courses`;
+  private loading = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean> = this.loading.asObservable();
 
 
   public findById(id: number): Observable<Report> {
@@ -41,8 +45,8 @@ export class CertificateRequestService {
       this.httpOptions
     );
   }
-  public saveCertificate(generarCertificado:Codes, id: number): Observable<Codes> {
-    return this.http.put<Codes>(this.apiUrl1+"/"+id+"/", generarCertificado);
+  public saveCertificate(generarCertificado:Codes, id: number) {
+    return this.http.put<Codes>(this.apiUrl1+"/"+id+"/", generarCertificado,{observe: 'response'});
   }
 
   public updateCode(generarCertificado:UpdateCode, id: number): Observable<UpdateCode> {
@@ -68,11 +72,24 @@ export class CertificateRequestService {
     );
   }
 
-  postTypeCertificate(tipoCertificado:TipoCertificado): Observable<TipoCertificado>{
-    return this.http.post(this.apiUrl3+'/tipo-certificado/',tipoCertificado);
-  }
-
   patchReport(report: any, id: number){
     return this.http.patch(this.apiUrl+'/'+id+'/',report)
+  }
+
+   postTypeCertificate(tipoCertificado:TipoCertificado){
+    return this.http.post(this.apiUrl3+'/tipo-certificado/',tipoCertificado,{observe: 'response'});
+  }
+
+  public findByIdCourse(id: number): Observable<Course> {
+    this.loading.next(true);
+    return this.http.get<Course>(this.apiUrl4 +"/"+ id, this.httpOptions).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      })
+    );
+  }
+
+  getSponsors(): Observable<Sponsor[]> {
+    return this.http.get<Sponsor[]>(this.apiUrl4 + '/sponsor/all/');
   }
 }

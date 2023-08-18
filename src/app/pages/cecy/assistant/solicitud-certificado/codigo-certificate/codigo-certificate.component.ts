@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { Codes, UpdateCode } from '../certificate';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CertificateRequestService } from '../certificate-request.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-codigo-certificate',
@@ -37,13 +37,8 @@ export class CodigoCertificateComponent implements OnInit {
       var reporte = XLSX.read(fileReader.result, { type: 'binary' });
       var sheetName = reporte.SheetNames;
       this.ExcelData = XLSX.utils.sheet_to_json(reporte.Sheets[sheetName[0]])
-      //console.log(JSON.stringify(this.ExcelData));
-      //Elimina las posiciones extra
       this.ExcelData.splice(0, 10);
       this.filterExcel = this.ExcelData;
-
-      //console.log(JSON.stringify(this.filterExcel))
-
     }
 
   }
@@ -57,8 +52,10 @@ export class CodigoCertificateComponent implements OnInit {
         //se debe comparar la cedula con la entidad de codigo
         //para esto se necesita recuperar la lista filtrada anteriormente de codigos
         this.Listcodes.forEach((cod) => {
+          console.log("Prueba actualizacion ", cod.matriculas.estudiantes.cedula, res.__EMPTY_8)
           if (cod.matriculas.estudiantes.cedula == res.__EMPTY_8) {
             this.codeService.updateCode(this.updatecode = { codigo: res.__EMPTY_23 }, cod.id).subscribe();
+            setInterval('location.reload()',4000);
             console.log("Se esta Actualizando el codigo", cod.id, res.__EMPTY_23)
           }
         }
