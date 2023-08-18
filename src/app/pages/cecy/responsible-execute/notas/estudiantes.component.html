@@ -1,7 +1,14 @@
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
-    <button pButton type="button" id="volver" class="p-button p-button-outlined" icon="pi pi-arrow-left"
-      (click)="regresar()" label="Volver"></button>
+    <button
+      pButton
+      type="button"
+      id="volver"
+      class="p-button p-button-outlined"
+      icon="pi pi-arrow-left"
+      (click)="regresar()"
+      label="Volver"
+    ></button>
 
     <button
       pButton
@@ -16,47 +23,84 @@
 </p-toolbar>
 <div class="flex m-4">
   <div class="flex-1">
-    <h1 class="text-2xl font-semi-bold">Listado de Estudiantes
-      <i class="pi pi-question-circle px-1" style="cursor: pointer;" id="help-icono" (click)="help()"></i>
-      <p-dialog header="Listado de estudiantes" [(visible)]="helpDialogVisible" [style]="{ width: '40%' }">
+    <h1 class="text-2xl font-semi-bold">
+      Listado de Estudiantes
+      <i
+        class="pi pi-question-circle px-1"
+        style="cursor: pointer"
+        id="help-icono"
+        (click)="help()"
+      ></i>
+      <p-dialog
+        header="Listado de estudiantes"
+        [(visible)]="helpDialogVisible"
+        [style]="{ width: '40%' }"
+      >
         <div class="dialog-content">
-
-            <p>
-                • Tiene que ingresar el porcentaje de asistencia dado por la plataforma 
-                <strong><a class="eva-link" href="https://eva.yavirac.edu.ec/" target="_blank">EVA</a></strong>
-            </p>
-            <p>
-                • La Asistencia se registra solo usando los botones.
-            </p>
-            <ul class="assistance-list">
-                <li> ⠀⠀Disminuir la asistencia <strong class="assistance-symbol">  ⠀˅⠀  </strong></li>
-                <li> ⠀⠀Aumentar la asistencia <strong class="assistance-symbol">  ⠀˄⠀  </strong></li>
-            </ul>
-            <p>
-                • El porcentaje máximo de asistencia es <strong>100</strong> y el mínimo es <strong>1</strong>
-            </p>
-            <p>
-                • Para aprobar debe tener un promedio mayor a <strong>70</strong>
-            </p>
+          <p>
+            • Tiene que ingresar el porcentaje de asistencia dado por la
+            plataforma
+            <strong
+              ><a
+                class="eva-link"
+                href="https://eva.yavirac.edu.ec/"
+                target="_blank"
+                >EVA</a
+              ></strong
+            >
+          </p>
+          <p>• La Asistencia se registra solo usando los botones.</p>
+          <ul class="assistance-list">
+            <li>
+              ⠀⠀Disminuir la asistencia
+              <strong class="assistance-symbol"> ⠀˅⠀ </strong>
+            </li>
+            <li>
+              ⠀⠀Aumentar la asistencia
+              <strong class="assistance-symbol"> ⠀˄⠀ </strong>
+            </li>
+          </ul>
+          <p>
+            • El porcentaje máximo de asistencia es <strong>100</strong> y el
+            mínimo es <strong>1</strong>
+          </p>
+          <p>
+            • Para aprobar debe tener un promedio mayor a <strong>70</strong>
+          </p>
         </div>
-    </p-dialog>
-    
+      </p-dialog>
     </h1>
-    
   </div>
-  
+
   <div class="">
     <div class="p-inputgroup">
-      <input pInputText id="search" placeholder="Buscar por nombre o cédula" [(ngModel)]="nombreFiltrado"
-        (input)="filtrarPorNombre()" (keypress)="filtrarPorNombre()" />
-      <button pButton pRipple type="button" icon="pi pi-search" (click)="filtrarPorNombre()"></button>
+      <input
+        pInputText
+        id="search"
+        placeholder="Buscar por nombre o cédula"
+        [(ngModel)]="nombreFiltrado"
+        (input)="filtrarPorNombre()"
+        (keypress)="filtrarPorNombre()"
+      />
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-search"
+        (click)="filtrarPorNombre()"
+      ></button>
     </div>
   </div>
 </div>
-<p-table [value]="estudiantes$ | async | nombreFilter : nombreFiltrado" [responsive]="true" class="p-datatable"
-  [loading]="(loading$ | async)!" [rows]="5" [paginator]="true">
+<p-table
+  [value]="estudiantes$ | async | nombreFilter : nombreFiltrado"
+  [responsive]="true"
+  class="p-datatable"
+  [loading]="(loading$ | async)!"
+  [rows]="5"
+  [paginator]="true"
+>
   <ng-template pTemplate="header">
-
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
@@ -66,7 +110,6 @@
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
-
     </tr>
   </ng-template>
 
@@ -74,75 +117,109 @@
     <tr>
       <td>
         {{
-        matricula.estudiantes
-        ? matricula.estudiantes.cedula
-        : "Sin Estudiante"
+          matricula.estudiantes
+            ? matricula.estudiantes.cedula
+            : "Sin Estudiante"
         }}
       </td>
       <td>
         {{
-        matricula.estudiantes
-        ? matricula.estudiantes.nombres
-        : "Sin Estudiante"
+          matricula.estudiantes
+            ? matricula.estudiantes.nombres
+            : "Sin Estudiante"
         }}
       </td>
       <td>
-      <p-inputNumber
-  id="asistencia"
-  [(ngModel)]="matricula.porcentajeAsistencia"
-  placeholder="Ingrese el % asistencia"
-  [max]="100"
-  mode="decimal"
-  [showButtons]="true"
-  [buttonLayout]="'horizontal'"
-  (keydown)="validarNumero($event, 'porcentajeAsistencia', matricula)"
-  [ngModel]="matricula.porcentajeAsistencia !== null ? matricula.porcentajeAsistencia : 100"
-  ></p-inputNumber>
-        <div class="p-error" *ngIf="matricula.porcentajeAsistencia < 1 || matricula.porcentajeAsistencia > 100">
-          Solo se permiten números decimales en el rango de 1 a 100.
-        </div>
-      </td>
-      <td>
-        <p-inputNumber
-  id="nota1"
-  [(ngModel)]="matricula.nota1"
-  placeholder="Ingrese una nota"
-  [min]="1"
-  [max]="100"
-  mode="decimal"
-  [showButtons]="true"
-  [buttonLayout]="'horizontal'"
-  (keydown)="validarNumero($event, 'nota1', matricula)"
-></p-inputNumber>
-  <div class="p-error" *ngIf="matricula.nota1 < 1 || matricula.nota1 > 100">
-          Solo se permiten números decimales en el rango de 1 a 100.
-        </div>
-      </td>
-      <td>
-        <p-inputNumber
-  id="nota2"
-  [(ngModel)]="matricula.nota2"
-  placeholder="Ingrese una nota"
-  [min]="1"
-  [max]="100"
-  mode="decimal"
-  [showButtons]="true"
-  [buttonLayout]="'horizontal'"
-  (keydown)="validarNumero($event, 'nota2', matricula)"
-></p-inputNumber>
-        <div class="p-error" *ngIf="matricula.nota2 < 1 || matricula.nota2 > 100">
-          Solo se permiten números decimales en el rango de 1 a 100.
-        </div>
+        <!-- <p-inputNumber
+          id="asistencia"
+          [(ngModel)]="matricula.porcentajeAsistencia"
+          inputId="minmaxfraction"
+          mode="decimal"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
+        >
+        </p-inputNumber> -->
 
+        <p-inputNumber
+          id="asistencia"
+          [(ngModel)]="matricula.porcentajeAsistencia"
+          placeholder="Ingrese el % asistencia"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
+          [max]="100"
+          mode="decimal"
+          [showButtons]="true"
+          [buttonLayout]="'horizontal'"
+          (keydown)="validarNumero($event, 'porcentajeAsistencia', matricula)"
+          [ngModel]="
+            matricula.porcentajeAsistencia !== null
+              ? matricula.porcentajeAsistencia
+              : 100
+          "
+        ></p-inputNumber>
+        <div
+          class="p-error"
+          *ngIf="
+            matricula.porcentajeAsistencia < 1 ||
+            matricula.porcentajeAsistencia > 100
+          "
+        >
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
+      </td>
+      <td>
+        <p-inputNumber
+          id="nota1"
+          [(ngModel)]="matricula.nota1"
+          placeholder="Ingrese una nota"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
+          [min]="1"
+          [max]="100"
+          mode="decimal"
+          [showButtons]="true"
+          [buttonLayout]="'horizontal'"
+          (keydown)="validarNumero($event, 'nota1', matricula)"
+        ></p-inputNumber>
+        <div
+          class="p-error"
+          *ngIf="matricula.nota1 < 1 || matricula.nota1 > 100"
+        >
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
+      </td>
+      <td>
+        <p-inputNumber
+          id="nota2"
+          [(ngModel)]="matricula.nota2"
+          placeholder="Ingrese una nota"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
+          [min]="1"
+          [max]="100"
+          mode="decimal"
+          [showButtons]="true"
+          [buttonLayout]="'horizontal'"
+          (keydown)="validarNumero($event, 'nota2', matricula)"
+        ></p-inputNumber>
+        <div
+          class="p-error"
+          *ngIf="matricula.nota2 < 1 || matricula.nota2 > 100"
+        >
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
       </td>
       <td>{{ matricula?.promedio }}</td>
       <td>{{ matricula?.estadoCurso?.descripcion }}</td>
       <td>
-        <button pButton type="button" class="p-button p-button-rounded p-button-success"
-          (click)="guardarNotas($event, matricula)">
+        <button
+          pButton
+          type="button"
+          class="p-button p-button-rounded p-button-success"
+          (click)="guardarNotas($event, matricula)"
+        >
           Guardar
         </button>
-
       </td>
     </tr>
   </ng-template>
@@ -153,7 +230,13 @@
   </ng-template>
 </p-table>
 
-<button pButton type="button" class="p-button p-button-success" icon="pi pi-download" id="excel"
-  (click)="generarExcel()">
+<button
+  pButton
+  type="button"
+  class="p-button p-button-success"
+  icon="pi pi-download"
+  id="excel"
+  (click)="generarExcel()"
+>
   ㅤDescargar Excel
 </button>

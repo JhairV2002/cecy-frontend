@@ -116,6 +116,7 @@ export class AsistenciaComponent implements OnInit {
     console.log('evento con file', event);
     const file = event.currentFiles[0];
     console.log(file.name);
+    console.log('file ', file);
 
     if (file) {
       const maxSizeInBytes = 10 * 1024 * 1024;
@@ -131,7 +132,9 @@ export class AsistenciaComponent implements OnInit {
       } else {
         // Check file extension
         const allowedExtensions = ['.png', '.jpg', '.jpeg'];
-        const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+        const fileExtension = file.name
+          .toLowerCase()
+          .substring(file.name.lastIndexOf('.'));
 
         if (allowedExtensions.includes(fileExtension)) {
           this.fileErrorMessage = '';
@@ -151,13 +154,13 @@ export class AsistenciaComponent implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: 'Error al cargar la imagen',
-            detail: 'El formato de archivo no es compatible. Solo se permiten archivos PNG y JPG.',
+            detail:
+              'El formato de archivo no es compatible. Solo se permiten archivos PNG y JPG.',
           });
         }
       }
     }
   }
-
 
   saveAttendance() {
     console.log('creating OK');
@@ -203,6 +206,7 @@ export class AsistenciaComponent implements OnInit {
     console.log('updating ok');
     const asistenciaId = this.activatedRoute.snapshot.params['asistenciaId'];
     const valuesForm = this.formAttendance.value;
+
     if (this.editImageForNew) {
       console.log('se activo para editar la imagen');
       if (this.formAttendance.invalid || !this.imagenBase64) {
@@ -253,36 +257,6 @@ export class AsistenciaComponent implements OnInit {
         },
       });
     }
-
-    this.AsistenciaService.updateAttendance(valuesForm, asistenciaId).subscribe(
-      {
-        next: (data: any) => {
-          console.log('DATA', data);
-          this.messageService.add({
-            severity: 'info',
-            summary: `Actualizado`,
-            detail: `${data.message}`,
-          });
-          setTimeout(() => {
-            this.activatedRoute.paramMap.subscribe((param) => {
-              this.router.navigate([
-                `/cecy/responsible-execute/course/${param.get(
-                  'courseId'
-                )}/date-list`,
-              ]);
-            });
-          }, 500);
-        },
-        error: (error) => {
-          console.log(error);
-          this.messageService.add({
-            severity: 'danger',
-            summary: `Error al actualizar`,
-            detail: `${error.error}`,
-          });
-        },
-      }
-    );
   }
 
   help() {
