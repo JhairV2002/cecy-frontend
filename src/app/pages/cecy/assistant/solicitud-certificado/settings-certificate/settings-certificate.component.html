@@ -1,7 +1,6 @@
-<p-toast></p-toast>
 <div class="grid p-fluid">
   <div class="col-12 md:col-6">
-    <p-card>
+    <div class="card">
       <h5>Tipo de certificado</h5>
       <p-dropdown
         [options]="type"
@@ -9,16 +8,17 @@
         placeholder="Selecione el tipo de certificado"
         [showClear]="true"
       ></p-dropdown>
-    </p-card>
+    </div>
   </div>
 
-  <div class="col-12 md:col-6 mt-2">
-    <p-card>
+  <div class="col-12 md:col-6">
+    <div class="card">
       <h5>Firmantes</h5>
       <div class="grid formgrid">
         <div class="col-12 md:col-4">
           <div class="field-checkbox">
             <p-checkbox
+
               name="group1"
               value="New York"
               [(ngModel)]="valCheckCoordinadorCecy"
@@ -32,6 +32,7 @@
         <div class="col-12 md:col-4">
           <div class="field-checkbox">
             <p-checkbox
+
               name="group1"
               value="New York"
               [(ngModel)]="valCheckCoordinadorVinculacion"
@@ -66,29 +67,18 @@
           </div>
         </div>
       </div>
-    </p-card>
+    </div>
 
-    <ng-template [ngIf]="valCheckRector"
-      ><div>
-        <div class="card mt-2">
-          <p>Rector</p>
-          <app-dropdown-settings
-            (firmasIdEmitter)="rector = $event"
-            [id]="rector"
-          ></app-dropdown-settings>
-        </div></div
-    ></ng-template>
+    <ng-template [ngIf]="valCheckRector"><div>
 
-    <ng-template [ngIf]="valCheckPatrocinador"
-      ><div>
-        <div class="card mt-2">
-          <p>Con el auspicio de:</p>
-          <app-dropdown-settings
-            (firmasIdEmitter)="patrocinador = $event"
-            [id]="patrocinador"
-          ></app-dropdown-settings>
-        </div></div
-    ></ng-template>
+      <div class="card">
+        <p>Rector</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="rector = $event"
+          [id]="rector"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
 
     <ng-template [ngIf]="valCheckPatrocinador"><div>
       <div class="card">
@@ -100,16 +90,35 @@
       </div>
     </div></ng-template>
 
-    <ng-template [ngIf]="valCheckCoordinadorVinculacion"
-      ><div>
-        <div class="card mt-2">
-          <p>Cordinador de vinculacion</p>
-          <app-dropdown-settings
-            (firmasIdEmitter)="coordinadorVinculacion = $event"
-            [id]="coordinadorVinculacion"
-          ></app-dropdown-settings>
-        </div></div
-    ></ng-template>
+
+
+
+
+
+    <ng-template [ngIf]="valCheckCoordinadorCecy"><div>
+      <div class="card">
+        <p>Cordinador Cecy</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="coordinador = $event"
+          [id]="coordinador"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
+
+    <ng-template [ngIf]="valCheckCoordinadorVinculacion"><div>
+      <div class="card">
+        <p>Cordinador de vinculacion</p>
+        <app-dropdown-settings
+          (firmasIdEmitter)="coordinadorVinculacion = $event"
+          [id]="coordinadorVinculacion"
+        ></app-dropdown-settings>
+      </div>
+    </div></ng-template>
+
+
+
+
+
   </div>
   <small class="ng-dirty ng-invalid" *ngIf="submittedSettings">{{alert}}</small>
   <button class="btn btn-sm" (click)="sendSetings()">Guardar</button>
