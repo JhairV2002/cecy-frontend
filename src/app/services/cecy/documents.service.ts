@@ -14,7 +14,7 @@ export class DocumentsService {
     headers: new HttpHeaders({ "Content-Type": "application/json" })  ,
   };
 
-  private url: string = 'http://localhost:8082/api/prerequisitos';
+  private url: string = 'http://localhost:8080/api/prerequisitos';
 
   public save(prerequisito: Documents): Observable<Documents> {
     return this.http.post<Documents>(this.url+"/", prerequisito, this.httpOptions);

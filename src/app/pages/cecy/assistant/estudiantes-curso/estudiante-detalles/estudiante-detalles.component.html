@@ -18,19 +18,21 @@
     </div>
     <div class="flex flex-wrap flex-col gap-10">
       <p>
-        <b>Dni</b>
+        <b>Dni: </b>
         {{
           (matricula$ | async)?.estudiantes?.cedula
             ? ((matricula$ | async)?.estudiantes)!.cedula
             : "Falta su DNI"
         }}
       </p>
-      <p><b>Nombre</b>{{ ((matricula$ | async)?.estudiantes)!.nombres }}</p>
-      <p><b>Apellido</b>{{ ((matricula$ | async)?.estudiantes)!.apellidos }}</p>
+      <p><b>Nombre: </b>{{ ((matricula$ | async)?.estudiantes)!.nombres }}</p>
+      <p>
+        <b>Apellido; </b>{{ ((matricula$ | async)?.estudiantes)!.apellidos }}
+      </p>
     </div>
     <div class="flex flex-wrap flex-col gap-10">
       <p>
-        <b>Tipo</b
+        <b>Tipo: </b
         >{{ ((matricula$ | async)?.estudiantes)!.tipoEstudiante.descripcion }}
       </p>
     </div>

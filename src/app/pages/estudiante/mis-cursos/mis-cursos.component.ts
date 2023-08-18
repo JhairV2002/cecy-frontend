@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EstudiantesService } from '@layout/estudiantes/estudiantes.service';
+import { AuthStudentService } from '@services/auth';
 import { map, switchMap, tap } from 'rxjs';
 
 @Component({
@@ -11,12 +12,11 @@ import { map, switchMap, tap } from 'rxjs';
 export class MisCursosComponent {
   constructor(
     private estudiantesService: EstudiantesService,
+    private authStudent: AuthStudentService,
     private route: Router
   ) { }
 
-  matriculas = this.estudiantesService.estudianteActual.pipe(
-    map((res) => res?.matriculas)
-  );
+  matriculas = this.authStudent.student$.pipe(map((res) => res?.matriculas));
 
   navigateMisCursosDetails(matricula: any) {
     this.route.navigateByUrl('estudiante/mis-cursos/details', {
