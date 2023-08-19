@@ -5,6 +5,7 @@ import { map, switchMap, tap } from 'rxjs';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { MessageService } from 'primeng/api';
 import { MessageService as MessageLocal } from '@services/core';
+import { AuthService } from '@services/auth';
 
 @Component({
   selector: 'app-estudiante-detalles',
@@ -17,8 +18,9 @@ export class EstudianteDetallesComponent implements OnInit {
     private router: ActivatedRoute,
     private route: Router,
     private messageService: MessageService,
-    private messageLocal: MessageLocal
-  ) {}
+    private messageLocal: MessageLocal,
+    private authService: AuthService,
+  ) { }
 
   matricula!: Matricula;
   search: string = '';
@@ -95,14 +97,31 @@ export class EstudianteDetallesComponent implements OnInit {
   );
 
   goToBackListStudents() {
-    this.router.paramMap.subscribe((param) => {
-      console.log(param);
-      this.route.navigate([
-        `cecy/assistant-cecy/matricula/career/${param.get(
-          'careerId'
-        )}/${param.get('nombre-carrera')}/course/${param.get('idCurso')}`,
-      ]);
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        if (user[0].role.name === 'coordinator_cecy') {
+          this.router.paramMap.subscribe((param) => {
+            console.log(param);
+            this.route.navigate([
+              `cecy/coordinator-cecy/matricula/career/${param.get(
+                'careerId'
+              )}/${param.get('nombre-carrera')}/course/${param.get('idCurso')}`,
+            ]);
+          });
+        } else if (user[0].role.name === 'assistant_cecy') {
+          this.router.paramMap.subscribe((param) => {
+            console.log(param);
+            this.route.navigate([
+              `cecy/assistant-cecy/matricula/career/${param.get(
+                'careerId'
+              )}/${param.get('nombre-carrera')}/course/${param.get('idCurso')}`,
+            ]);
+          });
+        }
+      }
     });
+
+
   }
 
   observaciones$: any = this.matricula$.pipe(map((res) => res.observaciones));

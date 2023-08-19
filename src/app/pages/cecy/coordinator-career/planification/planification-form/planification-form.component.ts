@@ -80,7 +80,7 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
     private courseService: CourseService,
     private socket: Socket,
     private tokenService: TokenService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadPlanificationsAll();
@@ -195,6 +195,18 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
         });
       } else {
         console.log('EDITANDO');
+        this.socket.emit('app:updatePlanification', valuesFormPlanification, (response: any) => {
+          if (response.error) {
+            this.messageService.error(response.error);
+            this.progressBar = false;
+          } else {
+            console.log('EDITING', response);
+            this.progressBar = false;
+            this.messageService.successPlanification(response);
+            this.clickClose.emit(false);
+            this.addPlanification.emit(response.data);
+          }
+        })
       }
     }
 

@@ -13,6 +13,9 @@ import { SignatureFormComponent } from './signature/signature-form/signature-for
 import { CarrerasComponent } from '../assistant/carreras/carreras.component';
 import { ReporteComponent } from '../assistant/reporte/reporte.component';
 import { ReporteListaComponent } from '../assistant/reporte/reporte-lista/reporte-lista.component';
+import { CursosCarreraComponent } from '../assistant/cursos-carrera/cursos-carrera.component';
+import { EstudiantesCursoComponent } from '../assistant/estudiantes-curso/estudiantes-curso.component';
+import { EstudianteDetallesComponent } from '../assistant/estudiantes-curso/estudiante-detalles/estudiante-detalles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +27,18 @@ const routes: Routes = [
   { path: 'signature/edit/:id', component: SignatureFormComponent },
   { path: 'assistant', component: AssistantComponent },
   { path: 'matricula', component: CarrerasComponent },
+  {
+    path: 'matricula/career/:careerId',
+    component: CursosCarreraComponent,
+  },
+  {
+    path: 'matricula/career/:careerId/:nombre-carrera/course/:idCurso',
+    component: EstudiantesCursoComponent,
+  },
+  {
+    path: 'matricula/career/:careerId/:nombre-carrera/course/:idCurso/student/:idEstudiante',
+    component: EstudianteDetallesComponent,
+  },
   {
     path: 'certificado',
     loadChildren: () =>

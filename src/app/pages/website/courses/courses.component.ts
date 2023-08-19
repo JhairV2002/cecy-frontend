@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CursosService } from '@services/cecy/cursos';
 import { CacheService, MessageService } from '@services/core';
 import { MenuItem } from 'primeng/api';
+import { AuthStudentService } from '@services/auth';
 
 interface PageEvent {
   first: number;
@@ -32,6 +33,7 @@ export class CoursesComponent implements OnInit {
     private cacheService: CacheService,
     private messageService: MessageService,
     private router: Router,
+    private authStudentService: AuthStudentService,
   ) {
     // this.checkSearchParams();
   }
@@ -163,7 +165,22 @@ export class CoursesComponent implements OnInit {
   }
 
   viewCourse(id: number) {
-    this.router.navigate([`course/view/${id}`])
+
+    this.authStudentService.student$.subscribe({
+      next: (student: any) => {
+        console.log('STUDIANTE', student);
+        if (student !== null) {
+          if (student.rol === 'estudiante') {
+            this.router.navigate([`estudiante/course/${id}/details`])
+          } else {
+            this.router.navigate([`course/view/${id}`])
+          }
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
 

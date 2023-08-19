@@ -26,7 +26,7 @@ export class PerfilEstudianteComponent implements OnInit {
     email: ['', [Validators.email]],
     clave: [''],
     confirmClave: [''],
-    cedula: ['', Validators.required],
+    cedula: [''],
     nombres: [''],
     apellidos: [''],
     fechaNacimiento: [''],
@@ -71,6 +71,16 @@ export class PerfilEstudianteComponent implements OnInit {
     })
   }
 
+  onSubmit() {
+    if (this.studentProfile.valid) {
+      console.log('Send')
+      this.updateEstudiante();
+    } else {
+      console.log('error onsubmit')
+      this.studentProfile.markAllAsTouched();
+    }
+  }
+
   disableDetalles() {
     if (!this.studentProfile.get('discapacidad')!.value) {
       this.studentProfile.controls.detallesDiscapacidad.disable();
@@ -81,6 +91,7 @@ export class PerfilEstudianteComponent implements OnInit {
   }
 
   updateEstudiante() {
+    console.log('Update profile')
     console.log(this.studentProfile.value);
     this.estudianteService
       .updateEstudiante(this.studentProfile.value)
@@ -102,14 +113,6 @@ export class PerfilEstudianteComponent implements OnInit {
           })
         }
       });
-  }
-
-  onSubmit() {
-    if (this.studentProfile.valid) {
-      this.updateEstudiante();
-    } else {
-      this.studentProfile.markAllAsTouched();
-    }
   }
 
   isRequired(field: AbstractControl): boolean {

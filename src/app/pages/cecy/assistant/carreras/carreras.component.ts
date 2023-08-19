@@ -57,9 +57,19 @@ export class CarrerasComponent implements OnInit {
 
   }
   viewStudents(planification: any) {
-    console.log(planification);
-    this.router.navigate([
-      `/cecy/assistant-cecy/matricula/career/${planification.careerId}/${planification.name}/course/${planification.id}`,
-    ]);
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        console.log('ID DE REDIRECCION', planification);
+        if (user[0].role.name === 'coordinator_cecy') {
+          this.router.navigate([
+            `/cecy/coordinator-cecy/matricula/career/${planification.careerId}/${planification.name}/course/${planification.id}`,
+          ]);
+        } else if (user[0].role.name === 'assistant_cecy') {
+          this.router.navigate([
+            `/cecy/assistant-cecy/matricula/career/${planification.careerId}/${planification.name}/course/${planification.id}`,
+          ]);
+        }
+      }
+    });
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Matricula } from '@models/cecy/estudiantes/carreras';
 import { CursosService } from '@services/cecy/cursos';
 import { map, switchMap } from 'rxjs';
+import { AuthService } from '@services/auth';
 
 @Component({
   selector: 'app-estudiantes-curso',
@@ -14,6 +15,8 @@ export class EstudiantesCursoComponent {
     private router: ActivatedRoute,
     private cursoService: CursosService,
     private routerActive: Router,
+    private authService: AuthService,
+
   ) { }
 
   search: string = '';
@@ -44,8 +47,18 @@ export class EstudiantesCursoComponent {
   );
 
   gotToBack() {
-    this.router.paramMap.subscribe((param) => {
-      this.routerActive.navigate(['/cecy/assistant-cecy/matricula']);
+    this.authService.user$.subscribe((user: any) => {
+      if (user !== null) {
+        if (user[0].role.name === 'coordinator_cecy') {
+          this.router.paramMap.subscribe((param) => {
+            this.routerActive.navigate(['/cecy/coordinator-cecy/matricula']);
+          });
+        } else if (user[0].role.name === 'assistant_cecy') {
+          this.router.paramMap.subscribe((param) => {
+            this.routerActive.navigate(['/cecy/assistant-cecy/matricula']);
+          });
+        }
+      }
     });
   }
 }

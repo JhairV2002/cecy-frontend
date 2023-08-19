@@ -31,7 +31,7 @@ export class RecentCoursesComponent implements OnInit {
     this.courseService.getAllCoursesByStateApprove().subscribe({
       next: (courses) => {
         console.log(courses);
-        this.recent = courses.slice(0, 6);
+        this.recent = courses.slice(0, 200);
         const courseIds = this.recent.map(course => course.id);
         localStorage.setItem('recentCourseIds', JSON.stringify(courseIds));
       },

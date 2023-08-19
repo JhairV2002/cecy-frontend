@@ -62,7 +62,6 @@ import { SearchComponent } from './courses/search/search.component';
     EstudiantesCursoComponent,
     EstudiantesTableComponent,
     CursoBannerComponent,
-    EstudiantesCursoComponent,
     EstudiantesTableComponent,
     CursoBannerComponent,
     EstudianteDetallesComponent,
@@ -74,7 +73,9 @@ import { SearchComponent } from './courses/search/search.component';
   exports: [
     CarrerasComponent,
     ReporteComponent,
-    ReporteListaComponent
+    ReporteListaComponent,
+    CursosCarreraComponent,
+    EstudiantesCursoComponent
   ],
   imports: [
     CommonModule,
