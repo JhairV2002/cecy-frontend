@@ -45,7 +45,6 @@ const routes: Routes = [
   },
   { path: 'reporte', component: ReporteComponent },
   { path: 'reporte-lista/:id', component: ReporteListaComponent },
-  { path: 'reporte-lista/:id', component: ReporteListaComponent },
   { path: 'change-password', component: ChangePasswordComponent },
 ];
 

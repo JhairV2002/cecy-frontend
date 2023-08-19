@@ -142,6 +142,21 @@ export class SidebarComponent implements OnInit {
           routerLink: ['/cecy/coordinator-cecy/assistant'],
         },
         {
+          label: 'Matriculacion Estudiantes',
+          icon: 'fa-solid fa-square-check',
+          routerLink: ['/cecy/coordinator-cecy/matricula'],
+        },
+        {
+          label: 'Generar Reportes',
+          icon: 'fa-solid fa-chart-simple',
+          routerLink: ['/cecy/coordinator-cecy/reporte'],
+        },
+        {
+          label: 'Generar Certificados',
+          icon: 'fa-solid fa-file-arrow-down',
+          routerLink: ['/cecy/coordinator-cecy/certificado'],
+        },
+        {
           label: 'Periodo lectivo',
           icon: 'fa-solid fa-school',
           routerLink: ['/cecy/coordinator-cecy/school-year'],
@@ -236,7 +251,7 @@ export class SidebarComponent implements OnInit {
     public el: ElementRef,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user: any) => {

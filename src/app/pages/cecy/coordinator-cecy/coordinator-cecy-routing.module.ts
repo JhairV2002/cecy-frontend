@@ -10,6 +10,9 @@ import { ChangePasswordComponent } from '@shared/components/user/change-password
 import { PlanificationComponent } from './planification/planification.component';
 import { SignatureComponent } from './signature/signature.component';
 import { SignatureFormComponent } from './signature/signature-form/signature-form.component';
+import { CarrerasComponent } from '../assistant/carreras/carreras.component';
+import { ReporteComponent } from '../assistant/reporte/reporte.component';
+import { ReporteListaComponent } from '../assistant/reporte/reporte-lista/reporte-lista.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +23,14 @@ const routes: Routes = [
   { path: 'signature/create', component: SignatureFormComponent },
   { path: 'signature/edit/:id', component: SignatureFormComponent },
   { path: 'assistant', component: AssistantComponent },
+  { path: 'matricula', component: CarrerasComponent },
+  {
+    path: 'certificado',
+    loadChildren: () =>
+      import('./../assistant/panel-curso/secretary-cecy-certificate.module').then((m) => m.SecretaryCecyCertificateModule),
+  },
+  { path: 'reporte', component: ReporteComponent },
+  { path: 'reporte-lista/:id', component: ReporteListaComponent },
   { path: 'school-year', component: SchoolYearComponent },
   { path: 'poa-form', component: PoaFormComponent },
   { path: 'change-password', component: ChangePasswordComponent },
@@ -30,4 +41,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CoordinatorCecyRoutingModule {}
+export class CoordinatorCecyRoutingModule { }

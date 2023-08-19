@@ -38,7 +38,7 @@
               pButton
               pRipple
               label="Acceder"
-              [routerLink]="['../reporte-lista', course.id]"
+              (click)="viewCourseByReport(course.id)"
             ></button>
           </div>
         </td>

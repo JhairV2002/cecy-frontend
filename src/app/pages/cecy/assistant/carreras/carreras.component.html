@@ -9,7 +9,7 @@
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <h1 class="text-xl font-semi-bold underline">
-      Listado de cursos aprobados
+      Listado de cursos asignados
     </h1>
   </div>
   <div class="p-toolbar-group-end gap-2">
@@ -25,7 +25,7 @@
 </p-toolbar>
 <div class="flex m-4">
   <div class="flex flex-wrap justify-center content-center h-full gap-4 mt-4">
-    <p-card class="w-96" *ngFor="let curso of cursos$ | async">
+    <p-card class="w-96" *ngFor="let curso of courses">
       <figure class="px-10 pt-10">
         <img
           src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"

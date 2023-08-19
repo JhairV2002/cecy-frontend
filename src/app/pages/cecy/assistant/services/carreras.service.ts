@@ -48,7 +48,16 @@ export class CarrerasService {
     );
   }
 
-  getAllCursos(): Observable<CourseApiNode[]> {
+  getAllCoursesApproved() {
+    this.loading.next(true);
+    return this.http.get<Career[]>(this.urlApiNodeCursos).pipe(
+      finalize(() => {
+        this.loading.next(false);
+      }),
+    );
+  }
+
+  getAllCursosByAssistant(): Observable<CourseApiNode[]> {
     this.loading.next(true);
     const token = this.tokenService.getToken();
     return this.http.get<CourseApiNode[]>(`${this.urlNodejs}/assistant/all-courses`, {

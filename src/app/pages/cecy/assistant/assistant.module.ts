@@ -71,6 +71,11 @@ import { SearchComponent } from './courses/search/search.component';
     CursosCarreraComponent,
     CarrerasComponent,
   ],
+  exports: [
+    CarrerasComponent,
+    ReporteComponent,
+    ReporteListaComponent
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -104,4 +109,4 @@ import { SearchComponent } from './courses/search/search.component';
     ProgressSpinnerModule,
   ],
 })
-export class AssistantModule {}
+export class AssistantModule { }
