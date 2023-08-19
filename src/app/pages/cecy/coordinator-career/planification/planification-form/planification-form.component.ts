@@ -195,35 +195,22 @@ export class PlanificationFormComponent implements OnInit, OnChanges {
         });
       } else {
         console.log('EDITANDO');
-        this.socket.emit('app:updatePlanification', valuesFormPlanification, (response: any) => {
-          if (response.error) {
-            this.messageService.error(response.error);
+        const valuesFormPlanification = this.formPlanification.value;
+        console.log(valuesFormPlanification)
+        this.planificationsCoursesService.editPlanificationById(this.formPlanification.value, this.selectPlanification.id).subscribe({
+          next: (data: any) => {
             this.progressBar = false;
-          } else {
-            console.log('EDITING', response);
-            this.progressBar = false;
-            this.messageService.successPlanification(response);
+            this.messageService.successPlanification(data);
             this.clickClose.emit(false);
-            this.addPlanification.emit(response.data);
-          }
-        })
+            this.addPlanification.emit(data);
+            this.formPlanification.reset();
+          },
+          error: (error) => {
+            this.messageService.error(error);
+          },
+        });
       }
     }
-
-    // this.planificationsCoursesService
-    //   .createEdit(valuesFormPlanification, this.selectPlanification)
-    //   .subscribe({
-    //     next: (data: any) => {
-    //       this.progressBar = false;
-    //       this.messageService.successPlanification(data);
-    //       this.clickClose.emit(false);
-    //       this.addPlanification.emit(data);
-    //       this.formPlanification.reset();
-    //     },
-    //     error: (error) => {
-    //       console.log(error);
-    //     },
-    //   });
   }
 
   onSubmit() {
