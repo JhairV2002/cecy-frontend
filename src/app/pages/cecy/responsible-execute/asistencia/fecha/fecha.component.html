@@ -13,7 +13,9 @@
 </p-toolbar>
 <div class="flex m-4">
   <div class="flex-1">
-    <h1 class="text-2xl font-bold light:text-black">Registro de Asistencia</h1>
+    <h1 class="text-2xl font-bold light:text-black">
+      Registro de Evidencias Fotográficas
+    </h1>
   </div>
   <p-button
     label="Agregar"
@@ -21,6 +23,9 @@
     styleClass="p-button-raised"
     icon="pi pi-plus"
   ></p-button>
+  <div class="absolute top-0 right-0">
+    <p-messages></p-messages>
+  </div>
 </div>
 
 <p-table
@@ -37,7 +42,8 @@
       <th scope="col" class="px-6 py-3">Observaciones</th>
       <th scope="col" class="px-6 py-3">Captura</th>
       <th scope="col" class="px-6 py-3">
-        <button
+        Acciones
+        <!--         <button
           ripple=""
           type="button"
           icon="pi pi-cog"
@@ -45,7 +51,7 @@
           ng-reflect-icon="pi pi-cog"
         >
           <span class="p-button-icon pi pi-cog" aria-hidden="true"></span>
-        </button>
+        </button> -->
       </th>
     </tr>
   </ng-template>
@@ -59,7 +65,12 @@
       </td>
       <td>
         <div class="thumbnail">
-          <img class="thumbnail-img" src="{{ fecha.evidenciaFotografica }}" alt="Evidencia Fotográfica" (click)="showModal(fecha.evidenciaFotografica)">
+          <img
+            class="thumbnail-img"
+            src="{{ fecha.evidenciaFotografica }}"
+            alt="Evidencia Fotográfica"
+            (click)="showModal(fecha.evidenciaFotografica)"
+          />
         </div>
       </td>
       <td>
@@ -83,7 +94,7 @@
       </td>
     </tr>
   </ng-template>
-  
+
   <ng-template pTemplate="summary">
     <div class="flex align-items-center justify-content-between">
       Actualmente hay
@@ -93,7 +104,7 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="8" style="width: 100%">No hay registro de asistencia</td>
+      <td colspan="8" style="width: 100%">No hay registros</td>
     </tr>
   </ng-template>
 </p-table>

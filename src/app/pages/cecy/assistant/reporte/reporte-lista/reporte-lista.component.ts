@@ -9,6 +9,7 @@ import { Course } from '@models/cecy/secretary-cecy';
 import { Reporte, Reportes, Matricula } from '../reporte';
 import { ReporteService } from '../reporte.service';
 import { PlanificationsCoursesService } from '@services/cecy/coordinator-career';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reporte-lista',
@@ -130,7 +131,6 @@ export class ReporteListaComponent implements OnInit {
       });
   }
 
-  //sin validar reportes duplicados
   public generateReports(): void {
     this.consulReport();
     this.matricula
@@ -158,25 +158,20 @@ export class ReporteListaComponent implements OnInit {
           fechaReporte: new Date(),
           reportes: this.reportesList,
         };
-        //guarda el reporte falta validar
-        //validar x el consultReport
+
 
         if (this.validateReport) {
           console.log('el reporte existe');
         } else {
           this.reporteService.save(this.reporteEntity).subscribe((e) => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Generado',
-              detail: 'Reporte Generado',
-              life: 3000,
-            });
+           this.succesReport(e.status)
+            console.log(e.status)
           });
           this.validateReport = true;
 
           console.log('el reporte no existe', this.validateReport);
         }
-        setInterval('location.reload()', 6000);
+        setInterval('location.reload()', 10000);
         console.log(this.reporteEntity);
       });
   }
@@ -212,11 +207,7 @@ export class ReporteListaComponent implements OnInit {
   public downloadXls(id: any) {
     //aqui va el nombre del curso y la fecha en la que se descargo
     let name = 'Anexo A7 ' + this.course.name;
-    // if (
-    //   this.cursoEstudianteLista.aprobado &&
-    //   this.cursoEstudianteLista.reprobado === 0
-    // ) {
-    // }
+
     this.reporteService.descarga(id).subscribe((data) => {
       let dowloadURL = window.URL.createObjectURL(data);
       let link = document.createElement('a');
@@ -224,5 +215,23 @@ export class ReporteListaComponent implements OnInit {
       link.download = name + '.xls';
       link.click();
     });
+  }
+
+  succesReport(code: number) {
+    if(code=200){
+      Swal.fire(
+        'Hecho',
+        'Se genero el reporte',
+        'success'
+      )
+      this.dialogReport=false
+    }else{
+      Swal.fire(
+        'Error',
+        'No se pudo generar el reporte',
+        'error'
+      )
+      this.dialogReport=false
+    }
   }
 }

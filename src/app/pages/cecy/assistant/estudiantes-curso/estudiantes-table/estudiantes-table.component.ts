@@ -10,7 +10,7 @@ import { EstudiantesServiceService } from '../../services/estudiantes-service.se
   styleUrls: ['./estudiantes-table.component.css'],
 })
 export class EstudiantesTableComponent {
-  @Input() estudiantes!: Matricula[] | null;
+  @Input() estudiantes!: Matricula[] | null | any;
   @Input() loading!: boolean;
 
   constructor(
@@ -18,6 +18,7 @@ export class EstudiantesTableComponent {
     private activatedRoute: ActivatedRoute,
     private estudiantesService: EstudiantesServiceService,
   ) { }
+
   viewDetailEstudent(estudiante: Estudiante) {
     console.log(estudiante);
     this.activatedRoute.paramMap.subscribe((param) => {

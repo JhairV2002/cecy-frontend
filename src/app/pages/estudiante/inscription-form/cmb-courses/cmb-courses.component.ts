@@ -7,7 +7,7 @@ import { CoursesService } from '@services/cecy';
   templateUrl: './cmb-courses.component.html',
 })
 export class CmbCoursesComponent implements OnInit {
-  constructor(private CoursesService: CoursesService) {}
+  constructor(private CoursesService: CoursesService) { }
 
   listCourses: Courses[] = [];
   @Output() idEmitter = new EventEmitter<string>();

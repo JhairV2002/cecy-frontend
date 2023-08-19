@@ -32,26 +32,25 @@
         }}
       </th>
       <th>
-        <button
-          pButton
-          type="button"
-          id="asistencia"
-          class="p-button p-button-primary"
-          icon="pi pi-eye"
-          label="Detalles Matricula"
-          (click)="viewDetailEstudent(estudiante)"
-        ></button>
-
-        <button
-          *ngIf="estudiante.estadoMatricula.descripcion != 'Matriculado'"
-          pButton
-          type="button"
-          id="asistencia"
-          class="p-button p-button-primary ml-2"
-          icon="pi pi-eye"
-          label="Matricular"
-          (click)="matricular(estudiante)"
-        ></button>
+        <div class="flex gap-2">
+          <button
+            pButton
+            type="button"
+            class="p-button p-button-primary"
+            icon="pi pi-eye"
+            label="Detalles Matricula"
+            (click)="viewDetailEstudent(estudiante)"
+          ></button>
+          <button
+            *ngIf="estudiante.estadoMatricula.descripcion != 'Matriculado'"
+            pButton
+            type="button"
+            class="p-button p-button-warning"
+            icon="pi pi-check"
+            label="Matricular"
+            (click)="matricular(estudiante)"
+          ></button>
+        </div>
       </th>
     </tr>
   </ng-template>

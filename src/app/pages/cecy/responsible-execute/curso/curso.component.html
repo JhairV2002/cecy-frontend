@@ -96,16 +96,20 @@
             curso.detailPlanification?.planificationCourse.startDate
               | date : "yyyy-MM-dd"
           }}<br />
-          Horario: {{ curso.detailPlanification?.workday.name }}<br />
-          {{ curso.detailPlanification?.startedTime }} -
+          Fecha de fin:
+          {{
+            curso.detailPlanification?.planificationCourse.finishDate
+              | date : "yyyy-MM-dd"
+          }}<br />
+          Jornada: {{ curso.detailPlanification?.workday.name }}<br />
+          Horario: {{ curso.detailPlanification?.startedTime }} -
           {{ curso.detailPlanification?.endedTime }}<br />
           <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="showHelp()"></i>
           <p-dialog header="Estado del curso" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }">
             <p>
             Se guía bajo las siguientes especificaciones:<br/>
-            - <strong>En proceso</strong>: una vez que se ha dado inicio al curso (Predeterminado)<br/>
-            - <strong>Terminado</strong>: una vez que se terminó de impartir el curso.<br/>
-            - <strong>Cerrado</strong>: una vez que los certificados ya fueron emitidos. <i class="pi pi-sort-amount-down-alt"></i>
+            - <strong>Aprobado</strong>: Curso aprobado y en desarrollo<br/>
+            - <strong>Terminado</strong>:  Curso finalizado<br/>
             </p>
           </p-dialog>
           Estado del curso:

@@ -42,6 +42,7 @@
 
 #search{
     margin-left: 2%;
+    width: 200px;
 }
 
 #table{
@@ -99,20 +100,47 @@
         border-color: #ffffff;
     }
 
-#asistencia {
-    background-color: #787779;
-    color:  #ffffff;
-    border:none;
+#asistencia1 {
+    background-color: #ffffff;
+    color:  #787779;
+    white-space: nowrap;
+    border-color:#787779 ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    #asistencia1:hover {
+        background-color: #787779;
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
+.dialog-content {
+    padding: 15px;
+    font-size: 14px;
+    width: 100%;
 }
 
-#title {
-    margin-top: 1%;
-    margin-bottom: 2%;
+
+.eva-link {
+    color: #ff9900;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-#help {
-    padding-bottom: 50%;
-    padding-right: 20%;
-    display: none;
-    
+
+.assistance-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.assistance-list li {
+    margin-bottom: 5px;
+}
+
+.assistance-symbol {
+    color: white;
+    background-color: #048eff;;
+    padding: 2px 8px;
+    border-radius: 5px;
 }

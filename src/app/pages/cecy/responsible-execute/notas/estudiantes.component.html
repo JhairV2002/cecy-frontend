@@ -1,4 +1,3 @@
-
 <p-toolbar>
   <div class="p-toolbar-group-start gap-2">
     <button
@@ -14,27 +13,65 @@
     <button
       pButton
       type="button"
-      id="asistencia"
+      id="asistencia1"
       class="p-button p-button-primary"
-      icon="pi pi-user-plus"
+      icon="pi pi-camera"
       (click)="redireccionar()"
-      label="Asistencia"
+      label="Registro Fotográfico"
     ></button>
   </div>
 </p-toolbar>
 <div class="flex m-4">
   <div class="flex-1">
-    <h1 class="text-2xl font-semi-bold">Listado de Estudiantes</h1>
-  </div>
-  <i class="pi pi-question-circle px-1" style="cursor: pointer;" (click)="help()">Ayuda</i>
-      <p-dialog header="RECUERDE" [(visible)]="helpDialogVisible" [style]="{ width: '30%' }"> 
-        1) Tiene que ingresar el porcentaje de asistencia dado por el eva <br/>
-        2) La Asistencia se registra solo usando los botones <br/>
-            2.1 Disminuir la asistencia ˅ <br/>
-            2.2 Aumentar la asistencia  ˄ <br/> 
-
-            Nota: El máximo de asistencia es 100 % y el minimo es 1 <br/>
+    <h1 class="text-2xl font-semi-bold">
+      Listado de Estudiantes
+      <i
+        class="pi pi-question-circle px-1"
+        style="cursor: pointer"
+        id="help-icono"
+        (click)="help()"
+      ></i>
+      <p-dialog
+        header="Listado de estudiantes"
+        [(visible)]="helpDialogVisible"
+        [style]="{ width: '40%' }"
+      >
+        <div class="dialog-content">
+          <p>
+            • Tiene que ingresar el porcentaje de asistencia dado por la
+            plataforma
+            <strong
+              ><a
+                class="eva-link"
+                href="https://eva.yavirac.edu.ec/"
+                target="_blank"
+                >EVA</a
+              ></strong
+            >
+          </p>
+          <p>• La Asistencia se registra solo usando los botones.</p>
+          <ul class="assistance-list">
+            <li>
+              ⠀⠀Disminuir la asistencia
+              <strong class="assistance-symbol"> ⠀˅⠀ </strong>
+            </li>
+            <li>
+              ⠀⠀Aumentar la asistencia
+              <strong class="assistance-symbol"> ⠀˄⠀ </strong>
+            </li>
+          </ul>
+          <p>
+            • El porcentaje máximo de asistencia es <strong>100</strong> y el
+            mínimo es <strong>1</strong>
+          </p>
+          <p>
+            • Para aprobar debe tener un promedio mayor a <strong>70</strong>
+          </p>
+        </div>
       </p-dialog>
+    </h1>
+  </div>
+
   <div class="">
     <div class="p-inputgroup">
       <input
@@ -64,17 +101,15 @@
   [paginator]="true"
 >
   <ng-template pTemplate="header">
-
     <tr>
       <th>CEDULA</th>
       <th>NOMBRE</th>
-      <th>% ASISTENCIA</th> 
+      <th>% ASISTENCIA</th>
       <th>NOTA 1</th>
       <th>NOTA 2</th>
       <th>PROMEDIO</th>
       <th>ESTADO</th>
       <th>ACCIONES</th>
-      
     </tr>
   </ng-template>
 
@@ -95,43 +130,87 @@
         }}
       </td>
       <td>
+        <!-- <p-inputNumber
+          id="asistencia"
+          [(ngModel)]="matricula.porcentajeAsistencia"
+          inputId="minmaxfraction"
+          mode="decimal"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
+        >
+        </p-inputNumber> -->
+
         <p-inputNumber
           id="asistencia"
           [(ngModel)]="matricula.porcentajeAsistencia"
           placeholder="Ingrese el % asistencia"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
           [max]="100"
+          mode="decimal"
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
-          (keydown)="validarNumero($event)"
-          [ngModel]="matricula.porcentajeAsistencia !== null ? matricula.porcentajeAsistencia : 100"
+          (keydown)="validarNumero($event, 'porcentajeAsistencia', matricula)"
+          [ngModel]="
+            matricula.porcentajeAsistencia !== null
+              ? matricula.porcentajeAsistencia
+              : 100
+          "
         ></p-inputNumber>
+        <div
+          class="p-error"
+          *ngIf="
+            matricula.porcentajeAsistencia < 1 ||
+            matricula.porcentajeAsistencia > 100
+          "
+        >
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
       </td>
       <td>
         <p-inputNumber
           id="nota1"
           [(ngModel)]="matricula.nota1"
           placeholder="Ingrese una nota"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
           [min]="1"
           [max]="100"
+          mode="decimal"
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
-          (keydown)="validarNumero($event)"
+          (keydown)="validarNumero($event, 'nota1', matricula)"
         ></p-inputNumber>
+        <div
+          class="p-error"
+          *ngIf="matricula.nota1 < 1 || matricula.nota1 > 100"
+        >
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
       </td>
       <td>
         <p-inputNumber
           id="nota2"
           [(ngModel)]="matricula.nota2"
           placeholder="Ingrese una nota"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
           [min]="1"
           [max]="100"
+          mode="decimal"
           [showButtons]="true"
           [buttonLayout]="'horizontal'"
-          (keydown)="validarNumero($event)"
+          (keydown)="validarNumero($event, 'nota2', matricula)"
         ></p-inputNumber>
+        <div
+          class="p-error"
+          *ngIf="matricula.nota2 < 1 || matricula.nota2 > 100"
+        >
+          Solo se permiten números decimales en el rango de 1 a 100.
+        </div>
       </td>
-      <td>{{ matricula.promedio }}</td>
-      <td>{{ matricula.estadoCurso.descripcion }}</td>
+      <td>{{ matricula?.promedio }}</td>
+      <td>{{ matricula?.estadoCurso?.descripcion }}</td>
       <td>
         <button
           pButton
@@ -141,7 +220,6 @@
         >
           Guardar
         </button>
-
       </td>
     </tr>
   </ng-template>
@@ -160,6 +238,5 @@
   id="excel"
   (click)="generarExcel()"
 >
-  ㅤGenerar Excel
+  ㅤDescargar Excel
 </button>
-

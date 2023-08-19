@@ -20,10 +20,6 @@ const routes: Routes = [
   { path: 'courses/visualization/:id', component: TabsComponent },
   //Validacion matricula
   { path: 'matricula', component: CarrerasComponent },
-  // {
-  //   path: 'delegado',
-  //   component: ValidacionMatriculaComponent,
-  // },
   {
     path: 'matricula/career/:careerId',
     component: CursosCarreraComponent,
@@ -57,4 +53,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AssistantRoutingModule {}
+export class AssistantRoutingModule { }

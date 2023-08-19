@@ -13,6 +13,8 @@ import { Table } from 'primeng/table';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CodigoCertificateComponent } from '../codigo-certificate/codigo-certificate.component';
+import Swal from 'sweetalert2';
+import { finalize } from 'rxjs';
 
 
 
@@ -35,7 +37,9 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   reportEntity: Report={
     id:0,
     fechaReporte:new Date,
-    reportes:[]
+    reportes:[],
+    stateCertificate: false
+
 
   }
   //iniciamos el certificado
@@ -54,6 +58,7 @@ export class SolicitudCertificadoListaComponent implements OnInit {
   }
   matriculaEntity:Matricula={
     id:0,
+    cursoId: 0,
     estudiantes: this.estudentEntity
   }
   codeEntity: Codes={
@@ -86,21 +91,12 @@ export class SolicitudCertificadoListaComponent implements OnInit {
 
 
     rowsPerPageOptions = [5, 10, 20];
-
+    erroGenerate = [];
     dialogCertificate: boolean = false;
     stateCertificateReport: any = {
       stateCertificate: false
     }
   ngOnInit(): void {
-    //this.findAll();
-    // this.activatedRoute.paramMap.subscribe((params) => {
-    //   if (params.get('id')) {
-    //     this.findById(parseInt(params.get('id')!));
-    //   }
-    // });
-
-    //supuestamente trae a los productos
-    // this.solicitudCertificadoService.findById(id).then(data => this.products = data);
     this.activatedRoute.paramMap.subscribe((params) => {
         if (params.get('id')) {
           this.findById(parseInt(params.get('id')!));
@@ -142,22 +138,6 @@ editProduct(codigo: any) {
     this.updateCodeDialog = true;
 }
 
-
-
-// confirmDeleteSelected() {
-//     this.deleteProductsDialog = false;
-//     this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-//     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-//     this.selectedProducts = [];
-// }
-
-// confirmDelete() {
-//     this.deleteProductDialog = false;
-//     this.products = this.products.filter(val => val.id !== this.product.id);
-//     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-//     this.product = {};
-// }
-
 hideDialog() {
     this.updateCodeDialog = false;
     this.submitted = false;
@@ -167,9 +147,6 @@ saveProduct() {
     this.submitted = true;
     if (this.codigo.codigo?.trim()) {
       if (this.codigo.id){
-        // console.log(this.codigo.id,JSON.stringify(this.codigo={
-        //   codigo: this.codigo.codigo
-        // }))
         this.solicitudCertificadoService.updateCode(
           this.updateCode={
             codigo: this.codigo.codigo
@@ -178,34 +155,12 @@ saveProduct() {
           ).subscribe()
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Codigo Actualizado', life: 3000 });
       }
-      // this.codigos = [...this.codigo];
       this.updateCodeDialog = false;
       this.codigo = {};
     }
 
 
 }
-
-// findIndexById(id: string): number {
-//     let index = -1;
-//     for (let i = 0; i < this.products.length; i++) {
-//         if (this.products[i].id === id) {
-//             index = i;
-//             break;
-//         }
-//     }
-
-//     return index;
-// }
-
-// createId(): string {
-//     let id = '';
-//     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//     for (let i = 0; i < 5; i++) {
-//         id += chars.charAt(Math.floor(Math.random() * chars.length));
-//     }
-//     return id;
-// }
 
 onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
@@ -219,19 +174,33 @@ onGlobalFilter(table: Table, event: Event) {
       this.reportEntity = response;
       this.codigos = response.reportes
 
+      if(this.reportEntity.stateCertificate){
+        this.generate= true;
+        console.log("response"+this.reportEntity.stateCertificate);
+
+      };
+
     });
   };
 
-  // //Actualizar el codigo--------
-  // updateEntity(id:number):void {
-  //   console.log(id,"este es el id")
-  // };
+  downloadCertificate(id: number){
+    this.solicitudCertificadoService.downloadCertificate(id)
+    .subscribe((data) =>{
+      let dowloadURL = window.URL.createObjectURL(data)
+      let link = document.createElement('a')
+      link.href = dowloadURL
+      link.download = "certificado.pdf"
+      link.click()
+    })
 
 
-
+  }
 
   // //genera sertificados
    public generateCertificates():void {
+    var countStateSucces=0;
+    var countStateError=0;
+    var total = 0;
     console.log(JSON.stringify( this.solicitudCertificadoService.tipoCertificado))
 
      this.reportEntity.reportes.forEach(
@@ -247,12 +216,6 @@ onGlobalFilter(table: Table, event: Event) {
 
          }
          if(res.certificado!=null){
-           // this.certificadoEntity={
-           //   id:res.certificado.id,
-           //   estado:res.certificado.estado,
-           //   fecha: res.certificado.fecha
-           // };
-
            console.log("existe un certificado")
           return ;
 
@@ -288,16 +251,33 @@ onGlobalFilter(table: Table, event: Event) {
            console.log('validacion de generacion de ceertificado true')
            return
          }
-         this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).subscribe((e)=>{
-          //this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Certificado Generado', life: 3000 })
-          //this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
-          //  stateCertificate: true
-          //},this.reportEntity.id)
+         this.solicitudCertificadoService.saveCertificate(this.codeEntity,res.id).pipe(finalize(()=>{
+          if(this.reportEntity.reportes.length == total){
+            this.succesCertificate(
+              countStateSucces,
+              countStateError
+             )
+           }
+         })).subscribe((e)=>{
+          total ++;
+          if(e.status == 200){
+            countStateSucces ++;
+          }else{
+            countStateError ++;
+          }
+          console.log(e.status);
         });
+        this.solicitudCertificadoService.patchReport(this.stateCertificateReport = {
+          stateCertificate: true
+        },this.reportEntity.id).subscribe();
+        this.generate=true;
+        console.log(this.reportEntity.id)
          console.log(JSON.stringify(this.codeEntity))
        }
-
      )
+
+     console.log(countStateSucces+"Aaaaaaaaaaaaaaa")
+     console.log(countStateError+"Errorrrrrrrrr")
      this.generate=true;
      console.log('primera ves generado',this.generate)
   }
@@ -305,5 +285,22 @@ onGlobalFilter(table: Table, event: Event) {
     this.dialogCertificate=true
   }
 
+  succesCertificate(succes: number,error: number) {
+    if(error>0){
+      Swal.fire(
+        'Certificado con problema',
+        'No se han podido generar: ' + error + ' Certificados con falla',
+        'info'
+      )
+      this.dialogCertificate=false
+    }else{
+      Swal.fire(
+        'Ya puede visualizar los certificados',
+        'Se ha generado corecctamente:'+ succes + ' Certificados',
+        'success'
+      )
+      this.dialogCertificate=false
+    }
+  }
 
 }
