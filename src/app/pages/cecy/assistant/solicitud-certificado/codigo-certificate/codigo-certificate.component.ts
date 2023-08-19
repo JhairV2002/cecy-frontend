@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import { Codes, UpdateCode } from '../certificate';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CertificateRequestService } from '../certificate-request.service';
-import { finalize } from 'rxjs';
+
 
 @Component({
   selector: 'app-codigo-certificate',
@@ -55,7 +55,7 @@ export class CodigoCertificateComponent implements OnInit {
           console.log("Prueba actualizacion ", cod.matriculas.estudiantes.cedula, res.__EMPTY_8)
           if (cod.matriculas.estudiantes.cedula == res.__EMPTY_8) {
             this.codeService.updateCode(this.updatecode = { codigo: res.__EMPTY_23 }, cod.id).subscribe();
-            setInterval('location.reload()',4000);
+            setInterval('location.reload()',6000);
             console.log("Se esta Actualizando el codigo", cod.id, res.__EMPTY_23)
           }
         }
