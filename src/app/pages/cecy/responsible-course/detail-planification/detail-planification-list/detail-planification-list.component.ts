@@ -57,7 +57,7 @@ export class DetailPlanificationListComponent {
       // { field: 'classroom', header: 'Aula' },
       // { field: 'parallel', header: 'Paralelo' },
       { field: 'observation', header: 'Observación' },
-      // { field: 'state', header: 'Estado' },
+      { field: 'instructors', header: 'Instructores' },
     ];
 
     this.items = [
@@ -92,6 +92,7 @@ export class DetailPlanificationListComponent {
     this.courseService.getDetailPlans(this.planId).subscribe((response) => {
       this.detailPlanifications = response;
       this.detailPlanifications;
+      console.log('detailPlan: ', this.detailPlanifications)
     });
   }
 

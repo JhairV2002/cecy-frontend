@@ -49,31 +49,23 @@
         <td>
           {{ rowData["observation"] }}
         </td>
-
-        <!-- <div [ngSwitch]="rowData['state'].name">
-            <td *ngSwitchCase="'APROBADO'">
-              <span class="badge bg-primary rounded-pill">{{rowData['state'].name}}</span>
-            </td>
-            <td *ngSwitchCase="'NO APROBADO'">
-              <span class="badge bg-danger rounded-pill">{{rowData['state'].name}}</span>
-            </td>
-            <td *ngSwitchCase="'POR APROBAR'">
-              <span class="badge bg-warning rounded-pill">{{rowData['state'].name}}</span>
-            </td>
-            <td *ngSwitchCase="'CULMINADO'">
-              <span class="badge bg-success rounded-pill">{{rowData['state'].name}}</span>
-            </td>
-            <td *ngSwitchDefault>
-              {{rowData['state'].name}}
-            </td>
-          </div> -->
-        <!-- <td>{{rowData['state'].name}}</td> -->
-
         <!-- <td>
-          <p-splitButton label="Editar" styleClass="p-button-secondary" icon="pi pi-pencil"
-            (onClick)="showForm(rowData)" (onDropdownClick)="selectDetailPlanification(rowData)" [model]="items">
-          </p-splitButton>
+          <ul>
+            <li *ngFor="let instructor of rowData['instructors']">
+              {{instructor?.instructor?.names}} {{instructor?.instructor?.lastnames}}
+            </li>
+          </ul>
         </td> -->
+        <td>
+          <ul *ngIf="rowData['instructors'].length > 0">
+            <li *ngFor="let instructor of rowData['instructors']">
+              {{instructor?.instructor?.names}} {{instructor?.instructor?.lastnames}}
+            </li>
+          </ul>
+          <ul *ngIf="rowData['instructors'].length <= 0">
+            <li  class="bg-red-500 text-white p-2"><i>(No hay instructores asignados)</i></li>
+          </ul>
+        </td>
         <td>
           <div class="flex gap-1 justify-center">
             <button

@@ -55,6 +55,7 @@ import { PrerequisitesComponent } from './curricular-design/prerequisites/prereq
 import { TabsComponent } from './tabs/tabs.component';
 import { HomeComponent } from './home/home.component';
 import { TagModule } from 'primeng/tag';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { TagModule } from 'primeng/tag';
     FileUploadModule,
     ConfirmDialogModule,
     ProgressSpinnerModule,
-    TagModule
+    TagModule,
+    ImageModule
   ],
 })
 export class ResponsibleCourseModule {}

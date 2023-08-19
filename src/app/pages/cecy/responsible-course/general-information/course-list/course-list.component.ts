@@ -4,9 +4,8 @@ import { MenuItem } from 'primeng/api';
 
 import { CourseService } from '@services/cecy-v1/course.service';
 import { environment } from '@env/environment';
-import { MessageService } from '@services/core/message.service';
+import { MessageService } from 'primeng/api';
 import { AuthService } from '@services/auth';
-import { PdfCourseService } from '@services/cecy-v1/pdf-course.service';
 import { DatePipe } from '@angular/common';
 import { ReportCourseService } from '@services/cecy-v1/report-course.service';
 
@@ -27,6 +26,7 @@ export class CourseListComponent implements OnInit {
   rowData: any;
   filterPlan: any[] = [];
   namePlan: string = '';
+  dataReport: any;
 
   constructor(
     private courseService: CourseService,
@@ -34,7 +34,6 @@ export class CourseListComponent implements OnInit {
     public messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    private pdfCourseService: PdfCourseService,
     private datePipe: DatePipe,
     private reportService: ReportCourseService
   ) {
@@ -53,23 +52,7 @@ export class CourseListComponent implements OnInit {
           this.generateReportDesign(this.rowData);
 
         },
-      },
-      {
-        label: 'Descargar pdf informe de Necesidades',
-        icon: 'pi pi-book',
-        command: () => {
-          this.downloadGeneralInformation(this.rowData);
-        },
-      },
-      {
-
-        label: 'Descargar pdf Diseño curricular',
-        icon: 'pi pi-book',
-        command: () => {
-          this.downloadCurricularDesign(this.rowData);
-
-        },
-      },
+      }
 
     ];
 
@@ -116,58 +99,87 @@ export class CourseListComponent implements OnInit {
     this.rowData = valor;
   }
 
-  downloadGeneralInformation(planificationCourse: any) {
-    try {
-      planificationCourse.planification.startDate = this.datePipe.transform(
-        planificationCourse.planification.startDate,
-        'dd-MM-yyyy'
-      );
-      planificationCourse.planification.finishDate = this.datePipe.transform(
-        planificationCourse.planification.finishDate,
-        'dd-MM-yyyy'
-      );
-    } catch (error) {}
-    this.pdfCourseService.generatePDF(planificationCourse);
-  }
-
-  downloadCurricularDesign(planificationCourse: any) {
-    try {
-      planificationCourse.planification.startDate = this.datePipe.transform(
-        planificationCourse.planification.startDate,
-        'dd-MM-yyyy'
-      );
-      planificationCourse.planification.finishDate = this.datePipe.transform(
-        planificationCourse.planification.finishDate,
-        'dd-MM-yyyy'
-      );
-    } catch (error) {}
-    this.pdfCourseService.generatePDFCurricularDesign(planificationCourse);
-  }
 
 
 
   generateReportNeed(planificationCourse: any) {
     const courseId = planificationCourse.planification.id;
-    let name = 'Informe de necesidades ' + planificationCourse.planification.name;
-    this.reportService.generateReportNeed(courseId).subscribe((data) => {
-      let dowloadURL = window.URL.createObjectURL(data);
-      let link = document.createElement('a');
-      link.href = dowloadURL;
-      link.download = name + '.xls';
-      link.click();
-    });
+    this.reportService.testGetReport(courseId).subscribe(
+      (res) => {
+        this.dataReport = res;
+        let name = 'Informe de necesidades ' + planificationCourse.planification.name;
+        this.reportService.generateReportNeed(courseId).subscribe(
+          (data) => {
+            let dowloadURL = window.URL.createObjectURL(data);
+            let link = document.createElement('a');
+            link.href = dowloadURL;
+            link.download = name + '.xls';
+            link.click();
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'El informe se generó correctamente.'
+            });
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
+            });
+          }
+        );
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
+        });
+      }
+    )
+
+
   }
 
   generateReportDesign(planificationCourse: any) {
     const courseId = planificationCourse.planification.id;
-    let name = 'Informe de necesidades ' + planificationCourse.planification.name;
-    this.reportService.generateReportDesign(courseId).subscribe((data) => {
-      let dowloadURL = window.URL.createObjectURL(data);
-      let link = document.createElement('a');
-      link.href = dowloadURL;
-      link.download = name + '.xls';
-      link.click();
-    });
+    this.reportService.testGetReport(courseId).subscribe(
+      (res) => {
+        this.dataReport = res;
+        let name = 'Informe de necesidades ' + planificationCourse.planification.name;
+        this.reportService.generateReportDesign(courseId).subscribe(
+          (data) => {
+            let dowloadURL = window.URL.createObjectURL(data);
+            let link = document.createElement('a');
+            link.href = dowloadURL;
+            link.download = name + '.xls';
+            link.click();
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'El informe de diseño curricular se generó correctamente.'
+            });
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
+            });
+          }
+        );
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
+        });
+      }
+    )
   }
 
 }
