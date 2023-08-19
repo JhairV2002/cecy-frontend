@@ -8,9 +8,10 @@ import { PlanificationCourse } from '@models/cecy';
   styleUrls: ['./curso-card.component.css'],
 })
 export class CursoCardComponent {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
   @Input() curso!: PlanificationCourse | null;
-  @Input() butonText!: 'Ver Más' | 'Inscribirse';
+  @Input() butonText!: 'Ver Más' | 'Inscribirse' | 'Descargar Certificado';
+  @Input() fn?: Function;
 
   redireccionar() {
     this.router.navigate(['/estudiante/formInscription', this.curso!.id]);

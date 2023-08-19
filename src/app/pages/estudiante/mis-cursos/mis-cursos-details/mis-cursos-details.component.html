@@ -53,6 +53,9 @@
     </div>
   </div>
   <tbody></tbody>
+  <div *ngIf="codigo != null">
+    <button (click)="descargarCertificado()">Descargar Certificado</button>
+  </div>
 </div>
 <ng-template #sinObservaciones>
   <h3>Felicidades!</h3>
