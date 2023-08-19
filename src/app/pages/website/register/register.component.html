@@ -24,7 +24,10 @@
               <input
                 pInputText
                 formControlName="nombres"
+                pattern="[a-zA-Z]*"
                 placeholder="Ej. Ramiro Fernando"
+                oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                maxlength="50"
                 class="w-full"
               />
               <small
@@ -47,7 +50,10 @@
               <input
                 pInputText
                 formControlName="apellidos"
+                pattern="[a-zA-Z]*"
                 placeholder="Ej. Velasco Rios"
+                oninput="this.value = this.value.replace(/[^a-zA-Z]/g, '')"
+                maxlength="50"
                 class="w-full"
               />
               <small
@@ -75,6 +81,7 @@
                 pattern="[0-9]*"
                 placeholder="xxxxxxxxxx"
                 oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                maxlength="10"
               />
               <small
                 appErrorMessage
@@ -243,6 +250,7 @@
                   formControlName="detallesDiscapacidad"
                   class="w-full"
                   placeholder="Ej. Sindromes, falta de miembros, etc"
+                  maxlength="250s"
                 >
                 </textarea>
                 <small
@@ -272,6 +280,7 @@
                 pattern="[0-9]*"
                 oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                 placeholder="0982938292"
+                maxlength="10"
                 class="w-full"
               />
               <small
@@ -286,7 +295,6 @@
               <label
                 appLabel
                 label="Número convencional:"
-                [required]="isRequired(numeroConvencionalField)"
                 [valid]="numeroConvencionalField.valid"
                 [touched]="numeroConvencionalField.touched"
                 [dirty]="numeroConvencionalField.dirty"
@@ -295,10 +303,11 @@
               <input
                 pInputText
                 formControlName="numeroConvencional"
-                placeholder="Ej. 02292019"
+                placeholder="Ej. 022292019"
                 class="w-full"
                 pattern="[0-9]*"
                 oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                maxlength="9"
               />
               <small
                 appErrorMessage
@@ -326,6 +335,7 @@
               formControlName="direccion"
               class="w-full"
               placeholder="Sector Ecuatoriana; calle 1, calle 2, numeración"
+              maxlength="250"
             >
             </textarea>
             <small

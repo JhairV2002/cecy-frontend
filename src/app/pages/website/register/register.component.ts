@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     fechaNacimiento: ['', Validators.required],
     discapacidad: [false],
     numeroCelular: ['', [Validators.required, Validators.maxLength(10)]],
-    numeroConvencional: ['', Validators.required],
+    numeroConvencional: [''],
     detallesDiscapacidad: [''],
     direccion: ['', Validators.required],
     genero: ['', Validators.required],
