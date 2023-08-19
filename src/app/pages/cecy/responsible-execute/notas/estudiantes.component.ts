@@ -79,8 +79,6 @@ export class EstudiantesComponent implements OnInit {
           summary: `Actualizado`,
           detail: `Notas del estudiante ${data.estudiantes.nombres}`,
         });
-
-        // After saving, reload the component data to update the page with the latest values
         this.reloadComponentData();
       },
       error: (error) => {
@@ -92,7 +90,7 @@ export class EstudiantesComponent implements OnInit {
       },
     });
   }
-  
+
   reloadComponentData(): void {
     // Fetch the latest data from the backend
     this.activatedRoute.paramMap.subscribe((param) => {
@@ -115,7 +113,7 @@ export class EstudiantesComponent implements OnInit {
     });
   }
 
- 
+
   matriculas$ = this.estudianteService
     .obtenerEstudiantes()
     .pipe(map((res) => res.filter((it) => it.estudiantes != null)));
@@ -127,9 +125,9 @@ export class EstudiantesComponent implements OnInit {
     const currentValue = (event.target as HTMLInputElement).value.trim();
     const minValue = 1;
     const maxValue = 100;
-  
+
     const propertyKey = this.propertyMap[propertyName]; // Get the actual property key
-  
+
     if (
       (isNaN(Number(input)) &&
         input !== 'ArrowUp' &&
@@ -155,10 +153,10 @@ export class EstudiantesComponent implements OnInit {
     nota1: 'nota1',
     nota2: 'nota2',
   };
-  
+
   validateNumberInput(value: string, property: keyof Matriculas, matricula: Matriculas): void {
     const numericValue = parseFloat(value);
-  
+
     if (isNaN(numericValue) || numericValue < 1 || numericValue > 100) {
       alert('Solo se permiten números decimales en el rango de 1 a 100.');
       matricula[property] = '';
@@ -166,7 +164,7 @@ export class EstudiantesComponent implements OnInit {
       matricula[property] = numericValue;
     }
   }
-  
+
 
   generarExcel(): void {
     const datosExportar = this.estudiantes.map((nota) => {
