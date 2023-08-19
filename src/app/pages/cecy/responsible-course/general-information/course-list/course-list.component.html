@@ -1,3 +1,11 @@
+<div class="flex justify-center items-center">
+  <p-card class="w-full">
+    <h2 class="text-xl text-center">
+      <i class="fa-sharp fa-solid fa-check-to-slot fa-xl"></i>
+      <strong class="ml-1">Mis planificaciones</strong>
+    </h2>
+  </p-card>
+</div>
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button pButton pRipple type="button" label="Refrescar" class="p-button-rounded ml-2 p-button-success"
@@ -25,16 +33,17 @@
 <div class="flex flex-wrap gap-4 mt-2 mb-2">
   <div *ngFor="let item of filterPlan">
     <p-card *ngIf="!loading" [header]="item.planification.name" [style]="{ width: '250px' }"
-    subheader="Código del curso: {{ item.planification.codeCourse }}">
+      subheader="Código del curso: {{ item.planification.codeCourse }}">
       <ng-template pTemplate="header">
-        <!-- <div class=" "> -->
-        <img class="object-contain h-32 bg-slate-100" onerror='this.src = "https://primefaces.org/cdn/primeng/images/usercard.png" '
-          [src]="item?.image" alt="" style="height: 1 rem" />
-        <!-- </div> -->
+        <img class="object-contain h-32 bg-slate-100"
+          onerror='this.src = "https://primefaces.org/cdn/primeng/images/usercard.png" ' [src]="item?.image" alt=""
+          style="height: 1 rem" />
+
       </ng-template>
       <p>
-        Estado: <span><p-tag [severity]="item.planification.state === 'suspendido' ? 'danger' : 'success'" value="{{ item.planification.state }}"></p-tag></span> <br />
-        Creado: {{ item.planification.createdAt | date }}
+        Estado: <span><p-tag [severity]="item.state === 'terminado' ? 'warning' : 'success'"
+            value="{{ item.state }}"></p-tag></span> <br />
+        <span class="text-sm text-slate-400">Desde {{ item.planification.startDate | date:'YYY-MM-dd' }} hasta {{ item.planification.finishDate | date:'YYY-MM-dd' }}</span>
       </p>
       <ng-template pTemplate="footer">
         <div class="text-center">

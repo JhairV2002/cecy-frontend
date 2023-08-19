@@ -26,6 +26,7 @@ export class CourseListComponent implements OnInit {
   rowData: any;
   filterPlan: any[] = [];
   namePlan: string = '';
+  dataReport: any;
 
   constructor(
     private courseService: CourseService,
@@ -103,20 +104,32 @@ export class CourseListComponent implements OnInit {
 
   generateReportNeed(planificationCourse: any) {
     const courseId = planificationCourse.planification.id;
-    let name = 'Informe de necesidades ' + planificationCourse.planification.name;
-    this.reportService.generateReportNeed(courseId).subscribe(
-      (data) => {
-        let dowloadURL = window.URL.createObjectURL(data);
-        let link = document.createElement('a');
-        link.href = dowloadURL;
-        link.download = name + '.xls';
-        link.click();
+    this.reportService.testGetReport(courseId).subscribe(
+      (res) => {
+        this.dataReport = res;
+        let name = 'Informe de necesidades ' + planificationCourse.planification.name;
+        this.reportService.generateReportNeed(courseId).subscribe(
+          (data) => {
+            let dowloadURL = window.URL.createObjectURL(data);
+            let link = document.createElement('a');
+            link.href = dowloadURL;
+            link.download = name + '.xls';
+            link.click();
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'El informe se generó correctamente.'
-        });
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'El informe se generó correctamente.'
+            });
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
+            });
+          }
+        );
       },
       (error) => {
         this.messageService.add({
@@ -125,25 +138,39 @@ export class CourseListComponent implements OnInit {
           detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
         });
       }
-    );
+    )
+
+
   }
 
   generateReportDesign(planificationCourse: any) {
     const courseId = planificationCourse.planification.id;
-    let name = 'Informe de necesidades ' + planificationCourse.planification.name;
-    this.reportService.generateReportDesign(courseId).subscribe(
-      (data) => {
-        let dowloadURL = window.URL.createObjectURL(data);
-        let link = document.createElement('a');
-        link.href = dowloadURL;
-        link.download = name + '.xls';
-        link.click();
+    this.reportService.testGetReport(courseId).subscribe(
+      (res) => {
+        this.dataReport = res;
+        let name = 'Informe de necesidades ' + planificationCourse.planification.name;
+        this.reportService.generateReportDesign(courseId).subscribe(
+          (data) => {
+            let dowloadURL = window.URL.createObjectURL(data);
+            let link = document.createElement('a');
+            link.href = dowloadURL;
+            link.download = name + '.xls';
+            link.click();
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'El informe de diseño curricular se generó correctamente.'
-        });
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'El informe de diseño curricular se generó correctamente.'
+            });
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
+            });
+          }
+        );
       },
       (error) => {
         this.messageService.add({
@@ -152,7 +179,7 @@ export class CourseListComponent implements OnInit {
           detail: 'No se pudo generar el informe, no se ha llenado toda la planificación.'
         });
       }
-    );
+    )
   }
 
 }

@@ -101,7 +101,6 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn('se cargo nuevamente el comp form',this.selectedCourse);
     this.getPlanificationById();
     //cargar llaves foraneas
     this.loadCategoryCourses();

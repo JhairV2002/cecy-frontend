@@ -36,6 +36,7 @@ export class TabsComponent implements OnInit {
   alert: Message[] = [];
   user: User | null = null;
   fileErrorMessage: string='';
+  imagenBase64: any;
 
   constructor(
     private courseService: CourseService,
@@ -49,7 +50,7 @@ export class TabsComponent implements OnInit {
     private primeMessageService: MessageService
   ) {
     this.imageForm = this.fb.group({
-      image: ['']
+      image: ['', Validators.required]
     });
   }
 
@@ -157,11 +158,11 @@ export class TabsComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.imageForm.valid) {
+    if (this.imageForm.valid && this.fileErrorMessage =='') {
       this.saveImage();
       setTimeout(() => {
         this.getPlanificationById();
-      }, 1000);
+      }, 2000);
       this.visible = false;
     } else {
       // this.formImage.markAllAsTouched();
@@ -176,6 +177,8 @@ export class TabsComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.messageService.successCourse(data);
+          this.imageForm.reset()
+          this.imagenBase64='';
         },
         error: (error) => {
           this.messageService.error(error);
@@ -282,10 +285,12 @@ export class TabsComponent implements OnInit {
   //   }
   // }
 
-  onFileChange(event: UploadEvent) {
-    console.log(event);
-    const file = event.currentFiles[0];
-    console.log(file);
+  onFileUpload(event: any) {
+    console.log('evento con file', event);
+    // const file = event.currentFiles[0];
+    const file = event.target.files[0];
+    console.log(file.name);
+
     if (file) {
       const maxSizeInBytes = 10 * 1024 * 1024;
       if (file.size > maxSizeInBytes) {
@@ -297,18 +302,35 @@ export class TabsComponent implements OnInit {
           detail:
             'El archivo seleccionado excede el tamaño máximo permitido (10 MB).',
         });
+        event.target.value = '';
       } else {
-        this.fileErrorMessage = '';
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.imageForm.get('image')?.setValue(e.target.result);
-        };
-        reader.readAsDataURL(file);
-        this.primeMessageService.add({
-          severity: 'info',
-          summary: 'Cargado...',
-          detail: 'Se ha cargado la imagen con éxito',
-        });
+        // Check file extension
+        const allowedExtensions = ['.png', '.jpg', '.jpeg'];
+        const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+
+        if (allowedExtensions.includes(fileExtension)) {
+          this.fileErrorMessage = '';
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.imagenBase64 = e.target.result;
+            this.imageForm.get('image')?.setValue(this.imagenBase64);
+          };
+          reader.readAsDataURL(file);
+          this.primeMessageService.add({
+            severity: 'info',
+            summary: 'Cargado...',
+            detail: 'Se ha cargado la imagen con éxito',
+          });
+        } else {
+          this.fileErrorMessage =
+            'El formato de archivo no es compatible. Solo se permiten archivos PNG y JPG.';
+          this.primeMessageService.add({
+            severity: 'error',
+            summary: 'Error al cargar la imagen',
+            detail: 'El formato de archivo no es compatible. Solo se permiten archivos PNG y JPG.',
+          });
+          event.target.value = '';
+        }
       }
     }
   }

@@ -1,3 +1,4 @@
+
 <div>
   <form>
     <p-card>
@@ -34,19 +35,10 @@
               <div class="form-space">
                 <div class="flex-col m-auto">
                   <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
-                    <div class="p-1 w-full">
-                      <!-- <input
-                        class="w-full"
-                        type="text"
-                        pInputText
-                        id="imageUrl"
-                        formControlName="image"
-                        placeholder="Url de la imagen"
-                      /> -->
+                    <div class="p-1 w-full mb-2">
+
                       <div class="upload-container">
-                        <!-- <input type="file" (change)="onFileChange($event)" accept="image/*" /> -->
-                        <p-fileUpload mode="basic" chooseLabel="Seleccione la imagen" accept="image/*"
-                          (onUpload)="onFileChange($event)"></p-fileUpload>
+                        <input pButton class="p-button-warning w-full " type="file" (change)="onFileUpload($event)" accept="image/*" />
                       </div>
                     </div>
                     <div class="w-full">
