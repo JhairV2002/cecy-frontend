@@ -21,6 +21,7 @@ export interface Estudiantes {
   preRequisitos: any[];
   empresaId: any;
   matriculas: Matricula[];
+  rol?: string;
 }
 
 export interface Genero {

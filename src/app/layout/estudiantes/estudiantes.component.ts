@@ -101,6 +101,14 @@ export class EstudiantesComponent implements OnInit {
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
   }
 
-
-
+  viewCourses() {
+    console.log('CLICK COURSE');
+    if (this.student?.rol === "estudiante") {
+      console.log('con rol')
+      this.router.navigate([`estudiante/courses`])
+    } else if (this.student?.rol === "") {
+      console.log('sin rol')
+      this.router.navigate([`courses`])
+    }
+  }
 }

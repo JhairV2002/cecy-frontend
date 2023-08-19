@@ -35,7 +35,7 @@ export class CoursesComponent implements OnInit {
     private router: Router,
     private authStudentService: AuthStudentService,
   ) {
-    // this.checkSearchParams();
+    this.checkSearchParams();
   }
 
   ngOnInit(): void {
@@ -49,6 +49,7 @@ export class CoursesComponent implements OnInit {
         this.courseService.searchCoursesApprove(this.searchQuery).subscribe({
           next: (data: any) => {
             console.log('SEARCH', data);
+            data.sort((a: any, b: any) => b.created_at - a.created_at);
             this.courses = data
           },
           error: (error) => {
@@ -74,6 +75,7 @@ export class CoursesComponent implements OnInit {
     return this.courseService.getAllCoursesByStateApprove().subscribe({
       next: (courses) => {
         console.log(courses);
+        courses.sort((a: any, b: any) => b.created_at - a.created_at);
         this.courses = courses;
       },
       error: (error) => {
@@ -141,40 +143,73 @@ export class CoursesComponent implements OnInit {
   }
 
   onSearchInputChange(): void {
-    if (this.searchQuery === '') {
-      this.router.navigate(['/courses']).then(() => {
-        this.getAllCourses();
-      })
-    } else {
-      this.router.navigate(['/courses'], {
-        queryParams: {
-          search: this.searchQuery,
-        }
-      }).then(() => {
-        this.courseService.searchCoursesApprove(this.searchQuery).subscribe({
-          next: (data) => {
-            console.log('BUSCANFO GLOBAL', data)
-          },
-          error: (error) => {
-            console.log(error)
+    this.authStudentService.student$.subscribe({
+      next: (student: any) => {
+        console.log('STUDIANTE', student);
+        if (student !== null) {
+          console.log('Con estudiante')
+          if (this.searchQuery === '') {
+            this.router.navigate(['estudiante/courses']).then(() => {
+              this.getAllCourses();
+            })
+          } else {
+            this.router.navigate(['estudiante/courses'], {
+              queryParams: {
+                search: this.searchQuery,
+              }
+            }).then(() => {
+              this.courseService.searchCoursesApprove(this.searchQuery).subscribe({
+                next: (data) => {
+                  console.log('BUSCANFO GLOBAL', data)
+                },
+                error: (error) => {
+                  console.log(error)
+                }
+              })
+            })
           }
-        })
-      })
-    }
+        } else {
+          console.log('Sin estudiante')
+          if (this.searchQuery === '') {
+            this.router.navigate(['/courses']).then(() => {
+              this.getAllCourses();
+            })
+          } else {
+            this.router.navigate(['/courses'], {
+              queryParams: {
+                search: this.searchQuery,
+              }
+            }).then(() => {
+              this.courseService.searchCoursesApprove(this.searchQuery).subscribe({
+                next: (data) => {
+                  console.log('BUSCANFO GLOBAL', data)
+                },
+                error: (error) => {
+                  console.log(error)
+                }
+              })
+            })
+          }
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+
 
   }
 
   viewCourse(id: number) {
-
     this.authStudentService.student$.subscribe({
       next: (student: any) => {
         console.log('STUDIANTE', student);
         if (student !== null) {
           if (student.rol === 'estudiante') {
             this.router.navigate([`estudiante/course/${id}/details`])
-          } else {
-            this.router.navigate([`course/view/${id}`])
           }
+        } else {
+          this.router.navigate([`course/view/${id}`])
         }
       },
       error: (error) => {
@@ -183,12 +218,26 @@ export class CoursesComponent implements OnInit {
     })
   }
 
+  checkSearchParams(): void {
+    this.authStudentService.student$.subscribe({
+      next: (student: any) => {
+        console.log('STUDIANTE', student);
+        if (student !== null) {
+          const queryParams = this.router.parseUrl(this.router.url).queryParams;
+          if (queryParams['search']) {
+            history.replaceState(null, '', 'estudiante/courses');
+          }
+        } else {
+          const queryParams = this.router.parseUrl(this.router.url).queryParams;
+          if (queryParams['search']) {
+            history.replaceState(null, '', '/courses');
+          }
+        }
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
 
-
-  // checkSearchParams(): void {
-  //   const queryParams = this.router.parseUrl(this.router.url).queryParams;
-  //   if (queryParams['search']) {
-  //     history.replaceState(null, '', '/courses');
-  //   }
-  // }
+  }
 }

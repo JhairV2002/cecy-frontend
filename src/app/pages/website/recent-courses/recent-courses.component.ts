@@ -31,11 +31,14 @@ export class RecentCoursesComponent implements OnInit {
     this.courseService.getAllCoursesByStateApprove().subscribe({
       next: (courses) => {
         console.log(courses);
-        this.recent = courses.slice(0, 200);
+        courses.sort((a: any, b: any) => b.created_at - a.created_at);
+        this.recent = courses.slice(0, 6);
         const courseIds = this.recent.map(course => course.id);
         localStorage.setItem('recentCourseIds', JSON.stringify(courseIds));
       },
-      error: (error) => { },
+      error: (error) => {
+        console.error(error)
+      },
     });
   }
 

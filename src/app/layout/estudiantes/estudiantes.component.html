@@ -9,9 +9,7 @@
     />
     <span class="font-semibold"><a routerLink="">CECY</a></span>
   </div>
-  <div
-    class="ml-8 inline-block hover:text-black font-medium text-lg py-2 px-4"
-  >
+  <div class="ml-8 inline-block hover:text-black font-medium text-lg py-2 px-4">
     <a [routerLink]="['']">Inicio</a>
   </div>
   <div class="ml-auto">
@@ -19,7 +17,7 @@
       <li
         class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
       >
-        <a [routerLink]="['courses']">Cursos</a>
+        <a (click)="viewCourses()" class="cursor-pointer">Cursos</a>
       </li>
       <li
         class="inline-block hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
